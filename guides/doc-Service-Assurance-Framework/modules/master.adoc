@@ -1,4 +1,0 @@
-include::attributes.adoc[]
-
-
-include::testing_content_reuse.adoc[leveloffset=+1]
