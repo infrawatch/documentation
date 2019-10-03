@@ -1,0 +1,38 @@
+= Service Assurance Framework
+OpenStack Documentation Team <rhos-docs@redhat.com>
+:imagesdir: images
+:vernum: 13
+:toc: left
+:compat-mode:
+:doctype: book
+:director-guide: true
+:context: osp
+
+
+include::assemblies/assembly_introduction-to-service-assurance-framework.adoc[leveloffset=+1]
+
+include::assemblies/assembly_installing-the-core-components-of-saf.adoc[leveloffset=+1]
+
+include::assemblies/assembly_completing-the-saf-configuration.adoc[leveloffset=+1]
+
+include::assemblies/assembly_configuring-saf-components.adoc[leveloffset=+1]
+
+//appendix
+
+include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]
+
+//include::assemblies/assembly_saf-appendices.adoc[leveloffset=+1]
+
+//include::Requirements.adoc[]
+
+//include::Planning.adoc[]
+
+//include::assembly_installing-the-undercloud.adoc[leveloffset=+1]
+
+//include::assembly-configuring_a_container_image_source.adoc[leveloffset=+1]
+
+//include::Configuration_Basic.adoc[]
+
+//include::Configuration_UI.adoc[]
+
+//include::Configuration_PreProvisioned.adoc[]

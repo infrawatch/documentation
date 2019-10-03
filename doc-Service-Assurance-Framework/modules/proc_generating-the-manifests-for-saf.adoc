@@ -1,0 +1,42 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_generating-the-manifests-for-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="generating-the-manifests-for-saf_{context}"]
+= Generating the manifests for SAF
+
+Several of the manifests required for deployment are dynamically generated with Ansible.
+
+[NOTE]
+====
+Ansible version 2.6 or later is recommended.
+====
+
+To generate the additional manifests for SAF, ensure that you are logged into the OCP environment within the `sa-telemetry` namespace and run the following command:
+
+----
+ansible-playbook \
+-e "registry_path=$(oc registry info)" \
+-e "imagestream_namespace=$(oc project --short)" \
+deploy_builder.yml
+----
+
+By default a persistent volume claim (PVC) of 20G is requested for Prometheus. To adjust the default PVC size, insert `-e "prometheus_pvc_storage_request=<size_in_gigabytes>G"` before `deploy_builder.yml` in the command.

@@ -1,0 +1,32 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='prerequisites-for-saf-deployment_{context}']
+= Prerequisites for SAF Deployment
+
+Complete the following prerequisite tasks:
+
+. Deploy OCP 3.11 and a bastion node, which executes the supplied bash script to load the components into the `sa-telemetry` namespace. If you already have an OCP 3.11 environment, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+
+. Install a suitable platform on which to install OCP, for example, link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/[Red Hat OpenStack Platform].
+
+. Install OpenShift Container Platform (OCP). For more information, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index[OpenShift Container Platform 3.11 Installing Clusters].

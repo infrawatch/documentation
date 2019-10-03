@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/con_sizing-your-installation.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: con_my-concept-module-a.adoc
+// * ID: [id='con_my-concept-module-a_{context}']
+// * Title: = My concept module A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+// Do not start the title with a verb. See also _Wording of headings_
+// in _The IBM Style Guide_.
+[id='installation-size_{context}']
+= Installation size
+
+The size of your installation depends on the following factors:
+
+* The number of nodes being monitored
+* The number of metrics being collected
+* The resolution of metrics
+* The length of time for which the data is intended to be stored
+
+For information about the suggested physical hardware sizing for RHHI-V, see link:https://access.redhat.com/documentation/en-us/red_hat_hyperconverged_infrastructure_for_virtualization/1.5/html-single/deploying_red_hat_hyperconverged_infrastructure_for_virtualization/index#rhhi-req-pm[Deploying Red Hat Hyperconverged Infrastructure for Virtualization]. Start with the large deployment configuration for production environments.
+
+The sizing of the virtual machines for Red Hat OpenShift has the largest impact on the hardware requirements, including the number of virtual machines. For more information about the recommended sizing for the OpenShift nodes, see link:https://docs.openshift.com/container-platform/3.11/install/prerequisites.html#production-level-hardware-requirements[Production Level Hardware Requirements].
