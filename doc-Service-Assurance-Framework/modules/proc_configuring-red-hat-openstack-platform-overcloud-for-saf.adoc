@@ -1,0 +1,69 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-red-hat-openstack-platform-overcloud-for-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='configuring-red-hat-openstack-platform-overcloud-for-saf_{context}']
+= Configuring Red Hat OpenStack Platform Overcloud for SAF
+
+The following contains a sample from the `metrics-collectd-qdr.yaml` environment file that you can pass to a Red Hat OpenStack 13 director deployment to configure and setup collectd and QDR.
+
+----
+---
+parameter_defaults:
+  CollectdAmqpInstances:
+    telemetry:
+      format: JSON
+      presettle: true
+  CollectdDefaultPollingInterval: 1
+  CollectdConnectionType: amqp1
+  CollectdExtraPlugins:
+  - cpu
+  - df
+  - hugepages
+  - ovs_events
+  - ovs_stats
+  - load
+  - uptime
+  MetricsQdrConnectors:
+  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
+    port: 443
+    role: edge
+    sslProfile: sslProfile
+    verifyHostname: false
+  MetricsQdrSSLProfiles:
+  - name: sslProfile
+----
+
+. Create a file and for convenience, name it `metrics-collectd-qdr.yaml` and save it in the `/home/stack/` directory.
+
+. By default, the collectd plugins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plugins, use `CollectdExtraPlugins`. It is recommended that you list the default plugins to make it clear which plugins are enabled.
+
+For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plugin.
+
+The `virt` plugin is enabled on overcloud nodes running the `libvirt` service by default. The following example plugin configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
+
+----
+ExtraConfig:
+    collectd::plugin::virt::connection: "qemu:///system"
+    collectd::plugin::virt::hostname_format: "hostname uuid"
+----
+
+Use the `metrics-collectd-qdr.yaml` file to configure the plugins for collectd, including the `amqp1.so` module to connect to AMQ Interconnect. Use the `CollectdExtraPlugins` parameter to enable additional plugins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.

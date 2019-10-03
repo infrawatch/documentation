@@ -1,0 +1,54 @@
+// Module included in the following assemblies:
+//
+// doc-Service-Assurance-Framework/assemblies/assembly_configuring-saf-components.adoc
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_installing-collectd.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="installing-collectd"]
+= Installing collectd
+
+To install collectd on the overcloud, complete the following steps:
+
+. Copy the file ``/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` to your local directory.  Open the file, set the following parameters, and list the plugins you want under `CollectdExtraPlugins`. You can also provide parameters in the `ExtraConfig` section:
++
+----
+parameter_defaults:
+   CollectdExtraPlugins:
+     - disk
+     - df
+     - virt
+
+   ExtraConfig:
+     collectd::plugin::virt::connection: "qemu:///system"
+     collectd::plugin::virt::hostname_format: "hostname uuid"
+----
++
+By default, collectd comes with the disk, interface, load, memory, processes, and tcpconns plugins. You can add additional plugins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. The example above adds the virt plugin and configures the connection string and the hostname format.
+
+. Include the modified YAML files in the `openstack overcloud deploy` command to install the collectd daemon on all overcloud nodes. For example:
++
+----
+$ openstack overcloud deploy
+--templates /home/templates/environments/collectd.yaml \
+-e /path-to-copied/collectd-environment.yaml
+----
++
+To view the collectd plugins and configurations, see
+<<appe-saf-collectd-plugins>>. 

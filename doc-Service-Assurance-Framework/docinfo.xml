@@ -1,0 +1,11 @@
+<title>Service Assurance Framework</title>
+<subtitle>Installing and deploying Service Assurance Framework </subtitle>
+<productname>Red Hat OpenStack Platform</productname>
+<productnumber>13</productnumber>
+<pubsnumber>0</pubsnumber>
+<abstract>
+  <para>
+      This guide contains information about installing the core components and deploying Service Assurance Network.
+  </para>
+</abstract>
+<xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />

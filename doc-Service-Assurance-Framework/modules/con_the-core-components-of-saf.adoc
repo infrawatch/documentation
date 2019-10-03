@@ -1,0 +1,49 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_installing-the-core-components-of-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='installing-the-core-components-of-saf_{context}']
+= Installing the core components of SAF
+
+When you install SAF, you are loading Kubernetes manifests into OpenShift, with either the `oc` tool or web interface. The manifests set the required state of objects, for example, creating a deployment. You can find the manifests for SAF in the `deploy/` directory of the telemetry-framework release archive.
+
+For a copy of the deployment manifests and installation script, go to
+link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases].
+
+Loading the manifests results in the instantiation of the link:https://coreos.com/blog/introducing-operators.html[Operators] into memory. You can also load additional manifests into memory where the Operators manage the deployment of application components, manage their lifecycle, application configurations, and so on.
+
+SAF has three core components:
+
+* Prometheus (and the AlertManager)
+* Smart Gateway
+* AMQ Interconnect
+
+Each of these components has a corresponding Operator you can use to load the various application components and objects.
+
+To prepare your environment for SAF, complete the following procedures:
+
+. Prepare your OpenShift environment for SAF. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+
+. Create an RHCC Secret. For more information, see <<creating-an-rhcc-secret_installing-the-core-components-of-saf>>.
+
+. Generate a TLS certificate for AMQ Interconnect. For more information, see <<generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf>>.
+
+. Deploy SAF to the OpenShift environment. For more information, see <<deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf>>.

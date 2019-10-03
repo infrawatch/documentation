@@ -1,0 +1,48 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_preparing-your-openshift-environment-for-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='preparing-your-openshift-environment-for-saf_{context}']
+= Preparing your OpenShift environment for SAF
+
+Complete the following steps:
+
+. Log into your Red Hat OpenShift environment. Create and switch to the `sa-telemetry` namespace in your OpenShift environment:
++
+----
+    oc login https://console.service-assurance.tld:8443
+    oc new-project sa-telemetry
+----
++
+. Download the latest release file of the telemetry-framework manifests from link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases]:
++
+----
+    mkdir /<working_directory> ; cd /<working_directory>
+    curl --location \
+    https://github.com/redhat-service-assurance/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
+----
++
+. Extract the contents and change to that directory:
+
+----
+    unzip telemetry-framework.zip
+    cd telemetry-framework-<release_version>
+----

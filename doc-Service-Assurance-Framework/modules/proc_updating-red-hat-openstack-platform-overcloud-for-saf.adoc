@@ -1,0 +1,48 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_updating-red-hat-openstack-platform-overcloud-for-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='updating-red-hat-openstack-platform-overcloud-for-saf_{context}']
+= Updating Red Hat OpenStack Platform Overcloud for SAF
+
+Below is an example `openstack overcloud deploy` command with the `metrics-collectd-qdr.yaml` environment file that you configured in the previous section. Note the two environment file lines that you must provide in the deploy command.
+
+----
+openstack overcloud deploy \
+--timeout 100 \
+--templates /usr/share/openstack-tripleo-heat-templates \
+--stack overcloud \
+--libvirt-type kvm \
+--ntp-server 192.168.1.254 \
+-e /home/stack/virt/config_lvm.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+-e /home/stack/virt/network/network-environment.yaml \
+-e /home/stack/virt/hostnames.yml \
+-e /home/stack/virt/debug.yaml \
+-e /home/stack/virt/nodes_data.yaml \
+--environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics-collectd-qdr.yaml \
+-e /home/stack/virt/metrics-qdr-collectd.yaml \
+-e /home/stack/virt/docker-images.yaml \
+--log-file overcloud_deployment_42.log
+----
+
+[NOTE]
+The SSL certificates for the `MetricsQdr` service is configured to generate only for the `InternalApi` network but the default Ceph role does not use the `InternalApi` network. To deploy SAF client when InternalTLS is enabled, use this workaround: pass the custom Ceph role, which has `InternalApi` network, to `openstack overcloud deploy` when InternalTLS is enabled in the deployment.
