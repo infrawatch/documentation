@@ -1,0 +1,43 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_generating-a-tls-certificate-for-amq-interconnect.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='generating-a-tls-certificate-for-amq-interconnect_{context}']
+= Generating a TLS certificate for AMQ Interconnect
+
+To get the remote QDR connections through the OpenShift route, use TLS/SSL certificates. The following two commands create the appropriate certificate files locally and load the contents into a secret for use by QDR. The QDR on the client side connects to the route address (DNS address) for the QDR service on port 443.
+
+. Generate an unsigned certificate. If you have a signed certificate to load into Red Hat OpenShift, go to the next step.
++
+----
+    openssl req -new -x509 -batch -nodes -days 11000 \
+      -subj "/O=io.interconnectedcloud/CN=qdr-white.sa-telemetry.svc.cluster.local" \
+      -out /tmp/tls.crt \
+      -keyout /tmp/tls.key
+----
+
+. Use the oc command to import the certificate into Red Hat OpenShift:
++
+----
+    oc create secret tls qdr-white-cert \
+      --cert=/tmp/tls.crt \
+      --key=/tmp/tls.key
+----

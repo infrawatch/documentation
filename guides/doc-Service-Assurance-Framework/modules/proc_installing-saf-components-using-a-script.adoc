@@ -1,0 +1,39 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_installing-saf-components-using-a-script.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="installing-saf-components-using-a-script_{context}"]
+= Installing SAF components using a script
+
+image::SAF_Overview_37_0819_deployment_manually.png[]
+[caption="Figure 3: Deploying SAF components”]
+
+
+Use the `deploy.sh` script in the `deploy/` directory of the telemetry-framework release file that you previously extracted. Run the script with no arguments (or the `CREATE` argument) to start the various components in your OCP deployment. To remove the components, supply the `DELETE` argument to the script.
+Before you run the provided script, ensure that you meet the following prerequisites:
+
+* You are logged into OCP as an administrator and have the `oc` tool readily available in your `$PATH`. The `deploy.sh` script performs a validation to ensure that this is true. The script switches to the `sa-telemetry` namespace prior to deploying, and if it cannot find that namespace, attempts to create it.
+
+* You have extracted the contents of the telemetry-framework release archive and have changed to the extracted directory. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+
+----
+./deploy.sh
+----

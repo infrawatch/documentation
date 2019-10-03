@@ -1,0 +1,32 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_deploying-saf-to-the-openshift-environment.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='deploying-saf-to-the-openshift-environment_{context}']
+= Deploying SAF to the OpenShift environment
+
+To install SAF in an OpenShift environment, complete the following tasks:
+
+. Import the downstream container images into the `sa-telemetry` namespace using the `import-downstream.sh` script. For more information, see <<importing-the-container-images-for-saf_installing-the-core-components-of-saf>>.
+
+. Generate the custom manifests using the Ansible playbook `deploy_builder.yaml` via the `ansible-playbook` command. For more information, see <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>>.
+
+. Execute the `deploy.sh` script to create the Kubernetes objects in the OpenShift environment. For more information, see <<installing-saf-components-using-a-script_installing-the-core-components-of-saf>>.

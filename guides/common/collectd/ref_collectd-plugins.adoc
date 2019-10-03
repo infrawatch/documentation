@@ -1,0 +1,469 @@
+:appendix-caption: Appendix
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/ref_collectd-plugins.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: ref_my-reference-a.adoc
+// * ID: [id='ref_my-reference-a_{context}']
+// * Title: = My reference A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+[id='collectd-plugins_{context}']
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+:context: appendix
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+[appendix]
+[[appe-saf-collectd-plugins]]
+# collectd plugins
+
+
+This section contains a complete list of collectd plugins and configurations.
+//
+collectd-aggregation::
+    collectd::plugin::aggregation::aggregators
+    collectd::plugin::aggregation::interval
+
+collectd-battery::
+    collectd::plugin::battery::values_percentage
+    collectd::plugin::battery::report_degraded
+    collectd::plugin::battery::query_state_fs
+    collectd::plugin::battery::interval
+
+collectd-cgroups::
+    collectd::plugin::cgroups::ignore_selected
+    collectd::plugin::cgroups::interval
+
+collectd-conntrack::
+    None
+
+collectd-contextswitch::
+    collectd::plugin::contextswitch::interval
+
+collectd-cpu::
+    collectd::plugin::cpu::reportbystate
+    collectd::plugin::cpu::reportbycpu
+    collectd::plugin::cpu::valuespercentage
+    collectd::plugin::cpu::reportnumcpu
+    collectd::plugin::cpu::reportgueststate
+    collectd::plugin::cpu::subtractgueststate
+    collectd::plugin::cpu::interval
+
+collectd-cpufreq::
+    None
+
+collectd-csv::
+    collectd::plugin::csv::datadir
+    collectd::plugin::csv::storerates
+    collectd::plugin::csv::interval
+
+collectd-df::
+    collectd::plugin::df::devices
+    collectd::plugin::df::fstypes
+    collectd::plugin::df::ignoreselected
+    collectd::plugin::df::mountpoints
+    collectd::plugin::df::reportbydevice
+    collectd::plugin::df::reportinodes
+    collectd::plugin::df::reportreserved
+    collectd::plugin::df::valuesabsolute
+    collectd::plugin::df::valuespercentage
+    collectd::plugin::df::interval
+
+collectd-entropy::
+    collectd::plugin::entropy::interval
+
+collectd-ethstat::
+    collectd::plugin::ethstat::interfaces
+    collectd::plugin::ethstat::maps
+    collectd::plugin::ethstat::mappedonly
+    collectd::plugin::ethstat::interval
+
+collectd-exec::
+    collectd::plugin::exec::commands
+    collectd::plugin::exec::commands_defaults
+    collectd::plugin::exec::globals
+    collectd::plugin::exec::interval
+
+collectd-fhcount::
+    collectd::plugin::fhcount::valuesabsolute
+    collectd::plugin::fhcount::valuespercentage
+    collectd::plugin::fhcount::interval
+
+collectd-filecount::
+    collectd::plugin::filecount::directories
+    collectd::plugin::filecount::interval
+
+collectd-fscache::
+    None
+
+collectd-hddtemp::
+    collectd::plugin::hddtemp::host
+    collectd::plugin::hddtemp::port
+    collectd::plugin::hddtemp::interval
+
+collectd-interface::
+    collectd::plugin::interface::interfaces
+    collectd::plugin::interface::ignoreselected
+    collectd::plugin::interface::reportinactive
+    Collectd::plugin::interface::interval
+
+collectd-ipc::
+    None
+
+collectd-irq::
+    collectd::plugin::irq::irqs
+    collectd::plugin::irq::ignoreselected
+    collectd::plugin::irq::interval
+
+collectd-load::
+    collectd::plugin::load::report_relative
+    collectd::plugin::load::interval
+
+collectd-logfile::
+    collectd::plugin::logfile::log_level
+    collectd::plugin::logfile::log_file
+    collectd::plugin::logfile::log_timestamp
+    collectd::plugin::logfile::print_severity
+    collectd::plugin::logfile::interval
+
+collectd-memcached::
+    collectd::plugin::memcached::instances
+    collectd::plugin::memcached::interval
+
+collectd-memory::
+    collectd::plugin::memory::valuesabsolute
+    collectd::plugin::memory::valuespercentage
+    collectd::plugin::memory::interval
+
+collectd-network::
+    collectd::plugin::network::timetolive
+    collectd::plugin::network::maxpacketsize
+    collectd::plugin::network::forward
+    collectd::plugin::network::reportstats
+    collectd::plugin::network::listeners
+    collectd::plugin::network::servers
+    collectd::plugin::network::interval
+
+collectd-nfs::
+    collectd::plugin::nfs::interval
+
+collectd-ntpd::
+    collectd::plugin::ntpd::host
+    collectd::plugin::ntpd::port
+    collectd::plugin::ntpd::reverselookups
+    collectd::plugin::ntpd::includeunitid
+    collectd::plugin::ntpd::interval
+
+collectd-numa::
+    None
+
+collectd-openvpn::
+    collectd::plugin::openvpn::statusfile
+    collectd::plugin::openvpn::improvednamingschema
+    collectd::plugin::openvpn::collectcompression
+    collectd::plugin::openvpn::collectindividualusers
+    collectd::plugin::openvpn::collectusercount
+    collectd::plugin::openvpn::interval
+
+collectd-powerdns::
+    collectd::plugin::powerdns::interval
+    collectd::plugin::powerdns::servers
+    collectd::plugin::powerdns::recursors
+    collectd::plugin::powerdns::local_socket
+    collectd::plugin::powerdns::interval
+
+collectd-processes::
+    collectd::plugin::processes::processes
+    collectd::plugin::processes::process_matches
+    collectd::plugin::processes::collect_context_switch
+    collectd::plugin::processes::collect_file_descriptor
+    collectd::plugin::processes::collect_memory_maps
+    collectd::plugin::powerdns::interval
+
+collectd-protocols::
+    collectd::plugin::protocols::ignoreselected
+    collectd::plugin::protocols::values
+
+collectd-statsd::
+    collectd::plugin::statsd::host
+    collectd::plugin::statsd::port
+    collectd::plugin::statsd::deletecounters
+    collectd::plugin::statsd::deletetimers
+    collectd::plugin::statsd::deletegauges
+    collectd::plugin::statsd::deletesets
+    collectd::plugin::statsd::countersum
+    collectd::plugin::statsd::timerpercentile
+    collectd::plugin::statsd::timerlower
+    collectd::plugin::statsd::timerupper
+    collectd::plugin::statsd::timersum
+    collectd::plugin::statsd::timercount
+    collectd::plugin::statsd::interval
+
+collectd-swap::
+    collectd::plugin::swap::reportbydevice
+    collectd::plugin::swap::reportbytes
+    collectd::plugin::swap::valuesabsolute
+    collectd::plugin::swap::valuespercentage
+    collectd::plugin::swap::reportio
+    collectd::plugin::swap::interval
+
+collectd-syslog::
+    collectd::plugin::syslog::log_level
+    collectd::plugin::syslog::notify_level
+    collectd::plugin::syslog::interval
+
+collectd-table::
+    collectd::plugin::table::tables
+    collectd::plugin::table::interval
+
+collectd-tail::
+    collectd::plugin::tail::files
+    collectd::plugin::tail::interval
+
+collectd-tail_csv::
+    collectd::plugin::tail_csv::metrics
+    collectd::plugin::tail_csv::files
+
+collectd-target_v5upgrade::
+    None
+
+collectd-tcpconns::
+    collectd::plugin::tcpconns::localports
+    collectd::plugin::tcpconns::remoteports
+    collectd::plugin::tcpconns::listening
+    collectd::plugin::tcpconns::allportssummary
+    collectd::plugin::tcpconns::interval
+
+collectd-thermal::
+    collectd::plugin::thermal::devices
+    collectd::plugin::thermal::ignoreselected
+    collectd::plugin::thermal::interval
+
+collectd-threshold::
+    collectd::plugin::threshold::types
+    collectd::plugin::threshold::plugins
+    collectd::plugin::threshold::hosts
+    collectd::plugin::threshold::interval
+
+collectd-uptime::
+    collectd::plugin::uptime::interval
+
+collectd-users::
+    collectd::plugin::users::interval
+
+collectd-uuid::
+    collectd::plugin::uuid::uuid_file
+    collectd::plugin::uuid::interval
+
+collectd-vmem::
+    collectd::plugin::vmem::verbose
+    collectd::plugin::vmem::interval
+
+collectd-write_graphite::
+    collectd::plugin::write_graphite::carbons
+    collectd::plugin::write_graphite::carbon_defaults
+    collectd::plugin::write_graphite::globals
+
+collectd-write_log::
+    collectd::plugin::write_log::format
+
+collectd-zfs_arc::
+    None
+
+collectd-apache::
+    collectd::plugin::apache::instances (ex.: {'localhost' => {'url' => 'http://localhost/mod_status?auto'}})
+    collectd::plugin::apache::interval
+
+collectd-bind::
+    collectd::plugin::bind::url
+    collectd::plugin::bind::memorystats
+    collectd::plugin::bind::opcodes
+    collectd::plugin::bind::parsetime
+    collectd::plugin::bind::qtypes
+    collectd::plugin::bind::resolverstats
+    collectd::plugin::bind::serverstats
+    collectd::plugin::bind::zonemaintstats
+    collectd::plugin::bind::views
+    collectd::plugin::bind::interval
+
+collectd-ceph::
+    collectd::plugin::ceph::daemons
+    collectd::plugin::ceph::longrunavglatency
+    collectd::plugin::ceph::convertspecialmetrictypes
+
+collectd-curl::
+    collectd::plugin::curl::pages
+    collectd::plugin::curl::interval
+
+collectd-curl_json::
+    collectd::plugin::curl_json::url
+    collectd::plugin::curl_json::instance
+    collectd::plugin::curl_json::keys
+    collectd::plugin::curl_json::host
+    collectd::plugin::curl_json::user
+    collectd::plugin::curl_json::password
+    collectd::plugin::curl_json::digest
+    collectd::plugin::curl_json::verifypeer
+    collectd::plugin::curl_json::verifyhost
+    collectd::plugin::curl_json::cacert
+    collectd::plugin::curl_json::header
+    collectd::plugin::curl_json::post
+    collectd::plugin::curl_json::timeout
+    collectd::plugin::curl_json::interval
+
+collectd-dbi::
+    collectd::plugin::dbi::databases
+    collectd::plugin::dbi::queries
+    collectd::plugin::dbi::interval
+
+collectd-disk::
+    collectd::plugin::disk::disks
+    collectd::plugin::disk::ignoreselected
+    collectd::plugin::disk::udevnameattr
+    collectd::plugin::disk::interval
+
+collectd-dns:
+    collectd::plugin::dns::ignoresource
+    collectd::plugin::dns::interface
+    collectd::plugin::dns::selectnumericquerytypes
+    collectd::plugin::dns::interval
+
+collectd-generic-jmx::
+    collectd::plugin::genericjmx::jvmarg
+
+collectd-ipmi::
+    collectd::plugin::ipmi::ignore_selected
+    collectd::plugin::ipmi::notify_sensor_add
+    collectd::plugin::ipmi::notify_sensor_remove
+    collectd::plugin::ipmi::notify_sensor_not_present
+    collectd::plugin::ipmi::sensors
+    collectd::plugin::ipmi::interval
+
+collectd-mysql::
+    collectd::plugin::mysql::interval
+
+collectd-netlink::
+    collectd::plugin::netlink::interfaces
+    collectd::plugin::netlink::verboseinterfaces
+    collectd::plugin::netlink::qdiscs
+    collectd::plugin::netlink::classes
+    collectd::plugin::netlink::filters
+    collectd::plugin::netlink::ignoreselected
+    collectd::plugin::netlink::interval
+
+collectd-openldap::
+    collectd::plugin::openldap::instances
+    collectd::plugin::openldap::interval
+
+
+collectd-ping::
+    collectd::plugin::ping::hosts
+    collectd::plugin::ping::timeout
+    collectd::plugin::ping::ttl
+    collectd::plugin::ping::source_address
+    collectd::plugin::ping::device
+    collectd::plugin::ping::max_missed
+    collectd::plugin::ping::size
+    collectd::plugin::ping::interval
+
+collectd-sensors::
+    collectd::plugin::sensors::sensorconfigfile
+    collectd::plugin::sensors::sensors
+    collectd::plugin::sensors::ignoreselected
+    collectd::plugin::sensors::interval
+
+collectd-smart::
+    collectd::plugin::smart::disks
+    collectd::plugin::smart::ignoreselected
+    collectd::plugin::smart::interval
+
+collectd-snmp::
+    collectd::plugin::snmp::data
+    collectd::plugin::snmp::hosts
+    collectd::plugin::snmp::interval
+
+collectd-virt::
+    collectd::plugin::virt::connection
+    collectd::plugin::virt::refresh_interval
+    collectd::plugin::virt::domain
+    collectd::plugin::virt::block_device
+    collectd::plugin::virt::interface_device
+    collectd::plugin::virt::ignore_selected
+    collectd::plugin::virt::hostname_format
+    collectd::plugin::virt::interface_format
+    collectd::plugin::virt::extra_stats
+    collectd::plugin::virt::interval
+
+collectd-write_http::
+    collectd::plugin::write_http::nodes
+    collectd::plugin::write_http::urls
+
+collectd-write_kafka::
+    collectd::plugin::write_kafka::kafka_host
+    collectd::plugin::write_kafka::kafka_port
+    collectd::plugin::write_kafka::kafka_hosts
+    collectd::plugin::write_kafka::topics
+
+collectd-write_prometheus::
+    collectd::plugin::write_prometheus::port
+
+collectd-ovs_events::
+    collectd::plugin::ovs_events::address
+    collectd::plugin::ovs_events::dispatch
+    collectd::plugin::ovs_events::interfaces
+    collectd::plugin::ovs_events::send_notification
+    collectd::plugin::ovs_events::$port
+    collectd::plugin::ovs_events::socket
+
+collectd-ovs_stats::
+    collectd::plugin::ovs_stats::address
+    collectd::plugin::ovs_stats::bridges
+    collectd::plugin::ovs_stats::port
+    collectd::plugin::ovs_stats::socket
+
+collectd-connectivity::
+    collectd::plugin::connectivity::interfaces
+
+collectd-procevent::
+    collectd::plugin::procevent::process
+    collectd::plugin::procevent::regex_process
+    collectd::plugin::procevent::buffer_length
+
+collectd-sysevent::
+    collectd::plugin::sysevent::listen_host
+    collectd::plugin::sysevent::listen_port
+    collectd::plugin::sysevent::regex_filter
+    collectd::plugin::sysevent::buffer_size
+    collectd::plugin::sysevent::buffer_length
+
+collectd-iptables::
+    collectd::plugin::iptables::chains
+    collectd::plugin::iptables::chains6
+    collectd::plugin::iptables::interval
+
+collectd-hugepages::
+    collectd::plugin::hugepages::report_per_node_hp
+    collectd::plugin::hugepages::report_root_hp
+    collectd::plugin::hugepages::values_pages
+    collectd::plugin::hugepages::values_bytes
+    collectd::plugin::hugepages::values_percentage
+    collectd::plugin::hugepages::interval
+
+collectd-turbostat::
+    collectd::plugin::turbostat::core_c_states
+    collectd::plugin::turbostat::package_c_states
+    collectd::plugin::turbostat::system_management_interrupt
+    collectd::plugin::turbostat::digital_temperature_sensor
+    collectd::plugin::turbostat::tcc_activation_temp
+    collectd::plugin::turbostat::running_average_power_limit
+    collectd::plugin::turbostat::logical_core_names

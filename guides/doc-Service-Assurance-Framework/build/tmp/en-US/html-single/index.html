@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="chrometwo"><head><title>Service Assurance Framework</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css"/><meta name="generator" content="publican v4.3.4"/><meta name="description" content="This guide contains information about installing the core components and deploying Service Assurance Network."/><link rel="next" href="#introduction-to-service-assurance-framework_osp" title="Chapter 1. Introduction to Service Assurance Framework"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><script type="text/javascript" src="Common_Content/scripts/jquery-1.7.1.min.js"> </script><script type="text/javascript" src="Common_Content/scripts/utils.js"> </script><script type="text/javascript" src="Common_Content/scripts/highlight.js/highlight.pack.js"> </script></head><body><div id="chrometwo"><div id="main"><div xml:lang="en-US" class="book" id="idm46396476009504"><div class="titlepage"><div><div class="producttitle"><span class="productname">Red Hat OpenStack Platform</span> <span class="productnumber">13</span></div><div><h1 class="title">Service Assurance Framework</h1></div><div><h2 class="subtitle">Installing and deploying Service Assurance Framework </h2></div><div><div xml:lang="en-US" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">OpenStack</span> <span class="othername">Documentation</span> <span class="surname">Team</span></h3><code class="email"><a class="email" href="mailto:rhos-docs@redhat.com">rhos-docs@redhat.com</a></code></div></div></div><div><a href="#idm46396452536320">Legal Notice</a></div><div><div class="abstract"><p class="title"><strong>Abstract</strong></p><div class="para">
+				This guide contains information about installing the core components and deploying Service Assurance Network.
+			</div></div></div></div><hr/></div><div class="toc"><ul class="toc"><li><span class="chapter"><a href="#introduction-to-service-assurance-framework_osp">1. Introduction to Service Assurance Framework</a></span><ul><li><span class="section"><a href="#overview-of-service-assurance-framework_introduction-to-service-assurance-framework">1.1. Overview of Service Assurance Framework</a></span></li><li><span class="section"><a href="#architecture_introduction-to-service-assurance-framework">1.2. Architecture</a></span></li><li><span class="section"><a href="#installation-size_introduction-to-service-assurance-framework">1.3. Installation size</a></span></li></ul></li><li><span class="chapter"><a href="#installing-the-core-components-of-saf_introduction-to-service-assurance-framework">2. Installing the core components of SAF</a></span><ul><li><span class="section"><a href="#prerequisites-for-saf-deployment_installing-the-core-components-of-saf">2.1. Prerequisites for SAF Deployment</a></span></li><li><span class="section"><a href="#installing-the-core-components-of-saf_installing-the-core-components-of-saf">2.2. Installing the core components of SAF</a></span></li><li><span class="section"><a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">2.3. Preparing your OpenShift environment for SAF</a></span></li><li><span class="section"><a href="#creating-an-rhcc-secret_installing-the-core-components-of-saf">2.4. Creating an RHCC Secret</a></span></li><li><span class="section"><a href="#generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf">2.5. Generating a TLS certificate for AMQ Interconnect</a></span></li><li><span class="section"><a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">2.6. Deploying SAF to the OpenShift environment</a></span><ul><li><span class="section"><a href="#importing-the-container-images-for-saf_installing-the-core-components-of-saf">2.6.1. Importing the container images for SAF</a></span></li><li><span class="section"><a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">2.6.2. Generating the manifests for SAF</a></span></li><li><span class="section"><a href="#installing-saf-components-using-a-script_installing-the-core-components-of-saf">2.6.3. Installing SAF components using a script</a></span></li></ul></li></ul></li><li><span class="chapter"><a href="#completing-the-saf-configuration_installing-the-core-components-of-saf">3. Completing the SAF configuration</a></span><ul><li><span class="section"><a href="#setting-up-openstack-on-the-client-side_completing-the-saf-configuration">3.1. Setting up OpenStack on the client side</a></span></li><li><span class="section"><a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">3.2. Configuring Red Hat OpenStack Platform Overcloud for SAF</a></span></li><li><span class="section"><a href="#updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">3.3. Updating Red Hat OpenStack Platform Overcloud for SAF</a></span></li><li><span class="section"><a href="#conclusion_completing-the-saf-configuration">3.4. Completion of server-side installation</a></span></li></ul></li><li><span class="chapter"><a href="#configuring-saf-components_completing-the-saf-configuration">4. Configuring SAF data collection</a></span><ul><li><span class="section"><a href="#data-collecting-agent_configuring-saf-components">4.1. Data collecting agent</a></span></li><li><span class="section"><a href="#installing-collectd">4.2. Installing collectd</a></span></li></ul></li><li><span class="appendix"><a href="#appe-saf-collectd-plugins">A. collectd plugins</a></span></li></ul></div><section class="chapter" id="introduction-to-service-assurance-framework_osp"><div class="titlepage"><div><div><h1 class="title">Chapter 1. Introduction to Service Assurance Framework</h1></div></div></div><p>
+			This section describes Service Assurance Framework and the framework architecture.
+		</p><section class="section" id="overview-of-service-assurance-framework_introduction-to-service-assurance-framework"><div class="titlepage"><div><div><h2 class="title">1.1. Overview of Service Assurance Framework</h2></div></div></div><p>
+				This feature is available in this release as a <span class="emphasis"><em>Technology Preview</em></span>, and therefore is not fully supported by Red Hat. It should only be used for testing, and should not be deployed in a production environment. For more information about Technology Preview features, see <a class="link" href="https://access.redhat.com/support/offerings/production/scope_moredetail">Scope of Coverage Details</a>.
+			</p><p>
+				Service Assurance Framework (SAF) is an application running on the Red Hat OpenShift Container Platform (OCP). Use SAF to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
+			</p></section><section class="section" id="architecture_introduction-to-service-assurance-framework"><div class="titlepage"><div><div><h2 class="title">1.2. Architecture</h2></div></div></div><p>
+				SAF uses the following components:
+			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+						collectd to collect metrics
+					</li><li class="listitem">
+						Prometheus as time-series data storage
+					</li><li class="listitem">
+						An AMQP 1.x compatible messaging bus to shuttle the metrics to SAF for storage in Prometheus
+					</li><li class="listitem">
+						Smart Gateway
+					</li></ul></div><p>
+				The following diagram is an overview of SAF architecture:
+			</p><div class="informalfigure"><div class="mediaobject"><img src="images/SAF_Overview_37_0819_arch.png" alt="SAF Overview 37 0819 arch"/></div></div><p>
+				On the client side, collectd collects high-resolution metrics. The data is delivered to Prometheus using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+			</p><p>
+				Server-side SAF monitoring infrastructure consists of the following layers:
+			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+						Service Assurance Framework 1.0 (SAF)
+					</li><li class="listitem">
+						Red Hat OpenShift Container Platform 3.11 (OCP)
+					</li><li class="listitem">
+						Infrastructure platform
+					</li></ul></div><div class="informalfigure"><div class="mediaobject"><img src="images/SAF_Overview_37_0819_deployment_prereq.png" alt="SAF Overview 37 0819 deployment prereq"/></div></div></section><section class="section" id="installation-size_introduction-to-service-assurance-framework"><div class="titlepage"><div><div><h2 class="title">1.3. Installation size</h2></div></div></div><p>
+				The size of your installation depends on the following factors:
+			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+						The number of nodes being monitored
+					</li><li class="listitem">
+						The number of metrics being collected
+					</li><li class="listitem">
+						The resolution of metrics
+					</li><li class="listitem">
+						The length of time for which the data is intended to be stored
+					</li></ul></div><p>
+				For information about the suggested physical hardware sizing for RHHI-V, see <a class="link" href="https://access.redhat.com/documentation/en-us/red_hat_hyperconverged_infrastructure_for_virtualization/1.5/html-single/deploying_red_hat_hyperconverged_infrastructure_for_virtualization/index#rhhi-req-pm">Deploying Red Hat Hyperconverged Infrastructure for Virtualization</a>. Start with the large deployment configuration for production environments.
+			</p><p>
+				The sizing of the virtual machines for Red Hat OpenShift has the largest impact on the hardware requirements, including the number of virtual machines. For more information about the recommended sizing for the OpenShift nodes, see <a class="link" href="https://docs.openshift.com/container-platform/3.11/install/prerequisites.html#production-level-hardware-requirements">Production Level Hardware Requirements</a>.
+			</p></section></section><section class="chapter" id="installing-the-core-components-of-saf_introduction-to-service-assurance-framework"><div class="titlepage"><div><div><h1 class="title">Chapter 2. Installing the core components of SAF</h1></div></div></div><p>
+			This section describes the prerequisites required for a successful SAF installation and describes the installation of the core SAF components.
+		</p><section class="section" id="prerequisites-for-saf-deployment_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.1. Prerequisites for SAF Deployment</h2></div></div></div><p>
+				Complete the following prerequisite tasks:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+						Deploy OCP 3.11 and a bastion node, which executes the supplied bash script to load the components into the <code class="literal">sa-telemetry</code> namespace. If you already have an OCP 3.11 environment, see <a class="xref" href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf" title="2.3. Preparing your OpenShift environment for SAF">Section 2.3, “Preparing your OpenShift environment for SAF”</a>.
+					</li><li class="listitem">
+						Install a suitable platform on which to install OCP, for example, <a class="link" href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/">Red Hat OpenStack Platform</a>.
+					</li><li class="listitem">
+						Install OpenShift Container Platform (OCP). For more information, see <a class="link" href="https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index">OpenShift Container Platform 3.11 Installing Clusters</a>.
+					</li></ol></div></section><section class="section" id="installing-the-core-components-of-saf_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.2. Installing the core components of SAF</h2></div></div></div><p>
+				When you install SAF, you are loading Kubernetes manifests into OpenShift, with either the <code class="literal">oc</code> tool or web interface. The manifests set the required state of objects, for example, creating a deployment. You can find the manifests for SAF in the <code class="literal">deploy/</code> directory of the telemetry-framework release archive.
+			</p><p>
+				For a copy of the deployment manifests and installation script, go to <a class="link" href="https://github.com/redhat-service-assurance/telemetry-framework/releases">https://github.com/redhat-service-assurance/telemetry-framework/releases</a>.
+			</p><p>
+				Loading the manifests results in the instantiation of the <a class="link" href="https://coreos.com/blog/introducing-operators.html">Operators</a> into memory. You can also load additional manifests into memory where the Operators manage the deployment of application components, manage their lifecycle, application configurations, and so on.
+			</p><p>
+				SAF has three core components:
+			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+						Prometheus (and the AlertManager)
+					</li><li class="listitem">
+						Smart Gateway
+					</li><li class="listitem">
+						AMQ Interconnect
+					</li></ul></div><p>
+				Each of these components has a corresponding Operator you can use to load the various application components and objects.
+			</p><p>
+				To prepare your environment for SAF, complete the following procedures:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+						Prepare your OpenShift environment for SAF. For more information, see <a class="xref" href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf" title="2.3. Preparing your OpenShift environment for SAF">Section 2.3, “Preparing your OpenShift environment for SAF”</a>.
+					</li><li class="listitem">
+						Create an RHCC Secret. For more information, see <a class="xref" href="#creating-an-rhcc-secret_installing-the-core-components-of-saf" title="2.4. Creating an RHCC Secret">Section 2.4, “Creating an RHCC Secret”</a>.
+					</li><li class="listitem">
+						Generate a TLS certificate for AMQ Interconnect. For more information, see <a class="xref" href="#generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf" title="2.5. Generating a TLS certificate for AMQ Interconnect">Section 2.5, “Generating a TLS certificate for AMQ Interconnect”</a>.
+					</li><li class="listitem">
+						Deploy SAF to the OpenShift environment. For more information, see <a class="xref" href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf" title="2.6. Deploying SAF to the OpenShift environment">Section 2.6, “Deploying SAF to the OpenShift environment”</a>.
+					</li></ol></div></section><section class="section" id="preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.3. Preparing your OpenShift environment for SAF</h2></div></div></div><p>
+				Complete the following steps:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
+						Log into your Red Hat OpenShift environment. Create and switch to the <code class="literal">sa-telemetry</code> namespace in your OpenShift environment:
+					</p><pre class="screen">    oc login https://console.service-assurance.tld:8443
+    oc new-project sa-telemetry</pre></li><li class="listitem"><p class="simpara">
+						Download the latest release file of the telemetry-framework manifests from <a class="link" href="https://github.com/redhat-service-assurance/telemetry-framework/releases">https://github.com/redhat-service-assurance/telemetry-framework/releases</a>:
+					</p><pre class="screen">    mkdir /&lt;working_directory&gt; ; cd /&lt;working_directory&gt;
+    curl --location \
+    https://github.com/redhat-service-assurance/telemetry-framework/archive/&lt;release_version&gt;.zip -o telemetry-framework.zip</pre></li><li class="listitem">
+						Extract the contents and change to that directory:
+					</li></ol></div><pre class="screen">    unzip telemetry-framework.zip
+    cd telemetry-framework-&lt;release_version&gt;</pre></section><section class="section" id="creating-an-rhcc-secret_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.4. Creating an RHCC Secret</h2></div></div></div><p>
+				To import the applicable container images from the Red Hat Container Catalog (RHCC), you must create an RHCC secret. For more information about getting started with the RHCC, see <a class="link" href="https://access.redhat.com/containers/#/started">Red Hat Container Catalog Get Started Guide</a>.
+			</p><p>
+				To create an RHCC secret, complete the following steps:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+						Create a registry service account. For more information, see <a class="link" href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a>.
+					</li><li class="listitem"><p class="simpara">
+						Create a manifest that you can load into OpenShift. This instantiates a secret resource to use for importing the container images from RHCC. Download the <code class="literal">&lt;unique_name&gt;-auth.json</code> file from the <span class="emphasis"><em>Docker Configuration</em></span> tab after creating your authentication. Create the following sample manifest for your registry service account in the <code class="literal">sa-telemetry</code> namespace previously created:
+					</p><pre class="screen">cat &gt; serviceassurance-auth.json.yaml &lt;&lt;EOF
+{
+"auths": {
+"registry.redhat.io": {
+"auth": "NjM0MD..."
+                      }
+         }
+}
+
+EOF</pre></li><li class="listitem"><p class="simpara">
+						Use the <code class="literal">oc</code> tool to create the secret resource:
+					</p><pre class="screen">oc create secret generic serviceassurance-pull-secret --from-file=".dockerconfigjson=serviceassurance-auth.json" --type='kubernetes.io/dockerconfigjson'</pre></li></ol></div></section><section class="section" id="generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.5. Generating a TLS certificate for AMQ Interconnect</h2></div></div></div><p>
+				To get the remote QDR connections through the OpenShift route, use TLS/SSL certificates. The following two commands create the appropriate certificate files locally and load the contents into a secret for use by QDR. The QDR on the client side connects to the route address (DNS address) for the QDR service on port 443.
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
+						Generate an unsigned certificate. If you have a signed certificate to load into Red Hat OpenShift, go to the next step.
+					</p><pre class="screen">    openssl req -new -x509 -batch -nodes -days 11000 \
+      -subj "/O=io.interconnectedcloud/CN=qdr-white.sa-telemetry.svc.cluster.local" \
+      -out /tmp/tls.crt \
+      -keyout /tmp/tls.key</pre></li><li class="listitem"><p class="simpara">
+						Use the oc command to import the certificate into Red Hat OpenShift:
+					</p><pre class="screen">    oc create secret tls qdr-white-cert \
+      --cert=/tmp/tls.crt \
+      --key=/tmp/tls.key</pre></li></ol></div></section><section class="section" id="deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h2 class="title">2.6. Deploying SAF to the OpenShift environment</h2></div></div></div><p>
+				To install SAF in an OpenShift environment, complete the following tasks:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+						Import the downstream container images into the <code class="literal">sa-telemetry</code> namespace using the <code class="literal">import-downstream.sh</code> script. For more information, see <a class="xref" href="#importing-the-container-images-for-saf_installing-the-core-components-of-saf" title="2.6.1. Importing the container images for SAF">Section 2.6.1, “Importing the container images for SAF”</a>.
+					</li><li class="listitem">
+						Generate the custom manifests using the Ansible playbook <code class="literal">deploy_builder.yaml</code> via the <code class="literal">ansible-playbook</code> command. For more information, see <a class="xref" href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf" title="2.6.2. Generating the manifests for SAF">Section 2.6.2, “Generating the manifests for SAF”</a>.
+					</li><li class="listitem">
+						Execute the <code class="literal">deploy.sh</code> script to create the Kubernetes objects in the OpenShift environment. For more information, see <a class="xref" href="#installing-saf-components-using-a-script_installing-the-core-components-of-saf" title="2.6.3. Installing SAF components using a script">Section 2.6.3, “Installing SAF components using a script”</a>.
+					</li></ol></div><section class="section" id="importing-the-container-images-for-saf_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h3 class="title">2.6.1. Importing the container images for SAF</h3></div></div></div><p>
+					To import the container images as image streams into OpenShift, run the following commands:
+				</p><pre class="screen">cd deploy/
+./import-downstream.sh</pre><p>
+					For more information about image streams, see <a class="link" href="https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams">Builds and Image Streams</a>.
+				</p></section><section class="section" id="generating-the-manifests-for-saf_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h3 class="title">2.6.2. Generating the manifests for SAF</h3></div></div></div><p>
+					Several of the manifests required for deployment are dynamically generated with Ansible.
+				</p><div class="admonition note"><div class="admonition_header">Note</div><div><p>
+						Ansible version 2.6 or later is recommended.
+					</p></div></div><p>
+					To generate the additional manifests for SAF, ensure that you are logged into the OCP environment within the <code class="literal">sa-telemetry</code> namespace and run the following command:
+				</p><pre class="screen">ansible-playbook \
+-e "registry_path=$(oc registry info)" \
+-e "imagestream_namespace=$(oc project --short)" \
+deploy_builder.yml</pre><p>
+					By default a persistent volume claim (PVC) of 20G is requested for Prometheus. To adjust the default PVC size, insert <code class="literal">-e “prometheus_pvc_storage_request=&lt;size_in_gigabytes&gt;G”</code> before <code class="literal">deploy_builder.yml</code> in the command.
+				</p></section><section class="section" id="installing-saf-components-using-a-script_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h3 class="title">2.6.3. Installing SAF components using a script</h3></div></div></div><div class="informalfigure"><div class="mediaobject"><img src="images/SAF_Overview_37_0819_deployment_manually.png" alt="SAF Overview 37 0819 deployment manually"/></div></div><p>
+					Use the <code class="literal">deploy.sh</code> script in the <code class="literal">deploy/</code> directory of the telemetry-framework release file that you previously extracted. Run the script with no arguments (or the <code class="literal">CREATE</code> argument) to start the various components in your OCP deployment. To remove the components, supply the <code class="literal">DELETE</code> argument to the script. Before you run the provided script, ensure that you meet the following prerequisites:
+				</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+							You are logged into OCP as an administrator and have the <code class="literal">oc</code> tool readily available in your <code class="literal">$PATH</code>. The <code class="literal">deploy.sh</code> script performs a validation to ensure that this is true. The script switches to the <code class="literal">sa-telemetry</code> namespace prior to deploying, and if it cannot find that namespace, attempts to create it.
+						</li><li class="listitem">
+							You have extracted the contents of the telemetry-framework release archive and have changed to the extracted directory. For more information, see <a class="xref" href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf" title="2.3. Preparing your OpenShift environment for SAF">Section 2.3, “Preparing your OpenShift environment for SAF”</a>.
+						</li></ul></div><pre class="screen">./deploy.sh</pre></section></section></section><section class="chapter" id="completing-the-saf-configuration_installing-the-core-components-of-saf"><div class="titlepage"><div><div><h1 class="title">Chapter 3. Completing the SAF configuration</h1></div></div></div><section class="section" id="setting-up-openstack-on-the-client-side_completing-the-saf-configuration"><div class="titlepage"><div><div><h2 class="title">3.1. Setting up OpenStack on the client side</h2></div></div></div><p>
+				To collect metrics and send them back to the SAF storage domain, you must install collectd and AMQ Interconnect on the nodes of an OpenStack deployment. The following sections show you how to configure Red Hat OpenStack director to enable the data collection functionality and streaming that data back to SAF.
+			</p></section><section class="section" id="configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration"><div class="titlepage"><div><div><h2 class="title">3.2. Configuring Red Hat OpenStack Platform Overcloud for SAF</h2></div></div></div><p>
+				The following contains a sample from the <code class="literal">metrics-collectd-qdr.yaml</code> environment file that you can pass to a Red Hat OpenStack 13 director deployment to configure and setup collectd and QDR.
+			</p><pre class="screen">---
+parameter_defaults:
+  CollectdAmqpInstances:
+    telemetry:
+      format: JSON
+      presettle: true
+  CollectdDefaultPollingInterval: 1
+  CollectdConnectionType: amqp1
+  CollectdExtraPlugins:
+  - cpu
+  - df
+  - hugepages
+  - ovs_events
+  - ovs_stats
+  - load
+  - uptime
+  MetricsQdrConnectors:
+  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
+    port: 443
+    role: edge
+    sslProfile: sslProfile
+    verifyHostname: false
+  MetricsQdrSSLProfiles:
+  - name: sslProfile</pre><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+						Create a file and for convenience, name it <code class="literal">metrics-collectd-qdr.yaml</code> and save it in the <code class="literal">/home/stack/</code> directory.
+					</li><li class="listitem">
+						By default, the collectd plugins <code class="literal">disk</code>, <code class="literal">interface</code>, <code class="literal">load</code>,<code class="literal">memory</code>, <code class="literal">processes</code>, and <code class="literal">tcpconns</code> are enabled. To enable additional plugins, use <code class="literal">CollectdExtraPlugins</code>. It is recommended that you list the default plugins to make it clear which plugins are enabled.
+					</li></ol></div><p>
+				For deployments that use Open vSwitch, add <code class="literal">ovs-stats</code> to the <code class="literal">CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code class="literal">df</code> plugin.
+			</p><p>
+				The <code class="literal">virt</code> plugin is enabled on overcloud nodes running the <code class="literal">libvirt</code> service by default. The following example plugin configuration, added to <code class="literal">metrics-collectd-qdr.yaml</code>, is for the <code class="literal">virt</code> plugin:
+			</p><pre class="screen">ExtraConfig:
+    collectd::plugin::virt::connection: "qemu:///system"
+    collectd::plugin::virt::hostname_format: "hostname uuid"</pre><p>
+				Use the <code class="literal">metrics-collectd-qdr.yaml</code> file to configure the plugins for collectd, including the <code class="literal">amqp1.so</code> module to connect to AMQ Interconnect. Use the <code class="literal">CollectdExtraPlugins</code> parameter to enable additional plugins. Use the <code class="literal">MetricsQdrConnectors</code> parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.
+			</p></section><section class="section" id="updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration"><div class="titlepage"><div><div><h2 class="title">3.3. Updating Red Hat OpenStack Platform Overcloud for SAF</h2></div></div></div><p>
+				Below is an example <code class="literal">openstack overcloud deploy</code> command with the <code class="literal">metrics-collectd-qdr.yaml</code> environment file that you configured in the previous section. Note the two environment file lines that you must provide in the deploy command.
+			</p><pre class="screen">openstack overcloud deploy \
+--timeout 100 \
+--templates /usr/share/openstack-tripleo-heat-templates \
+--stack overcloud \
+--libvirt-type kvm \
+--ntp-server 192.168.1.254 \
+-e /home/stack/virt/config_lvm.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+-e /home/stack/virt/network/network-environment.yaml \
+-e /home/stack/virt/hostnames.yml \
+-e /home/stack/virt/debug.yaml \
+-e /home/stack/virt/nodes_data.yaml \
+--environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics-collectd-qdr.yaml \
+-e /home/stack/virt/metrics-qdr-collectd.yaml \
+-e /home/stack/virt/docker-images.yaml \
+--log-file overcloud_deployment_42.log</pre><div class="admonition note"><div class="admonition_header">Note</div><div><p>
+					The SSL certificates for the <code class="literal">MetricsQdr</code> service is configured to generate only for the <code class="literal">InternalApi</code> network but the default Ceph role does not use the <code class="literal">InternalApi</code> network. To deploy SAF client when InternalTLS is enabled, use this workaround: pass the custom Ceph role, which has <code class="literal">InternalApi</code> network, to <code class="literal">openstack overcloud deploy</code> when InternalTLS is enabled in the deployment.
+				</p></div></div></section><section class="section" id="conclusion_completing-the-saf-configuration"><div class="titlepage"><div><div><h2 class="title">3.4. Completion of server-side installation</h2></div></div></div><p>
+				The server-side installation of SAF is now complete. You must now configure the SAF data collection to collect data and send it back to the SAF storage domain.
+			</p></section></section><section class="chapter" id="configuring-saf-components_completing-the-saf-configuration"><div class="titlepage"><div><div><h1 class="title">Chapter 4. Configuring SAF data collection</h1></div></div></div><p>
+			After you install the SAF server-side components, you are ready to configure SAF data collection to collect data and store it on the cloud platform side. You must enable data collection within your OpenStack environment and direct it back to SAF. This section describes how to install and configure collectd.
+		</p><section class="section" id="data-collecting-agent_configuring-saf-components"><div class="titlepage"><div><div><h2 class="title">4.1. Data collecting agent</h2></div></div></div><p>
+				Performance monitoring collects system information periodically and provides a mechanism to store and monitor the values in a variety of ways using a data collecting agent. Red Hat supports the collectd daemon as a collection agent. This daemon stores the data in a time-series database. One of the Red Hat supported databases is called Prometheus. You can use this stored data to monitor systems, find performance bottlenecks, and predict future system load.
+			</p><div class="admonition note"><div class="admonition_header">Note</div><div><p>
+					Red Hat OpenStack Platform supports performance monitoring only on the client side.
+				</p></div></div></section><section class="section" id="installing-collectd"><div class="titlepage"><div><div><h2 class="title">4.2. Installing collectd</h2></div></div></div><p>
+				To install collectd on the overcloud, complete the following steps:
+			</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
+						Copy the file ``/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` to your local directory. Open the file, set the following parameters, and list the plugins you want under <code class="literal">CollectdExtraPlugins</code>. You can also provide parameters in the <code class="literal">ExtraConfig</code> section:
+					</p><pre class="screen">parameter_defaults:
+   CollectdExtraPlugins:
+     - disk
+     - df
+     - virt
+
+   ExtraConfig:
+     collectd::plugin::virt::connection: "qemu:///system"
+     collectd::plugin::virt::hostname_format: "hostname uuid"</pre><p class="simpara">
+						By default, collectd comes with the disk, interface, load, memory, processes, and tcpconns plugins. You can add additional plugins using the <code class="literal">CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code class="literal">CollectdExtraPlugins</code> using the <code class="literal">ExtraConfig</code> option as shown. The example above adds the virt plugin and configures the connection string and the hostname format.
+					</p></li><li class="listitem"><p class="simpara">
+						Include the modified YAML files in the <code class="literal">openstack overcloud deploy</code> command to install the collectd daemon on all overcloud nodes. For example:
+					</p><pre class="screen">$ openstack overcloud deploy
+--templates /home/templates/environments/collectd.yaml \
+-e /path-to-copied/collectd-environment.yaml</pre><p class="simpara">
+						To view the collectd plugins and configurations, see <a class="xref" href="#appe-saf-collectd-plugins" title="Appendix A. collectd plugins">Appendix A, <em>collectd plugins</em></a>.
+					</p></li></ol></div></section></section><section class="appendix" id="appe-saf-collectd-plugins"><div class="titlepage"><div><div><h1 class="title">Appendix A. collectd plugins</h1></div></div></div><p>
+			This section contains a complete list of collectd plugins and configurations.
+		</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">collectd-aggregation</span></dt><dd>
+						collectd::plugin::aggregation::aggregators collectd::plugin::aggregation::interval
+					</dd><dt><span class="term">collectd-battery</span></dt><dd>
+						collectd::plugin::battery::values_percentage collectd::plugin::battery::report_degraded collectd::plugin::battery::query_state_fs collectd::plugin::battery::interval
+					</dd><dt><span class="term">collectd-cgroups</span></dt><dd>
+						collectd::plugin::cgroups::ignore_selected collectd::plugin::cgroups::interval
+					</dd><dt><span class="term">collectd-conntrack</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-contextswitch</span></dt><dd>
+						collectd::plugin::contextswitch::interval
+					</dd><dt><span class="term">collectd-cpu</span></dt><dd>
+						collectd::plugin::cpu::reportbystate collectd::plugin::cpu::reportbycpu collectd::plugin::cpu::valuespercentage collectd::plugin::cpu::reportnumcpu collectd::plugin::cpu::reportgueststate collectd::plugin::cpu::subtractgueststate collectd::plugin::cpu::interval
+					</dd><dt><span class="term">collectd-cpufreq</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-csv</span></dt><dd>
+						collectd::plugin::csv::datadir collectd::plugin::csv::storerates collectd::plugin::csv::interval
+					</dd><dt><span class="term">collectd-df</span></dt><dd>
+						collectd::plugin::df::devices collectd::plugin::df::fstypes collectd::plugin::df::ignoreselected collectd::plugin::df::mountpoints collectd::plugin::df::reportbydevice collectd::plugin::df::reportinodes collectd::plugin::df::reportreserved collectd::plugin::df::valuesabsolute collectd::plugin::df::valuespercentage collectd::plugin::df::interval
+					</dd><dt><span class="term">collectd-entropy</span></dt><dd>
+						collectd::plugin::entropy::interval
+					</dd><dt><span class="term">collectd-ethstat</span></dt><dd>
+						collectd::plugin::ethstat::interfaces collectd::plugin::ethstat::maps collectd::plugin::ethstat::mappedonly collectd::plugin::ethstat::interval
+					</dd><dt><span class="term">collectd-exec</span></dt><dd>
+						collectd::plugin::exec::commands collectd::plugin::exec::commands_defaults collectd::plugin::exec::globals collectd::plugin::exec::interval
+					</dd><dt><span class="term">collectd-fhcount</span></dt><dd>
+						collectd::plugin::fhcount::valuesabsolute collectd::plugin::fhcount::valuespercentage collectd::plugin::fhcount::interval
+					</dd><dt><span class="term">collectd-filecount</span></dt><dd>
+						collectd::plugin::filecount::directories collectd::plugin::filecount::interval
+					</dd><dt><span class="term">collectd-fscache</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-hddtemp</span></dt><dd>
+						collectd::plugin::hddtemp::host collectd::plugin::hddtemp::port collectd::plugin::hddtemp::interval
+					</dd><dt><span class="term">collectd-interface</span></dt><dd>
+						collectd::plugin::interface::interfaces collectd::plugin::interface::ignoreselected collectd::plugin::interface::reportinactive Collectd::plugin::interface::interval
+					</dd><dt><span class="term">collectd-ipc</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-irq</span></dt><dd>
+						collectd::plugin::irq::irqs collectd::plugin::irq::ignoreselected collectd::plugin::irq::interval
+					</dd><dt><span class="term">collectd-load</span></dt><dd>
+						collectd::plugin::load::report_relative collectd::plugin::load::interval
+					</dd><dt><span class="term">collectd-logfile</span></dt><dd>
+						collectd::plugin::logfile::log_level collectd::plugin::logfile::log_file collectd::plugin::logfile::log_timestamp collectd::plugin::logfile::print_severity collectd::plugin::logfile::interval
+					</dd><dt><span class="term">collectd-memcached</span></dt><dd>
+						collectd::plugin::memcached::instances collectd::plugin::memcached::interval
+					</dd><dt><span class="term">collectd-memory</span></dt><dd>
+						collectd::plugin::memory::valuesabsolute collectd::plugin::memory::valuespercentage collectd::plugin::memory::interval
+					</dd><dt><span class="term">collectd-network</span></dt><dd>
+						collectd::plugin::network::timetolive collectd::plugin::network::maxpacketsize collectd::plugin::network::forward collectd::plugin::network::reportstats collectd::plugin::network::listeners collectd::plugin::network::servers collectd::plugin::network::interval
+					</dd><dt><span class="term">collectd-nfs</span></dt><dd>
+						collectd::plugin::nfs::interval
+					</dd><dt><span class="term">collectd-ntpd</span></dt><dd>
+						collectd::plugin::ntpd::host collectd::plugin::ntpd::port collectd::plugin::ntpd::reverselookups collectd::plugin::ntpd::includeunitid collectd::plugin::ntpd::interval
+					</dd><dt><span class="term">collectd-numa</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-openvpn</span></dt><dd>
+						collectd::plugin::openvpn::statusfile collectd::plugin::openvpn::improvednamingschema collectd::plugin::openvpn::collectcompression collectd::plugin::openvpn::collectindividualusers collectd::plugin::openvpn::collectusercount collectd::plugin::openvpn::interval
+					</dd><dt><span class="term">collectd-powerdns</span></dt><dd>
+						collectd::plugin::powerdns::interval collectd::plugin::powerdns::servers collectd::plugin::powerdns::recursors collectd::plugin::powerdns::local_socket collectd::plugin::powerdns::interval
+					</dd><dt><span class="term">collectd-processes</span></dt><dd>
+						collectd::plugin::processes::processes collectd::plugin::processes::process_matches collectd::plugin::processes::collect_context_switch collectd::plugin::processes::collect_file_descriptor collectd::plugin::processes::collect_memory_maps collectd::plugin::powerdns::interval
+					</dd><dt><span class="term">collectd-protocols</span></dt><dd>
+						collectd::plugin::protocols::ignoreselected collectd::plugin::protocols::values
+					</dd><dt><span class="term">collectd-statsd</span></dt><dd>
+						collectd::plugin::statsd::host collectd::plugin::statsd::port collectd::plugin::statsd::deletecounters collectd::plugin::statsd::deletetimers collectd::plugin::statsd::deletegauges collectd::plugin::statsd::deletesets collectd::plugin::statsd::countersum collectd::plugin::statsd::timerpercentile collectd::plugin::statsd::timerlower collectd::plugin::statsd::timerupper collectd::plugin::statsd::timersum collectd::plugin::statsd::timercount collectd::plugin::statsd::interval
+					</dd><dt><span class="term">collectd-swap</span></dt><dd>
+						collectd::plugin::swap::reportbydevice collectd::plugin::swap::reportbytes collectd::plugin::swap::valuesabsolute collectd::plugin::swap::valuespercentage collectd::plugin::swap::reportio collectd::plugin::swap::interval
+					</dd><dt><span class="term">collectd-syslog</span></dt><dd>
+						collectd::plugin::syslog::log_level collectd::plugin::syslog::notify_level collectd::plugin::syslog::interval
+					</dd><dt><span class="term">collectd-table</span></dt><dd>
+						collectd::plugin::table::tables collectd::plugin::table::interval
+					</dd><dt><span class="term">collectd-tail</span></dt><dd>
+						collectd::plugin::tail::files collectd::plugin::tail::interval
+					</dd><dt><span class="term">collectd-tail_csv</span></dt><dd>
+						collectd::plugin::tail_csv::metrics collectd::plugin::tail_csv::files
+					</dd><dt><span class="term">collectd-target_v5upgrade</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-tcpconns</span></dt><dd>
+						collectd::plugin::tcpconns::localports collectd::plugin::tcpconns::remoteports collectd::plugin::tcpconns::listening collectd::plugin::tcpconns::allportssummary collectd::plugin::tcpconns::interval
+					</dd><dt><span class="term">collectd-thermal</span></dt><dd>
+						collectd::plugin::thermal::devices collectd::plugin::thermal::ignoreselected collectd::plugin::thermal::interval
+					</dd><dt><span class="term">collectd-threshold</span></dt><dd>
+						collectd::plugin::threshold::types collectd::plugin::threshold::plugins collectd::plugin::threshold::hosts collectd::plugin::threshold::interval
+					</dd><dt><span class="term">collectd-uptime</span></dt><dd>
+						collectd::plugin::uptime::interval
+					</dd><dt><span class="term">collectd-users</span></dt><dd>
+						collectd::plugin::users::interval
+					</dd><dt><span class="term">collectd-uuid</span></dt><dd>
+						collectd::plugin::uuid::uuid_file collectd::plugin::uuid::interval
+					</dd><dt><span class="term">collectd-vmem</span></dt><dd>
+						collectd::plugin::vmem::verbose collectd::plugin::vmem::interval
+					</dd><dt><span class="term">collectd-write_graphite</span></dt><dd>
+						collectd::plugin::write_graphite::carbons collectd::plugin::write_graphite::carbon_defaults collectd::plugin::write_graphite::globals
+					</dd><dt><span class="term">collectd-write_log</span></dt><dd>
+						collectd::plugin::write_log::format
+					</dd><dt><span class="term">collectd-zfs_arc</span></dt><dd>
+						None
+					</dd><dt><span class="term">collectd-apache</span></dt><dd>
+						collectd::plugin::apache::instances (ex.: {<span class="emphasis"><em>localhost</em></span> ⇒ {<span class="emphasis"><em>url</em></span> ⇒ <span class="emphasis"><em><a class="link" href="http://localhost/mod_status?auto">http://localhost/mod_status?auto</a></em></span>}}) collectd::plugin::apache::interval
+					</dd><dt><span class="term">collectd-bind</span></dt><dd>
+						collectd::plugin::bind::url collectd::plugin::bind::memorystats collectd::plugin::bind::opcodes collectd::plugin::bind::parsetime collectd::plugin::bind::qtypes collectd::plugin::bind::resolverstats collectd::plugin::bind::serverstats collectd::plugin::bind::zonemaintstats collectd::plugin::bind::views collectd::plugin::bind::interval
+					</dd><dt><span class="term">collectd-ceph</span></dt><dd>
+						collectd::plugin::ceph::daemons collectd::plugin::ceph::longrunavglatency collectd::plugin::ceph::convertspecialmetrictypes
+					</dd><dt><span class="term">collectd-curl</span></dt><dd>
+						collectd::plugin::curl::pages collectd::plugin::curl::interval
+					</dd><dt><span class="term">collectd-curl_json</span></dt><dd>
+						collectd::plugin::curl_json::url collectd::plugin::curl_json::instance collectd::plugin::curl_json::keys collectd::plugin::curl_json::host collectd::plugin::curl_json::user collectd::plugin::curl_json::password collectd::plugin::curl_json::digest collectd::plugin::curl_json::verifypeer collectd::plugin::curl_json::verifyhost collectd::plugin::curl_json::cacert collectd::plugin::curl_json::header collectd::plugin::curl_json::post collectd::plugin::curl_json::timeout collectd::plugin::curl_json::interval
+					</dd><dt><span class="term">collectd-dbi</span></dt><dd>
+						collectd::plugin::dbi::databases collectd::plugin::dbi::queries collectd::plugin::dbi::interval
+					</dd><dt><span class="term">collectd-disk</span></dt><dd>
+						collectd::plugin::disk::disks collectd::plugin::disk::ignoreselected collectd::plugin::disk::udevnameattr collectd::plugin::disk::interval
+					</dd></dl></div><p>
+			collectd-dns: collectd::plugin::dns::ignoresource collectd::plugin::dns::interface collectd::plugin::dns::selectnumericquerytypes collectd::plugin::dns::interval
+		</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">collectd-generic-jmx</span></dt><dd>
+						collectd::plugin::genericjmx::jvmarg
+					</dd><dt><span class="term">collectd-ipmi</span></dt><dd>
+						collectd::plugin::ipmi::ignore_selected collectd::plugin::ipmi::notify_sensor_add collectd::plugin::ipmi::notify_sensor_remove collectd::plugin::ipmi::notify_sensor_not_present collectd::plugin::ipmi::sensors collectd::plugin::ipmi::interval
+					</dd><dt><span class="term">collectd-mysql</span></dt><dd>
+						collectd::plugin::mysql::interval
+					</dd><dt><span class="term">collectd-netlink</span></dt><dd>
+						collectd::plugin::netlink::interfaces collectd::plugin::netlink::verboseinterfaces collectd::plugin::netlink::qdiscs collectd::plugin::netlink::classes collectd::plugin::netlink::filters collectd::plugin::netlink::ignoreselected collectd::plugin::netlink::interval
+					</dd><dt><span class="term">collectd-openldap</span></dt><dd>
+						collectd::plugin::openldap::instances collectd::plugin::openldap::interval
+					</dd><dt><span class="term">collectd-ping</span></dt><dd>
+						collectd::plugin::ping::hosts collectd::plugin::ping::timeout collectd::plugin::ping::ttl collectd::plugin::ping::source_address collectd::plugin::ping::device collectd::plugin::ping::max_missed collectd::plugin::ping::size collectd::plugin::ping::interval
+					</dd><dt><span class="term">collectd-sensors</span></dt><dd>
+						collectd::plugin::sensors::sensorconfigfile collectd::plugin::sensors::sensors collectd::plugin::sensors::ignoreselected collectd::plugin::sensors::interval
+					</dd><dt><span class="term">collectd-smart</span></dt><dd>
+						collectd::plugin::smart::disks collectd::plugin::smart::ignoreselected collectd::plugin::smart::interval
+					</dd><dt><span class="term">collectd-snmp</span></dt><dd>
+						collectd::plugin::snmp::data collectd::plugin::snmp::hosts collectd::plugin::snmp::interval
+					</dd><dt><span class="term">collectd-virt</span></dt><dd>
+						collectd::plugin::virt::connection collectd::plugin::virt::refresh_interval collectd::plugin::virt::domain collectd::plugin::virt::block_device collectd::plugin::virt::interface_device collectd::plugin::virt::ignore_selected collectd::plugin::virt::hostname_format collectd::plugin::virt::interface_format collectd::plugin::virt::extra_stats collectd::plugin::virt::interval
+					</dd><dt><span class="term">collectd-write_http</span></dt><dd>
+						collectd::plugin::write_http::nodes collectd::plugin::write_http::urls
+					</dd><dt><span class="term">collectd-write_kafka</span></dt><dd>
+						collectd::plugin::write_kafka::kafka_host collectd::plugin::write_kafka::kafka_port collectd::plugin::write_kafka::kafka_hosts collectd::plugin::write_kafka::topics
+					</dd><dt><span class="term">collectd-write_prometheus</span></dt><dd>
+						collectd::plugin::write_prometheus::port
+					</dd><dt><span class="term">collectd-ovs_events</span></dt><dd>
+						collectd::plugin::ovs_events::address collectd::plugin::ovs_events::dispatch collectd::plugin::ovs_events::interfaces collectd::plugin::ovs_events::send_notification collectd::plugin::ovs_events::$port collectd::plugin::ovs_events::socket
+					</dd><dt><span class="term">collectd-ovs_stats</span></dt><dd>
+						collectd::plugin::ovs_stats::address collectd::plugin::ovs_stats::bridges collectd::plugin::ovs_stats::port collectd::plugin::ovs_stats::socket
+					</dd><dt><span class="term">collectd-connectivity</span></dt><dd>
+						collectd::plugin::connectivity::interfaces
+					</dd><dt><span class="term">collectd-procevent</span></dt><dd>
+						collectd::plugin::procevent::process collectd::plugin::procevent::regex_process collectd::plugin::procevent::buffer_length
+					</dd><dt><span class="term">collectd-sysevent</span></dt><dd>
+						collectd::plugin::sysevent::listen_host collectd::plugin::sysevent::listen_port collectd::plugin::sysevent::regex_filter collectd::plugin::sysevent::buffer_size collectd::plugin::sysevent::buffer_length
+					</dd><dt><span class="term">collectd-iptables</span></dt><dd>
+						collectd::plugin::iptables::chains collectd::plugin::iptables::chains6 collectd::plugin::iptables::interval
+					</dd><dt><span class="term">collectd-hugepages</span></dt><dd>
+						collectd::plugin::hugepages::report_per_node_hp collectd::plugin::hugepages::report_root_hp collectd::plugin::hugepages::values_pages collectd::plugin::hugepages::values_bytes collectd::plugin::hugepages::values_percentage collectd::plugin::hugepages::interval
+					</dd><dt><span class="term">collectd-turbostat</span></dt><dd>
+						collectd::plugin::turbostat::core_c_states collectd::plugin::turbostat::package_c_states collectd::plugin::turbostat::system_management_interrupt collectd::plugin::turbostat::digital_temperature_sensor collectd::plugin::turbostat::tcc_activation_temp collectd::plugin::turbostat::running_average_power_limit collectd::plugin::turbostat::logical_core_names
+					</dd></dl></div></section><div><div xml:lang="en-US" class="legalnotice" id="idm46396452536320"><h1 class="legalnotice">Legal Notice</h1><div class="para">
+		Copyright <span class="trademark"/>© 2019 Red Hat, Inc.
+	</div><div class="para">
+		The text of and illustrations in this document are licensed by Red Hat under a Creative Commons Attribution–Share Alike 3.0 Unported license ("CC-BY-SA"). An explanation of CC-BY-SA is available at <a class="uri" href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>. In accordance with CC-BY-SA, if you distribute this document or an adaptation of it, you must provide the URL for the original version.
+	</div><div class="para">
+		Red Hat, as the licensor of this document, waives the right to enforce, and agrees not to assert, Section 4d of CC-BY-SA to the fullest extent permitted by applicable law.
+	</div><div class="para">
+		Red Hat, Red Hat Enterprise Linux, the Shadowman logo, JBoss, OpenShift, Fedora, the Infinity logo, and RHCE are trademarks of Red Hat, Inc., registered in the United States and other countries.
+	</div><div class="para">
+		<span class="trademark">Linux</span>® is the registered trademark of Linus Torvalds in the United States and other countries.
+	</div><div class="para">
+		<span class="trademark">Java</span>® is a registered trademark of Oracle and/or its affiliates.
+	</div><div class="para">
+		<span class="trademark">XFS</span>® is a trademark of Silicon Graphics International Corp. or its subsidiaries in the United States and/or other countries.
+	</div><div class="para">
+		<span class="trademark">MySQL</span>® is a registered trademark of MySQL AB in the United States, the European Union and other countries.
+	</div><div class="para">
+		<span class="trademark">Node.js</span>® is an official trademark of Joyent. Red Hat Software Collections is not formally related to or endorsed by the official Joyent Node.js open source or commercial project.
+	</div><div class="para">
+		The <span class="trademark">OpenStack</span>® Word Mark and OpenStack logo are either registered trademarks/service marks or trademarks/service marks of the OpenStack Foundation, in the United States and other countries and are used with the OpenStack Foundation's permission. We are not affiliated with, endorsed or sponsored by the OpenStack Foundation, or the OpenStack community.
+	</div><div class="para">
+		All other trademarks are the property of their respective owners.
+	</div></div></div></div></div></div><script type="text/javascript">
+                        jQuery(document).ready(function() {
+                            initSwitchery();
+                            jQuery('pre[class*="language-"]').each(function(i, block){hljs.highlightBlock(block);});
+                        });
+                    </script></body></html>
