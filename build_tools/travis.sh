@@ -6,7 +6,8 @@ set -e
 
 # install deps for Fedora
 echo "--- installing dependencies"
-sudo dnf install findutils git make asciidoctor -y
+dnf install findutils git make ruby rubygems -y
+gem install --no-document --minimal-deps asciidoctor
 
 # get the current working branch, if we're master, we'll end up pushing new docs
 THIS_BRANCH=$(git rev-parse --abbrev-ref HEAD)

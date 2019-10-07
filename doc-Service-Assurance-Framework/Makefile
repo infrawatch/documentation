@@ -42,7 +42,7 @@ $(IMAGES_TS): $(IMAGES)
 	touch $(IMAGES_TS)
 
 $(DEST_HTML): $(SOURCES)
-	asciidoctor -a build=$(BUILD) -b xhtml5 -d book -o $@ $<
+	asciidoctor --failure-level WARN -a build=$(BUILD) -b xhtml5 -d book -o $@ $<
 
 $(DEST_PDF): $(SOURCES) $(IMAGES)
 	asciidoctor-pdf -a build=$(BUILD) -d book -o $@ $<
