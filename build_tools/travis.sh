@@ -10,8 +10,7 @@ dnf install findutils git make ruby rubygems -y
 gem install --no-document --minimal-deps asciidoctor
 
 # get the current working branch, if we're master, we'll end up pushing new docs
-THIS_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-echo "--- current working branch is $THIS_BRANCH"
+echo "--- current working branch is $BRANCH"
 
 echo "--- building documentation"
 make clean html
@@ -44,7 +43,7 @@ rm -rf build/
 # Add everything, get ready for commit. But only do it if we're on
 # master. If you want to deploy on different branches, you can change
 # this.
-if [[ "$THIS_BRANCH" =~ ^master$|^[0-9]+\.[0-9]+\.X$ ]]; then
+if [[ "$BRANCH" =~ ^master$|^[0-9]+\.[0-9]+\.X$ ]]; then
     echo "Branch is master, so pushing docs to gh-pages"
     git add --all
     git commit -am '[ci skip] publishing updated documentation...'
