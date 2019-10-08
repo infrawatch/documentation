@@ -25,24 +25,31 @@
 
 Complete the following steps:
 
-. Log into your Red Hat OpenShift environment. Create and switch to the `sa-telemetry` namespace in your OpenShift environment:
-+
-----
-    oc login https://console.service-assurance.tld:8443
-    oc new-project sa-telemetry
-----
-+
-. Download the latest release file of the telemetry-framework manifests from link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases]:
-+
-----
-    mkdir /<working_directory> ; cd /<working_directory>
-    curl --location \
-    https://github.com/redhat-service-assurance/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
-----
-+
-. Extract the contents and change to that directory:
+. Log into your Red Hat OpenShift environment. Create and switch to the `sa-telemetry` namespace in your OpenShift environment.
 
+[source,bash]
 ----
-    unzip telemetry-framework.zip
-    cd telemetry-framework-<release_version>
+	oc login https://console.service-assurance.tld:8443
+	oc new-project sa-telemetry
 ----
+
+. Download the latest release file of the telemetry-framework manifests from link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases]. 
+
+[source,bash]
+----
+	mkdir /<working_directory> ; cd /<working_directory>
+	curl --location \
+https://github.com/redhat-service-assurance/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
+----
+
+. Extract the contents and change to that directory.
+
+[source,bash]
+----
+	unzip telemetry-framework.zip
+	cd telemetry-framework-<release_version>
+----
+
+. The cluster administrator must set `vm.max_map_count` sysctl to `262144` on
+the host level of each node in your cluster prior to instantiating an SAF
+instance if ElasticSearch is intended to be deployed.

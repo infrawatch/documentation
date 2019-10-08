@@ -29,20 +29,24 @@ SAF uses the following components:
 
 * collectd to collect metrics
 * Prometheus as time-series data storage
-* An AMQP 1.x compatible messaging bus to shuttle the metrics to SAF for storage in Prometheus
+* ElasticSearch as events data storage
+* An AMQP 1.x compatible messaging bus to shuttle the metrics and events to SAF
+for storage in Prometheus and ElasticSearch respectively
 * Smart Gateway
 
 The following diagram is an overview of SAF architecture:
 
+#TODO: Update diagram to include events architecture#
+
 image::SAF_Overview_37_0819_arch.png[]
 
-On the client side, collectd collects high-resolution metrics. The data is delivered to Prometheus using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+On the client side, collectd collects high-resolution metrics. The data is delivered to Prometheus using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus. 
 
 Server-side SAF monitoring infrastructure consists of the following layers:
 
-* Service Assurance Framework 1.0 (SAF)
+* Service Assurance Framework 1.x (SAF)
 * Red Hat OpenShift Container Platform 3.11 (OCP)
-* Infrastructure platform
+* Infrastructure platform 
 
 image::SAF_Overview_37_0819_deployment_prereq.png[]
 [caption="Figure 2: SAF monitoring infrastructure layers”]
