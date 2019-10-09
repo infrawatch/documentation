@@ -1,0 +1,41 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_updating-collectd-configuration.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="updating-collectd-configuration_{context}"]
+= Updating collectd configuration
+
+To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack director configuration to include the following `CollectdAmqpInstances`.
+
+metrics-collectd-qdr.yaml
+----
+parameter_defaults:
+   CollectdAmqpInstances:
+       cloud1-telemetry:
+           format: JSON
+           presettle: false
+       cloud1-notify:
+           notify: true
+           format: JSON
+           presettle: true
+----
+
+For more information on how to edit and redeploy this configuration, see <<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and <<updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>.
