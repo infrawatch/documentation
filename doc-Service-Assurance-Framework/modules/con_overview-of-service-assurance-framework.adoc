@@ -25,6 +25,9 @@
 [id='overview-of-service-assurance-framework_{context}']
 = Overview of Service Assurance Framework
 
+ifeval::["{build}" == "downstream"]
 include::../common/tech_preview.adoc[leveloffset=+1]
+endif::[]
 
-Service Assurance Framework (SAF) is an application running on the Red Hat OpenShift Container Platform (OCP). Use SAF to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
+
+{Project} ({ProjectShort}) is an application that runs on the OpenShift Container Platform (OCP). Use {ProjectShort} to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
