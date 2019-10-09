@@ -23,41 +23,113 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying smart gateways
 
-You must deploy two smart gateways for each cloud; one for metrics and one for events. Configure both smart gateways to listen on the correct AMQP address.  For example:
+You must deploy two smart gateways for each cloud; one for metrics and one for
+events, and both smart gateways must be configured to listen on the correct AMQP
+address.
 
+When SAF is first deployed, two smart gateway manifests are created that define
+the two initial smart gateways for a single cloud,
+`deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and
+`deploy/service-assurance/smartgateway/events-smartgateway.yaml`. When deploying
+ multiple smart gateways, these need to be adjusted to define metrics and events
+  smart gateways for each cloud.
+
+The steps are:
+
+. Edit the smart gateway manifests to define a smart gateway for each cloud (see
+example minifests below).
+. Delete existing smart gateways from the cluster.
++
+----
+oc delete smartgateway --all
+----
+. Deploy your new smart gateways.
++
+----
+oc create -f deploy/service-assurance/smartgateway/
+----
+. Verify that each smart gateway is Running (this can take a couple minutes
+depending on the number of smart gateways).
++
+----
+oc get po -l app=smart-gateway
+----
+
+== Example Manifests
+
+[IMPORTANT]
+These are examples only, the content of these files may be different in your
+deployment, and if so you should copy those manifests, not these ones.
+
+You must ensure the name and amqp_url parameters of each smart gateway match the
+names you want to use for your clouds. For more information, see
+ <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
+
+
+metrics-smartgateway.yaml
+[source, yaml]
 ----
 apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud1-telemetry
+  name: cloud1-telemetry
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
- serviceType: metrics
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"
 
 ---
 apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud1-notify
+  name: cloud2-telemetry
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify
- serviceType: events
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"
+
+----
+
+events-smartgateway.yaml
+[source, yaml]
+----
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud1-notify
+spec:
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"
 
 ---
 apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud2-telemetry
+  name: cloud2-notify
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
- serviceType: metrics
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud2-notify
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify
- serviceType: events
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"
 ----
