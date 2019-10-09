@@ -1,0 +1,63 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_deploying-smart-gateways.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="deploying-smart-gateways_{context}"]
+= Deploying smart gateways
+
+You must deploy two smart gateways for each cloud; one for metrics and one for events. Configure both smart gateways to listen on the correct AMQP address.  For example:
+
+----
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud1-telemetry
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+ serviceType: metrics
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud1-notify
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify
+ serviceType: events
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud2-telemetry
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+ serviceType: metrics
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud2-notify
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify
+ serviceType: events
+----

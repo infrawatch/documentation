@@ -45,4 +45,3 @@ Server-side SAF monitoring infrastructure consists of the following layers:
 * Infrastructure platform
 
 image::SAF_Overview_37_0819_deployment_prereq.png[]
-[caption="Figure 2: SAF monitoring infrastructure layers”]

@@ -17,6 +17,8 @@ include::assemblies/assembly_completing-the-saf-configuration.adoc[leveloffset=+
 
 include::assemblies/assembly_configuring-saf-components.adoc[leveloffset=+1]
 
+include::assemblies/assembly_connecting-multiple-clouds-to-saf.adoc[leveloffset=+1]
+
 //appendix
 
 include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]

@@ -1,0 +1,36 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-saf-for-multi-cloud.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="configuring-multiple-clouds_{context}"]
+= Configuring multiple clouds
+
+To configure multiple OpenStack clouds to target a single instance of {projectshort}, complete the following tasks:
+
+. Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
+. Deploy metrics and events consumer Smart Gateways for each cloud to listen on
+ the corresponding address prefixes. For more information, see <<deploying-smart-gateways_connecting-multiple-clouds-to-saf>>.
+. Configure each cloud to send its metrics and events to SAF on the
+ correct address. For more information, see <<updating-collectd-configuration_connecting-multiple-clouds-to-saf>>.
+
+The following diagram demonstrates how two OpenStack clouds connect to Service Assurance Framework.
+
+image::OpenStack_SAF_Overview_37_0919_topology.png[]
