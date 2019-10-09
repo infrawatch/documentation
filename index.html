@@ -478,6 +478,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#installing-collectd">Installing collectd</a></li>
 </ul>
 </li>
+<li><a href="#connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to SAF</a>
+<ul class="sectlevel2">
+<li><a href="#configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</a></li>
+<li><a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</a></li>
+<li><a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</a></li>
+<li><a href="#updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</a></li>
+<li><a href="#querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-saf">Querying metrics data from multiple clouds</a></li>
+<li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the AMQ Interconnect message bus</a></li>
+</ul>
+</li>
 <li><a href="#appe-saf-collectd-plugins">Appendix A: collectd plugins</a></li>
 </ul>
 </div>
@@ -1047,6 +1057,162 @@ Red Hat OpenStack Platform supports performance monitoring only on the client si
 </div>
 </div>
 <div class="sect1">
+<h2 id="connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to SAF</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</h3>
+<div class="paragraph">
+<p>To configure multiple OpenStack clouds to target a single instance of SAF, complete the following tasks:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Plan the AMQP address prefixes to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</a>.</p>
+</li>
+<li>
+<p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on
+the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</a>.</p>
+</li>
+<li>
+<p>Configure each cloud to send its metrics and events to SAF on the
+correct address. For more information, see <a href="#updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following diagram demonstrates how two OpenStack clouds connect to Service Assurance Framework.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/OpenStack_SAF_Overview_37_0919_topology.png" alt="OpenStack SAF Overview 37 0919 topology"/>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</h3>
+<div class="paragraph">
+<p>By default, OpenStack nodes are configured to send data to the <code>collectd/telemetry</code> and <code>collectd/notify</code> addresses on the AMQP bus; and SAF is configured to listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address.</p>
+</div>
+<div class="paragraph">
+<p>It is recommended that you prefix a cloud identifier to the second part of the
+address. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd/cloud1-telemetry</p>
+</li>
+<li>
+<p>collectd/cloud1-notify</p>
+</li>
+<li>
+<p>collectd/cloud2-telemetry</p>
+</li>
+<li>
+<p>collectd/cloud2-notify</p>
+</li>
+<li>
+<p>collectd/us-east-1-telemetry</p>
+</li>
+<li>
+<p>collectd/us-west-3-telemetry</p>
+</li>
+<li>
+<p>&#8230;&#8203;etc</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</h3>
+<div class="paragraph">
+<p>You must deploy two smart gateways for each cloud; one for metrics and one for events. Configure both smart gateways to listen on the correct AMQP address.  For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud1-telemetry
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+ serviceType: metrics
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud1-notify
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify
+ serviceType: events
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud2-telemetry
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+ serviceType: metrics
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+ name: cloud2-notify
+spec:
+ amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify
+ serviceType: events</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</h3>
+<div class="paragraph">
+<p>To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack director configuration to include the following <code>CollectdAmqpInstances</code>.</p>
+</div>
+<div class="paragraph">
+<p>metrics-collectd-qdr.yaml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>parameter_defaults:
+   CollectdAmqpInstances:
+       cloud1-telemetry:
+           format: JSON
+           presettle: false
+       cloud1-notify:
+           notify: true
+           format: JSON
+           presettle: true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information on how to edit and redeploy this configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring Red Hat OpenStack Platform Overcloud for SAF</a> and <a href="#updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating Red Hat OpenStack Platform Overcloud for SAF</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-saf">Querying metrics data from multiple clouds</h3>
+<div class="paragraph">
+<p>Data stored in Prometheus has a "service" label attached according to the
+smart gateway it was scraped from. You can use this label to query data from a
+specific cloud.</p>
+</div>
+<div class="paragraph">
+<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated "service" label; for example: <code>sa_collectd_uptime{service="cloud1-smartgateway"}</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the AMQ Interconnect message bus</h3>
+<div class="paragraph">
+<p>To use the AMQ Interconnect message bus, see
+<a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="appe-saf-collectd-plugins">Appendix A: collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1577,7 +1743,7 @@ collectd::plugin::turbostat::logical_core_names</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-09 12:31:39 UTC
+Last updated 2019-10-09 16:46:34 UTC
 </div>
 </div>
 </body>
