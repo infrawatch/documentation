@@ -8,6 +8,7 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 :director-guide: true
 :context: osp
 
+include::common/attributes.adoc[]
 
 include::assemblies/assembly_introduction-to-service-assurance-framework.adoc[leveloffset=+1]
 
