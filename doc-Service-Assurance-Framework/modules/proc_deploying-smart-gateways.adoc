@@ -21,35 +21,35 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="deploying-smart-gateways_{context}"]
-= Deploying smart gateways
+= Deploying Smart Gateways
 
-You must deploy two smart gateways for each cloud; one for metrics and one for
-events, and both smart gateways must be configured to listen on the correct AMQP
-address.
+You must deploy two Smart Gateways for each cloud; one for metrics and one for
+events. Configure both Smart Gateways to listen on the AMQP address defined for
+the corresponding cloud.
 
-When SAF is first deployed, two smart gateway manifests are created that define
-the two initial smart gateways for a single cloud,
+When SAF is first deployed, two Smart Gateway manifests are created that define
+the two initial Smart Gateways for a single cloud,
 `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and
 `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. When deploying
- multiple smart gateways, these need to be adjusted to define metrics and events
-  smart gateways for each cloud.
+ multiple Smart Gateways, these need to be adjusted to define the Smart Gateways
+handling the metrics and the events data for each cloud.
 
 The steps are:
 
-. Edit the smart gateway manifests to define a smart gateway for each cloud (see
+. Edit the Smart Gateway manifests to define a Smart Gateway for each cloud (see
 example minifests below).
-. Delete existing smart gateways from the cluster.
+. Delete existing Smart Gateways from the cluster.
 +
 ----
 oc delete smartgateway --all
 ----
-. Deploy your new smart gateways.
+. Deploy your new Smart Gateways.
 +
 ----
 oc create -f deploy/service-assurance/smartgateway/
 ----
-. Verify that each smart gateway is Running (this can take a couple minutes
-depending on the number of smart gateways).
+. Verify that each Smart Gateway is Running (this can take a couple minutes
+depending on the number of Smart Gateways).
 +
 ----
 oc get po -l app=smart-gateway
@@ -58,12 +58,12 @@ oc get po -l app=smart-gateway
 == Example Manifests
 
 [IMPORTANT]
-These are examples only, the content of these files may be different in your
+These are examples only. The content of these files may be different in your
 deployment, and if so you should copy those manifests, not these ones.
 
-You must ensure the name and amqp_url parameters of each smart gateway match the
-names you want to use for your clouds. For more information, see
- <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
+You must ensure the `name` and `amqp_url` parameters of each Smart Gateway match
+the names you want to use for your clouds. For more information, see
+<<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
 
 
 metrics-smartgateway.yaml
