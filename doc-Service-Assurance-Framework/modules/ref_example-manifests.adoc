@@ -1,0 +1,98 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/ref_example-manifests.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: ref_my-reference-a.adoc
+// * ID: [id='ref_my-reference-a_{context}']
+// * Title: = My reference A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+[id="example-manifests_{context}"]
+= Example manifests
+
+[IMPORTANT]
+These content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
+
+Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
+
+
+metrics-smartgateway.yaml
+[source, yaml]
+----
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud1-telemetry
+spec:
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud2-telemetry
+spec:
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"
+
+----
+
+events-smartgateway.yaml
+[source, yaml]
+----
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud1-notify
+spec:
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"
+
+---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud2-notify
+spec:
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"
+----

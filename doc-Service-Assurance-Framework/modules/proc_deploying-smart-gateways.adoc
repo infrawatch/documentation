@@ -23,22 +23,15 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
-You must deploy two Smart Gateways for each cloud; one for metrics and one for
-events. Configure both Smart Gateways to listen on the AMQP address defined for
-the corresponding cloud.
+You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address defined for the corresponding cloud.
 
-When SAF is first deployed, two Smart Gateway manifests are created that define
-the two initial Smart Gateways for a single cloud,
-`deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and
-`deploy/service-assurance/smartgateway/events-smartgateway.yaml`. When deploying
- multiple Smart Gateways, these need to be adjusted to define the Smart Gateways
-handling the metrics and the events data for each cloud.
+When you deploy SAF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy  multiple Smart Gateways, you must edit these manifests to define the Smart Gateways handling the metrics and the events data for each cloud.
 
-The steps are:
+To deploy multiple Smart Gateways, complete the following steps:
 
-. Edit the Smart Gateway manifests to define a Smart Gateway for each cloud (see
-example minifests below).
-. Delete existing Smart Gateways from the cluster.
+. Edit the following Smart Gateway manifests to define a Smart Gateway for each cloud: `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. For more information, see
+<<example-manifests_connecting-multiple-clouds-to-saf>>.
+. Delete the existing Smart Gateways from the cluster.
 +
 ----
 oc delete smartgateway --all
@@ -48,88 +41,9 @@ oc delete smartgateway --all
 ----
 oc create -f deploy/service-assurance/smartgateway/
 ----
-. Verify that each Smart Gateway is Running (this can take a couple minutes
-depending on the number of Smart Gateways).
+. Verify that each Smart Gateway is running. This can take several minutes
+depending on the number of Smart Gateways.
 +
 ----
 oc get po -l app=smart-gateway
-----
-
-== Example Manifests
-
-[IMPORTANT]
-These are examples only. The content of these files may be different in your
-deployment, and if so you should copy those manifests, not these ones.
-
-You must ensure the `name` and `amqp_url` parameters of each Smart Gateway match
-the names you want to use for your clouds. For more information, see
-<<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
-
-
-metrics-smartgateway.yaml
-[source, yaml]
-----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud1-telemetry
-spec:
-  size: 1
-  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
-  debug: "false"
-  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
-  service_type: "metrics"
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud2-telemetry
-spec:
-  size: 1
-  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
-  debug: "false"
-  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
-  service_type: "metrics"
-
-----
-
-events-smartgateway.yaml
-[source, yaml]
-----
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud1-notify
-spec:
-  size: 1
-  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
-  service_type: events
-  debug: "false"
-  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
-  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-  use_tls: "true"
-  tls_client_cert: /config/certs/admin-cert
-  tls_client_key: /config/certs/admin-key
-  tls_ca_cert: /config/certs/admin-ca
-  reset_index: "true"
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud2-notify
-spec:
-  size: 1
-  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
-  service_type: events
-  debug: "false"
-  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
-  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-  use_tls: "true"
-  tls_client_cert: /config/certs/admin-cert
-  tls_client_key: /config/certs/admin-key
-  tls_ca_cert: /config/certs/admin-ca
-  reset_index: "true"
 ----
