@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_deploying-with-routed-l3-networks.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id=`deploying-with-routed-l3-networks_{context}`]
+= Deploying with routed L3 networks
+If nodes are on a separate network from the default `InternalApi` network used by the controllers, which is typical in a Spine and Leaf or a Distributed Compute Node topology, then a few changes are necessary to allow data transported via AMQ Interconnect to reach the SAF server instance.
+
+The following configuration example needs to be added under the `ExtraConfig` section for each compute node.
+In the example, `internal_apiN` is the network that the compute node _N_ is connected to, where _N_ represents a value different from the default internal API network name.
+
+[source,yaml]
+----
+ComputeNExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_apiN')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"
+----
+
+For more information on DCN configuration, see: https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/

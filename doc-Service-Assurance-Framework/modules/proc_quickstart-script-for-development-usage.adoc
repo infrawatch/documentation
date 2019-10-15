@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_setting-up-openstack-on-the-client-side.adoc[leveloffset=+1]
+// include::<path>/proc_quickstart-script-for-development-usage.adoc.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,16 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="setting-up-openstack-on-the-client-side_{context}"]
-= Setting up OpenStack on the client side
+[id='quickstart-script-for-development-usage_{context}']
+= Quickstart Script for Development Usage
 
-To collect metrics and/or events and send them back to the SAF storage domain, you must install collectd and AMQ Interconnect on the nodes of an OpenStack deployment. The following sections show you how to configure Red Hat OpenStack director to enable the data collection functionality and streaming that data back to SAF.
+A script is provided to deploy SAF into an existing OpenShift environment. It
+allows for SAF to be started for development purposes, and is not intended for
+production environments. It takes care of all of the required steps for a
+single-cloud setup. Ensure the following tools are installed before execution:
+
+* Ansible 2.7+
+* OpenShift CLI (oc from https://github.com/openshift/origin/releases/tag/v3.11.0)
+* openssl
+
+The script can be found here: https://github.com/redhat-service-assurance/telemetry-framework/blob/master/deploy/quickstart.sh

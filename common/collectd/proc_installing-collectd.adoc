@@ -26,7 +26,7 @@
 
 To install collectd on the overcloud, complete the following steps:
 
-. Copy the file ``/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` to your local directory.  Open the file, set the following parameters, and list the plugins you want under `CollectdExtraPlugins`. You can also provide parameters in the `ExtraConfig` section:
+. Copy the file `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` to your local directory.  Open the file, set the following parameters, and list the plugins you want under `CollectdExtraPlugins`. You can also provide parameters in the `ExtraConfig` section:
 +
 ----
 parameter_defaults:
