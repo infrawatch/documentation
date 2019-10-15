@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_generating-the-manifests-for-saf.adoc[leveloffset=+1]
+// include::<path>/proc_generating-tls-certificates-for-elasticsearch.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,23 +20,23 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="generating-the-manifests-for-saf_{context}"]
-= Generating the manifests for SAF
+[id=`generating-tls-certificates-for-elasticsearch_{context}`]
+= Generating TLS certificates for ElasticSearch
 
-Several of the manifests required for deployment are dynamically generated with Ansible.
+To connect the Smart Gateway to ElasticSearch for events storage certificates
+need to be generated and loaded as a secret into OpenShift.
 
-[NOTE]
-====
-Ansible version 2.7 or later is recommended.
-====
-
-To generate the additional manifests for SAF, ensure that you are logged into the {{OpenShiftShort}} environment within the `sa-telemetry` namespace and run the following command:
-
+. Generate the unsigned certificates. If you have signed certificates to load
+into Red Hat OpenShift, go to the next step.
++
 ----
-ansible-playbook \
--e "registry_path=$(oc registry info)" \
--e "imagestream_namespace=$(oc project --short)" \
-deploy_builder.yml
+  WORKING_DIR=./es-certs \  # <1>
+  NAMESPACE="sa-telemetry" \  # <2>
+  ./cert_generation.sh # <3>
 ----
+<1> Directory where the certificates will be stored
+<2> OpenShift namespace where the certificates will be loaded. Also used for
+hostname generation.
+<3> Script located in the `deploy/` directory to help with building appropriate
+certificate, CA, and key files.
 
-By default a persistent volume claim (PVC) of 20G is requested for Prometheus. To adjust the default PVC size, insert `-e "prometheus_pvc_storage_request=<size_in_gigabytes>G"` before `deploy_builder.yml` in the command.

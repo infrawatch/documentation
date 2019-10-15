@@ -1,0 +1,70 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-red-hat-openstack-platform-overcloud-for-saf.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id=`configuring-red-hat-openstack-platform-overcloud-for-saf-events_{context}`]
+= Configuring Red Hat OpenStack Platform Overcloud for SAF Events
+
+Enabling the collection of events on the client side is similar to how we
+configured metrics in
+<<configuring-red-hat-openstack-platform-overcloud-for-saf>>. The following
+contains a sample from the `metrics-collectd-qdr-overrides.yaml` environment file that
+you can pass to a Red Hat OpenStack 13 director deployment to configure and
+setup collectd and QDR.
+
+.metrics-collectd-qdr-overrides.yaml
+[source,yaml]
+----
+---
+parameter_defaults:
+  CollectdAmqpInstances:
+  notify: // <1>
+    format: JSON // <2>
+    presettle: false
+    notify: true // <3>
+  telemetry:
+    format: JSON
+    presettle: true
+  CollectdDefaultPollingInterval: 1
+  CollectdConnectionType: amqp1
+  CollectdExtraPlugins:
+  - cpu
+  - df
+  - hugepages
+  - ovs_stats
+  - ovs_events // <4>
+  - connectivity // <5>
+  - load
+  - uptime
+  MetricsQdrConnectors:
+  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
+    port: 443
+    role: edge
+    sslProfile: sslProfile
+    verifyHostname: false
+  MetricsQdrSSLProfiles:
+  - name: sslProfile
+----
+<1> Create a `notify` address for QDR that will transmit the events
+<2> Format of the messages is in JSON
+<3> Mark these messages as being events in the VES format
+<4> Enable an events plugin for OVS events
+<5> Enable an events plugin for network connectivity events

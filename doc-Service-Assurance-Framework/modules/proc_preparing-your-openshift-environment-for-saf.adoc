@@ -41,8 +41,12 @@ Complete the following steps:
 ----
 +
 . Extract the contents and change to that directory:
-
++
 ----
     unzip telemetry-framework.zip
     cd telemetry-framework-<release_version>
 ----
++
+. The cluster administrator must set `vm.max_map_count` sysctl to `262144` on
+the host level of each node in your cluster prior to instantiating an SAF
+instance if ElasticSearch is intended to be deployed.

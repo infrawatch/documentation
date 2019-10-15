@@ -23,8 +23,10 @@
 [id='configuring-red-hat-openstack-platform-overcloud-for-saf_{context}']
 = Configuring Red Hat OpenStack Platform Overcloud for SAF
 
-The following contains a sample from the `metrics-collectd-qdr.yaml` environment file that you can pass to a Red Hat OpenStack 13 director deployment to configure and setup collectd and QDR.
+The following contains a sample from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure and setup collectd and QDR.
 
+.metrics-collectd-qdr-overrides.yaml
+[source,yaml]
 ----
 ---
 parameter_defaults:
@@ -38,7 +40,6 @@ parameter_defaults:
   - cpu
   - df
   - hugepages
-  - ovs_events
   - ovs_stats
   - load
   - uptime
@@ -52,13 +53,13 @@ parameter_defaults:
   - name: sslProfile
 ----
 
-. Create a file and for convenience, name it `metrics-collectd-qdr.yaml` and save it in the `/home/stack/` directory.
+. Create a file and for convenience, name it `metrics-collectd-qdr-overrides.yaml` and save it in the `/home/stack/` directory.
 
 . By default, the collectd plugins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plugins, use `CollectdExtraPlugins`. It is recommended that you list the default plugins to make it clear which plugins are enabled.
 
-For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plugin.
+. For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plugin.
 
-The `virt` plugin is enabled on overcloud nodes running the `libvirt` service by default. The following example plugin configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
+. The `virt` plugin is enabled on overcloud nodes running the `libvirt` service by default. The following example plugin configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
 
 ----
 ExtraConfig:

@@ -29,6 +29,7 @@ SAF uses the following components:
 
 * collectd to collect metrics
 * Prometheus as time-series data storage
+* ElasticSearch as events data storage
 * An AMQP 1.x compatible messaging bus to shuttle the metrics to SAF for storage in Prometheus
 * Smart Gateway
 
