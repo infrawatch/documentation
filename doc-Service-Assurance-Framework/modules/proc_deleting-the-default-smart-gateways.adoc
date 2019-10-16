@@ -1,0 +1,42 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="deleting-the-default-smart-gateways_{context}"]
+= Deleting the default Smart Gateways
+
+Once you have configured SAF for multiple clouds, you may want to delete the
+default Smart Gateways if they are no longer in use.
+
+The steps are:
+
+. Delete default Smart Gateways from the cluster.
++
+----
+oc delete smartgateway cloud1-notify cloud1-telemetry
+----
+. (Optionally) Delete the default manifests
++
+----
+rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml
+----
+[NOTE]
+The default manifests will be regenerated if you re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf,Generating the manifests for SAF>> step.

@@ -29,13 +29,16 @@ When you deploy SAF for the first time, two Smart Gateway manifests are created 
 
 To deploy multiple Smart Gateways, complete the following steps:
 
-. Edit the following Smart Gateway manifests to define a Smart Gateway for each cloud: `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. For more information, see
-<<example-manifests_connecting-multiple-clouds-to-saf>>.
-. Delete the existing Smart Gateways from the cluster.
+. Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. For more information, see <<example-manifests_connecting-multiple-clouds-to-saf>>.
 +
 ----
-oc delete smartgateway --all
+pushd deploy/service-assurance/smartgateway/
+cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
+cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
+vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
+popd
 ----
+
 . Deploy your new Smart Gateways.
 +
 ----
