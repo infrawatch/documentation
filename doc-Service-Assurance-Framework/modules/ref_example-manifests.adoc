@@ -24,12 +24,12 @@
 = Example manifests
 
 [IMPORTANT]
-These content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
+The content in the following examples may be different to the file content in your deployment. Copy the manifests in your deployment.
 
 Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
 
 
-metrics-smartgateway.yaml
+.metrics-smartgateway.yaml
 [source, yaml]
 ----
 apiVersion: smartgateway.infra.watch/v1alpha1
@@ -54,10 +54,9 @@ spec:
   debug: "false"
   container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
   service_type: "metrics"
-
 ----
 
-events-smartgateway.yaml
+.events-smartgateway.yaml
 [source, yaml]
 ----
 ---
