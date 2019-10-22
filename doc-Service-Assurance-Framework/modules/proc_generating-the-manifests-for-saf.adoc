@@ -30,8 +30,8 @@ Several of the manifests required for deployment are dynamically generated with 
 Ansible version 2.7 or later is recommended.
 ====
 
-To generate the additional manifests for SAF, ensure that you are logged into the {{OpenShiftShort}} environment within the `sa-telemetry` namespace and run the following command:
-
+. To generate the additional manifests for SAF, ensure that you are logged into the {{OpenShiftShort}} environment within the `sa-telemetry` namespace and run the following command:
++
 ----
 ansible-playbook \
 -e "registry_path=$(oc registry info)" \
@@ -39,4 +39,4 @@ ansible-playbook \
 deploy_builder.yml
 ----
 
-By default a persistent volume claim (PVC) of 20G is requested for Prometheus. To adjust the default PVC size, insert `-e "prometheus_pvc_storage_request=<size_in_gigabytes>G"` before `deploy_builder.yml` in the command.
+. By default a persistent volume claim (PVC) of 20G is requested for Prometheus. To adjust the default PVC size, insert `-e "prometheus_pvc_storage_request=<size_in_gigabytes>G"` before `deploy_builder.yml` in the command.

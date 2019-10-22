@@ -22,10 +22,9 @@
 // _Wording of headings_ in _The IBM Style Guide_.
 [id=`deploying-with-routed-l3-networks_{context}`]
 = Deploying with routed L3 networks
-If nodes are on a separate network from the default `InternalApi` network used by the controllers, which is typical in a Spine and Leaf or a Distributed Compute Node topology, then a few changes are necessary to allow data transported via AMQ Interconnect to reach the SAF server instance.
+If nodes are on a separate network from the default `InternalApi` network used by the controllers, which is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology, you must make several changes to allow data transported using {MessageBus} to reach the SAF server instance.
 
-The following configuration example needs to be added under the `ExtraConfig` section for each compute node.
-In the example, `internal_apiN` is the network that the compute node _N_ is connected to, where _N_ represents a value different from the default internal API network name.
+Add the following configuration example under the `ExtraConfig` section for each compute node. In this example, `internal_apiN` is the network that the Compute node _N_ is connected to, where _N_ represents a value different from the default internal API network name.
 
 [source,yaml]
 ----
