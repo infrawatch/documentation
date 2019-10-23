@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='updating-red-hat-openstack-platform-overcloud-for-saf_{context}']
-= Updating Red Hat OpenStack Platform Overcloud for SAF
+= Updating {OpenStack} overcloud for SAF
 
 Below is an example `openstack overcloud deploy` command with the `metrics-collectd-qdr-overrides.yaml` environment file that you configured in the previous section. Note the two environment file lines that you must provide in the deploy command.
 
@@ -39,14 +39,14 @@ openstack overcloud deploy \
 -e /home/stack/virt/debug.yaml \
 -e /home/stack/virt/nodes_data.yaml \
 --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics-collectd-qdr.yaml \
--e /home/stack/virt/metrics-collectd-qdr-overrides.yaml \                                                                
+-e /home/stack/virt/metrics-collectd-qdr-overrides.yaml \
 -e /home/stack/virt/docker-images.yaml \
 --log-file overcloud_deployment_42.log
 ----
 
 [NOTE]
 ====
-The SSL certificates for the `MetricsQdr` service is configured to generate
+The SSL certificates for the `MetricsQdr` service are configured to generate
 only for the `InternalApi` network but the default Ceph role does not use the
 `InternalApi` network. To deploy SAF client when InternalTLS is enabled, use
 this workaround: pass the custom Ceph role, which has `InternalApi` network, to

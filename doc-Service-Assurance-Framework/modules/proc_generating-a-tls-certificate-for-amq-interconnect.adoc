@@ -23,9 +23,9 @@
 [id='generating-a-tls-certificate-for-amq-interconnect_{context}']
 = Generating a TLS certificate for AMQ Interconnect
 
-To get the remote QDR connections through the {OpenShiftShort} route, use TLS/SSL certificates. The following two commands create the appropriate certificate files locally and load the contents into a secret for use by QDR. The QDR on the client side connects to the route address (DNS address) for the QDR service on port 443.
+To get the remote {MessageBus} connections through the {OpenShiftShort} route, use TLS/SSL certificates. The following two commands create the appropriate certificate files locally and load the contents into a secret for use by {MessageBus}. The {MessageBus} on the client side connects to the route address (DNS address) for the {MessageBus} service on port 443.
 
-. Generate an unsigned certificate. If you have a signed certificate to load into Red Hat OpenShift, go to the next step.
+. Generate an unsigned certificate. If you have a signed certificate to load into {OpenShift}, go to the next step.
 +
 ----
     openssl req -new -x509 -batch -nodes -days 11000 \
@@ -34,7 +34,7 @@ To get the remote QDR connections through the {OpenShiftShort} route, use TLS/SS
       -keyout /tmp/tls.key
 ----
 
-. Use the oc command to import the certificate into Red Hat OpenShift:
+. Use the oc command to import the certificate into {OpenShift}:
 +
 ----
     oc create secret tls qdr-white-cert \

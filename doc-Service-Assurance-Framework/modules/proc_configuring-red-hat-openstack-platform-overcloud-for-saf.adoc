@@ -21,9 +21,25 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='configuring-red-hat-openstack-platform-overcloud-for-saf_{context}']
-= Configuring Red Hat OpenStack Platform Overcloud for SAF
+= Configuring {OpenStack} overcloud for SAF
 
-The following contains a sample from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure and setup collectd and QDR.
+
+To configure collectd and {MessageBus}, complete the following steps:
+
+. Create a file and for convenience, name it `metrics-collectd-qdr-overrides.yaml`. Save the file in the `/home/stack/` directory.
+
+. By default, the collectd plug-ins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plug-ins, use `CollectdExtraPlugins`. List the default plug-ins to make it clear which plug-ins are enabled.
+
+. For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plug-in. The `virt` plug-in is enabled on overcloud nodes running the `libvirt` service by default. The following example plug-in configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
+
+----
+ExtraConfig:
+    collectd::plugin::virt::connection: "qemu:///system"
+    collectd::plugin::virt::hostname_format: "hostname uuid"
+----
+
+
+The following snippet is from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure collectd and {MessageBus}.
 
 .metrics-collectd-qdr-overrides.yaml
 [source,yaml]
@@ -53,18 +69,4 @@ parameter_defaults:
   - name: sslProfile
 ----
 
-. Create a file and for convenience, name it `metrics-collectd-qdr-overrides.yaml` and save it in the `/home/stack/` directory.
-
-. By default, the collectd plugins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plugins, use `CollectdExtraPlugins`. It is recommended that you list the default plugins to make it clear which plugins are enabled.
-
-. For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plugin.
-
-. The `virt` plugin is enabled on overcloud nodes running the `libvirt` service by default. The following example plugin configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
-
-----
-ExtraConfig:
-    collectd::plugin::virt::connection: "qemu:///system"
-    collectd::plugin::virt::hostname_format: "hostname uuid"
-----
-
-Use the `metrics-collectd-qdr.yaml` file to configure the plugins for collectd, including the `amqp1.so` module to connect to AMQ Interconnect. Use the `CollectdExtraPlugins` parameter to enable additional plugins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.
+Use the `metrics-collectd-qdr-overrides.yaml` file to configure the plug-ins for collectd, including the `amqp1.so` module to connect to {MessageBus}. Use the `CollectdExtraPlugins` parameter to enable additional plug-ins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.

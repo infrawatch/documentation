@@ -26,13 +26,13 @@
 image::SAF_Overview_37_0819_deployment_manually.png[]
 [caption="Figure 3: Deploying SAF components”]
 
-
-Use the `deploy.sh` script in the `deploy/` directory of the telemetry-framework release file that you previously extracted. Run the script with no arguments (or the `CREATE` argument) to start the various components in your OCP deployment. To remove the components, supply the `DELETE` argument to the script.
 Before you run the provided script, ensure that you meet the following prerequisites:
 
-. You are logged into {{OpenShiftShort}} as an administrator and have the `oc` tool readily available in your `$PATH`. The `deploy.sh` script performs a validation to ensure that this is true. The script switches to the `sa-telemetry` namespace prior to deploying, and if it cannot find that namespace, attempts to create it.
+. You are logged into {OpenShiftShort} as an administrator and have the `oc` tool available in your `$PATH`. The `deploy.sh` script performs a validation to ensure that this is true. The script switches to the `sa-telemetry` namespace prior to deploying, and if it cannot find that namespace, the script attempts to create it.
 
 . You have extracted the contents of the telemetry-framework release archive and have changed to the extracted directory. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+
+Use the `deploy.sh` script in the `deploy/` directory of the telemetry-framework release file that you previously extracted. Run the script with no arguments (or the `CREATE` argument) to start the various components in your OCP deployment. To remove the components, supply the `DELETE` argument to the script.
 
 ----
 ./deploy.sh

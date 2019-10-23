@@ -25,8 +25,8 @@
 
 Complete the following prerequisite tasks:
 
-. Deploy {OpenShiftShort} 3.11 and a bastion node, which executes the supplied bash script to load the components into the `sa-telemetry` namespace. If you already have an OCP 3.11 environment, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+. Deploy {OpenShiftShort} 3.11 and a bastion node, which executes the supplied bash script to load the components into the `sa-telemetry` namespace. If you already have an {OpenShiftShort} 3.11 environment, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
 
-. Install a suitable platform on which to install OCP, for example, link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/[Red Hat OpenStack Platform].
+. Install a suitable platform on which to install {OpenShiftShort}, for example, link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/[Red Hat OpenStack Platform].
 
-. Install OpenShift Container Platform (OCP). For more information, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index[OpenShift Container Platform 3.11 Installing Clusters].
+. Install {OpenShiftShort}. For more information, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index[OpenShift Container Platform 3.11 Installing Clusters].
