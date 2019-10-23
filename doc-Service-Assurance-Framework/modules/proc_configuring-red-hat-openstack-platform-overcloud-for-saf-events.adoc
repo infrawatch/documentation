@@ -27,7 +27,7 @@ The procedure to enable the collection of events on the client side is similar t
 configure metric collection in
 <<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>. The following sample
 contains a snippet from the `metrics-collectd-qdr-overrides.yaml` environment file that
-you can pass to a {Openstack}{OpenStackVersion} 13 director deployment to configure and
+you can pass to a {OpenstackLong} {OpenStackInstaller} deployment to configure and
 setup collectd and {MessageBus}.
 
 .metrics-collectd-qdr-overrides.yaml
@@ -63,7 +63,7 @@ parameter_defaults:
   MetricsQdrSSLProfiles:
   - name: sslProfile
 ----
-<1> Create a `notify` address for QDR that transmits the events.
+<1> Create a `notify` address for {MessageBus} that transmits the events.
 <2> The format of the messages is in JSON.
 <3> Mark these messages as being events in the VES format.
 <4> Enable an events plugin for OVS events.

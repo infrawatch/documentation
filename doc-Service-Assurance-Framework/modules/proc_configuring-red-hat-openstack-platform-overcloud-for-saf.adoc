@@ -39,7 +39,7 @@ ExtraConfig:
 ----
 
 
-The following snippet is sample from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure collectd and {MessageBus}.
+The following snippet is from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure collectd and {MessageBus}.
 
 .metrics-collectd-qdr-overrides.yaml
 [source,yaml]
@@ -69,4 +69,4 @@ parameter_defaults:
   - name: sslProfile
 ----
 
-Use the `metrics-collectd-qdr.yaml` file to configure the plug-ins for collectd, including the `amqp1.so` module to connect to {MessageBus}. Use the `CollectdExtraPlugins` parameter to enable additional plug-ins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.
+Use the `metrics-collectd-qdr-overrides.yaml` file to configure the plug-ins for collectd, including the `amqp1.so` module to connect to {MessageBus}. Use the `CollectdExtraPlugins` parameter to enable additional plug-ins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.

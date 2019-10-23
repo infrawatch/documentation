@@ -27,7 +27,7 @@ To connect the Smart Gateway to ElasticSearch for events storage, you must gener
 and load them as a secret into {OpenShift}.
 
 . Generate the unsigned certificates. If you have signed certificates to load
-into {OpenShift}, go to the next step.
+into {OpenShift}, go to the next section.
 +
 ----
   WORKING_DIR=./es-certs \  # <1>
