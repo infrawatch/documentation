@@ -35,7 +35,7 @@ SAF has these core components:
 * Prometheus and the AlertManager
 * ElasticSearch
 * Smart Gateway
-* AMQ Interconnect
+* {MessageBus}
 
 Each component has a corresponding Operator you can use to load the various application components and objects.
 
