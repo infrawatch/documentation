@@ -21,15 +21,14 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='quickstart-script-for-development-usage_{context}']
-= Quickstart Script for Development Usage
+= Quickstart script for development use
 
-A script is provided to deploy SAF into an existing OpenShift environment. It
-allows for SAF to be started for development purposes, and is not intended for
-production environments. It takes care of all of the required steps for a
-single-cloud setup. Ensure the following tools are installed before execution:
+You can use a script to deploy SAF into an existing {OpenShift} environment for development purposes. It is not intended for
+production environments. The script runs all of the required steps for a
+single-cloud setup. Ensure that the following tools are installed before execution:
 
 * Ansible 2.7+
 * OpenShift CLI (oc from https://github.com/openshift/origin/releases/tag/v3.11.0)
 * openssl
 
-The script can be found here: https://github.com/redhat-service-assurance/telemetry-framework/blob/master/deploy/quickstart.sh
+The script is at the following location: https://github.com/redhat-service-assurance/telemetry-framework/blob/master/deploy/quickstart.sh

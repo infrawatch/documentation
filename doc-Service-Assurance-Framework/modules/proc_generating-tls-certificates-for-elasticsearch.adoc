@@ -20,23 +20,22 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id=`generating-tls-certificates-for-elasticsearch_{context}`]
+[id="generating-tls-certificates-for-elasticsearch_{context}"]
 = Generating TLS certificates for ElasticSearch
 
-To connect the Smart Gateway to ElasticSearch for events storage certificates
-need to be generated and loaded as a secret into OpenShift.
+To connect the Smart Gateway to ElasticSearch for events storage, you must generate certificates
+and load them as a secret into {OpenShift}.
 
 . Generate the unsigned certificates. If you have signed certificates to load
-into Red Hat OpenShift, go to the next step.
+into {OpenShift}, go to the next section.
 +
 ----
   WORKING_DIR=./es-certs \  # <1>
   NAMESPACE="sa-telemetry" \  # <2>
   ./cert_generation.sh # <3>
 ----
-<1> Directory where the certificates will be stored
-<2> OpenShift namespace where the certificates will be loaded. Also used for
+<1> The directory where the certificates are stored.
+<2> The OpenShift namespace where the certificates are loaded. This is also used for
 hostname generation.
-<3> Script located in the `deploy/` directory to help with building appropriate
+<3> The script located in the `deploy/` directory to help with building the appropriate
 certificate, CA, and key files.
-

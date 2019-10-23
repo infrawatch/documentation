@@ -42,20 +42,24 @@ This section describes the prerequisites required for a successful SAF installat
 include::../modules/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]
 include::../modules/con_the-core-components-of-saf.adoc[leveloffset=+1]
 include::../modules/proc_preparing-your-openshift-environment-for-saf.adoc[leveloffset=+1]
+
 ifeval::["{build}" == "upstream"]
 include::../modules/proc_quickstart-script-for-development-usage.adoc[leveloffset=+1]
 endif::[]
+
 ifeval::["{build}" == "downstream"]
 include::../modules/proc_creating-an-rhcc-secret.adoc[leveloffset=+1]
 endif::[]
+
 include::../modules/proc_generating-a-tls-certificate-for-amq-interconnect.adoc[leveloffset=+1]
 include::../modules/proc_generating-tls-certificates-for-elasticsearch.adoc[leveloffset=+1]
 include::../modules/proc_deploying-saf-to-the-openshift-environment.adoc[leveloffset=+1]
-
 include::../modules/proc_importing-the-container-images-for-saf.adoc[leveloffset=+2]
-ifeval::["{build}" == "upstream"]
-include::../modules/proc_container-versions.adoc[leveloffset=+2]
-endif::[]
+
+//ifeval::["{build}" == "upstream"]
+//include::../modules/proc_container-versions.adoc[leveloffset=+2]
+//endif::[]
+
 include::../modules/proc_generating-the-manifests-for-saf.adoc[leveloffset=+2]
 include::../modules/proc_installing-saf-components-using-a-script.adoc[leveloffset=+2]
 

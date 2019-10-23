@@ -25,7 +25,7 @@
 
 Complete the following steps:
 
-. Log into your Red Hat OpenShift environment. Create and switch to the `sa-telemetry` namespace in your OpenShift environment:
+. Log into your {OpenShift} environment. Create and switch to the `sa-telemetry` namespace in your {OpenShift} environment:
 +
 ----
     oc login https://console.service-assurance.tld:8443
@@ -49,4 +49,4 @@ Complete the following steps:
 +
 . The cluster administrator must set `vm.max_map_count` sysctl to `262144` on
 the host level of each node in your cluster prior to instantiating an SAF
-instance if ElasticSearch is intended to be deployed.
+instance if you intend to deploy ElasticSearch.
