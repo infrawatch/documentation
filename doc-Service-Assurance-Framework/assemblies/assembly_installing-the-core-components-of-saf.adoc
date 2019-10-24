@@ -60,11 +60,7 @@ endif::[]
 include::../modules/proc_generating-a-tls-certificate-for-amq-interconnect.adoc[leveloffset=+1]
 include::../modules/proc_generating-tls-certificates-for-elasticsearch.adoc[leveloffset=+1]
 include::../modules/proc_deploying-saf-to-the-openshift-environment.adoc[leveloffset=+1]
+
 include::../modules/proc_importing-the-container-images-for-saf.adoc[leveloffset=+2]
-
-//ifeval::["{build}" == "upstream"]
-//include::../modules/proc_container-versions.adoc[leveloffset=+2]
-//endif::[]
-
 include::../modules/proc_generating-the-manifests-for-saf.adoc[leveloffset=+2]
 include::../modules/proc_installing-saf-components-using-a-script.adoc[leveloffset=+2]
