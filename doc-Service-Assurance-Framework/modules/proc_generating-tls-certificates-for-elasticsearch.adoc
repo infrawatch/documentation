@@ -23,8 +23,8 @@
 [id="generating-tls-certificates-for-elasticsearch_{context}"]
 = Generating TLS certificates for ElasticSearch
 
-To connect the Smart Gateway to ElasticSearch for events storage, you must generate certificates
-and load them as a secret into {OpenShift}.
+To connect the Smart Gateway to ElasticSearch for events storage, you must
+generate certificates and load them as a secret into {OpenShift}.
 
 . Generate the unsigned certificates. If you have signed certificates to load
 into {OpenShift}, go to the next section.

@@ -35,9 +35,15 @@
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
+// include::modules/subsystem/proc_doing_one_procedure.adoc[leveloffset=+1]
 
+// [leveloffset=+1] ensures that when a module starts with a level-1 heading
+// (= Heading), the heading will be interpreted as a level-2 heading
+// (== Heading) in the assembly.
 
-This section describes the prerequisites required for a successful SAF installation and describes the installation of the core SAF components.
+This section describes the prerequisites required for a successful
+{ProjectShort} installation and describes the installation of the core
+{ProjectShort} components.
 
 include::../modules/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]
 include::../modules/con_the-core-components-of-saf.adoc[leveloffset=+1]
@@ -62,11 +68,3 @@ include::../modules/proc_importing-the-container-images-for-saf.adoc[leveloffset
 
 include::../modules/proc_generating-the-manifests-for-saf.adoc[leveloffset=+2]
 include::../modules/proc_installing-saf-components-using-a-script.adoc[leveloffset=+2]
-
-
-
-// include::modules/subsystem/proc_doing_one_procedure.adoc[leveloffset=+1]
-
-// [leveloffset=+1] ensures that when a module starts with a level-1 heading
-// (= Heading), the heading will be interpreted as a level-2 heading
-// (== Heading) in the assembly.
