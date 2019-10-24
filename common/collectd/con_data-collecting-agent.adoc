@@ -25,10 +25,9 @@
 [id="data-collecting-agent_{context}"]
 = Data collecting agent
 
-Performance monitoring collects system information periodically and provides a mechanism to store and monitor the values in a variety of ways using a data collecting agent. Red Hat supports the collectd daemon as a collection agent. This daemon stores the data in a time-series database. One of the Red Hat supported databases is called Prometheus. You can use this stored data to monitor systems, find performance bottlenecks, and predict future system load.
-
-[NOTE]
-====
-Red Hat OpenStack Platform supports performance monitoring only on the client
-side.
-====
+Performance monitoring collects system information periodically and provides a
+mechanism to store and monitor the values in a variety of ways using a data
+collecting agent. Red Hat supports the collectd daemon as a collection agent.
+This daemon stores the data in a time-series database. One of the Red Hat
+supported databases is called Prometheus. You can use this stored data to
+monitor systems, find performance bottlenecks, and predict future system load.
