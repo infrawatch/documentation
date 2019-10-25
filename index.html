@@ -482,7 +482,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</a></li>
 <li><a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</a></li>
-<li><a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</a></li>
+<li><a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</a></li>
 <li><a href="#updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</a></li>
 <li><a href="#querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-saf">Querying metrics data from multiple clouds</a></li>
 <li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the AMQ Interconnect message bus</a></li>
@@ -1071,7 +1071,10 @@ Red Hat OpenStack Platform supports performance monitoring only on the client si
 </li>
 <li>
 <p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on
-the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</a>.</p>
+the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</a>.</p>
+</li>
+<li>
+<p>(Optional) Delete the default Smart Gateways if they are no longer needed, see <a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf">[deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf]</a>.</p>
 </li>
 <li>
 <p>Configure each cloud to send its metrics and events to SAF on the
@@ -1124,46 +1127,132 @@ address. For example:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying smart gateways</h3>
+<h3 id="deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</h3>
 <div class="paragraph">
-<p>You must deploy two smart gateways for each cloud; one for metrics and one for events. Configure both smart gateways to listen on the correct AMQP address.  For example:</p>
+<p>You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address defined for the corresponding cloud.</p>
 </div>
+<div class="paragraph">
+<p>When you deploy SAF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways handling the metrics and the events data for each cloud.</p>
+</div>
+<div class="paragraph">
+<p>To deploy multiple Smart Gateways, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: <code>deploy/service-assurance/smartgateway/metrics-smartgateway.yaml</code> and <code>deploy/service-assurance/smartgateway/events-smartgateway.yaml</code>. For more information, see <a href="#example-manifests_connecting-multiple-clouds-to-saf">Example manifests</a>.</p>
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: smartgateway.infra.watch/v1alpha1
+<pre>pushd deploy/service-assurance/smartgateway/
+cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
+cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
+vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
+popd</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Deploy your new Smart Gateways.</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc create -f deploy/service-assurance/smartgateway/</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that each Smart Gateway is running. This can take several minutes
+depending on the number of Smart Gateways.</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc get po -l app=smart-gateway</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="example-manifests_connecting-multiple-clouds-to-saf">Example manifests</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+The content in the following examples may be different to the file content in your deployment. Copy the manifests in your deployment.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ensure that the <code>name</code> and <code>amqp_url</code> parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">metrics-smartgateway.yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud1-telemetry
+  name: cloud1-telemetry
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
- serviceType: metrics
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"
 
 ---
 apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud1-notify
+  name: cloud2-telemetry
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify
- serviceType: events
+  size: 1
+  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+  debug: "false"
+  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
+  service_type: "metrics"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">events-smartgateway.yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">---
+apiVersion: smartgateway.infra.watch/v1alpha1
+kind: SmartGateway
+metadata:
+  name: cloud1-notify
+spec:
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"
 
 ---
 apiVersion: smartgateway.infra.watch/v1alpha1
 kind: SmartGateway
 metadata:
- name: cloud2-telemetry
+  name: cloud2-notify
 spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
- serviceType: metrics
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud2-notify
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify
- serviceType: events</pre>
+  size: 1
+  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
+  service_type: events
+  debug: "false"
+  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
+  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+  use_tls: "true"
+  tls_client_cert: /config/certs/admin-cert
+  tls_client_key: /config/certs/admin-key
+  tls_ca_cert: /config/certs/admin-ca
+  reset_index: "true"</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1196,7 +1285,7 @@ spec:
 <h3 id="querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-saf">Querying metrics data from multiple clouds</h3>
 <div class="paragraph">
 <p>Data stored in Prometheus has a "service" label attached according to the
-smart gateway it was scraped from. You can use this label to query data from a
+Smart Gateway it was scraped from. You can use this label to query data from a
 specific cloud.</p>
 </div>
 <div class="paragraph">
@@ -1743,7 +1832,7 @@ collectd::plugin::turbostat::logical_core_names</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-09 16:46:34 UTC
+Last updated 2019-10-25 12:04:28 UTC
 </div>
 </div>
 </body>
