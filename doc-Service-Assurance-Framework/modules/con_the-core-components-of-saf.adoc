@@ -23,8 +23,8 @@
 [id='installing-the-core-components-of-saf_{context}']
 = Installing the core components of {ProjectShort}
 
-When you install SAF, use the `oc` tool or web interface to load Kubernetes
-manifests into OpenShift. The manifests set the required state of objects, for
+When you install {ProjectShort}, use the `oc` tool or web interface to load Kubernetes
+manifests into {OpenShiftShort}. The manifests set the required state of objects, for
 example, creating a deployment. You can find the manifests for {ProjectShort}
 in the `deploy/` directory of the telemetry-framework release archive.
 
