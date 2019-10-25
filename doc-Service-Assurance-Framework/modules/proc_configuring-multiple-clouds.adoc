@@ -28,7 +28,7 @@ To configure multiple OpenStack clouds to target a single instance of {projectsh
 . Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
 . Deploy metrics and events consumer Smart Gateways for each cloud to listen on
  the corresponding address prefixes. For more information, see <<deploying-smart-gateways_connecting-multiple-clouds-to-saf>>.
-. (Optionally) Delete the default Smart Gateways if they are no longer needed, see <<deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf>>.
+. (Optional) Delete the default Smart Gateways if they are no longer needed, see <<deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf>>.
 . Configure each cloud to send its metrics and events to SAF on the
  correct address. For more information, see <<updating-collectd-configuration_connecting-multiple-clouds-to-saf>>.
 
