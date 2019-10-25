@@ -21,13 +21,17 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='importing-the-container-images-for-saf_{context}']
-= Importing the container images for SAF
+= Importing the container images for {ProjectShort}
 
-To import the container images as image streams into OpenShift, run the following commands:
+To import the container images as image streams into OpenShift, run the
+following commands:
 
+[source,bash]
 ----
 cd deploy/
 ./import-downstream.sh
 ----
 
-For more information about image streams, see link:https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams[Builds and Image Streams].
+For more information about image streams, see
+link:https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams[Builds
+and Image Streams].

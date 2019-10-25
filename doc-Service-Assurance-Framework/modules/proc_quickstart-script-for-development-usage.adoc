@@ -23,9 +23,10 @@
 [id='quickstart-script-for-development-usage_{context}']
 = Quickstart script for development use
 
-You can use a script to deploy SAF into an existing {OpenShift} environment for development purposes. It is not intended for
-production environments. The script runs all of the required steps for a
-single-cloud setup. Ensure that the following tools are installed before execution:
+You can use a script to deploy SAF into an existing {OpenShift} environment for
+development purposes. It is not intended for production environments. The
+script runs all of the required steps for a single-cloud setup. Ensure that the
+following tools are installed before execution:
 
 * Ansible 2.7+
 * OpenShift CLI (oc from https://github.com/openshift/origin/releases/tag/v3.11.0)

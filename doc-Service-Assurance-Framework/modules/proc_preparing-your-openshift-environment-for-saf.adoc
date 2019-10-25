@@ -25,7 +25,7 @@
 
 Complete the following steps:
 
-. Log into your {OpenShift} environment. Create and switch to the `sa-telemetry` namespace in your {OpenShift} environment:
+. Log into your {OpenShiftShort} environment. Create and switch to the `sa-telemetry` namespace in your {OpenShiftShort} environment:
 +
 ----
     oc login https://console.service-assurance.tld:8443
@@ -46,7 +46,13 @@ Complete the following steps:
     unzip telemetry-framework.zip
     cd telemetry-framework-<release_version>
 ----
-+
-. The cluster administrator must set `vm.max_map_count` sysctl to `262144` on
-the host level of each node in your cluster prior to instantiating an SAF
-instance if you intend to deploy ElasticSearch.
+
+[WARNING]
+====
+The cluster administrator must set `vm.max_map_count` sysctl to
+`262144` on the host level of each node in your cluster prior to instantiating
+an {ProjectShort} instance if you intend to deploy ElasticSearch.
+----
+sudo sysctl -w vm.max_map_count=262144
+----
+====
