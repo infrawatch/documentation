@@ -39,6 +39,7 @@
 include::../modules/proc_configuring-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+1]
 include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+1]
+include::../modules/ref_example-manifests.adoc[leveloffset=+2]
 include::../modules/proc_updating-collectd-configuration.adoc[leveloffset=+1]
 include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset=+1]

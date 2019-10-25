@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+1]
+// include::<path>/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,11 +20,23 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="querying-metrics-data-from-multiple-clouds_{context}"]
-= Querying metrics data from multiple clouds
+[id="deleting-the-default-smart-gateways_{context}"]
+= Deleting the default Smart Gateways
 
-Data stored in Prometheus has a "service" label attached according to the
-Smart Gateway it was scraped from. You can use this label to query data from a
-specific cloud.
+Once you have configured SAF for multiple clouds, you may want to delete the
+default Smart Gateways if they are no longer in use.
 
-To query data from a specific cloud, use a Prometheus `promql` query that matches the associated "service" label; for example: `sa_collectd_uptime{service="cloud1-smartgateway"}`.
+The steps are:
+
+. Delete default Smart Gateways from the cluster.
++
+----
+oc delete smartgateway cloud1-notify cloud1-telemetry
+----
+. (Optionally) Delete the default manifests
++
+----
+rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml
+----
+[NOTE]
+The default manifests will be regenerated if you re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf,Generating the manifests for SAF>> step.

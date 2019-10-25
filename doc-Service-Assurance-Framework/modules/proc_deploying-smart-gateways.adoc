@@ -21,43 +21,32 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="deploying-smart-gateways_{context}"]
-= Deploying smart gateways
+= Deploying Smart Gateways
 
-You must deploy two smart gateways for each cloud; one for metrics and one for events. Configure both smart gateways to listen on the correct AMQP address.  For example:
+You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address defined for the corresponding cloud.
 
+When you deploy SAF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways handling the metrics and the events data for each cloud.
+
+To deploy multiple Smart Gateways, complete the following steps:
+
+. Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. For more information, see <<example-manifests_connecting-multiple-clouds-to-saf>>.
++
 ----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud1-telemetry
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
- serviceType: metrics
+pushd deploy/service-assurance/smartgateway/
+cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
+cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
+vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
+popd
+----
 
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud1-notify
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify
- serviceType: events
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud2-telemetry
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
- serviceType: metrics
-
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
- name: cloud2-notify
-spec:
- amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify
- serviceType: events
+. Deploy your new Smart Gateways.
++
+----
+oc create -f deploy/service-assurance/smartgateway/
+----
+. Verify that each Smart Gateway is running. This can take several minutes
+depending on the number of Smart Gateways.
++
+----
+oc get po -l app=smart-gateway
 ----
