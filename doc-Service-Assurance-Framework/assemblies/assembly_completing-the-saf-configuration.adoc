@@ -26,7 +26,7 @@
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
 [id='completing-the-saf-configuration_{context}']
-= Completing the SAF configuration
+= Completing the {Project} configuration
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if

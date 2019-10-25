@@ -21,11 +21,11 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='prerequisites-for-saf-deployment_{context}']
-= Prerequisites for {ProjectShort} Deployment
+= Prerequisites for {ProjectShort} deployment
 
 Complete the following prerequisite tasks:
 
-. Install a suitable platform on which to install {OpenShiftShort}, for
+. Install a suitable platform on which to install {Openshift} ({OpenShiftShort}), for
 example,
 link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/[Red
 Hat OpenStack Platform]. If you already have an {OpenShiftShort} 3.11

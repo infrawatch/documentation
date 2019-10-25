@@ -23,9 +23,9 @@
 [id="updating-collectd-configuration_{context}"]
 = Updating collectd configuration
 
-To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack director configuration to include the following `CollectdAmqpInstances`.
+To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your {OpenStackLong} {OpenStackInstaller} configuration to include the following `CollectdAmqpInstances`.
 
-metrics-collectd-qdr.yaml
+.metrics-collectd-qdr.yaml
 ----
 parameter_defaults:
    CollectdAmqpInstances:

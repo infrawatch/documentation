@@ -24,13 +24,13 @@
 = Generating a TLS certificate for {MessageBus}
 
 To get the remote {MessageBus} connections through the {OpenShiftShort} route,
-use TLS/SSL certificates. The following two commands create the appropriate
+use TLS/SSL certificates. The following commands create the appropriate
 certificate files locally and load the contents into a secret for use by
-{MessageBus}. The {MessageBus} on the client side connects to the route address
+{MessageBus}. The {MessageBus} message bus on the client side connects to the route address
 (DNS address) for the {MessageBus} service on port 443.
 
 . Generate an unsigned certificate. If you have a signed certificate to load
-into {OpenShift}, go to the next step.
+into {OpenShiftShort}, go to the next step.
 +
 ----
     openssl req -new -x509 -batch -nodes -days 11000 \
@@ -39,7 +39,7 @@ into {OpenShift}, go to the next step.
       -keyout /tmp/tls.key
 ----
 
-. Use the oc command to import the certificate into {OpenShift}:
+. Use the oc command to import the certificate into {OpenShiftShort}:
 +
 ----
     oc create secret tls qdr-white-cert \

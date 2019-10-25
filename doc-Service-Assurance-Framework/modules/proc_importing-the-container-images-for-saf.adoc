@@ -23,7 +23,7 @@
 [id='importing-the-container-images-for-saf_{context}']
 = Importing the container images for {ProjectShort}
 
-To import the container images as image streams into OpenShift, run the
+To import the container images as image streams into {OpenShiftShort}, run the
 following commands:
 
 [source,bash]

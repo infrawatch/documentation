@@ -24,7 +24,7 @@
 = Example manifests
 
 [IMPORTANT]
-The content in the following examples may be different to the file content in your deployment. Copy the manifests in your deployment.
+The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
 
 Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
 

@@ -23,7 +23,7 @@
 [id="planning-amqp-address-prefixes_{context}"]
 = Planning AMQP address prefixes
 
-By default, OpenStack nodes are configured to send data to the `collectd/telemetry` and `collectd/notify` addresses on the AMQP bus; and SAF is configured to listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address.
+By default, {OpenStack} nodes are configured to send data to the `collectd/telemetry` and `collectd/notify` addresses on the AMQP bus; and {ProjectShort} is configured to listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address.
 
 It is recommended that you prefix a cloud identifier to the second part of the
 address. For example:
