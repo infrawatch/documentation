@@ -47,7 +47,7 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following
 layers:
 
 * {Project} 1.x ({ProjectShort})
-* {OpenShiftLong} ({OpenShiftShort})
+* {OpenShift} ({OpenShiftShort})
 * Infrastructure platform
 
 image::SAF_Overview_37_0819_deployment_prereq.png[]

@@ -30,7 +30,7 @@ include::../common/tech_preview.adoc[leveloffset=+1]
 endif::[]
 
 
-{Project} ({ProjectShort}) is an application that runs on the {OpenShiftLong}
+{Project} ({ProjectShort}) is an application that runs on the {OpenShift}
 ({OpenShiftShort}). Use {ProjectShort} to collect metrics and record events
 from the nodes in your systems that you want to monitor. The metrics and event
 information travels on a message bus to the server side for storage. Use this
