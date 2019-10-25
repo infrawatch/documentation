@@ -21,12 +21,19 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='deploying-saf-to-the-openshift-environment_{context}']
-= Deploying SAF to the OpenShift environment
+= Deploying {ProjectShort} to the OpenShift environment
 
-To install SAF in an OpenShift environment, complete the following tasks:
+To install {ProjectShort} in an {OpenShiftShort} environment, complete the
+following tasks:
 
-. Import the downstream container images into the `sa-telemetry` namespace using the `import-downstream.sh` script. For more information, see <<importing-the-container-images-for-saf_installing-the-core-components-of-saf>>.
+. Import the {build} container images into the `sa-telemetry` namespace using
+the _import-{build}.sh_ script. For more information, see
+<<importing-the-container-images-for-saf_installing-the-core-components-of-saf>>.
 
-. Generate the custom manifests using the Ansible playbook `deploy_builder.yaml` via the `ansible-playbook` command. For more information, see <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>>.
+. Generate the custom manifests using the Ansible playbook
+`deploy_builder.yaml` via the `ansible-playbook` command. For more information,
+see <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>>.
 
-. Execute the `deploy.sh` script to create the Kubernetes objects in the OpenShift environment. For more information, see <<installing-saf-components-using-a-script_installing-the-core-components-of-saf>>.
+. Execute the `deploy.sh` script to create the Kubernetes objects in the
+{OpenShiftShort} environment. For more information, see
+<<installing-saf-components-using-a-script_installing-the-core-components-of-saf>>.

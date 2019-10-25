@@ -4,23 +4,28 @@
 
 ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift
-:OpenShiftShort: OpenShift
+:OpenShiftShort: OKD
+:OpenStack: OpenStack
+:OpenStackVersion: Queens
+:OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
+:OpenStackInstaller: TripleO
 :OVirt: oVirt
 :OVirtShort: oVirt
-:OpenStack: OpenStack
 :Project: Service{nbsp}Assurance{nbsp}Framework
 :ProjectShort: SAF
-:MessageBus: QPID
+:MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
 endif::[]
 
 ifeval::["{build}" == "downstream"]
 :OpenShift: Red{nbsp}Hat{nbsp}OpenShift{nbsp}Container{nbsp}Platform
 :OpenShiftShort: OCP
+:OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
+:OpenStackVersion: 13
+:OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
+:OpenStackInstaller: Director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
 :OVirtShort: RHV
-:OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
 :Project: Service{nbsp}Assurance{nbsp}Framework
 :ProjectShort: SAF
 :MessageBus: AMQ{nbsp}Interconnect
-
 endif::[]

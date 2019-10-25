@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_importing-the-container-images-for-saf.adoc[leveloffset=+1]
+// include::<path>/proc_quickstart-script-for-development-usage.adoc.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,18 +20,16 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='importing-the-container-images-for-saf_{context}']
-= Importing the container images for {ProjectShort}
+[id='quickstart-script-for-development-usage_{context}']
+= Quickstart script for development use
 
-To import the container images as image streams into OpenShift, run the
-following commands:
+You can use a script to deploy SAF into an existing {OpenShift} environment for
+development purposes. It is not intended for production environments. The
+script runs all of the required steps for a single-cloud setup. Ensure that the
+following tools are installed before execution:
 
-[source,bash]
-----
-cd deploy/
-./import-downstream.sh
-----
+* Ansible 2.7+
+* OpenShift CLI (oc from https://github.com/openshift/origin/releases/tag/v3.11.0)
+* openssl
 
-For more information about image streams, see
-link:https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams[Builds
-and Image Streams].
+The script is at the following location: https://github.com/redhat-service-assurance/telemetry-framework/blob/master/deploy/quickstart.sh
