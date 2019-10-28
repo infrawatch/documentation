@@ -35,7 +35,7 @@
 
 The following diagram is an overview of {ProjectShort} architecture:
 
-image::SAF_Overview_37_0819_arch.png[]
+image::OpenStack_SAF_Overview_37_1019_arch.png[]
 
 On the client side, collectd collects high-resolution metrics. The data is
 delivered to Prometheus using the AMQP1 plugin, which places the data onto the
