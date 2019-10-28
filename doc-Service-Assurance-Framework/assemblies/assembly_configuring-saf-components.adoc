@@ -26,7 +26,7 @@
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
 [id='configuring-saf-components_{context}']
-= Configuring SAF data collection
+= Configuring {Project} data collection
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
@@ -35,7 +35,7 @@
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
-After you install the SAF server-side components, you are ready to configure SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This section describes how to install and configure collectd.
+After you install the {Project} ({ProjectShort}) server-side components, you are ready to configure the {ProjectShort} data collection to collect data and store it on the cloud platform side.  You must enable data collection within your {OpenStack} environment and direct it back to {ProjectShort}.  This section describes how to install and configure collectd.
 
 
 

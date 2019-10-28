@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="using-the-amq-interconnect-message-bus_{context}"]
-= Using the AMQ Interconnect message bus
+= Using the {MessageBus} message bus
 
-To use the AMQ Interconnect message bus, see
+To use {MessageBus}, see
 link:https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index[Using AMQ Interconnect].

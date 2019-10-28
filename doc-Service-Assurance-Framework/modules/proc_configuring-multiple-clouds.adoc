@@ -23,15 +23,15 @@
 [id="configuring-multiple-clouds_{context}"]
 = Configuring multiple clouds
 
-To configure multiple OpenStack clouds to target a single instance of {projectshort}, complete the following tasks:
+To configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}), complete the following tasks:
 
 . Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf>>.
 . Deploy metrics and events consumer Smart Gateways for each cloud to listen on
  the corresponding address prefixes. For more information, see <<deploying-smart-gateways_connecting-multiple-clouds-to-saf>>.
-. (Optional) Delete the default Smart Gateways if they are no longer needed, see <<deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf>>.
-. Configure each cloud to send its metrics and events to SAF on the
+. Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <<deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf>>.
+. Configure each cloud to send its metrics and events to {ProjectShort} on the
  correct address. For more information, see <<updating-collectd-configuration_connecting-multiple-clouds-to-saf>>.
 
-The following diagram demonstrates how two OpenStack clouds connect to Service Assurance Framework.
+The following diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
 
 image::OpenStack_SAF_Overview_37_0919_topology.png[]

@@ -26,7 +26,7 @@
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
 [id='installing-the-core-components-of-saf_{context}']
-= Installing the core components of SAF
+= Installing the core components of {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
@@ -42,7 +42,7 @@
 // (== Heading) in the assembly.
 
 This section describes the prerequisites required for a successful
-{ProjectShort} installation and describes the installation of the core
+{Project} ({ProjectShort}) installation and describes the installation of the core
 {ProjectShort} components.
 
 include::../modules/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]

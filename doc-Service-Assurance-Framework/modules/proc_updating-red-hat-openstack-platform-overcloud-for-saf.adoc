@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='updating-red-hat-openstack-platform-overcloud-for-saf_{context}']
-= Updating {OpenStack} overcloud for SAF
+= Updating {OpenStack} overcloud for {ProjectShort}
 
 Below is an example `openstack overcloud deploy` command with the `metrics-collectd-qdr-overrides.yaml` environment file that you configured in the previous section. Note the two environment file lines that you must provide in the deploy command.
 
@@ -48,7 +48,7 @@ openstack overcloud deploy \
 ====
 The SSL certificates for the `MetricsQdr` service are configured to generate
 only for the `InternalApi` network but the default Ceph role does not use the
-`InternalApi` network. To deploy SAF client when InternalTLS is enabled, use
+`InternalApi` network. To deploy {ProjectShort} client when InternalTLS is enabled, use
 this workaround: pass the custom Ceph role, which has `InternalApi` network, to
 `openstack overcloud deploy` when InternalTLS is enabled in the deployment.
 ====

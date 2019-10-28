@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='installing-the-core-components-of-saf_{context}']
-= Installing the core components of {ProjectShort}
+= The core components of {ProjectShort}
 
 When you install {ProjectShort}, use the `oc` tool or web interface to load Kubernetes
 manifests into {OpenShiftShort}. The manifests set the required state of objects, for
@@ -50,7 +50,7 @@ application components and objects.
 To prepare your environment for {ProjectShort}, complete the following
 procedures:
 
-. Prepare your {OpenShift} environment for {ProjectShort}. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+. Prepare your {OpenShiftShort} environment for {ProjectShort}. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
 
 ifeval::["{build}" == "downstream"]
 . Create an RHCC Secret. For more information, see <<creating-an-rhcc-secret_installing-the-core-components-of-saf>>.
@@ -62,4 +62,4 @@ endif::[]
 . Generate TLS certificates for ElasticSearch. For more information, see
 <<generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf>>.
 
-. Deploy {ProjectShort} to the OpenShift environment. For more information, see <<deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf>>.
+. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf>>.

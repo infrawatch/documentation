@@ -26,7 +26,7 @@
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
 [id='connecting-multiple-clouds-to-saf_{context}']
-= Connecting multiple clouds to SAF
+= Connecting multiple clouds to {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
@@ -40,6 +40,7 @@ include::../modules/proc_configuring-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+1]
 include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+1]
 include::../modules/ref_example-manifests.adoc[leveloffset=+2]
+include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+1f]
 include::../modules/proc_updating-collectd-configuration.adoc[leveloffset=+1]
 include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset=+1]

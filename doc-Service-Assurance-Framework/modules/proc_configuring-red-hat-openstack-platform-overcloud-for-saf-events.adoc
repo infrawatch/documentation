@@ -21,12 +21,12 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='configuring-red-hat-openstack-platform-overcloud-for-saf-events_{context}']
-= Configuring the {OpenStack} overcloud for SAF events
+= Configuring the {OpenStack} overcloud for {ProjectShort} events
 
 The procedure to enable the collection of events on the client side is similar to the procedure that you follow to
 configure metric collection in
 <<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>. The following sample
-contains a snippet from the `metrics-collectd-qdr-overrides.yaml` environment file that
+is from the `metrics-collectd-qdr-overrides.yaml` environment file that
 you can pass to a {OpenstackLong} {OpenStackInstaller} deployment to configure and
 setup collectd and {MessageBus}.
 

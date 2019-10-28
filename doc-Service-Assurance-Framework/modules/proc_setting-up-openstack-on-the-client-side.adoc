@@ -21,10 +21,10 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="setting-up-openstack-on-the-client-side_{context}"]
-= Setting up OpenStack on the client side
+= Setting up {OpenStack} on the client side
 
-To collect metrics, events, or both and send them back to the {ProjectShort}
+To collect metrics, events, or both, and to send them back to the {ProjectShort}
 storage domain, you must install collectd and {MessageBus} on the nodes of an
 {OpenStack} deployment. The following sections show you how to configure the
 {OpenStackLong} {OpenStackInstaller} to enable the data collection
-functionality and to stream the data to {ProjectShort}.
+functionality and to stream the data to {Project} ({ProjectShort}).

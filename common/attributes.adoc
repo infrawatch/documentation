@@ -22,7 +22,7 @@ ifeval::["{build}" == "downstream"]
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
 :OpenStackVersion: 13
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
-:OpenStackInstaller: Director
+:OpenStackInstaller: director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
 :OVirtShort: RHV
 :Project: Service{nbsp}Assurance{nbsp}Framework
