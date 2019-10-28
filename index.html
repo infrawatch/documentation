@@ -454,18 +454,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#installation-size_introduction-to-service-assurance-framework">Installation size</a></li>
 </ul>
 </li>
-<li><a href="#installing-the-core-components-of-saf_introduction-to-service-assurance-framework">Installing the core components of SAF</a>
+<li><a href="#installing-the-core-components-of-saf_introduction-to-service-assurance-framework">Installing the core components of Service&#160;Assurance&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#prerequisites-for-saf-deployment_installing-the-core-components-of-saf">Prerequisites for SAF Deployment</a></li>
-<li><a href="#installing-the-core-components-of-saf_installing-the-core-components-of-saf">Installing the core components of SAF</a></li>
-<li><a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OpenShift environment for SAF</a></li>
+<li><a href="#prerequisites-for-saf-deployment_installing-the-core-components-of-saf">Prerequisites for SAF deployment</a></li>
+<li><a href="#installing-the-core-components-of-saf_installing-the-core-components-of-saf">The core components of SAF</a></li>
+<li><a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</a></li>
 <li><a href="#quickstart-script-for-development-usage_installing-the-core-components-of-saf">Quickstart script for development use</a></li>
 <li><a href="#generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</a></li>
 <li><a href="#generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf">Generating TLS certificates for ElasticSearch</a></li>
-<li><a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OpenShift environment</a></li>
+<li><a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OKD environment</a></li>
 </ul>
 </li>
-<li><a href="#completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the SAF configuration</a>
+<li><a href="#completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the Service&#160;Assurance&#160;Framework configuration</a>
 <ul class="sectlevel2">
 <li><a href="#setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Setting up OpenStack on the client side</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a></li>
@@ -474,20 +474,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#conclusion_completing-the-saf-configuration">Completion of server-side installation</a></li>
 </ul>
 </li>
-<li><a href="#configuring-saf-components_completing-the-saf-configuration">Configuring SAF data collection</a>
+<li><a href="#configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</a>
 <ul class="sectlevel2">
 <li><a href="#data-collecting-agent_configuring-saf-components">Data collecting agent</a></li>
 <li><a href="#installing-collectd">Installing collectd</a></li>
 </ul>
 </li>
-<li><a href="#connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to SAF</a>
+<li><a href="#connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to Service&#160;Assurance&#160;Framework</a>
 <ul class="sectlevel2">
 <li><a href="#configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</a></li>
 <li><a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</a></li>
 <li><a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</a></li>
+<li><a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf">Deleting the default Smart Gateways</a></li>
 <li><a href="#updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</a></li>
 <li><a href="#querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-saf">Querying metrics data from multiple clouds</a></li>
-<li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the AMQ Interconnect message bus</a></li>
+<li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</a></li>
 </ul>
 </li>
 <li><a href="#appe-saf-collectd-plugins">Appendix A: collectd plugins</a></li>
@@ -606,27 +607,27 @@ Level Hardware Requirements</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-the-core-components-of-saf_introduction-to-service-assurance-framework">Installing the core components of SAF</h2>
+<h2 id="installing-the-core-components-of-saf_introduction-to-service-assurance-framework">Installing the core components of Service&#160;Assurance&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the prerequisites required for a successful
-SAF installation and describes the installation of the core
+Service&#160;Assurance&#160;Framework (SAF) installation and describes the installation of the core
 SAF components.</p>
 </div>
 <div class="sect2">
-<h3 id="prerequisites-for-saf-deployment_installing-the-core-components-of-saf">Prerequisites for SAF Deployment</h3>
+<h3 id="prerequisites-for-saf-deployment_installing-the-core-components-of-saf">Prerequisites for SAF deployment</h3>
 <div class="paragraph">
 <p>Complete the following prerequisite tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install a suitable platform on which to install OKD, for
+<p>Install a suitable platform on which to install OpenShift (OKD), for
 example,
 <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/">Red
 Hat OpenStack Platform</a>. If you already have an OKD 3.11
 environment, see
-<a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OpenShift environment for SAF</a>.</p>
+<a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</a>.</p>
 </li>
 <li>
 <p>Install OKD. For more information, see
@@ -642,7 +643,7 @@ namespace.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="installing-the-core-components-of-saf_installing-the-core-components-of-saf">Installing the core components of SAF</h3>
+<h3 id="installing-the-core-components-of-saf_installing-the-core-components-of-saf">The core components of SAF</h3>
 <div class="paragraph">
 <p>When you install SAF, use the <code>oc</code> tool or web interface to load Kubernetes
 manifests into OKD. The manifests set the required state of objects, for
@@ -690,7 +691,7 @@ procedures:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Prepare your OpenShift environment for SAF. For more information, see <a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OpenShift environment for SAF</a>.</p>
+<p>Prepare your OKD environment for SAF. For more information, see <a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</a>.</p>
 </li>
 <li>
 <p>Generate a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router. For more information, see
@@ -701,13 +702,13 @@ procedures:</p>
 <a href="#generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf">Generating TLS certificates for ElasticSearch</a>.</p>
 </li>
 <li>
-<p>Deploy SAF to the OpenShift environment. For more information, see <a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OpenShift environment</a>.</p>
+<p>Deploy SAF to the OKD environment. For more information, see <a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OKD environment</a>.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OpenShift environment for SAF</h3>
+<h3 id="preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</h3>
 <div class="paragraph">
 <p>Complete the following steps:</p>
 </div>
@@ -794,16 +795,16 @@ following tools are installed before execution:</p>
 <h3 id="generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</h3>
 <div class="paragraph">
 <p>To get the remote Apache&#160;Qpid&#160;Dispatch&#160;Router connections through the OKD route,
-use TLS/SSL certificates. The following two commands create the appropriate
+use TLS/SSL certificates. The following commands create the appropriate
 certificate files locally and load the contents into a secret for use by
-Apache&#160;Qpid&#160;Dispatch&#160;Router. The Apache&#160;Qpid&#160;Dispatch&#160;Router on the client side connects to the route address
+Apache&#160;Qpid&#160;Dispatch&#160;Router. The Apache&#160;Qpid&#160;Dispatch&#160;Router message bus on the client side connects to the route address
 (DNS address) for the Apache&#160;Qpid&#160;Dispatch&#160;Router service on port 443.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Generate an unsigned certificate. If you have a signed certificate to load
-into OpenShift, go to the next step.</p>
+into OKD, go to the next step.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    openssl req -new -x509 -batch -nodes -days 11000 \
@@ -814,7 +815,7 @@ into OpenShift, go to the next step.</p>
 </div>
 </li>
 <li>
-<p>Use the oc command to import the certificate into OpenShift:</p>
+<p>Use the oc command to import the certificate into OKD:</p>
 <div class="listingblock">
 <div class="content">
 <pre>    oc create secret tls qdr-white-cert \
@@ -830,13 +831,13 @@ into OpenShift, go to the next step.</p>
 <h3 id="generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf">Generating TLS certificates for ElasticSearch</h3>
 <div class="paragraph">
 <p>To connect the Smart Gateway to ElasticSearch for events storage, you must
-generate certificates and load them as a secret into OpenShift.</p>
+generate certificates and load them as a secret into OKD.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Generate the unsigned certificates. If you have signed certificates to load
-into OpenShift, go to the next section.</p>
+into OKD, go to the next section.</p>
 <div class="listingblock">
 <div class="content">
 <pre>  WORKING_DIR=./es-certs \  # <b class="conum">(1)</b>
@@ -864,9 +865,9 @@ certificate, CA, and key files.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OpenShift environment</h3>
+<h3 id="deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OKD environment</h3>
 <div class="paragraph">
-<p>To install SAF in an OKD environment, complete the
+<p>To deploy SAF to an OKD environment, complete the
 following tasks:</p>
 </div>
 <div class="olist arabic">
@@ -878,7 +879,7 @@ the <em>import-upstream.sh</em> script. For more information, see
 </li>
 <li>
 <p>Generate the custom manifests using the Ansible playbook
-<code>deploy_builder.yaml</code> via the <code>ansible-playbook</code> command. For more information,
+<code>deploy_builder.yaml</code> using the <code>ansible-playbook</code> command. For more information,
 see <a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</a>.</p>
 </li>
 <li>
@@ -891,7 +892,7 @@ OKD environment. For more information, see
 <div class="sect3">
 <h4 id="importing-the-container-images-for-saf_installing-the-core-components-of-saf">Importing the container images for SAF</h4>
 <div class="paragraph">
-<p>To import the container images as image streams into OpenShift, run the
+<p>To import the container images as image streams into OKD, run the
 following commands:</p>
 </div>
 <div class="listingblock">
@@ -987,7 +988,7 @@ to create it.</p>
 <li>
 <p>You have extracted the contents of the telemetry-framework release archive
 and have changed to the extracted directory. For more information, see
-<a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OpenShift environment for SAF</a>.</p>
+<a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</a>.</p>
 </li>
 </ol>
 </div>
@@ -1008,16 +1009,16 @@ argument to the script.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the SAF configuration</h2>
+<h2 id="completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the Service&#160;Assurance&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Setting up OpenStack on the client side</h3>
 <div class="paragraph">
-<p>To collect metrics, events, or both and send them back to the SAF
+<p>To collect metrics, events, or both, and to send them back to the SAF
 storage domain, you must install collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router on the nodes of an
 OpenStack deployment. The following sections show you how to configure the
 OpenStack&#160;Queens TripleO to enable the data collection
-functionality and to stream the data to SAF.</p>
+functionality and to stream the data to Service&#160;Assurance&#160;Framework (SAF).</p>
 </div>
 </div>
 <div class="sect2">
@@ -1046,7 +1047,7 @@ functionality and to stream the data to SAF.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The following snippet is from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that you can pass to a OpenStack&#160;Queens TripleO deployment to configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
+<p>The following sample is from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that you can pass to a OpenStack&#160;Queens TripleO deployment to configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
 <div class="listingblock">
 <div class="title">metrics-collectd-qdr-overrides.yaml</div>
@@ -1086,7 +1087,7 @@ parameter_defaults:
 <p>The procedure to enable the collection of events on the client side is similar to the procedure that you follow to
 configure metric collection in
 <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a>. The following sample
-contains a snippet from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that
+is from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that
 you can pass to a OpenStack&#160;Queens TripleO deployment to configure and
 setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
@@ -1203,7 +1204,7 @@ this workaround: pass the custom Ceph role, which has <code>InternalApi</code> n
 </div>
 </div>
 <div class="paragraph">
-<p>For more information on DCN configuration, see: <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/" class="bare">https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/</a></p>
+<p>For more information on DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> Guide.</p>
 </div>
 </div>
 </div>
@@ -1216,10 +1217,10 @@ this workaround: pass the custom Ceph role, which has <code>InternalApi</code> n
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuring-saf-components_completing-the-saf-configuration">Configuring SAF data collection</h2>
+<h2 id="configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After you install the SAF server-side components, you are ready to configure SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This section describes how to install and configure collectd.</p>
+<p>After you install the Service&#160;Assurance&#160;Framework (SAF) server-side components, you are ready to configure the SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This section describes how to install and configure collectd.</p>
 </div>
 <div class="sect2">
 <h3 id="data-collecting-agent_configuring-saf-components">Data collecting agent</h3>
@@ -1278,12 +1279,12 @@ monitor systems, find performance bottlenecks, and predict future system load.</
 </div>
 </div>
 <div class="sect1">
-<h2 id="connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to SAF</h2>
+<h2 id="connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to Service&#160;Assurance&#160;Framework</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</h3>
 <div class="paragraph">
-<p>To configure multiple OpenStack clouds to target a single instance of SAF, complete the following tasks:</p>
+<p>To configure multiple OpenStack clouds to target a single instance of Service&#160;Assurance&#160;Framework (SAF), complete the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1295,7 +1296,7 @@ monitor systems, find performance bottlenecks, and predict future system load.</
 the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</a>.</p>
 </li>
 <li>
-<p>(Optional) Delete the default Smart Gateways if they are no longer needed, see <a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf">[deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf]</a>.</p>
+<p>Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf">Deleting the default Smart Gateways</a>.</p>
 </li>
 <li>
 <p>Configure each cloud to send its metrics and events to SAF on the
@@ -1304,7 +1305,7 @@ correct address. For more information, see <a href="#updating-collectd-configura
 </ol>
 </div>
 <div class="paragraph">
-<p>The following diagram demonstrates how two OpenStack clouds connect to Service Assurance Framework.</p>
+<p>The following diagram demonstrates how two OpenStack clouds connect to SAF.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1400,7 +1401,7 @@ depending on the number of Smart Gateways.</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-The content in the following examples may be different to the file content in your deployment. Copy the manifests in your deployment.
+The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
 </td>
 </tr>
 </table>
@@ -1478,14 +1479,54 @@ spec:
 </div>
 </div>
 <div class="sect2">
+<h3 id="deleting-the-default-smart-gateways_connecting-multiple-clouds-to-saf">Deleting the default Smart Gateways</h3>
+<div class="paragraph">
+<p>When you have configured SAF for multiple clouds, you can delete the
+default Smart Gateways if they are no longer in use.</p>
+</div>
+<div class="paragraph">
+<p>To delete the Smart Gateways, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the default Smart Gateways from the cluster.</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc delete smartgateway cloud1-notify cloud1-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optional: Delete the default manifests.</p>
+<div class="listingblock">
+<div class="content">
+<pre>rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You can regenerate the default manifests if you re-run the <a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</a> step.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="updating-collectd-configuration_connecting-multiple-clouds-to-saf">Updating collectd configuration</h3>
 <div class="paragraph">
-<p>To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack director configuration to include the following <code>CollectdAmqpInstances</code>.</p>
-</div>
-<div class="paragraph">
-<p>metrics-collectd-qdr.yaml</p>
+<p>To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack&#160;Queens TripleO configuration to include the following <code>CollectdAmqpInstances</code>.</p>
 </div>
 <div class="listingblock">
+<div class="title">metrics-collectd-qdr.yaml</div>
 <div class="content">
 <pre>parameter_defaults:
    CollectdAmqpInstances:
@@ -1514,9 +1555,9 @@ specific cloud.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the AMQ Interconnect message bus</h3>
+<h3 id="using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</h3>
 <div class="paragraph">
-<p>To use the AMQ Interconnect message bus, see
+<p>To use Apache&#160;Qpid&#160;Dispatch&#160;Router, see
 <a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a>.</p>
 </div>
 </div>
@@ -2053,7 +2094,7 @@ collectd::plugin::turbostat::logical_core_names</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-25 12:40:19 UTC
+Last updated 2019-10-28 18:56:59 UTC
 </div>
 </div>
 </body>
