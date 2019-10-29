@@ -1567,525 +1567,1389 @@ specific cloud.</p>
 <h2 id="appe-saf-collectd-plugins">Appendix A: collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section contains a complete list of collectd plugins and configurations.
-collectd-aggregation::
-    collectd::plugin::aggregation::aggregators
-    collectd::plugin::aggregation::interval</p>
+<p>This section contains a complete list of collectd plugins and configurations.</p>
 </div>
 <div class="dlist">
 <dl>
+<dt class="hdlist1">collectd-aggregation</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::aggregation::aggregators</p>
+</li>
+<li>
+<p>collectd::plugin::aggregation::interval</p>
+</li>
+</ul>
+</div>
+</dd>
 <dt class="hdlist1">collectd-battery</dt>
 <dd>
-<p>collectd::plugin::battery::values_percentage
-collectd::plugin::battery::report_degraded
-collectd::plugin::battery::query_state_fs
-collectd::plugin::battery::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::battery::values_percentage</p>
+</li>
+<li>
+<p>collectd::plugin::battery::report_degraded</p>
+</li>
+<li>
+<p>collectd::plugin::battery::query_state_fs</p>
+</li>
+<li>
+<p>collectd::plugin::battery::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-cgroups</dt>
 <dd>
-<p>collectd::plugin::cgroups::ignore_selected
-collectd::plugin::cgroups::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::cgroups::ignore_selected</p>
+</li>
+<li>
+<p>collectd::plugin::cgroups::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-conntrack</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-contextswitch</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::contextswitch::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-cpu</dt>
 <dd>
-<p>collectd::plugin::cpu::reportbystate
-collectd::plugin::cpu::reportbycpu
-collectd::plugin::cpu::valuespercentage
-collectd::plugin::cpu::reportnumcpu
-collectd::plugin::cpu::reportgueststate
-collectd::plugin::cpu::subtractgueststate
-collectd::plugin::cpu::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::cpu::reportbystate</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::reportbycpu</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::valuespercentage</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::reportnumcpu</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::reportgueststate</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::subtractgueststate</p>
+</li>
+<li>
+<p>collectd::plugin::cpu::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-cpufreq</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-csv</dt>
 <dd>
-<p>collectd::plugin::csv::datadir
-collectd::plugin::csv::storerates
-collectd::plugin::csv::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::csv::datadir</p>
+</li>
+<li>
+<p>collectd::plugin::csv::storerates</p>
+</li>
+<li>
+<p>collectd::plugin::csv::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-df</dt>
 <dd>
-<p>collectd::plugin::df::devices
-collectd::plugin::df::fstypes
-collectd::plugin::df::ignoreselected
-collectd::plugin::df::mountpoints
-collectd::plugin::df::reportbydevice
-collectd::plugin::df::reportinodes
-collectd::plugin::df::reportreserved
-collectd::plugin::df::valuesabsolute
-collectd::plugin::df::valuespercentage
-collectd::plugin::df::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::df::devices</p>
+</li>
+<li>
+<p>collectd::plugin::df::fstypes</p>
+</li>
+<li>
+<p>collectd::plugin::df::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::df::mountpoints</p>
+</li>
+<li>
+<p>collectd::plugin::df::reportbydevice</p>
+</li>
+<li>
+<p>collectd::plugin::df::reportinodes</p>
+</li>
+<li>
+<p>collectd::plugin::df::reportreserved</p>
+</li>
+<li>
+<p>collectd::plugin::df::valuesabsolute</p>
+</li>
+<li>
+<p>collectd::plugin::df::valuespercentage</p>
+</li>
+<li>
+<p>collectd::plugin::df::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-entropy</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::entropy::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ethstat</dt>
 <dd>
-<p>collectd::plugin::ethstat::interfaces
-collectd::plugin::ethstat::maps
-collectd::plugin::ethstat::mappedonly
-collectd::plugin::ethstat::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ethstat::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::ethstat::maps</p>
+</li>
+<li>
+<p>collectd::plugin::ethstat::mappedonly</p>
+</li>
+<li>
+<p>collectd::plugin::ethstat::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-exec</dt>
 <dd>
-<p>collectd::plugin::exec::commands
-collectd::plugin::exec::commands_defaults
-collectd::plugin::exec::globals
-collectd::plugin::exec::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::exec::commands</p>
+</li>
+<li>
+<p>collectd::plugin::exec::commands_defaults</p>
+</li>
+<li>
+<p>collectd::plugin::exec::globals</p>
+</li>
+<li>
+<p>collectd::plugin::exec::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-fhcount</dt>
 <dd>
-<p>collectd::plugin::fhcount::valuesabsolute
-collectd::plugin::fhcount::valuespercentage
-collectd::plugin::fhcount::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::fhcount::valuesabsolute</p>
+</li>
+<li>
+<p>collectd::plugin::fhcount::valuespercentage</p>
+</li>
+<li>
+<p>collectd::plugin::fhcount::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-filecount</dt>
 <dd>
-<p>collectd::plugin::filecount::directories
-collectd::plugin::filecount::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::filecount::directories</p>
+</li>
+<li>
+<p>collectd::plugin::filecount::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-fscache</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-hddtemp</dt>
 <dd>
-<p>collectd::plugin::hddtemp::host
-collectd::plugin::hddtemp::port
-collectd::plugin::hddtemp::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::hddtemp::host</p>
+</li>
+<li>
+<p>collectd::plugin::hddtemp::port</p>
+</li>
+<li>
+<p>collectd::plugin::hddtemp::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-interface</dt>
 <dd>
-<p>collectd::plugin::interface::interfaces
-collectd::plugin::interface::ignoreselected
-collectd::plugin::interface::reportinactive
-Collectd::plugin::interface::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::interface::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::interface::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::interface::reportinactive</p>
+</li>
+<li>
+<p>Collectd::plugin::interface::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ipc</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-irq</dt>
 <dd>
-<p>collectd::plugin::irq::irqs
-collectd::plugin::irq::ignoreselected
-collectd::plugin::irq::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::irq::irqs</p>
+</li>
+<li>
+<p>collectd::plugin::irq::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::irq::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-load</dt>
 <dd>
-<p>collectd::plugin::load::report_relative
-collectd::plugin::load::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::load::report_relative</p>
+</li>
+<li>
+<p>collectd::plugin::load::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-logfile</dt>
 <dd>
-<p>collectd::plugin::logfile::log_level
-collectd::plugin::logfile::log_file
-collectd::plugin::logfile::log_timestamp
-collectd::plugin::logfile::print_severity
-collectd::plugin::logfile::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::logfile::log_level</p>
+</li>
+<li>
+<p>collectd::plugin::logfile::log_file</p>
+</li>
+<li>
+<p>collectd::plugin::logfile::log_timestamp</p>
+</li>
+<li>
+<p>collectd::plugin::logfile::print_severity</p>
+</li>
+<li>
+<p>collectd::plugin::logfile::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-memcached</dt>
 <dd>
-<p>collectd::plugin::memcached::instances
-collectd::plugin::memcached::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::memcached::instances</p>
+</li>
+<li>
+<p>collectd::plugin::memcached::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-memory</dt>
 <dd>
-<p>collectd::plugin::memory::valuesabsolute
-collectd::plugin::memory::valuespercentage
-collectd::plugin::memory::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::memory::valuesabsolute</p>
+</li>
+<li>
+<p>collectd::plugin::memory::valuespercentage</p>
+</li>
+<li>
+<p>collectd::plugin::memory::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-network</dt>
 <dd>
-<p>collectd::plugin::network::timetolive
-collectd::plugin::network::maxpacketsize
-collectd::plugin::network::forward
-collectd::plugin::network::reportstats
-collectd::plugin::network::listeners
-collectd::plugin::network::servers
-collectd::plugin::network::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::network::timetolive</p>
+</li>
+<li>
+<p>collectd::plugin::network::maxpacketsize</p>
+</li>
+<li>
+<p>collectd::plugin::network::forward</p>
+</li>
+<li>
+<p>collectd::plugin::network::reportstats</p>
+</li>
+<li>
+<p>collectd::plugin::network::listeners</p>
+</li>
+<li>
+<p>collectd::plugin::network::servers</p>
+</li>
+<li>
+<p>collectd::plugin::network::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-nfs</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::nfs::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ntpd</dt>
 <dd>
-<p>collectd::plugin::ntpd::host
-collectd::plugin::ntpd::port
-collectd::plugin::ntpd::reverselookups
-collectd::plugin::ntpd::includeunitid
-collectd::plugin::ntpd::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ntpd::host</p>
+</li>
+<li>
+<p>collectd::plugin::ntpd::port</p>
+</li>
+<li>
+<p>collectd::plugin::ntpd::reverselookups</p>
+</li>
+<li>
+<p>collectd::plugin::ntpd::includeunitid</p>
+</li>
+<li>
+<p>collectd::plugin::ntpd::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-numa</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-openvpn</dt>
 <dd>
-<p>collectd::plugin::openvpn::statusfile
-collectd::plugin::openvpn::improvednamingschema
-collectd::plugin::openvpn::collectcompression
-collectd::plugin::openvpn::collectindividualusers
-collectd::plugin::openvpn::collectusercount
-collectd::plugin::openvpn::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::openvpn::statusfile</p>
+</li>
+<li>
+<p>collectd::plugin::openvpn::improvednamingschema</p>
+</li>
+<li>
+<p>collectd::plugin::openvpn::collectcompression</p>
+</li>
+<li>
+<p>collectd::plugin::openvpn::collectindividualusers</p>
+</li>
+<li>
+<p>collectd::plugin::openvpn::collectusercount</p>
+</li>
+<li>
+<p>collectd::plugin::openvpn::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-powerdns</dt>
 <dd>
-<p>collectd::plugin::powerdns::interval
-collectd::plugin::powerdns::servers
-collectd::plugin::powerdns::recursors
-collectd::plugin::powerdns::local_socket
-collectd::plugin::powerdns::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::powerdns::interval</p>
+</li>
+<li>
+<p>collectd::plugin::powerdns::servers</p>
+</li>
+<li>
+<p>collectd::plugin::powerdns::recursors</p>
+</li>
+<li>
+<p>collectd::plugin::powerdns::local_socket</p>
+</li>
+<li>
+<p>collectd::plugin::powerdns::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-processes</dt>
 <dd>
-<p>collectd::plugin::processes::processes
-collectd::plugin::processes::process_matches
-collectd::plugin::processes::collect_context_switch
-collectd::plugin::processes::collect_file_descriptor
-collectd::plugin::processes::collect_memory_maps
-collectd::plugin::powerdns::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::processes::processes</p>
+</li>
+<li>
+<p>collectd::plugin::processes::process_matches</p>
+</li>
+<li>
+<p>collectd::plugin::processes::collect_context_switch</p>
+</li>
+<li>
+<p>collectd::plugin::processes::collect_file_descriptor</p>
+</li>
+<li>
+<p>collectd::plugin::processes::collect_memory_maps</p>
+</li>
+<li>
+<p>collectd::plugin::powerdns::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-protocols</dt>
 <dd>
-<p>collectd::plugin::protocols::ignoreselected
-collectd::plugin::protocols::values</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::protocols::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::protocols::values</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-statsd</dt>
 <dd>
-<p>collectd::plugin::statsd::host
-collectd::plugin::statsd::port
-collectd::plugin::statsd::deletecounters
-collectd::plugin::statsd::deletetimers
-collectd::plugin::statsd::deletegauges
-collectd::plugin::statsd::deletesets
-collectd::plugin::statsd::countersum
-collectd::plugin::statsd::timerpercentile
-collectd::plugin::statsd::timerlower
-collectd::plugin::statsd::timerupper
-collectd::plugin::statsd::timersum
-collectd::plugin::statsd::timercount
-collectd::plugin::statsd::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::statsd::host</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::port</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::deletecounters</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::deletetimers</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::deletegauges</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::deletesets</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::countersum</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::timerpercentile</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::timerlower</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::timerupper</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::timersum</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::timercount</p>
+</li>
+<li>
+<p>collectd::plugin::statsd::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-swap</dt>
 <dd>
-<p>collectd::plugin::swap::reportbydevice
-collectd::plugin::swap::reportbytes
-collectd::plugin::swap::valuesabsolute
-collectd::plugin::swap::valuespercentage
-collectd::plugin::swap::reportio
-collectd::plugin::swap::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::swap::reportbydevice</p>
+</li>
+<li>
+<p>collectd::plugin::swap::reportbytes</p>
+</li>
+<li>
+<p>collectd::plugin::swap::valuesabsolute</p>
+</li>
+<li>
+<p>collectd::plugin::swap::valuespercentage</p>
+</li>
+<li>
+<p>collectd::plugin::swap::reportio</p>
+</li>
+<li>
+<p>collectd::plugin::swap::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-syslog</dt>
 <dd>
-<p>collectd::plugin::syslog::log_level
-collectd::plugin::syslog::notify_level
-collectd::plugin::syslog::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::syslog::log_level</p>
+</li>
+<li>
+<p>collectd::plugin::syslog::notify_level</p>
+</li>
+<li>
+<p>collectd::plugin::syslog::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-table</dt>
 <dd>
-<p>collectd::plugin::table::tables
-collectd::plugin::table::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::table::tables</p>
+</li>
+<li>
+<p>collectd::plugin::table::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-tail</dt>
 <dd>
-<p>collectd::plugin::tail::files
-collectd::plugin::tail::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::tail::files</p>
+</li>
+<li>
+<p>collectd::plugin::tail::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-tail_csv</dt>
 <dd>
-<p>collectd::plugin::tail_csv::metrics
-collectd::plugin::tail_csv::files</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::tail_csv::metrics</p>
+</li>
+<li>
+<p>collectd::plugin::tail_csv::files</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-target_v5upgrade</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-tcpconns</dt>
 <dd>
-<p>collectd::plugin::tcpconns::localports
-collectd::plugin::tcpconns::remoteports
-collectd::plugin::tcpconns::listening
-collectd::plugin::tcpconns::allportssummary
-collectd::plugin::tcpconns::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::tcpconns::localports</p>
+</li>
+<li>
+<p>collectd::plugin::tcpconns::remoteports</p>
+</li>
+<li>
+<p>collectd::plugin::tcpconns::listening</p>
+</li>
+<li>
+<p>collectd::plugin::tcpconns::allportssummary</p>
+</li>
+<li>
+<p>collectd::plugin::tcpconns::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-thermal</dt>
 <dd>
-<p>collectd::plugin::thermal::devices
-collectd::plugin::thermal::ignoreselected
-collectd::plugin::thermal::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::thermal::devices</p>
+</li>
+<li>
+<p>collectd::plugin::thermal::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::thermal::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-threshold</dt>
 <dd>
-<p>collectd::plugin::threshold::types
-collectd::plugin::threshold::plugins
-collectd::plugin::threshold::hosts
-collectd::plugin::threshold::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::threshold::types</p>
+</li>
+<li>
+<p>collectd::plugin::threshold::plugins</p>
+</li>
+<li>
+<p>collectd::plugin::threshold::hosts</p>
+</li>
+<li>
+<p>collectd::plugin::threshold::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-uptime</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::uptime::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-users</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::users::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-uuid</dt>
 <dd>
-<p>collectd::plugin::uuid::uuid_file
-collectd::plugin::uuid::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::uuid::uuid_file</p>
+</li>
+<li>
+<p>collectd::plugin::uuid::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-vmem</dt>
 <dd>
-<p>collectd::plugin::vmem::verbose
-collectd::plugin::vmem::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::vmem::verbose</p>
+</li>
+<li>
+<p>collectd::plugin::vmem::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-write_graphite</dt>
 <dd>
-<p>collectd::plugin::write_graphite::carbons
-collectd::plugin::write_graphite::carbon_defaults
-collectd::plugin::write_graphite::globals</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::write_graphite::carbons</p>
+</li>
+<li>
+<p>collectd::plugin::write_graphite::carbon_defaults</p>
+</li>
+<li>
+<p>collectd::plugin::write_graphite::globals</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-write_log</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::write_log::format</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-zfs_arc</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>None</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-apache</dt>
 <dd>
-<p>collectd::plugin::apache::instances (ex.: {<em>localhost</em> &#8658; {<em>url</em> &#8658; <em><a href="http://localhost/mod_status?auto" class="bare">http://localhost/mod_status?auto</a></em>}})
-collectd::plugin::apache::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::apache::instances (ex.: {<em>localhost</em> &#8658; {<em>url</em> &#8658; <em><a href="http://localhost/mod_status?auto" class="bare">http://localhost/mod_status?auto</a></em>}})</p>
+</li>
+<li>
+<p>collectd::plugin::apache::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-bind</dt>
 <dd>
-<p>collectd::plugin::bind::url
-collectd::plugin::bind::memorystats
-collectd::plugin::bind::opcodes
-collectd::plugin::bind::parsetime
-collectd::plugin::bind::qtypes
-collectd::plugin::bind::resolverstats
-collectd::plugin::bind::serverstats
-collectd::plugin::bind::zonemaintstats
-collectd::plugin::bind::views
-collectd::plugin::bind::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::bind::url</p>
+</li>
+<li>
+<p>collectd::plugin::bind::memorystats</p>
+</li>
+<li>
+<p>collectd::plugin::bind::opcodes</p>
+</li>
+<li>
+<p>collectd::plugin::bind::parsetime</p>
+</li>
+<li>
+<p>collectd::plugin::bind::qtypes</p>
+</li>
+<li>
+<p>collectd::plugin::bind::resolverstats</p>
+</li>
+<li>
+<p>collectd::plugin::bind::serverstats</p>
+</li>
+<li>
+<p>collectd::plugin::bind::zonemaintstats</p>
+</li>
+<li>
+<p>collectd::plugin::bind::views</p>
+</li>
+<li>
+<p>collectd::plugin::bind::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ceph</dt>
 <dd>
-<p>collectd::plugin::ceph::daemons
-collectd::plugin::ceph::longrunavglatency
-collectd::plugin::ceph::convertspecialmetrictypes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ceph::daemons</p>
+</li>
+<li>
+<p>collectd::plugin::ceph::longrunavglatency</p>
+</li>
+<li>
+<p>collectd::plugin::ceph::convertspecialmetrictypes</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-curl</dt>
 <dd>
-<p>collectd::plugin::curl::pages
-collectd::plugin::curl::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::curl::pages</p>
+</li>
+<li>
+<p>collectd::plugin::curl::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-curl_json</dt>
 <dd>
-<p>collectd::plugin::curl_json::url
-collectd::plugin::curl_json::instance
-collectd::plugin::curl_json::keys
-collectd::plugin::curl_json::host
-collectd::plugin::curl_json::user
-collectd::plugin::curl_json::password
-collectd::plugin::curl_json::digest
-collectd::plugin::curl_json::verifypeer
-collectd::plugin::curl_json::verifyhost
-collectd::plugin::curl_json::cacert
-collectd::plugin::curl_json::header
-collectd::plugin::curl_json::post
-collectd::plugin::curl_json::timeout
-collectd::plugin::curl_json::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::curl_json::url</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::instance</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::keys</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::host</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::user</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::password</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::digest</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::verifypeer</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::verifyhost</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::cacert</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::header</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::post</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::timeout</p>
+</li>
+<li>
+<p>collectd::plugin::curl_json::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-dbi</dt>
 <dd>
-<p>collectd::plugin::dbi::databases
-collectd::plugin::dbi::queries
-collectd::plugin::dbi::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::dbi::databases</p>
+</li>
+<li>
+<p>collectd::plugin::dbi::queries</p>
+</li>
+<li>
+<p>collectd::plugin::dbi::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-disk</dt>
 <dd>
-<p>collectd::plugin::disk::disks
-collectd::plugin::disk::ignoreselected
-collectd::plugin::disk::udevnameattr
-collectd::plugin::disk::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::disk::disks</p>
+</li>
+<li>
+<p>collectd::plugin::disk::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::disk::udevnameattr</p>
+</li>
+<li>
+<p>collectd::plugin::disk::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
 <p>collectd-dns:
-    collectd::plugin::dns::ignoresource
-    collectd::plugin::dns::interface
-    collectd::plugin::dns::selectnumericquerytypes
-    collectd::plugin::dns::interval</p>
+* collectd::plugin::dns::ignoresource
+* collectd::plugin::dns::interface
+* collectd::plugin::dns::selectnumericquerytypes
+* collectd::plugin::dns::interval</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">collectd-generic-jmx</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::genericjmx::jvmarg</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ipmi</dt>
 <dd>
-<p>collectd::plugin::ipmi::ignore_selected
-collectd::plugin::ipmi::notify_sensor_add
-collectd::plugin::ipmi::notify_sensor_remove
-collectd::plugin::ipmi::notify_sensor_not_present
-collectd::plugin::ipmi::sensors
-collectd::plugin::ipmi::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ipmi::ignore_selected</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_add</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_remove</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_not_present</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::sensors</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-mysql</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::mysql::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-netlink</dt>
 <dd>
-<p>collectd::plugin::netlink::interfaces
-collectd::plugin::netlink::verboseinterfaces
-collectd::plugin::netlink::qdiscs
-collectd::plugin::netlink::classes
-collectd::plugin::netlink::filters
-collectd::plugin::netlink::ignoreselected
-collectd::plugin::netlink::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::netlink::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::verboseinterfaces</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::qdiscs</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::classes</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::filters</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-openldap</dt>
 <dd>
-<p>collectd::plugin::openldap::instances
-collectd::plugin::openldap::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::openldap::instances</p>
+</li>
+<li>
+<p>collectd::plugin::openldap::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ping</dt>
 <dd>
-<p>collectd::plugin::ping::hosts
-collectd::plugin::ping::timeout
-collectd::plugin::ping::ttl
-collectd::plugin::ping::source_address
-collectd::plugin::ping::device
-collectd::plugin::ping::max_missed
-collectd::plugin::ping::size
-collectd::plugin::ping::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ping::hosts</p>
+</li>
+<li>
+<p>collectd::plugin::ping::timeout</p>
+</li>
+<li>
+<p>collectd::plugin::ping::ttl</p>
+</li>
+<li>
+<p>collectd::plugin::ping::source_address</p>
+</li>
+<li>
+<p>collectd::plugin::ping::device</p>
+</li>
+<li>
+<p>collectd::plugin::ping::max_missed</p>
+</li>
+<li>
+<p>collectd::plugin::ping::size</p>
+</li>
+<li>
+<p>collectd::plugin::ping::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-sensors</dt>
 <dd>
-<p>collectd::plugin::sensors::sensorconfigfile
-collectd::plugin::sensors::sensors
-collectd::plugin::sensors::ignoreselected
-collectd::plugin::sensors::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::sensors::sensorconfigfile</p>
+</li>
+<li>
+<p>collectd::plugin::sensors::sensors</p>
+</li>
+<li>
+<p>collectd::plugin::sensors::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::sensors::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-smart</dt>
 <dd>
-<p>collectd::plugin::smart::disks
-collectd::plugin::smart::ignoreselected
-collectd::plugin::smart::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::smart::disks</p>
+</li>
+<li>
+<p>collectd::plugin::smart::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::smart::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-snmp</dt>
 <dd>
-<p>collectd::plugin::snmp::data
-collectd::plugin::snmp::hosts
-collectd::plugin::snmp::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::snmp::data</p>
+</li>
+<li>
+<p>collectd::plugin::snmp::hosts</p>
+</li>
+<li>
+<p>collectd::plugin::snmp::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-virt</dt>
 <dd>
-<p>collectd::plugin::virt::connection
-collectd::plugin::virt::refresh_interval
-collectd::plugin::virt::domain
-collectd::plugin::virt::block_device
-collectd::plugin::virt::interface_device
-collectd::plugin::virt::ignore_selected
-collectd::plugin::virt::hostname_format
-collectd::plugin::virt::interface_format
-collectd::plugin::virt::extra_stats
-collectd::plugin::virt::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::virt::connection</p>
+</li>
+<li>
+<p>collectd::plugin::virt::refresh_interval</p>
+</li>
+<li>
+<p>collectd::plugin::virt::domain</p>
+</li>
+<li>
+<p>collectd::plugin::virt::block_device</p>
+</li>
+<li>
+<p>collectd::plugin::virt::interface_device</p>
+</li>
+<li>
+<p>collectd::plugin::virt::ignore_selected</p>
+</li>
+<li>
+<p>collectd::plugin::virt::hostname_format</p>
+</li>
+<li>
+<p>collectd::plugin::virt::interface_format</p>
+</li>
+<li>
+<p>collectd::plugin::virt::extra_stats</p>
+</li>
+<li>
+<p>collectd::plugin::virt::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-write_http</dt>
 <dd>
-<p>collectd::plugin::write_http::nodes
-collectd::plugin::write_http::urls</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::write_http::nodes</p>
+</li>
+<li>
+<p>collectd::plugin::write_http::urls</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-write_kafka</dt>
 <dd>
-<p>collectd::plugin::write_kafka::kafka_host
-collectd::plugin::write_kafka::kafka_port
-collectd::plugin::write_kafka::kafka_hosts
-collectd::plugin::write_kafka::topics</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::write_kafka::kafka_host</p>
+</li>
+<li>
+<p>collectd::plugin::write_kafka::kafka_port</p>
+</li>
+<li>
+<p>collectd::plugin::write_kafka::kafka_hosts</p>
+</li>
+<li>
+<p>collectd::plugin::write_kafka::topics</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-write_prometheus</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::write_prometheus::port</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ovs_events</dt>
 <dd>
-<p>collectd::plugin::ovs_events::address
-collectd::plugin::ovs_events::dispatch
-collectd::plugin::ovs_events::interfaces
-collectd::plugin::ovs_events::send_notification
-collectd::plugin::ovs_events::$port
-collectd::plugin::ovs_events::socket</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ovs_events::address</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::dispatch</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::send_notification</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::$port</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::socket</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-ovs_stats</dt>
 <dd>
-<p>collectd::plugin::ovs_stats::address
-collectd::plugin::ovs_stats::bridges
-collectd::plugin::ovs_stats::port
-collectd::plugin::ovs_stats::socket</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ovs_stats::address</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::bridges</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::port</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::socket</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-connectivity</dt>
 <dd>
+<div class="ulist">
+<ul>
+<li>
 <p>collectd::plugin::connectivity::interfaces</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-procevent</dt>
 <dd>
-<p>collectd::plugin::procevent::process
-collectd::plugin::procevent::regex_process
-collectd::plugin::procevent::buffer_length</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::procevent::process</p>
+</li>
+<li>
+<p>collectd::plugin::procevent::regex_process</p>
+</li>
+<li>
+<p>collectd::plugin::procevent::buffer_length</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-sysevent</dt>
 <dd>
-<p>collectd::plugin::sysevent::listen_host
-collectd::plugin::sysevent::listen_port
-collectd::plugin::sysevent::regex_filter
-collectd::plugin::sysevent::buffer_size
-collectd::plugin::sysevent::buffer_length</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::sysevent::listen_host</p>
+</li>
+<li>
+<p>collectd::plugin::sysevent::listen_port</p>
+</li>
+<li>
+<p>collectd::plugin::sysevent::regex_filter</p>
+</li>
+<li>
+<p>collectd::plugin::sysevent::buffer_size</p>
+</li>
+<li>
+<p>collectd::plugin::sysevent::buffer_length</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-iptables</dt>
 <dd>
-<p>collectd::plugin::iptables::chains
-collectd::plugin::iptables::chains6
-collectd::plugin::iptables::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::iptables::chains</p>
+</li>
+<li>
+<p>collectd::plugin::iptables::chains6</p>
+</li>
+<li>
+<p>collectd::plugin::iptables::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-hugepages</dt>
 <dd>
-<p>collectd::plugin::hugepages::report_per_node_hp
-collectd::plugin::hugepages::report_root_hp
-collectd::plugin::hugepages::values_pages
-collectd::plugin::hugepages::values_bytes
-collectd::plugin::hugepages::values_percentage
-collectd::plugin::hugepages::interval</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::hugepages::report_per_node_hp</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::report_root_hp</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_pages</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_bytes</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_percentage</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::interval</p>
+</li>
+</ul>
+</div>
 </dd>
 <dt class="hdlist1">collectd-turbostat</dt>
 <dd>
-<p>collectd::plugin::turbostat::core_c_states
-collectd::plugin::turbostat::package_c_states
-collectd::plugin::turbostat::system_management_interrupt
-collectd::plugin::turbostat::digital_temperature_sensor
-collectd::plugin::turbostat::tcc_activation_temp
-collectd::plugin::turbostat::running_average_power_limit
-collectd::plugin::turbostat::logical_core_names</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::turbostat::core_c_states</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::package_c_states</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::system_management_interrupt</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::digital_temperature_sensor</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::tcc_activation_temp</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::running_average_power_limit</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::logical_core_names</p>
+</li>
+</ul>
+</div>
 </dd>
 </dl>
 </div>
@@ -2094,7 +2958,7 @@ collectd::plugin::turbostat::logical_core_names</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-29 11:27:02 UTC
+Last updated 2019-10-29 13:31:36 UTC
 </div>
 </div>
 </body>
