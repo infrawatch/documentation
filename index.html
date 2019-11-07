@@ -1032,10 +1032,10 @@ functionality and to stream the data to Service&#160;Assurance&#160;Framework (S
 <p>Create a file and for convenience, name it <code>metrics-collectd-qdr-overrides.yaml</code>. Save the file in the <code>/home/stack/</code> directory.</p>
 </li>
 <li>
-<p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>,<code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. List the default plug-ins to make it clear which plug-ins are enabled.</p>
+<p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>,<code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. To clarify which plug-ins are available, list the default plug-ins.</p>
 </li>
 <li>
-<p>For deployments that use Open vSwitch, add <code>ovs-stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes running the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr.yaml</code>, is for the <code>virt</code> plugin:</p>
+<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes running the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr.yaml</code>, is for the <code>virt</code> plug-in:</p>
 </li>
 </ol>
 </div>
@@ -2958,7 +2958,7 @@ specific cloud.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-30 14:07:02 UTC
+Last updated 2019-11-07 15:30:19 UTC
 </div>
 </div>
 </body>
