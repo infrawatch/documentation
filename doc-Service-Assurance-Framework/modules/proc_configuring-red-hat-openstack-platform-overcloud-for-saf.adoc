@@ -28,9 +28,9 @@ To configure collectd and {MessageBus}, complete the following steps:
 
 . Create a file and for convenience, name it `metrics-collectd-qdr-overrides.yaml`. Save the file in the `/home/stack/` directory.
 
-. By default, the collectd plug-ins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plug-ins, use `CollectdExtraPlugins`. List the default plug-ins to make it clear which plug-ins are enabled.
+. By default, the collectd plug-ins `disk`, `interface`, `load`,`memory`, `processes`, and `tcpconns` are enabled. To enable additional plug-ins, use `CollectdExtraPlugins`. To clarify which plug-ins are available, list the default plug-ins.
 
-. For deployments that use Open vSwitch, add `ovs-stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plug-in. The `virt` plug-in is enabled on overcloud nodes running the `libvirt` service by default. The following example plug-in configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plugin:
+. For deployments that use Open vSwitch, add `ovs_stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plug-in. The `virt` plug-in is enabled on overcloud nodes running the `libvirt` service by default. The following example plug-in configuration, added to `metrics-collectd-qdr.yaml`, is for the `virt` plug-in:
 
 ----
 ExtraConfig:
