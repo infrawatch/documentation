@@ -215,6 +215,7 @@ collectd-network::
 * collectd::plugin::network::interval
 
 collectd-nfs::
+* collectd::plugin::nfs::interval
 
 collectd-ntpd::
 * collectd::plugin::ntpd::host
