@@ -27,17 +27,30 @@
 [[appe-saf-collectd-plugins]]
 # collectd plugins
 
-This section contains a complete list of collectd plugins and configurations.
+This section contains a complete list of collectd plug-ins and configurations.
 
 collectd-aggregation::
 * collectd::plugin::aggregation::aggregators
 * collectd::plugin::aggregation::interval
+
+collectd-amqp1::
+
+collectd-apache::
+* collectd::plugin::apache::instances (ex.: {'localhost' => {'url' => 'http://localhost/mod_status?auto'}})
+* collectd::plugin::apache::interval
+
+collectd-apcups::
 
 collectd-battery::
 * collectd::plugin::battery::values_percentage
 * collectd::plugin::battery::report_degraded
 * collectd::plugin::battery::query_state_fs
 * collectd::plugin::battery::interval
+
+collectd-ceph::
+* collectd::plugin::ceph::daemons
+* collectd::plugin::ceph::longrunavglatency
+* collectd::plugin::ceph::convertspecialmetrictypes
 
 collectd-cgroups::
 * collectd::plugin::cgroups::ignore_selected
@@ -61,6 +74,8 @@ collectd-cpu::
 collectd-cpufreq::
 * None
 
+collectd-cpusleep::
+
 collectd-csv::
 * collectd::plugin::csv::datadir
 * collectd::plugin::csv::storerates
@@ -77,6 +92,13 @@ collectd-df::
 * collectd::plugin::df::valuesabsolute
 * collectd::plugin::df::valuespercentage
 * collectd::plugin::df::interval
+
+collectd-disk::
+* collectd::plugin::disk::disks
+* collectd::plugin::disk::ignoreselected
+* collectd::plugin::disk::udevnameattr
+* collectd::plugin::disk::interval
+
 
 collectd-entropy::
 * collectd::plugin::entropy::interval
@@ -110,6 +132,16 @@ collectd-hddtemp::
 * collectd::plugin::hddtemp::port
 * collectd::plugin::hddtemp::interval
 
+collectd-hugepages::
+* collectd::plugin::hugepages::report_per_node_hp
+* collectd::plugin::hugepages::report_root_hp
+* collectd::plugin::hugepages::values_pages
+* collectd::plugin::hugepages::values_bytes
+* collectd::plugin::hugepages::values_percentage
+* collectd::plugin::hugepages::interval
+
+collectd-intel_rdt::
+
 collectd-interface::
 * collectd::plugin::interface::interfaces
 * collectd::plugin::interface::ignoreselected
@@ -118,6 +150,14 @@ collectd-interface::
 
 collectd-ipc::
 * None
+
+collectd-ipmi::
+* collectd::plugin::ipmi::ignore_selected
+* collectd::plugin::ipmi::notify_sensor_add
+* collectd::plugin::ipmi::notify_sensor_remove
+* collectd::plugin::ipmi::notify_sensor_not_present
+* collectd::plugin::ipmi::sensors
+* collectd::plugin::ipmi::interval
 
 collectd-irq::
 * collectd::plugin::irq::irqs
@@ -135,6 +175,12 @@ collectd-logfile::
 * collectd::plugin::logfile::print_severity
 * collectd::plugin::logfile::interval
 
+collectd-madwifi::
+
+collectd-mbmon::
+
+collectd-md::
+
 collectd-memcached::
 * collectd::plugin::memcached::instances
 * collectd::plugin::memcached::interval
@@ -143,6 +189,21 @@ collectd-memory::
 * collectd::plugin::memory::valuesabsolute
 * collectd::plugin::memory::valuespercentage
 * collectd::plugin::memory::interval
+collectd-multimeter
+
+collectd-multimeter::
+
+collectd-mysql::
+* collectd::plugin::mysql::interval
+
+collectd-netlink::
+* collectd::plugin::netlink::interfaces
+* collectd::plugin::netlink::verboseinterfaces
+* collectd::plugin::netlink::qdiscs
+* collectd::plugin::netlink::classes
+* collectd::plugin::netlink::filters
+* collectd::plugin::netlink::ignoreselected
+* collectd::plugin::netlink::interval
 
 collectd-network::
 * collectd::plugin::network::timetolive
@@ -154,7 +215,6 @@ collectd-network::
 * collectd::plugin::network::interval
 
 collectd-nfs::
-* collectd::plugin::nfs::interval
 
 collectd-ntpd::
 * collectd::plugin::ntpd::host
@@ -166,6 +226,8 @@ collectd-ntpd::
 collectd-numa::
 * None
 
+collectd-olsrd::
+
 collectd-openvpn::
 * collectd::plugin::openvpn::statusfile
 * collectd::plugin::openvpn::improvednamingschema
@@ -173,6 +235,30 @@ collectd-openvpn::
 * collectd::plugin::openvpn::collectindividualusers
 * collectd::plugin::openvpn::collectusercount
 * collectd::plugin::openvpn::interval
+
+collectd-ovs_events::
+* collectd::plugin::ovs_events::address
+* collectd::plugin::ovs_events::dispatch
+* collectd::plugin::ovs_events::interfaces
+* collectd::plugin::ovs_events::send_notification
+* collectd::plugin::ovs_events::$port
+* collectd::plugin::ovs_events::socket
+
+collectd-ovs_stats::
+* collectd::plugin::ovs_stats::address
+* collectd::plugin::ovs_stats::bridges
+* collectd::plugin::ovs_stats::port
+* collectd::plugin::ovs_stats::socket
+
+collectd-ping::
+* collectd::plugin::ping::hosts
+* collectd::plugin::ping::timeout
+* collectd::plugin::ping::ttl
+* collectd::plugin::ping::source_address
+* collectd::plugin::ping::device
+* collectd::plugin::ping::max_missed
+* collectd::plugin::ping::size
+* collectd::plugin::ping::interval
 
 collectd-powerdns::
 * collectd::plugin::powerdns::interval
@@ -192,6 +278,17 @@ collectd-processes::
 collectd-protocols::
 * collectd::plugin::protocols::ignoreselected
 * collectd::plugin::protocols::values
+
+collectd-python::
+
+collectd-serial::
+
+collectd-smart::
+* collectd::plugin::smart::disks
+* collectd::plugin::smart::ignoreselected
+* collectd::plugin::smart::interval
+
+collectd-snmp_agent::
 
 collectd-statsd::
 * collectd::plugin::statsd::host
@@ -233,15 +330,14 @@ collectd-tail_csv::
 * collectd::plugin::tail_csv::metrics
 * collectd::plugin::tail_csv::files
 
-collectd-target_v5upgrade::
-* None
-
 collectd-tcpconns::
 * collectd::plugin::tcpconns::localports
 * collectd::plugin::tcpconns::remoteports
 * collectd::plugin::tcpconns::listening
 * collectd::plugin::tcpconns::allportssummary
 * collectd::plugin::tcpconns::interval
+
+collectd-ted::
 
 collectd-thermal::
 * collectd::plugin::thermal::devices
@@ -254,6 +350,17 @@ collectd-threshold::
 * collectd::plugin::threshold::hosts
 * collectd::plugin::threshold::interval
 
+collectd-turbostat::
+* collectd::plugin::turbostat::core_c_states
+* collectd::plugin::turbostat::package_c_states
+* collectd::plugin::turbostat::system_management_interrupt
+* collectd::plugin::turbostat::digital_temperature_sensor
+* collectd::plugin::turbostat::tcc_activation_temp
+* collectd::plugin::turbostat::running_average_power_limit
+* collectd::plugin::turbostat::logical_core_names
+
+collectd-unixsock::
+
 collectd-uptime::
 * collectd::plugin::uptime::interval
 
@@ -263,133 +370,6 @@ collectd-users::
 collectd-uuid::
 * collectd::plugin::uuid::uuid_file
 * collectd::plugin::uuid::interval
-
-collectd-vmem::
-* collectd::plugin::vmem::verbose
-* collectd::plugin::vmem::interval
-
-collectd-write_graphite::
-* collectd::plugin::write_graphite::carbons
-* collectd::plugin::write_graphite::carbon_defaults
-* collectd::plugin::write_graphite::globals
-
-collectd-write_log::
-* collectd::plugin::write_log::format
-
-collectd-zfs_arc::
-* None
-
-collectd-apache::
-* collectd::plugin::apache::instances (ex.: {'localhost' => {'url' => 'http://localhost/mod_status?auto'}})
-* collectd::plugin::apache::interval
-
-collectd-bind::
-* collectd::plugin::bind::url
-* collectd::plugin::bind::memorystats
-* collectd::plugin::bind::opcodes
-* collectd::plugin::bind::parsetime
-* collectd::plugin::bind::qtypes
-* collectd::plugin::bind::resolverstats
-* collectd::plugin::bind::serverstats
-* collectd::plugin::bind::zonemaintstats
-* collectd::plugin::bind::views
-* collectd::plugin::bind::interval
-
-collectd-ceph::
-* collectd::plugin::ceph::daemons
-* collectd::plugin::ceph::longrunavglatency
-* collectd::plugin::ceph::convertspecialmetrictypes
-
-collectd-curl::
-* collectd::plugin::curl::pages
-* collectd::plugin::curl::interval
-
-collectd-curl_json::
-* collectd::plugin::curl_json::url
-* collectd::plugin::curl_json::instance
-* collectd::plugin::curl_json::keys
-* collectd::plugin::curl_json::host
-* collectd::plugin::curl_json::user
-* collectd::plugin::curl_json::password
-* collectd::plugin::curl_json::digest
-* collectd::plugin::curl_json::verifypeer
-* collectd::plugin::curl_json::verifyhost
-* collectd::plugin::curl_json::cacert
-* collectd::plugin::curl_json::header
-* collectd::plugin::curl_json::post
-* collectd::plugin::curl_json::timeout
-* collectd::plugin::curl_json::interval
-
-collectd-dbi::
-* collectd::plugin::dbi::databases
-* collectd::plugin::dbi::queries
-* collectd::plugin::dbi::interval
-
-collectd-disk::
-* collectd::plugin::disk::disks
-* collectd::plugin::disk::ignoreselected
-* collectd::plugin::disk::udevnameattr
-* collectd::plugin::disk::interval
-
-collectd-dns:
-* collectd::plugin::dns::ignoresource
-* collectd::plugin::dns::interface
-* collectd::plugin::dns::selectnumericquerytypes
-* collectd::plugin::dns::interval
-
-collectd-generic-jmx::
-* collectd::plugin::genericjmx::jvmarg
-
-collectd-ipmi::
-* collectd::plugin::ipmi::ignore_selected
-* collectd::plugin::ipmi::notify_sensor_add
-* collectd::plugin::ipmi::notify_sensor_remove
-* collectd::plugin::ipmi::notify_sensor_not_present
-* collectd::plugin::ipmi::sensors
-* collectd::plugin::ipmi::interval
-
-collectd-mysql::
-* collectd::plugin::mysql::interval
-
-collectd-netlink::
-* collectd::plugin::netlink::interfaces
-* collectd::plugin::netlink::verboseinterfaces
-* collectd::plugin::netlink::qdiscs
-* collectd::plugin::netlink::classes
-* collectd::plugin::netlink::filters
-* collectd::plugin::netlink::ignoreselected
-* collectd::plugin::netlink::interval
-
-collectd-openldap::
-* collectd::plugin::openldap::instances
-* collectd::plugin::openldap::interval
-
-
-collectd-ping::
-* collectd::plugin::ping::hosts
-* collectd::plugin::ping::timeout
-* collectd::plugin::ping::ttl
-* collectd::plugin::ping::source_address
-* collectd::plugin::ping::device
-* collectd::plugin::ping::max_missed
-* collectd::plugin::ping::size
-* collectd::plugin::ping::interval
-
-collectd-sensors::
-* collectd::plugin::sensors::sensorconfigfile
-* collectd::plugin::sensors::sensors
-* collectd::plugin::sensors::ignoreselected
-* collectd::plugin::sensors::interval
-
-collectd-smart::
-* collectd::plugin::smart::disks
-* collectd::plugin::smart::ignoreselected
-* collectd::plugin::smart::interval
-
-collectd-snmp::
-* collectd::plugin::snmp::data
-* collectd::plugin::snmp::hosts
-* collectd::plugin::snmp::interval
 
 collectd-virt::
 * collectd::plugin::virt::connection
@@ -403,9 +383,18 @@ collectd-virt::
 * collectd::plugin::virt::extra_stats
 * collectd::plugin::virt::interval
 
-collectd-write_http::
-* collectd::plugin::write_http::nodes
-* collectd::plugin::write_http::urls
+collectd-vmem::
+* collectd::plugin::vmem::verbose
+* collectd::plugin::vmem::interval
+
+collectd-vserver::
+
+collectd-wireless::
+
+collectd-write_graphite::
+* collectd::plugin::write_graphite::carbons
+* collectd::plugin::write_graphite::carbon_defaults
+* collectd::plugin::write_graphite::globals
 
 collectd-write_kafka::
 * collectd::plugin::write_kafka::kafka_host
@@ -413,53 +402,8 @@ collectd-write_kafka::
 * collectd::plugin::write_kafka::kafka_hosts
 * collectd::plugin::write_kafka::topics
 
-collectd-ovs_events::
-* collectd::plugin::ovs_events::address
-* collectd::plugin::ovs_events::dispatch
-* collectd::plugin::ovs_events::interfaces
-* collectd::plugin::ovs_events::send_notification
-* collectd::plugin::ovs_events::$port
-* collectd::plugin::ovs_events::socket
+collectd-write_log::
+* collectd::plugin::write_log::format
 
-collectd-ovs_stats::
-* collectd::plugin::ovs_stats::address
-* collectd::plugin::ovs_stats::bridges
-* collectd::plugin::ovs_stats::port
-* collectd::plugin::ovs_stats::socket
-
-collectd-connectivity::
-* collectd::plugin::connectivity::interfaces
-
-collectd-procevent::
-* collectd::plugin::procevent::process
-* collectd::plugin::procevent::regex_process
-* collectd::plugin::procevent::buffer_length
-
-collectd-sysevent::
-* collectd::plugin::sysevent::listen_host
-* collectd::plugin::sysevent::listen_port
-* collectd::plugin::sysevent::regex_filter
-* collectd::plugin::sysevent::buffer_size
-* collectd::plugin::sysevent::buffer_length
-
-collectd-iptables::
-* collectd::plugin::iptables::chains
-* collectd::plugin::iptables::chains6
-* collectd::plugin::iptables::interval
-
-collectd-hugepages::
-* collectd::plugin::hugepages::report_per_node_hp
-* collectd::plugin::hugepages::report_root_hp
-* collectd::plugin::hugepages::values_pages
-* collectd::plugin::hugepages::values_bytes
-* collectd::plugin::hugepages::values_percentage
-* collectd::plugin::hugepages::interval
-
-collectd-turbostat::
-* collectd::plugin::turbostat::core_c_states
-* collectd::plugin::turbostat::package_c_states
-* collectd::plugin::turbostat::system_management_interrupt
-* collectd::plugin::turbostat::digital_temperature_sensor
-* collectd::plugin::turbostat::tcc_activation_temp
-* collectd::plugin::turbostat::running_average_power_limit
-* collectd::plugin::turbostat::logical_core_names
+collectd-zfs_arc::
+* None
