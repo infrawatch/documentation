@@ -413,9 +413,6 @@ collectd-write_kafka::
 * collectd::plugin::write_kafka::kafka_hosts
 * collectd::plugin::write_kafka::topics
 
-collectd-write_prometheus::
-* collectd::plugin::write_prometheus::port
-
 collectd-ovs_events::
 * collectd::plugin::ovs_events::address
 * collectd::plugin::ovs_events::dispatch
