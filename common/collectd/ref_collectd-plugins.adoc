@@ -27,7 +27,7 @@
 [[appe-saf-collectd-plugins]]
 # collectd plugins
 
-This section contains a complete list of collectd plug-ins and configurations.
+This section contains a complete list of collectd plug-ins and configurations for {OpenStack} {OpenStackVersion}.
 
 collectd-aggregation::
 * collectd::plugin::aggregation::aggregators
