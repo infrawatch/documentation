@@ -1567,7 +1567,7 @@ specific cloud.</p>
 <h2 id="appe-saf-collectd-plugins">Appendix A: collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section contains a complete list of collectd plugins and configurations.</p>
+<p>This section contains a complete list of collectd plug-ins and configurations for OpenStack Queens.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1584,6 +1584,21 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-amqp1</dt>
+<dt class="hdlist1">collectd-apache</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::apache::instances (ex.: {<em>localhost</em> &#8658; {<em>url</em> &#8658; <em><a href="http://localhost/mod_status?auto" class="bare">http://localhost/mod_status?auto</a></em>}})</p>
+</li>
+<li>
+<p>collectd::plugin::apache::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-apcups</dt>
 <dt class="hdlist1">collectd-battery</dt>
 <dd>
 <div class="ulist">
@@ -1599,6 +1614,22 @@ specific cloud.</p>
 </li>
 <li>
 <p>collectd::plugin::battery::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-ceph</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ceph::daemons</p>
+</li>
+<li>
+<p>collectd::plugin::ceph::longrunavglatency</p>
+</li>
+<li>
+<p>collectd::plugin::ceph::convertspecialmetrictypes</p>
 </li>
 </ul>
 </div>
@@ -1674,6 +1705,7 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-cpusleep</dt>
 <dt class="hdlist1">collectd-csv</dt>
 <dd>
 <div class="ulist">
@@ -1723,6 +1755,25 @@ specific cloud.</p>
 </li>
 <li>
 <p>collectd::plugin::df::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-disk</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::disk::disks</p>
+</li>
+<li>
+<p>collectd::plugin::disk::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::disk::udevnameattr</p>
+</li>
+<li>
+<p>collectd::plugin::disk::interval</p>
 </li>
 </ul>
 </div>
@@ -1830,6 +1881,32 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-hugepages</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::hugepages::report_per_node_hp</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::report_root_hp</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_pages</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_bytes</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::values_percentage</p>
+</li>
+<li>
+<p>collectd::plugin::hugepages::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-intel_rdt</dt>
 <dt class="hdlist1">collectd-interface</dt>
 <dd>
 <div class="ulist">
@@ -1855,6 +1932,31 @@ specific cloud.</p>
 <ul>
 <li>
 <p>None</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-ipmi</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ipmi::ignore_selected</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_add</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_remove</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::notify_sensor_not_present</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::sensors</p>
+</li>
+<li>
+<p>collectd::plugin::ipmi::interval</p>
 </li>
 </ul>
 </div>
@@ -1910,6 +2012,9 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-madwifi</dt>
+<dt class="hdlist1">collectd-mbmon</dt>
+<dt class="hdlist1">collectd-md</dt>
 <dt class="hdlist1">collectd-memcached</dt>
 <dd>
 <div class="ulist">
@@ -1934,7 +2039,47 @@ specific cloud.</p>
 <p>collectd::plugin::memory::valuespercentage</p>
 </li>
 <li>
-<p>collectd::plugin::memory::interval</p>
+<p>collectd::plugin::memory::interval
+collectd-multimeter</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-multimeter</dt>
+<dt class="hdlist1">collectd-mysql</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::mysql::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-netlink</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::netlink::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::verboseinterfaces</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::qdiscs</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::classes</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::filters</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::netlink::interval</p>
 </li>
 </ul>
 </div>
@@ -2009,6 +2154,7 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-olsrd</dt>
 <dt class="hdlist1">collectd-openvpn</dt>
 <dd>
 <div class="ulist">
@@ -2030,6 +2176,81 @@ specific cloud.</p>
 </li>
 <li>
 <p>collectd::plugin::openvpn::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-ovs_events</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ovs_events::address</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::dispatch</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::interfaces</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::send_notification</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::$port</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_events::socket</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-ovs_stats</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ovs_stats::address</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::bridges</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::port</p>
+</li>
+<li>
+<p>collectd::plugin::ovs_stats::socket</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-ping</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::ping::hosts</p>
+</li>
+<li>
+<p>collectd::plugin::ping::timeout</p>
+</li>
+<li>
+<p>collectd::plugin::ping::ttl</p>
+</li>
+<li>
+<p>collectd::plugin::ping::source_address</p>
+</li>
+<li>
+<p>collectd::plugin::ping::device</p>
+</li>
+<li>
+<p>collectd::plugin::ping::max_missed</p>
+</li>
+<li>
+<p>collectd::plugin::ping::size</p>
+</li>
+<li>
+<p>collectd::plugin::ping::interval</p>
 </li>
 </ul>
 </div>
@@ -2094,6 +2315,25 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-python</dt>
+<dt class="hdlist1">collectd-serial</dt>
+<dt class="hdlist1">collectd-smart</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::smart::disks</p>
+</li>
+<li>
+<p>collectd::plugin::smart::ignoreselected</p>
+</li>
+<li>
+<p>collectd::plugin::smart::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-snmp_agent</dt>
 <dt class="hdlist1">collectd-statsd</dt>
 <dd>
 <div class="ulist">
@@ -2220,16 +2460,6 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-target_v5upgrade</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
-</dd>
 <dt class="hdlist1">collectd-tcpconns</dt>
 <dd>
 <div class="ulist">
@@ -2252,6 +2482,7 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-ted</dt>
 <dt class="hdlist1">collectd-thermal</dt>
 <dd>
 <div class="ulist">
@@ -2287,6 +2518,35 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">collectd-turbostat</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::turbostat::core_c_states</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::package_c_states</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::system_management_interrupt</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::digital_temperature_sensor</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::tcc_activation_temp</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::running_average_power_limit</p>
+</li>
+<li>
+<p>collectd::plugin::turbostat::logical_core_names</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-unixsock</dt>
 <dt class="hdlist1">collectd-uptime</dt>
 <dd>
 <div class="ulist">
@@ -2316,397 +2576,6 @@ specific cloud.</p>
 </li>
 <li>
 <p>collectd::plugin::uuid::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-vmem</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::vmem::verbose</p>
-</li>
-<li>
-<p>collectd::plugin::vmem::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-write_graphite</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::write_graphite::carbons</p>
-</li>
-<li>
-<p>collectd::plugin::write_graphite::carbon_defaults</p>
-</li>
-<li>
-<p>collectd::plugin::write_graphite::globals</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-write_log</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::write_log::format</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-zfs_arc</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-apache</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::apache::instances (ex.: {<em>localhost</em> &#8658; {<em>url</em> &#8658; <em><a href="http://localhost/mod_status?auto" class="bare">http://localhost/mod_status?auto</a></em>}})</p>
-</li>
-<li>
-<p>collectd::plugin::apache::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-bind</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::bind::url</p>
-</li>
-<li>
-<p>collectd::plugin::bind::memorystats</p>
-</li>
-<li>
-<p>collectd::plugin::bind::opcodes</p>
-</li>
-<li>
-<p>collectd::plugin::bind::parsetime</p>
-</li>
-<li>
-<p>collectd::plugin::bind::qtypes</p>
-</li>
-<li>
-<p>collectd::plugin::bind::resolverstats</p>
-</li>
-<li>
-<p>collectd::plugin::bind::serverstats</p>
-</li>
-<li>
-<p>collectd::plugin::bind::zonemaintstats</p>
-</li>
-<li>
-<p>collectd::plugin::bind::views</p>
-</li>
-<li>
-<p>collectd::plugin::bind::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-ceph</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ceph::daemons</p>
-</li>
-<li>
-<p>collectd::plugin::ceph::longrunavglatency</p>
-</li>
-<li>
-<p>collectd::plugin::ceph::convertspecialmetrictypes</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-curl</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::curl::pages</p>
-</li>
-<li>
-<p>collectd::plugin::curl::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-curl_json</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::curl_json::url</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::instance</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::keys</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::host</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::user</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::password</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::digest</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::verifypeer</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::verifyhost</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::cacert</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::header</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::post</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::timeout</p>
-</li>
-<li>
-<p>collectd::plugin::curl_json::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-dbi</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::dbi::databases</p>
-</li>
-<li>
-<p>collectd::plugin::dbi::queries</p>
-</li>
-<li>
-<p>collectd::plugin::dbi::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-disk</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::disk::disks</p>
-</li>
-<li>
-<p>collectd::plugin::disk::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::disk::udevnameattr</p>
-</li>
-<li>
-<p>collectd::plugin::disk::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>collectd-dns:
-* collectd::plugin::dns::ignoresource
-* collectd::plugin::dns::interface
-* collectd::plugin::dns::selectnumericquerytypes
-* collectd::plugin::dns::interval</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-generic-jmx</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::genericjmx::jvmarg</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-ipmi</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ipmi::ignore_selected</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_add</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_remove</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_not_present</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::sensors</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-mysql</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::mysql::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-netlink</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::netlink::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::verboseinterfaces</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::qdiscs</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::classes</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::filters</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-openldap</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::openldap::instances</p>
-</li>
-<li>
-<p>collectd::plugin::openldap::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-ping</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ping::hosts</p>
-</li>
-<li>
-<p>collectd::plugin::ping::timeout</p>
-</li>
-<li>
-<p>collectd::plugin::ping::ttl</p>
-</li>
-<li>
-<p>collectd::plugin::ping::source_address</p>
-</li>
-<li>
-<p>collectd::plugin::ping::device</p>
-</li>
-<li>
-<p>collectd::plugin::ping::max_missed</p>
-</li>
-<li>
-<p>collectd::plugin::ping::size</p>
-</li>
-<li>
-<p>collectd::plugin::ping::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-sensors</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::sensors::sensorconfigfile</p>
-</li>
-<li>
-<p>collectd::plugin::sensors::sensors</p>
-</li>
-<li>
-<p>collectd::plugin::sensors::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::sensors::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-smart</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::smart::disks</p>
-</li>
-<li>
-<p>collectd::plugin::smart::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::smart::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-snmp</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::snmp::data</p>
-</li>
-<li>
-<p>collectd::plugin::snmp::hosts</p>
-</li>
-<li>
-<p>collectd::plugin::snmp::interval</p>
 </li>
 </ul>
 </div>
@@ -2748,15 +2617,33 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-write_http</dt>
+<dt class="hdlist1">collectd-vmem</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p>collectd::plugin::write_http::nodes</p>
+<p>collectd::plugin::vmem::verbose</p>
 </li>
 <li>
-<p>collectd::plugin::write_http::urls</p>
+<p>collectd::plugin::vmem::interval</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">collectd-vserver</dt>
+<dt class="hdlist1">collectd-wireless</dt>
+<dt class="hdlist1">collectd-write_graphite</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd::plugin::write_graphite::carbons</p>
+</li>
+<li>
+<p>collectd::plugin::write_graphite::carbon_defaults</p>
+</li>
+<li>
+<p>collectd::plugin::write_graphite::globals</p>
 </li>
 </ul>
 </div>
@@ -2780,163 +2667,22 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-ovs_events</dt>
+<dt class="hdlist1">collectd-write_log</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p>collectd::plugin::ovs_events::address</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::dispatch</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::send_notification</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::$port</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::socket</p>
+<p>collectd::plugin::write_log::format</p>
 </li>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-ovs_stats</dt>
+<dt class="hdlist1">collectd-zfs_arc</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p>collectd::plugin::ovs_stats::address</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::bridges</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::port</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::socket</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-connectivity</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::connectivity::interfaces</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-procevent</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::procevent::process</p>
-</li>
-<li>
-<p>collectd::plugin::procevent::regex_process</p>
-</li>
-<li>
-<p>collectd::plugin::procevent::buffer_length</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-sysevent</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::sysevent::listen_host</p>
-</li>
-<li>
-<p>collectd::plugin::sysevent::listen_port</p>
-</li>
-<li>
-<p>collectd::plugin::sysevent::regex_filter</p>
-</li>
-<li>
-<p>collectd::plugin::sysevent::buffer_size</p>
-</li>
-<li>
-<p>collectd::plugin::sysevent::buffer_length</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-iptables</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::iptables::chains</p>
-</li>
-<li>
-<p>collectd::plugin::iptables::chains6</p>
-</li>
-<li>
-<p>collectd::plugin::iptables::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-hugepages</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::hugepages::report_per_node_hp</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::report_root_hp</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_pages</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_bytes</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_percentage</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-turbostat</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::turbostat::core_c_states</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::package_c_states</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::system_management_interrupt</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::digital_temperature_sensor</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::tcc_activation_temp</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::running_average_power_limit</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::logical_core_names</p>
+<p>None</p>
 </li>
 </ul>
 </div>
@@ -2948,7 +2694,7 @@ specific cloud.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-13 09:59:45 UTC
+Last updated 2019-11-20 15:28:00 UTC
 </div>
 </div>
 </body>
