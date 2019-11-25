@@ -31,11 +31,11 @@ parameter_defaults:
    CollectdAmqpInstances:
        cloud1-telemetry:
            format: JSON
-           presettle: false
+           presettle: true
        cloud1-notify:
            notify: true
            format: JSON
-           presettle: true
+           presettle: false
 ----
 
 For more information on how to edit and redeploy this configuration, see <<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and <<updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>.
