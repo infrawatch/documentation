@@ -40,7 +40,7 @@ parameter_defaults:
      collectd::plugin::virt::hostname_format: "hostname uuid"
 ----
 +
-By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. This example adds the virt plug-in and configures the connection string and the hostname format.
+By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. The CollectdExtraPlugins example adds the virt plug-in and configures the connection string and the hostname format.
 
 . Include the modified YAML files in the `openstack overcloud deploy` command to install the collectd daemon on all overcloud nodes:
 +
