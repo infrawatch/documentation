@@ -23,9 +23,9 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
-You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address defined for the corresponding cloud.
+You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.
 
-When you deploy {ProjectShort} for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways handling the metrics and the events data for each cloud.
+When you deploy {ProjectShort} for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways that handle the metrics and the events data for each cloud.
 
 To deploy multiple Smart Gateways, complete the following steps:
 

@@ -23,14 +23,11 @@
 [id='generating-a-tls-certificate-for-amq-interconnect_{context}']
 = Generating a TLS certificate for {MessageBus}
 
-To get the remote {MessageBus} connections through the {OpenShiftShort} route,
-use TLS/SSL certificates. The following commands create the appropriate
-certificate files locally and load the contents into a secret for use by
-{MessageBus}. The {MessageBus} message bus on the client side connects to the route address
+Use TLS/SSL certificates to route the remote {MessageBus} connections through the {OpenShiftShort}. The following commands create the appropriate certificate files locally and load the contents into a secret for {MessageBus} to use. The {MessageBus} message bus on the client side connects to the route address
 (DNS address) for the {MessageBus} service on port 443.
 
 . Generate an unsigned certificate. If you have a signed certificate to load
-into {OpenShiftShort}, go to the next step.
+into {OpenShiftShort}, proceed to step 2.
 +
 ----
     openssl req -new -x509 -batch -nodes -days 11000 \

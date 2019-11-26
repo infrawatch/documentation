@@ -1,5 +1,5 @@
 = Service Assurance Framework
-OpenStack Documentation Team <rhos-docs@redhat.com>
+Red Hat OpenStack Platform Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
 :vernum: 13
 :toc: left
