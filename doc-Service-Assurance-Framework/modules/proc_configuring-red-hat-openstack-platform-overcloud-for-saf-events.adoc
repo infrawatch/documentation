@@ -33,10 +33,10 @@ You can pass the `metrics-collectd-qdr-overrides.yaml` environment file to a {Op
 ---
 parameter_defaults:
   CollectdAmqpInstances:
-  notify: // Create a `notify` address for {MessageBus} that transmits the events.
-    format: JSON // The format of the messages is in JSON.
+  notify: # Create a `notify` address for {MessageBus} that transmits the events.
+    format: JSON # The format of the messages is in JSON.
     presettle: false
-    notify: true // Mark these messages as being events in the VES format.
+    notify: true # Mark these messages as being events in the VES format.
   telemetry:
     format: JSON
     presettle: true
@@ -47,8 +47,8 @@ parameter_defaults:
   - df
   - hugepages
   - ovs_stats
-  - ovs_events // Enable an events plugin for OVS events.
-  - connectivity // Enable an events plugin for network connectivity events.
+  - ovs_events # Enable an events plugin for OVS events.
+  - connectivity # Enable an events plugin for network connectivity events.
   - load
   - uptime
   MetricsQdrConnectors:
