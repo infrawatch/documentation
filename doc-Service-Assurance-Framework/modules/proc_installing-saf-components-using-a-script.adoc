@@ -39,10 +39,7 @@ to create the namespace.
 and change to the extracted directory. For more information, see
 <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
 
-Use the `deploy.sh` script in the `deploy/` directory of the
-telemetry-framework release file that you previously extracted. Run the script
-with either no arguments or the `CREATE` argument, to start the various components in
-your {OpenShiftShort} deployment. To remove the components, supply the `DELETE`
+Use the `deploy.sh` script in the `deploy/` directory of the telemetry-framework release file that you previously extracted. Run the script to start the various components in your {OpenShiftShort} deployment. To remove the components, supply the `DELETE`
 argument to the script.
 
 ----
