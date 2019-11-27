@@ -23,7 +23,7 @@
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
 [id='architecture_{context}']
-= SAF architecture
+= {ProjectShort} architecture
 
 {ProjectShort} uses the following components:
 
