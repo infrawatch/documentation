@@ -24,7 +24,7 @@
 = Configuring the {OpenStack} overcloud for {ProjectShort} events
 
 To enable the collection of events on the client side, follow the steps in
-<<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and use the following sample from metrics-collectd-qdr-overrides.yaml for this procedure.
+<<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and use the following sample from `metrics-collectd-qdr-overrides.yaml` for this procedure.
 You can pass the `metrics-collectd-qdr-overrides.yaml` environment file to a {OpenstackLong} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}.
 
 .metrics-collectd-qdr-overrides.yaml
