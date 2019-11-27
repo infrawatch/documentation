@@ -40,4 +40,4 @@ rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml
 ----
 
 [NOTE]
-To regenerate the default manifests, re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf,Generating the manifests for SAF>> step.
+To regenerate the default manifests, re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>> step.
