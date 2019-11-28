@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="generator" content="Asciidoctor 2.0.10"/>
-<meta name="author" content="OpenStack Documentation Team"/>
+<meta name="author" content="Red Hat OpenStack Platform Documentation Team &lt;rhos-docs@redhat.com&gt;"/>
 <title>Service Assurance Framework</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -441,8 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Service Assurance Framework</h1>
 <div class="details">
-<span id="author" class="author">OpenStack Documentation Team</span><br/>
-<span id="email" class="email"><a href="mailto:rhos-docs@redhat.com">rhos-docs@redhat.com</a></span><br/>
+<span id="author" class="author">Red Hat OpenStack Platform Documentation Team &lt;rhos-docs@redhat.com&gt;</span><br/>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -450,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction-to-service-assurance-framework_assembly">Introduction to Service Assurance Framework</a>
 <ul class="sectlevel2">
 <li><a href="#overview-of-service-assurance-framework_introduction-to-service-assurance-framework">Overview of Service Assurance Framework</a></li>
-<li><a href="#architecture_introduction-to-service-assurance-framework">Architecture</a></li>
+<li><a href="#architecture_introduction-to-service-assurance-framework">SAF architecture</a></li>
 <li><a href="#installation-size_introduction-to-service-assurance-framework">Installation size</a></li>
 </ul>
 </li>
@@ -467,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the Service&#160;Assurance&#160;Framework configuration</a>
 <ul class="sectlevel2">
-<li><a href="#setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Setting up OpenStack on the client side</a></li>
+<li><a href="#setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Configuring OpenStack on the client side</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-saf-events_completing-the-saf-configuration">Configuring the OpenStack overcloud for SAF events</a></li>
 <li><a href="#updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating OpenStack overcloud for SAF</a></li>
@@ -514,7 +513,7 @@ of truth for orchestration frameworks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="architecture_introduction-to-service-assurance-framework">Architecture</h3>
+<h3 id="architecture_introduction-to-service-assurance-framework">SAF architecture</h3>
 <div class="paragraph">
 <p>SAF uses the following components:</p>
 </div>
@@ -546,8 +545,7 @@ of truth for orchestration frameworks.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>On the client side, collectd collects high-resolution metrics. The data is
-delivered to Prometheus using the AMQP1 plugin, which places the data onto the
+<p>On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
 message bus. On the server side, a Golang application called the Smart Gateway
 takes the data stream from the bus and exposes it as a local scrape endpoint
 for Prometheus.</p>
@@ -583,16 +581,16 @@ layers:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The number of nodes being monitored</p>
+<p>The number of nodes being monitored.</p>
 </li>
 <li>
-<p>The number of metrics being collected</p>
+<p>The number of metrics being collected.</p>
 </li>
 <li>
-<p>The resolution of metrics</p>
+<p>The resolution of metrics.</p>
 </li>
 <li>
-<p>The length of time for which the data is intended to be stored</p>
+<p>The length of time that you want to store the data.</p>
 </li>
 </ul>
 </div>
@@ -601,7 +599,7 @@ layers:</p>
 on the hardware requirements, including the number of virtual machines. For
 more information about the recommended sizing for the OpenShift nodes, see
 <a href="https://docs.openshift.com/container-platform/3.11/install/prerequisites.html#production-level-hardware-requirements">Production
-Level Hardware Requirements</a>.</p>
+Level Hardware Requirements</a> in the OpenShift Container Platform 3.11 documentation.</p>
 </div>
 </div>
 </div>
@@ -632,7 +630,7 @@ environment, see
 <li>
 <p>Install OKD. For more information, see
 <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index">OpenShift
-Container Platform 3.11 Installing Clusters</a>.</p>
+Container Platform 3.11 Installing Clusters</a> in the OpenShift Container Platform 3.11 documentation..</p>
 </li>
 <li>
 <p>Deploy OKD 3.11 client tools and a bastion node, which executes
@@ -651,18 +649,18 @@ example, creating a deployment. You can find the manifests for SAF
 in the <code>deploy/</code> directory of the telemetry-framework release archive.</p>
 </div>
 <div class="paragraph">
-<p>For a copy of the deployment manifests and installation script, go to
+<p>For a copy of the deployment manifests and installation script, see
 <a href="https://github.com/redhat-service-assurance/telemetry-framework/releases">https://github.com/redhat-service-assurance/telemetry-framework/releases</a>.</p>
 </div>
 <div class="paragraph">
 <p>Loading the manifests results in the instantiation of the
 <a href="https://coreos.com/blog/introducing-operators.html">Operators</a> into memory.
 You can also load additional manifests into memory where the Operators manage
-the deployment of application components, manage their life cycles, application
-configurations, and so on.</p>
+the deployment of application components, their life cycles, application
+configurations, and other elements.</p>
 </div>
 <div class="paragraph">
-<p>SAF has these core components:</p>
+<p>SAF comprises the following core components:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -681,7 +679,7 @@ configurations, and so on.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Each component has a corresponding Operator you can use to load the various
+<p>Each component has a corresponding Operator that you can use to load the various
 application components and objects.</p>
 </div>
 <div class="paragraph">
@@ -715,7 +713,7 @@ procedures:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log into your OKD environment. Create and switch to the <code>sa-telemetry</code> namespace in your OKD environment:</p>
+<p>Log in to your OKD environment. Create and switch to the <code>sa-telemetry</code> namespace in your OKD environment:</p>
 <div class="listingblock">
 <div class="content">
 <pre>    oc login https://console.service-assurance.tld:8443
@@ -752,9 +750,7 @@ procedures:</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The cluster administrator must set <code>vm.max_map_count</code> sysctl to
-<code>262144</code> on the host level of each node in your cluster prior to instantiating
-an SAF instance if you intend to deploy ElasticSearch.</p>
+<p>If you want to deploy ElasticSearch, as the cluster administrator, you must set <code>vm.max_map_count</code> sysctl to <code>262144</code> on the host level of each node in your cluster before you instantiate an SAF instance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -794,17 +790,14 @@ following tools are installed before execution:</p>
 <div class="sect2">
 <h3 id="generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</h3>
 <div class="paragraph">
-<p>To get the remote Apache&#160;Qpid&#160;Dispatch&#160;Router connections through the OKD route,
-use TLS/SSL certificates. The following commands create the appropriate
-certificate files locally and load the contents into a secret for use by
-Apache&#160;Qpid&#160;Dispatch&#160;Router. The Apache&#160;Qpid&#160;Dispatch&#160;Router message bus on the client side connects to the route address
+<p>Use TLS/SSL certificates to route the remote Apache&#160;Qpid&#160;Dispatch&#160;Router connections through the OKD router. The following commands create the appropriate certificate files locally and load the contents into a secret for Apache&#160;Qpid&#160;Dispatch&#160;Router to use. The Apache&#160;Qpid&#160;Dispatch&#160;Router message bus on the client side connects to the route address
 (DNS address) for the Apache&#160;Qpid&#160;Dispatch&#160;Router service on port 443.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Generate an unsigned certificate. If you have a signed certificate to load
-into OKD, go to the next step.</p>
+into OKD, proceed to step 2.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    openssl req -new -x509 -batch -nodes -days 11000 \
@@ -830,14 +823,13 @@ into OKD, go to the next step.</p>
 <div class="sect2">
 <h3 id="generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf">Generating TLS certificates for ElasticSearch</h3>
 <div class="paragraph">
-<p>To connect the Smart Gateway to ElasticSearch for events storage, you must
-generate certificates and load them as a secret into OKD.</p>
+<p>To connect the Smart Gateway to ElasticSearch for events storage, generate certificates and load them as a secret into OKD.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Generate the unsigned certificates. If you have signed certificates to load
-into OKD, go to the next section.</p>
+into OKD, go to <a href="#deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf">Deploying SAF to the OKD environment</a>.</p>
 <div class="listingblock">
 <div class="content">
 <pre>  WORKING_DIR=./es-certs \  # <b class="conum">(1)</b>
@@ -855,7 +847,7 @@ into OKD, go to the next section.</p>
 hostname generation.</p>
 </li>
 <li>
-<p>The script located in the <code>deploy/</code> directory to help with building the appropriate
+<p>The script located in the <code>deploy/</code> directory to help to build the appropriate
 certificate, CA, and key files.</p>
 </li>
 </ol>
@@ -873,13 +865,13 @@ following tasks:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Import the upstream container images into the <code>sa-telemetry</code> namespace using
+<p>Import the upstream container images into the <code>sa-telemetry</code> namespace by using
 the <em>import-upstream.sh</em> script. For more information, see
 <a href="#importing-the-container-images-for-saf_installing-the-core-components-of-saf">Importing the container images for SAF</a>.</p>
 </li>
 <li>
-<p>Generate the custom manifests using the Ansible playbook
-<code>deploy_builder.yaml</code> using the <code>ansible-playbook</code> command. For more information,
+<p>Generate the custom manifests by using the Ansible playbook
+<code>deploy_builder.yaml</code> and using the <code>ansible-playbook</code> command. For more information,
 see <a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</a>.</p>
 </li>
 <li>
@@ -904,13 +896,13 @@ following commands:</p>
 <div class="paragraph">
 <p>For more information about image streams, see
 <a href="https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams">Builds
-and Image Streams</a>.</p>
+and Image Streams</a> in the OpenShift Container Platform 3.11 documentation.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</h4>
 <div class="paragraph">
-<p>Several of the manifests required for deployment are dynamically generated with
+<p>Several of the manifests that are required for deployment are dynamically generated by
 Ansible.</p>
 </div>
 <div class="admonitionblock note">
@@ -928,8 +920,8 @@ Ansible version 2.7 or later is recommended.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>To generate the additional manifests for SAF, ensure that you are
-logged into the OKD environment within the <code>sa-telemetry</code>
+<p>To generate the additional manifests for SAF, log
+in to the OKD environment within the <code>sa-telemetry</code>
 namespace and run the following command:</p>
 <div class="listingblock">
 <div class="content">
@@ -956,9 +948,8 @@ Prometheus. To adjust the default PVC size, insert <code>-e
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Additional overrides can be seen in the
-<code>deploy/roles/deploy.builder/defaults/main.yml</code> file located in the
-telemetry-framework release diretory.</p>
+<p>You can view additional overrides in the <code>deploy/roles/deploy.builder/defaults/main.yml</code> file located in the
+telemetry-framework release directory.</p>
 </div>
 </td>
 </tr>
@@ -973,30 +964,27 @@ telemetry-framework release diretory.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Before you run the provided script, ensure that you meet the following
-prerequisites:</p>
+<p>Before you run the provided script, complete the following
+prerequisite actions:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>You are logged into OKD as an administrator and have the <code>oc</code>
+<p>Log in to OKD as an administrator and have the <code>oc</code>
 tool available in your <code>$PATH</code>. The <code>deploy.sh</code> script performs a validation to
 ensure that this is true. The script switches to the <code>sa-telemetry</code> namespace
-prior to deploying, and if it cannot find that namespace, the script attempts
-to create it.</p>
+before deployment. If the script cannot find the <code>sa-telemetry</code> namespace, it attempts
+to create the namespace.</p>
 </li>
 <li>
-<p>You have extracted the contents of the telemetry-framework release archive
-and have changed to the extracted directory. For more information, see
+<p>Extract the contents of the telemetry-framework release archive
+and change to the extracted directory. For more information, see
 <a href="#preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf">Preparing your OKD environment for SAF</a>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Use the <code>deploy.sh</code> script in the <code>deploy/</code> directory of the
-telemetry-framework release file that you previously extracted. Run the script
-with no arguments (or the <code>CREATE</code> argument) to start the various components in
-your OKD deployment. To remove the components, supply the <code>DELETE</code>
+<p>Use the <code>deploy.sh</code> script in the <code>deploy/</code> directory of the telemetry-framework release file that you previously extracted. Run the script to start the various components in your OKD deployment. To remove the components, supply the <code>DELETE</code>
 argument to the script.</p>
 </div>
 <div class="listingblock">
@@ -1012,12 +1000,11 @@ argument to the script.</p>
 <h2 id="completing-the-saf-configuration_installing-the-core-components-of-saf">Completing the Service&#160;Assurance&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Setting up OpenStack on the client side</h3>
+<h3 id="setting-up-openstack-on-the-client-side_completing-the-saf-configuration">Configuring OpenStack on the client side</h3>
 <div class="paragraph">
 <p>To collect metrics, events, or both, and to send them back to the SAF
 storage domain, you must install collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router on the nodes of an
-OpenStack deployment. The following sections show you how to configure the
-OpenStack&#160;Queens TripleO to enable the data collection
+OpenStack deployment. Configure the OpenStack&#160;Queens TripleO to enable the data collection
 functionality and to stream the data to Service&#160;Assurance&#160;Framework (SAF).</p>
 </div>
 </div>
@@ -1029,13 +1016,13 @@ functionality and to stream the data to Service&#160;Assurance&#160;Framework (S
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a file and for convenience, name it <code>metrics-collectd-qdr-overrides.yaml</code>. Save the file in the <code>/home/stack/</code> directory.</p>
+<p>Create a file and name it <code>metrics-collectd-qdr-overrides.yaml</code>. Save the file in the <code>/home/stack/</code> directory.</p>
 </li>
 <li>
-<p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>,<code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. To clarify which plug-ins are available, list the default plug-ins.</p>
+<p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>, <code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. To clarify the plug-ins that are available, list the default plug-ins.</p>
 </li>
 <li>
-<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes running the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr.yaml</code>, is for the <code>virt</code> plug-in:</p>
+<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes that run the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr.yaml</code>, is for the <code>virt</code> plug-in:</p>
 </li>
 </ol>
 </div>
@@ -1078,18 +1065,15 @@ parameter_defaults:
 </div>
 </div>
 <div class="paragraph">
-<p>Use the <code>metrics-collectd-qdr-overrides.yaml</code> file to configure the plug-ins for collectd, including the <code>amqp1.so</code> module to connect to Apache&#160;Qpid&#160;Dispatch&#160;Router. Use the <code>CollectdExtraPlugins</code> parameter to enable additional plug-ins. Use the <code>MetricsQdrConnectors</code> parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage backend provided by SAF.</p>
+<p>Use the <code>metrics-collectd-qdr-overrides.yaml</code> file to configure the plug-ins for collectd and include the <code>amqp1.so</code> module to connect to Apache&#160;Qpid&#160;Dispatch&#160;Router. Use the <code>CollectdExtraPlugins</code> parameter to enable additional plug-ins. Use the <code>MetricsQdrConnectors</code> parameter to configure the connection back to the SAF server where data is streamed for storage in the appropriate storage back end provided by SAF.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="configuring-red-hat-openstack-platform-overcloud-for-saf-events_completing-the-saf-configuration">Configuring the OpenStack overcloud for SAF events</h3>
 <div class="paragraph">
-<p>The procedure to enable the collection of events on the client side is similar to the procedure that you follow to
-configure metric collection in
-<a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a>. The following sample
-is from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that
-you can pass to a OpenStack&#160;Queens TripleO deployment to configure and
-setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
+<p>To enable the collection of events on the client side, follow the steps in
+<a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a> and use the following sample from <code>metrics-collectd-qdr-overrides.yaml</code> for this procedure.
+You can pass the <code>metrics-collectd-qdr-overrides.yaml</code> environment file to a OpenStack&#160;Queens TripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
 <div class="listingblock">
 <div class="title">metrics-collectd-qdr-overrides.yaml</div>
@@ -1097,10 +1081,10 @@ setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">---
 parameter_defaults:
   CollectdAmqpInstances:
-  notify: // <b class="conum">(1)</b>
-    format: JSON // <b class="conum">(2)</b>
+  notify: # Create a `notify` address for {MessageBus} that transmits the events.
+    format: JSON # The format of the messages is in JSON.
     presettle: false
-    notify: true // <b class="conum">(3)</b>
+    notify: true # Mark these messages as being events in the VES format.
   telemetry:
     format: JSON
     presettle: true
@@ -1111,8 +1095,8 @@ parameter_defaults:
   - df
   - hugepages
   - ovs_stats
-  - ovs_events // <b class="conum">(4)</b>
-  - connectivity // <b class="conum">(5)</b>
+  - ovs_events # Enable an events plugin for OVS events.
+  - connectivity # Enable an events plugin for network connectivity events.
   - load
   - uptime
   MetricsQdrConnectors:
@@ -1125,30 +1109,11 @@ parameter_defaults:
   - name: sslProfile</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>Create a <code>notify</code> address for Apache&#160;Qpid&#160;Dispatch&#160;Router that transmits the events.</p>
-</li>
-<li>
-<p>The format of the messages is in JSON.</p>
-</li>
-<li>
-<p>Mark these messages as being events in the VES format.</p>
-</li>
-<li>
-<p>Enable an events plugin for OVS events.</p>
-</li>
-<li>
-<p>Enable an events plugin for network connectivity events.</p>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect2">
 <h3 id="updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating OpenStack overcloud for SAF</h3>
 <div class="paragraph">
-<p>Below is an example <code>openstack overcloud deploy</code> command with the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that you configured in the previous section. Note the two environment file lines that you must provide in the deploy command.</p>
+<p>The procedure in section <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf-events_configuring-the-saf-configuration">[configuring-red-hat-openstack-platform-overcloud-for-saf-events_configuring-the-saf-configuration]</a> includes the instruction to create the <code>metrics-collectd-qdr-overrides.yaml</code> environment file. The following example uses the <code>metrics-collectd-qdr-overrides.yaml</code> file in the <code>openstack overcloud deploy</code> command with the environment files that you must add to the command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1181,8 +1146,8 @@ parameter_defaults:
 <p>The SSL certificates for the <code>MetricsQdr</code> service are configured to generate
 only for the <code>InternalApi</code> network but the default Ceph role does not use the
 <code>InternalApi</code> network. To deploy SAF client when InternalTLS is enabled, use
-this workaround: pass the custom Ceph role, which has <code>InternalApi</code> network, to
-<code>openstack overcloud deploy</code> when InternalTLS is enabled in the deployment.</p>
+this workaround: pass the custom Ceph role, which has an <code>InternalApi</code> network, to
+the <code>openstack overcloud deploy</code> command when InternalTLS is enabled in the deployment.</p>
 </div>
 </td>
 </tr>
@@ -1191,10 +1156,10 @@ this workaround: pass the custom Ceph role, which has <code>InternalApi</code> n
 <div class="sect3">
 <h4 id="deploying-with-routed-l3-networks_completing-the-saf-configuration">Deploying with routed L3 networks</h4>
 <div class="paragraph">
-<p>If nodes are on a separate network from the default <code>InternalApi</code> network used by the controllers, which is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology, you must make several changes to allow data transported using Apache&#160;Qpid&#160;Dispatch&#160;Router to reach the SAF server instance.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the SAF server instance. This scenario is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology.</p>
 </div>
 <div class="paragraph">
-<p>Add the following configuration example under the <code>ExtraConfig</code> section for each compute node. In this example, <code>internal_apiN</code> is the network that the Compute node <em>N</em> is connected to, where <em>N</em> represents a value different from the default internal API network name.</p>
+<p>Add the following configuration example under the <code>ExtraConfig</code> section for each compute node. In this example, <code>internal_apiN</code> is the network that the Compute node <em>N</em> is connected to, where <em>N</em> represents a value that is different from the default internal API network name.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1204,14 +1169,14 @@ this workaround: pass the custom Ceph role, which has <code>InternalApi</code> n
 </div>
 </div>
 <div class="paragraph">
-<p>For more information on DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> Guide.</p>
+<p>For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="conclusion_completing-the-saf-configuration">Completion of server-side installation</h3>
 <div class="paragraph">
-<p>The server-side installation of SAF is now complete. You must now configure the SAF data collection to collect data and send it back to the SAF storage domain.</p>
+<p>After you complete server-side installation of SAF, you must configure the SAF data collection to collect data and send it back to the SAF storage domain.</p>
 </div>
 </div>
 </div>
@@ -1220,17 +1185,12 @@ this workaround: pass the custom Ceph role, which has <code>InternalApi</code> n
 <h2 id="configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After you install the Service&#160;Assurance&#160;Framework (SAF) server-side components, you are ready to configure the SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This section describes how to install and configure collectd.</p>
+<p>After you install the Service&#160;Assurance&#160;Framework (SAF) server-side components, configure the SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This process includes installing and configuring collectd.</p>
 </div>
 <div class="sect2">
 <h3 id="data-collecting-agent_configuring-saf-components">Data collecting agent</h3>
 <div class="paragraph">
-<p>Performance monitoring collects system information periodically and provides a
-mechanism to store and monitor the values in a variety of ways using a data
-collecting agent. Red Hat supports the collectd daemon as a collection agent.
-This daemon stores the data in a time-series database. One of the Red Hat
-supported databases is called Prometheus. You can use this stored data to
-monitor systems, find performance bottlenecks, and predict future system load.</p>
+<p>Performance monitoring collects system information periodically and provides a mechanism to store and monitor the values in a variety of ways using a data collecting agent. The collectd collection agent periodically collects system information and stores it to monitor systems, find performance bottlenecks, and predict future system load. collectd stores the data in a time-series database, such as Prometheus.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1241,7 +1201,7 @@ monitor systems, find performance bottlenecks, and predict future system load.</
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the file <code>/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml</code> to your local directory.  Open the file, set the following parameters, and list the plugins you want under <code>CollectdExtraPlugins</code>. You can also provide parameters in the <code>ExtraConfig</code> section:</p>
+<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml</code> file to your local directory.  Open the file, set the following parameters, and list the plugins you want under <code>CollectdExtraPlugins</code>. You can also provide parameters in the <code>ExtraConfig</code> section:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1256,11 +1216,11 @@ monitor systems, find performance bottlenecks, and predict future system load.</
 </div>
 </div>
 <div class="paragraph">
-<p>By default, collectd comes with the disk, interface, load, memory, processes, and tcpconns plugins. You can add additional plugins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> using the <code>ExtraConfig</code> option as shown. The example above adds the virt plugin and configures the connection string and the hostname format.</p>
+<p>By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> using the <code>ExtraConfig</code> option as shown. The CollectdExtraPlugins example adds the virt plug-in and configures the connection string and the hostname format.</p>
 </div>
 </li>
 <li>
-<p>Include the modified YAML files in the <code>openstack overcloud deploy</code> command to install the collectd daemon on all overcloud nodes. For example:</p>
+<p>Include the modified YAML files in the <code>openstack overcloud deploy</code> command to install the collectd daemon on all overcloud nodes:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ openstack overcloud deploy
@@ -1305,7 +1265,7 @@ correct address. For more information, see <a href="#updating-collectd-configura
 </ol>
 </div>
 <div class="paragraph">
-<p>The following diagram demonstrates how two OpenStack clouds connect to SAF.</p>
+<p>This diagram demonstrates how two OpenStack clouds connect to SAF.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1316,11 +1276,8 @@ correct address. For more information, see <a href="#updating-collectd-configura
 <div class="sect2">
 <h3 id="planning-amqp-address-prefixes_connecting-multiple-clouds-to-saf">Planning AMQP address prefixes</h3>
 <div class="paragraph">
-<p>By default, OpenStack nodes are configured to send data to the <code>collectd/telemetry</code> and <code>collectd/notify</code> addresses on the AMQP bus; and SAF is configured to listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address.</p>
-</div>
-<div class="paragraph">
-<p>It is recommended that you prefix a cloud identifier to the second part of the
-address. For example:</p>
+<p>By default, OpenStack nodes send data to the <code>collectd/telemetry</code> and <code>collectd/notify</code> addresses on the AMQP bus and SAF listens on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. It is recommended that you prefix a cloud identifier to the second part of the
+address. The following example list shows some of the addresses and identifiers you can include:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1342,19 +1299,16 @@ address. For example:</p>
 <li>
 <p>collectd/us-west-3-telemetry</p>
 </li>
-<li>
-<p>&#8230;&#8203;etc</p>
-</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="deploying-smart-gateways_connecting-multiple-clouds-to-saf">Deploying Smart Gateways</h3>
 <div class="paragraph">
-<p>You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address defined for the corresponding cloud.</p>
+<p>You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.</p>
 </div>
 <div class="paragraph">
-<p>When you deploy SAF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways handling the metrics and the events data for each cloud.</p>
+<p>When you deploy SAF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways that handle the metrics and the events data for each cloud.</p>
 </div>
 <div class="paragraph">
 <p>To deploy multiple Smart Gateways, complete the following steps:</p>
@@ -1490,7 +1444,7 @@ default Smart Gateways if they are no longer in use.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Delete the default Smart Gateways from the cluster.</p>
+<p>Delete the default Smart Gateways from the cluster:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc delete smartgateway cloud1-notify cloud1-telemetry</pre>
@@ -1498,7 +1452,7 @@ default Smart Gateways if they are no longer in use.</p>
 </div>
 </li>
 <li>
-<p>Optional: Delete the default manifests.</p>
+<p>Optional: Delete the default manifests:</p>
 <div class="listingblock">
 <div class="content">
 <pre>rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml</pre>
@@ -1514,7 +1468,7 @@ default Smart Gateways if they are no longer in use.</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-You can regenerate the default manifests if you re-run the <a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</a> step.
+To regenerate the default manifests, re-run the <a href="#generating-the-manifests-for-saf_installing-the-core-components-of-saf">Generating the manifests for SAF</a> step.
 </td>
 </tr>
 </table>
@@ -1540,7 +1494,7 @@ You can regenerate the default manifests if you re-run the <a href="#generating-
 </div>
 </div>
 <div class="paragraph">
-<p>For more information on how to edit and redeploy this configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a> and <a href="#updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating OpenStack overcloud for SAF</a>.</p>
+<p>For more information about how to edit and redeploy this configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Configuring OpenStack overcloud for SAF</a> and <a href="#updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating OpenStack overcloud for SAF</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1557,8 +1511,8 @@ specific cloud.</p>
 <div class="sect2">
 <h3 id="using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</h3>
 <div class="paragraph">
-<p>To use Apache&#160;Qpid&#160;Dispatch&#160;Router, see
-<a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a>.</p>
+<p>To use Apache&#160;Qpid&#160;Dispatch&#160;Router, see the
+<a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a> guide.</p>
 </div>
 </div>
 </div>
@@ -2694,7 +2648,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-25 15:07:11 UTC
+Last updated 2019-11-28 13:58:25 UTC
 </div>
 </div>
 </body>
