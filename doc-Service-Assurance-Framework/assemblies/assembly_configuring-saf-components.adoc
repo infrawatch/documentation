@@ -35,7 +35,7 @@
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
-After you install the {Project} ({ProjectShort}) server-side components, you are ready to configure the {ProjectShort} data collection to collect data and store it on the cloud platform side.  You must enable data collection within your {OpenStack} environment and direct it back to {ProjectShort}.  This section describes how to install and configure collectd.
+After you install the {Project} ({ProjectShort}) server-side components, configure the {ProjectShort} data collection to collect data and store it on the cloud platform side.  You must enable data collection within your {OpenStack} environment and direct it back to {ProjectShort}.  This process includes installing and configuring collectd.
 
 
 

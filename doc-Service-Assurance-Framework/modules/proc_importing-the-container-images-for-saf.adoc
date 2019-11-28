@@ -34,4 +34,4 @@ cd deploy/
 
 For more information about image streams, see
 link:https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams[Builds
-and Image Streams].
+and Image Streams] in the OpenShift Container Platform 3.11 documentation.

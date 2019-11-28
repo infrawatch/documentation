@@ -26,7 +26,7 @@
 
 To install collectd on the overcloud, complete the following steps:
 
-. Copy the file `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` to your local directory.  Open the file, set the following parameters, and list the plugins you want under `CollectdExtraPlugins`. You can also provide parameters in the `ExtraConfig` section:
+. Copy the `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` file to your local directory.  Open the file, set the following parameters, and list the plugins you want under `CollectdExtraPlugins`. You can also provide parameters in the `ExtraConfig` section:
 +
 ----
 parameter_defaults:
@@ -40,9 +40,9 @@ parameter_defaults:
      collectd::plugin::virt::hostname_format: "hostname uuid"
 ----
 +
-By default, collectd comes with the disk, interface, load, memory, processes, and tcpconns plugins. You can add additional plugins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. The example above adds the virt plugin and configures the connection string and the hostname format.
+By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. The CollectdExtraPlugins example adds the virt plug-in and configures the connection string and the hostname format.
 
-. Include the modified YAML files in the `openstack overcloud deploy` command to install the collectd daemon on all overcloud nodes. For example:
+. Include the modified YAML files in the `openstack overcloud deploy` command to install the collectd daemon on all overcloud nodes:
 +
 ----
 $ openstack overcloud deploy
@@ -51,4 +51,4 @@ $ openstack overcloud deploy
 ----
 +
 To view the collectd plugins and configurations, see
-<<appe-saf-collectd-plugins>>. 
+<<appe-saf-collectd-plugins>>.

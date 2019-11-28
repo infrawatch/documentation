@@ -25,4 +25,4 @@
 [id="conclusion_{context}"]
 = Completion of server-side installation
 
-The server-side installation of {ProjectShort} is now complete. You must now configure the {ProjectShort} data collection to collect data and send it back to the {ProjectShort} storage domain.
+After you complete server-side installation of {ProjectShort}, you must configure the {ProjectShort} data collection to collect data and send it back to the {ProjectShort} storage domain.

@@ -34,7 +34,7 @@ environment, see
 
 . Install {OpenShiftShort}. For more information, see
 link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index[OpenShift
-Container Platform 3.11 Installing Clusters].
+Container Platform 3.11 Installing Clusters] in the OpenShift Container Platform 3.11 documentation..
 
 . Deploy {OpenShiftShort} 3.11 client tools and a bastion node, which executes
 the supplied bash script to load the components into the `sa-telemetry`

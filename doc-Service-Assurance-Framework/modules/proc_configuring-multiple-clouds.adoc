@@ -32,6 +32,6 @@ To configure multiple {OpenStack} clouds to target a single instance of {Project
 . Configure each cloud to send its metrics and events to {ProjectShort} on the
  correct address. For more information, see <<updating-collectd-configuration_connecting-multiple-clouds-to-saf>>.
 
-The following diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
+This diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
 
 image::OpenStack_SAF_Overview_37_0919_topology.png[]

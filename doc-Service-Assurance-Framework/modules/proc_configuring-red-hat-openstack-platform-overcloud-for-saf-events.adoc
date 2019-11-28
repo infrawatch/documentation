@@ -23,12 +23,9 @@
 [id='configuring-red-hat-openstack-platform-overcloud-for-saf-events_{context}']
 = Configuring the {OpenStack} overcloud for {ProjectShort} events
 
-The procedure to enable the collection of events on the client side is similar to the procedure that you follow to
-configure metric collection in
-<<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>. The following sample
-is from the `metrics-collectd-qdr-overrides.yaml` environment file that
-you can pass to a {OpenstackLong} {OpenStackInstaller} deployment to configure and
-setup collectd and {MessageBus}.
+To enable the collection of events on the client side, follow the steps in
+<<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and use the following sample from `metrics-collectd-qdr-overrides.yaml` for this procedure.
+You can pass the `metrics-collectd-qdr-overrides.yaml` environment file to a {OpenstackLong} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}.
 
 .metrics-collectd-qdr-overrides.yaml
 [source,yaml]
@@ -36,10 +33,10 @@ setup collectd and {MessageBus}.
 ---
 parameter_defaults:
   CollectdAmqpInstances:
-  notify: // <1>
-    format: JSON // <2>
+  notify: # Create a `notify` address for {MessageBus} that transmits the events.
+    format: JSON # The format of the messages is in JSON.
     presettle: false
-    notify: true // <3>
+    notify: true # Mark these messages as being events in the VES format.
   telemetry:
     format: JSON
     presettle: true
@@ -50,8 +47,8 @@ parameter_defaults:
   - df
   - hugepages
   - ovs_stats
-  - ovs_events // <4>
-  - connectivity // <5>
+  - ovs_events # Enable an events plugin for OVS events.
+  - connectivity # Enable an events plugin for network connectivity events.
   - load
   - uptime
   MetricsQdrConnectors:
@@ -63,8 +60,3 @@ parameter_defaults:
   MetricsQdrSSLProfiles:
   - name: sslProfile
 ----
-<1> Create a `notify` address for {MessageBus} that transmits the events.
-<2> The format of the messages is in JSON.
-<3> Mark these messages as being events in the VES format.
-<4> Enable an events plugin for OVS events.
-<5> Enable an events plugin for network connectivity events.

@@ -23,5 +23,5 @@
 [id="using-the-amq-interconnect-message-bus_{context}"]
 = Using the {MessageBus} message bus
 
-To use {MessageBus}, see
-link:https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index[Using AMQ Interconnect].
+To use {MessageBus}, see the
+link:https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index[Using AMQ Interconnect] guide.

@@ -26,12 +26,12 @@
 To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the
 following tasks:
 
-. Import the {build} container images into the `sa-telemetry` namespace using
+. Import the {build} container images into the `sa-telemetry` namespace by using
 the _import-{build}.sh_ script. For more information, see
 <<importing-the-container-images-for-saf_installing-the-core-components-of-saf>>.
 
-. Generate the custom manifests using the Ansible playbook
-`deploy_builder.yaml` using the `ansible-playbook` command. For more information,
+. Generate the custom manifests by using the Ansible playbook
+`deploy_builder.yaml` and using the `ansible-playbook` command. For more information,
 see <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>>.
 
 . Execute the `deploy.sh` script to create the Kubernetes objects in the

@@ -28,16 +28,16 @@ default Smart Gateways if they are no longer in use.
 
 To delete the Smart Gateways, complete the following steps:
 
-. Delete the default Smart Gateways from the cluster.
+. Delete the default Smart Gateways from the cluster:
 +
 ----
 oc delete smartgateway cloud1-notify cloud1-telemetry
 ----
-. Optional: Delete the default manifests.
+. Optional: Delete the default manifests:
 +
 ----
 rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml
 ----
 
 [NOTE]
-You can regenerate the default manifests if you re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf,Generating the manifests for SAF>> step.
+To regenerate the default manifests, re-run the <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>> step.

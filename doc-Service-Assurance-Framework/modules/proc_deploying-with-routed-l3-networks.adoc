@@ -22,9 +22,9 @@
 // _Wording of headings_ in _The IBM Style Guide_.
 [id='deploying-with-routed-l3-networks_{context}']
 = Deploying with routed L3 networks
-If nodes are on a separate network from the default `InternalApi` network used by the controllers, which is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology, you must make several changes to allow data transported using {MessageBus} to reach the {ProjectShort} server instance.
+If your nodes are on a separate network from the default `InternalApi` network that the Controller nodes use, you must make several changes so that {MessageBus} can transport data to the {ProjectShort} server instance. This scenario is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology.
 
-Add the following configuration example under the `ExtraConfig` section for each compute node. In this example, `internal_apiN` is the network that the Compute node _N_ is connected to, where _N_ represents a value different from the default internal API network name.
+Add the following configuration example under the `ExtraConfig` section for each compute node. In this example, `internal_apiN` is the network that the Compute node _N_ is connected to, where _N_ represents a value that is different from the default internal API network name.
 
 [source,yaml]
 ----
@@ -33,4 +33,4 @@ ComputeNExtraConfig:
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"
 ----
 
-For more information on DCN configuration, see the link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/[Spine Leaf Networking] Guide.
+For more information about DCN configuration, see the link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
