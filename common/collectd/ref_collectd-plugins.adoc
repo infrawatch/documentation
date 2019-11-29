@@ -25,7 +25,7 @@
 // readers and search engines find information quickly.
 [appendix]
 [[appe-saf-collectd-plugins]]
-# collectd plugins
+# collectd plug-ins
 
 This section contains a complete list of collectd plug-ins and configurations for {OpenStack} {OpenStackVersion}.
 
@@ -33,13 +33,13 @@ collectd-aggregation::
 * collectd::plugin::aggregation::aggregators
 * collectd::plugin::aggregation::interval
 
-collectd-amqp1::
+*collectd-amqp1*
 
 collectd-apache::
 * collectd::plugin::apache::instances (ex.: {'localhost' => {'url' => 'http://localhost/mod_status?auto'}})
 * collectd::plugin::apache::interval
 
-collectd-apcups::
+*collectd-apcups*
 
 collectd-battery::
 * collectd::plugin::battery::values_percentage
@@ -74,7 +74,7 @@ collectd-cpu::
 collectd-cpufreq::
 * None
 
-collectd-cpusleep::
+*collectd-cpusleep*
 
 collectd-csv::
 * collectd::plugin::csv::datadir
@@ -98,7 +98,6 @@ collectd-disk::
 * collectd::plugin::disk::ignoreselected
 * collectd::plugin::disk::udevnameattr
 * collectd::plugin::disk::interval
-
 
 collectd-entropy::
 * collectd::plugin::entropy::interval
@@ -140,7 +139,7 @@ collectd-hugepages::
 * collectd::plugin::hugepages::values_percentage
 * collectd::plugin::hugepages::interval
 
-collectd-intel_rdt::
+*collectd-intel_rdt*
 
 collectd-interface::
 * collectd::plugin::interface::interfaces
@@ -175,11 +174,11 @@ collectd-logfile::
 * collectd::plugin::logfile::print_severity
 * collectd::plugin::logfile::interval
 
-collectd-madwifi::
+*collectd-madwifi*
 
-collectd-mbmon::
+*collectd-mbmon*
 
-collectd-md::
+*collectd-md*
 
 collectd-memcached::
 * collectd::plugin::memcached::instances
@@ -191,7 +190,7 @@ collectd-memory::
 * collectd::plugin::memory::interval
 collectd-multimeter
 
-collectd-multimeter::
+*collectd-multimeter*
 
 collectd-mysql::
 * collectd::plugin::mysql::interval
@@ -227,7 +226,7 @@ collectd-ntpd::
 collectd-numa::
 * None
 
-collectd-olsrd::
+*collectd-olsrd*
 
 collectd-openvpn::
 * collectd::plugin::openvpn::statusfile
@@ -280,16 +279,16 @@ collectd-protocols::
 * collectd::plugin::protocols::ignoreselected
 * collectd::plugin::protocols::values
 
-collectd-python::
+*collectd-python*
 
-collectd-serial::
+*collectd-serial*
 
 collectd-smart::
 * collectd::plugin::smart::disks
 * collectd::plugin::smart::ignoreselected
 * collectd::plugin::smart::interval
 
-collectd-snmp_agent::
+*collectd-snmp_agent*
 
 collectd-statsd::
 * collectd::plugin::statsd::host
@@ -338,7 +337,7 @@ collectd-tcpconns::
 * collectd::plugin::tcpconns::allportssummary
 * collectd::plugin::tcpconns::interval
 
-collectd-ted::
+*collectd-ted*
 
 collectd-thermal::
 * collectd::plugin::thermal::devices
@@ -360,7 +359,7 @@ collectd-turbostat::
 * collectd::plugin::turbostat::running_average_power_limit
 * collectd::plugin::turbostat::logical_core_names
 
-collectd-unixsock::
+*collectd-unixsock*
 
 collectd-uptime::
 * collectd::plugin::uptime::interval
@@ -388,9 +387,9 @@ collectd-vmem::
 * collectd::plugin::vmem::verbose
 * collectd::plugin::vmem::interval
 
-collectd-vserver::
+*collectd-vserver*
 
-collectd-wireless::
+*collectd-wireless*
 
 collectd-write_graphite::
 * collectd::plugin::write_graphite::carbons
