@@ -490,7 +490,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-saf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</a></li>
 </ul>
 </li>
-<li><a href="#appe-saf-collectd-plugins">Appendix A: collectd plugins</a></li>
+<li><a href="#appe-saf-collectd-plugins">Appendix A: collectd plug-ins</a></li>
 </ul>
 </div>
 </div>
@@ -1113,7 +1113,7 @@ parameter_defaults:
 <div class="sect2">
 <h3 id="updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration">Updating OpenStack overcloud for SAF</h3>
 <div class="paragraph">
-<p>The procedure in section <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf-events_configuring-the-saf-configuration">[configuring-red-hat-openstack-platform-overcloud-for-saf-events_configuring-the-saf-configuration]</a> includes the instruction to create the <code>metrics-collectd-qdr-overrides.yaml</code> environment file. The following example uses the <code>metrics-collectd-qdr-overrides.yaml</code> file in the <code>openstack overcloud deploy</code> command with the environment files that you must add to the command.</p>
+<p>The procedure in section <a href="#configuring-red-hat-openstack-platform-overcloud-for-saf-events_completing-the-saf-configuration">Configuring the OpenStack overcloud for SAF events</a> includes the instruction to create the <code>metrics-collectd-qdr-overrides.yaml</code> environment file. The following example uses the <code>metrics-collectd-qdr-overrides.yaml</code> file in the <code>openstack overcloud deploy</code> command with the environment files that you must add to the command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1230,7 +1230,7 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 </div>
 <div class="paragraph">
 <p>To view the collectd plugins and configurations, see
-<a href="#appe-saf-collectd-plugins">collectd plugins</a>.</p>
+<a href="#appe-saf-collectd-plugins">collectd plug-ins</a>.</p>
 </div>
 </li>
 </ol>
@@ -1518,7 +1518,7 @@ specific cloud.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appe-saf-collectd-plugins">Appendix A: collectd plugins</h2>
+<h2 id="appe-saf-collectd-plugins">Appendix A: collectd plug-ins</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section contains a complete list of collectd plug-ins and configurations for OpenStack Queens.</p>
@@ -1538,7 +1538,13 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-amqp1</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-amqp1</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-apache</dt>
 <dd>
 <div class="ulist">
@@ -1552,7 +1558,13 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-apcups</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-apcups</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-battery</dt>
 <dd>
 <div class="ulist">
@@ -1659,7 +1671,13 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-cpusleep</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-cpusleep</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-csv</dt>
 <dd>
 <div class="ulist">
@@ -1860,7 +1878,13 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-intel_rdt</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-intel_rdt</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-interface</dt>
 <dd>
 <div class="ulist">
@@ -1966,9 +1990,19 @@ specific cloud.</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-madwifi</dt>
-<dt class="hdlist1">collectd-mbmon</dt>
-<dt class="hdlist1">collectd-md</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-madwifi</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>collectd-mbmon</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>collectd-md</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-memcached</dt>
 <dd>
 <div class="ulist">
@@ -1999,7 +2033,13 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-multimeter</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-multimeter</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-mysql</dt>
 <dd>
 <div class="ulist">
@@ -2108,7 +2148,13 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-olsrd</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-olsrd</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-openvpn</dt>
 <dd>
 <div class="ulist">
@@ -2269,8 +2315,16 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-python</dt>
-<dt class="hdlist1">collectd-serial</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-python</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>collectd-serial</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-smart</dt>
 <dd>
 <div class="ulist">
@@ -2287,7 +2341,13 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-snmp_agent</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-snmp_agent</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-statsd</dt>
 <dd>
 <div class="ulist">
@@ -2436,7 +2496,13 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-ted</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-ted</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-thermal</dt>
 <dd>
 <div class="ulist">
@@ -2500,7 +2566,13 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-unixsock</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-unixsock</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-uptime</dt>
 <dd>
 <div class="ulist">
@@ -2584,8 +2656,16 @@ collectd-multimeter</p>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">collectd-vserver</dt>
-<dt class="hdlist1">collectd-wireless</dt>
+</dl>
+</div>
+<div class="paragraph">
+<p><strong>collectd-vserver</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>collectd-wireless</strong></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">collectd-write_graphite</dt>
 <dd>
 <div class="ulist">
@@ -2648,7 +2728,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-28 13:58:25 UTC
+Last updated 2019-11-29 14:05:22 UTC
 </div>
 </div>
 </body>
