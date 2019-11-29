@@ -23,7 +23,7 @@
 [id='updating-red-hat-openstack-platform-overcloud-for-saf_{context}']
 = Updating {OpenStack} overcloud for {ProjectShort}
 
-The procedure in section <<configuring-red-hat-openstack-platform-overcloud-for-saf-events_configuring-the-saf-configuration>> includes the instruction to create the `metrics-collectd-qdr-overrides.yaml` environment file. The following example uses the `metrics-collectd-qdr-overrides.yaml` file in the `openstack overcloud deploy` command with the environment files that you must add to the command.
+The procedure in section <<configuring-red-hat-openstack-platform-overcloud-for-saf-events_completing-the-saf-configuration>> includes the instruction to create the `metrics-collectd-qdr-overrides.yaml` environment file. The following example uses the `metrics-collectd-qdr-overrides.yaml` file in the `openstack overcloud deploy` command with the environment files that you must add to the command.
 
 ----
 openstack overcloud deploy \
