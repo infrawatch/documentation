@@ -1022,7 +1022,7 @@ functionality and to stream the data to Service&#160;Assurance&#160;Framework (S
 <p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>, <code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. To clarify the plug-ins that are available, list the default plug-ins.</p>
 </li>
 <li>
-<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes that run the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr.yaml</code>, is for the <code>virt</code> plug-in:</p>
+<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes that run the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr-overrides.yaml</code>, is for the <code>virt</code> plug-in:</p>
 </li>
 </ol>
 </div>
@@ -2728,7 +2728,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-29 14:05:22 UTC
+Last updated 2019-12-11 16:17:07 UTC
 </div>
 </div>
 </body>
