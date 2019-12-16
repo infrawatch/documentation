@@ -37,7 +37,7 @@
 // The table shows various metadata useful when editing this file.
 After you install the {Project} ({ProjectShort}) server-side components, configure collectd to collect data and store it on the cloud platform side.
 
-. Copy the `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` file to your local directory.  Open the file and set additional parameters in the `ExtraConfig` section:
+. Copy the `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the `ExtraConfig` section:
 +
 ----
 parameter_defaults:
@@ -58,7 +58,7 @@ By default, collectd includes the disk, interface, load, memory, processes, and 
 ----
 $ openstack overcloud deploy
 --templates /home/templates/environments/collectd.yaml \
--e /path-to-copied/collectd-environment.yaml
+-e /home/templates/custom/collectd-environment.yaml
 ----
 +
 To view the collectd plug-ins and configurations, see <<appe-saf-collectd-plugins>>.
