@@ -35,12 +35,37 @@
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
-After you install the {Project} ({ProjectShort}) server-side components, configure the {ProjectShort} data collection to collect data and store it on the cloud platform side.  You must enable data collection within your {OpenStack} environment and direct it back to {ProjectShort}.  This process includes installing and configuring collectd.
+After you install the {Project} ({ProjectShort}) server-side components, configure collectd to collect data and store it on the cloud platform side.
+
+. Copy the `/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml` file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the `ExtraConfig` section:
++
+----
+parameter_defaults:
+   CollectdExtraPlugins:
+     - disk
+     - df
+     - virt
+
+   ExtraConfig:
+     collectd::plugin::virt::connection: "qemu:///system"
+     collectd::plugin::virt::hostname_format: "hostname uuid"
+----
++
+By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the `CollectdExtraPlugins` parameter. You can also provide additional configuration information for the `CollectdExtraPlugins` using the `ExtraConfig` option as shown. The `CollectdExtraPlugins` example adds the virt plug-in and configures the connection string and the hostname format.
+
+. Include the modified YAML files in the `openstack overcloud deploy` command:
++
+----
+$ openstack overcloud deploy
+--templates /home/templates/environments/collectd.yaml \
+-e /home/templates/custom/collectd-environment.yaml
+----
++
+To view the collectd plug-ins and configurations, see <<appe-saf-collectd-plugins>>.
 
 
-
-include::../common/collectd/con_data-collecting-agent.adoc[leveloffset=+1]
-include::../common/collectd/proc_installing-collectd.adoc[leveloffset=+1]
+//include::../common/collectd/con_data-collecting-agent.adoc[leveloffset=+1]
+//include::../common/collectd/proc_installing-collectd.adoc[leveloffset=+1]
 //include::../common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]
 
 // include::modules/subsystem/proc_doing_one_procedure.adoc[leveloffset=+1]
