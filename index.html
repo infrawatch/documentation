@@ -473,12 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#conclusion_completing-the-saf-configuration">Completion of server-side installation</a></li>
 </ul>
 </li>
-<li><a href="#configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</a>
-<ul class="sectlevel2">
-<li><a href="#data-collecting-agent_configuring-saf-components">Data collecting agent</a></li>
-<li><a href="#installing-collectd">Installing collectd</a></li>
-</ul>
-</li>
+<li><a href="#configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</a></li>
 <li><a href="#connecting-multiple-clouds-to-saf_configuring-saf-components">Connecting multiple clouds to Service&#160;Assurance&#160;Framework</a>
 <ul class="sectlevel2">
 <li><a href="#configuring-multiple-clouds_connecting-multiple-clouds-to-saf">Configuring multiple clouds</a></li>
@@ -1185,23 +1180,12 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 <h2 id="configuring-saf-components_completing-the-saf-configuration">Configuring Service&#160;Assurance&#160;Framework data collection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After you install the Service&#160;Assurance&#160;Framework (SAF) server-side components, configure the SAF data collection to collect data and store it on the cloud platform side.  You must enable data collection within your OpenStack environment and direct it back to SAF.  This process includes installing and configuring collectd.</p>
-</div>
-<div class="sect2">
-<h3 id="data-collecting-agent_configuring-saf-components">Data collecting agent</h3>
-<div class="paragraph">
-<p>Performance monitoring collects system information periodically and provides a mechanism to store and monitor the values in a variety of ways using a data collecting agent. The collectd collection agent periodically collects system information and stores it to monitor systems, find performance bottlenecks, and predict future system load. collectd stores the data in a time-series database, such as Prometheus.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="installing-collectd">Installing collectd</h3>
-<div class="paragraph">
-<p>To install collectd on the overcloud, complete the following steps:</p>
+<p>After you install the Service&#160;Assurance&#160;Framework (SAF) server-side components, configure collectd to collect data and store it on the cloud platform side.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml</code> file to your local directory.  Open the file, set the following parameters, and list the plugins you want under <code>CollectdExtraPlugins</code>. You can also provide parameters in the <code>ExtraConfig</code> section:</p>
+<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml</code> file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the <code>ExtraConfig</code> section:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1216,25 +1200,23 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 </div>
 </div>
 <div class="paragraph">
-<p>By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> using the <code>ExtraConfig</code> option as shown. The CollectdExtraPlugins example adds the virt plug-in and configures the connection string and the hostname format.</p>
+<p>By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> using the <code>ExtraConfig</code> option as shown. The <code>CollectdExtraPlugins</code> example adds the virt plug-in and configures the connection string and the hostname format.</p>
 </div>
 </li>
 <li>
-<p>Include the modified YAML files in the <code>openstack overcloud deploy</code> command to install the collectd daemon on all overcloud nodes:</p>
+<p>Include the modified YAML files in the <code>openstack overcloud deploy</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ openstack overcloud deploy
 --templates /home/templates/environments/collectd.yaml \
--e /path-to-copied/collectd-environment.yaml</pre>
+-e /home/templates/custom/collectd-environment.yaml</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To view the collectd plugins and configurations, see
-<a href="#appe-saf-collectd-plugins">collectd plug-ins</a>.</p>
+<p>To view the collectd plug-ins and configurations, see <a href="#appe-saf-collectd-plugins">collectd plug-ins</a>.</p>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -2728,7 +2710,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-11 16:17:07 UTC
+Last updated 2019-12-16 13:57:49 UTC
 </div>
 </div>
 </body>
