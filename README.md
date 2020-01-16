@@ -11,7 +11,7 @@ for Red Hat Documentation](https://redhat-documentation.github.io/). This is a
 
 Install required tools. In Fedora perform:
 
-    dnf -y install ruby asciidoctor asciidoctor-pdf make
+    dnf -y install rubygem-asciidoctor rubygem-asciidoctor-pdf make
 
 In MacOS required tools can be installed via brew but instead "make" call
 "gmake":
