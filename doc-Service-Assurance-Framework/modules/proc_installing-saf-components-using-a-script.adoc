@@ -23,7 +23,7 @@
 [id="installing-saf-components-using-a-script_{context}"]
 = Installing {ProjectShort} components using a script
 
-image::SAF_Overview_37_0819_deployment_manually.png[]
+image::STF_Overview_37_0819_deployment_manually.png[]
 [caption="Figure 3: Deploying SAF components”]
 
 Before you run the provided script, complete the following
