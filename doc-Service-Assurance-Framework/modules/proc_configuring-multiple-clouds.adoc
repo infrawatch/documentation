@@ -34,4 +34,4 @@ To configure multiple {OpenStack} clouds to target a single instance of {Project
 
 This diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
 
-image::OpenStack_SAF_Overview_37_0919_topology.png[]
+image::OpenStack_STF_Overview_37_0919_topology.png[]
