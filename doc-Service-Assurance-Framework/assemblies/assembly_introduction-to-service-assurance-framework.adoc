@@ -26,7 +26,7 @@
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
 [id='introduction-to-service-assurance-framework_{context}']
-= Introduction to Service Assurance Framework
+= Introduction to {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
@@ -37,7 +37,7 @@
 // The table shows various metadata useful when editing this file.
 
 
-This section describes Service Assurance Framework and the framework architecture.
+This section describes {Project} and the framework architecture.
 
 include::../modules/con_overview-of-service-assurance-framework.adoc[leveloffset=+1]
 
