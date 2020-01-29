@@ -49,7 +49,7 @@ Complete the following steps:
 
 [WARNING]
 ====
-If you want to deploy ElasticSearch, as the cluster administrator, you must set `vm.max_map_count` sysctl to `262144` on the host level of each node in your cluster before you instantiate an SAF instance.
+If you want to deploy ElasticSearch, as the cluster administrator, you must set `vm.max_map_count` sysctl to `262144` on the host level of each node in your cluster before you instantiate an {ProjectShort} instance.
 ----
 sudo sysctl -w vm.max_map_count=262144
 ----

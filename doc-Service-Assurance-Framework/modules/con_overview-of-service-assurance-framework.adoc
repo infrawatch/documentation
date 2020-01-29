@@ -23,7 +23,7 @@
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
 [id='overview-of-service-assurance-framework_{context}']
-= Overview of Service Assurance Framework
+= Overview of {Project}
 
 ifeval::["{build}" == "downstream"]
 include::../common/tech_preview.adoc[leveloffset=+1]

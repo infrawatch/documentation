@@ -23,7 +23,7 @@
 [id='quickstart-script-for-development-usage_{context}']
 = Quickstart script for development use
 
-You can use a script to deploy SAF into an existing {OpenShift} environment for
+You can use a script to deploy {ProjectShort} into an existing {OpenShift} environment for
 development purposes. It is not intended for production environments. The
 script runs all of the required steps for a single-cloud setup. Ensure that the
 following tools are installed before execution:

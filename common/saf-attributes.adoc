@@ -11,8 +11,8 @@ ifeval::["{build}" == "upstream"]
 :OpenStackInstaller: TripleO
 :OVirt: oVirt
 :OVirtShort: oVirt
-:Project: Service{nbsp}Assurance{nbsp}Framework
-:ProjectShort: SAF
+:Project: Service{nbsp}Telemetry{nbsp}Framework
+:ProjectShort: STF
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
 endif::[]
 
@@ -25,7 +25,7 @@ ifeval::["{build}" == "downstream"]
 :OpenStackInstaller: director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
 :OVirtShort: RHV
-:Project: Service{nbsp}Assurance{nbsp}Framework
-:ProjectShort: SAF
+:Project: Service{nbsp}Telemetry{nbsp}Framework
+:ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
 endif::[]
