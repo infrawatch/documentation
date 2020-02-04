@@ -1,6 +1,6 @@
-# saf-documentation
+# stf-documentation
 
-This is upstream source code of [Service Assurance
+This is upstream source code of [Service Telemetry
 Framework](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/service_assurance_framework/index)
 documentation. All content in this repository uses
 [AsciiDoctor](https://asciidoctor.org/) syntax and aims to follow [Guidelines
@@ -62,12 +62,12 @@ Please read [Guidelines for Red Hat
 Documentation](https://redhat-documentation.github.io/) before opening a Pull
 Request. Additional rules apply:
 
-Never write "Service Assurance Framework" or "SAF" words directly but use the following variables:
+Never write "Service Telemetry Framework" or "STF" words directly but use the following variables:
 
 | Variable           | Upstream value                 | Downstream value                     |
 | --------           | --------------                 | ----------------                     |
-| Project            | Service Assurance Framework    | Service Assurance Framework          |
-| ProjectShort       | SAF                            | SAF                                  |
+| Project            | Service Telemetry Framework    | Service Telemetry Framework          |
+| ProjectShort       | STF                            | STF                                  |
 | OpenShift          | OpenShift                      | Red Hat OpenShift Container Platform |
 | OpenShiftShort     | OKD                            | OCP                                  |
 | OpenStack          | OpenStack                      | Red Hat OpenStack Platform           |
@@ -86,8 +86,8 @@ Variables cannot be used in shell or code examples. To use them, use "attributes
 	----
 
 Hide or show specific blocks, paragraphs, warnings or chapters via special
-variable called "build". Its value can be set either to "foreman" or
-"satellite":
+variable called "build". Its value can be set either to "downstream" or
+"upstream":
 
 	ifeval::["{build}" == "upstream"]
 	NOTE: This part is only relevant for deployments with Katello plugin.
