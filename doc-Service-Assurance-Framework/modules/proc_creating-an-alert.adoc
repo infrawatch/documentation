@@ -78,11 +78,8 @@ For more info in alerting, see link:https://github.com/coreos/prometheus-operato
 
 = Creating an alerting route in alertmanager
 
-The alertmanager configuration is currently handled as a secret in OpenShift.
-That makes it a bit complicated or uncomfortable to handle it. However,
-the following section will roughly describe the necessary steps.
-
-
+The alertmanager configuration is currently handled as a secret in
+OpenShift.
 
 image::alertmanager_alerts-overview.png[]
 
@@ -106,8 +103,8 @@ default deployment, it looks like
 ----
 
 As example, alertmanager can get configured by passing the following
-template after deleting `oc delete secrect alertmanager-saf-default` via
-oc create -f <filename>
+template after deleting `oc delete secret alertmanager-saf-default` via
+`oc apply -f <filename>`
 
 [source,yaml]
 ----
@@ -146,5 +143,6 @@ stringData:
       - url: http://192.168.36.9/webhook-crit
 ----
 
-Once this has been created, please restart alertmanager pod(s) by just killing
-them; the prometheus operator will take care of restarting them.
+Once this has been created, please restart alertmanager pod(s) by
+just killing them by running `oc delete pod alertmanager-saf-default-0`;
+the prometheus operator will take care of restarting them.
