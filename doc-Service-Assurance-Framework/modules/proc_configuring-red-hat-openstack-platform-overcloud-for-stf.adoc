@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_configuring-red-hat-openstack-platform-overcloud-for-saf.adoc[leveloffset=+1]
+// include::<path>/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='configuring-red-hat-openstack-platform-overcloud-for-saf_{context}']
+[id='configuring-red-hat-openstack-platform-overcloud-for-stf_{context}']
 = Configuring {OpenStack} overcloud for {ProjectShort}
 
 

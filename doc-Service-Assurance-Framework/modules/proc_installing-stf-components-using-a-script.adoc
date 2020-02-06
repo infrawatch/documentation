@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_installing-saf-components-using-a-script.adoc[leveloffset=+1]
+// include::<path>/proc_installing-stf-components-using-a-script.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="installing-saf-components-using-a-script_{context}"]
+[id="installing-stf-components-using-a-script_{context}"]
 = Installing {ProjectShort} components using a script
 
 image::STF_Overview_37_0819_deployment_manually.png[]
@@ -37,7 +37,7 @@ to create the namespace.
 
 . Extract the contents of the telemetry-framework release archive
 and change to the extracted directory. For more information, see
-<<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+<<preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf>>.
 
 Use the `deploy.sh` script in the `deploy/` directory of the telemetry-framework release file that you previously extracted. Run the script to start the various components in your {OpenShiftShort} deployment. To remove the components, supply the `DELETE`
 argument to the script.

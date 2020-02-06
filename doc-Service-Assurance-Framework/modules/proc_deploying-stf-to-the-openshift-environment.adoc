@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_deploying-saf-to-the-openshift-environment.adoc[leveloffset=+1]
+// include::<path>/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='deploying-saf-to-the-openshift-environment_{context}']
+[id='deploying-stf-to-the-openshift-environment_{context}']
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
 To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the
@@ -28,12 +28,12 @@ following tasks:
 
 . Import the {build} container images into the `sa-telemetry` namespace by using
 the _import-{build}.sh_ script. For more information, see
-<<importing-the-container-images-for-saf_installing-the-core-components-of-saf>>.
+<<importing-the-container-images-for-stf_installing-the-core-components-of-stf>>.
 
 . Generate the custom manifests by using the Ansible playbook
 `deploy_builder.yaml` and using the `ansible-playbook` command. For more information,
-see <<generating-the-manifests-for-saf_installing-the-core-components-of-saf>>.
+see <<generating-the-manifests-for-stf_installing-the-core-components-of-stf>>.
 
 . Execute the `deploy.sh` script to create the Kubernetes objects in the
 {OpenShiftShort} environment. For more information, see
-<<installing-saf-components-using-a-script_installing-the-core-components-of-saf>>.
+<<installing-stf-components-using-a-script_installing-the-core-components-of-stf>>.

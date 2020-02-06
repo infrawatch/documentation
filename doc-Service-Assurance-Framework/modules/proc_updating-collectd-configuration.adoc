@@ -38,4 +38,4 @@ parameter_defaults:
            presettle: false
 ----
 
-For more information about how to edit and redeploy this configuration, see <<configuring-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>> and <<updating-red-hat-openstack-platform-overcloud-for-saf_completing-the-saf-configuration>>.
+For more information about how to edit and redeploy this configuration, see <<configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration>> and <<updating-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration>>.

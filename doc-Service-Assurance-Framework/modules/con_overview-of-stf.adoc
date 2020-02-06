@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_overview-of-service-assurance-framework.adoc[leveloffset=+1]
+// include::<path>/con_overview-of-stf.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -22,7 +22,7 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id='overview-of-service-assurance-framework_{context}']
+[id='overview-of-stf_{context}']
 = Overview of {Project}
 
 ifeval::["{build}" == "downstream"]

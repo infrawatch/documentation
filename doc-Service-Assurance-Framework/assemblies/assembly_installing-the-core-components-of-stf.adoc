@@ -4,11 +4,11 @@
 
 // This assembly can be included from other assemblies using the following
 // include statement:
-// include::<path>/assembly_installing-the-core-components-of-saf.adoc[leveloffset=+1]
+// include::<path>/assembly_installing-the-core-components-of-stf.adoc[leveloffset=+1]
 
 // The following line is necessary to allow assemblies be included in other
 // assemblies. It restores the `context` variable to its previous state.
-:parent-context-of-installing-the-core-components-of-saf: {context}
+:parent-context-of-installing-the-core-components-of-stf: {context}
 
 // The file name and the ID are based on the assembly title.
 // For example:
@@ -25,13 +25,13 @@
 //
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
-[id='installing-the-core-components-of-saf_{context}']
+[id='installing-the-core-components-of-stf_{context}']
 = Installing the core components of {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
 // it is reused multiple times in a guide.
-:context: installing-the-core-components-of-saf
+:context: installing-the-core-components-of-stf
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
@@ -45,9 +45,9 @@ This section describes the prerequisites required for a successful
 {Project} ({ProjectShort}) installation and describes the installation of the core
 {ProjectShort} components.
 
-include::../modules/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]
-include::../modules/con_the-core-components-of-saf.adoc[leveloffset=+1]
-include::../modules/proc_preparing-your-openshift-environment-for-saf.adoc[leveloffset=+1]
+include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
+include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
+include::../modules/proc_preparing-your-openshift-environment-for-stf.adoc[leveloffset=+1]
 
 ifeval::["{build}" == "upstream"]
 include::../modules/proc_quickstart-script-for-development-usage.adoc[leveloffset=+1]
@@ -59,8 +59,8 @@ endif::[]
 
 include::../modules/proc_generating-a-tls-certificate-for-amq-interconnect.adoc[leveloffset=+1]
 include::../modules/proc_generating-tls-certificates-for-elasticsearch.adoc[leveloffset=+1]
-include::../modules/proc_deploying-saf-to-the-openshift-environment.adoc[leveloffset=+1]
+include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
-include::../modules/proc_importing-the-container-images-for-saf.adoc[leveloffset=+2]
-include::../modules/proc_generating-the-manifests-for-saf.adoc[leveloffset=+2]
-include::../modules/proc_installing-saf-components-using-a-script.adoc[leveloffset=+2]
+include::../modules/proc_importing-the-container-images-for-stf.adoc[leveloffset=+2]
+include::../modules/proc_generating-the-manifests-for-stf.adoc[leveloffset=+2]
+include::../modules/proc_installing-stf-components-using-a-script.adoc[leveloffset=+2]

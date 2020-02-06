@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_installing-the-core-components-of-saf.adoc[leveloffset=+1]
+// include::<path>/proc_installing-the-core-components-of-stf.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='installing-the-core-components-of-saf_{context}']
+[id='installing-the-core-components-of-stf_{context}']
 = The core components of {ProjectShort}
 
 When you install {ProjectShort}, use the `oc` tool or web interface to load Kubernetes
@@ -50,16 +50,16 @@ application components and objects.
 To prepare your environment for {ProjectShort}, complete the following
 procedures:
 
-. Prepare your {OpenShiftShort} environment for {ProjectShort}. For more information, see <<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+. Prepare your {OpenShiftShort} environment for {ProjectShort}. For more information, see <<preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf>>.
 
 ifeval::["{build}" == "downstream"]
-. Create an RHCC Secret. For more information, see <<creating-an-rhcc-secret_installing-the-core-components-of-saf>>.
+. Create an RHCC Secret. For more information, see <<creating-an-rhcc-secret_installing-the-core-components-of-stf>>.
 endif::[]
 
 . Generate a TLS certificate for {MessageBus}. For more information, see
-<<generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-saf>>.
+<<generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-stf>>.
 
 . Generate TLS certificates for ElasticSearch. For more information, see
-<<generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-saf>>.
+<<generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-stf>>.
 
-. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-saf-to-the-openshift-environment_installing-the-core-components-of-saf>>.
+. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
