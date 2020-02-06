@@ -24,7 +24,7 @@
 // In the title, include nouns that are used in the body text. This helps
 // readers and search engines find information quickly.
 [appendix]
-[[appe-saf-collectd-plugins]]
+[[appe-stf-collectd-plugins]]
 # collectd plug-ins
 
 This section contains a complete list of collectd plug-ins and configurations for {OpenStack} {OpenStackVersion}.
