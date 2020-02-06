@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_updating-red-hat-openstack-platform-overcloud-for-saf.adoc[leveloffset=+1]
+// include::<path>/proc_updating-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,10 +20,10 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='updating-red-hat-openstack-platform-overcloud-for-saf_{context}']
+[id='updating-red-hat-openstack-platform-overcloud-for-stf_{context}']
 = Updating {OpenStack} overcloud for {ProjectShort}
 
-The procedure in section <<configuring-red-hat-openstack-platform-overcloud-for-saf-events_completing-the-saf-configuration>> includes the instruction to create the `metrics-collectd-qdr-overrides.yaml` environment file. The following example uses the `metrics-collectd-qdr-overrides.yaml` file in the `openstack overcloud deploy` command with the environment files that you must add to the command.
+The procedure in section <<configuring-red-hat-openstack-platform-overcloud-for-stf-events_completing-the-stf-configuration>> includes the instruction to create the `metrics-collectd-qdr-overrides.yaml` environment file. The following example uses the `metrics-collectd-qdr-overrides.yaml` file in the `openstack overcloud deploy` command with the environment files that you must add to the command.
 
 ----
 openstack overcloud deploy \

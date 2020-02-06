@@ -8,17 +8,17 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 :director-guide: true
 :context: osp
 
-include::common/saf-attributes.adoc[]
+include::common/stf-attributes.adoc[]
 
-include::assemblies/assembly_introduction-to-service-assurance-framework.adoc[leveloffset=+1]
+include::assemblies/assembly_introduction-to-stf.adoc[leveloffset=+1]
 
-include::assemblies/assembly_installing-the-core-components-of-saf.adoc[leveloffset=+1]
+include::assemblies/assembly_installing-the-core-components-of-stf.adoc[leveloffset=+1]
 
-include::assemblies/assembly_completing-the-saf-configuration.adoc[leveloffset=+1]
+include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+1]
 
-include::assemblies/assembly_configuring-saf-components.adoc[leveloffset=+1]
+include::assemblies/assembly_configuring-stf-components.adoc[leveloffset=+1]
 
-include::assemblies/assembly_connecting-multiple-clouds-to-saf.adoc[leveloffset=+1]
+include::assemblies/assembly_connecting-multiple-clouds-to-stf.adoc[leveloffset=+1]
 
 //appendix
 

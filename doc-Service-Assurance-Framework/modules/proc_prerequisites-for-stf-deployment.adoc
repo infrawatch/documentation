@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_prerequisites-for-saf-deployment.adoc[leveloffset=+1]
+// include::<path>/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='prerequisites-for-saf-deployment_{context}']
+[id='prerequisites-for-stf-deployment_{context}']
 = Prerequisites for {ProjectShort} deployment
 
 Complete the following prerequisite tasks:
@@ -30,7 +30,7 @@ example,
 link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/[Red
 Hat OpenStack Platform]. If you already have an {OpenShiftShort} 3.11
 environment, see
-<<preparing-your-openshift-environment-for-saf_installing-the-core-components-of-saf>>.
+<<preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf>>.
 
 . Install {OpenShiftShort}. For more information, see
 link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index[OpenShift
