@@ -29,7 +29,7 @@ example, creating a deployment. You can find the manifests for {ProjectShort}
 in the `deploy/` directory of the telemetry-framework release archive.
 
 For a copy of the deployment manifests and installation script, see
-link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases].
+link:https://github.com/infrawatch/telemetry-framework/releases[https://github.com/infrawatch/telemetry-framework/releases].
 
 Loading the manifests results in the instantiation of the
 link:https://coreos.com/blog/introducing-operators.html[Operators] into memory.

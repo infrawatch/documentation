@@ -32,4 +32,4 @@ following tools are installed before execution:
 * OpenShift CLI (oc from https://github.com/openshift/origin/releases/tag/v3.11.0)
 * openssl
 
-The script is at the following location: https://github.com/redhat-service-assurance/telemetry-framework/blob/master/deploy/quickstart.sh
+The script is at the following location: https://github.com/infrawatch/telemetry-framework/blob/master/deploy/quickstart.sh

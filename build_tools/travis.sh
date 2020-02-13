@@ -49,7 +49,7 @@ if [[ "$BRANCH" =~ ^master$|^[0-9]+\.[0-9]+\.X$ ]]; then
     git commit -am '[ci skip] publishing updated documentation...'
 
     git remote rm origin
-    git remote add origin https://$GH_NAME:$GH_TOKEN@github.com/redhat-service-assurance/documentation.git
+    git remote add origin https://$GH_NAME:$GH_TOKEN@github.com/infrawatch/documentation.git
 
     git push origin gh-pages
 else

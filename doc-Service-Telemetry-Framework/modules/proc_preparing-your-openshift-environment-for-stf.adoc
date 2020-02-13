@@ -32,12 +32,12 @@ Complete the following steps:
     oc new-project sa-telemetry
 ----
 +
-. Download the latest release file of the telemetry-framework manifests from link:https://github.com/redhat-service-assurance/telemetry-framework/releases[https://github.com/redhat-service-assurance/telemetry-framework/releases]:
+. Download the latest release file of the telemetry-framework manifests from link:https://github.com/infrawatch/telemetry-framework/releases[https://github.com/infrawatch/telemetry-framework/releases]:
 +
 ----
     mkdir /<working_directory> ; cd /<working_directory>
     curl --location \
-    https://github.com/redhat-service-assurance/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
+    https://github.com/infrawatch/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
 ----
 +
 . Extract the contents and change to that directory:

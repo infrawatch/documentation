@@ -54,7 +54,7 @@ Publishing up the upstream documentation is done automatically on merge to the
 `master` branch. Automation in Travis-CI will then result in a built html
 output being pushing into the `gh-pages` branch. The resulting artifacts are
 then available for reading at
-https://redhat-service-assurance.github.io/documentation
+https://infrawatch.github.io/documentation
 
 ## Contributing
 
