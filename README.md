@@ -37,7 +37,7 @@ version perform `make BUILD=downstream`.
 Few additional make targets are available on the guide level. To quickly build
 HTML version and open new tab in a browser do:
 
-    cd doc-Service-Assurance-Framework
+    cd doc-Service-Telemetry-Framework
     make browser
 
 Similarly, to build and open PDF version do:
@@ -54,7 +54,7 @@ Publishing up the upstream documentation is done automatically on merge to the
 `master` branch. Automation in Travis-CI will then result in a built html
 output being pushing into the `gh-pages` branch. The resulting artifacts are
 then available for reading at
-https://redhat-service-assurance.github.io/saf-documentation
+https://redhat-service-assurance.github.io/documentation
 
 ## Contributing
 
