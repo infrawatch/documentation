@@ -27,4 +27,4 @@ Data stored in Prometheus has a "service" label attached according to the
 Smart Gateway it was scraped from. You can use this label to query data from a
 specific cloud.
 
-To query data from a specific cloud, use a Prometheus `promql` query that matches the associated "service" label; for example: `sa_collectd_uptime{service="cloud1-smartgateway"}`.
+To query data from a specific cloud, use a Prometheus `promql` query that matches the associated "service" label; for example: `collectd_uptime{service="cloud1-smartgateway"}`.
