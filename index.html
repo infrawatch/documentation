@@ -1186,7 +1186,7 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml</code> file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the <code>ExtraConfig</code> section:</p>
+<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-standalone.yaml</code> file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the <code>ExtraConfig</code> section:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1201,7 +1201,7 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 </div>
 </div>
 <div class="paragraph">
-<p>By default, collectd includes the disk, interface, load, memory, processes, and tcpconns plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> using the <code>ExtraConfig</code> option as shown. The <code>CollectdExtraPlugins</code> example adds the virt plug-in and configures the connection string and the hostname format.</p>
+<p>By default, collectd includes the <code>disk</code>, <code>interface</code>, <code>load</code>, <code>memory</code>, <code>processes</code>, and <code>tcpconns</code> plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> by using the <code>ExtraConfig</code> option, as shown. The <code>CollectdExtraPlugins</code> example adds the <code>virt</code> plug-in, and configures the connection string and the hostname format.</p>
 </div>
 </li>
 <li>
@@ -1210,7 +1210,7 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 <div class="content">
 <pre>$ openstack overcloud deploy
 --templates /home/templates/environments/collectd.yaml \
--e /home/templates/custom/collectd-environment.yaml</pre>
+-e /home/templates/custom/collectd-standalone.yaml</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2711,7 +2711,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-26 14:19:56 UTC
+Last updated 2020-02-28 14:22:39 UTC
 </div>
 </div>
 </body>
