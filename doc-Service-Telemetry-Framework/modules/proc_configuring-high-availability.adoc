@@ -23,7 +23,22 @@
 [id="configuring-high-availability_{context}"]
 = Configuring High Availability
 
-To configure {Project} for High Availability, the `highAvailabilityEnabled: true` attribute must be added to the ServiceTelemetry object in {OpenShiftShort}.
+High availability refers to the ability of {Project} to rapidly recover from failures in it's component services. While {OpenShift} will restart a failed pod if nodes are available to schedule the workload, this recovery process can take anywhere from several seconds to over a minute, during which time events and metrics are lost. Deploying in a high availability configuration runs multiple copies of {ProjectShort} components, reducing this recovery time to around 2 seconds. In order to protect against failure of an {OpenShiftShort} node, it is recommended that {ProjectShort} be deployed to an {OpenShiftShort} cluster with 3 or more nodes.
+
+[NOTE]
+{ProjectShort} is not yet a fully fault tollerant system. Delivery of metrics and events during the recovery period is not guaranteed.
+
+Enabling high availability has the following effects:
+
+- 2 {MessageBus} pods will run instead of the default 1
+- 3 ElasticSearch pods will run instead of the default 1
+- Recovery time from a lost pod in either of these services is reduced to ~2s
+
+[NOTE]
+High availability for the Smart Gateway and Prometheus components of {ProjectShort} is still a work in progress
+
+
+To configure {ProjectShort} for High Availability, the `highAvailabilityEnabled: true` attribute must be added to the ServiceTelemetry object in {OpenShiftShort}.
 
 This can either be set at installation time, or if you already have {ProjectShort} deployed, you can follow this procedure:
 
@@ -43,12 +58,3 @@ spec:
 ----
 
 . Save your changes 
-
-Enabling high availability has the following effects:
-
-- 2 {MessageBus} pods will run instead of the default 1
-- 3 ElasticSearch pods will run instead of the default 1
-- Recovery time from a lost pod in either of these services is reduced to ~2s
-
-[NOTE]
-High availability for the Smart Gateway and Prometheus components of {ProjectShort} is still a work in progress
