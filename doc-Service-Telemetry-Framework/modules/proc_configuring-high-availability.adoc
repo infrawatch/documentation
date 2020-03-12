@@ -21,34 +21,31 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="configuring-high-availability_{context}"]
-= Configuring High Availability
+= Configuring high availability
 
-High availability refers to the ability of {Project} to rapidly recover from failures in its component services. While {OpenShift} will restart a failed pod if nodes are available to schedule the workload, this recovery process can take anywhere from several seconds to over a minute, during which time events and metrics are lost. Deploying in a high availability configuration runs multiple copies of {ProjectShort} components, reducing this recovery time to around 2 seconds. In order to protect against failure of an {OpenShiftShort} node, it is recommended that {ProjectShort} be deployed to an {OpenShiftShort} cluster with 3 or more nodes.
+High availability is the ability of {Project} to rapidly recover from failures in its component services. While {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, it is recommended that you deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
 
 [NOTE]
 {ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
 
 Enabling high availability has the following effects:
 
-- 2 {MessageBus} pods will run instead of the default 1
-- 3 ElasticSearch pods will run instead of the default 1
-- Recovery time from a lost pod in either of these services is reduced to ~2s
+- Two {MessageBus} pods running instead of the default 1.
+- Three ElasticSearch pods running instead of the default 1.
+- Recovery time from a lost pod in either of these services is reduced to approximately 2 seconds.
 
 [NOTE]
-High availability for the Smart Gateway and Prometheus components of {ProjectShort} is still a work in progress
+High availability for the Smart Gateway and Prometheus components of {ProjectShort} is still a work in progress.
 
+To configure {ProjectShort} for high availability, you must add the `highAvailabilityEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
-To configure {ProjectShort} for High Availability, the `highAvailabilityEnabled: true` attribute must be added to the ServiceTelemetry object in {OpenShiftShort}.
-
-This can either be set at installation time, or if you already have {ProjectShort} deployed, you can follow this procedure:
-
-. Use the oc command to edit the servicetelemetry object:
+. Use the oc command to edit the ServiceTelemetry object:
 +
 ----
     oc edit ServiceTelemetry
 ----
 
-. Add the `highAvailabilityEnabled: true` parameter to the spec section:
+. Add the `highAvailabilityEnabled: true` parameter to the `spec` section:
 +
 ----
 spec:
@@ -57,4 +54,4 @@ spec:
   highAvailabilityEnabled: true
 ----
 
-. Save your changes 
+. Save your changes and close the object.
