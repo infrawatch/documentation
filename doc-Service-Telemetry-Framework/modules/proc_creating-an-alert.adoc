@@ -23,12 +23,13 @@
 // in _The IBM Style Guide_.
 
 = Creating an alert
-
 For alerting, two components are involved: First of all, Prometheus
 executes rules. They can be found in Prometheus web UI under
 Status/Rules. These rules are evaluated, and if the expression is true,
 an alert will be fired. Alerts itself are also shown under the
-Alerts tab in the web UI.
+Alerts tab in the web UI. More info in alerts or notifications
+with Prometheus and Alertmanager can be found under
+link:https://prometheus.io/docs/alerting/overview/
 
 Alertmanager is the component to deliver alerts to an external system,
 for example via email, IRC, or other notification channels.
@@ -63,15 +64,9 @@ the "Installed Operators" menu item under Operators, then click on
 Prometheus Operator followed by clicking on "Prometheus Rule" in
 the sub-menu.
 
-image::prom-operator-screenshot.png[]
-
 followed by clicking on "Create PrometheusRule" on
 
-image::prom-create-rule-1.png[]
-
 and finally filling in the empty spots in the next editor window
-
-image::prom-create-rule-2.png[]
 
 For more info in alerting, see link:https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
 
@@ -80,8 +75,6 @@ For more info in alerting, see link:https://github.com/coreos/prometheus-operato
 
 The alertmanager configuration is currently handled as a secret in
 OpenShift.
-
-image::alertmanager_alerts-overview.png[]
 
 == Adding routes to alertmanager
 
