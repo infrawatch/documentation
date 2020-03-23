@@ -1,0 +1,57 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-high-availability.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="configuring-high-availability_{context}"]
+= Configuring high availability
+
+High availability is the ability of {Project} to rapidly recover from failures in its component services. While {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, it is recommended that you deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
+
+[NOTE]
+{ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
+
+Enabling high availability has the following effects:
+
+- Two {MessageBus} pods running instead of the default 1.
+- Three ElasticSearch pods running instead of the default 1.
+- Recovery time from a lost pod in either of these services is reduced to approximately 2 seconds.
+
+[NOTE]
+High availability for the Smart Gateway and Prometheus components of {ProjectShort} is still a work in progress.
+
+To configure {ProjectShort} for high availability, you must add the `highAvailabilityEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+
+. Use the oc command to edit the ServiceTelemetry object:
++
+----
+    oc edit ServiceTelemetry
+----
+
+. Add the `highAvailabilityEnabled: true` parameter to the `spec` section:
++
+----
+spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  highAvailabilityEnabled: true
+----
+
+. Save your changes and close the object.
