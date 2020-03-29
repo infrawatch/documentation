@@ -23,44 +23,16 @@
 [id='configuring-red-hat-openstack-platform-overcloud-for-stf_{context}']
 = Configuring {OpenStack} overcloud for {ProjectShort}
 
+To configure the {OpenStack} overcloud, you must configure collectd and {MessageBus}:
 
-To configure collectd and {MessageBus}, complete the following steps:
-
-. Create a file and name it `metrics-collectd-qdr-overrides.yaml`. Save the file in the `/home/stack/` directory.
-
-. By default, the collectd plug-ins `disk`, `interface`, `load`, `memory`, `processes`, and `tcpconns` are enabled. To enable additional plug-ins, use `CollectdExtraPlugins`. To clarify the plug-ins that are available, list the default plug-ins.
-
-. For deployments that use Open vSwitch, add `ovs_stats` to the `CollectdExtraPlugins` list. To monitor the disk usage, add the `df` plug-in. The `virt` plug-in is enabled on overcloud nodes that run the `libvirt` service by default. The following example plug-in configuration, added to `metrics-collectd-qdr-overrides.yaml`, is for the `virt` plug-in:
-
+. Create a file and name it `stf-connectors.yaml`. Save the file in the `/home/stack` directory.
+. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter. For more information, see Retrieving the QDR route address.
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the Apache Qpid Dispatch Router bus on the overcloud to the STF deployment. The following sample is from the `stf-connectors.yaml` environment file:
++
 ----
-ExtraConfig:
-    collectd::plugin::virt::connection: "qemu:///system"
-    collectd::plugin::virt::hostname_format: "hostname uuid"
-----
-
-
-The following sample is from the `metrics-collectd-qdr-overrides.yaml` environment file that you can pass to a {OpenStackLong} {OpenStackInstaller} deployment to configure collectd and {MessageBus}.
-
-.metrics-collectd-qdr-overrides.yaml
-[source,yaml]
-----
----
 parameter_defaults:
-  CollectdAmqpInstances:
-    telemetry:
-      format: JSON
-      presettle: true
-  CollectdDefaultPollingInterval: 1
-  CollectdConnectionType: amqp1
-  CollectdExtraPlugins:
-  - cpu
-  - df
-  - hugepages
-  - ovs_stats
-  - load
-  - uptime
-  MetricsQdrConnectors:
-  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
+    MetricsQdrConnectors:
+  - host: qdr-white-port-5671-service-telemetry.apps.service-telemetry.tld
     port: 443
     role: edge
     sslProfile: sslProfile
@@ -69,4 +41,12 @@ parameter_defaults:
   - name: sslProfile
 ----
 
-Use the `metrics-collectd-qdr-overrides.yaml` file to configure the plug-ins for collectd and include the `amqp1.so` module to connect to {MessageBus}. Use the `CollectdExtraPlugins` parameter to enable additional plug-ins. Use the `MetricsQdrConnectors` parameter to configure the connection back to the {ProjectShort} server where data is streamed for storage in the appropriate storage back end provided by {ProjectShort}.
+. Add the `stf-connectors.yaml` environment file to a {OpenStack}{OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}. Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment:
++
+----
+openstack overcloud deploy <other arguments>
+-e /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml
+-e /home/stack/stf-connectors.yaml
+-e <other-environment-files>
+     <other configuration files>
+----

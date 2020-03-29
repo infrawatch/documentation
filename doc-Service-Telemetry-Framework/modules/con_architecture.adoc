@@ -31,7 +31,7 @@
 * Prometheus as time-series data storage
 * ElasticSearch as events data storage
 * An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
-* Smart Gateway
+* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver them to ElasticSearch or to provide them to Prometheus
 
 The following diagram is an overview of {ProjectShort} architecture:
 
@@ -50,3 +50,9 @@ layers:
 * Infrastructure platform
 
 image::STF_Overview_37_0819_deployment_prereq.png[]
+
+For more information about how to deploy OpenShift Container Platform, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[Product Documentation] for OpenShift Container Platform 4.3. You can install {OpenShift} on cloud platforms or on bare metal.
+For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
+
+NOTE:
+Do not install {OpenShift} on the same infrastructure that you want to monitor.

@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_conclusion.adoc[leveloffset=+1]
+// include::<path>/con_overview-of-stf.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -22,7 +22,8 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="conclusion_{context}"]
-= Completion of server-side installation
+[id='introduction-to-stf_{context}']
+= Introduction to {Project}
 
-After you complete server-side installation of {ProjectShort}, you must configure the {ProjectShort} data collection to collect data and send it back to the {ProjectShort} storage domain.
+{Project} ({ProjectShort}) is an application that runs on {OpenShift} ({OpenShiftShort}). Use {ProjectShort} to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
+{ProjectShort} provides metrics and events data collection from OpenStack infrastructure, fast and reliable transport of data, and built-in data storage and alerting capabilities. An advantage over other monitoring systems is its lighter weight and modular design.

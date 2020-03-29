@@ -39,7 +39,7 @@
 
 This section describes {Project} and the framework architecture.
 
-include::../modules/con_overview-of-stf.adoc[leveloffset=+1]
+include::../modules/con_introduction-to-stf.adoc[leveloffset=+1]
 
 include::../modules/con_architecture.adoc[leveloffset=+1]
 

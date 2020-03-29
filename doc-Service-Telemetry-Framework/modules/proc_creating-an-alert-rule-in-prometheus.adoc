@@ -1,0 +1,57 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_creating-an-alert-rule-in-prometheus.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="creating-an-alert-rule-in-prometheus_{context}"]
+= Creating an alert rule in Prometheus
+
+Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert. To create an alert rule, complete the following steps:
+
+. Create a yaml file for the alert rule. The following example in qpid-router-down.yaml is an example of a small, efficient alerting rule:
++
+[source,yaml]
+----
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: stf-default
+    role: alert-rules
+  name: prometheus-alarm-rules
+  namespace: service-telemetry
+spec:
+  groups:
+    - name: ./openstack.rules
+      rules:
+        - alert: Metric Listener down
+          expr: collectd_qpid_router_status < 1
+----
+
+. Create an alerting rule in OpenShift:
++
+----
+oc create -f qpid-router-down.yaml
+----
++
+This command creates a PrometheusRule object named prometheus-alarm-rules and a rule in Prometheus.
+
+For more information on alerting, see link:https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

@@ -36,8 +36,5 @@ oc delete smartgateway cloud1-notify cloud1-telemetry
 . Optional: Delete the default manifests:
 +
 ----
-rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml
+rm deploy/service-telemetry/smartgateway/{events,metrics}-smartgateway.yaml
 ----
-
-[NOTE]
-To regenerate the default manifests, re-run the <<generating-the-manifests-for-stf_installing-the-core-components-of-stf>> step.

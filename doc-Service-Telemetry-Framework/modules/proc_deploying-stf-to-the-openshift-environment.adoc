@@ -23,17 +23,29 @@
 [id='deploying-stf-to-the-openshift-environment_{context}']
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
-To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the
-following tasks:
+To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the following tasks:
 
-. Import the {build} container images into the `sa-telemetry` namespace by using
-the _import-{build}.sh_ script. For more information, see
-<<importing-the-container-images-for-stf_installing-the-core-components-of-stf>>.
+. Enable upstream Community Catalog. For more information, see <<enabling-the-upstream-community-catalog>>.
+. Create a namespace. For more information, see <<creating-a-namespace>>.
+. Subscribe to the {MessageBus} Operator. For more information, see <<subscribing-to-the-message-bus-operator>>.
+. Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see <<subscribing-to-elastic-cloud-on-kubernetes-operator>>.
+. Subscribe to the Service Telemetry Operator. For more information, see <<subscribing-to-the-service-telemetry-operator>>.
+. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
 
-. Generate the custom manifests by using the Ansible playbook
-`deploy_builder.yaml` and using the `ansible-playbook` command. For more information,
-see <<generating-the-manifests-for-stf_installing-the-core-components-of-stf>>.
+[id='enabling-the-upstream-community-catalog']
+== Enabling the upstream Community Catalog
 
-. Execute the `deploy.sh` script to create the Kubernetes objects in the
-{OpenShiftShort} environment. For more information, see
-<<installing-stf-components-using-a-script_installing-the-core-components-of-stf>>.
+[id='creating-a-namespace']
+== Creating a namespace
+
+[id='subscribing-to-the-message-bus-operator']
+== Subscribing to the {MessageBus} Operator
+
+[id='subscribing-to-elastic-cloud-on-kubernetes-operator']
+== Subscribing to the Elastic Cloud on Kubernetes Operator
+
+[id='subscribing-to-the-service-telemetry-operator']
+== Subscribing to the Service Telemetry Operator
+
+[id='creating-a-servicetelemetry-object-in-openshift']
+== Creating a ServiceTelemetry object in {OpenShiftShort}

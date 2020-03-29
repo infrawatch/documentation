@@ -23,34 +23,4 @@
 [id='preparing-your-openshift-environment-for-stf_{context}']
 = Preparing your {OpenShiftShort} environment for {ProjectShort}
 
-Complete the following steps:
-
-. Log in to your {OpenShiftShort} environment. Create and switch to the `sa-telemetry` namespace in your {OpenShiftShort} environment:
-+
-----
-    oc login https://console.service-assurance.tld:8443
-    oc new-project sa-telemetry
-----
-+
-. Download the latest release file of the telemetry-framework manifests from link:https://github.com/infrawatch/telemetry-framework/releases[https://github.com/infrawatch/telemetry-framework/releases]:
-+
-----
-    mkdir /<working_directory> ; cd /<working_directory>
-    curl --location \
-    https://github.com/infrawatch/telemetry-framework/archive/<release_version>.zip -o telemetry-framework.zip
-----
-+
-. Extract the contents and change to that directory:
-+
-----
-    unzip telemetry-framework.zip
-    cd telemetry-framework-<release_version>
-----
-
-[WARNING]
-====
-If you want to deploy ElasticSearch, as the cluster administrator, you must set `vm.max_map_count` sysctl to `262144` on the host level of each node in your cluster before you instantiate an {ProjectShort} instance.
-----
-sudo sysctl -w vm.max_map_count=262144
-----
-====
+Catalogue source work and validate that ElasticSearch can launch based on something.
