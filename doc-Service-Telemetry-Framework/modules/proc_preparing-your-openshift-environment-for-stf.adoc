@@ -23,4 +23,25 @@
 [id='preparing-your-openshift-environment-for-stf_{context}']
 = Preparing your {OpenShiftShort} environment for {ProjectShort}
 
-Catalogue source work and validate that ElasticSearch can launch based on something.
+To prepare our OKD environment for STF we need to consider the following:
+
+* Persistent volumes are available for data storage
+* `vm_max_count` has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator
+* Enough resources are available to run the Operators and the application containers
+
+== Persistent volumes
+
+STF uses persistent storage in OKD to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. More information about configuring persistent storage for OKD can be found at https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
+
+== Node Tuning Operator
+
+ElasticSearch is used for storing events in STF and requires a larger than normal `vm.max_map_count`. See https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html for more information about virtual memory usage by ElasticSearch.
+
+Node tuning such as virtual memory map count values can not be applied manually via `sysctl` since nodes are managed by OpenShift directly. To configure values and apply them to the infrastructure, the node tuning operator is used. For more information about the node tuning operator see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html
+
+== Resource allocation
+
+Resources for the components being run (and the number of them running) are required to allow the pods to be scheduled within the OpenShift infrastructure. If enough resources are not allocated, pods will remain in a `Pending` state due to not be schedulable.
+
+The amount of resources required for running STF is variable depending on your environment and the number of nodes and clouds you're monitoring. For recommendations around sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
+

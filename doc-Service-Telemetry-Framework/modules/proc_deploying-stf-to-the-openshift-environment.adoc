@@ -25,27 +25,249 @@
 
 To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the following tasks:
 
-. Enable upstream Community Catalog. For more information, see <<enabling-the-upstream-community-catalog>>.
 . Create a namespace. For more information, see <<creating-a-namespace>>.
-. Subscribe to the {MessageBus} Operator. For more information, see <<subscribing-to-the-message-bus-operator>>.
+. Enable the OperatorHub.io Community Catalog Source. For more information, see <<enabling-the-operatorhubio-community-catalog-source>>.
+. Enable the InfraWatch Operator Source. For more information, see <<enabling-the-infrawatch-operator-source>>.
+. Subscribe to the AMQ Certificate Manager Operator. For more information, see <<subscribing-to-the-amq-certificate-manager-operator>>.
 . Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see <<subscribing-to-elastic-cloud-on-kubernetes-operator>>.
 . Subscribe to the Service Telemetry Operator. For more information, see <<subscribing-to-the-service-telemetry-operator>>.
 . Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
 
-[id='enabling-the-upstream-community-catalog']
-== Enabling the upstream Community Catalog
-
 [id='creating-a-namespace']
 == Creating a namespace
 
-[id='subscribing-to-the-message-bus-operator']
-== Subscribing to the {MessageBus} Operator
+[source,bash]
+----
+oc new-project service-telemetry
+----
+
+[id='enabling-the-operatorhubio-community-catalog-source']
+== Enabling the OperatorHub.io Community Catalog Source
+
+Installation of ElasticSearch is done via the Elastic Cloud on Kubernetes Operator, which must be subscribed to from the OperatorHub.io catalog source.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operator-framework/upstream-community-operators:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF
+----
+
+[id='enabling-the-infrawatch-operator-source']
+== Enabling InfraWatch Operator Source
+
+To install {ProjectShort} we need to install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorSource
+metadata:
+  labels:
+    opsrc-provider: infrawatch
+  name: infrawatch-operators
+  namespace: openshift-marketplace
+spec:
+  authorizationToken: {}
+  displayName: InfraWatch Operators
+  endpoint: https://quay.io/cnr
+  publisher: InfraWatch
+  registryNamespace: infrawatch
+  type: appregistry
+EOF
+----
+
+Validate the creation of your OperatorSource by running `oc get operatorsources`. A successful import will result in the `MESSAGE` field returning a result of `The object has been successfully reconclied`.
+
+[source,bash]
+----
+$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+
+NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE                                       AGE
+infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled   5m23s
+----
+
+Using `oc get packagemanifest` we can validate our Operators are available from the catalog.
+
+[source,bash]
+----
+$ oc get packagemanifests | grep InfraWatch
+
+servicetelemetry-operator                    InfraWatch Operators       7m20s
+smartgateway-operator                        InfraWatch Operators       7m20s
+----
+
+[id='subscribing-to-the-amq-certificate-manager-operator']
+== Subscribing to the AMQ Certificate Manager Operator
+
+nstall the `Subscription` for AMQ Certificate Manager. After creating the `Subscription` you can validate your AMQ7 Certificate Manager is available by running `oc get csv` and looking for the `amq7-cert-manager.v1.0.0` to have a phase of `Succeeded`.
+
+[NOTE]
+The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You may not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: amq7-cert-manager
+  namespace: openshift-operators
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: amq7-cert-manager
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: amq7-cert-manager.v1.0.0
+EOF
+----
+
+Validate your `ClusterServiceVersion` succeeded by running `oc get csv`.
+
+[source,bash]
+----
+$ oc get --namespace openshift-operators csv
+
+NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
+amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
+----
 
 [id='subscribing-to-elastic-cloud-on-kubernetes-operator']
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
+Apply the following manifest to your {OpenShiftShort} environment to enable the Elastic Cloud on Kubernetes Operator.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: elastic-cloud-eck
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: elastic-cloud-eck
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: elastic-cloud-eck.v1.0.1
+EOF
+----
+
+Validate the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes succeeded by running `oc get csv`.
+
+[source,bash]
+----
+$ oc get csv
+
+NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
+elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0   Succeeded
+----
+
 [id='subscribing-to-the-service-telemetry-operator']
 == Subscribing to the Service Telemetry Operator
 
+Installation of the Service Telemetry Framework is done by creating a Subscription to the Service Telemetry Operator. The Service Telemetry Operator has a list of dependency Operators that will be automatically subscribed to when the Service Telemetry Operator subscription is created.
+
+Create the Service Telemetry Operator subscription with `oc apply -f`.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: servicetelemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: servicetelemetry-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+Validation of the Service Telemetry Operator and the dependent operators can be done with `oc get csv` in the `service-telemetry` namespace.
+
+[source,bash]
+----
+$ oc get csv
+
+NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
+amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
+elastic-cloud-eck.v1.0.1            Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0            Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
+service-telemetry-operator.v1.0.1   Service Telemetry Operator                      1.0.1     service-telemetry-operator.v1.0.0   Succeeded
+smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded
+----
+
 [id='creating-a-servicetelemetry-object-in-openshift']
 == Creating a ServiceTelemetry object in {OpenShiftShort}
+
+Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy Service Telemetry Framework.
+
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  highAvailabilityEnabled: false
+EOF
+----
+
+Logs for the deployment of Service Telemetry Framework can be viewed in the Service Telemetry Operator using `oc logs`.
+
+[source,bash]
+----
+oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
+----
+
+Near the end of the log you should see a playbook recap that results in no failed or changed items, which signals the operator was able to complete tasks successfully.
+
+[source,bash]
+----
+PLAY RECAP *********************************************************************
+localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+----
+
+Also look at the pods and their status to determine that all workloads are operating nominally.
+
+[source,bash]
+----
+$ oc get pods
+
+NAME                                                              READY   STATUS             RESTARTS   AGE
+alertmanager-stf-default-0                                        0/2     Pending            0          26m
+elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
+elasticsearch-es-default-0                                        1/1     Running            0          26m
+interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
+prometheus-operator-bf7d97fb9-kwnlx                               1/1     Running            0          46m
+prometheus-stf-default-0                                          3/3     Running            0          26m
+service-telemetry-operator-54f4c99d9b-k7ll6                       2/2     Running            0          46m
+smart-gateway-operator-7ff58bcf94-66rvx                           2/2     Running            0          46m
+stf-default-ceilometer-notification-smartgateway-6675df547q4lbj   1/1     Running            0          26m
+stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Running            0          26m
+stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
+stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m
+----
+
