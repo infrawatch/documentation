@@ -449,41 +449,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#overview-of-stf_introduction-to-stf">Overview of Service&#160;Telemetry&#160;Framework</a></li>
+<li><a href="#introduction-to-stf_introduction-to-stf">Introduction to Service&#160;Telemetry&#160;Framework</a></li>
 <li><a href="#architecture_introduction-to-stf">STF architecture</a></li>
 <li><a href="#installation-size_introduction-to-stf">Installation size</a></li>
 </ul>
 </li>
 <li><a href="#installing-the-core-components-of-stf_introduction-to-stf">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#prerequisites-for-stf-deployment_installing-the-core-components-of-stf">Prerequisites for STF deployment</a></li>
+<li><a href="#prerequisites-for-stf-deployment_installing-the-core-components-of-stf">Prerequisites for STF installation</a></li>
 <li><a href="#installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</a></li>
 <li><a href="#preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</a></li>
-<li><a href="#quickstart-script-for-development-usage_installing-the-core-components-of-stf">Quickstart script for development use</a></li>
-<li><a href="#generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-stf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</a></li>
-<li><a href="#generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-stf">Generating TLS certificates for ElasticSearch</a></li>
 <li><a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a></li>
 </ul>
 </li>
 <li><a href="#completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
 <ul class="sectlevel2">
-<li><a href="#setting-up-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</a></li>
+<li><a href="#configuring-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a></li>
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf-events_completing-the-stf-configuration">Configuring the OpenStack overcloud for STF events</a></li>
-<li><a href="#updating-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Updating OpenStack overcloud for STF</a></li>
-<li><a href="#conclusion_completing-the-stf-configuration">Completion of server-side installation</a></li>
+<li><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating clientside installation</a></li>
 </ul>
 </li>
 <li><a href="#configuring-stf-components_completing-the-stf-configuration">Configuring Service&#160;Telemetry&#160;Framework data collection</a></li>
-<li><a href="#connecting-multiple-clouds-to-stf_configuring-stf-components">Connecting multiple clouds to Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#advanced-features_configuring-stf-components">Advanced features</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-multiple-clouds_connecting-multiple-clouds-to-stf">Configuring multiple clouds</a></li>
-<li><a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-stf">Planning AMQP address prefixes</a></li>
-<li><a href="#deploying-smart-gateways_connecting-multiple-clouds-to-stf">Deploying Smart Gateways</a></li>
-<li><a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-stf">Deleting the default Smart Gateways</a></li>
-<li><a href="#updating-collectd-configuration_connecting-multiple-clouds-to-stf">Updating collectd configuration</a></li>
-<li><a href="#querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-stf">Querying metrics data from multiple clouds</a></li>
-<li><a href="#using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-stf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</a></li>
+<li><a href="#alerts_advanced-features">Alerts</a></li>
+<li><a href="#high-availability_advanced-features">High availability</a></li>
+<li><a href="#dashboards_advanced-features">Dashboards</a></li>
+<li><a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a></li>
 </ul>
 </li>
 <li><a href="#appe-stf-collectd-plugins">Appendix A: collectd plug-ins</a></li>
@@ -498,14 +490,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This section describes Service&#160;Telemetry&#160;Framework and the framework architecture.</p>
 </div>
 <div class="sect2">
-<h3 id="overview-of-stf_introduction-to-stf">Overview of Service&#160;Telemetry&#160;Framework</h3>
+<h3 id="introduction-to-stf_introduction-to-stf">Introduction to Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>Service&#160;Telemetry&#160;Framework (STF) is an application that runs on the OpenShift
-(OKD). Use STF to collect metrics and record events
-from the nodes in your systems that you want to monitor. The metrics and event
-information travels on a message bus to the server side for storage. Use this
-centralized information as the source for alerts, visualization, or the source
-of truth for orchestration frameworks.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) is an application that runs on OpenShift (OKD). Use STF to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
+STF provides metrics and events data collection from OpenStack infrastructure, fast and reliable transport of data, and built-in data storage and alerting capabilities. An advantage over other monitoring systems is its lighter weight and modular design.</p>
 </div>
 </div>
 <div class="sect2">
@@ -528,7 +516,7 @@ of truth for orchestration frameworks.</p>
 <p>An AMQP 1.x compatible messaging bus to shuttle the metrics to STF for storage in Prometheus</p>
 </li>
 <li>
-<p>Smart Gateway</p>
+<p>Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver them to ElasticSearch or to provide them to Prometheus</p>
 </li>
 </ul>
 </div>
@@ -567,6 +555,14 @@ layers:</p>
 <div class="content">
 <img src="images/STF_Overview_37_0819_deployment_prereq.png" alt="STF Overview 37 0819 deployment prereq"/>
 </div>
+</div>
+<div class="paragraph">
+<p>For more information about how to deploy OpenShift Container Platform, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/">Product Documentation</a> for OpenShift Container Platform 4.3. You can install OpenShift on cloud platforms or on bare metal.
+For more information about STF performance and scaling, see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
+</div>
+<div class="paragraph">
+<p>NOTE:
+Do not install OpenShift on the same infrastructure that you want to monitor.</p>
 </div>
 </div>
 <div class="sect2">
@@ -609,29 +605,20 @@ Service&#160;Telemetry&#160;Framework (STF) installation and describes the insta
 STF components.</p>
 </div>
 <div class="sect2">
-<h3 id="prerequisites-for-stf-deployment_installing-the-core-components-of-stf">Prerequisites for STF deployment</h3>
+<h3 id="prerequisites-for-stf-deployment_installing-the-core-components-of-stf">Prerequisites for STF installation</h3>
 <div class="paragraph">
 <p>Complete the following prerequisite tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install a suitable platform on which to install OpenShift (OKD), for
-example,
-<a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/">Red
-Hat OpenStack Platform</a>. If you already have an OKD 3.11
-environment, see
-<a href="#preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</a>.</p>
+<p>Deploy OpenShift. For more information, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/" class="bare">https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/</a></p>
 </li>
 <li>
-<p>Install OKD. For more information, see
-<a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html/installing_clusters/index">OpenShift
-Container Platform 3.11 Installing Clusters</a> in the OpenShift Container Platform 3.11 documentation..</p>
+<p>Deploy STF to the OKD environment. For more information, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
 </li>
 <li>
-<p>Deploy OKD 3.11 client tools and a bastion node, which executes
-the supplied bash script to load the components into the <code>sa-telemetry</code>
-namespace.</p>
+<p>Configure OpenStack templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.</p>
 </li>
 </ol>
 </div>
@@ -639,29 +626,12 @@ namespace.</p>
 <div class="sect2">
 <h3 id="installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</h3>
 <div class="paragraph">
-<p>When you install STF, use the <code>oc</code> tool or web interface to load Kubernetes
-manifests into OKD. The manifests set the required state of objects, for
-example, creating a deployment. You can find the manifests for STF
-in the <code>deploy/</code> directory of the telemetry-framework release archive.</p>
-</div>
-<div class="paragraph">
-<p>For a copy of the deployment manifests and installation script, see
-<a href="https://github.com/infrawatch/telemetry-framework/releases">https://github.com/infrawatch/telemetry-framework/releases</a>.</p>
-</div>
-<div class="paragraph">
-<p>Loading the manifests results in the instantiation of the
-<a href="https://coreos.com/blog/introducing-operators.html">Operators</a> into memory.
-You can also load additional manifests into memory where the Operators manage
-the deployment of application components, their life cycles, application
-configurations, and other elements.</p>
-</div>
-<div class="paragraph">
-<p>STF comprises the following core components:</p>
+<p>The following STF core components are managed by <a href="https://coreos.com/blog/introducing-operators.html">Operators</a>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Prometheus and the AlertManager</p>
+<p>Prometheus and AlertManager</p>
 </li>
 <li>
 <p>ElasticSearch</p>
@@ -675,319 +645,65 @@ configurations, and other elements.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Each component has a corresponding Operator that you can use to load the various
-application components and objects.</p>
-</div>
-<div class="paragraph">
-<p>To prepare your environment for STF, complete the following
-procedures:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Prepare your OKD environment for STF. For more information, see <a href="#preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</a>.</p>
-</li>
-<li>
-<p>Generate a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router. For more information, see
-<a href="#generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-stf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</a>.</p>
-</li>
-<li>
-<p>Generate TLS certificates for ElasticSearch. For more information, see
-<a href="#generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-stf">Generating TLS certificates for ElasticSearch</a>.</p>
-</li>
-<li>
-<p>Deploy STF to the OKD environment. For more information, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
-</li>
-</ol>
+<p>Each component has a corresponding Operator that you can use to load the various application components and objects.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</h3>
 <div class="paragraph">
-<p>Complete the following steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Log in to your OKD environment. Create and switch to the <code>sa-telemetry</code> namespace in your OKD environment:</p>
-<div class="listingblock">
-<div class="content">
-<pre>    oc login https://console.service-assurance.tld:8443
-    oc new-project sa-telemetry</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Download the latest release file of the telemetry-framework manifests from <a href="https://github.com/infrawatch/telemetry-framework/releases">https://github.com/infrawatch/telemetry-framework/releases</a>:</p>
-<div class="listingblock">
-<div class="content">
-<pre>    mkdir /&lt;working_directory&gt; ; cd /&lt;working_directory&gt;
-    curl --location \
-    https://github.com/infrawatch/telemetry-framework/archive/&lt;release_version&gt;.zip -o telemetry-framework.zip</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Extract the contents and change to that directory:</p>
-<div class="listingblock">
-<div class="content">
-<pre>    unzip telemetry-framework.zip
-    cd telemetry-framework-&lt;release_version&gt;</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you want to deploy ElasticSearch, as the cluster administrator, you must set <code>vm.max_map_count</code> sysctl to <code>262144</code> on the host level of each node in your cluster before you instantiate an STF instance.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>sudo sysctl -w vm.max_map_count=262144</pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="quickstart-script-for-development-usage_installing-the-core-components-of-stf">Quickstart script for development use</h3>
-<div class="paragraph">
-<p>You can use a script to deploy STF into an existing OpenShift environment for
-development purposes. It is not intended for production environments. The
-script runs all of the required steps for a single-cloud setup. Ensure that the
-following tools are installed before execution:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Ansible 2.7+</p>
-</li>
-<li>
-<p>OpenShift CLI (oc from <a href="https://github.com/openshift/origin/releases/tag/v3.11.0" class="bare">https://github.com/openshift/origin/releases/tag/v3.11.0</a>)</p>
-</li>
-<li>
-<p>openssl</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The script is at the following location: <a href="https://github.com/infrawatch/telemetry-framework/blob/master/deploy/quickstart.sh" class="bare">https://github.com/infrawatch/telemetry-framework/blob/master/deploy/quickstart.sh</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-stf">Generating a TLS certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router</h3>
-<div class="paragraph">
-<p>Use TLS/SSL certificates to route the remote Apache&#160;Qpid&#160;Dispatch&#160;Router connections through the OKD router. The following commands create the appropriate certificate files locally and load the contents into a secret for Apache&#160;Qpid&#160;Dispatch&#160;Router to use. The Apache&#160;Qpid&#160;Dispatch&#160;Router message bus on the client side connects to the route address
-(DNS address) for the Apache&#160;Qpid&#160;Dispatch&#160;Router service on port 443.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Generate an unsigned certificate. If you have a signed certificate to load
-into OKD, proceed to step 2.</p>
-<div class="listingblock">
-<div class="content">
-<pre>    openssl req -new -x509 -batch -nodes -days 11000 \
-      -subj "/O=io.interconnectedcloud/CN=qdr-white.sa-telemetry.svc.cluster.local" \
-      -out /tmp/tls.crt \
-      -keyout /tmp/tls.key</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Use the oc command to import the certificate into OKD:</p>
-<div class="listingblock">
-<div class="content">
-<pre>    oc create secret tls qdr-white-cert \
-      --cert=/tmp/tls.crt \
-      --key=/tmp/tls.key</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-stf">Generating TLS certificates for ElasticSearch</h3>
-<div class="paragraph">
-<p>To connect the Smart Gateway to ElasticSearch for events storage, generate certificates and load them as a secret into OKD.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Generate the unsigned certificates. If you have signed certificates to load
-into OKD, go to <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
-<div class="listingblock">
-<div class="content">
-<pre>  WORKING_DIR=./es-certs \  # <b class="conum">(1)</b>
-  NAMESPACE="sa-telemetry" \  # <b class="conum">(2)</b>
-  ./cert_generation.sh # <b class="conum">(3)</b></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>The directory where the certificates are stored.</p>
-</li>
-<li>
-<p>The OpenShift namespace where the certificates are loaded. This is also used for
-hostname generation.</p>
-</li>
-<li>
-<p>The script located in the <code>deploy/</code> directory to help to build the appropriate
-certificate, CA, and key files.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
+<p>Catalogue source work and validate that ElasticSearch can launch based on something.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</h3>
 <div class="paragraph">
-<p>To deploy STF to an OKD environment, complete the
-following tasks:</p>
+<p>To deploy STF to an OKD environment, complete the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Import the upstream container images into the <code>sa-telemetry</code> namespace by using
-the <em>import-upstream.sh</em> script. For more information, see
-<a href="#importing-the-container-images-for-stf_installing-the-core-components-of-stf">Importing the container images for STF</a>.</p>
+<p>Enable upstream Community Catalog. For more information, see <a href="#enabling-the-upstream-community-catalog">Enabling the upstream Community Catalog</a>.</p>
 </li>
 <li>
-<p>Generate the custom manifests by using the Ansible playbook
-<code>deploy_builder.yaml</code> and using the <code>ansible-playbook</code> command. For more information,
-see <a href="#generating-the-manifests-for-stf_installing-the-core-components-of-stf">Generating the manifests for STF</a>.</p>
+<p>Create a namespace. For more information, see <a href="#creating-a-namespace">Creating a namespace</a>.</p>
 </li>
 <li>
-<p>Execute the <code>deploy.sh</code> script to create the Kubernetes objects in the
-OKD environment. For more information, see
-<a href="#installing-stf-components-using-a-script_installing-the-core-components-of-stf">Installing STF components using a script</a>.</p>
+<p>Subscribe to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator. For more information, see <a href="#subscribing-to-the-message-bus-operator">Subscribing to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator</a>.</p>
+</li>
+<li>
+<p>Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
+</li>
+<li>
+<p>Subscribe to the Service Telemetry Operator. For more information, see <a href="#subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</a>.</p>
+</li>
+<li>
+<p>Create a ServiceTelemetry object in OKD. For more information, see <a href="#creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</a>.</p>
 </li>
 </ol>
 </div>
 <div class="sect3">
-<h4 id="importing-the-container-images-for-stf_installing-the-core-components-of-stf">Importing the container images for STF</h4>
-<div class="paragraph">
-<p>To import the container images as image streams into OKD, run the
-following commands:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">cd deploy/
-./import-downstream.sh</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For more information about image streams, see
-<a href="https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html#image-streams">Builds
-and Image Streams</a> in the OpenShift Container Platform 3.11 documentation.</p>
-</div>
+<h4 id="enabling-the-upstream-community-catalog">Enabling the upstream Community Catalog</h4>
+
 </div>
 <div class="sect3">
-<h4 id="generating-the-manifests-for-stf_installing-the-core-components-of-stf">Generating the manifests for STF</h4>
-<div class="paragraph">
-<p>Several of the manifests that are required for deployment are dynamically generated by
-Ansible.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Ansible version 2.7 or later is recommended.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>To generate the additional manifests for STF, log
-in to the OKD environment within the <code>sa-telemetry</code>
-namespace and run the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">ansible-playbook \
--e "registry_path=$(oc registry info)" \
--e "imagestream_namespace=$(oc project --short)" \
-deploy_builder.yml</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>By default, a persistent volume claim (PVC) of 20G is requested for
-Prometheus. To adjust the default PVC size, insert <code>-e
-"prometheus_pvc_storage_request=&lt;size_in_gigabytes&gt;G"</code> before
-<code>deploy_builder.yml</code> in the command.</p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can view additional overrides in the <code>deploy/roles/deploy.builder/defaults/main.yml</code> file located in the
-telemetry-framework release directory.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
+<h4 id="creating-a-namespace">Creating a namespace</h4>
+
 </div>
 <div class="sect3">
-<h4 id="installing-stf-components-using-a-script_installing-the-core-components-of-stf">Installing STF components using a script</h4>
-<div class="imageblock">
-<div class="content">
-<img src="images/STF_Overview_37_0819_deployment_manually.png" alt="STF Overview 37 0819 deployment manually"/>
+<h4 id="subscribing-to-the-message-bus-operator">Subscribing to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator</h4>
+
 </div>
+<div class="sect3">
+<h4 id="subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
+
 </div>
-<div class="paragraph">
-<p>Before you run the provided script, complete the following
-prerequisite actions:</p>
+<div class="sect3">
+<h4 id="subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</h4>
+
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Log in to OKD as an administrator and have the <code>oc</code>
-tool available in your <code>$PATH</code>. The <code>deploy.sh</code> script performs a validation to
-ensure that this is true. The script switches to the <code>sa-telemetry</code> namespace
-before deployment. If the script cannot find the <code>sa-telemetry</code> namespace, it attempts
-to create the namespace.</p>
-</li>
-<li>
-<p>Extract the contents of the telemetry-framework release archive
-and change to the extracted directory. For more information, see
-<a href="#preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</a>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Use the <code>deploy.sh</code> script in the <code>deploy/</code> directory of the telemetry-framework release file that you previously extracted. Run the script to start the various components in your OKD deployment. To remove the components, supply the <code>DELETE</code>
-argument to the script.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>./deploy.sh</pre>
-</div>
-</div>
+<div class="sect3">
+<h4 id="creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</h4>
+
 </div>
 </div>
 </div>
@@ -996,158 +712,11 @@ argument to the script.</p>
 <h2 id="completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="setting-up-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</h3>
+<h3 id="configuring-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</h3>
 <div class="paragraph">
 <p>To collect metrics, events, or both, and to send them back to the STF
 storage domain, you must install collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router on the nodes of an
-OpenStack deployment. Configure the OpenStack&#160;Queens TripleO to enable the data collection
-functionality and to stream the data to Service&#160;Telemetry&#160;Framework (STF).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</h3>
-<div class="paragraph">
-<p>To configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router, complete the following steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create a file and name it <code>metrics-collectd-qdr-overrides.yaml</code>. Save the file in the <code>/home/stack/</code> directory.</p>
-</li>
-<li>
-<p>By default, the collectd plug-ins <code>disk</code>, <code>interface</code>, <code>load</code>, <code>memory</code>, <code>processes</code>, and <code>tcpconns</code> are enabled. To enable additional plug-ins, use <code>CollectdExtraPlugins</code>. To clarify the plug-ins that are available, list the default plug-ins.</p>
-</li>
-<li>
-<p>For deployments that use Open vSwitch, add <code>ovs_stats</code> to the <code>CollectdExtraPlugins</code> list. To monitor the disk usage, add the <code>df</code> plug-in. The <code>virt</code> plug-in is enabled on overcloud nodes that run the <code>libvirt</code> service by default. The following example plug-in configuration, added to <code>metrics-collectd-qdr-overrides.yaml</code>, is for the <code>virt</code> plug-in:</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>ExtraConfig:
-    collectd::plugin::virt::connection: "qemu:///system"
-    collectd::plugin::virt::hostname_format: "hostname uuid"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following sample is from the <code>metrics-collectd-qdr-overrides.yaml</code> environment file that you can pass to a OpenStack&#160;Queens TripleO deployment to configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
-</div>
-<div class="listingblock">
-<div class="title">metrics-collectd-qdr-overrides.yaml</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">---
-parameter_defaults:
-  CollectdAmqpInstances:
-    telemetry:
-      format: JSON
-      presettle: true
-  CollectdDefaultPollingInterval: 1
-  CollectdConnectionType: amqp1
-  CollectdExtraPlugins:
-  - cpu
-  - df
-  - hugepages
-  - ovs_stats
-  - load
-  - uptime
-  MetricsQdrConnectors:
-  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
-    port: 443
-    role: edge
-    sslProfile: sslProfile
-    verifyHostname: false
-  MetricsQdrSSLProfiles:
-  - name: sslProfile</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use the <code>metrics-collectd-qdr-overrides.yaml</code> file to configure the plug-ins for collectd and include the <code>amqp1.so</code> module to connect to Apache&#160;Qpid&#160;Dispatch&#160;Router. Use the <code>CollectdExtraPlugins</code> parameter to enable additional plug-ins. Use the <code>MetricsQdrConnectors</code> parameter to configure the connection back to the STF server where data is streamed for storage in the appropriate storage back end provided by STF.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf-events_completing-the-stf-configuration">Configuring the OpenStack overcloud for STF events</h3>
-<div class="paragraph">
-<p>To enable the collection of events on the client side, follow the steps in
-<a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a> and use the following sample from <code>metrics-collectd-qdr-overrides.yaml</code> for this procedure.
-You can pass the <code>metrics-collectd-qdr-overrides.yaml</code> environment file to a OpenStack&#160;Queens TripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
-</div>
-<div class="listingblock">
-<div class="title">metrics-collectd-qdr-overrides.yaml</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">---
-parameter_defaults:
-  CollectdAmqpInstances:
-  notify: # Create a `notify` address for {MessageBus} that transmits the events.
-    format: JSON # The format of the messages is in JSON.
-    presettle: false
-    notify: true # Mark these messages as being events in the VES format.
-  telemetry:
-    format: JSON
-    presettle: true
-  CollectdDefaultPollingInterval: 1
-  CollectdConnectionType: amqp1
-  CollectdExtraPlugins:
-  - cpu
-  - df
-  - hugepages
-  - ovs_stats
-  - ovs_events # Enable an events plugin for OVS events.
-  - connectivity # Enable an events plugin for network connectivity events.
-  - load
-  - uptime
-  MetricsQdrConnectors:
-  - host: qdr-white-port-5671-sa-telemetry.apps.service-assurance.tld
-    port: 443
-    role: edge
-    sslProfile: sslProfile
-    verifyHostname: false
-  MetricsQdrSSLProfiles:
-  - name: sslProfile</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="updating-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Updating OpenStack overcloud for STF</h3>
-<div class="paragraph">
-<p>The procedure in section <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf-events_completing-the-stf-configuration">Configuring the OpenStack overcloud for STF events</a> includes the instruction to create the <code>metrics-collectd-qdr-overrides.yaml</code> environment file. The following example uses the <code>metrics-collectd-qdr-overrides.yaml</code> file in the <code>openstack overcloud deploy</code> command with the environment files that you must add to the command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>openstack overcloud deploy \
---timeout 100 \
---templates /usr/share/openstack-tripleo-heat-templates \
---stack overcloud \
---libvirt-type kvm \
---ntp-server 192.168.1.254 \
--e /home/stack/virt/config_lvm.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
--e /home/stack/virt/network/network-environment.yaml \
--e /home/stack/virt/hostnames.yml \
--e /home/stack/virt/debug.yaml \
--e /home/stack/virt/nodes_data.yaml \
---environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics-collectd-qdr.yaml \
--e /home/stack/virt/metrics-collectd-qdr-overrides.yaml \
--e /home/stack/virt/docker-images.yaml \
---log-file overcloud_deployment_42.log</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The SSL certificates for the <code>MetricsQdr</code> service are configured to generate
-only for the <code>InternalApi</code> network but the default Ceph role does not use the
-<code>InternalApi</code> network. To deploy STF client when InternalTLS is enabled, use
-this workaround: pass the custom Ceph role, which has an <code>InternalApi</code> network, to
-the <code>openstack overcloud deploy</code> command when InternalTLS is enabled in the deployment.</p>
-</div>
-</td>
-</tr>
-</table>
+OpenStack deployment. If you want to deploy with routed L3 networks, see Deploying with routed L3 networks.</p>
 </div>
 <div class="sect3">
 <h4 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h4>
@@ -1170,9 +739,53 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 </div>
 </div>
 <div class="sect2">
-<h3 id="conclusion_completing-the-stf-configuration">Completion of server-side installation</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</h3>
 <div class="paragraph">
-<p>After you complete server-side installation of STF, you must configure the STF data collection to collect data and send it back to the STF storage domain.</p>
+<p>To configure the OpenStack overcloud, you must configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a file and name it <code>stf-connectors.yaml</code>. Save the file in the <code>/home/stack</code> directory.</p>
+</li>
+<li>
+<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. For more information, see Retrieving the QDR route address.</p>
+</li>
+<li>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache Qpid Dispatch Router bus on the overcloud to the STF deployment. The following sample is from the <code>stf-connectors.yaml</code> environment file:</p>
+<div class="listingblock">
+<div class="content">
+<pre>parameter_defaults:
+    MetricsQdrConnectors:
+  - host: qdr-white-port-5671-service-telemetry.apps.service-telemetry.tld
+    port: 443
+    role: edge
+    sslProfile: sslProfile
+    verifyHostname: false
+  MetricsQdrSSLProfiles:
+  - name: sslProfile</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>stf-connectors.yaml</code> environment file to a OpenStackTripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router. Add the <code>enable-stf.yaml</code> file to the deployment to ensure that the environment is being used during the overcloud deployment:</p>
+<div class="listingblock">
+<div class="content">
+<pre>openstack overcloud deploy &lt;other arguments&gt;
+-e /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml
+-e /home/stack/stf-connectors.yaml
+-e &lt;other-environment-files&gt;
+     &lt;other configuration files&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating clientside installation</h3>
+<div class="paragraph">
+<p>Ensure that collectd is connected to QDR and QDR connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.</p>
 </div>
 </div>
 </div>
@@ -1222,28 +835,668 @@ the <code>openstack overcloud deploy</code> command when InternalTLS is enabled 
 </div>
 </div>
 <div class="sect1">
-<h2 id="connecting-multiple-clouds-to-stf_configuring-stf-components">Connecting multiple clouds to Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="advanced-features_configuring-stf-components">Advanced features</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="configuring-multiple-clouds_connecting-multiple-clouds-to-stf">Configuring multiple clouds</h3>
+<h3 id="alerts_advanced-features">Alerts</h3>
+<div class="paragraph">
+<p>You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.</p>
+</div>
+<div class="paragraph">
+<p>For alerting, two components are involved: First of all, Prometheus executes rules. They can be found in Prometheus web UI under Status/Rules. These rules are evaluated, and if the expression is true, an alert triggers. Alerts are also shown under the Alerts tab in the web UI.</p>
+</div>
+<div class="paragraph">
+<p>To create an alert, complete the following tasks:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an alert rule in Prometheus. For more information, see Creating a rule in Prometheus.</p>
+</li>
+<li>
+<p>Create an alert route in Alertmanager. For more information, see Creating an alert route in Alertmanager.</p>
+</li>
+<li>
+<p>Add an alert route to Alertmanager. For more information, see Adding routes to Alertmanager.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For more information about alerts or notifications with Prometheus and Alertmanager, see <a href="https://prometheus.io/docs/alerting/overview/" class="bare">https://prometheus.io/docs/alerting/overview/</a></p>
+</div>
+<div class="paragraph">
+<p>To view the set of alerts that you can use with STF, see link:https://github.com/infrawatch/service-telemetry-operator/blob/mrunge-add-alerts/deploy/alerts/alerts.yaml</p>
+</div>
+<div class="sect3">
+<h4 id="creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</h4>
+<div class="paragraph">
+<p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert. To create an alert rule, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a yaml file for the alert rule. The following example in qpid-router-down.yaml is an example of a small, efficient alerting rule:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: stf-default
+    role: alert-rules
+  name: prometheus-alarm-rules
+  namespace: service-telemetry
+spec:
+  groups:
+    - name: ./openstack.rules
+      rules:
+        - alert: Metric Listener down
+          expr: collectd_qpid_router_status &lt; 1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an alerting rule in OpenShift:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc create -f qpid-router-down.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command creates a PrometheusRule object named prometheus-alarm-rules and a rule in Prometheus.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For more information on alerting, see link:https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-custom-alerts_advanced-features">Configuring custom alerts</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the following command to edit the PrometheusRule which you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc edit prometheusrules/prometheus-alarm-rules</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make the required edits.</p>
+</li>
+<li>
+<p>Save and close.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</h4>
+<div class="paragraph">
+<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an OpenShift secret by the Prometheus Operator. For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+</div>
+<div class="paragraph">
+<p>Alertmanager comes with a basic configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">          global:
+            resolve_timeout: 5m
+          route:
+            group_by: ['job']
+            group_wait: 30s
+            group_interval: 5m
+            repeat_interval: 12h
+            receiver: 'null'
+          receivers:
+          - name: 'null'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Navigate to the service-telemetry namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc delete secret alertmanager-stf-default</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the new Alertmanager configuration secret. Create a file named alerting-manager-config.yaml. Copy the contents of the following example into the new file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-stf-default
+  namespace: service-telemetry
+type: Opaque
+stringData:
+  alertmanager.yaml: |-
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'webhook'
+
+      routes:
+      - match:
+          severity: critical
+        receiver: 'webhook-crit'
+      - match_re:
+          severity: !(critical)
+        receiver: 'webhook'
+    templates:
+    - '*.tmpl'
+    receivers:
+    - name: 'webhook'
+      webhook_configs:
+      - url: http://192.168.36.9/webhook
+    - name: 'webhook-crit'
+      webhook_configs:
+      - url: http://192.168.36.9/webhook-crit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The example in the previous step creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see <a href="https://prometheus.io/docs/alerting/configuration/" class="bare">https://prometheus.io/docs/alerting/configuration/</a>.</p>
+</div>
+</li>
+<li>
+<p>Save the file and run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc apply -f &lt;filename&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart Alertmanager:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc delete pod alertmanager-stf-default-0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Prometheus Operator restarts Alertmanager automatically.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="high-availability_advanced-features">High availability</h3>
+<div class="paragraph">
+<p>High availability is the ability of Service&#160;Telemetry&#160;Framework to rapidly recover from failures in its component services. While OpenShift restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of STF components, reducing recovery time to approximately 2 seconds. To protect against failure of an OKD node, it is recommended that you deploy STF to an OKD cluster with three or more nodes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+STF is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enabling high availability has the following effects:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two Apache&#160;Qpid&#160;Dispatch&#160;Router pods run instead of the default 1.</p>
+</li>
+<li>
+<p>Three ElasticSearch pods run instead of the default 1.</p>
+</li>
+<li>
+<p>Recovery time from a lost pod in either of these services reduces to approximately 2 seconds.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+High availability for the Smart Gateway and Prometheus components of STF is a work in progress.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="configuring-high-availability_advanced-features">Configuring high availability</h4>
+<div class="paragraph">
+<p>To configure STF for high availability, you must add the <code>highAvailabilityEnabled: true</code> parameter to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the oc command to edit the ServiceTelemetry object:</p>
+<div class="listingblock">
+<div class="content">
+<pre>    oc edit ServiceTelemetry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>highAvailabilityEnabled: true</code> parameter to the <code>spec</code> section:</p>
+<div class="listingblock">
+<div class="content">
+<pre>spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  highAvailabilityEnabled: true</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save your changes and close the object.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dashboards_advanced-features">Dashboards</h3>
+<div class="paragraph">
+<p>Currently, the only available dashboard is the Infrastructure Node View. This dashboard visualizes system-level metrics gathered by collectd for each individual host node. Ensure that the <a href="https://github.com/openstack/tripleo-heat-templates/blob/a957b0e67f926c5fbffff8d4b59e3e4c6d278a2b/deployment/metrics/collectd-container-puppet.yaml#L80">default collectd plug-ins</a> are installed on the nodes that you want to monitor for all visualizations to work.</p>
+</div>
+<div class="sect3">
+<h4 id="setting-up-the-dashboard-to-host-grafana_advanced-features">Setting up the dashboard to host Grafana</h4>
+<div class="paragraph">
+<p>Grafana is not included in the default STF deployment so you must deploy the Grafana Operator from Operator Hub:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone the dashboard repository.</p>
+<div class="listingblock">
+<div class="content">
+<pre>git clone https://github.com/infrawatch/dashboards
+cd dashboards</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Move to the <code>service-telemetry</code> namespace and deploy the Grafana operator. This can be done via the OpenShift console or on the CLI with:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry
+oc create -f deploy/subscription.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Launch a Grafana instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc create -f deploy/grafana.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the datasource and dashboard resources:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc create -f deploy/datasource.yaml \
+    -f deploy/rhos-dashboard.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use the following command to retrieve the Grafana address:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc get routes</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
+</li>
+<li>
+<p>To view and edit queries, log in as user <code>admin</code>. To retrieve the default username and password, analyze the Grafana object:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc describe grafana service-telemetry-grafana</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="operating-the-dashboard_advanced-features">Operating the dashboard</h4>
+<div class="paragraph">
+<p>The infrastructure dashboard shows metrics for a single node at a time. Nodes can be selected in the upper left hand corner of the dashboard.</p>
+</div>
+<div class="paragraph">
+<p>Sections can be expanded and collapsed by selecting the horizontal dividers.</p>
+</div>
+<div class="paragraph">
+<p>Panels
+Information on all of the panels included in the dashboard.</p>
+</div>
+<div class="sect4">
+<h5 id="_top_panels">Top Panels</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Title</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unit</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current Global Alerts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current alerts fired by Prometheus</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recent Global Alerts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recently fired alerts in 5m time steps</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status Panel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node status: up, down, unavailable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uptime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">s/m/h/d/M/Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total operational time of node</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU Cores</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cores</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of cores</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total memory</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total storage size</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of processes listed by type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load Average</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load average represents the average number of running and uninterruptible processes residing in the kernel&#8217;s execution queue.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_networking_panels">Networking Panels</h5>
+<div class="paragraph">
+<p>Panels pertaining to the network interfaces of the node. Here, the attempt was to exclude all software defined interfaces and only focus on those related to physical networking devices.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Panel</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unit</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Ingress Errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total errors with incoming data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Egress Errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total errors with outgoing data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Ingress Error Rates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors/s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rate of incoming data errors</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces egress Error Rates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors/s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rate of outgoing data errors</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Packets Ingress
+pps
+Incoming packets per second</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Packets Egress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outgoing packets per second</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Data Ingress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incoming data rates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Data Egress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outgoing data rates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Drop Rate Ingress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incoming packets drop rate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Drop Rate Egress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_cpu_panels">CPU Panels</h5>
+<div class="paragraph">
+<p>Panels pertaining to CPU usage of the node.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current CPU Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instantaneous usage at the time of the last query</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate CPU Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average non-idle CPU activity of all cores on node</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aggr. CPU Usage by Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows time spent for each type of thread averaged across all cores</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_memory_panels">Memory Panels</h5>
+<div class="paragraph">
+<p>Panels pertaining to memory usage on the node.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory Used</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of memory being used at time of last query</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Huge Pages Used</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hugepages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of hugepages being used</p>
+<p class="tableblock">Memory</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_diskfile_system">Disk/file system</h5>
+<div class="paragraph">
+<p>Panels pertaining to space utilized on disk.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;"/>
+<col style="width: 25%;"/>
+<col style="width: 25%;"/>
+<col style="width: 25%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Space Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk utilization at time of last query</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inode Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode utilization at time of last query</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate Disk Space Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk space used and reserved.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it may not be exhaustive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Traffic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows rates for both reading and writing.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Load</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Approximate percentage of total disk bandwidth being used.
+The weighted I/O time series includes the backlog that may be accumulating. See the [disk plugin docs](<a href="https://collectd.org/wiki/index.php/Plugin:Disk" class="bare">https://collectd.org/wiki/index.php/Plugin:Disk</a>) for more information</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operations/s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ops/s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operations done per second</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average I/O Operation Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seconds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. Per the collectd [disk plugin docs](<a href="https://collectd.org/wiki/index.php/Plugin:Disk" class="bare">https://collectd.org/wiki/index.php/Plugin:Disk</a>), this average is not necessarily very accurate.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-multiple-clouds_advanced-features">Configuring multiple clouds</h3>
 <div class="paragraph">
 <p>To configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF), complete the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Plan the AMQP address prefixes to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-stf">Planning AMQP address prefixes</a>.</p>
+<p>Plan the AMQP address prefixes to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </li>
 <li>
 <p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on
-the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_connecting-multiple-clouds-to-stf">Deploying Smart Gateways</a>.</p>
+the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_advanced-features">Deploying Smart Gateways</a>.</p>
 </li>
 <li>
-<p>Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <a href="#deleting-the-default-smart-gateways_connecting-multiple-clouds-to-stf">Deleting the default Smart Gateways</a>.</p>
+<p>Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <a href="#deleting-the-default-smart-gateways_advanced-features">Deleting the default Smart Gateways</a>.</p>
 </li>
 <li>
 <p>Configure each cloud to send its metrics and events to STF on the
-correct address. For more information, see <a href="#updating-collectd-configuration_connecting-multiple-clouds-to-stf">Updating collectd configuration</a>.</p>
+correct address. For more information, see <a href="#updating-collectd-configuration_advanced-features">Updating collectd configuration</a>.</p>
 </li>
 </ol>
 </div>
@@ -1255,9 +1508,8 @@ correct address. For more information, see <a href="#updating-collectd-configura
 <img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="OpenStack STF Overview 37 0919 topology"/>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="planning-amqp-address-prefixes_connecting-multiple-clouds-to-stf">Planning AMQP address prefixes</h3>
+<div class="sect3">
+<h4 id="planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</h4>
 <div class="paragraph">
 <p>By default, OpenStack nodes send data to the <code>collectd/telemetry</code> and <code>collectd/notify</code> addresses on the AMQP bus and STF listens on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. It is recommended that you prefix a cloud identifier to the second part of the
 address. The following example list shows some of the addresses and identifiers you can include:</p>
@@ -1285,8 +1537,8 @@ address. The following example list shows some of the addresses and identifiers 
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deploying-smart-gateways_connecting-multiple-clouds-to-stf">Deploying Smart Gateways</h3>
+<div class="sect3">
+<h4 id="deploying-smart-gateways_advanced-features">Deploying Smart Gateways</h4>
 <div class="paragraph">
 <p>You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.</p>
 </div>
@@ -1299,10 +1551,10 @@ address. The following example list shows some of the addresses and identifiers 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: <code>deploy/service-assurance/smartgateway/metrics-smartgateway.yaml</code> and <code>deploy/service-assurance/smartgateway/events-smartgateway.yaml</code>. For more information, see <a href="#example-manifests_connecting-multiple-clouds-to-stf">Example manifests</a>.</p>
+<p>Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: <code>deploy/service-telemetry/smartgateway/metrics-smartgateway.yaml</code> and <code>deploy/service-telemetry/smartgateway/events-smartgateway.yaml</code>. For more information, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
 <div class="listingblock">
 <div class="content">
-<pre>pushd deploy/service-assurance/smartgateway/
+<pre>pushd deploy/service-telemetry/smartgateway/
 cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
 cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
 vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
@@ -1314,7 +1566,7 @@ popd</pre>
 <p>Deploy your new Smart Gateways.</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f deploy/service-assurance/smartgateway/</pre>
+<pre>oc create -f deploy/service-telemetry/smartgateway/</pre>
 </div>
 </div>
 </li>
@@ -1329,8 +1581,8 @@ depending on the number of Smart Gateways.</p>
 </li>
 </ol>
 </div>
-<div class="sect3">
-<h4 id="example-manifests_connecting-multiple-clouds-to-stf">Example manifests</h4>
+<div class="sect4">
+<h5 id="example-manifests_advanced-features">Example manifests</h5>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1344,79 +1596,78 @@ The content in the following examples might be different to the file content in 
 </table>
 </div>
 <div class="paragraph">
-<p>Ensure that the <code>name</code> and <code>amqp_url</code> parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_connecting-multiple-clouds-to-stf">Planning AMQP address prefixes</a>.</p>
+<p>Ensure that the <code>name</code> and <code>amqp_url</code> parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">metrics-smartgateway.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud1-telemetry
-spec:
-  size: 1
-  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
-  debug: "false"
-  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
-  service_type: "metrics"
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">  apiVersion: smartgateway.infra.watch/v1alpha1
+  kind: SmartGateway
+  metadata:
+    name: cloud1-telemetry
+  spec:
+    size: 1
+    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
+    debug: "false"
+    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
+    service_type: "metrics"
 
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud2-telemetry
-spec:
-  size: 1
-  amqp_url: qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
-  debug: "false"
-  container_image_path: "docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest"
-  service_type: "metrics"</code></pre>
+  ---
+  apiVersion: smartgateway.infra.watch/v1alpha1
+  kind: SmartGateway
+  metadata:
+    name: cloud2-telemetry
+  spec:
+    size: 1
+    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
+    debug: "false"
+    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
+    service_type: "metrics"</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">events-smartgateway.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">---
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud1-notify
-spec:
-  size: 1
-  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
-  service_type: events
-  debug: "false"
-  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
-  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-  use_tls: "true"
-  tls_client_cert: /config/certs/admin-cert
-  tls_client_key: /config/certs/admin-key
-  tls_ca_cert: /config/certs/admin-ca
-  reset_index: "true"
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">  apiVersion: smartgateway.infra.watch/v1alpha1
+  kind: SmartGateway
+  metadata:
+    name: cloud1-notify
+  spec:
+    size: 1
+    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
+    service_type: events
+    debug: "false"
+    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
+    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+    use_tls: "true"
+    tls_client_cert: /config/certs/admin-cert
+    tls_client_key: /config/certs/admin-key
+    tls_ca_cert: /config/certs/admin-ca
+    reset_index: "true"
 
----
-apiVersion: smartgateway.infra.watch/v1alpha1
-kind: SmartGateway
-metadata:
-  name: cloud2-notify
-spec:
-  size: 1
-  amqp_url: "qdr-white.sa-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
-  service_type: events
-  debug: "false"
-  elastic_url: "https://elasticsearch.sa-telemetry.svc:9200"
-  container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-  use_tls: "true"
-  tls_client_cert: /config/certs/admin-cert
-  tls_client_key: /config/certs/admin-key
-  tls_ca_cert: /config/certs/admin-ca
-  reset_index: "true"</code></pre>
+  ---
+  apiVersion: smartgateway.infra.watch/v1alpha1
+  kind: SmartGateway
+  metadata:
+    name: cloud2-notify
+  spec:
+    size: 1
+    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
+    service_type: events
+    debug: "false"
+    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
+    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
+    use_tls: "true"
+    tls_client_cert: /config/certs/admin-cert
+    tls_client_key: /config/certs/admin-key
+    tls_ca_cert: /config/certs/admin-ca
+    reset_index: "true"</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deleting-the-default-smart-gateways_connecting-multiple-clouds-to-stf">Deleting the default Smart Gateways</h3>
+<div class="sect3">
+<h4 id="deleting-the-default-smart-gateways_advanced-features">Deleting the default Smart Gateways</h4>
 <div class="paragraph">
 <p>When you have configured STF for multiple clouds, you can delete the
 default Smart Gateways if they are no longer in use.</p>
@@ -1438,27 +1689,15 @@ default Smart Gateways if they are no longer in use.</p>
 <p>Optional: Delete the default manifests:</p>
 <div class="listingblock">
 <div class="content">
-<pre>rm deploy/service-assurance/smartgateway/{events,metrics}-smartgateway.yaml</pre>
+<pre>rm deploy/service-telemetry/smartgateway/{events,metrics}-smartgateway.yaml</pre>
 </div>
 </div>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-To regenerate the default manifests, re-run the <a href="#generating-the-manifests-for-stf_installing-the-core-components-of-stf">Generating the manifests for STF</a> step.
-</td>
-</tr>
-</table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="updating-collectd-configuration_connecting-multiple-clouds-to-stf">Updating collectd configuration</h3>
+<div class="sect3">
+<h4 id="updating-collectd-configuration_advanced-features">Updating collectd configuration</h4>
 <div class="paragraph">
 <p>To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack&#160;Queens TripleO configuration to include the following <code>CollectdAmqpInstances</code>.</p>
 </div>
@@ -1476,12 +1715,9 @@ To regenerate the default manifests, re-run the <a href="#generating-the-manifes
            presettle: false</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>For more information about how to edit and redeploy this configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a> and <a href="#updating-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Updating OpenStack overcloud for STF</a>.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="querying-metrics-data-from-multiple-clouds_connecting-multiple-clouds-to-stf">Querying metrics data from multiple clouds</h3>
+<div class="sect3">
+<h4 id="querying-metrics-data-from-multiple-clouds_advanced-features">Querying metrics data from multiple clouds</h4>
 <div class="paragraph">
 <p>Data stored in Prometheus has a "service" label attached according to the
 Smart Gateway it was scraped from. You can use this label to query data from a
@@ -1491,11 +1727,12 @@ specific cloud.</p>
 <p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated "service" label; for example: <code>collectd_uptime{service="cloud1-smartgateway"}</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="using-the-amq-interconnect-message-bus_connecting-multiple-clouds-to-stf">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</h3>
+<div class="sect3">
+<h4 id="using-the-amq-interconnect-message-bus_advanced-features">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</h4>
 <div class="paragraph">
 <p>To use Apache&#160;Qpid&#160;Dispatch&#160;Router, see the
 <a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a> guide.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2711,7 +2948,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-23 15:27:26 UTC
+Last updated 2020-03-30 15:26:15 UTC
 </div>
 </div>
 </body>
