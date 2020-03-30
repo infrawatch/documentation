@@ -29,10 +29,10 @@ When you deploy {ProjectShort} for the first time, two Smart Gateway manifests a
 
 To deploy multiple Smart Gateways, complete the following steps:
 
-. Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: `deploy/service-assurance/smartgateway/metrics-smartgateway.yaml` and `deploy/service-assurance/smartgateway/events-smartgateway.yaml`. For more information, see <<example-manifests_connecting-multiple-clouds-to-stf>>.
+. Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: `deploy/service-telemetry/smartgateway/metrics-smartgateway.yaml` and `deploy/service-telemetry/smartgateway/events-smartgateway.yaml`. For more information, see <<example-manifests_advanced-features>>.
 +
 ----
-pushd deploy/service-assurance/smartgateway/
+pushd deploy/service-telemetry/smartgateway/
 cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
 cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
 vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
@@ -42,7 +42,7 @@ popd
 . Deploy your new Smart Gateways.
 +
 ----
-oc create -f deploy/service-assurance/smartgateway/
+oc create -f deploy/service-telemetry/smartgateway/
 ----
 . Verify that each Smart Gateway is running. This can take several minutes
 depending on the number of Smart Gateways.

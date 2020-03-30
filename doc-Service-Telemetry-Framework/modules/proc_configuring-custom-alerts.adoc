@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_configuring-high-availability.adoc[leveloffset=+1]
+// include::<path>/proc_configuring-custom-alerts.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,24 +20,15 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="configuring-high-availability_{context}"]
-= Configuring high availability
+[id="configuring-custom-alerts_{context}"]
+= Configuring custom alerts
 
-To configure {ProjectShort} for high availability, you must add the `highAvailabilityEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
-. Use the oc command to edit the ServiceTelemetry object:
-+
-----
-    oc edit ServiceTelemetry
-----
 
-. Add the `highAvailabilityEnabled: true` parameter to the `spec` section:
-+
+. Use the following command to edit the PrometheusRule which you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>.
 ----
-spec:
-  eventsEnabled: true
-  metricsEnabled: true
-  highAvailabilityEnabled: true
+oc edit prometheusrules/prometheus-alarm-rules
 ----
+. Make the required edits.
 
-. Save your changes and close the object.
+. Save and close.

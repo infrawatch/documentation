@@ -1,0 +1,39 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/con_high-availability.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: con_my-concept-module-a.adoc
+// * ID: [id='con_my-concept-module-a_{context}']
+// * Title: = My concept module A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+// Do not start the title with a verb. See also _Wording of headings_
+// in _The IBM Style Guide_.
+[id="high-availability_{context}"]
+= High availability
+High availability is the ability of {Project} to rapidly recover from failures in its component services. While {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, it is recommended that you deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
+
+[NOTE]
+{ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
+
+Enabling high availability has the following effects:
+
+- Two {MessageBus} pods run instead of the default 1.
+- Three ElasticSearch pods run instead of the default 1.
+- Recovery time from a lost pod in either of these services reduces to approximately 2 seconds.
+
+[NOTE]
+High availability for the Smart Gateway and Prometheus components of {ProjectShort} is a work in progress.

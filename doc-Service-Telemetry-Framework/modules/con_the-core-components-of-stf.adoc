@@ -23,43 +23,11 @@
 [id='installing-the-core-components-of-stf_{context}']
 = The core components of {ProjectShort}
 
-When you install {ProjectShort}, use the `oc` tool or web interface to load Kubernetes
-manifests into {OpenShiftShort}. The manifests set the required state of objects, for
-example, creating a deployment. You can find the manifests for {ProjectShort}
-in the `deploy/` directory of the telemetry-framework release archive.
+The following {ProjectShort} core components are managed by https://coreos.com/blog/introducing-operators.html[Operators]:
 
-For a copy of the deployment manifests and installation script, see
-link:https://github.com/infrawatch/telemetry-framework/releases[https://github.com/infrawatch/telemetry-framework/releases].
-
-Loading the manifests results in the instantiation of the
-link:https://coreos.com/blog/introducing-operators.html[Operators] into memory.
-You can also load additional manifests into memory where the Operators manage
-the deployment of application components, their life cycles, application
-configurations, and other elements.
-
-{ProjectShort} comprises the following core components:
-
-* Prometheus and the AlertManager
+* Prometheus and AlertManager
 * ElasticSearch
 * Smart Gateway
 * {MessageBus}
 
-Each component has a corresponding Operator that you can use to load the various
-application components and objects.
-
-To prepare your environment for {ProjectShort}, complete the following
-procedures:
-
-. Prepare your {OpenShiftShort} environment for {ProjectShort}. For more information, see <<preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf>>.
-
-ifeval::["{build}" == "downstream"]
-. Create an RHCC Secret. For more information, see <<creating-an-rhcc-secret_installing-the-core-components-of-stf>>.
-endif::[]
-
-. Generate a TLS certificate for {MessageBus}. For more information, see
-<<generating-a-tls-certificate-for-amq-interconnect_installing-the-core-components-of-stf>>.
-
-. Generate TLS certificates for ElasticSearch. For more information, see
-<<generating-tls-certificates-for-elasticsearch_installing-the-core-components-of-stf>>.
-
-. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
+Each component has a corresponding Operator that you can use to load the various application components and objects.

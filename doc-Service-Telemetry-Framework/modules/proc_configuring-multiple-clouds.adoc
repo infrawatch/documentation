@@ -25,12 +25,12 @@
 
 To configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}), complete the following tasks:
 
-. Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_connecting-multiple-clouds-to-stf>>.
+. Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 . Deploy metrics and events consumer Smart Gateways for each cloud to listen on
- the corresponding address prefixes. For more information, see <<deploying-smart-gateways_connecting-multiple-clouds-to-stf>>.
-. Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <<deleting-the-default-smart-gateways_connecting-multiple-clouds-to-stf>>.
+ the corresponding address prefixes. For more information, see <<deploying-smart-gateways_advanced-features>>.
+. Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <<deleting-the-default-smart-gateways_advanced-features>>.
 . Configure each cloud to send its metrics and events to {ProjectShort} on the
- correct address. For more information, see <<updating-collectd-configuration_connecting-multiple-clouds-to-stf>>.
+ correct address. For more information, see <<updating-collectd-configuration_advanced-features>>.
 
 This diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
 

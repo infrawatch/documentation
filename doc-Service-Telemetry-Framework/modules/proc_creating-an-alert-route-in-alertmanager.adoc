@@ -1,0 +1,111 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_creating-an-alert-route-in-alertmanager.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="creating-an-alert-route-in-alertmanager_{context}"]
+= Creating an alert route in Alertmanager
+
+Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an {OpenShift} secret by the Prometheus Operator. For more information about the {Openshift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+
+
+Alertmanager comes with a basic configuration:
+
+[source,yaml]
+----
+          global:
+            resolve_timeout: 5m
+          route:
+            group_by: ['job']
+            group_wait: 30s
+            group_interval: 5m
+            repeat_interval: 12h
+            receiver: 'null'
+          receivers:
+          - name: 'null'
+----
+
+To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.
+
+. Log in to OpenShift.
+. Navigate to the service-telemetry namespace:
++
+----
+oc project service-telemetry
+----
+. Run the following command:
++
+----
+oc delete secret alertmanager-stf-default
+----
+. Create the new Alertmanager configuration secret. Create a file named alerting-manager-config.yaml. Copy the contents of the following example into the new file.
++
+[source,yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-stf-default
+  namespace: service-telemetry
+type: Opaque
+stringData:
+  alertmanager.yaml: |-
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'webhook'
+
+      routes:
+      - match:
+          severity: critical
+        receiver: 'webhook-crit'
+      - match_re:
+          severity: !(critical)
+        receiver: 'webhook'
+    templates:
+    - '*.tmpl'
+    receivers:
+    - name: 'webhook'
+      webhook_configs:
+      - url: http://192.168.36.9/webhook
+    - name: 'webhook-crit'
+      webhook_configs:
+      - url: http://192.168.36.9/webhook-crit
+----
++
+The example in the previous step creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see https://prometheus.io/docs/alerting/configuration/.
+
+. Save the file and run the following command:
++
+----
+oc apply -f <filename>
+----
+. Restart Alertmanager:
++
+----
+oc delete pod alertmanager-stf-default-0
+----
+
++
+The Prometheus Operator restarts Alertmanager automatically.

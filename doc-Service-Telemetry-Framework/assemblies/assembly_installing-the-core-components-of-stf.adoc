@@ -48,19 +48,8 @@ This section describes the prerequisites required for a successful
 include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
 include::../modules/proc_preparing-your-openshift-environment-for-stf.adoc[leveloffset=+1]
-
-ifeval::["{build}" == "upstream"]
-include::../modules/proc_quickstart-script-for-development-usage.adoc[leveloffset=+1]
-endif::[]
-
-ifeval::["{build}" == "downstream"]
-include::../modules/proc_creating-an-rhcc-secret.adoc[leveloffset=+1]
-endif::[]
-
-include::../modules/proc_generating-a-tls-certificate-for-amq-interconnect.adoc[leveloffset=+1]
-include::../modules/proc_generating-tls-certificates-for-elasticsearch.adoc[leveloffset=+1]
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
-include::../modules/proc_importing-the-container-images-for-stf.adoc[leveloffset=+2]
-include::../modules/proc_generating-the-manifests-for-stf.adoc[leveloffset=+2]
-include::../modules/proc_installing-stf-components-using-a-script.adoc[leveloffset=+2]
+//include::../modules/proc_importing-the-container-images-for-stf.adoc[leveloffset=+2]
+//include::../modules/proc_generating-the-manifests-for-stf.adoc[leveloffset=+2]
+//include::../modules/proc_installing-stf-components-using-a-script.adoc[leveloffset=+2]
