@@ -25,10 +25,10 @@
 
 Complete the following prerequisite tasks:
 
-. Deploy OCP. For more information, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/
+. Deploy {OpenShift}. For more information, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/
 . Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
-. Configure OpenStack templates and deploy changes into cloud infrastructure. For more information, see Completing the STF configuration.
-//. Configure OpenStack templates and deploy changes into cloud infrastructure. For more information, see <<completing-the-stf-configuration_completing-the-stf-configuration>>.
+. Configure {OpenStack} templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.
+//. Configure OpenStack templates and deploy changes into the cloud infrastructure. For more information, see <<completing-the-stf-configuration_completing-the-stf-configuration>>.
 
 
 
