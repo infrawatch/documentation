@@ -110,7 +110,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id='subscribing-to-the-amq-certificate-manager-operator']
 == Subscribing to the AMQ Certificate Manager Operator
 
-nstall the `Subscription` for AMQ Certificate Manager. After creating the `Subscription` you can validate your AMQ7 Certificate Manager is available by running `oc get csv` and looking for the `amq7-cert-manager.v1.0.0` to have a phase of `Succeeded`.
+Install the `Subscription` for AMQ Certificate Manager. After creating the `Subscription` you can validate your AMQ7 Certificate Manager is available by running `oc get csv` and looking for the `amq7-cert-manager.v1.0.0` to have a phase of `Succeeded`.
 
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You may not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
