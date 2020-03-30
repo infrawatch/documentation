@@ -28,6 +28,6 @@ The following {ProjectShort} core components are managed by https://coreos.com/b
 * Prometheus and AlertManager
 * ElasticSearch
 * Smart Gateway
-* Apache Qpid Dispatch Router
+* {MessageBus}
 
 Each component has a corresponding Operator that you can use to load the various application components and objects.
