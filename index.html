@@ -607,7 +607,7 @@ STF components.</p>
 <div class="sect2">
 <h3 id="prerequisites-for-stf-deployment_installing-the-core-components-of-stf">Prerequisites for STF installation</h3>
 <div class="paragraph">
-<p>Complete the following prerequisite tasks:</p>
+<p>Ensure that OpenShift version 4.x is running somewhere. For further details on how to deploy OpenShift, see the product documentation. Prior to installation of STF you need to do the following</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -621,6 +621,28 @@ STF components.</p>
 <p>Configure OpenStack templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>The following STF core components are managed by Operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Prometheus and AlertManager</p>
+</li>
+<li>
+<p>ElasticSearch</p>
+</li>
+<li>
+<p>Smart Gateway</p>
+</li>
+<li>
+<p>Apache Qpid Dispatch Router</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each component has a corresponding Operator that you can use to load the various application components and objects.</p>
 </div>
 </div>
 <div class="sect2">
@@ -651,7 +673,44 @@ STF components.</p>
 <div class="sect2">
 <h3 id="preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</h3>
 <div class="paragraph">
-<p>Catalogue source work and validate that ElasticSearch can launch based on something.</p>
+<p>To prepare our OKD environment for STF we need to consider the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Persistent volumes are available for data storage</p>
+</li>
+<li>
+<p><code>vm_max_count</code> has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator</p>
+</li>
+<li>
+<p>Enough resources are available to run the Operators and the application containers</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_persistent_volumes">Persistent volumes</h4>
+<div class="paragraph">
+<p>STF uses persistent storage in OKD to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. More information about configuring persistent storage for OKD can be found at <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html" class="bare">https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_node_tuning_operator">Node Tuning Operator</h4>
+<div class="paragraph">
+<p>ElasticSearch is used for storing events in STF and requires a larger than normal <code>vm.max_map_count</code>. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a> for more information about virtual memory usage by ElasticSearch.</p>
+</div>
+<div class="paragraph">
+<p>Node tuning such as virtual memory map count values can not be applied manually via <code>sysctl</code> since nodes are managed by OpenShift directly. To configure values and apply them to the infrastructure, the node tuning operator is used. For more information about the node tuning operator see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html" class="bare">https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resource_allocation">Resource allocation</h4>
+<div class="paragraph">
+<p>Resources for the components being run (and the number of them running) are required to allow the pods to be scheduled within the OpenShift infrastructure. If enough resources are not allocated, pods will remain in a <code>Pending</code> state due to not be schedulable.</p>
+</div>
+<div class="paragraph">
+<p>The amount of resources required for running STF is variable depending on your environment and the number of nodes and clouds you&#8217;re monitoring. For recommendations around sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -662,13 +721,16 @@ STF components.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Enable upstream Community Catalog. For more information, see <a href="#enabling-the-upstream-community-catalog">Enabling the upstream Community Catalog</a>.</p>
-</li>
-<li>
 <p>Create a namespace. For more information, see <a href="#creating-a-namespace">Creating a namespace</a>.</p>
 </li>
 <li>
-<p>Subscribe to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator. For more information, see <a href="#subscribing-to-the-message-bus-operator">Subscribing to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator</a>.</p>
+<p>Enable the OperatorHub.io Community Catalog Source. For more information, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+</li>
+<li>
+<p>Enable the InfraWatch Operator Source. For more information, see <a href="#enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</a>.</p>
+</li>
+<li>
+<p>Subscribe to the AMQ Certificate Manager Operator. For more information, see <a href="#subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
 </li>
 <li>
 <p>Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
@@ -682,28 +744,269 @@ STF components.</p>
 </ol>
 </div>
 <div class="sect3">
-<h4 id="enabling-the-upstream-community-catalog">Enabling the upstream Community Catalog</h4>
-
-</div>
-<div class="sect3">
 <h4 id="creating-a-namespace">Creating a namespace</h4>
-
+<div class="paragraph">
+<p>To create a namespace, run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc new-project service-telemetry</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="subscribing-to-the-message-bus-operator">Subscribing to the Apache&#160;Qpid&#160;Dispatch&#160;Router Operator</h4>
+<h4 id="enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</h4>
+<div class="paragraph">
+<p>Install ElasticSearch through Elastic Cloud on Kubernetes Operator. You must be subscribed to Kubernetes Operator from the OperatorHub.io catalog source.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operator-framework/upstream-community-operators:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</h4>
+<div class="paragraph">
+<p>Before you deploy STF on OpenShift, install an an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorSource
+metadata:
+  labels:
+    opsrc-provider: infrawatch
+  name: infrawatch-operators
+  namespace: openshift-marketplace
+spec:
+  authorizationToken: {}
+  displayName: InfraWatch Operators
+  endpoint: https://quay.io/cnr
+  publisher: InfraWatch
+  registryNamespace: infrawatch
+  type: appregistry
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validate the creation of your OperatorSource by running <code>oc get operatorsources</code>. A successful import will result in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconclied</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
+NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE                                       AGE
+infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled   5m23s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using <code>oc get packagemanifest</code> we can validate our Operators are available from the catalog.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
+
+servicetelemetry-operator                    InfraWatch Operators       7m20s
+smartgateway-operator                        InfraWatch Operators       7m20s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</h4>
+<div class="paragraph">
+<p>To subscribe to the AMQ Certificate Manager Operator, create the subscription and validate the AMQ7 Certificate Manager:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The AMQ Certificate Manager is installed globally for all namespaces, so the <code>namespace</code> value provided is <code>openshift-operators</code>. You may not see your <code>amq7-cert-manager.v1.0.0</code> ClusterServiceVersion in the <code>service-telemetry</code> namespace for a few minutes until the processing executes against the namespace.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: amq7-cert-manager
+  namespace: openshift-operators
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: amq7-cert-manager
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: amq7-cert-manager.v1.0.0
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To validate your <code>ClusterServiceVersion</code>, run the <code>oc get csv</code> command. Ensure that amq7-cert-manager.v1.0.0 has a phase <em>Succeeded</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get --namespace openshift-operators csv
+
+NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
+amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
+<div class="paragraph">
+<p>Apply the following manifest to your OKD environment to enable the Elastic Cloud on Kubernetes Operator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: elastic-cloud-eck
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: elastic-cloud-eck
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: elastic-cloud-eck.v1.0.1
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validate the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes succeeded by running <code>oc get csv</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get csv
 
+NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
+elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0   Succeeded</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</h4>
+<div class="paragraph">
+<p>Create a subscription to the Service Telemetry Operator. The Service Telemetry Operator automatically subscribes to a list of dependent Operators when you create the Service Telemetry Operator subscription.</p>
+</div>
+<div class="paragraph">
+<p>Create the Service Telemetry Operator subscription with <code>oc apply -f</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: servicetelemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: servicetelemetry-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validation of the Service Telemetry Operator and the dependent operators can be done with <code>oc get csv --namespace service-telemetry</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get csv
 
+NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
+amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
+elastic-cloud-eck.v1.0.1            Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0            Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
+service-telemetry-operator.v1.0.1   Service Telemetry Operator                      1.0.1     service-telemetry-operator.v1.0.0   Succeeded
+smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</h4>
+<div class="paragraph">
+<p>Create an instance of ServiceTelemetry in OKD to deploy the Service Telemetry Framework.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  highAvailabilityEnabled: false
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To view the STF deployment logs in the Service Telemetry Operator, run the <code>oc logs</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>View the pods and the status of the pods to determine that all workloads are operating nominally.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">PLAY RECAP *********************************************************************
+localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also look at the pods and their status to determine that all workloads are operating nominally.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods
 
+NAME                                                              READY   STATUS             RESTARTS   AGE
+alertmanager-stf-default-0                                        0/2     Pending            0          26m
+elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
+elasticsearch-es-default-0                                        1/1     Running            0          26m
+interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
+prometheus-operator-bf7d97fb9-kwnlx                               1/1     Running            0          46m
+prometheus-stf-default-0                                          3/3     Running            0          26m
+service-telemetry-operator-54f4c99d9b-k7ll6                       2/2     Running            0          46m
+smart-gateway-operator-7ff58bcf94-66rvx                           2/2     Running            0          46m
+stf-default-ceilometer-notification-smartgateway-6675df547q4lbj   1/1     Running            0          26m
+stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Running            0          26m
+stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
+stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2948,7 +3251,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-30 15:26:15 UTC
+Last updated 2020-03-31 14:51:19 UTC
 </div>
 </div>
 </body>
