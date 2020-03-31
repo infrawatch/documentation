@@ -29,7 +29,7 @@ Ensure that {OpenShift} version 4.x is running somewhere. For further details on
 . Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
 . Configure {OpenStack} templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.
 
-The following STF core components are managed by Operators: 
+The following {ProjectShort} core components are managed by Operators: 
 
 * Prometheus and AlertManager
 * ElasticSearch
