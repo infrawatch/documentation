@@ -36,6 +36,8 @@ To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the follow
 [id='creating-a-namespace']
 == Creating a namespace
 
+To create a namespace, run the following command:
+
 [source,bash]
 ----
 oc new-project service-telemetry
@@ -44,7 +46,7 @@ oc new-project service-telemetry
 [id='enabling-the-operatorhubio-community-catalog-source']
 == Enabling the OperatorHub.io Community Catalog Source
 
-Installation of ElasticSearch is done via the Elastic Cloud on Kubernetes Operator, which must be subscribed to from the OperatorHub.io catalog source.
+Install ElasticSearch through Elastic Cloud on Kubernetes Operator. You must be subscribed to Kubernetes Operator from the OperatorHub.io catalog source.
 
 [source,bash]
 ----
@@ -65,7 +67,7 @@ EOF
 [id='enabling-the-infrawatch-operator-source']
 == Enabling InfraWatch Operator Source
 
-To install {ProjectShort} we need to install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator.
+Before you deploy {ProjectShort} on {OpenShift}, install an an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator.
 
 [source,bash]
 ----
@@ -110,7 +112,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id='subscribing-to-the-amq-certificate-manager-operator']
 == Subscribing to the AMQ Certificate Manager Operator
 
-Install the `Subscription` for AMQ Certificate Manager. After creating the `Subscription` you can validate your AMQ7 Certificate Manager is available by running `oc get csv` and looking for the `amq7-cert-manager.v1.0.0` to have a phase of `Succeeded`.
+To subscribe to the AMQ Certificate Manager Operator, create the subscription and validate the AMQ7 Certificate Manager:
 
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You may not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
@@ -133,7 +135,7 @@ spec:
 EOF
 ----
 
-Validate your `ClusterServiceVersion` succeeded by running `oc get csv`.
+To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase _Succeeded_.
 
 [source,bash]
 ----
@@ -179,7 +181,7 @@ elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1
 [id='subscribing-to-the-service-telemetry-operator']
 == Subscribing to the Service Telemetry Operator
 
-Installation of the Service Telemetry Framework is done by creating a Subscription to the Service Telemetry Operator. The Service Telemetry Operator has a list of dependency Operators that will be automatically subscribed to when the Service Telemetry Operator subscription is created.
+Create a subscription to the Service Telemetry Operator. The Service Telemetry Operator automatically subscribes to a list of dependent Operators when you create the Service Telemetry Operator subscription.
 
 Create the Service Telemetry Operator subscription with `oc apply -f`.
 
@@ -200,7 +202,7 @@ spec:
 EOF
 ----
 
-Validation of the Service Telemetry Operator and the dependent operators can be done with `oc get csv` in the `service-telemetry` namespace.
+Validation of the Service Telemetry Operator and the dependent operators can be done with `oc get csv --namespace service-telemetry`.
 
 [source,bash]
 ----
@@ -218,7 +220,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 [id='creating-a-servicetelemetry-object-in-openshift']
 == Creating a ServiceTelemetry object in {OpenShiftShort}
 
-Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy Service Telemetry Framework.
+Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy the Service Telemetry Framework.
 
 [source,bash]
 ----
@@ -235,14 +237,14 @@ spec:
 EOF
 ----
 
-Logs for the deployment of Service Telemetry Framework can be viewed in the Service Telemetry Operator using `oc logs`.
+To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
 
 [source,bash]
 ----
 oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
 ----
 
-Near the end of the log you should see a playbook recap that results in no failed or changed items, which signals the operator was able to complete tasks successfully.
+View the pods and the status of the pods to determine that all workloads are operating nominally.
 
 [source,bash]
 ----
