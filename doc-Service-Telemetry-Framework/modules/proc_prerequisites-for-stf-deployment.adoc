@@ -23,15 +23,17 @@
 [id='prerequisites-for-stf-deployment_{context}']
 = Prerequisites for {ProjectShort} installation
 
-Complete the following prerequisite tasks:
+Ensure that {OpenShift} version 4.x is running somewhere. For further details on how to deploy {OpenShift}, see the product documentation. Prior to installation of {ProjectShort} you need to do the following
 
 . Deploy {OpenShift}. For more information, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/
 . Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
 . Configure {OpenStack} templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.
-//. Configure OpenStack templates and deploy changes into the cloud infrastructure. For more information, see <<completing-the-stf-configuration_completing-the-stf-configuration>>.
 
+The following {ProjectShort} core components are managed by Operators: 
 
+* Prometheus and AlertManager
+* ElasticSearch
+* Smart Gateway
+* Apache Qpid Dispatch Router
 
-
-
-//<<preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf>>.
+Each component has a corresponding Operator that you can use to load the various application components and objects.
