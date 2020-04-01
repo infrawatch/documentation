@@ -963,13 +963,12 @@ EOF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get csv
-
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
 amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
 elastic-cloud-eck.v1.0.1            Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0            Succeeded
-prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
+prometheusoperator.0.32.0           Prometheus Operator                             0.32.0    prometheusoperator.0.27.0           Succeeded
 service-telemetry-operator.v1.0.1   Service Telemetry Operator                      1.0.1     service-telemetry-operator.v1.0.0   Succeeded
 smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</code></pre>
 </div>
@@ -1020,7 +1019,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods
 
 NAME                                                              READY   STATUS             RESTARTS   AGE
-alertmanager-stf-default-0                                        0/2     Pending            0          26m
+alertmanager-stf-default-0                                        2/2     Running            0          26m
 elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
 elasticsearch-es-default-0                                        1/1     Running            0          26m
 interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
@@ -3278,7 +3277,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-01 21:09:56 UTC
+Last updated 2020-04-01 21:49:49 UTC
 </div>
 </div>
 </body>
