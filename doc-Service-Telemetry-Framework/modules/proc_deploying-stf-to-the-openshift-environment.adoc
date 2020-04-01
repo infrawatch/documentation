@@ -258,7 +258,7 @@ Also look at the pods and their status to determine that all workloads are opera
 $ oc get pods
 
 NAME                                                              READY   STATUS             RESTARTS   AGE
-alertmanager-stf-default-0                                        0/2     Pending            0          26m
+alertmanager-stf-default-0                                        2/2     Running            0          26m
 elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
 elasticsearch-es-default-0                                        1/1     Running            0          26m
 interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
