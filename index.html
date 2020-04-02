@@ -751,6 +751,9 @@ STF components.</p>
 <p>Create a namespace. For more information, see <a href="#creating-a-namespace">Creating a namespace</a>.</p>
 </li>
 <li>
+<p>Create an OperatorGroup. For more information, see <a href="#creating-an-operatorgroup">Creating an OperatorGroup</a>.</p>
+</li>
+<li>
 <p>Enable the OperatorHub.io Community Catalog Source. For more information, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </li>
 <li>
@@ -778,6 +781,26 @@ STF components.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">oc new-project service-telemetry</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-an-operatorgroup">Creating an OperatorGroup</h4>
+<div class="paragraph">
+<p>An OperatorGroup is required in the namespace to permit scheduling of the Operator pods. See <a href="https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html">OperatorGroups</a> for more information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: service-telemetry-operator-group
+  namespace: service-telemetry
+spec:
+  targetNamespaces:
+  - service-telemetry
+EOF</code></pre>
 </div>
 </div>
 </div>
@@ -3277,7 +3300,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-01 21:49:49 UTC
+Last updated 2020-04-02 08:23:33 UTC
 </div>
 </div>
 </body>
