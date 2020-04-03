@@ -1,0 +1,74 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id='removing-stf-from-the-openshift-environment_{context}']
+= Removing {ProjectShort} from the {OpenShiftShort} environment
+
+To remove {ProjectShort} from an {OpenShiftShort} environment, complete the following tasks:
+
+. Delete the namespace. For more information, see <<removing-the-namespace>>.
+. Delete the OperatorSource. For more information, see <<removing-the-operatorsource>>.
+
+[id='removing-the-namespace']
+== Removing the namespace
+
+To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
+
+[source,bash]
+----
+oc delete project service-telemetry
+----
+
+Validate that the resources have been removed from the namespace:
+
+[source,bash]
+----
+$ oc get all
+No resources found.
+----
+
+[id='removing-the-operatorsource']
+== Removing the OperatorSource
+
+If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
+related to {ProjectShort} being removed from the Operator Lifecycle Manager catalog.
+
+[source,bash]
+----
+$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
+operatorsource.operators.coreos.com "infrawatch-operators" deleted
+----
+
+Validate that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result: 
+
+[source,bash]
+----
+$ oc get packagemanifests | grep InfraWatch
+----
+
+If you enabled the OperatorHub.io Community Catalog Source (see <<enabling-the-operatorhubio-community-catalog-source>>) during the installation process and you no longer need this catalog source, you can remove it with the following command:
+
+[source,bash]
+----
+$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
+catalogsource.operators.coreos.com "operatorhubio-operators" deleted
+----
