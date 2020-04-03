@@ -38,7 +38,7 @@ To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort
 oc delete project service-telemetry
 ----
 
-You can validate that all the resources have been removed from the namespace by running `oc get all`.
+Validate that the resources have been removed from the namespace:
 
 [source,bash]
 ----
