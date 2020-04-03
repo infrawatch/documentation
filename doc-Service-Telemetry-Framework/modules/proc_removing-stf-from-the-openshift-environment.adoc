@@ -49,7 +49,7 @@ No resources found.
 [id='removing-the-operatorsource']
 == Removing the OperatorSource
 
-If future installations of {Project} are no longer expected, the OperatorSource can be removed. Removing the OperatorSource will result in the PackageManifests
+If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
 related to {ProjectShort} being removed from the Operator Lifecycle Manager catalog.
 
 [source,bash]
