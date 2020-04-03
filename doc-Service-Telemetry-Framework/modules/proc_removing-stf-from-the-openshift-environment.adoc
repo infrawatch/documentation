@@ -58,7 +58,7 @@ $ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operator
 operatorsource.operators.coreos.com "infrawatch-operators" deleted
 ----
 
-You can validate that the {ProjectShort} PackageManifests are removed from the platform by running `oc get packagemanifests | grep InfraWatch`, which is expected to return no result.
+Validate that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result: 
 
 [source,bash]
 ----
