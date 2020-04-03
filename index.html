@@ -460,6 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</a></li>
 <li><a href="#preparing-your-openshift-environment-for-stf_installing-the-core-components-of-stf">Preparing your OKD environment for STF</a></li>
 <li><a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a></li>
+<li><a href="#removing-stf-from-the-openshift-environment_installing-the-core-components-of-stf">Removing STF from the OKD environment</a></li>
 </ul>
 </li>
 <li><a href="#completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
@@ -1054,6 +1055,72 @@ stf-default-ceilometer-notification-smartgateway-6675df547q4lbj   1/1     Runnin
 stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Running            0          26m
 stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
 stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-stf-from-the-openshift-environment_installing-the-core-components-of-stf">Removing STF from the OKD environment</h3>
+<div class="paragraph">
+<p>To remove STF from an OKD environment, complete the following tasks:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the namespace. For more information, see <a href="#removing-the-namespace">Removing the namespace</a>.</p>
+</li>
+<li>
+<p>Delete the OperatorSource. For more information, see <a href="#removing-the-operatorsource">Removing the OperatorSource</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="removing-the-namespace">Removing the namespace</h4>
+<div class="paragraph">
+<p>To remove most of the deployed resources for STF from OKD, delete the namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc delete project service-telemetry</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validate that the resources have been removed from the namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get all
+No resources found.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="removing-the-operatorsource">Removing the OperatorSource</h4>
+<div class="paragraph">
+<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.
+related to STF being removed from the Operator Lifecycle Manager catalog.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
+operatorsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validate that the STF PackageManifests are removed from the platform. If successful, the following command returns no result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you enabled the OperatorHub.io Community Catalog Source (see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>) during the installation process and you no longer need this catalog source, you can remove it with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
+catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre>
 </div>
 </div>
 </div>
@@ -3300,7 +3367,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-02 08:23:33 UTC
+Last updated 2020-04-03 14:35:20 UTC
 </div>
 </div>
 </body>
