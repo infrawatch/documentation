@@ -31,7 +31,7 @@ To remove {ProjectShort} from an {OpenShiftShort} environment, complete the foll
 [id='removing-the-namespace']
 == Removing the namespace
 
-Most of the deployed resources for {ProjectShort} can be removed from {OpenShiftShort} by deleting the namespace. To delete a namespace run the command:
+To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
 
 [source,bash]
 ----
