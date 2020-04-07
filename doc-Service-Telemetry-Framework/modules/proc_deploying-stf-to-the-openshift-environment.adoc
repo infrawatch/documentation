@@ -39,7 +39,6 @@ To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the follow
 
 To create a namespace, run the following command:
 
-[source,bash]
 ----
 oc new-project service-telemetry
 ----
@@ -47,9 +46,8 @@ oc new-project service-telemetry
 [id='creating-an-operatorgroup']
 == Creating an OperatorGroup
 
-An OperatorGroup is required in the namespace to permit scheduling of the Operator pods. See https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups] for more information.
+You need an OperatorGroup in the namespace to permit scheduling of the Operator pods. Run the following command:
 
-[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -63,12 +61,13 @@ spec:
 EOF
 ----
 
+For more information, see https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
+
 [id='enabling-the-operatorhubio-community-catalog-source']
 == Enabling the OperatorHub.io Community Catalog Source
 
 Install ElasticSearch through Elastic Cloud on Kubernetes Operator. You must be subscribed to Kubernetes Operator from the OperatorHub.io catalog source.
 
-[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -87,9 +86,10 @@ EOF
 [id='enabling-the-infrawatch-operator-source']
 == Enabling InfraWatch Operator Source
 
-Before you deploy {ProjectShort} on {OpenShift}, install an an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator.
+Before you deploy {ProjectShort} on {OpenShift}, complete the following steps:
 
-[source,bash]
+. Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
++
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -109,9 +109,8 @@ spec:
 EOF
 ----
 
-Validate the creation of your OperatorSource by running `oc get operatorsources`. A successful import will result in the `MESSAGE` field returning a result of `The object has been successfully reconclied`.
-
-[source,bash]
+. To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import  results in the `MESSAGE` field returning a result of `The object has been successfully reconclied`.
++
 ----
 $ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
@@ -119,9 +118,8 @@ NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYN
 infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled   5m23s
 ----
 
-Using `oc get packagemanifest` we can validate our Operators are available from the catalog.
-
-[source,bash]
+. To validate that the Operators are available from the catalog, run the `oc get packagemanifest` command:
++
 ----
 $ oc get packagemanifests | grep InfraWatch
 
@@ -132,12 +130,12 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id='subscribing-to-the-amq-certificate-manager-operator']
 == Subscribing to the AMQ Certificate Manager Operator
 
-To subscribe to the AMQ Certificate Manager Operator, create the subscription and validate the AMQ7 Certificate Manager:
-
+. Subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
++
 [NOTE]
-The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You may not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
+The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
 
-[source,bash]
++
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -155,9 +153,8 @@ spec:
 EOF
 ----
 
-To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase _Succeeded_.
-
-[source,bash]
+. To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
++
 ----
 $ oc get --namespace openshift-operators csv
 
@@ -168,9 +165,8 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 [id='subscribing-to-elastic-cloud-on-kubernetes-operator']
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
-Apply the following manifest to your {OpenShiftShort} environment to enable the Elastic Cloud on Kubernetes Operator.
-
-[source,bash]
+. Apply the following manifest to your {OpenShiftShort} environment to enable the Elastic Cloud on Kubernetes Operator:
++
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -188,9 +184,8 @@ spec:
 EOF
 ----
 
-Validate the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes succeeded by running `oc get csv`.
-
-[source,bash]
+. To validate that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes succeeded, run the `oc get csv` command:
++
 ----
 $ oc get csv
 
@@ -203,9 +198,9 @@ elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1
 
 Create a subscription to the Service Telemetry Operator. The Service Telemetry Operator automatically subscribes to a list of dependent Operators when you create the Service Telemetry Operator subscription.
 
-Create the Service Telemetry Operator subscription with `oc apply -f`.
+. To create the Service Telemetry Operator subscription, run the `oc apply -f` command:
 
-[source,bash]
++
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -222,9 +217,9 @@ spec:
 EOF
 ----
 
-Validation of the Service Telemetry Operator and the dependent operators can be done with `oc get csv --namespace service-telemetry`.
+. To validate the Service Telemetry Operator and the dependent operators, run the following command:
 
-[source,bash]
++
 ----
 $ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
@@ -239,9 +234,9 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 [id='creating-a-servicetelemetry-object-in-openshift']
 == Creating a ServiceTelemetry object in {OpenShiftShort}
 
-Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy the Service Telemetry Framework.
+. Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy the Service Telemetry Framework:
 
-[source,bash]
++
 ----
 oc apply -f - <<EOF
 apiVersion: infra.watch/v1alpha1
@@ -256,24 +251,24 @@ spec:
 EOF
 ----
 
-To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
+. To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
 
-[source,bash]
++
 ----
 oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
 ----
 
-View the pods and the status of the pods to determine that all workloads are operating nominally.
+. View the pods and the status of the pods to determine that all workloads are operating nominally:
 
-[source,bash]
++
 ----
 PLAY RECAP *********************************************************************
 localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 ----
 
-Also look at the pods and their status to determine that all workloads are operating nominally.
+. View the pods and the status of each pod to determine that all workloads are operating nominally:
 
-[source,bash]
++
 ----
 $ oc get pods
 
@@ -291,4 +286,3 @@ stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Runnin
 stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
 stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m
 ----
-

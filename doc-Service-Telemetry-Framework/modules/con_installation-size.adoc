@@ -32,8 +32,8 @@ The size of your installation depends on the following factors:
 * The resolution of metrics.
 * The length of time that you want to store the data.
 
-The sizing of the virtual machines for {OpenShift} has the largest impact
+The size of the virtual machines for {OpenShift} has the largest impact
 on the hardware requirements, including the number of virtual machines. For
 more information about the recommended sizing for the OpenShift nodes, see
-link:https://docs.openshift.com/container-platform/3.11/install/prerequisites.html#production-level-hardware-requirements[Production
+https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/installing_clusters/index#production-level-hardware-requirements[Production
 Level Hardware Requirements] in the OpenShift Container Platform 3.11 documentation.
