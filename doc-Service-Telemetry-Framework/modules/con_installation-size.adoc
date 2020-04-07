@@ -37,6 +37,7 @@ Installation of {Project} ({ProjectShort}) is dependent on an existing {OpenShif
 The sizing of {OpenShiftShort} is dependent on the infrastructure selected. More information about minimum resources requirements when installing {OpenShiftShort} on baremetal is available at https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal. For installation requirements of the various public and private cloud platforms available to install to, see the corresponding installation documentation for your cloud of choice.
 
 ifeval::["{build}" == "upstream"]
+[id='development-environment-resource-requirement_{context}']
 == Development environment resource requirements
 
 An all-in-one development environment for {ProjectShort} can be locally created using https://code-ready.github.io/crc/[CodeReady Containers]. Installation process of CodeReady Containers (CRC) is available at https://code-ready.github.io/crc/#installation_gsg.
@@ -49,9 +50,9 @@ The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[m
 
 After completing the installation of CRC it is recommended you start your environment with the following commands:
 
-```
+----
 crc start --memory=49152 --cpus=8
-```
+----
 
 If you have an existing environment it must be destroyed and recreated in order for the resource requests to have an effect. To recreate the environment first run `crc delete` to delete the virtual machine, and then run the provided command to create your environment.
 endif::[]
