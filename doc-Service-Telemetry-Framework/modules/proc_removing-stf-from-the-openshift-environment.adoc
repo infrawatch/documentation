@@ -31,16 +31,14 @@ To remove {ProjectShort} from an {OpenShiftShort} environment, complete the foll
 [id='removing-the-namespace']
 == Removing the namespace
 
-To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
-
-[source,bash]
+. To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
++
 ----
 oc delete project service-telemetry
 ----
 
-Validate that the resources have been removed from the namespace:
-
-[source,bash]
+. Validate that the resources have been removed from the namespace:
++
 ----
 $ oc get all
 No resources found.
@@ -49,26 +47,24 @@ No resources found.
 [id='removing-the-operatorsource']
 == Removing the OperatorSource
 
-If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
-related to {ProjectShort} being removed from the Operator Lifecycle Manager catalog.
-
-[source,bash]
+. If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
++
 ----
 $ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
 operatorsource.operators.coreos.com "infrawatch-operators" deleted
 ----
 
-Validate that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result: 
-
-[source,bash]
+. Validate that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
++
 ----
 $ oc get packagemanifests | grep InfraWatch
 ----
-
-If you enabled the OperatorHub.io Community Catalog Source (see <<enabling-the-operatorhubio-community-catalog-source>>) during the installation process and you no longer need this catalog source, you can remove it with the following command:
-
-[source,bash]
++
+. If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:
++
 ----
 $ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
 catalogsource.operators.coreos.com "operatorhubio-operators" deleted
 ----
++
+For more information about the OperatorHub.io Community Catalog Source, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.

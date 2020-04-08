@@ -41,9 +41,7 @@
 // (= Heading), the heading will be interpreted as a level-2 heading
 // (== Heading) in the assembly.
 
-This section describes the prerequisites required for a successful
-{Project} ({ProjectShort}) installation and describes the installation of the core
-{ProjectShort} components.
+Before you install {ProjectShort}, ensure that you complete the prerequisite procedures and understand the core components of the framework.
 
 include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
