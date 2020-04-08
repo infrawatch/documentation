@@ -25,19 +25,19 @@
 
 To remove {ProjectShort} from an {OpenShiftShort} environment, complete the following tasks:
 
-. Delete the namespace. For more information, see <<removing-the-namespace>>.
+. Delete the namespace. For more information, see <<deleting-the-namespace>>.
 . Delete the OperatorSource. For more information, see <<removing-the-operatorsource>>.
 
-[id='removing-the-namespace']
-== Removing the namespace
+[id='deleting-the-namespace']
+== Deleting the namespace
 
-. To remove most of the deployed resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
+. To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
 +
 ----
 oc delete project service-telemetry
 ----
 
-. Validate that the resources have been removed from the namespace:
+. Validate that the resources have been deleted from the namespace:
 +
 ----
 $ oc get all

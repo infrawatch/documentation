@@ -23,19 +23,43 @@
 [id='preparing-your-openshift-environment-for-stf_{context}']
 = Preparing your {OpenShiftShort} environment for {ProjectShort}
 
-The following information is useful to know as you prepare your {OpenShiftShort} environment for {ProjectShort}:
+As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
-* Persistent volumes are available for data storage. For more information, see <<persistent-volumes>>.
+* Ensure that persistent storage is available in your {OpenShift} cluster for storing data in a production system. For more information, see <<persistent-volumes>>.
+* Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
+* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<disabling-event-storage>>.
 * `vm_max_count` has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator. For more information, see <<node-tuning-operator>>.
-* Enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
+
+
 
 [[persistent-volumes]]
 == Persistent volumes
 
+//This is a prerequisite.
+//This is something you have to do as part of your planning for your OpenShift install.
+
 {ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
+
+[[resource-allocation]]
+== Resource allocation
+
+//This is a prerequisite.
+//This is something you have to do as part of your planning for your OpenShift install.
+
+To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running and for the number of running resources. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
+
+The amount of resources you require to run {ProjectShort} depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
+
+[[disabling-event-storage]]
+== Disabling event storage
+
+If do not plan to store events in ElasticSearch, do not enable the OperatorHub.io Community Catalog Source and do not subscribe to the Elastic Cloud on Kubernetes Operator. You must set events_enabled to false in your ST object. For more information, see Installing the core components of STF.
+
 
 [[node-tuning-operator]]
 == Node tuning operator
+
+//vm_max_count is set by default.  If you're using Opensift 4.3 don't worry. By default, it will work. If you created other types of OpenShift nodes, those nodes get listed in an inventory in OS. This has metadata, for example, what type of node is this. When you scehdule an ES process on the node, it has metata, the lable says I'm an ES. When you put that lable, OS says you're scheduling a process with this label, and when that process is scheduled on to a node, I need to adjust something on a machine. this is automatic.  When the label is present, OpenShift takes care of it.
 
 {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. For more information about virtual memory usage by ElasticSearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
@@ -55,10 +79,3 @@ The output of the default specification is documented at https://docs.openshift.
 When scheduling an ElasticSearch pod, there must be a label matching `tuned.openshift.io/elasticsearch` present. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with {ProjectShort}, ensure that you add the `tuned.openshift.io/elasticsearch` label to all scheduled pods.
 
 For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator
-
-[[resource-allocation]]
-== Resource allocation
-
-To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running and for the number of running resources. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
-
-The amount of resources you require to run {ProjectShort} depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html

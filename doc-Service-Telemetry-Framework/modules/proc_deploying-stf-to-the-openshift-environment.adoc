@@ -36,8 +36,7 @@ To deploy {ProjectShort} to an {OpenShiftShort} environment, complete the follow
 
 [id='creating-a-namespace']
 == Creating a namespace
-
-To create a namespace, run the following command:
+Create a namespace to hold the {ProjectShort} components. The `service-telemetry` namespace is used throughout the documentation:
 
 ----
 oc new-project service-telemetry
@@ -46,7 +45,7 @@ oc new-project service-telemetry
 [id='creating-an-operatorgroup']
 == Creating an OperatorGroup
 
-You need an OperatorGroup in the namespace to permit scheduling of the Operator pods. Run the following command:
+Create an OperatorGroup in the namespace to permit scheduling of the Operator pods:
 
 ----
 oc apply -f - <<EOF
@@ -66,7 +65,7 @@ For more information, see https://docs.openshift.com/container-platform/4.3/oper
 [id='enabling-the-operatorhubio-community-catalog-source']
 == Enabling the OperatorHub.io Community Catalog Source
 
-Install ElasticSearch through Elastic Cloud on Kubernetes Operator. You must be subscribed to Kubernetes Operator from the OperatorHub.io catalog source.
+Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:
 
 ----
 oc apply -f - <<EOF
@@ -86,7 +85,7 @@ EOF
 [id='enabling-the-infrawatch-operator-source']
 == Enabling InfraWatch Operator Source
 
-Before you deploy {ProjectShort} on {OpenShift}, complete the following steps:
+Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source:
 
 . Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
@@ -130,6 +129,8 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id='subscribing-to-the-amq-certificate-manager-operator']
 == Subscribing to the AMQ Certificate Manager Operator
 
+Subscribe to the AMQ Certificate Manager Operator prior to the deployment of the other components because it runs  in a global namespace and is not compatible with other namespace scoping operators:
+
 . Subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
 +
 [NOTE]
@@ -165,6 +166,8 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 [id='subscribing-to-elastic-cloud-on-kubernetes-operator']
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
+Before you install the Service Telemetry Operator and if you plan to store events in to ES, you need to enable the Elastic Cloud Kubernetes Operator:
+
 . Apply the following manifest to your {OpenShiftShort} environment to enable the Elastic Cloud on Kubernetes Operator:
 +
 ----
@@ -196,7 +199,9 @@ elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1
 [id='subscribing-to-the-service-telemetry-operator']
 == Subscribing to the Service Telemetry Operator
 
-Create a subscription to the Service Telemetry Operator. The Service Telemetry Operator automatically subscribes to a list of dependent Operators when you create the Service Telemetry Operator subscription.
+To instantiate an STF instance, create the ST object to allow the ST operator to stand up the environment.
+
+If you sent events enabled to false, you don't install the catalog source and you don't need to install the ECK on Kubernetes operator.
 
 . To create the Service Telemetry Operator subscription, run the `oc apply -f` command:
 
@@ -233,6 +238,9 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 
 [id='creating-a-servicetelemetry-object-in-openshift']
 == Creating a ServiceTelemetry object in {OpenShiftShort}
+
+[NOTE]
+If you do not want to store events in ElasticSearch, ensure that eventsEnabled is set to false. For more information, see Disabling events storage.
 
 . Create an instance of ServiceTelemetry in {OpenShiftShort} to deploy the Service Telemetry Framework:
 
