@@ -41,7 +41,7 @@
 // (= Heading), the heading will be interpreted as a level-2 heading
 // (== Heading) in the assembly.
 
-Before you install {ProjectShort}, ensure that  OpenShift version 4.x is running and you understand the core components of the framework. As part of the OpenShift installation planning process though, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see Preparing your {OpenShift} environment.
+Before you install {ProjectShort}, ensure that  OpenShift version 4.x is running and you understand the core components of the framework. As part of the OpenShift installation planning process though, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment.
 
 //include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
