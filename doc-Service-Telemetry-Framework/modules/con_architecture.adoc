@@ -31,7 +31,7 @@
 * Prometheus as time-series data storage
 * ElasticSearch as events data storage
 * An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
-* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver this data to ElasticSearch or to provide this data to Prometheus
+* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
 
 The following diagram is an overview of {ProjectShort} architecture:
 
