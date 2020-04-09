@@ -31,19 +31,16 @@
 * Prometheus as time-series data storage
 * ElasticSearch as events data storage
 * An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
-* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver them to ElasticSearch or to provide them to Prometheus
+* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
 
 The following diagram is an overview of {ProjectShort} architecture:
 
 image::OpenStack_STF_Overview_37_1019_arch.png[]
 
 On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
-message bus. On the server side, a Golang application called the Smart Gateway
-takes the data stream from the bus and exposes it as a local scrape endpoint
-for Prometheus.
+message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-Server-side {ProjectShort} monitoring infrastructure consists of the following
-layers:
+Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} 1.x ({ProjectShort})
 * {OpenShift} ({OpenShiftShort})
@@ -51,8 +48,8 @@ layers:
 
 image::STF_Overview_37_0819_deployment_prereq.png[]
 
-For more information about how to deploy OpenShift Container Platform, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[Product Documentation] for OpenShift Container Platform 4.3. You can install {OpenShift} on cloud platforms or on bare metal.
+For more information about how to deploy {OpenShift}, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[Product Documentation]. You can install {OpenShift} on cloud platforms or on bare metal.
 For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
 
-NOTE:
+[NOTE]
 Do not install {OpenShift} on the same infrastructure that you want to monitor.
