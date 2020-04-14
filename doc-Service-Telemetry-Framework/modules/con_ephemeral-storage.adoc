@@ -1,0 +1,30 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/con_ephemeral-storage.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: con_my-concept-module-a.adoc
+// * ID: [id='con_my-concept-module-a_{context}']
+// * Title: = My concept module A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+// Do not start the title with a verb. See also _Wording of headings_
+// in _The IBM Style Guide_.
+[id="ephemeral-storage_{context}"]
+= Ephemeral Storage
+
+Ephemeral storage allows running {ProjectShort} without persistently storing the data in your {OpenShiftShort} cluster. Using ephemeral storage is not recommended for production environments due to the volatility of the data when the platform is operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node would result in the loss of any local data written since the pod started.
+
+Enabling ephemeral storage in {ProjectShort} results in the relevant `storage` sections not being added to the data storage components manifests by the Service Telemetry Operator.
