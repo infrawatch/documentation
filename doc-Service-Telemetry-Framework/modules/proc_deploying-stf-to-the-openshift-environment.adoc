@@ -268,7 +268,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 [id='creating-a-servicetelemetry-object-in-openshift']
 == Creating a ServiceTelemetry object in {OpenShiftShort}
 
-To deploy the Service Telemetry Framework, you must create an instance of ServiceTelemetry in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
+To deploy the Service Telemetry Framework, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
 [discrete]
 === Procedure
