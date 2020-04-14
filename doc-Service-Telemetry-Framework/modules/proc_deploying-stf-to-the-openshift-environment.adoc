@@ -151,7 +151,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id='subscribing-to-the-amq-certificate-manager-operator']
 == Subscribing to the AMQ Certificate Manager Operator
 
-You must subscribe to the AMQ Certificate Manager Operator prior to the deployment of the other components because the AMQ Certificate Manager Operator runs in a global namespace and is not compatible with other namespace scoping operators.
+You must subscribe to the AMQ Certificate Manager Operator prior to the deployment of the other components because the AMQ Certificate Manager Operator runs in a global namespace and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace scoped operators.
 
 [discrete]
 === Procedure
