@@ -25,16 +25,17 @@
 [id="alerts_{context}"]
 = Alerts
 
-You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.
-
-For alerting, two components are involved: First of all, Prometheus executes rules. They can be found in Prometheus web UI under Status/Rules. These rules are evaluated, and if the expression is true, an alert triggers. Alerts are also shown under the Alerts tab in the web UI.
+Alerting with Prometheus is separated into two parts. Alerting rules in Prometheus servers send alerts to an Alertmanager. The Alertmanager manages the alerts, including silencing, inhibition, aggregation, and sending out notifications using email, on-call notification systems, or chat platforms. You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.
 
 To create an alert, complete the following tasks:
 
-. Create an alert rule in Prometheus. For more information, see Creating a rule in Prometheus.
-. Create an alert route in Alertmanager. For more information, see Creating an alert route in Alertmanager.
-. Add an alert route to Alertmanager. For more information, see Adding routes to Alertmanager.
+. Create an alert rule in Prometheus. For more information, see <<creating-an-alert-rule-in-prometheus_advanced-features>>.
+. Create an alert route in Alertmanager. For more information, see <<creating-an-alert-route-in-alertmanager_advanced-features>>.
+
+
+[discrete]
+== Additional resources
 
 For more information about alerts or notifications with Prometheus and Alertmanager, see https://prometheus.io/docs/alerting/overview/
 
-To view the set of alerts that you can use with {ProjectShort}, see link:https://github.com/infrawatch/service-telemetry-operator/blob/mrunge-add-alerts/deploy/alerts/alerts.yaml
+To view the set of alerts that you can use with {ProjectShort}, see https://github.com/infrawatch/service-telemetry-operator/blob/mrunge-add-alerts/deploy/alerts/alerts.yaml

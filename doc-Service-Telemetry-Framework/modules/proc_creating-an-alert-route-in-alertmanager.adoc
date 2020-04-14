@@ -23,10 +23,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an {OpenShift} secret by the Prometheus Operator. For more information about the {Openshift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
-
-
-Alertmanager comes with a basic configuration:
+Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an {OpenShift} secret by the Prometheus Operator. Alertmanager comes with a basic configuration:
 
 [source,yaml]
 ----
@@ -44,8 +41,11 @@ Alertmanager comes with a basic configuration:
 
 To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.
 
+[discrete]
+== Procedure
+
 . Log in to OpenShift.
-. Navigate to the service-telemetry namespace:
+. Navigate to the `service-telemetry` namespace:
 +
 ----
 oc project service-telemetry
@@ -55,7 +55,7 @@ oc project service-telemetry
 ----
 oc delete secret alertmanager-stf-default
 ----
-. Create the new Alertmanager configuration secret. Create a file named alerting-manager-config.yaml. Copy the contents of the following example into the new file.
+. To create the new Alertmanager configuration secret, copy the contents of the following example a new file `alerting-manager-config.yaml`.
 +
 [source,yaml]
 ----
@@ -94,7 +94,7 @@ stringData:
       - url: http://192.168.36.9/webhook-crit
 ----
 +
-The example in the previous step creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see https://prometheus.io/docs/alerting/configuration/.
+This example creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see https://prometheus.io/docs/alerting/configuration/.
 
 . Save the file and run the following command:
 +
@@ -109,3 +109,8 @@ oc delete pod alertmanager-stf-default-0
 
 +
 The Prometheus Operator restarts Alertmanager automatically.
+
+[discrete]
+== Additional resources
+
+For more information about the {Openshift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

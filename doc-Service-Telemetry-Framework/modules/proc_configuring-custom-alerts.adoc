@@ -23,12 +23,14 @@
 [id="configuring-custom-alerts_{context}"]
 = Configuring custom alerts
 
+You can edit the PrometheusRule that you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>:
 
-
-. Use the following command to edit the PrometheusRule which you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>.
+. Use the `oc edit` command:
++
 ----
 oc edit prometheusrules/prometheus-alarm-rules
 ----
+
 . Make the required edits.
 
 . Save and close.
