@@ -25,7 +25,7 @@
 [id="advanced-features_{context}"]
 
 
-The following features are optional and can greatly increase the efficacy of Service Telemetry Framework:
+The following features are optional but can provide additional functionality to the Service Telemetry Framework:
 
 * Alerts. For more information, see <<alerts_advanced-features>>.
 * High availability. For more information, see <<high-availability_advanced-features>>.
