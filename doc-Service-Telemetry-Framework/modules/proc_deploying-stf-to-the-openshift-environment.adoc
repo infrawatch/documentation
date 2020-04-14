@@ -25,7 +25,7 @@
 
 There are two ways in which you can deploy {ProjectShort} to the {OpenShiftShort} environment:
 
-* With ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
+* Storage of Events with ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
 * Without ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
 [id='deploying-stf-to-the-openshift-environment-with-elasticsearch']
