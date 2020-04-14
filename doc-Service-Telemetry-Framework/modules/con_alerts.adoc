@@ -25,7 +25,7 @@
 [id="alerts_{context}"]
 = Alerts
 
-Alerting with Prometheus is separated into two parts. Alerting rules in Prometheus servers send alerts to an Alertmanager. The Alertmanager manages the alerts, including silencing, inhibition, aggregation, and sending out notifications using email, on-call notification systems, or chat platforms. You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.
+Alerting with Prometheus is separated into two parts. First, alerting rules in Prometheus servers send alerts to an Alertmanager. Second, the Alertmanager manages the alerts, including silencing, inhibition, aggregation, and sending out notifications using email, on-call notification systems, or chat platforms. You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.
 
 To create an alert, complete the following tasks:
 
