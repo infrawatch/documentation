@@ -23,9 +23,6 @@
 [id="configuring-ephemeral-storage_{context}"]
 = Configuring ephemeral storage
 
-[[NOTE]]
-Ephemeral storage is volatile and is not recommended for production environments due to the high likelihood of data loss due to pod deletion, updates, or rescheduling by {OpenShiftShort}.
-
 To configure {ProjectShort} for ephemeral storage, you must add the `storageEphemeralEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 . Use the oc command to edit the ServiceTelemetry object:

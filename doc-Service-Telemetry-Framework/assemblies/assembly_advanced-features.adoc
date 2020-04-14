@@ -58,3 +58,7 @@ include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+2
 include::../modules/proc_updating-collectd-configuration.adoc[leveloffset=+2]
 include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+2]
 include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset=+2]
+
+//Configuring ephemeral storage
+include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
+include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
