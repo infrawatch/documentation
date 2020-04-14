@@ -191,7 +191,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 [id='subscribing-to-elastic-cloud-on-kubernetes-operator']
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
-Before you install the Service Telemetry Operator and if you plan to store events in to ES, you need to enable the Elastic Cloud Kubernetes Operator.
+Before you install the Service Telemetry Operator and if you plan to store events in to ElasticSearch, you need to enable the Elastic Cloud Kubernetes Operator.
 
 [discrete]
 === Procedure
