@@ -23,9 +23,12 @@
 [id="creating-an-alert-rule-in-prometheus_{context}"]
 = Creating an alert rule in Prometheus
 
-Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert. To create an alert rule, complete the following steps:
+Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.
 
-. Create a yaml file for the alert rule. The following example in qpid-router-down.yaml is an example of a small, efficient alerting rule:
+[discrete]
+== Procedure
+
+. Create a YAML file for the alert rule. The following example in `qpid-router-down.yaml` is a small, efficient alerting rule:
 +
 [source,yaml]
 ----
@@ -43,8 +46,9 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status < 1
+          expr: collectd_qpid_router_status < 1 # To change the rule, edit the value of the expr parameter.
 ----
++
 
 . Create an alerting rule in OpenShift:
 +
@@ -52,6 +56,9 @@ spec:
 oc create -f qpid-router-down.yaml
 ----
 +
-This command creates a PrometheusRule object named prometheus-alarm-rules and a rule in Prometheus.
+This command creates a PrometheusRule object named `prometheus-alarm-rules` and a rule in Prometheus.
 
-For more information on alerting, see link:https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+[discrete]
+== Additional resources
+
+For more information on alerting, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

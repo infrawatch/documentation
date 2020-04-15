@@ -23,12 +23,8 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an {OpenShift} secret by the Prometheus Operator. For more information about the {Openshift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an {OpenShift} secret by the Prometheus Operator. Alertmanager comes with a basic configuration:
 
-
-Alertmanager comes with a basic configuration:
-
-[source,yaml]
 ----
           global:
             resolve_timeout: 5m
@@ -44,21 +40,27 @@ Alertmanager comes with a basic configuration:
 
 To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.
 
+[discrete]
+== Procedure
+
 . Log in to OpenShift.
-. Navigate to the service-telemetry namespace:
+. Navigate to the `service-telemetry` namespace:
 +
 ----
 oc project service-telemetry
 ----
-. Run the following command:
+
+. Delete the existing secret:
 +
 ----
 oc delete secret alertmanager-stf-default
 ----
-. Create the new Alertmanager configuration secret. Create a file named alerting-manager-config.yaml. Copy the contents of the following example into the new file.
+
+. Create the new Alertmanager configuration secret:
 +
 [source,yaml]
 ----
+oc apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -74,33 +76,35 @@ stringData:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'webhook'
+      receiver: 'webhook' # Replace webhook with your receiver type.
 
       routes:
       - match:
           severity: critical
-        receiver: 'webhook-crit'
+        receiver: 'webhook-crit' # Replace webhook with your receiver type.
       - match_re:
           severity: !(critical)
-        receiver: 'webhook'
+        receiver: 'webhook' # Replace webhook with your receiver type.
     templates:
     - '*.tmpl'
-    receivers:
+    receivers: # Edit this section to suit the configuration of your receiver type.
     - name: 'webhook'
       webhook_configs:
       - url: http://192.168.36.9/webhook
     - name: 'webhook-crit'
       webhook_configs:
       - url: http://192.168.36.9/webhook-crit
+    EOF
 ----
 +
-The example in the previous step creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see https://prometheus.io/docs/alerting/configuration/.
+This example creates two webhook receivers that trigger alarms on different severities. Edit the parameters in the example to suit your requirements. For more information on configuration, see https://prometheus.io/docs/alerting/configuration/.
 
 . Save the file and run the following command:
 +
 ----
 oc apply -f <filename>
 ----
+
 . Restart Alertmanager:
 +
 ----
@@ -109,3 +113,21 @@ oc delete pod alertmanager-stf-default-0
 
 +
 The Prometheus Operator restarts Alertmanager automatically.
+
+. To validate that the manifest loaded correctly, run the following command:
++
+----
+oc get prometheusrules
+----
+
+. To validate that the rule loaded into Prometheus, run the following command:
++
+----
+oc
+----
+
+
+[discrete]
+== Additional resources
+
+For more information about the {Openshift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
