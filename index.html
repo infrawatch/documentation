@@ -475,6 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#high-availability_advanced-features">High availability</a></li>
 <li><a href="#dashboards_advanced-features">Dashboards</a></li>
 <li><a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a></li>
+<li><a href="#ephemeral-storage_advanced-features">Ephemeral Storage</a></li>
 </ul>
 </li>
 <li><a href="#appe-stf-collectd-plugins">Appendix A: collectd plug-ins</a></li>
@@ -682,6 +683,15 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <h4 id="persistent-volumes">Persistent volumes</h4>
 <div class="paragraph">
 <p>STF uses persistent storage in OKD to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html" class="bare">https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html</a></p>
+</div>
+<div class="sect4">
+<h5 id="ephemeral-storage">Using ephemeral storage</h5>
+<div class="paragraph">
+<p>It&#8217;s possible to use ephemeral storage with STF with a caveat that it can result in data loss should a pod be restarted, updated, or rescheduled onto another node. Due the volatility of ephemeral storage it is only recommended to be used for development or testing, and not production environments.</p>
+</div>
+<div class="paragraph">
+<p>To enable ephemeral storage for STF set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage">[configuring-ephemeral-storage]</a></p>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2288,6 +2298,47 @@ specific cloud.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="ephemeral-storage_advanced-features">Ephemeral Storage</h3>
+<div class="paragraph">
+<p>Use ephemeral storage to run {ProjectShort) without persistently storing data in your OKD cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
+</div>
+<div class="paragraph">
+<p>Enabling ephemeral storage in STF results in the relevant <code>storage</code> sections not being added to the data storage components manifests by the Service Telemetry Operator.</p>
+</div>
+<div class="sect3">
+<h4 id="configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</h4>
+<div class="paragraph">
+<p>To configure STF for ephemeral storage, you must add the <code>storageEphemeralEnabled: true</code> parameter to the ServiceTelemetry object in OKD. You can set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the oc command to edit the ServiceTelemetry object:</p>
+<div class="listingblock">
+<div class="content">
+<pre>    oc edit ServiceTelemetry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>storageEphemeralEnabled: true</code> parameter to the <code>spec</code> section:</p>
+<div class="listingblock">
+<div class="content">
+<pre>spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  storageEphemeralEnabled: true</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save your changes and close the object.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3501,7 +3552,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-15 13:33:58 UTC
+Last updated 2020-04-15 20:50:58 UTC
 </div>
 </div>
 </body>
