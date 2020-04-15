@@ -1355,13 +1355,29 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see Deployi
 <div class="sect1">
 <h2 id="advanced-features_configuring-stf-components">Advanced features</h2>
 <div class="sectionbody">
+<div id="advanced-features_advanced-features" class="paragraph">
+<p>The following features are optional but can provide additional functionality to the Service Telemetry Framework:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alerts. For more information, see <a href="#alerts_advanced-features">Alerts</a>.</p>
+</li>
+<li>
+<p>High availability. For more information, see <a href="#high-availability_advanced-features">High availability</a>.</p>
+</li>
+<li>
+<p>Dashboards. For more information, see <a href="#dashboards_advanced-features">Dashboards</a>.</p>
+</li>
+<li>
+<p>Multiple clouds. For more information, see <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
 <h3 id="alerts_advanced-features">Alerts</h3>
 <div class="paragraph">
-<p>You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.</p>
-</div>
-<div class="paragraph">
-<p>For alerting, two components are involved: First of all, Prometheus executes rules. They can be found in Prometheus web UI under Status/Rules. These rules are evaluated, and if the expression is true, an alert triggers. Alerts are also shown under the Alerts tab in the web UI.</p>
+<p>Alerting with Prometheus is separated into two parts. First, alerting rules in Prometheus servers send alerts to an Alertmanager. Second, the Alertmanager manages the alerts, including silencing, inhibition, aggregation, and sending out notifications using email, on-call notification systems, or chat platforms. You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.</p>
 </div>
 <div class="paragraph">
 <p>To create an alert, complete the following tasks:</p>
@@ -1369,31 +1385,30 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see Deployi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create an alert rule in Prometheus. For more information, see Creating a rule in Prometheus.</p>
+<p>Create an alert rule in Prometheus. For more information, see <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </li>
 <li>
-<p>Create an alert route in Alertmanager. For more information, see Creating an alert route in Alertmanager.</p>
-</li>
-<li>
-<p>Add an alert route to Alertmanager. For more information, see Adding routes to Alertmanager.</p>
+<p>Create an alert route in Alertmanager. For more information, see <a href="#creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</a>.</p>
 </li>
 </ol>
 </div>
+<h4 id="_additional_resources" class="discrete">Additional resources</h4>
 <div class="paragraph">
 <p>For more information about alerts or notifications with Prometheus and Alertmanager, see <a href="https://prometheus.io/docs/alerting/overview/" class="bare">https://prometheus.io/docs/alerting/overview/</a></p>
 </div>
 <div class="paragraph">
-<p>To view the set of alerts that you can use with STF, see link:https://github.com/infrawatch/service-telemetry-operator/blob/mrunge-add-alerts/deploy/alerts/alerts.yaml</p>
+<p>To view an example set of alerts that you can use with STF, see <a href="https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts" class="bare">https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts</a></p>
 </div>
 <div class="sect3">
 <h4 id="creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</h4>
 <div class="paragraph">
-<p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert. To create an alert rule, complete the following steps:</p>
+<p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.</p>
 </div>
+<h5 id="_procedure_5" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a yaml file for the alert rule. The following example in qpid-router-down.yaml is an example of a small, efficient alerting rule:</p>
+<p>Create a YAML file for the alert rule. The following example in <code>qpid-router-down.yaml</code> is a small, efficient alerting rule:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: monitoring.coreos.com/v1
@@ -1410,7 +1425,7 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status &lt; 1</code></pre>
+          expr: collectd_qpid_router_status &lt; 1 # To change the rule, edit the value of the expr parameter.</code></pre>
 </div>
 </div>
 </li>
@@ -1422,33 +1437,33 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>This command creates a PrometheusRule object named prometheus-alarm-rules and a rule in Prometheus.</p>
+<p>This command creates a PrometheusRule object named <code>prometheus-alarm-rules</code> and a rule in Prometheus.</p>
 </div>
 </li>
 </ol>
 </div>
+<h5 id="_additional_resources_2" class="discrete">Additional resources</h5>
 <div class="paragraph">
-<p>For more information on alerting, see link:https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</p>
+<p>For more information on alerting, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="configuring-custom-alerts_advanced-features">Configuring custom alerts</h4>
+<div class="paragraph">
+<p>You can edit the PrometheusRule that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Use the following command to edit the PrometheusRule which you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
-</li>
-</ol>
-</div>
+<p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc edit prometheusrules/prometheus-alarm-rules</pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p>Make the required edits.</p>
+<p>Adjust the PrometheusRules manifest. For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>. For more information about prometheusrules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </li>
 <li>
 <p>Save and close.</p>
@@ -1459,14 +1474,11 @@ spec:
 <div class="sect3">
 <h4 id="creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</h4>
 <div class="paragraph">
-<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is currently managed as an OpenShift secret by the Prometheus Operator. For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
-</div>
-<div class="paragraph">
-<p>Alertmanager comes with a basic configuration:</p>
+<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an OpenShift secret by the Prometheus Operator. Alertmanager comes with a basic configuration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">          global:
+<pre>          global:
             resolve_timeout: 5m
           route:
             group_by: ['job']
@@ -1475,19 +1487,20 @@ spec:
             repeat_interval: 12h
             receiver: 'null'
           receivers:
-          - name: 'null'</code></pre>
+          - name: 'null'</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.</p>
 </div>
+<h5 id="_procedure_6" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
 </li>
 <li>
-<p>Navigate to the service-telemetry namespace:</p>
+<p>Navigate to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc project service-telemetry</pre>
@@ -1495,7 +1508,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Run the following command:</p>
+<p>Delete the existing secret:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc delete secret alertmanager-stf-default</pre>
@@ -1503,10 +1516,11 @@ spec:
 </div>
 </li>
 <li>
-<p>Create the new Alertmanager configuration secret. Create a file named alerting-manager-config.yaml. Copy the contents of the following example into the new file.</p>
+<p>Create the new Alertmanager configuration secret:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">oc apply -f - &lt;&lt;EOF
+apiVersion: v1
 kind: Secret
 metadata:
   name: alertmanager-stf-default
@@ -1521,28 +1535,29 @@ stringData:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'webhook'
+      receiver: 'webhook' # Replace webhook with your receiver type.
 
       routes:
       - match:
           severity: critical
-        receiver: 'webhook-crit'
+        receiver: 'webhook-crit' # Replace webhook with your receiver type.
       - match_re:
           severity: !(critical)
-        receiver: 'webhook'
+        receiver: 'webhook' # Replace webhook with your receiver type.
     templates:
     - '*.tmpl'
-    receivers:
+    receivers: # Edit this section to suit the configuration of your receiver type.
     - name: 'webhook'
       webhook_configs:
       - url: http://192.168.36.9/webhook
     - name: 'webhook-crit'
       webhook_configs:
-      - url: http://192.168.36.9/webhook-crit</code></pre>
+      - url: http://192.168.36.9/webhook-crit
+    EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The example in the previous step creates two receivers to be called on different severities. Edit the parameters in the example to suit your requirements. For more information, see <a href="https://prometheus.io/docs/alerting/configuration/" class="bare">https://prometheus.io/docs/alerting/configuration/</a>.</p>
+<p>This example creates two webhook receivers that trigger alarms on different severities. Edit the parameters in the example to suit your requirements. For more information on configuration, see <a href="https://prometheus.io/docs/alerting/configuration/" class="bare">https://prometheus.io/docs/alerting/configuration/</a>.</p>
 </div>
 </li>
 <li>
@@ -1564,7 +1579,27 @@ stringData:
 <p>The Prometheus Operator restarts Alertmanager automatically.</p>
 </div>
 </li>
+<li>
+<p>To validate that the manifest loaded correctly, run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc get prometheusrules</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To validate that the rule loaded into Prometheus, run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc</pre>
+</div>
+</div>
+</li>
 </ol>
+</div>
+<h5 id="_additional_resources_3" class="discrete">Additional resources</h5>
+<div class="paragraph">
+<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
 </div>
 </div>
@@ -3466,7 +3501,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-15 13:07:07 UTC
+Last updated 2020-04-15 13:33:58 UTC
 </div>
 </div>
 </body>
