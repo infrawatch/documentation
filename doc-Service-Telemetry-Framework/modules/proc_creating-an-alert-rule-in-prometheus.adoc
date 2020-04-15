@@ -28,7 +28,7 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 [discrete]
 == Procedure
 
-. Create a YAML file for the alert rule. The following example in `qpid-router-down.yaml` is an example of a small, efficient alerting rule:
+. Create a YAML file for the alert rule. The following example in `qpid-router-down.yaml` is a small, efficient alerting rule:
 +
 [source,yaml]
 ----
@@ -46,8 +46,9 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status < 1
+          expr: collectd_qpid_router_status < 1 # To change the rule, edit the value of the expr parameter.
 ----
++
 
 . Create an alerting rule in OpenShift:
 +

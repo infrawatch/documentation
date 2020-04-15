@@ -38,4 +38,4 @@ To create an alert, complete the following tasks:
 
 For more information about alerts or notifications with Prometheus and Alertmanager, see https://prometheus.io/docs/alerting/overview/
 
-To view the set of alerts that you can use with {ProjectShort}, see https://github.com/infrawatch/service-telemetry-operator/blob/mrunge-add-alerts/deploy/alerts/alerts.yaml
+To view an example set of alerts that you can use with {ProjectShort}, see https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts

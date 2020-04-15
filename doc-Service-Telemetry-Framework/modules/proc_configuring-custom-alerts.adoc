@@ -31,6 +31,6 @@ You can edit the PrometheusRule that you created in <<creating-an-alert-rule-in-
 oc edit prometheusrules/prometheus-alarm-rules
 ----
 
-. Make the required edits.
+. Adjust the PrometheusRules manifest. For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/. For more information about prometheusrules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
 
 . Save and close.
