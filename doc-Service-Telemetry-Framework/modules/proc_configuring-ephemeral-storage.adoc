@@ -1,0 +1,43 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-ephemeral-storage.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="configuring-ephemeral-storage_{context}"]
+= Configuring ephemeral storage
+
+To configure {ProjectShort} for ephemeral storage, you must add the `storageEphemeralEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+
+. Use the oc command to edit the ServiceTelemetry object:
++
+----
+    oc edit ServiceTelemetry
+----
+
+. Add the `storageEphemeralEnabled: true` parameter to the `spec` section:
++
+----
+spec:
+  eventsEnabled: true
+  metricsEnabled: true
+  storageEphemeralEnabled: true
+----
+
+. Save your changes and close the object.
