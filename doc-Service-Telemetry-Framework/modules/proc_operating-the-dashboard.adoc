@@ -23,14 +23,9 @@
 [id="operating-the-dashboard_{context}"]
 = Operating the dashboard
 
-The infrastructure dashboard shows metrics for a single node at a time. Nodes can be selected in the upper left hand corner of the dashboard.
+The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
-Sections can be expanded and collapsed by selecting the horizontal dividers.
-
-Panels
-Information on all of the panels included in the dashboard.
-
-== Top Panels
+== Top panels
 |===
 
 |**Title** | **Unit** | **Description**
@@ -42,13 +37,13 @@ Information on all of the panels included in the dashboard.
 | Memory | bytes | Total memory
 | Disk Size | bytes | Total storage size
 | Processes | processes | Total number of processes listed by type
-| Load Average | processes | Load average represents the average number of running and uninterruptible processes residing in the kernel's execution queue.
+| Load Average | processes | Load average represents the average number of running and uninterruptible processes residing in the kernel execution queue.
 |===
 
 
 
-== Networking Panels
-Panels pertaining to the network interfaces of the node. Here, the attempt was to exclude all software defined interfaces and only focus on those related to physical networking devices.
+== Networking panels
+Panels pertaining to the network interfaces of the node.
 
 |===
 |**Panel** | **Unit** | **Description**
@@ -91,7 +86,7 @@ pps |
 Outgoing packets drop rate
 |===
 
-== CPU Panels
+== CPU panels
 Panels pertaining to CPU usage of the node.
 |===
 |**Panel** | **Unit** | **Description**
@@ -112,7 +107,7 @@ Shows time spent for each type of thread averaged across all cores
 |===
 
 
-== Memory Panels
+== Memory panels
 Panels pertaining to memory usage on the node.
 
 |===
@@ -136,25 +131,25 @@ Memory marked as “used” by the OS
 
 
 == Disk/file system
-Panels pertaining to space utilized on disk.
+Panels pertaining to space used on disk.
 
 |===
 |**Panel** | **Unit** | **Description** | **Notes**
 
 | Disk Space Usage |
 percent |
-Total disk utilization at time of last query |
+Total disk use at time of last query |
 
 
 | Inode Usage |
 percent |
-Total inode utilization at time of last query |
+Total inode use at time of last query |
 
 
 | Aggregate Disk Space Usage |
 bytes |
 Total disk space used and reserved. |
-Because this query relies on the `df` plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it may not be exhaustive
+Because this query relies on the `df` plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive
 
 | Disk Traffic |
 bytes/s |
@@ -164,7 +159,7 @@ Shows rates for both reading and writing. |
 | Disk Load |
 percent |
 Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that may be accumulating. See the [disk plugin docs](https://collectd.org/wiki/index.php/Plugin:Disk) for more information |
+The weighted I/O time series includes the backlog that might be accumulating. For more information, see the https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs]  |
 
 
 | Operations/s |
@@ -174,5 +169,5 @@ Operations done per second |
 
 | Average I/O Operation Time |
 seconds |
-Average time each I/O operation took to complete. Per the collectd [disk plugin docs](https://collectd.org/wiki/index.php/Plugin:Disk), this average is not necessarily very accurate. |
+Average time each I/O operation took to complete. Per the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs], this average is not accurate. |
 |===

@@ -23,7 +23,7 @@
 [id="setting-up-the-dashboard-to-host-grafana_{context}"]
 = Setting up the dashboard to host Grafana
 
-Grafana is not included in the default STF deployment so you must deploy the Grafana Operator from Operator Hub:
+Grafana is not included in the default {Project}({ProjectShort}) deployment so you must deploy the Grafana Operator from Operator Hub:
 
 . Clone the dashboard repository.
 +
@@ -32,7 +32,7 @@ git clone https://github.com/infrawatch/dashboards
 cd dashboards
 ----
 
-. Move to the `service-telemetry` namespace and deploy the Grafana operator. This can be done via the OpenShift console or on the CLI with:
+. Move to the `service-telemetry` namespace and deploy the Grafana operator:
 +
 ----
 oc project service-telemetry
@@ -52,15 +52,19 @@ oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml
 ----
 
-. Navigate to https://<grafana-route-address> in a web browser. Use the following command to retrieve the Grafana address:
+. Navigate to https://<grafana-route-address> in a web browser. Use the following command to retrieve the Grafana route address:
 +
 ----
 oc get routes
 ----
 
-. To view the dashboard, click **Dashboards** and **Manage**.
+. To view the dashboard, click *Dashboards* and *Manage*.
 
-. To view and edit queries, log in as user `admin`. To retrieve the default username and password, analyze the Grafana object:
+== Viewing and editing queries
+
+. To view and edit queries, log in as user `admin`.
+
+. To retrieve the default username and password, analyze the Grafana object:
 +
 ----
 oc describe grafana service-telemetry-grafana
