@@ -1,0 +1,88 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_configuring-manifest-overrides.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="configuring-manifest-overrides_{context}"]
+= Overriding a managed manifest
+
+Edit the `ServiceTelmetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see <<manifest-overrides>>. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
+
+TIP: The `oc edit` command will load the default system editor. To override the default editor pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`
+
+. Use the `oc edit` command to load the `ServiceTelemetry` object into an editor:
++
+----
+oc edit servicetelemetry stf-default
+----
+
+. Modify the `ServiceTelemetry` object by providing a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
++
+NOTE: Be aware of the trailing pipe (`|`) after entering the manifest override parameter which signals the value provided is multi-line.
++
+----
+$ oc edit servicetelemetry stf-default
+
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"infra.watch/v1alpha1","kind":"ServiceTelemetry","metadata":{"annotations":{},"name":"stf-default","namespace":"service-telemetry"},"spec":{metricsEnabled":true}}
+  creationTimestamp: "2020-04-14T20:29:42Z"
+  generation: 1
+  name: stf-default
+  namespace: service-telemetry
+  resourceVersion: "1949423"
+  selfLink: /apis/infra.watch/v1alpha1/namespaces/service-telemetry/servicetelemetrys/stf-default
+  uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
+spec:
+  metricsEnabled: true
+  smartgatewayCollectdMetricsManifest: | <1>
+    apiVersion: smartgateway.infra.watch/v2alpha1
+    kind: SmartGateway
+    metadata:
+      name: stf-default-collectd-telemetry
+      namespace: service-telemetry
+    spec:
+      amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/telemetry
+      debug: true
+      prefetch: 15000
+      serviceType: metrics
+      size: 1
+      useTimestamp: true <2>
+status:
+  conditions:
+  - ansibleResult:
+      changed: 0
+      completion: 2020-04-14T20:32:19.079508
+      failures: 0
+      ok: 52
+      skipped: 1
+    lastTransitionTime: "2020-04-14T20:29:59Z"
+    message: Awaiting next reconciliation
+    reason: Successful
+    status: "True"
+    type: Running
+----
+<1> Manifest override parameter is defined in the `spec` of the `ServiceTelemetry` object.
+<2> End of the manifest override content.
+
+. Save and close.
