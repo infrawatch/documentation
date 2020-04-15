@@ -55,7 +55,7 @@ metadata:
   uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
 spec:
   metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | <1>
+  smartgatewayCollectdMetricsManifest: | # <1>
     apiVersion: smartgateway.infra.watch/v2alpha1
     kind: SmartGateway
     metadata:
@@ -67,7 +67,7 @@ spec:
       prefetch: 15000
       serviceType: metrics
       size: 1
-      useTimestamp: true <2>
+      useTimestamp: true # <2>
 status:
   conditions:
   - ansibleResult:
