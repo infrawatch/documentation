@@ -40,6 +40,13 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 
 {ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
 
+[[ephemeral-storage]]
+=== Using ephemeral storage
+
+It's possible to use ephemeral storage with {ProjectShort} with a caveat that it can result in data loss should a pod be restarted, updated, or rescheduled onto another node. Due the volatility of ephemeral storage it is only recommended to be used for development or testing, and not production environments.
+
+To enable ephemeral storage for {ProjectShort} set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage>>
+
 [[resource-allocation]]
 == Resource allocation
 
