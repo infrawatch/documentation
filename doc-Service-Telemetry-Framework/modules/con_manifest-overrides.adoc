@@ -29,7 +29,7 @@ The Service Telemetry Operator watches for a `ServiceTelemetry` manifest to be l
 
 WARNING: When overriding the manifest the entire manifest contents including object names or namespaces must be provided. No dynamic parameter substitution will be done when overriding manifests.
 
-The easiest way to override manifests in a way that will work with {ProjectShort} is to first deploy a default environment using the core options only (see <<creating-a-servicetelemetry-object-in-openshift>>). After {ProjectShort} is deployed, use `oc get` to retrieve the default deployed manifest. This will help keep manifests compatible with the other manifests managed by the Service Telemetry Operator.
+To override manifests in a way that works with {ProjectShort}, deploy a default environment using the core options only. For more information about the core options, see <<creating-a-servicetelemetry-object-in-openshift>>. When you deploy {ProjectShort}, use the `oc get` command to retrieve the default deployed manifest. This helps to keep manifests compatible with the other manifests that are managed by the Service Telemetry Operator.
 
 For example, when the `metricsEnabled: true` parameter is configured in the `ServiceTelemetry` manifest, the Service Telemetry Operator will request components for metrics retrieval and storage using the default manifests. In some cases however you may want to override the default manifest. The available manifest override parameters available are:
 
