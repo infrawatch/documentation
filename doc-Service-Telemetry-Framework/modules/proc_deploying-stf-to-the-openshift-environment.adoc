@@ -273,7 +273,7 @@ To deploy the Service Telemetry Framework, you must create an instance of `Servi
 [discrete]
 === Procedure
 
-. To store events in ElasticSearch, set `eventsEnabled` to true:
+. To store events in ElasticSearch, set `eventsEnabled` to true during deployment:
 
 +
 ----
