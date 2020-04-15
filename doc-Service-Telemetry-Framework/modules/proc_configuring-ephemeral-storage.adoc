@@ -23,7 +23,7 @@
 [id="configuring-ephemeral-storage_{context}"]
 = Configuring ephemeral storage
 
-To configure {ProjectShort} for ephemeral storage, you must add the `storageEphemeralEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+To configure {ProjectShort} for ephemeral storage, you must add the `storageEphemeralEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 . Use the oc command to edit the ServiceTelemetry object:
 +
