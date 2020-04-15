@@ -274,13 +274,13 @@ The core available parameters for a `ServiceTelemetry` manifest are:
 
 |===
 
-| `eventsEnabled` | `{true|false}` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. See <<subscribing-to-elastic-cloud-on-kubernetes-operator>>. Default value is `false`.
+| `eventsEnabled` | `{true\|false}` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. See <<subscribing-to-elastic-cloud-on-kubernetes-operator>>. Default value is `false`.
 
-| `metricsEnabled` | `{true|false}` | Enable metrics support in {ProjectShort}. Default value is `true`.
+| `metricsEnabled` | `{true\|false}` | Enable metrics support in {ProjectShort}. Default value is `true`.
 
-| `highAvailabilityEnabled` | `{true|false}` | Enable high availability in {ProjectShort}. For more information, see <<high-availability>>. Default value is `false`.
+| `highAvailabilityEnabled` | `{true\|false}` | Enable high availability in {ProjectShort}. For more information, see <<high-availability>>. Default value is `false`.
 
-| `storageEphemeralEnabled` | `{true|false}` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage>>. Default value is `false`.
+| `storageEphemeralEnabled` | `{true\|false}` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage>>. Default value is `false`.
 |===
 
 [discrete]
