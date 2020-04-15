@@ -27,7 +27,7 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 
 * Ensure that persistent storage is available in your {OpenShift} cluster for storing data in a production system. For more information, see <<persistent-volumes>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
-* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<disabling-event-storage>>.
+* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<Deploying STF to the OKD environment>>.
 * `vm_max_count` has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator. For more information, see <<node-tuning-operator>>.
 
 
