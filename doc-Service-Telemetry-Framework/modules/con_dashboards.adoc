@@ -24,4 +24,4 @@
 // in _The IBM Style Guide_.
 [id="dashboards_{context}"]
 = Dashboards
-Currently, the only available dashboard is the Infrastructure Node View. This dashboard visualizes system-level metrics gathered by collectd for each individual host node. Ensure that the https://github.com/openstack/tripleo-heat-templates/blob/a957b0e67f926c5fbffff8d4b59e3e4c6d278a2b/deployment/metrics/collectd-container-puppet.yaml#L80[default collectd plug-ins] are installed on the nodes that you want to monitor for all visualizations to work.
+Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <<configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration>> .
