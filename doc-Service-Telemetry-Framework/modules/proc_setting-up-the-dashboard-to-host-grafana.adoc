@@ -39,7 +39,7 @@ oc project service-telemetry
 oc create -f deploy/subscription.yaml
 ----
 
-Verify that the operator launch succeeded:
+To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
 +
 ----
 $ oc get csv 
