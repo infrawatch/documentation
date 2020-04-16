@@ -159,7 +159,7 @@ Shows rates for both reading and writing. |
 | Disk Load |
 percent |
 Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that might be accumulating. For more information, see the https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs]  |
+The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs]  |
 
 
 | Operations/s |
