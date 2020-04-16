@@ -52,7 +52,7 @@ oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml
 ----
 
-. Navigate to https://<grafana-route-address> in a web browser. Use the following command to retrieve the Grafana route address:
+. Navigate to https://<grafana-route-address> in a web browser. Use `oc get routes` to retrieve the Grafana route address:
 +
 ----
 oc get routes
