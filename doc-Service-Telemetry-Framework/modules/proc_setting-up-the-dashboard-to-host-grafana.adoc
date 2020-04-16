@@ -39,10 +39,29 @@ oc project service-telemetry
 oc create -f deploy/subscription.yaml
 ----
 
+. To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
++
+----
+$ oc get csv 
+
+NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+grafana-operator.v3.0.2             Grafana Operator                                3.0.2                                         Succeeded
+...
+----
+
 . Launch a Grafana instance:
 +
 ----
-oc create -f deploy/grafana.yaml
+$ oc create -f deploy/grafana.yaml
+----
+
+. Verify that the Grafana instance deployed:
++
+----
+$ oc get pod -l app=grafana
+
+NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
 
 . Create the datasource and dashboard resources:
@@ -50,6 +69,19 @@ oc create -f deploy/grafana.yaml
 ----
 oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml
+----
+
+. Verify that the resources installed correctly:
++
+----
+$ oc get grafanadashboards
+
+NAME             AGE
+rhos-dashboard   7d21h
+
+$ oc get grafanadatasources
+NAME                                  AGE
+service-telemetry-grafanadatasource   1m
 ----
 
 . Navigate to https://<grafana-route-address> in a web browser. Use `oc get routes` to retrieve the Grafana route address:
