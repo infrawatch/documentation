@@ -32,7 +32,7 @@ git clone https://github.com/infrawatch/dashboards
 cd dashboards
 ----
 
-. Move to the `service-telemetry` namespace and deploy the Grafana operator:
+. Change to the `service-telemetry` namespace and deploy the Grafana operator:
 +
 ----
 oc project service-telemetry
