@@ -1727,12 +1727,12 @@ High availability for the Smart Gateway and Prometheus components of STF is a wo
 <div class="sect2">
 <h3 id="dashboards_advanced-features">Dashboards</h3>
 <div class="paragraph">
-<p>Currently, the only available dashboard is the Infrastructure Node View. This dashboard visualizes system-level metrics gathered by collectd for each individual host node. Ensure that the <a href="https://github.com/openstack/tripleo-heat-templates/blob/a957b0e67f926c5fbffff8d4b59e3e4c6d278a2b/deployment/metrics/collectd-container-puppet.yaml#L80">default collectd plug-ins</a> are installed on the nodes that you want to monitor for all visualizations to work.</p>
+<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration">[configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration]</a> .</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-the-dashboard-to-host-grafana_advanced-features">Setting up the dashboard to host Grafana</h4>
 <div class="paragraph">
-<p>Grafana is not included in the default STF deployment so you must deploy the Grafana Operator from Operator Hub:</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1746,7 +1746,7 @@ cd dashboards</pre>
 </div>
 </li>
 <li>
-<p>Move to the <code>service-telemetry</code> namespace and deploy the Grafana operator. This can be done via the OpenShift console or on the CLI with:</p>
+<p>Change to the <code>service-telemetry</code> namespace and deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc project service-telemetry
@@ -1772,7 +1772,7 @@ oc create -f deploy/subscription.yaml</pre>
 </div>
 </li>
 <li>
-<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use the following command to retrieve the Grafana address:</p>
+<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use <code>oc get routes</code> to retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc get routes</pre>
@@ -1782,8 +1782,17 @@ oc create -f deploy/subscription.yaml</pre>
 <li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
 </li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="_viewing_and_editing_queries">Viewing and editing queries</h5>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>To view and edit queries, log in as user <code>admin</code>. To retrieve the default username and password, analyze the Grafana object:</p>
+<p>To view and edit queries, log in as user <code>admin</code>.</p>
+</li>
+<li>
+<p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc describe grafana service-telemetry-grafana</pre>
@@ -1793,20 +1802,14 @@ oc create -f deploy/subscription.yaml</pre>
 </ol>
 </div>
 </div>
+</div>
 <div class="sect3">
 <h4 id="operating-the-dashboard_advanced-features">Operating the dashboard</h4>
 <div class="paragraph">
-<p>The infrastructure dashboard shows metrics for a single node at a time. Nodes can be selected in the upper left hand corner of the dashboard.</p>
-</div>
-<div class="paragraph">
-<p>Sections can be expanded and collapsed by selecting the horizontal dividers.</p>
-</div>
-<div class="paragraph">
-<p>Panels
-Information on all of the panels included in the dashboard.</p>
+<p>The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
 </div>
 <div class="sect4">
-<h5 id="_top_panels">Top Panels</h5>
+<h5 id="_top_panels">Top panels</h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;"/>
@@ -1862,15 +1865,15 @@ Information on all of the panels included in the dashboard.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Load Average</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Load average represents the average number of running and uninterruptible processes residing in the kernel&#8217;s execution queue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load average represents the average number of running and uninterruptible processes residing in the kernel execution queue.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect4">
-<h5 id="_networking_panels">Networking Panels</h5>
+<h5 id="_networking_panels">Networking panels</h5>
 <div class="paragraph">
-<p>Panels pertaining to the network interfaces of the node. Here, the attempt was to exclude all software defined interfaces and only focus on those related to physical networking devices.</p>
+<p>Panels pertaining to the network interfaces of the node.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1935,7 +1938,7 @@ Incoming packets per second</p></td>
 </table>
 </div>
 <div class="sect4">
-<h5 id="_cpu_panels">CPU Panels</h5>
+<h5 id="_cpu_panels">CPU panels</h5>
 <div class="paragraph">
 <p>Panels pertaining to CPU usage of the node.</p>
 </div>
@@ -1972,7 +1975,7 @@ Incoming packets per second</p></td>
 </table>
 </div>
 <div class="sect4">
-<h5 id="_memory_panels">Memory Panels</h5>
+<h5 id="_memory_panels">Memory panels</h5>
 <div class="paragraph">
 <p>Panels pertaining to memory usage on the node.</p>
 </div>
@@ -2007,7 +2010,7 @@ Incoming packets per second</p></td>
 <div class="sect4">
 <h5 id="_diskfile_system">Disk/file system</h5>
 <div class="paragraph">
-<p>Panels pertaining to space utilized on disk.</p>
+<p>Panels pertaining to space used on disk.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2028,20 +2031,20 @@ Incoming packets per second</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Space Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk utilization at time of last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk use at time of last query</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inode Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode utilization at time of last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode use at time of last query</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate Disk Space Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Total disk space used and reserved.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it may not be exhaustive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Traffic</p></td>
@@ -2053,7 +2056,7 @@ Incoming packets per second</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Load</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that may be accumulating. See the [disk plugin docs](<a href="https://collectd.org/wiki/index.php/Plugin:Disk" class="bare">https://collectd.org/wiki/index.php/Plugin:Disk</a>) for more information</p></td>
+The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2065,7 +2068,7 @@ The weighted I/O time series includes the backlog that may be accumulating. See 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Average I/O Operation Time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">seconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. Per the collectd [disk plugin docs](<a href="https://collectd.org/wiki/index.php/Plugin:Disk" class="bare">https://collectd.org/wiki/index.php/Plugin:Disk</a>), this average is not necessarily very accurate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. Per the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>, this average is not accurate.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3775,7 +3778,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-16 01:44:39 UTC
+Last updated 2020-04-16 15:15:04 UTC
 </div>
 </div>
 </body>
