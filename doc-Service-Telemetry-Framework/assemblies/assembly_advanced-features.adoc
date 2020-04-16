@@ -64,3 +64,7 @@ include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
+
+// Customizing the deployment (manifest overrides)
+include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
+include::../modules/proc_configuring-manifest-overrides.adoc[leveloffset=+2]
