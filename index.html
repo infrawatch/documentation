@@ -1755,10 +1755,33 @@ oc create -f deploy/subscription.yaml</pre>
 </div>
 </li>
 <li>
+<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is Succeeded, the operator launched successfully:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get csv
+
+NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+grafana-operator.v3.0.2             Grafana Operator                                3.0.2                                         Succeeded
+...</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Launch a Grafana instance:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f deploy/grafana.yaml</pre>
+<pre>$ oc create -f deploy/grafana.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Grafana instance deployed:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get pod -l app=grafana
+
+NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 </div>
 </div>
 </li>
@@ -1768,6 +1791,21 @@ oc create -f deploy/subscription.yaml</pre>
 <div class="content">
 <pre>oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the resources installed correctly:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get grafanadashboards
+
+NAME             AGE
+rhos-dashboard   7d21h
+
+$ oc get grafanadatasources
+NAME                                  AGE
+service-telemetry-grafanadatasource   1m</pre>
 </div>
 </div>
 </li>
@@ -3778,7 +3816,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-16 15:15:04 UTC
+Last updated 2020-04-16 15:20:41 UTC
 </div>
 </div>
 </body>
