@@ -270,6 +270,19 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 
 To deploy the Service Telemetry Framework, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
+The core available parameters for a `ServiceTelemetry` manifest are:
+
+|===
+
+| `eventsEnabled` | `{true\|false}` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. See <<subscribing-to-elastic-cloud-on-kubernetes-operator>>. Default value is `false`.
+
+| `metricsEnabled` | `{true\|false}` | Enable metrics support in {ProjectShort}. Default value is `true`.
+
+| `highAvailabilityEnabled` | `{true\|false}` | Enable high availability in {ProjectShort}. For more information, see <<high-availability>>. Default value is `false`.
+
+| `storageEphemeralEnabled` | `{true\|false}` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage>>. Default value is `false`.
+|===
+
 [discrete]
 === Procedure
 
