@@ -72,7 +72,7 @@ oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml
 ----
 
-Verify the resources installed correctly:
+Verify that the resources installed correctly:
 +
 ----
 $ oc get grafanadashboards
