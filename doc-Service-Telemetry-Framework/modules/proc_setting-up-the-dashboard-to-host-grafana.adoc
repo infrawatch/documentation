@@ -64,7 +64,7 @@ oc get routes
 
 . To view and edit queries, log in as user `admin`.
 
-. To retrieve the default username and password, analyze the Grafana object:
+. To retrieve the default username and password, describe the Grafana object using `oc describe`:
 +
 ----
 oc describe grafana service-telemetry-grafana
