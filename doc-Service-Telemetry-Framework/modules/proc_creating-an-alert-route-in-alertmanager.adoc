@@ -23,109 +23,103 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an {OpenShift} secret by the Prometheus Operator. Alertmanager comes with a basic configuration:
+Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an {OpenShift} secret by the Prometheus Operator. {ProjectShort} by default deploys a basic configuration that results in no receivers:
 
 ----
-          global:
-            resolve_timeout: 5m
-          route:
-            group_by: ['job']
-            group_wait: 30s
-            group_interval: 5m
-            repeat_interval: 12h
-            receiver: 'null'
-          receivers:
-          - name: 'null'
+alertmanager.yaml: |-
+  global:
+    resolve_timeout: 5m
+  route:
+    group_by: ['job']
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 12h
+    receiver: 'null'
+  receivers:
+  - name: 'null'
 ----
 
-To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.
+To deploy a custom Alertmanager route with {ProjectShort} an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, deployed by the Prometheus Operator. For more information about customizing the deployment, see <<manifest-overrides>>.
 
 [discrete]
 == Procedure
 
 . Log in to OpenShift.
-. Navigate to the `service-telemetry` namespace:
+. Change to the `service-telemetry` namespace:
 +
 ----
 oc project service-telemetry
 ----
 
-. Delete the existing secret:
+. Edit the `ServiceTelemetry` object for your {ProjectShort} deployment
 +
 ----
-oc delete secret alertmanager-stf-default
+oc edit servicetelemetry stf-default
 ----
 
-. Create the new Alertmanager configuration secret:
+. Add a new parameter, `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
++
+NOTE: This will load the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly it is recommended to change a value and then return the `alertmanager-stf-default` secret and verify the new value is loaded into memory, for example changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
 [source,yaml]
 ----
-oc apply -f - <<EOF
-apiVersion: v1
-kind: Secret
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
 metadata:
-  name: alertmanager-stf-default
+  name: stf-default
   namespace: service-telemetry
-type: Opaque
-stringData:
-  alertmanager.yaml: |-
-    global:
-      resolve_timeout: 5m
-    route:
-      group_by: ['job']
-      group_wait: 30s
-      group_interval: 5m
-      repeat_interval: 12h
-      receiver: 'webhook' # Replace webhook with your receiver type.
-
-      routes:
-      - match:
-          severity: critical
-        receiver: 'webhook-crit' # Replace webhook with your receiver type.
-      - match_re:
-          severity: !(critical)
-        receiver: 'webhook' # Replace webhook with your receiver type.
-    templates:
-    - '*.tmpl'
-    receivers: # Edit this section to suit the configuration of your receiver type.
-    - name: 'webhook'
-      webhook_configs:
-      - url: http://192.168.36.9/webhook
-    - name: 'webhook-crit'
-      webhook_configs:
-      - url: http://192.168.36.9/webhook-crit
-    EOF
+spec:
+  metricsEnabled: true
+  alertmanagerConfigManifest: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: 'alertmanager-stf-default'
+      namespace: 'service-telemetry'
+    type: Opaque
+    stringData:
+      alertmanager.yaml: |-
+        global:
+          resolve_timeout: 10m
+        route:
+          group_by: ['job']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: 'null'
+        receivers:
+        - name: 'null'
 ----
-+
-This example creates two webhook receivers that trigger alarms on different severities. Edit the parameters in the example to suit your requirements. For more information on configuration, see https://prometheus.io/docs/alerting/configuration/.
 
-. Save the file and run the following command:
+. Validate the configuration was applied to the secret:
 +
 ----
-oc apply -f <filename>
+$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+
+global:
+  resolve_timeout: 10m
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'null'
+receivers:
+- name: 'null'
 ----
 
-. Restart Alertmanager:
+. To verify the configuration has been loaded into Alertmanager, create a pod with access to `curl`:
 +
 ----
-oc delete pod alertmanager-stf-default-0
+oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
-+
-The Prometheus Operator restarts Alertmanager automatically.
-
-. To validate that the manifest loaded correctly, run the following command:
+. Then run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and review the supplied configuration matches the configuration loaded into Alertmanager:
 +
 ----
-oc get prometheusrules
+[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n","configJSON":{"global":{"resolve_timeout":600000000000,"http_config":{"BasicAuth":null,"BearerToken":"","BearerTokenFile":"","ProxyURL":{},"TLSConfig":{"CAFile":"","CertFile":"","KeyFile":"","ServerName":"","InsecureSkipVerify":false}},"smtp_hello":"localhost","smtp_require_tls":true,"pagerduty_url":"https://events.pagerduty.com/v2/enqueue","hipchat_api_url":"https://api.hipchat.com/","opsgenie_api_url":"https://api.opsgenie.com/","wechat_api_url":"https://qyapi.weixin.qq.com/cgi-bin/","victorops_api_url":"https://alert.victorops.com/integrations/generic/20131114/alert/"},"route":{"receiver":"null","group_by":["job"],"group_wait":30000000000,"group_interval":300000000000,"repeat_interval":43200000000000},"receivers":[{"name":"null"}],"templates":null},"versionInfo":{"branch":"HEAD","buildDate":"20190503-09:10:07","buildUser":"root@932a86a52b76","goVersion":"go1.12.4","revision":"c7551cd75c414dc81df027f691e2eb21d4fd85b2","version":"0.17.0"},"uptime":"2020-04-14T20:30:33.12331159Z","clusterStatus":{"name":"01E5X65RMSDDTRNXGT86Z96810","status":"ready","peers":[{"name":"01E5X65RMSDDTRNXGT86Z96810","address":"10.128.0.19:9094"}]}}}
 ----
-
-. To validate that the rule loaded into Prometheus, run the following command:
-+
-----
-oc
-----
-
 
 [discrete]
 == Additional resources
