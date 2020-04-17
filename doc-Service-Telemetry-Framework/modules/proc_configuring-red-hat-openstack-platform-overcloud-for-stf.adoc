@@ -28,7 +28,7 @@ To configure the {OpenStack} overcloud, you must configure collectd and {Message
 . Create a file and name it `stf-connectors.yaml`.
 . Save the file in the `/home/stack` directory.
 . Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter. For more information, see Retrieving the QDR route address.
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the Apache Qpid Dispatch Router bus on the overcloud to the STF deployment. The following sample is from the `stf-connectors.yaml` environment file:
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. The following sample is from the `stf-connectors.yaml` environment file:
 +
 ----
 parameter_defaults:
