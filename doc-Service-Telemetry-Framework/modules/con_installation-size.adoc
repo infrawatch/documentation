@@ -59,7 +59,14 @@ If you have an existing environment, delete it, and recreate it to ensure that t
 To recreate the environment:
 
 . Run the `crc delete` command.
++
+----
+crc delete 
+----
 
-. Run the provided command to create your environment.
-
+. Run the `crc start` command to create your environment:
++
+----
+crc start --memory=49152 --cpus=8
+----
 endif::[]
