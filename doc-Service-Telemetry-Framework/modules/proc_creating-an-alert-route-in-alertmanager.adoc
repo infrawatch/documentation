@@ -128,7 +128,7 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 [ root@curl:/ ]$ exit
 ----
 
-. Clean up the environment by delete the `curl` pod:
+. To clean up the environment, delete the `curl` pod:
 +
 ----
 $ oc delete pod curl
