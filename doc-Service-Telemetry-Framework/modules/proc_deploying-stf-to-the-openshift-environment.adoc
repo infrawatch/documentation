@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='deploying-stf-to-the-openshift-environment_{context}']
+[id="deploying-stf-to-the-openshift-environment_{context}"]
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
 There are two ways in which you can deploy {ProjectShort} to the {OpenShiftShort} environment:
@@ -28,7 +28,7 @@ There are two ways in which you can deploy {ProjectShort} to the {OpenShiftShort
 * Storage of events with ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
 * Without ElasticSearch and disabling events support. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
-[id='deploying-stf-to-the-openshift-environment-with-elasticsearch']
+[id="deploying-stf-to-the-openshift-environment-with-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment with ElasticSearch
 
 Complete the following tasks:
@@ -42,7 +42,7 @@ Complete the following tasks:
 . Subscribe to the Service Telemetry Operator. For more information, see <<subscribing-to-the-service-telemetry-operator>>.
 . Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
 
-[id='deploying-stf-to-the-openshift-environment-without-elasticsearch']
+[id="deploying-stf-to-the-openshift-environment-without-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment without ElasticSearch
 
 Complete the following tasks:
@@ -55,7 +55,7 @@ Complete the following tasks:
 . Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
 
 
-[id='creating-a-namespace']
+[id="creating-a-namespace"]
 == Creating a namespace
 
 Create a namespace to hold the {ProjectShort} components. The `service-telemetry` namespace is used throughout the documentation:
@@ -64,7 +64,7 @@ Create a namespace to hold the {ProjectShort} components. The `service-telemetry
 oc new-project service-telemetry
 ----
 
-[id='creating-an-operatorgroup']
+[id="creating-an-operatorgroup"]
 == Creating an OperatorGroup
 
 Create an OperatorGroup in the namespace to permit scheduling of the Operator pods:
@@ -84,7 +84,7 @@ EOF
 
 For more information, see https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
 
-[id='enabling-the-operatorhubio-community-catalog-source']
+[id="enabling-the-operatorhubio-community-catalog-source"]
 == Enabling the OperatorHub.io Community Catalog Source
 
 Before you install ElasticSearch (ES), you must have access to the resources on the OperatorHub.io Community Catalog Source:
@@ -104,7 +104,7 @@ spec:
 EOF
 ----
 
-[id='enabling-the-infrawatch-operator-source']
+[id="enabling-the-infrawatch-operator-source"]
 == Enabling InfraWatch Operator Source
 
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source:
@@ -148,7 +148,7 @@ servicetelemetry-operator                    InfraWatch Operators       7m20s
 smartgateway-operator                        InfraWatch Operators       7m20s
 ----
 
-[id='subscribing-to-the-amq-certificate-manager-operator']
+[id="subscribing-to-the-amq-certificate-manager-operator"]
 == Subscribing to the AMQ Certificate Manager Operator
 
 You must subscribe to the AMQ Certificate Manager Operator prior to the deployment of the other components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.
@@ -188,7 +188,7 @@ NAME                       DISPLAY                                         VERSI
 amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
 ----
 
-[id='subscribing-to-elastic-cloud-on-kubernetes-operator']
+[id="subscribing-to-elastic-cloud-on-kubernetes-operator"]
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
 Before you install the Service Telemetry Operator and if you plan to store events in to ElasticSearch, you need to enable the Elastic Cloud Kubernetes Operator.
@@ -224,7 +224,7 @@ NAME                       DISPLAY                                         VERSI
 elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0   Succeeded
 ----
 
-[id='subscribing-to-the-service-telemetry-operator']
+[id="subscribing-to-the-service-telemetry-operator"]
 == Subscribing to the Service Telemetry Operator
 
 To instantiate an {ProjectShort} instance, create the `ServiceTelemetry` object to allow the Service Telemetry Operator to create the environment.
@@ -265,7 +265,7 @@ service-telemetry-operator.v1.0.1   Service Telemetry Operator                  
 smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded
 ----
 
-[id='creating-a-servicetelemetry-object-in-openshift']
+[id="creating-a-servicetelemetry-object-in-openshift"]
 == Creating a ServiceTelemetry object in {OpenShiftShort}
 
 To deploy the Service Telemetry Framework, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
@@ -278,9 +278,9 @@ The core available parameters for a `ServiceTelemetry` manifest are:
 
 | `metricsEnabled` | `{true\|false}` | Enable metrics support in {ProjectShort}. Default value is `true`.
 
-| `highAvailabilityEnabled` | `{true\|false}` | Enable high availability in {ProjectShort}. For more information, see <<high-availability>>. Default value is `false`.
+| `highAvailabilityEnabled` | `{true\|false}` | Enable high availability in {ProjectShort}. For more information, see <<high-availability_advanced-features>>. Default value is `false`.
 
-| `storageEphemeralEnabled` | `{true\|false}` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage>>. Default value is `false`.
+| `storageEphemeralEnabled` | `{true\|false}` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage_advanced-features>>. Default value is `false`.
 |===
 
 [discrete]

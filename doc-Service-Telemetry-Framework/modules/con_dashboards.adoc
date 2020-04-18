@@ -24,4 +24,4 @@
 // in _The IBM Style Guide_.
 [id="dashboards_{context}"]
 = Dashboards
-Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <<configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration>> .
+Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <<configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration>>.

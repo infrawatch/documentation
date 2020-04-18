@@ -25,7 +25,7 @@
 //
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
-[id='advanced-features_{context}']
+[id="advanced-features_{context}"]
 = Advanced features
 
 // The `context` attribute enables module reuse. Every module's ID

@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='configuring-red-hat-openstack-platform-overcloud-for-stf_{context}']
+[id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
 = Configuring {OpenStack} overcloud for {ProjectShort}
 
 To configure the {OpenStack} overcloud, you must configure collectd and {MessageBus}:

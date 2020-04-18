@@ -22,7 +22,7 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id='installation-size_{context}']
+[id="installation-size_{context}"]
 = Installation size
 
 The size of your {OpenShift} installation depends on the following factors:
@@ -37,7 +37,7 @@ Installation of {Project} ({ProjectShort}) is dependent on an existing {OpenShif
 The sizing of {OpenShiftShort} is dependent on the infrastructure selected. More information about minimum resources requirements when installing {OpenShiftShort} on baremetal is available at https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal. For installation requirements of the various public and private cloud platforms available to install to, see the corresponding installation documentation for your cloud of choice.
 
 ifeval::["{build}" == "upstream"]
-[id='development-environment-resource-requirement_{context}']
+[id="development-environment-resource-requirement_{context}"]
 == Development environment resource requirements
 
 An all-in-one development environment for {ProjectShort} can be locally created using https://code-ready.github.io/crc/[CodeReady Containers]. Installation process of CodeReady Containers (CRC) is available at https://code-ready.github.io/crc/#installation_gsg.

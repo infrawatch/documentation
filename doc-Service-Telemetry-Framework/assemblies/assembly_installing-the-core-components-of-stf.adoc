@@ -25,7 +25,7 @@
 //
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
-[id='installing-the-core-components-of-stf_{context}']
+[id="installing-the-core-components-of-stf_{context}"]
 = Installing the core components of {Project}
 
 // The `context` attribute enables module reuse. Every module's ID

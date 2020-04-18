@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='removing-stf-from-the-openshift-environment_{context}']
+[id="removing-stf-from-the-openshift-environment_{context}"]
 = Removing {ProjectShort} from the {OpenShiftShort} environment
 
 To remove {ProjectShort} from an {OpenShiftShort} environment, complete the following tasks:
@@ -28,7 +28,7 @@ To remove {ProjectShort} from an {OpenShiftShort} environment, complete the foll
 . Delete the namespace. For more information, see <<deleting-the-namespace>>.
 . Delete the OperatorSource. For more information, see <<removing-the-operatorsource>>.
 
-[id='deleting-the-namespace']
+[id="deleting-the-namespace"]
 == Deleting the namespace
 
 . To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
@@ -44,7 +44,7 @@ $ oc get all
 No resources found.
 ----
 
-[id='removing-the-operatorsource']
+[id="removing-the-operatorsource"]
 == Removing the OperatorSource
 
 . If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
