@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='quickstart-script-for-development-usage_{context}']
+[id="quickstart-script-for-development-usage_{context}"]
 = Quickstart script for development use
 
 You can use a script to deploy {ProjectShort} into an existing {OpenShift} environment for

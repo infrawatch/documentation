@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='updating-red-hat-openstack-platform-overcloud-for-stf_{context}']
+[id="updating-red-hat-openstack-platform-overcloud-for-stf_{context}"]
 = Updating {OpenStack} overcloud for {ProjectShort}
 
 The procedure in section <<configuring-red-hat-openstack-platform-overcloud-for-stf-events_completing-the-stf-configuration>> includes the instruction to create the `metrics-collectd-qdr-overrides.yaml` environment file. The following example uses the `metrics-collectd-qdr-overrides.yaml` file in the `openstack overcloud deploy` command with the environment files that you must add to the command.

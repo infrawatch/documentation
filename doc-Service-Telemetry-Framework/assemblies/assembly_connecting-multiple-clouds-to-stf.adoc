@@ -25,7 +25,7 @@
 //
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
-[id='connecting-multiple-clouds-to-stf_{context}']
+[id="connecting-multiple-clouds-to-stf_{context}"]
 = Connecting multiple clouds to {Project}
 
 // The `context` attribute enables module reuse. Every module's ID

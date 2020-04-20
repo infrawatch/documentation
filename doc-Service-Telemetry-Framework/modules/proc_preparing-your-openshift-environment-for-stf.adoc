@@ -20,19 +20,19 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='preparing-your-openshift-environment-for-stf_{context}']
+[id="preparing-your-openshift-environment-for-stf_{context}"]
 = Preparing your {OpenShiftShort} environment for {ProjectShort}
 
 As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
 * Ensure that persistent storage is available in your {OpenShift} cluster for storing data in a production system. For more information, see <<persistent-volumes>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
-* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<Deploying STF to the OKD environment>>.
+* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
 * `vm_max_count` has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator. For more information, see <<node-tuning-operator>>.
 
 
 
-[[persistent-volumes]]
+[id="persistent-volumes"]
 == Persistent volumes
 
 //This is a prerequisite.
@@ -40,14 +40,14 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 
 {ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
 
-[[ephemeral-storage]]
+[id="ephemeral-storage"]
 === Using ephemeral storage
 
 It's possible to use ephemeral storage with {ProjectShort} with a caveat that it can result in data loss should a pod be restarted, updated, or rescheduled onto another node. Due the volatility of ephemeral storage it is only recommended to be used for development or testing, and not production environments.
 
-To enable ephemeral storage for {ProjectShort} set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage>>
+To enable ephemeral storage for {ProjectShort} set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage_advanced-features>>.
 
-[[resource-allocation]]
+[id="resource-allocation"]
 == Resource allocation
 
 //This is a prerequisite.
@@ -57,13 +57,13 @@ To enable the scheduling of pods within the OpenShift infrastructure, you need r
 
 The amount of resources you require to run {ProjectShort} depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
 
-[[disabling-event-storage]]
+[id="disabling-event-storage"]
 == Disabling event storage
 
 If do not plan to store events in ElasticSearch, do not enable the OperatorHub.io Community Catalog Source and do not subscribe to the Elastic Cloud on Kubernetes Operator. You must set events_enabled to false in your ST object. For more information, see Installing the core components of STF.
 
 
-[[node-tuning-operator]]
+[id="node-tuning-operator"]
 == Node tuning operator
 
 //vm_max_count is set by default.  If you're using Opensift 4.3 don't worry. By default, it will work. If you created other types of OpenShift nodes, those nodes get listed in an inventory in OS. This has metadata, for example, what type of node is this. When you scehdule an ES process on the node, it has metata, the lable says I'm an ES. When you put that lable, OS says you're scheduling a process with this label, and when that process is scheduled on to a node, I need to adjust something on a machine. this is automatic.  When the label is present, OpenShift takes care of it.
