@@ -1451,10 +1451,11 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see Deployi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a YAML file for the alert rule. The following example in <code>qpid-router-down.yaml</code> is a small, efficient alerting rule:</p>
+<p>Create a <code>PrometheusRule</code> object that contains the alert rule. The rule will be loaded into Prometheus by the Prometheus Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: monitoring.coreos.com/v1
+<pre>oc apply -f - &lt;&lt;EOF
+apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   creationTimestamp: null
@@ -1468,19 +1469,44 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status &lt; 1 # To change the rule, edit the value of the expr parameter.</code></pre>
+          expr: collectd_qpid_router_status &lt; 1 # To change the rule, edit the value of the expr parameter.
+EOF</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create an alerting rule in OpenShift:</p>
+<p>To validate the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f qpid-router-down.yaml</pre>
+<pre>oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This command creates a PrometheusRule object named <code>prometheus-alarm-rules</code> and a rule in Prometheus.</p>
+</li>
+<li>
+<p>Then run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, then exit from the pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre>[ root@curl:/ ]$ exit</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Clean up the environment by deleting the <code>curl</code> pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete pod curl
+
+pod "curl" deleted</pre>
+</div>
 </div>
 </li>
 </ol>
@@ -1493,7 +1519,7 @@ spec:
 <div class="sect3">
 <h4 id="configuring-custom-alerts_advanced-features">Configuring custom alerts</h4>
 <div class="paragraph">
-<p>You can edit the PrometheusRule that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>:</p>
+<p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1501,7 +1527,7 @@ spec:
 <p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc edit prometheusrules/prometheus-alarm-rules</pre>
+<pre>oc edit prometheusrules prometheus-alarm-rules</pre>
 </div>
 </div>
 </li>
@@ -1517,24 +1543,25 @@ spec:
 <div class="sect3">
 <h4 id="creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</h4>
 <div class="paragraph">
-<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an OpenShift secret by the Prometheus Operator. Alertmanager comes with a basic configuration:</p>
+<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an OpenShift secret by the Prometheus Operator. STF by default deploys a basic configuration that results in no receivers:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>          global:
-            resolve_timeout: 5m
-          route:
-            group_by: ['job']
-            group_wait: 30s
-            group_interval: 5m
-            repeat_interval: 12h
-            receiver: 'null'
-          receivers:
-          - name: 'null'</pre>
+<pre>alertmanager.yaml: |-
+  global:
+    resolve_timeout: 5m
+  route:
+    group_by: ['job']
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 12h
+    receiver: 'null'
+  receivers:
+  - name: 'null'</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To add an alert route to Alertmanager, you must delete the previous Alertmanager configuration secret and create a new Alertmanager configuration secret with the same name.</p>
+<p>To deploy a custom Alertmanager route with STF an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, deployed by the Prometheus Operator. For more information about customizing the deployment, see <a href="#manifest-overrides">[manifest-overrides]</a>.</p>
 </div>
 <h5 id="_procedure_6" class="discrete">Procedure</h5>
 <div class="olist arabic">
@@ -1543,7 +1570,7 @@ spec:
 <p>Log in to OpenShift.</p>
 </li>
 <li>
-<p>Navigate to the <code>service-telemetry</code> namespace:</p>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc project service-telemetry</pre>
@@ -1551,90 +1578,110 @@ spec:
 </div>
 </li>
 <li>
-<p>Delete the existing secret:</p>
+<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc delete secret alertmanager-stf-default</pre>
+<pre>oc edit servicetelemetry stf-default</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create the new Alertmanager configuration secret:</p>
+<p>Add a new parameter, <code>alertmanagerConfigManifest</code> and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This will load the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly it is recommended to change a value and then return the <code>alertmanager-stf-default</code> secret and verify the new value is loaded into memory, for example changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">oc apply -f - &lt;&lt;EOF
-apiVersion: v1
-kind: Secret
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
 metadata:
-  name: alertmanager-stf-default
+  name: stf-default
   namespace: service-telemetry
-type: Opaque
-stringData:
-  alertmanager.yaml: |-
-    global:
-      resolve_timeout: 5m
-    route:
-      group_by: ['job']
-      group_wait: 30s
-      group_interval: 5m
-      repeat_interval: 12h
-      receiver: 'webhook' # Replace webhook with your receiver type.
+spec:
+  metricsEnabled: true
+  alertmanagerConfigManifest: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: 'alertmanager-stf-default'
+      namespace: 'service-telemetry'
+    type: Opaque
+    stringData:
+      alertmanager.yaml: |-
+        global:
+          resolve_timeout: 10m
+        route:
+          group_by: ['job']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: 'null'
+        receivers:
+        - name: 'null'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate the configuration was applied to the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
-      routes:
-      - match:
-          severity: critical
-        receiver: 'webhook-crit' # Replace webhook with your receiver type.
-      - match_re:
-          severity: !(critical)
-        receiver: 'webhook' # Replace webhook with your receiver type.
-    templates:
-    - '*.tmpl'
-    receivers: # Edit this section to suit the configuration of your receiver type.
-    - name: 'webhook'
-      webhook_configs:
-      - url: http://192.168.36.9/webhook
-    - name: 'webhook-crit'
-      webhook_configs:
-      - url: http://192.168.36.9/webhook-crit
-    EOF</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This example creates two webhook receivers that trigger alarms on different severities. Edit the parameters in the example to suit your requirements. For more information on configuration, see <a href="https://prometheus.io/docs/alerting/configuration/" class="bare">https://prometheus.io/docs/alerting/configuration/</a>.</p>
-</div>
-</li>
-<li>
-<p>Save the file and run the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre>oc apply -f &lt;filename&gt;</pre>
+global:
+  resolve_timeout: 10m
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'null'
+receivers:
+- name: 'null'</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Restart Alertmanager:</p>
+<p>To verify the configuration has been loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc delete pod alertmanager-stf-default-0</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The Prometheus Operator restarts Alertmanager automatically.</p>
-</div>
-</li>
-<li>
-<p>To validate that the manifest loaded correctly, run the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre>oc get prometheusrules</pre>
+<pre>oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</pre>
 </div>
 </div>
 </li>
 <li>
-<p>To validate that the rule loaded into Prometheus, run the following command:</p>
+<p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents and review the supplied configuration matches the configuration loaded into Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc</pre>
+<pre>[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+
+{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n","configJSON":{"global":{"resolve_timeout":600000000000,"http_config":{"BasicAuth":null,"BearerToken":"","BearerTokenFile":"","ProxyURL":{},"TLSConfig":{"CAFile":"","CertFile":"","KeyFile":"","ServerName":"","InsecureSkipVerify":false}},"smtp_hello":"localhost","smtp_require_tls":true,"pagerduty_url":"https://events.pagerduty.com/v2/enqueue","hipchat_api_url":"https://api.hipchat.com/","opsgenie_api_url":"https://api.opsgenie.com/","wechat_api_url":"https://qyapi.weixin.qq.com/cgi-bin/","victorops_api_url":"https://alert.victorops.com/integrations/generic/20131114/alert/"},"route":{"receiver":"null","group_by":["job"],"group_wait":30000000000,"group_interval":300000000000,"repeat_interval":43200000000000},"receivers":[{"name":"null"}],"templates":null},"versionInfo":{"branch":"HEAD","buildDate":"20190503-09:10:07","buildUser":"root@932a86a52b76","goVersion":"go1.12.4","revision":"c7551cd75c414dc81df027f691e2eb21d4fd85b2","version":"0.17.0"},"uptime":"2020-04-14T20:30:33.12331159Z","clusterStatus":{"name":"01E5X65RMSDDTRNXGT86Z96810","status":"ready","peers":[{"name":"01E5X65RMSDDTRNXGT86Z96810","address":"10.128.0.19:9094"}]}}}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate the <code>configYAML</code> field contains the expected changes and exit from the pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre>[ root@curl:/ ]$ exit</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To clean up the environment, delete the <code>curl</code> pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete pod curl
+
+pod "curl" deleted</pre>
 </div>
 </div>
 </li>
@@ -3820,7 +3867,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-20 03:47:44 UTC
+Last updated 2020-04-20 14:04:46 UTC
 </div>
 </div>
 </body>
