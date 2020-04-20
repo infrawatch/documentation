@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='deploying-with-routed-l3-networks_{context}']
+[id="deploying-with-routed-l3-networks_{context}"]
 = Deploying with routed L3 networks
 If your nodes are on a separate network from the default `InternalApi` network that the Controller nodes use, you must make several changes so that {MessageBus} can transport data to the {ProjectShort} server instance. This scenario is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology.
 

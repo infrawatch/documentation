@@ -25,7 +25,7 @@
 //
 // If the assembly covers a task, start the title with a verb in the gerund
 // form, such as Creating or Configuring.
-[id='completing-the-stf-configuration_{context}']
+[id="completing-the-stf-configuration_{context}"]
 = Completing the {Project} configuration
 
 // The `context` attribute enables module reuse. Every module's ID

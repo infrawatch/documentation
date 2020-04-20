@@ -28,10 +28,10 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 [discrete]
 == Procedure
 
-. Create a YAML file for the alert rule. The following example in `qpid-router-down.yaml` is a small, efficient alerting rule:
+. Create a `PrometheusRule` object that contains the alert rule. The rule will be loaded into Prometheus by the Prometheus Operator:
 +
-[source,yaml]
 ----
+oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -47,16 +47,35 @@ spec:
       rules:
         - alert: Metric Listener down
           expr: collectd_qpid_router_status < 1 # To change the rule, edit the value of the expr parameter.
+EOF
 ----
-+
 
-. Create an alerting rule in OpenShift:
+. To validate the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
 +
 ----
-oc create -f qpid-router-down.yaml
+oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
+
+. Then run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
 +
-This command creates a PrometheusRule object named `prometheus-alarm-rules` and a rule in Prometheus.
+----
+[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
+----
+
+. Validate the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, then exit from the pod:
++
+----
+[ root@curl:/ ]$ exit
+----
+
+. Clean up the environment by deleting the `curl` pod:
++
+----
+$ oc delete pod curl
+
+pod "curl" deleted
+----
 
 [discrete]
 == Additional resources

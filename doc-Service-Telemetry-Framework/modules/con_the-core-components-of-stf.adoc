@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id='installing-the-core-components-of-stf_{context}']
+[id="installing-the-core-components-of-stf_{context}"]
 = The core components of {ProjectShort}
 
 The following {ProjectShort} core components are managed by https://coreos.com/blog/introducing-operators.html[Operators]:

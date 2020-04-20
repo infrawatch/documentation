@@ -92,6 +92,7 @@ oc get routes
 
 . To view the dashboard, click *Dashboards* and *Manage*.
 
+[id="viewing-and-editing-queries"]
 == Viewing and editing queries
 
 . To view and edit queries, log in as user `admin`.
