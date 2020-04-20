@@ -21,6 +21,6 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="validating-clientside-installation_{context}"]
-= Validating clientside installation
+= Validating client-side installation
 
-Ensure that collectd is connected to QDR and QDR connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.
+Ensure that collectd is connected to QDR and that QDR is connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.

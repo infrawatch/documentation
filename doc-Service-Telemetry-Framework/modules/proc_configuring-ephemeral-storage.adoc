@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="configuring-ephemeral-storage_{context}"]
+[id='configuring-ephemeral-storage_{context}']
 = Configuring ephemeral storage
 
 To configure {ProjectShort} for ephemeral storage, you must add the `storageEphemeralEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:

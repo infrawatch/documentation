@@ -44,10 +44,15 @@
 Before you install {ProjectShort}, ensure that  OpenShift version 4.x is running and you understand the core components of the framework. As part of the OpenShift installation planning process though, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment.
 
 //include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
+
+
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
 include::../modules/proc_preparing-your-openshift-environment-for-stf.adoc[leveloffset=+1]
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
+
+
+
 
 //include::../modules/proc_importing-the-container-images-for-stf.adoc[leveloffset=+2]
 //include::../modules/proc_generating-the-manifests-for-stf.adoc[leveloffset=+2]

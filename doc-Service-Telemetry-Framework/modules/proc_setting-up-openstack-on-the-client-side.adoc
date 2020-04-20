@@ -25,4 +25,4 @@
 
 To collect metrics, events, or both, and to send them back to the {ProjectShort}
 storage domain, you must install collectd and {MessageBus} on the nodes of an
-{OpenStack} deployment. If you want to deploy with routed L3 networks, see Deploying with routed L3 networks.
+{OpenStack} deployment. If you want to deploy with routed L3 networks, see <<deploying-with-routed-l3-networks_completing-the-stf-configuration>>.

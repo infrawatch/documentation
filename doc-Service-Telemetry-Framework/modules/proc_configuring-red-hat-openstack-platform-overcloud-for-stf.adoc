@@ -25,9 +25,10 @@
 
 To configure the {OpenStack} overcloud, you must configure collectd and {MessageBus}:
 
-. Create a file and name it `stf-connectors.yaml`. Save the file in the `/home/stack` directory.
-. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter. For more information, see Retrieving the QDR route address.
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the Apache Qpid Dispatch Router bus on the overcloud to the STF deployment. The following sample is from the `stf-connectors.yaml` environment file:
+. Create a file and name it `stf-connectors.yaml`.
+. Save the file in the `/home/stack` directory.
+. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter. For more information, see <<retrieving-the-qdr-route-address>>.
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. The following sample is from the `stf-connectors.yaml` environment file:
 +
 ----
 parameter_defaults:
@@ -48,5 +49,31 @@ openstack overcloud deploy <other arguments>
 -e /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml
 -e /home/stack/stf-connectors.yaml
 -e <other-environment-files>
-     <other configuration files>
+-e <other-configuration-files>
+----
+
+[[retrieving-the-qdr-route-address]]
+== Retrieving the QDR route address
+
+When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the QDR route address for the `MetricsQdrConnectors` host parameter.
+
+. Run the `oc get routes` command:
++
+----
+oc get routes
+NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
+stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          stf-default-interconnect   55671   passthrough/None   None
+stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   5671    passthrough/None   None
+stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   8672    edge/Redirect      None
+----
+
+. Use the value in `HOST/PORT` for the `stf-default-interconnect-5671` route for the `MetricsQdrConnectors.host` value, for example:
++
+----
+        MetricsQdrConnectors:
+            - host: stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com
+              port: 443
+              role: edge
+              verifyHostname: false
+              sslProfile: sslProfile
 ----

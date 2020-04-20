@@ -24,7 +24,7 @@
 // in _The IBM Style Guide_.
 [id="high-availability_{context}"]
 = High availability
-High availability is the ability of {Project} to rapidly recover from failures in its component services. While {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, it is recommended that you deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
+High availability is the ability of {Project} ({ProjectShort}) to rapidly recover from failures in its component services. While {OpenShift} ({OpenShiftShort}) restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, it is recommended that you deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
 
 [NOTE]
 {ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.

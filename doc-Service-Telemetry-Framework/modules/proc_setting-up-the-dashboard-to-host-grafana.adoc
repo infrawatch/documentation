@@ -84,7 +84,7 @@ NAME                                  AGE
 service-telemetry-grafanadatasource   1m
 ----
 
-. Navigate to https://<grafana-route-address> in a web browser. Use `oc get routes` to retrieve the Grafana route address:
+. Navigate to https://<grafana-route-address> in a web browser. Use the `oc get routes` command to retrieve the Grafana route address:
 +
 ----
 oc get routes
