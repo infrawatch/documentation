@@ -23,7 +23,7 @@
 [id="configuring-manifest-overrides_{context}"]
 = Overriding a managed manifest
 
-Edit the `ServiceTelmetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see <<manifest-overrides_advanced-features>>. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
+Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see <<manifest-overrides_advanced-features>>. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
 
 TIP: The `oc edit` command will load the default system editor. To override the default editor pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`
 
