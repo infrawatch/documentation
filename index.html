@@ -673,7 +673,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>Ensure that enough resources are available to run the Operators and the application containers. For more information, see <a href="#resource-allocation">Resource allocation</a>.</p>
 </li>
 <li>
-<p>To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <a href="#Deploying STF to the OKD environment">[Deploying STF to the OKD environment]</a>.</p>
+<p>To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
 </li>
 <li>
 <p><code>vm_max_count</code> has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator. For more information, see <a href="#node-tuning-operator">Node tuning operator</a>.</p>
@@ -691,7 +691,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>It&#8217;s possible to use ephemeral storage with STF with a caveat that it can result in data loss should a pod be restarted, updated, or rescheduled onto another node. Due the volatility of ephemeral storage it is only recommended to be used for development or testing, and not production environments.</p>
 </div>
 <div class="paragraph">
-<p>To enable ephemeral storage for STF set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage">[configuring-ephemeral-storage]</a></p>
+<p>To enable ephemeral storage for STF set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</a>.</p>
 </div>
 </div>
 </div>
@@ -1107,12 +1107,12 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>highAvailabilityEnabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable high availability in STF. For more information, see <a href="#high-availability">[high-availability]</a>. Default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable high availability in STF. For more information, see <a href="#high-availability_advanced-features">High availability</a>. Default value is <code>false</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageEphemeralEnabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ephemeral storage support in STF. For more information, see <a href="#ephemeral-storage">Using ephemeral storage</a>. Default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ephemeral storage support in STF. For more information, see <a href="#ephemeral-storage_advanced-features">Ephemeral Storage</a>. Default value is <code>false</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1727,7 +1727,7 @@ High availability for the Smart Gateway and Prometheus components of STF is a wo
 <div class="sect2">
 <h3 id="dashboards_advanced-features">Dashboards</h3>
 <div class="paragraph">
-<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration">[configuring-red-hat-openstack-overcloud-for-stf_completing-the-stf-configuration]</a> .</p>
+<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-the-dashboard-to-host-grafana_advanced-features">Setting up the dashboard to host Grafana</h4>
@@ -1823,7 +1823,7 @@ service-telemetry-grafanadatasource   1m</pre>
 </ol>
 </div>
 <div class="sect4">
-<h5 id="_viewing_and_editing_queries">Viewing and editing queries</h5>
+<h5 id="viewing-and-editing-queries">Viewing and editing queries</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2500,7 +2500,7 @@ When overriding the manifest the entire manifest contents including object names
 <div class="sect3">
 <h4 id="configuring-manifest-overrides_advanced-features">Overriding a managed manifest</h4>
 <div class="paragraph">
-<p>Edit the <code>ServiceTelmetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides">[manifest-overrides]</a>. The default <code>ServiceTelemetry</code> object is <code>stf-default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
+<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_advanced-features">Customizing The Deployment</a>. The default <code>ServiceTelemetry</code> object is <code>stf-default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2585,6 +2585,9 @@ status:
     type: Running</pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 <div class="colist arabic">
 <ol>
 <li>
@@ -2592,12 +2595,13 @@ status:
 </li>
 <li>
 <p>End of the manifest override content.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save and close.</p>
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>Save and close.</p>
 </li>
 </ol>
 </div>
@@ -3816,7 +3820,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-16 15:20:41 UTC
+Last updated 2020-04-20 03:47:44 UTC
 </div>
 </div>
 </body>
