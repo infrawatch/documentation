@@ -465,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#configuring-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a></li>
-<li><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating clientside installation</a></li>
+<li><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a></li>
 </ul>
 </li>
 <li><a href="#configuring-stf-components_completing-the-stf-configuration">Configuring Service&#160;Telemetry&#160;Framework data collection</a></li>
@@ -587,15 +587,15 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </ul>
 </div>
 <div class="paragraph">
-<p>Installation of Service&#160;Telemetry&#160;Framework (STF) is dependent on an existing OpenShift environment and it is recommended that monitoring of OpenStack be done on an installed platform separate of your OpenStack environment. Installation of OpenShift (OKD) can be done on baremetal or various supported cloud platforms. Installation of OKD is covered at <a href="https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities" class="bare">https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities</a>.</p>
+<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment. It is recommended that you monitor OpenStack on an installed platform separate to your OpenStack environment. You can install OpenShift (OKD) on baremetal or various supported cloud platforms. For more information about installing OKD, see <a href="https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities" class="bare">https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities</a>.</p>
 </div>
 <div class="paragraph">
-<p>The sizing of OKD is dependent on the infrastructure selected. More information about minimum resources requirements when installing OKD on baremetal is available at <a href="https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal" class="bare">https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal</a>. For installation requirements of the various public and private cloud platforms available to install to, see the corresponding installation documentation for your cloud of choice.</p>
+<p>The sizing of OKD depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal" class="bare">https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal</a>. For installation requirements of the various public and private cloud platforms to which you can install, see the corresponding installation documentation for your cloud of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirement_introduction-to-stf">Development environment resource requirements</h4>
 <div class="paragraph">
-<p>An all-in-one development environment for STF can be locally created using <a href="https://code-ready.github.io/crc/">CodeReady Containers</a>. Installation process of CodeReady Containers (CRC) is available at <a href="https://code-ready.github.io/crc/#installation_gsg" class="bare">https://code-ready.github.io/crc/#installation_gsg</a>.</p>
+<p>You can create an all-in-one development environment for STF locally by using <a href="https://code-ready.github.io/crc/">CodeReady Containers</a>. The installation process of CodeReady Containers (CRC) is available at <a href="https://code-ready.github.io/crc/#installation_gsg" class="bare">https://code-ready.github.io/crc/#installation_gsg</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg">minimum resource requirements</a> for CRC is not enough by default to run STF. It is recommended that your host system has the following resources available:</p>
@@ -614,7 +614,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </ul>
 </div>
 <div class="paragraph">
-<p>After completing the installation of CRC it is recommended you start your environment with the following commands:</p>
+<p>After you complete the installation of CRC, use the <code>crc start</code> command to start your environment. The recommended minimum system resources for running STF in CodeReady Containers is 48 GB of memory and 8 virtual CPU cores:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -622,7 +622,30 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </div>
 </div>
 <div class="paragraph">
-<p>If you have an existing environment it must be destroyed and recreated in order for the resource requests to have an effect. To recreate the environment first run <code>crc delete</code> to delete the virtual machine, and then run the provided command to create your environment.</p>
+<p>If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect.</p>
+</div>
+<div class="paragraph">
+<p>To recreate the environment:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>crc delete</code> command.</p>
+<div class="listingblock">
+<div class="content">
+<pre>crc delete</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the <code>crc start</code> command to create your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre>crc start --memory=49152 --cpus=8</pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -701,13 +724,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running and for the number of running resources. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
 </div>
 <div class="paragraph">
-<p>The amount of resources you require to run STF depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="disabling-event-storage">Disabling event storage</h4>
-<div class="paragraph">
-<p>If do not plan to store events in ElasticSearch, do not enable the OperatorHub.io Community Catalog Source and do not subscribe to the Elastic Cloud on Kubernetes Operator. You must set events_enabled to false in your ST object. For more information, see Installing the core components of STF.</p>
+<p>The amount of resources you require to run STF depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -719,7 +736,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>You cannot apply node tuning, such as virtual memory map count values, manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information about the node tuning operator, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
-<p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning, specification run the following command:</p>
+<p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -727,7 +744,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. Assignment of profiles is managed in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. The assignment of profiles is managed in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -740,7 +757,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </ul>
 </div>
 <div class="paragraph">
-<p>When scheduling an ElasticSearch pod, there must be a label matching <code>tuned.openshift.io/elasticsearch</code> present. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
+<p>When scheduling an ElasticSearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
 </div>
 <div class="paragraph">
 <p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator" class="bare">https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator</a></p>
@@ -861,11 +878,11 @@ EOF</pre>
 <div class="sect3">
 <h4 id="enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</h4>
 <div class="paragraph">
-<p>Before you install ElasticSearch (ES), you must have access to the resources on the OperatorHub.io Community Catalog Source:</p>
+<p>Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -876,7 +893,7 @@ spec:
   image: quay.io/operator-framework/upstream-community-operators:latest
   displayName: OperatorHub.io Operators
   publisher: OperatorHub.io
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </div>
@@ -891,7 +908,7 @@ EOF</pre>
 <p>Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorSource
 metadata:
@@ -906,7 +923,7 @@ spec:
   publisher: InfraWatch
   registryNamespace: infrawatch
   type: appregistry
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -938,7 +955,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s</p
 <div class="sect3">
 <h4 id="subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</h4>
 <div class="paragraph">
-<p>You must subscribe to the AMQ Certificate Manager Operator prior to the deployment of the other components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
+<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
 </div>
 <h5 id="_procedure" class="discrete">Procedure</h5>
 <div class="olist arabic">
@@ -959,7 +976,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -972,7 +989,7 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   startingCSV: amq7-cert-manager.v1.0.0
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -1002,7 +1019,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 <p>Apply the following manifest to your OKD environment to enable the Elastic Cloud on Kubernetes Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1015,7 +1032,7 @@ spec:
   source: operatorhubio-operators
   sourceNamespace: openshift-marketplace
   startingCSV: elastic-cloud-eck.v1.0.1
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -1045,7 +1062,7 @@ elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1
 <p>To create the Service Telemetry Operator subscription, run the <code>oc apply -f</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1057,7 +1074,7 @@ spec:
   name: servicetelemetry-operator
   source: infrawatch-operators
   sourceNamespace: openshift-marketplace
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -1085,7 +1102,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <p>To deploy the Service Telemetry Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. By default, <code>eventsEnabled</code> is set to false. If you do not want to store events in ElasticSearch, ensure that <code>eventsEnabled</code> is set to false. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
 </div>
 <div class="paragraph">
-<p>The core available parameters for a <code>ServiceTelemetry</code> manifest are:</p>
+<p>The following core parameters for a <code>ServiceTelemetry</code> manifest are available:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1097,12 +1114,13 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>eventsEnabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable events support in STF. Requires prerequisite steps to ensure ElasticSearch can be started. See <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>. Default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable events support in STF. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>. The default value is <code>false</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsEnabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable metrics support in STF. Default value is <code>true</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable metrics support in STF. The default value is <code>true</code>.</p>
+<p class="tableblock">=======</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>highAvailabilityEnabled</code></p></td>
@@ -1123,7 +1141,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <p>To store events in ElasticSearch, set <code>eventsEnabled</code> to true during deployment:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
 metadata:
@@ -1132,7 +1150,7 @@ metadata:
 spec:
   eventsEnabled: true
   metricsEnabled: true
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -1162,7 +1180,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 <div class="title">Note</div>
 </td>
 <td class="content">
-If you have set <code>eventsEnabled: true</code> it is expected that the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time while ElasticSearch is started.
+If you have set <code>eventsEnabled: true</code>, it is expected that the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time while ElasticSearch starts.
 </td>
 </tr>
 </table>
@@ -1277,7 +1295,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="paragraph">
 <p>To collect metrics, events, or both, and to send them back to the STF
 storage domain, you must install collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router on the nodes of an
-OpenStack deployment. If you want to deploy with routed L3 networks, see Deploying with routed L3 networks.</p>
+OpenStack deployment. If you want to deploy with routed L3 networks, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h4>
@@ -1307,13 +1325,16 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see Deployi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a file and name it <code>stf-connectors.yaml</code>. Save the file in the <code>/home/stack</code> directory.</p>
+<p>Create a file and name it <code>stf-connectors.yaml</code>.</p>
 </li>
 <li>
-<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. For more information, see Retrieving the QDR route address.</p>
+<p>Save the file in the <code>/home/stack</code> directory.</p>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache Qpid Dispatch Router bus on the overcloud to the STF deployment. The following sample is from the <code>stf-connectors.yaml</code> environment file:</p>
+<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>.</p>
+</li>
+<li>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router bus on the overcloud to the STF deployment. The following sample is from the <code>stf-connectors.yaml</code> environment file:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1336,17 +1357,52 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see Deployi
 -e /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml
 -e /home/stack/stf-connectors.yaml
 -e &lt;other-environment-files&gt;
-     &lt;other configuration files&gt;</pre>
+-e &lt;other-configuration-files&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="retrieving-the-qdr-route-address">Retrieving the QDR route address</h4>
+<div class="paragraph">
+<p>When you configure the OpenStack overcloud for STF, you must provide the QDR route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>oc get routes</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc get routes
+NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
+stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          stf-default-interconnect   55671   passthrough/None   None
+stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   5671    passthrough/None   None
+stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   8672    edge/Redirect      None</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the value in <code>HOST/PORT</code> for the <code>stf-default-interconnect-5671</code> route for the <code>MetricsQdrConnectors.host</code> value, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>        MetricsQdrConnectors:
+            - host: stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com
+              port: 443
+              role: edge
+              verifyHostname: false
+              sslProfile: sslProfile</pre>
 </div>
 </div>
 </li>
 </ol>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating clientside installation</h3>
+<h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h3>
 <div class="paragraph">
-<p>Ensure that collectd is connected to QDR and QDR connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.</p>
+<p>Ensure that collectd is connected to QDR and that QDR is connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.</p>
 </div>
 </div>
 </div>
@@ -1696,7 +1752,7 @@ pod "curl" deleted</pre>
 <div class="sect2">
 <h3 id="high-availability_advanced-features">High availability</h3>
 <div class="paragraph">
-<p>High availability is the ability of Service&#160;Telemetry&#160;Framework to rapidly recover from failures in its component services. While OpenShift restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of STF components, reducing recovery time to approximately 2 seconds. To protect against failure of an OKD node, it is recommended that you deploy STF to an OKD cluster with three or more nodes.</p>
+<p>High availability is the ability of Service&#160;Telemetry&#160;Framework (STF) to rapidly recover from failures in its component services. While OpenShift (OKD) restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. When you deploy in a high availability configuration, there are multiple copies of STF components, reducing recovery time to approximately 2 seconds. To protect against failure of an OKD node, it is recommended that you deploy STF to an OKD cluster with three or more nodes.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1857,7 +1913,7 @@ service-telemetry-grafanadatasource   1m</pre>
 </div>
 </li>
 <li>
-<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use <code>oc get routes</code> to retrieve the Grafana route address:</p>
+<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use the <code>oc get routes</code> command to retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc get routes</pre>
@@ -3867,7 +3923,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-20 14:04:46 UTC
+Last updated 2020-04-20 18:52:56 UTC
 </div>
 </div>
 </body>
