@@ -71,7 +71,7 @@ There are four connections:
 
 The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors` host parameter and is the route for the {ProjectShort} storage domain. The other hosts are internal network addresses of the client connections to this {MessageBus}.
 
-. Next we can check that messages are being delivered by listing the links and checking the `_edge` address for delivery of messages by looking at the `deliv` column:
+. To ensure that messages are being delivered, list the links and view the `_edge` address in the `deliv` column for delivery of messages:
 +
 ----
 $ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
