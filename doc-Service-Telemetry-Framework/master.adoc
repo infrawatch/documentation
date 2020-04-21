@@ -1,25 +1,28 @@
 = Service Telemetry Framework
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
-:vernum: 13
+:vernum: 16
 :toc: left
 :compat-mode:
 :doctype: book
 :director-guide: true
 :context: osp
 
+// load attributes for build
 include::common/stf-attributes.adoc[]
 
+// introduction
 include::assemblies/assembly_introduction-to-stf.adoc[leveloffset=+1]
 
+// installing
 include::assemblies/assembly_installing-the-core-components-of-stf.adoc[leveloffset=+1]
 
+
+// completing
 include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+1]
 
-include::assemblies/assembly_configuring-stf-components.adoc[leveloffset=+1]
-
+// advanced features
 include::assemblies/assembly_advanced-features.adoc[leveloffset=+1]
 
-//appendix
-
+// appendix
 include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]

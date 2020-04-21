@@ -23,4 +23,118 @@
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
-Ensure that collectd is connected to QDR and that QDR is connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.
+Data collection can be validated from the {ProjectShort} storage domain by querying the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment first connect to the console via SSH.
+
+. Login to an overcloud node, for example controller-0
+
+. Check that `metrics_qdr` container is running on the node:
++
+----
+$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+
+running
+----
+
+. Return the internal network address that QDR is running on, for example `172.17.1.44` listening on port `5666`:
++
+----
+$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+
+listener {
+    host: 172.17.1.44
+    port: 5666
+    authenticatePeer: no
+    saslMechanisms: ANONYMOUS
+}
+----
+
+. Return a list of connections to the local QDR:
++
+----
+$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+
+Connections
+  id   host                                                                                               container                                                                                                  role    dir  security                            authentication  tenant
+  ============================================================================================================================================================================================================================================================================================
+  1    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  12   172.17.1.44:60290                                                                                  openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
+  16   172.17.1.44:36408                                                                                  metrics                                                                                                    normal  in   no-security                         anonymous-user
+  899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
+----
+
+We expect to see four connections:
+
+. Outbound connection to STF
+. Inbound connection from collectd
+. Inbound connection from ceilometer
+. Inbound connection from our `qdstat` client
+
+The outbound STF connection will be to the host provided to the `MetricsQdrConnectors` host parameter and will be the route for the STF storage domain. The other hosts will be internal network addresses of the client connections to this QDR.
+
+. Next we can check that messages are being delivered by listing the links and checking the `_edge` address for delivery of messages by looking at the `deliv` column:
++
+----
+$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+Router Links
+  type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel  mod  delay  rate
+  ===========================================================================================================================================================
+  endpoint  out  1        5           local   _edge                      250  0    0      0       2979926  2979924  0       0    0    2    0    0      0
+  endpoint  in   1        6                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   1        7                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  out  1        8                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   1        9                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  out  1        10                                             250  0    0      0       911      911      0       0    0    0    0    911    0
+  endpoint  in   1        11                                             250  0    0      0       0        911      0       0    0    0    0    0      0
+  endpoint  out  12       32          local   temp.lSY6Mcicol4J2Kp       250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   16       41                                             250  0    0      0       2979924  2979924  0       0    0    0    0    0      0
+  endpoint  in   912      1834        mobile  $management           0    250  0    0      0       1        0        0       1    0    0    0    0      0
+  endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0
+----
+
+To list the addresses from {OpenStack} nodes to {ProjectShort}, connect with the `oc` client to {OpenShiftShort} to get the {MessageBus} pod name then list the connections.
+
+. List the available QDR pods:
++
+----
+$ oc get pods -l application=stf-default-interconnect
+
+NAME                                        READY   STATUS    RESTARTS   AGE
+stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
+----
+
+. Connect to the pod and run the `qdstat --connections` command to list the known connections:
++
+----
+oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+2020-04-21 18:25:47.243852 UTC
+stf-default-interconnect-7458fd4d69-bgzfb
+
+Connections
+  id  host               container                                                             role    dir  security                                authentication  tenant  last dlv      uptime
+  ======================================================================================================================================================================================================
+  1   10.129.2.21:43062  rcv[stf-default-collectd-telemetry-smartgateway-79c967c8f7-kq4qv]     normal  in   no-security                             anonymous-user          000:00:00:00  006:21:50:25
+  2   10.130.0.52:55754  rcv[stf-default-ceilometer-notification-smartgateway-6675df547mbjk5]  normal  in   no-security                             anonymous-user          000:21:25:57  006:21:49:36
+  3   10.130.0.51:43110  rcv[stf-default-collectd-notification-smartgateway-698c87fbb7-f28v6]  normal  in   no-security                             anonymous-user          000:21:36:53  006:21:49:09
+  22  10.128.0.1:51948   Router.ceph-0.redhat.local                                            edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  23  10.128.0.1:51950   Router.compute-0.redhat.local                                         edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  24  10.128.0.1:52082   Router.controller-0.redhat.local                                      edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
+  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                                  normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00
+----
++
+In our case we see 3 `edge` connections from our {OpenStack} nodes (connection `id` 22, 23, and 24).
+
+. If we return the addresses, we can see the number of messages delivered by the network:
++
+----
+$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+
+2020-04-21 18:20:10.293258 UTC
+stf-default-interconnect-7458fd4d69-bgzfb
+
+Router Addresses
+  class   addr                              phs  distrib    pri  local  remote  in         out        thru  fallback
+  ====================================================================================================================
+  mobile  anycast/ceilometer/event.sample   0    balanced   -    1      0       1,553      1,553      0     0
+  mobile  collectd/notify                   0    multicast  -    1      0       10         10         0     0
+  mobile  collectd/telemetry                0    multicast  -    1      0       7,798,049  7,798,049  0     0
+----
