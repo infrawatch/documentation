@@ -123,7 +123,7 @@ Connections
 +
 In this example, there are three `edge` connections from our {OpenStack} nodes with connection `id` 22, 23, and 24.
 
-. If we return the addresses, we can see the number of messages delivered by the network:
+. To view the number of messages delivered by the network, use each address in the `oc exec` command:
 +
 ----
 $ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
