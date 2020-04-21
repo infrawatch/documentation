@@ -25,7 +25,7 @@
 
 Data collection can be validated from the {ProjectShort} storage domain by querying the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment first connect to the console via SSH.
 
-. Login to an overcloud node, for example controller-0
+. Log in to an overcloud node, for example, controller-0:
 
 . Check that `metrics_qdr` container is running on the node:
 +
