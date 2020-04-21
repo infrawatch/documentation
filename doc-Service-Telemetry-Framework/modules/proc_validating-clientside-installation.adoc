@@ -69,7 +69,7 @@ There are four connections:
 . Inbound connection from ceilometer
 . Inbound connection from our `qdstat` client
 
-The outbound STF connection will be to the host provided to the `MetricsQdrConnectors` host parameter and will be the route for the STF storage domain. The other hosts will be internal network addresses of the client connections to this QDR.
+The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors` host parameter and is the route for the {ProjectShort} storage domain. The other hosts are internal network addresses of the client connections to this {MessageBus}.
 
 . Next we can check that messages are being delivered by listing the links and checking the `_edge` address for delivery of messages by looking at the `deliv` column:
 +
