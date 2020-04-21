@@ -93,7 +93,7 @@ Router Links
 
 To list the addresses from {OpenStack} nodes to {ProjectShort},  connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections:
 
-. List the available QDR pods:
+. List the available {MessageBus} pods:
 +
 ----
 $ oc get pods -l application=stf-default-interconnect
