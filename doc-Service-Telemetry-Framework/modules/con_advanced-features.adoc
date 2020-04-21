@@ -24,10 +24,11 @@
 // in _The IBM Style Guide_.
 [id="advanced-features_{context}"]
 
-
 The following features are optional but can provide additional functionality to the Service Telemetry Framework:
 
+* Customizing the deployment. For more information, see <<manifest-overrides_advanced-features>>.
 * Alerts. For more information, see <<alerts_advanced-features>>.
 * High availability. For more information, see <<high-availability_advanced-features>>.
 * Dashboards. For more information, see <<dashboards_advanced-features>>.
 * Multiple clouds. For more information, see <<configuring-multiple-clouds_advanced-features>>.
+* Ephemeral storage. For more information, see <<ephemeral-storage_advanced-features>>.
