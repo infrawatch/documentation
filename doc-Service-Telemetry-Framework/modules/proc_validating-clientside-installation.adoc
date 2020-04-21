@@ -48,7 +48,7 @@ listener {
 }
 ----
 
-. Return a list of connections to the local QDR:
+. Return a list of connections to the local {MessageBus}:
 +
 ----
 $ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
