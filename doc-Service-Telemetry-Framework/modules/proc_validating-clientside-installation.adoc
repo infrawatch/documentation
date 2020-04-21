@@ -62,7 +62,7 @@ Connections
   899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
 ----
 
-We expect to see four connections:
+There are four connections:
 
 . Outbound connection to STF
 . Inbound connection from collectd
