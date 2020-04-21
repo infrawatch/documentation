@@ -33,7 +33,7 @@ To configure the {OpenStack} overcloud, you must configure collectd and {Message
 ----
 parameter_defaults:
     MetricsQdrConnectors:
-    - host: stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com
+    - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
       role: edge
       sslProfile: sslProfile
