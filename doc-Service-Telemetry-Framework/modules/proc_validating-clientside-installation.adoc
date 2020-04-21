@@ -35,7 +35,7 @@ $ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
 running
 ----
 
-. Return the internal network address that QDR is running on, for example `172.17.1.44` listening on port `5666`:
+. Return the internal network address on which {MessageBus} is running, for example, `172.17.1.44` listening on port `5666`:
 +
 ----
 $ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
