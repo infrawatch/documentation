@@ -91,7 +91,7 @@ Router Links
   endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0
 ----
 
-To list the addresses from {OpenStack} nodes to {ProjectShort}, connect with the `oc` client to {OpenShiftShort} to get the {MessageBus} pod name then list the connections.
+To list the addresses from {OpenStack} nodes to {ProjectShort},  connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections:
 
 . List the available QDR pods:
 +
