@@ -36,6 +36,10 @@
 //Intro
 include::../modules/con_advanced-features.adoc[leveloffset=+1]
 
+// Customizing the deployment (manifest overrides)
+include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
+include::../modules/proc_configuring-manifest-overrides.adoc[leveloffset=+2]
+
 //Alerts
 include::../modules/con_alerts.adoc[leveloffset=+1]
 include::../modules/proc_creating-an-alert-rule-in-prometheus.adoc[leveloffset=+2]
@@ -64,7 +68,3 @@ include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
-
-// Customizing the deployment (manifest overrides)
-include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
-include::../modules/proc_configuring-manifest-overrides.adoc[leveloffset=+2]
