@@ -23,15 +23,41 @@
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
 = Configuring {OpenStack} overcloud for {ProjectShort}
 
-To configure the {OpenStack} overcloud, you must configure collectd and {MessageBus}:
+To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}:
 
-. Create a file and name it `stf-connectors.yaml`.
-. Save the file in the `/home/stack` directory.
-. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter. For more information, see <<retrieving-the-qdr-route-address>>.
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. The following sample is from the `stf-connectors.yaml` environment file:
+. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter in `stf-connectors.yaml`. For more information, see <<retrieving-the-qdr-route-address>>.
+. Login to the {OpenStack} undercloud.
+. Create a file and name it `stf-connectors.yaml`. For more information, see <<creating-stf-connectors>>.
+. Deploy the overcloud with the required environment files. For more information, see <<deploying-the-overcloud>>.
+. Validate the client-side installation. For more information, see <<validating-clientside-installation_completing-the-stf-configuration>>.
+
+[[retrieving-the-qdr-route-address]]
+== Retrieving the QDR route address
+
+When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the QDR route address for the `MetricsQdrConnectors` host parameter. Login to your {OpenShift} environment and use `oc get routes` in the `service-telemetry` project:
+
+. Run the `oc get routes` command:
++
+----
+oc get routes
+NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
+stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
+stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
+stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None
+----
+
+. Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671` route.
+
+[[creating-stf-connectors]]
+== Creating the {ProjectShort} connection file
+
+After logging into the {OpenStack} undercloud as the `stack` user, create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory:
+
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you are enabling collection of Ceilometer events and transporting them to {ProjectShort}. Replace the `host` parameter with the value retrieved in <<retrieving-the-qdr-route-address>>:
 +
 ----
 parameter_defaults:
+    CeilometerQdrPublishEvents: true
     MetricsQdrConnectors:
     - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
@@ -40,7 +66,12 @@ parameter_defaults:
       verifyHostname: false
 ----
 
-. Add the `stf-connectors.yaml` environment file to a {OpenStack}{OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}. Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the `ceilometer-write-qdr.yaml` file to the deployment to ensure that Ceilometer telemetry is sent to {ProjectShort}:
+[[deploying-the-overcloud]]
+== Deploying the overcloud
+
+From the {OpenStack} undercloud, update the `openstack overcloud deploy` command to include the prerequisite environment files along with `stf-connectors.yaml`:
+
+. Add the `stf-connectors.yaml` environment file to a {OpenStack} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}. Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the `ceilometer-write-qdr.yaml` file to the deployment to ensure that Ceilometer telemetry is sent to {ProjectShort}:
 +
 ----
 openstack overcloud deploy <other arguments>
@@ -51,28 +82,4 @@ openstack overcloud deploy <other arguments>
   --environment-file /home/stack/stf-connectors.yaml
 ----
 
-[[retrieving-the-qdr-route-address]]
-== Retrieving the QDR route address
-
-When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the QDR route address for the `MetricsQdrConnectors` host parameter.
-
-. Run the `oc get routes` command:
-+
-----
-oc get routes
-NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
-stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          stf-default-interconnect   55671   passthrough/None   None
-stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   5671    passthrough/None   None
-stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   8672    edge/Redirect      None
-----
-
-. Use the value in `HOST/PORT` for the `stf-default-interconnect-5671` route for the `MetricsQdrConnectors` host value, for example:
-+
-----
-        MetricsQdrConnectors:
-            - host: stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com
-              port: 443
-              role: edge
-              verifyHostname: false
-              sslProfile: sslProfile
-----
+. Deploy the {OpenStack} overcloud.
