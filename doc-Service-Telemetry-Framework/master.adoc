@@ -1,7 +1,7 @@
 = Service Telemetry Framework
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
-:vernum: 13
+:vernum: 16
 :toc: left
 :compat-mode:
 :doctype: book
