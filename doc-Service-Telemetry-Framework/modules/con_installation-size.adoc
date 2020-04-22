@@ -32,7 +32,7 @@ The size of your {OpenShift} installation depends on the following factors:
 * The resolution of metrics.
 * The length of time that you want to store the data.
 
-Installation of {Project} ({ProjectShort}) depends on an existing {OpenShift} environment. It is recommended that you monitor {OpenStack} on an installed platform separate from your {OpenStack} environment. You can install {OpenShift} ({OpenShiftShort}) on baremetal or various supported cloud platforms. For more information about installing {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities.
+Installation of {Project} ({ProjectShort}) depends on an existing {OpenShift} environment. It is recommended that install monitoring of {OpenStack} on an installed platform separate from your {OpenStack} environment. You can install {OpenShift} ({OpenShiftShort}) on baremetal or various supported cloud platforms. For more information about installing {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities [OpenShift Container Platform 4.3 Documentation].
 
 The sizing of {OpenShiftShort} depends on the infrastructure you select. For more information about minimum resources requirements when installing {OpenShiftShort} on baremetal, see https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal. For installation requirements of the various public and private cloud platforms to which you can install, see the corresponding installation documentation for your cloud of choice.
 
