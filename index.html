@@ -2130,7 +2130,7 @@ service-telemetry-grafanadatasource   1m</pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>To view and edit queries, log in as user <code>admin</code>.</p>
+<p>To view and edit queries, log in as the <code>admin</code> user.</p>
 </li>
 <li>
 <p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
@@ -2145,7 +2145,7 @@ service-telemetry-grafanadatasource   1m</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="operating-the-dashboard_advanced-features">Operating the dashboard</h4>
+<h4 id="the-grafana-infrastructure-dashboard_advanced-features">The Grafana infrastructure dashboard</h4>
 <div class="paragraph">
 <p>The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
 </div>
@@ -2214,7 +2214,7 @@ service-telemetry-grafanadatasource   1m</pre>
 <div class="sect4">
 <h5 id="_networking_panels">Networking panels</h5>
 <div class="paragraph">
-<p>Panels pertaining to the network interfaces of the node.</p>
+<p>Panels that display the network interfaces of the node.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2281,7 +2281,7 @@ Incoming packets per second</p></td>
 <div class="sect4">
 <h5 id="_cpu_panels">CPU panels</h5>
 <div class="paragraph">
-<p>Panels pertaining to CPU usage of the node.</p>
+<p>Panels that display CPU usage of the node.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2300,17 +2300,17 @@ Incoming packets per second</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Current CPU Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instantaneous usage at the time of the last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instantaneous usage at the time of the last query.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate CPU Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average non-idle CPU activity of all cores on node</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average non-idle CPU activity of all cores on a node.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aggr. CPU Usage by Type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shows time spent for each type of thread averaged across all cores</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows time spent for each type of thread averaged across all cores.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2318,7 +2318,7 @@ Incoming packets per second</p></td>
 <div class="sect4">
 <h5 id="_memory_panels">Memory panels</h5>
 <div class="paragraph">
-<p>Panels pertaining to memory usage on the node.</p>
+<p>Panels that display memory usage on the node.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2337,12 +2337,12 @@ Incoming packets per second</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory Used</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of memory being used at time of last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of memory being used at time of last query.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Huge Pages Used</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">hugepages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of hugepages being used</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of hugepages being used.</p>
 <p class="tableblock">Memory</p></td>
 </tr>
 </tbody>
@@ -2351,7 +2351,7 @@ Incoming packets per second</p></td>
 <div class="sect4">
 <h5 id="_diskfile_system">Disk/file system</h5>
 <div class="paragraph">
-<p>Panels pertaining to space used on disk.</p>
+<p>Panels that display space used on disk.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2372,20 +2372,20 @@ Incoming packets per second</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Space Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk use at time of last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk use at time of last query.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inode Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode use at time of last query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode use at time of last query.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate Disk Space Usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Total disk space used and reserved.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Traffic</p></td>
@@ -2397,7 +2397,7 @@ Incoming packets per second</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Load</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a></p></td>
+The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2409,7 +2409,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Average I/O Operation Time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">seconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. Per the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>, this average is not accurate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. This average is not accurate, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3929,7 +3929,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-22 17:21:26 UTC
+Last updated 2020-04-23 12:51:42 UTC
 </div>
 </div>
 </body>
