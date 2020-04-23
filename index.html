@@ -463,13 +463,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</a></li>
+<li><a href="#connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</a></li>
+<li><a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a></li>
 <li><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a></li>
 </ul>
 </li>
-<li><a href="#configuring-stf-components_completing-the-stf-configuration">Configuring Service&#160;Telemetry&#160;Framework data collection</a></li>
-<li><a href="#advanced-features_configuring-stf-components">Advanced features</a>
+<li><a href="#advanced-features_completing-the-stf-configuration">Advanced features</a>
 <ul class="sectlevel2">
 <li><a href="#manifest-overrides_advanced-features">Customizing The Deployment</a></li>
 <li><a href="#alerts_advanced-features">Alerts</a></li>
@@ -1291,14 +1291,13 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <h2 id="completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="configuring-openstack-on-the-client-side_completing-the-stf-configuration">Configuring OpenStack on the client side</h3>
+<h3 id="connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>To collect metrics, events, or both, and to send them back to the STF
-storage domain, you must install collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router on the nodes of an
-OpenStack deployment. If you want to deploy with routed L3 networks, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
+<p>To collect metrics, events, or both, and to send then back to the STF STF storage domain, the OpenStack overcloud needs to be configured to enable data collect and transport. If you want to deploy with routed L3 networks (such as DCN or Spine and Leaf), see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
 </div>
-<div class="sect3">
-<h4 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h4>
+</div>
+<div class="sect2">
+<h3 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h3>
 <div class="paragraph">
 <p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology.</p>
 </div>
@@ -1316,57 +1315,34 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see <a href
 <p>For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
 <h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</h3>
 <div class="paragraph">
-<p>To configure the OpenStack overcloud, you must configure collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a file and name it <code>stf-connectors.yaml</code>.</p>
+<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter in <code>stf-connectors.yaml</code>. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>.</p>
 </li>
 <li>
-<p>Save the file in the <code>/home/stack</code> directory.</p>
+<p>Login to the OpenStack undercloud.</p>
 </li>
 <li>
-<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>.</p>
+<p>Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router bus on the overcloud to the STF deployment. The following sample is from the <code>stf-connectors.yaml</code> environment file:</p>
-<div class="listingblock">
-<div class="content">
-<pre>parameter_defaults:
-    MetricsQdrConnectors:
-  - host: qdr-white-port-5671-service-telemetry.apps.service-telemetry.tld
-    port: 443
-    role: edge
-    sslProfile: sslProfile
-    verifyHostname: false
-  MetricsQdrSSLProfiles:
-  - name: sslProfile</pre>
-</div>
-</div>
+<p>Deploy the overcloud with the required environment files. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
 </li>
 <li>
-<p>Add the <code>stf-connectors.yaml</code> environment file to a OpenStackTripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router. Add the <code>enable-stf.yaml</code> file to the deployment to ensure that the environment is being used during the overcloud deployment:</p>
-<div class="listingblock">
-<div class="content">
-<pre>openstack overcloud deploy &lt;other arguments&gt;
--e /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml
--e /home/stack/stf-connectors.yaml
--e &lt;other-environment-files&gt;
--e &lt;other-configuration-files&gt;</pre>
-</div>
-</div>
+<p>Validate the client-side installation. For more information, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </li>
 </ol>
 </div>
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address">Retrieving the QDR route address</h4>
 <div class="paragraph">
-<p>When you configure the OpenStack overcloud for STF, you must provide the QDR route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
+<p>When you configure the OpenStack overcloud for STF, you must provide the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. Login to your OpenShift environment and use <code>oc get routes</code> in the <code>service-telemetry</code> project:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1376,24 +1352,65 @@ OpenStack deployment. If you want to deploy with routed L3 networks, see <a href
 <div class="content">
 <pre>oc get routes
 NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
-stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          stf-default-interconnect   55671   passthrough/None   None
-stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   5671    passthrough/None   None
-stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com           stf-default-interconnect   8672    edge/Redirect      None</pre>
+stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
+stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
+stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Use the value in <code>HOST/PORT</code> for the <code>stf-default-interconnect-5671</code> route for the <code>MetricsQdrConnectors.host</code> value, for example:</p>
+<p>Note the value in the <code>HOST/PORT</code> column for the <code>stf-default-interconnect-5671</code> route.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-stf-connectors">Creating the STF connection file</h4>
+<div class="paragraph">
+<p>After logging into the OpenStack undercloud as the <code>stack</code> user, create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router bus on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter if you are enabling collection of Ceilometer events and transporting them to STF. Replace the <code>host</code> parameter with the value retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>        MetricsQdrConnectors:
-            - host: stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com
-              port: 443
-              role: edge
-              verifyHostname: false
-              sslProfile: sslProfile</pre>
+<pre>parameter_defaults:
+    CeilometerQdrPublishEvents: true
+    MetricsQdrConnectors:
+    - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+      port: 443
+      role: edge
+      sslProfile: sslProfile
+      verifyHostname: false</pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deploying-the-overcloud">Deploying the overcloud</h4>
+<div class="paragraph">
+<p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the <code>stf-connectors.yaml</code> environment file to a OpenStack TripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router. Add the <code>enable-stf.yaml</code> file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the <code>ceilometer-write-qdr.yaml</code> file to the deployment to ensure that Ceilometer telemetry is sent to STF:</p>
+<div class="listingblock">
+<div class="content">
+<pre>openstack overcloud deploy &lt;other arguments&gt;
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file &lt;...other-environment-files...&gt; \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Deploy the OpenStack overcloud.</p>
 </li>
 </ol>
 </div>
@@ -1402,57 +1419,169 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="sect2">
 <h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h3>
 <div class="paragraph">
-<p>Ensure that collectd is connected to QDR and that QDR is connected to STF. Use qdstat to validate this. Can also refer to AMQ Interconnect documentation on how to manage AMQ via qdstat.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configuring-stf-components_completing-the-stf-configuration">Configuring Service&#160;Telemetry&#160;Framework data collection</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>After you install the Service&#160;Telemetry&#160;Framework (STF) server-side components, configure collectd to collect data and store it on the cloud platform side.</p>
+<p>Data collection can be validated from the STF storage domain by querying the data sources for delivered data. To validate individual nodes in the OpenStack deployment first connect to the console via SSH.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the <code>/usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-standalone.yaml</code> file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the <code>ExtraConfig</code> section:</p>
+<p>Log in to an overcloud node, for example, controller-0:</p>
+</li>
+<li>
+<p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre>parameter_defaults:
-   CollectdExtraPlugins:
-     - disk
-     - df
-     - virt
+<pre>$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
 
-   ExtraConfig:
-     collectd::plugin::virt::connection: "qemu:///system"
-     collectd::plugin::virt::hostname_format: "hostname uuid"</pre>
+running</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>By default, collectd includes the <code>disk</code>, <code>interface</code>, <code>load</code>, <code>memory</code>, <code>processes</code>, and <code>tcpconns</code> plug-ins. You can add additional plug-ins using the <code>CollectdExtraPlugins</code> parameter. You can also provide additional configuration information for the <code>CollectdExtraPlugins</code> by using the <code>ExtraConfig</code> option, as shown. The <code>CollectdExtraPlugins</code> example adds the <code>virt</code> plug-in, and configures the connection string and the hostname format.</p>
 </div>
 </li>
 <li>
-<p>Include the modified YAML files in the <code>openstack overcloud deploy</code> command:</p>
+<p>Return the internal network address on which Apache&#160;Qpid&#160;Dispatch&#160;Router is running, for example, <code>172.17.1.44</code> listening on port <code>5666</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ openstack overcloud deploy
---templates /home/templates/environments/collectd.yaml \
--e /home/templates/custom/collectd-standalone.yaml</pre>
+<pre>$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+
+listener {
+    host: 172.17.1.44
+    port: 5666
+    authenticatePeer: no
+    saslMechanisms: ANONYMOUS
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Return a list of connections to the local Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+
+Connections
+  id   host                                                                                               container                                                                                                  role    dir  security                            authentication  tenant
+  ============================================================================================================================================================================================================================================================================================
+  1    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  12   172.17.1.44:60290                                                                                  openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
+  16   172.17.1.44:36408                                                                                  metrics                                                                                                    normal  in   no-security                         anonymous-user
+  899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There are four connections:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Outbound connection to STF</p>
+</li>
+<li>
+<p>Inbound connection from collectd</p>
+</li>
+<li>
+<p>Inbound connection from ceilometer</p>
+</li>
+<li>
+<p>Inbound connection from our <code>qdstat</code> client</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The outbound STF connection is provided to the <code>MetricsQdrConnectors</code> host parameter and is the route for the STF storage domain. The other hosts are internal network addresses of the client connections to this Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To ensure that messages are being delivered, list the links and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+Router Links
+  type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel  mod  delay  rate
+  ===========================================================================================================================================================
+  endpoint  out  1        5           local   _edge                      250  0    0      0       2979926  2979924  0       0    0    2    0    0      0
+  endpoint  in   1        6                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   1        7                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  out  1        8                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   1        9                                              250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  out  1        10                                             250  0    0      0       911      911      0       0    0    0    0    911    0
+  endpoint  in   1        11                                             250  0    0      0       0        911      0       0    0    0    0    0      0
+  endpoint  out  12       32          local   temp.lSY6Mcicol4J2Kp       250  0    0      0       0        0        0       0    0    0    0    0      0
+  endpoint  in   16       41                                             250  0    0      0       2979924  2979924  0       0    0    0    0    0      0
+  endpoint  in   912      1834        mobile  $management           0    250  0    0      0       1        0        0       1    0    0    0    0      0
+  endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To list the addresses from OpenStack nodes to STF,  connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get pods -l application=stf-default-interconnect
+
+NAME                                        READY   STATUS    RESTARTS   AGE
+stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+2020-04-21 18:25:47.243852 UTC
+stf-default-interconnect-7458fd4d69-bgzfb
+
+Connections
+  id  host               container                                                             role    dir  security                                authentication  tenant  last dlv      uptime
+  ======================================================================================================================================================================================================
+  1   10.129.2.21:43062  rcv[stf-default-collectd-telemetry-smartgateway-79c967c8f7-kq4qv]     normal  in   no-security                             anonymous-user          000:00:00:00  006:21:50:25
+  2   10.130.0.52:55754  rcv[stf-default-ceilometer-notification-smartgateway-6675df547mbjk5]  normal  in   no-security                             anonymous-user          000:21:25:57  006:21:49:36
+  3   10.130.0.51:43110  rcv[stf-default-collectd-notification-smartgateway-698c87fbb7-f28v6]  normal  in   no-security                             anonymous-user          000:21:36:53  006:21:49:09
+  22  10.128.0.1:51948   Router.ceph-0.redhat.local                                            edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  23  10.128.0.1:51950   Router.compute-0.redhat.local                                         edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  24  10.128.0.1:52082   Router.controller-0.redhat.local                                      edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
+  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                                  normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To view the collectd plug-ins and configurations, see <a href="#appe-stf-collectd-plugins">collectd plug-ins</a>.</p>
+<p>In this example, there are three <code>edge</code> connections from our OpenStack nodes with connection <code>id</code> 22, 23, and 24.</p>
+</div>
+</li>
+<li>
+<p>To view the number of messages delivered by the network, use each address in the <code>oc exec</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+
+2020-04-21 18:20:10.293258 UTC
+stf-default-interconnect-7458fd4d69-bgzfb
+
+Router Addresses
+  class   addr                              phs  distrib    pri  local  remote  in         out        thru  fallback
+  ====================================================================================================================
+  mobile  anycast/ceilometer/event.sample   0    balanced   -    1      0       1,553      1,553      0     0
+  mobile  collectd/notify                   0    multicast  -    1      0       10         10         0     0
+  mobile  collectd/telemetry                0    multicast  -    1      0       7,798,049  7,798,049  0     0</pre>
+</div>
 </div>
 </li>
 </ol>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="advanced-features_configuring-stf-components">Advanced features</h2>
+<h2 id="advanced-features_completing-the-stf-configuration">Advanced features</h2>
 <div class="sectionbody">
 <div id="advanced-features_advanced-features" class="paragraph">
 <p>The following features are optional but can provide additional functionality to the Service Telemetry Framework:</p>
@@ -3917,7 +4046,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-23 14:18:42 UTC
+Last updated 2020-04-23 14:19:07 UTC
 </div>
 </div>
 </body>
