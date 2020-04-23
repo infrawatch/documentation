@@ -1,0 +1,28 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/con_connecting-openstack.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: con_my-concept-module-a.adoc
+// * ID: [id='con_my-concept-module-a_{context}']
+// * Title: = My concept module A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+// Do not start the title with a verb. See also _Wording of headings_
+// in _The IBM Style Guide_.
+[id="connecting-openstack_{context}"]
+= Connecting {OpenStack} to {Project}
+
+To collect metrics, events, or both, and to send then back to the {ProjectShort} STF storage domain, the {OpenStack} overcloud needs to be configured to enable data collect and transport. If you want to deploy with routed L3 networks (such as DCN or Spine and Leaf), see <<deploying-with-routed-l3-networks_completing-the-stf-configuration>>.

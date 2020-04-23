@@ -42,15 +42,10 @@
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-
-include::../modules/proc_setting-up-openstack-on-the-client-side.adoc[leveloffset=+1]
-include::../modules/proc_deploying-with-routed-l3-networks.adoc[leveloffset=+2]
+include::../modules/con_connecting-openstack.adoc[leveloffset=+1]
+include::../modules/proc_deploying-with-routed-l3-networks.adoc[leveloffset=+1]
 include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-//include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf-events.adoc[leveloffset=+1]
-//include::../modules/proc_updating-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-
 include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+1]
-
 
 // [leveloffset=+1] ensures that when a module starts with a level-1 heading
 // (= Heading), the heading will be interpreted as a level-2 heading
