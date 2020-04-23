@@ -20,8 +20,8 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="operating-the-dashboard_{context}"]
-= Operating the dashboard
+[id="the-grafana-infrastructure-dashboard_{context}"]
+= The Grafana infrastructure dashboard
 
 The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
@@ -43,7 +43,7 @@ The infrastructure dashboard shows metrics for a single node at a time. Select a
 
 
 == Networking panels
-Panels pertaining to the network interfaces of the node.
+Panels that display the network interfaces of the node.
 
 |===
 |**Panel** | **Unit** | **Description**
@@ -87,28 +87,28 @@ Outgoing packets drop rate
 |===
 
 == CPU panels
-Panels pertaining to CPU usage of the node.
+Panels that display CPU usage of the node.
 |===
 |**Panel** | **Unit** | **Description**
 
 | Current CPU Usage |
 percent |
-Instantaneous usage at the time of the last query
+Instantaneous usage at the time of the last query.
 
 
 | Aggregate CPU Usage |
 percent |
-Average non-idle CPU activity of all cores on node
+Average non-idle CPU activity of all cores on a node.
 
 
 | Aggr. CPU Usage by Type |
 percent |
-Shows time spent for each type of thread averaged across all cores
+Shows time spent for each type of thread averaged across all cores.
 |===
 
 
 == Memory panels
-Panels pertaining to memory usage on the node.
+Panels that display memory usage on the node.
 
 |===
 |**Panel** | **Unit** | **Description**
@@ -116,40 +116,40 @@ Panels pertaining to memory usage on the node.
 
 | Memory Used |
 percent |
-Amount of memory being used at time of last query
+Amount of memory being used at time of last query.
 
 
 | Huge Pages Used |
 hugepages |
-Number of hugepages being used
+Number of hugepages being used.
 
 
 Memory |
 bytes |
-Memory marked as “used” by the OS
+Memory marked as “used” by the OS.
 |===
 
 
 == Disk/file system
-Panels pertaining to space used on disk.
+Panels that display space used on disk.
 
 |===
 |**Panel** | **Unit** | **Description** | **Notes**
 
 | Disk Space Usage |
 percent |
-Total disk use at time of last query |
+Total disk use at time of last query. |
 
 
 | Inode Usage |
 percent |
-Total inode use at time of last query |
+Total inode use at time of last query. |
 
 
 | Aggregate Disk Space Usage |
 bytes |
 Total disk space used and reserved. |
-Because this query relies on the `df` plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive
+Because this query relies on the `df` plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive.
 
 | Disk Traffic |
 bytes/s |
@@ -159,7 +159,7 @@ Shows rates for both reading and writing. |
 | Disk Load |
 percent |
 Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs]  |
+The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs].  |
 
 
 | Operations/s |
@@ -169,5 +169,5 @@ Operations done per second |
 
 | Average I/O Operation Time |
 seconds |
-Average time each I/O operation took to complete. Per the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs], this average is not accurate. |
+Average time each I/O operation took to complete. This average is not accurate, see the collectd https://collectd.org/wiki/index.php/Plugin:Disk[disk plugin docs]. |
 |===
