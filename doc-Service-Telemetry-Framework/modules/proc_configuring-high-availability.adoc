@@ -23,7 +23,7 @@
 [id="configuring-high-availability_{context}"]
 = Configuring high availability
 
-To configure {ProjectShort} for high availability, you must add the `highAvailabilityEnabled: true` parameter to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+To configure {ProjectShort} for high availability, add `highAvailabilityEnabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 . Use the oc command to edit the ServiceTelemetry object:
 +
@@ -31,7 +31,7 @@ To configure {ProjectShort} for high availability, you must add the `highAvailab
     oc edit ServiceTelemetry
 ----
 
-. Add the `highAvailabilityEnabled: true` parameter to the `spec` section:
+. Add `highAvailabilityEnabled: true` to the `spec` section:
 +
 ----
 spec:
