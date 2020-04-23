@@ -699,7 +699,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
 </li>
 <li>
-<p><code>vm_max_count</code> has been set for nodes that ElasticSearch will be scheduled to using the Node Tuning Operator. For more information, see <a href="#node-tuning-operator">Node tuning operator</a>.</p>
+<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator">Node tuning operator</a>.</p>
 </li>
 </ul>
 </div>
@@ -730,10 +730,10 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <div class="sect3">
 <h4 id="node-tuning-operator">Node tuning operator</h4>
 <div class="paragraph">
-<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
+<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </div>
 <div class="paragraph">
-<p>You cannot apply node tuning, such as virtual memory map count values, manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information about the node tuning operator, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
+<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
@@ -4046,7 +4046,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-23 14:19:07 UTC
+Last updated 2020-04-23 14:38:01 UTC
 </div>
 </div>
 </body>
