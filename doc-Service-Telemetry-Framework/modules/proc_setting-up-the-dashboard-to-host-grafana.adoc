@@ -95,7 +95,7 @@ oc get routes
 [id="viewing-and-editing-queries"]
 == Viewing and editing queries
 
-. To view and edit queries, log in as user `admin`.
+. To view and edit queries, log in as the `admin` user.
 
 . To retrieve the default username and password, describe the Grafana object using `oc describe`:
 +
