@@ -66,8 +66,6 @@ EOF
 oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
 ----
 
-. View the pods and the status of the pods to determine that all workloads are operating nominally:
-
 +
 ----
 PLAY RECAP *********************************************************************
