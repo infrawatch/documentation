@@ -59,7 +59,8 @@ oc edit servicetelemetry stf-default
 
 . Add a new parameter, `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
 +
-NOTE: This will load the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly it is recommended to change a value and then return the `alertmanager-stf-default` secret and verify the new value is loaded into memory, for example changing the value `global.resolve_timeout` from `5m` to `10m`.
+NOTE:
+This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the `alertmanager-stf-default` secret, and verify that the new value is loaded into memory, for example, changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
 
 [source,yaml]
