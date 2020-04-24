@@ -49,6 +49,7 @@ Before you install {ProjectShort}, ensure that  OpenShift version 4.x is running
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
 include::../modules/proc_preparing-your-openshift-environment-for-stf.adoc[leveloffset=+1]
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
 

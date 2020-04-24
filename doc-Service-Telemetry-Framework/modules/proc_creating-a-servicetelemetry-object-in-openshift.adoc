@@ -1,0 +1,96 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="creating-a-servicetelemetry-object-in-openshift"]
+== Creating a ServiceTelemetry object in {OpenShiftShort}
+
+To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
+
+The following core parameters for a `ServiceTelemetry` manifest are available:
+
+|===
+| Parameter | Description | Default Value
+
+| `eventsEnabled` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <<subscribing-to-elastic-cloud-on-kubernetes-operator>>. | `false`
+
+| `metricsEnabled` | Enable metrics support in {ProjectShort}.| `true`
+
+
+| `highAvailabilityEnabled` | Enable high availability in {ProjectShort}. For more information, see <<high-availability_advanced-features>>. | `false`
+
+| `storageEphemeralEnabled` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage_advanced-features>>. | `false`
+|===
+
+[discrete]
+=== Procedure
+
+. To store events in ElasticSearch, set `eventsEnabled` to true during deployment:
++
+[source,bash]
+----
+oc apply -f - <<EOF
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  eventsEnabled: true
+  metricsEnabled: true
+EOF
+----
+
+. To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
++
+----
+oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
+----
+
++
+----
+PLAY RECAP *********************************************************************
+localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+----
+
+. View the pods and the status of each pod to determine that all workloads are operating nominally:
++
+NOTE: If you have set `eventsEnabled: true`, it is expected that the notification Smart Gateways will `Error` and `CrashLoopBackOff` for a period of time while ElasticSearch starts.
+
++
+----
+$ oc get pods
+
+NAME                                                              READY   STATUS             RESTARTS   AGE
+alertmanager-stf-default-0                                        2/2     Running            0          26m
+elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
+elasticsearch-es-default-0                                        1/1     Running            0          26m
+interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
+prometheus-operator-bf7d97fb9-kwnlx                               1/1     Running            0          46m
+prometheus-stf-default-0                                          3/3     Running            0          26m
+service-telemetry-operator-54f4c99d9b-k7ll6                       2/2     Running            0          46m
+smart-gateway-operator-7ff58bcf94-66rvx                           2/2     Running            0          46m
+stf-default-ceilometer-notification-smartgateway-6675df547q4lbj   1/1     Running            0          26m
+stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Running            0          26m
+stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
+stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m
+----

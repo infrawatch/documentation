@@ -28,7 +28,7 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 [discrete]
 == Procedure
 
-. Create a `PrometheusRule` object that contains the alert rule. The rule will be loaded into Prometheus by the Prometheus Operator:
+. Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
 ----
 oc apply -f - <<EOF
@@ -50,20 +50,20 @@ spec:
 EOF
 ----
 
-. To validate the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
+. To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
 +
 ----
 oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
-. Then run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
+. Run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
 +
 ----
 [ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
 ----
 
-. Validate the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, then exit from the pod:
+. To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit from the pod:
 +
 ----
 [ root@curl:/ ]$ exit
