@@ -45,7 +45,6 @@ The following core parameters for a `ServiceTelemetry` manifest are available:
 === Procedure
 
 . To store events in ElasticSearch, set `eventsEnabled` to true during deployment:
-
 +
 [source,bash]
 ----
