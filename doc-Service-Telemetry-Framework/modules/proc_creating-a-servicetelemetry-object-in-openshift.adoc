@@ -61,7 +61,6 @@ EOF
 ----
 
 . To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
-
 +
 ----
 oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
