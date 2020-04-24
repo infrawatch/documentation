@@ -31,6 +31,6 @@ You can add custom alerts to the `PrometheusRule` object that you created in <<c
 oc edit prometheusrules prometheus-alarm-rules
 ----
 
-. Edit the PrometheusRules manifest. For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/. For more information about prometheusrules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+. Edit the PrometheusRules manifest. For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/. For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
 
 . Save and close.
