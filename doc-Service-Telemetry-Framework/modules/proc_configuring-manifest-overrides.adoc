@@ -25,18 +25,22 @@
 
 Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see <<manifest-overrides_advanced-features>>. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
 
-TIP: The `oc edit` command will load the default system editor. To override the default editor pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`
+[TIP]
+The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`
 
-. Use the `oc edit` command to load the `ServiceTelemetry` object into an editor:
+. Load the `ServiceTelemetry` object into an editor:
 +
 ----
 oc edit servicetelemetry stf-default
 ----
 
-. Modify the `ServiceTelemetry` object by providing a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
+. To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
 +
-NOTE: Be aware of the trailing pipe (`|`) after entering the manifest override parameter which signals the value provided is multi-line.
+NOTE: The trailing pipe (`|`) after entering the manifest override parameter indicates that the value provided is multi-line.
+
 +
+[source,bash]
+
 ----
 $ oc edit servicetelemetry stf-default
 
@@ -55,7 +59,7 @@ metadata:
   uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
 spec:
   metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | # <1>
+  smartgatewayCollectdMetricsManifest: | <1>
     apiVersion: smartgateway.infra.watch/v2alpha1
     kind: SmartGateway
     metadata:
@@ -67,7 +71,7 @@ spec:
       prefetch: 15000
       serviceType: metrics
       size: 1
-      useTimestamp: true # <2>
+      useTimestamp: true <2>
 status:
   conditions:
   - ansibleResult:
@@ -82,7 +86,7 @@ status:
     status: "True"
     type: Running
 ----
-
++
 <1> Manifest override parameter is defined in the `spec` of the `ServiceTelemetry` object.
 <2> End of the manifest override content.
 
