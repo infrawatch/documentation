@@ -40,6 +40,7 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 [id="ephemeral-storage"]
 === Using ephemeral storage
 
+WARNING: 
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
 To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage_advanced-features>>.
