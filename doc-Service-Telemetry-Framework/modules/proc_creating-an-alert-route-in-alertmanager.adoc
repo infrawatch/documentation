@@ -23,7 +23,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an {OpenShift} secret by the Prometheus Operator. {ProjectShort} by default deploys a basic configuration that results in no receivers:
+Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
 
 ----
 alertmanager.yaml: |-
@@ -39,7 +39,7 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort} an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, deployed by the Prometheus Operator. For more information about customizing the deployment, see <<manifest-overrides>>.
+To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, deployed by the Prometheus Operator. For more information, see <<configuring-manifest-overrides_advanced-features>>.
 
 [discrete]
 == Procedure
@@ -61,7 +61,9 @@ oc edit servicetelemetry stf-default
 +
 NOTE: This will load the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly it is recommended to change a value and then return the `alertmanager-stf-default` secret and verify the new value is loaded into memory, for example changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
+
 [source,yaml]
+
 ----
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -91,7 +93,7 @@ spec:
         - name: 'null'
 ----
 
-. Validate the configuration was applied to the secret:
+. Verify that the configuration was applied to the secret:
 +
 ----
 $ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -122,7 +124,7 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 {"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n","configJSON":{"global":{"resolve_timeout":600000000000,"http_config":{"BasicAuth":null,"BearerToken":"","BearerTokenFile":"","ProxyURL":{},"TLSConfig":{"CAFile":"","CertFile":"","KeyFile":"","ServerName":"","InsecureSkipVerify":false}},"smtp_hello":"localhost","smtp_require_tls":true,"pagerduty_url":"https://events.pagerduty.com/v2/enqueue","hipchat_api_url":"https://api.hipchat.com/","opsgenie_api_url":"https://api.opsgenie.com/","wechat_api_url":"https://qyapi.weixin.qq.com/cgi-bin/","victorops_api_url":"https://alert.victorops.com/integrations/generic/20131114/alert/"},"route":{"receiver":"null","group_by":["job"],"group_wait":30000000000,"group_interval":300000000000,"repeat_interval":43200000000000},"receivers":[{"name":"null"}],"templates":null},"versionInfo":{"branch":"HEAD","buildDate":"20190503-09:10:07","buildUser":"root@932a86a52b76","goVersion":"go1.12.4","revision":"c7551cd75c414dc81df027f691e2eb21d4fd85b2","version":"0.17.0"},"uptime":"2020-04-14T20:30:33.12331159Z","clusterStatus":{"name":"01E5X65RMSDDTRNXGT86Z96810","status":"ready","peers":[{"name":"01E5X65RMSDDTRNXGT86Z96810","address":"10.128.0.19:9094"}]}}}
 ----
 
-. Validate the `configYAML` field contains the expected changes and exit from the pod:
+. Verify that the `configYAML` field contains the expected changes. Exit from the pod:
 +
 ----
 [ root@curl:/ ]$ exit
