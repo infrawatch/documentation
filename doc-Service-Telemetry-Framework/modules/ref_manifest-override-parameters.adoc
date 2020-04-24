@@ -23,7 +23,7 @@
 [id="manifest-override-parameters_{context}"]
 = Manifest override parameters
 
-This table describes the  available parameters that you can use to override a manifest, along with the corresponding retrieval commands.
+This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.
 
 .Manifest override parameters
 
