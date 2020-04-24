@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#advanced-features_completing-the-stf-configuration">Advanced features</a>
 <ul class="sectlevel2">
-<li><a href="#manifest-overrides_advanced-features">Customizing The Deployment</a></li>
+<li><a href="#manifest-overrides_advanced-features">Customizing the deployment</a></li>
 <li><a href="#alerts_advanced-features">Alerts</a></li>
 <li><a href="#high-availability_advanced-features">High availability</a></li>
 <li><a href="#dashboards_advanced-features">Dashboards</a></li>
@@ -711,10 +711,11 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <div class="sect4">
 <h5 id="ephemeral-storage">Using ephemeral storage</h5>
 <div class="paragraph">
-<p>It&#8217;s possible to use ephemeral storage with STF with a caveat that it can result in data loss should a pod be restarted, updated, or rescheduled onto another node. Due the volatility of ephemeral storage it is only recommended to be used for development or testing, and not production environments.</p>
+<p>WARNING:
+You can use ephemeral storage with STF. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.</p>
 </div>
 <div class="paragraph">
-<p>To enable ephemeral storage for STF set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</a>.</p>
+<p>To enable ephemeral storage for STF, set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</a>.</p>
 </div>
 </div>
 </div>
@@ -1099,7 +1100,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <div class="sect3">
 <h4 id="creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</h4>
 <div class="paragraph">
-<p>To deploy the Service Telemetry Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. By default, <code>eventsEnabled</code> is set to false. If you do not want to store events in ElasticSearch, ensure that <code>eventsEnabled</code> is set to false. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
+<p>To deploy the Service&#160;Telemetry&#160;Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. By default, <code>eventsEnabled</code> is set to false. If you do not want to store events in ElasticSearch, ensure that <code>eventsEnabled</code> is set to false. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
 </div>
 <div class="paragraph">
 <p>The following core parameters for a <code>ServiceTelemetry</code> manifest are available:</p>
@@ -1110,27 +1111,33 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <col style="width: 33.3333%;"/>
 <col style="width: 33.3334%;"/>
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>eventsEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable events support in STF. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>. The default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable events support in STF. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable metrics support in STF. The default value is <code>true</code>.</p>
-<p class="tableblock">=======</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable metrics support in STF.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>highAvailabilityEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable high availability in STF. For more information, see <a href="#high-availability_advanced-features">High availability</a>. Default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable high availability in STF. For more information, see <a href="#high-availability_advanced-features">High availability</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageEphemeralEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{true|false}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ephemeral storage support in STF. For more information, see <a href="#ephemeral-storage_advanced-features">Ephemeral Storage</a>. Default value is <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ephemeral storage support in STF. For more information, see <a href="#ephemeral-storage_advanced-features">Ephemeral Storage</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1161,9 +1168,6 @@ EOF</code></pre>
 <pre>oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible</pre>
 </div>
 </div>
-</li>
-<li>
-<p>View the pods and the status of the pods to determine that all workloads are operating nominally:</p>
 <div class="listingblock">
 <div class="content">
 <pre>PLAY RECAP *********************************************************************
@@ -1584,12 +1588,12 @@ Router Addresses
 <h2 id="advanced-features_completing-the-stf-configuration">Advanced features</h2>
 <div class="sectionbody">
 <div id="advanced-features_advanced-features" class="paragraph">
-<p>The following features are optional but can provide additional functionality to the Service Telemetry Framework:</p>
+<p>The following optional features can provide additional functionality to the Service&#160;Telemetry&#160;Framework:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Customizing the deployment. For more information, see <a href="#manifest-overrides_advanced-features">Customizing The Deployment</a>.</p>
+<p>Customizing the deployment. For more information, see <a href="#manifest-overrides_advanced-features">Customizing the deployment</a>.</p>
 </li>
 <li>
 <p>Alerts. For more information, see <a href="#alerts_advanced-features">Alerts</a>.</p>
@@ -1609,9 +1613,9 @@ Router Addresses
 </ul>
 </div>
 <div class="sect2">
-<h3 id="manifest-overrides_advanced-features">Customizing The Deployment</h3>
+<h3 id="manifest-overrides_advanced-features">Customizing the deployment</h3>
 <div class="paragraph">
-<p>The Service Telemetry Operator watches for a <code>ServiceTelemetry</code> manifest to be loaded into OKD which then creates other objects in memory to result in the dependent Operators creating the workloads they are responsible for managing.</p>
+<p>The Service Telemetry Operator watches for a <code>ServiceTelemetry</code> manifest to load into OpenShift (OKD). The Operator then creates other objects in memory, which results in the dependent Operators creating the workloads they are responsible for managing.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1620,18 +1624,24 @@ Router Addresses
 <div class="title">Warning</div>
 </td>
 <td class="content">
-When overriding the manifest the entire manifest contents including object names or namespaces must be provided. No dynamic parameter substitution will be done when overriding manifests.
+When you override the manifest, you must provide the entire manifest contents, including object names or namespaces. There is no dynamic parameter substitution when you override a manifest.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>To override manifests in a way that works with STF, deploy a default environment using the core options only. For more information about the core options, see <a href="#creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</a>. When deploying STF, use the <code>oc get</code> command to retrieve the default deployed manifest. Using a manifest originally generated by Service Telemetry Operator helps to keep manifests compatible with the other objects that are managed by the Operators.</p>
+<p>To override a manifest successfully with Service&#160;Telemetry&#160;Framework (STF), deploy a default environment using the core options only. For more information about the core options, see <a href="#creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</a>. When you deploy STF, use the <code>oc get</code> command to retrieve the default deployed manifest. When you use a manifest that was originally generated by Service Telemetry Operator, the manifest is compatible with the other objects that are managed by the Operators.</p>
 </div>
 <div class="paragraph">
-<p>For example, when the <code>metricsEnabled: true</code> parameter is configured in the <code>ServiceTelemetry</code> manifest, the Service Telemetry Operator will request components for metrics retrieval and storage using the default manifests. In some cases however you may want to override the default manifest. The available manifest override parameters available are:</p>
+<p>For example, when the <code>metricsEnabled: true</code> parameter is configured in the <code>ServiceTelemetry</code> manifest, the Service Telemetry Operator requests components for metrics retrieval and storage using the default manifests. In some cases, you might want to override the default manifest. For more information, see <a href="#manifest-override-parameters_advanced-features">Manifest override parameters</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="manifest-override-parameters_advanced-features">Manifest override parameters</h4>
+<div class="paragraph">
+<p>This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Manifest override parameters</caption>
 <colgroup>
 <col style="width: 33.3333%;"/>
 <col style="width: 33.3333%;"/>
@@ -1639,7 +1649,7 @@ When overriding the manifest the entire manifest contents including object names
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Override Parameter</th>
+<th class="tableblock halign-left valign-top">Override parameter</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Retrieval command</th>
 </tr>
@@ -1652,7 +1662,7 @@ When overriding the manifest the entire manifest contents including object names
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerConfigManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Secret</code> that contains the Alertmanager configuration. The Prometheus Operator uses a secret named <code>alertmanager-{{ alertmanager-name }}</code> (for example, <code>stf-default</code>) to provide the <code>alertmanager.yaml</code> configuration to to Alertmanager.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Secret</code> that contains the Alertmanager configuration. The Prometheus Operator uses a secret named <code>alertmanager-{{ alertmanager-name }}</code>, for example, <code>stf-default</code>, to provide the <code>alertmanager.yaml</code> configuration to Alertmanager.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get secret alertmanager-stf-default -oyaml</code></p></td>
 </tr>
 <tr>
@@ -1692,10 +1702,11 @@ When overriding the manifest the entire manifest contents including object names
 </tr>
 </tbody>
 </table>
+</div>
 <div class="sect3">
 <h4 id="configuring-manifest-overrides_advanced-features">Overriding a managed manifest</h4>
 <div class="paragraph">
-<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_advanced-features">Customizing The Deployment</a>. The default <code>ServiceTelemetry</code> object is <code>stf-default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
+<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_advanced-features">Customizing the deployment</a>. The default <code>ServiceTelemetry</code> object is <code>stf-default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1704,7 +1715,7 @@ When overriding the manifest the entire manifest contents including object names
 <div class="title">Tip</div>
 </td>
 <td class="content">
-The <code>oc edit</code> command will load the default system editor. To override the default editor pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>
+The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>
 </td>
 </tr>
 </table>
@@ -1712,7 +1723,7 @@ The <code>oc edit</code> command will load the default system editor. To overrid
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Use the <code>oc edit</code> command to load the <code>ServiceTelemetry</code> object into an editor:</p>
+<p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc edit servicetelemetry stf-default</pre>
@@ -1720,7 +1731,7 @@ The <code>oc edit</code> command will load the default system editor. To overrid
 </div>
 </li>
 <li>
-<p>Modify the <code>ServiceTelemetry</code> object by providing a manifest override parameter and the contents of the manifest to write to OKD instead of the defaults provided by STF.</p>
+<p>To modify the <code>ServiceTelemetry</code> object, provide a manifest override parameter and the contents of the manifest to write to OKD instead of the defaults provided by STF.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1728,14 +1739,14 @@ The <code>oc edit</code> command will load the default system editor. To overrid
 <div class="title">Note</div>
 </td>
 <td class="content">
-Be aware of the trailing pipe (<code>|</code>) after entering the manifest override parameter which signals the value provided is multi-line.
+The trailing pipe (<code>|</code>) after entering the manifest override parameter indicates that the value provided is multi-line.
 </td>
 </tr>
 </table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit servicetelemetry stf-default
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit servicetelemetry stf-default
 
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -1752,7 +1763,7 @@ metadata:
   uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
 spec:
   metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | # <b class="conum">(1)</b>
+  smartgatewayCollectdMetricsManifest: | <b class="conum">(1)</b>
     apiVersion: smartgateway.infra.watch/v2alpha1
     kind: SmartGateway
     metadata:
@@ -1764,7 +1775,7 @@ spec:
       prefetch: 15000
       serviceType: metrics
       size: 1
-      useTimestamp: true # <b class="conum">(2)</b>
+      useTimestamp: true <b class="conum">(2)</b>
 status:
   conditions:
   - ansibleResult:
@@ -1777,11 +1788,8 @@ status:
     message: Awaiting next reconciliation
     reason: Successful
     status: "True"
-    type: Running</pre>
+    type: Running</code></pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="colist arabic">
 <ol>
@@ -1790,13 +1798,12 @@ status:
 </li>
 <li>
 <p>End of the manifest override content.</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Save and close.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Save and close.</p>
 </li>
 </ol>
 </div>
@@ -1805,7 +1812,7 @@ status:
 <div class="sect2">
 <h3 id="alerts_advanced-features">Alerts</h3>
 <div class="paragraph">
-<p>Alerting with Prometheus is separated into two parts. First, alerting rules in Prometheus servers send alerts to an Alertmanager. Second, the Alertmanager manages the alerts, including silencing, inhibition, aggregation, and sending out notifications using email, on-call notification systems, or chat platforms. You can configure alerts to receive notifications, for example, when the load average of a node gets higher than 1.0 or when a disk is almost full.</p>
+<p>You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications using email, on-call notification systems, or chat platforms.</p>
 </div>
 <div class="paragraph">
 <p>To create an alert, complete the following tasks:</p>
@@ -1836,7 +1843,7 @@ status:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a <code>PrometheusRule</code> object that contains the alert rule. The rule will be loaded into Prometheus by the Prometheus Operator:</p>
+<p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc apply -f - &lt;&lt;EOF
@@ -1860,7 +1867,7 @@ EOF</pre>
 </div>
 </li>
 <li>
-<p>To validate the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
+<p>To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</pre>
@@ -1868,7 +1875,7 @@ EOF</pre>
 </div>
 </li>
 <li>
-<p>Then run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
+<p>Run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
 <div class="listingblock">
 <div class="content">
 <pre>[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
@@ -1877,7 +1884,7 @@ EOF</pre>
 </div>
 </li>
 <li>
-<p>Validate the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, then exit from the pod:</p>
+<p>To verify that the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre>[ root@curl:/ ]$ exit</pre>
@@ -1917,7 +1924,7 @@ pod "curl" deleted</pre>
 </div>
 </li>
 <li>
-<p>Adjust the PrometheusRules manifest. For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>. For more information about prometheusrules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+<p>Edit the PrometheusRules manifest. For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>. For more information about PrometheusRules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </li>
 <li>
 <p>Save and close.</p>
@@ -1928,7 +1935,7 @@ pod "curl" deleted</pre>
 <div class="sect3">
 <h4 id="creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</h4>
 <div class="paragraph">
-<p>Use Alertmanager to deliver alerts to an external system, for example, email, IRC, or other notification channel. The Alertmanager configuration is managed as an OpenShift secret by the Prometheus Operator. STF by default deploys a basic configuration that results in no receivers:</p>
+<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an OpenShift secret. STF by default deploys a basic configuration that results in no receivers:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1946,7 +1953,7 @@ pod "curl" deleted</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To deploy a custom Alertmanager route with STF an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, deployed by the Prometheus Operator. For more information about customizing the deployment, see <a href="#manifest-overrides">[manifest-overrides]</a>.</p>
+<p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <a href="#configuring-manifest-overrides_advanced-features">Overriding a managed manifest</a>.</p>
 </div>
 <h5 id="_procedure_6" class="discrete">Procedure</h5>
 <div class="olist arabic">
@@ -1972,17 +1979,9 @@ pod "curl" deleted</pre>
 </li>
 <li>
 <p>Add a new parameter, <code>alertmanagerConfigManifest</code> and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This will load the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly it is recommended to change a value and then return the <code>alertmanager-stf-default</code> secret and verify the new value is loaded into memory, for example changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>NOTE:
+This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-stf-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2016,7 +2015,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Validate the configuration was applied to the secret:</p>
+<p>Verify that the configuration was applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -2048,12 +2047,12 @@ receivers:
 <div class="content">
 <pre>[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
-{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n","configJSON":{"global":{"resolve_timeout":600000000000,"http_config":{"BasicAuth":null,"BearerToken":"","BearerTokenFile":"","ProxyURL":{},"TLSConfig":{"CAFile":"","CertFile":"","KeyFile":"","ServerName":"","InsecureSkipVerify":false}},"smtp_hello":"localhost","smtp_require_tls":true,"pagerduty_url":"https://events.pagerduty.com/v2/enqueue","hipchat_api_url":"https://api.hipchat.com/","opsgenie_api_url":"https://api.opsgenie.com/","wechat_api_url":"https://qyapi.weixin.qq.com/cgi-bin/","victorops_api_url":"https://alert.victorops.com/integrations/generic/20131114/alert/"},"route":{"receiver":"null","group_by":["job"],"group_wait":30000000000,"group_interval":300000000000,"repeat_interval":43200000000000},"receivers":[{"name":"null"}],"templates":null},"versionInfo":{"branch":"HEAD","buildDate":"20190503-09:10:07","buildUser":"root@932a86a52b76","goVersion":"go1.12.4","revision":"c7551cd75c414dc81df027f691e2eb21d4fd85b2","version":"0.17.0"},"uptime":"2020-04-14T20:30:33.12331159Z","clusterStatus":{"name":"01E5X65RMSDDTRNXGT86Z96810","status":"ready","peers":[{"name":"01E5X65RMSDDTRNXGT86Z96810","address":"10.128.0.19:9094"}]}}}</pre>
+{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Validate the <code>configYAML</code> field contains the expected changes and exit from the pod:</p>
+<p>Verify that the <code>configYAML</code> field contains the expected changes. Exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre>[ root@curl:/ ]$ exit</pre>
@@ -2795,20 +2794,20 @@ specific cloud.</p>
 <div class="sect2">
 <h3 id="ephemeral-storage_advanced-features">Ephemeral Storage</h3>
 <div class="paragraph">
-<p>Use ephemeral storage to run {ProjectShort) without persistently storing data in your OKD cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
+<p>Use ephemeral storage to run STF without persistently storing data in your OKD cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
 </div>
 <div class="paragraph">
-<p>Enabling ephemeral storage in STF results in the relevant <code>storage</code> sections not being added to the data storage components manifests by the Service Telemetry Operator.</p>
+<p>If you enable ephemeral storage in STF, the Service Telemetry Operator does not add the relevant <code>storage</code> sections to the data storage components manifests.</p>
 </div>
 <div class="sect3">
 <h4 id="configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</h4>
 <div class="paragraph">
-<p>To configure STF for ephemeral storage, you must add the <code>storageEphemeralEnabled: true</code> parameter to the ServiceTelemetry object in OKD. You can set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
+<p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Use the oc command to edit the ServiceTelemetry object:</p>
+<p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
 <pre>    oc edit ServiceTelemetry</pre>
@@ -4046,7 +4045,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-23 14:38:01 UTC
+Last updated 2020-04-24 15:56:08 UTC
 </div>
 </div>
 </body>
