@@ -655,7 +655,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <h2 id="installing-the-core-components-of-stf_introduction-to-stf">Installing the core components of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before you install STF, ensure that  OpenShift version 4.x is running and you understand the core components of the framework. As part of the OpenShift installation planning process though, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment.</p>
+<p>Before you install STF, ensure that OpenShift version 4.x is running and that you understand the core components of the framework. As part of the OpenShift installation planning process, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment.</p>
 </div>
 <div class="sect2">
 <h3 id="installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</h3>
@@ -690,7 +690,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure that persistent storage is available in your OpenShift cluster for storing data in a production system. For more information, see <a href="#persistent-volumes">Persistent volumes</a>.</p>
+<p>Ensure that persistent storage is available in your OpenShift cluster to permit a production grade deployment. For more information, see <a href="#persistent-volumes">Persistent volumes</a>.</p>
 </li>
 <li>
 <p>Ensure that enough resources are available to run the Operators and the application containers. For more information, see <a href="#resource-allocation">Resource allocation</a>.</p>
@@ -706,7 +706,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <div class="sect3">
 <h4 id="persistent-volumes">Persistent volumes</h4>
 <div class="paragraph">
-<p>STF uses persistent storage in OKD to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html" class="bare">https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html</a></p>
+<p>STF uses persistent storage in OKD to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html" class="bare">https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html</a></p>
 </div>
 <div class="sect4">
 <h5 id="ephemeral-storage">Using ephemeral storage</h5>
@@ -722,10 +722,10 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="sect3">
 <h4 id="resource-allocation">Resource allocation</h4>
 <div class="paragraph">
-<p>To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running and for the number of running resources. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
+<p>To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
 </div>
 <div class="paragraph">
-<p>The amount of resources you require to run STF depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
+<p>The amount of resources that you require to run STF depends on your environment and the number of nodes and clouds that you want to monitor. For recommendations about sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -768,15 +768,15 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="sect2">
 <h3 id="deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</h3>
 <div class="paragraph">
-<p>There are two ways in which you can deploy STF to the OKD environment:</p>
+<p>You can deploy STF to the OKD environment in one of two ways:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Storage of events with ElasticSearch. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch">Deploying STF to the OKD environment with ElasticSearch</a>.</p>
+<p>Deploy STF and store events with ElasticSearch. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch">Deploying STF to the OKD environment with ElasticSearch</a>.</p>
 </li>
 <li>
-<p>Without ElasticSearch and disabling events support. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
+<p>Deploy STF without ElasticSearch and disable events support. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
 </li>
 </ul>
 </div>
@@ -856,7 +856,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="sect3">
 <h4 id="creating-an-operatorgroup">Creating an OperatorGroup</h4>
 <div class="paragraph">
-<p>Create an OperatorGroup in the namespace to permit scheduling of the Operator pods:</p>
+<p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -929,7 +929,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate the creation of your OperatorSource, run the <code>oc get operatorsources</code> command. A successful import results in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconclied</code>.</p>
+<p>To validate the creation of your OperatorSource, run the <code>oc get operatorsources</code> command. A successful import results in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconciled</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
@@ -956,7 +956,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s</p
 <div class="sect3">
 <h4 id="subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</h4>
 <div class="paragraph">
-<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
+<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
 </div>
 <h5 id="_procedure" class="discrete">Procedure</h5>
 <div class="olist arabic">
@@ -1011,7 +1011,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 <div class="sect3">
 <h4 id="subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
 <div class="paragraph">
-<p>Before you install the Service Telemetry Operator and if you plan to store events in to ElasticSearch, you need to enable the Elastic Cloud Kubernetes Operator.</p>
+<p>Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
 </div>
 <h5 id="_procedure_2" class="discrete">Procedure</h5>
 <div class="olist arabic">
@@ -1038,7 +1038,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes succeeded, run the <code>oc get csv</code> command:</p>
+<p>To verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>succeeded</code>, run the <code>oc get csv</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get csv
@@ -1103,7 +1103,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <p>To deploy the Service&#160;Telemetry&#160;Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. By default, <code>eventsEnabled</code> is set to false. If you do not want to store events in ElasticSearch, ensure that <code>eventsEnabled</code> is set to false. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following core parameters for a <code>ServiceTelemetry</code> manifest are available:</p>
+<p>The following core parameters are available for a <code>ServiceTelemetry</code> manifest:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1184,7 +1184,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 <div class="title">Note</div>
 </td>
 <td class="content">
-If you have set <code>eventsEnabled: true</code>, it is expected that the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time while ElasticSearch starts.
+If you set <code>eventsEnabled: true</code>, the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time before ElasticSearch starts.
 </td>
 </tr>
 </table>
@@ -1216,7 +1216,7 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 <div class="sect2">
 <h3 id="removing-stf-from-the-openshift-environment_installing-the-core-components-of-stf">Removing STF from the OKD environment</h3>
 <div class="paragraph">
-<p>To remove STF from an OKD environment, complete the following tasks:</p>
+<p>Remove STF from an OKD environment if you no longer require the STF functionality:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1297,16 +1297,16 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect2">
 <h3 id="connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>To collect metrics, events, or both, and to send then back to the STF STF storage domain, the OpenStack overcloud needs to be configured to enable data collect and transport. If you want to deploy with routed L3 networks (such as DCN or Spine and Leaf), see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
+<p>To collect metrics, events, or both, and to send them to the STF storage domain, you must configure the OpenStack overcloud to enable data collect and transport. To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h3>
 <div class="paragraph">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a Spine and Leaf or a Distributed Compute Node (DCN) topology.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
 </div>
 <div class="paragraph">
-<p>Add the following configuration example under the <code>ExtraConfig</code> section for each compute node. In this example, <code>internal_apiN</code> is the network that the Compute node <em>N</em> is connected to, where <em>N</em> represents a value that is different from the default internal API network name.</p>
+<p>Add the following configuration example in the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network that the Compute node <code>N</code> is connected to. <code>N</code> represents a value that is different from the default internal API network name.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1327,16 +1327,13 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Retrieve the QDR route address for the <code>MetricsQdrConnectors</code> host parameter in <code>stf-connectors.yaml</code>. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>.</p>
+<p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter in <code>stf-connectors.yaml</code>. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 <li>
-<p>Login to the OpenStack undercloud.</p>
+<p>Log in to the OpenStack undercloud. Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
 </li>
 <li>
-<p>Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
-</li>
-<li>
-<p>Deploy the overcloud with the required environment files. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
+<p>Run the overcloud deployment command and include the stf-connectors.yaml file, as well as any other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
 </li>
 <li>
 <p>Validate the client-side installation. For more information, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
@@ -1344,14 +1341,17 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 </ol>
 </div>
 <div class="sect3">
-<h4 id="retrieving-the-qdr-route-address">Retrieving the QDR route address</h4>
+<h4 id="retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
 <div class="paragraph">
-<p>When you configure the OpenStack overcloud for STF, you must provide the QDR route address for the <code>MetricsQdrConnectors</code> host parameter. Login to your OpenShift environment and use <code>oc get routes</code> in the <code>service-telemetry</code> project:</p>
+<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>oc get routes</code> command:</p>
+<p>Log in to your OpenShift environment.</p>
+</li>
+<li>
+<p>Run the <code>oc get routes</code> command in the <code>service-telemetry</code> project:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc get routes
@@ -1361,9 +1361,9 @@ stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry
 stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None</pre>
 </div>
 </div>
-</li>
-<li>
+<div class="paragraph">
 <p>Note the value in the <code>HOST/PORT</code> column for the <code>stf-default-interconnect-5671</code> route.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -1371,12 +1371,18 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="sect3">
 <h4 id="creating-stf-connectors">Creating the STF connection file</h4>
 <div class="paragraph">
-<p>After logging into the OpenStack undercloud as the <code>stack</code> user, create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory:</p>
+<p>Create a file in which you configure the connection of the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment, and enable collection of events and storage of the events in STF:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router bus on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter if you are enabling collection of Ceilometer events and transporting them to STF. Replace the <code>host</code> parameter with the value retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the QDR route address</a>:</p>
+<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Create a configuration file and name it <code>stf-connectors.yaml</code> in <code>/home/stack</code>.</p>
+</li>
+<li>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter if you want to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1423,7 +1429,7 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="sect2">
 <h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h3>
 <div class="paragraph">
-<p>Data collection can be validated from the STF storage domain by querying the data sources for delivered data. To validate individual nodes in the OpenStack deployment first connect to the console via SSH.</p>
+<p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1470,14 +1476,11 @@ Connections
   899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>There are four connections:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
 <p>Outbound connection to STF</p>
 </li>
@@ -1489,16 +1492,15 @@ Connections
 </li>
 <li>
 <p>Inbound connection from our <code>qdstat</code> client</p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The outbound STF connection is provided to the <code>MetricsQdrConnectors</code> host parameter and is the route for the STF storage domain. The other hosts are internal network addresses of the client connections to this Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
+</ul>
+</div>
+</li>
 <li>
-<p>To ensure that messages are being delivered, list the links and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
+<p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
@@ -1519,15 +1521,8 @@ Router Links
 </div>
 </div>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>To list the addresses from OpenStack nodes to STF,  connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
+<p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get pods -l application=stf-default-interconnect
@@ -4045,7 +4040,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-24 15:56:08 UTC
+Last updated 2020-04-27 21:33:25 UTC
 </div>
 </div>
 </body>
