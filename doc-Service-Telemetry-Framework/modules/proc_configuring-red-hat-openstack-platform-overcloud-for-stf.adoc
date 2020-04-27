@@ -37,7 +37,7 @@ When you configure the {OpenStack} overcloud for {ProjectShort}, you must provid
 
 . Log in to your {OpenShift} environment.
 
-.  Run the `oc get routes` in the `service-telemetry` project:
+.  Run the `oc get routes` command in the `service-telemetry` project:
 +
 ----
 oc get routes
