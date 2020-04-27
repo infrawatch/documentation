@@ -57,7 +57,7 @@ Create a file in which you configure the connection of the {MessageBus} on the o
 
 . Create a configuration file and name it `stf-connectors.yaml` in the `/home/stack`.
 
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you are enabling collection of Ceilometer events and transporting them to {ProjectShort}. Replace the `host` parameter with the value that you retrieved in <<retrieving-the-qdr-route-address>>:
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you want to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
 ----
 parameter_defaults:
