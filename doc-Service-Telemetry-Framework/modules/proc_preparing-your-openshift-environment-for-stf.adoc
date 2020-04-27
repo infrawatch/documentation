@@ -25,7 +25,7 @@
 
 As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
-* Ensure that persistent storage is available in your {OpenShift} cluster so that you can store data in a production system. For more information, see <<persistent-volumes>>.
+* Ensure that persistent storage is available in your {OpenShift} cluster to permit a production grade deployment. For more information, see <<persistent-volumes>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
 * To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
 * {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator>>.
