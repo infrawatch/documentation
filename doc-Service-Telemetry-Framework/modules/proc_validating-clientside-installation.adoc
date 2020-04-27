@@ -23,7 +23,7 @@
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
-Data collection can be validated from the {ProjectShort} storage domain by querying the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment first connect to the console via SSH.
+To validate data collection from the {ProjectShort} storage domain, query the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment, connect to the console using SSH.
 
 . Log in to an overcloud node, for example, controller-0:
 
@@ -61,17 +61,17 @@ Connections
   16   172.17.1.44:36408                                                                                  metrics                                                                                                    normal  in   no-security                         anonymous-user
   899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
 ----
-
++
 There are four connections:
-
-. Outbound connection to STF
-. Inbound connection from collectd
-. Inbound connection from ceilometer
-. Inbound connection from our `qdstat` client
-
++
+* Outbound connection to STF
+* Inbound connection from collectd
+* Inbound connection from ceilometer
+* Inbound connection from our `qdstat` client
++
 The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors` host parameter and is the route for the {ProjectShort} storage domain. The other hosts are internal network addresses of the client connections to this {MessageBus}.
 
-. To ensure that messages are being delivered, list the links and view the `_edge` address in the `deliv` column for delivery of messages:
+. To ensure that messages are being delivered, list the links, and view the `_edge` address in the `deliv` column for delivery of messages:
 +
 ----
 $ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
@@ -91,9 +91,7 @@ Router Links
   endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0
 ----
 
-To list the addresses from {OpenStack} nodes to {ProjectShort},  connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections:
-
-. List the available {MessageBus} pods:
+. To list the addresses from {OpenStack} nodes to {ProjectShort},  connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections. List the available {MessageBus} pods:
 +
 ----
 $ oc get pods -l application=stf-default-interconnect
