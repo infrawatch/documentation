@@ -26,7 +26,7 @@
 
 To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
-The following core parameters for a `ServiceTelemetry` manifest are available:
+The following core parameters are available for a `ServiceTelemetry` manifest:
 
 |===
 | Parameter | Description | Default Value
@@ -74,7 +74,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 
 . View the pods and the status of each pod to determine that all workloads are operating nominally:
 +
-NOTE: If you have set `eventsEnabled: true`, it is expected that the notification Smart Gateways will `Error` and `CrashLoopBackOff` for a period of time while ElasticSearch starts.
+NOTE: If you set `eventsEnabled: true`, the notification Smart Gateways will `Error` and `CrashLoopBackOff` for a period of time before ElasticSearch starts.
 
 +
 ----

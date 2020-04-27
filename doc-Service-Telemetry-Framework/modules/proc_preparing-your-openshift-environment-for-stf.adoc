@@ -25,7 +25,7 @@
 
 As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
-* Ensure that persistent storage is available in your {OpenShift} cluster for storing data in a production system. For more information, see <<persistent-volumes>>.
+* Ensure that persistent storage is available in your {OpenShift} cluster so that you can store data in a production system. For more information, see <<persistent-volumes>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
 * To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
 * {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator>>.
@@ -34,13 +34,13 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 [id="persistent-volumes"]
 == Persistent volumes
 
-{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically for Prometheus and ElasticSearch to store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
+{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
 
 
 [id="ephemeral-storage"]
 === Using ephemeral storage
 
-WARNING: 
+WARNING:
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
 To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage_advanced-features>>.
@@ -49,9 +49,9 @@ To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: tr
 [id="resource-allocation"]
 == Resource allocation
 
-To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running and for the number of running resources. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
+To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
 
-The amount of resources you require to run {ProjectShort} depends on your environment and the number of nodes and clouds you are monitoring. For recommendations around sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
+The amount of resources that you require to run {ProjectShort} depends on your environment and the number of nodes and clouds that you want to monitor. For recommendations about sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
 
 [id="node-tuning-operator"]
 == Node tuning operator

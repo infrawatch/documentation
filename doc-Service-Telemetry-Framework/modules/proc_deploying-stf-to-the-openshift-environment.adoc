@@ -23,10 +23,10 @@
 [id="deploying-stf-to-the-openshift-environment_{context}"]
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
-There are two ways in which you can deploy {ProjectShort} to the {OpenShiftShort} environment:
+You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two ways:
 
-* Storage of events with ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
-* Without ElasticSearch and disabling events support. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
+* Deploy {ProjectShort} and store events with ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
+* Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
 
 [id="deploying-stf-to-the-openshift-environment-with-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment with ElasticSearch
@@ -67,7 +67,7 @@ oc new-project service-telemetry
 [id="creating-an-operatorgroup"]
 == Creating an OperatorGroup
 
-Create an OperatorGroup in the namespace to permit scheduling of the Operator pods:
+Create an OperatorGroup in the namespace so that you can schedule the Operator pods:
 
 ----
 oc apply -f - <<EOF
@@ -131,7 +131,7 @@ spec:
 EOF
 ----
 
-. To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconclied`.
+. To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
 +
 ----
 $ oc get -nopenshift-marketplace operatorsource infrawatch-operators
@@ -152,7 +152,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 [id="subscribing-to-the-amq-certificate-manager-operator"]
 == Subscribing to the AMQ Certificate Manager Operator
 
-You must subscribe to the AMQ Certificate Manager Operator before you deploy the other components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.
+You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.
 
 [discrete]
 === Procedure
@@ -193,7 +193,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 [id="subscribing-to-elastic-cloud-on-kubernetes-operator"]
 == Subscribing to the Elastic Cloud on Kubernetes Operator
 
-Before you install the Service Telemetry Operator and if you plan to store events in to ElasticSearch, you need to enable the Elastic Cloud Kubernetes Operator.
+Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.
 
 [discrete]
 === Procedure
@@ -218,7 +218,7 @@ spec:
 EOF
 ----
 
-. To validate that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes succeeded, run the `oc get csv` command:
+. To verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`, run the `oc get csv` command:
 +
 ----
 $ oc get csv
