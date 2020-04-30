@@ -23,35 +23,49 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
-You must deploy a Smart Gateway for each of the data collection type for each cloud; one for collectd metrics, one for collectd events, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.
+You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.
 
 When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways will act as a template we can use to create additional Smart Gateways along with any authentication information required to connect to the data stores.
 
 To deploy additional Smart Gateways for each cloud being monitored, complete the following steps:
 
-. Use the initially deployed Smart Gateways as a template for additional Smart Gateways:
+. Switch to the `service-telemetry` project:
 +
 ----
-
+oc project service-telemetry
 ----
 
-. Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: `deploy/service-telemetry/smartgateway/metrics-smartgateway.yaml` and `deploy/service-telemetry/smartgateway/events-smartgateway.yaml`. For more information, see <<example-manifests_advanced-features>>.
+. Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with `oc get SmartGateways`. Assuming you deployed with `metricsEnabled: true` and `eventsEnabled: true` you still see the following Smart Gateways:
 +
 ----
-pushd deploy/service-telemetry/smartgateway/
-cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
-cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
-vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
-popd
+$ oc get smartgateways
+
+NAME                                         AGE
+stf-default-ceilometer-notification          14d
+stf-default-collectd-notification            14d
+stf-default-collectd-telemetry               14d
 ----
+
+. Retrieve the manifests of each of the Smart Gateways with `oc get smartgateway -oyaml --export` and store the contents into a temporary file which we'll later modify and use to create our new set of Smart Gateways:
++
+----
+truncate --size 0 /tmp/cloud1-smartgateways.yaml && \
+for sg in $(oc get smartgateways -oname)
+do
+  echo "---" >> /tmp/cloud1-smartgateways.yaml
+  oc get ${sg} -oyaml --export >> /tmp/cloud1-smartgateways.yaml
+done
+----
+
+. Modify the manifests by changing the `metadata.name` field and `spec.amqpUrl` field to include the cloud identifier from your schema (see <<planning-amqp-address-prefixes_advanced-features>>). For reference to example Smart Gateway manifests, see <<example-manifests_advanced-features>>.
 
 . Deploy your new Smart Gateways.
 +
 ----
-oc create -f deploy/service-telemetry/smartgateway/
+oc apply -f /tmp/cloud1-smartgateways.yaml
 ----
-. Verify that each Smart Gateway is running. This can take several minutes
-depending on the number of Smart Gateways.
+
+. Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways.
 +
 ----
 oc get po -l app=smart-gateway

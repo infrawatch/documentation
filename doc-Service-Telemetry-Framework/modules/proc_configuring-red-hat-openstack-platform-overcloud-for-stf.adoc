@@ -51,7 +51,9 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 [[creating-stf-connectors]]
 == Creating the {ProjectShort} connection file
 
-After logging into the {OpenStack} undercloud as the `stack` user, create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory:
+After logging into the {OpenStack} undercloud as the `stack` user, create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
+
+IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you wish to share the data storage domain with multiple clouds, then you should follow the process in <<configuring-multiple-clouds_advanced-features>>.
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you are enabling collection of Ceilometer events and transporting them to {ProjectShort}. Replace the `host` parameter with the value retrieved in <<retrieving-the-qdr-route-address>>:
 +

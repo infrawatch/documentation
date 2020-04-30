@@ -56,7 +56,7 @@ include::../modules/proc_setting-up-the-dashboard-to-host-grafana.adoc[leveloffs
 include::../modules/ref_the-grafana-infrastructure-dashboard.adoc[leveloffset=+2]
 
 //Connecting multiple clouds
-include::../modules/proc_configuring-multiple-clouds.adoc[leveloffset=+1]
+include::../modules/con_configuring-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+2]
 include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+2]
 include::../modules/ref_example-manifests.adoc[leveloffset=+3]
@@ -64,7 +64,6 @@ include::../modules/ref_example-manifests.adoc[leveloffset=+3]
 //include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+2]
 include::../modules/proc_creating-openstack-environment-file.adoc[leveloffset=+2]
 include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+2]
-include::../modules/proc_using-the-amq-interconnect-message-bus.adoc[leveloffset=+2]
 
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
