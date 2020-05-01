@@ -24,7 +24,7 @@
 // in _The IBM Style Guide_.
 [id="advanced-features_{context}"]
 
-The following features are optional but can provide additional functionality to the Service Telemetry Framework:
+The following optional features can provide additional functionality to the {Project}:
 
 * Customizing the deployment. For more information, see <<manifest-overrides_advanced-features>>.
 * Alerts. For more information, see <<alerts_advanced-features>>.

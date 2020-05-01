@@ -23,7 +23,7 @@
 [id="removing-stf-from-the-openshift-environment_{context}"]
 = Removing {ProjectShort} from the {OpenShiftShort} environment
 
-To remove {ProjectShort} from an {OpenShiftShort} environment, complete the following tasks:
+Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer require the {ProjectShort} functionality:
 
 . Delete the namespace. For more information, see <<deleting-the-namespace>>.
 . Delete the OperatorSource. For more information, see <<removing-the-operatorsource>>.

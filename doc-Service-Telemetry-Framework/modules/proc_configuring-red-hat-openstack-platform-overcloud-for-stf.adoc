@@ -25,18 +25,19 @@
 
 To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}:
 
-. Retrieve the QDR route address for the `MetricsQdrConnectors` host parameter in `stf-connectors.yaml`. For more information, see <<retrieving-the-qdr-route-address>>.
-. Login to the {OpenStack} undercloud.
-. Create a file and name it `stf-connectors.yaml`. For more information, see <<creating-stf-connectors>>.
-. Deploy the overcloud with the required environment files. For more information, see <<deploying-the-overcloud>>.
+. Retrieve the {MessageBus} route address for the `MetricsQdrConnectors` host parameter in `stf-connectors.yaml`. For more information, see <<retrieving-the-qdr-route-address>>.
+. Log in to the {OpenStack} undercloud. Create a file and name it `stf-connectors.yaml`. For more information, see <<creating-stf-connectors>>.
+. Run the overcloud deployment command and include the stf-connectors.yaml file, as well as any other environment files relevant to your deployment. For more information, see <<deploying-the-overcloud>>.
 . Validate the client-side installation. For more information, see <<validating-clientside-installation_completing-the-stf-configuration>>.
 
 [[retrieving-the-qdr-route-address]]
-== Retrieving the QDR route address
+== Retrieving the {MessageBus} route address
 
-When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the QDR route address for the `MetricsQdrConnectors` host parameter. Login to your {OpenShift} environment and use `oc get routes` in the `service-telemetry` project:
+When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the {MessageBus} route address for the `MetricsQdrConnectors` host parameter:
 
-. Run the `oc get routes` command:
+. Log in to your {OpenShift} environment.
+
+.  Run the `oc get routes` command in the `service-telemetry` project:
 +
 ----
 oc get routes
@@ -45,17 +46,22 @@ stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetr
 stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
 stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None
 ----
-
-. Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671` route.
++
+Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671` route.
 
 [[creating-stf-connectors]]
 == Creating the {ProjectShort} connection file
+Create a file in which you configure the connection of the {MessageBus} on the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}:
+
+. Log in to the {OpenStack} undercloud as the `stack` user.
 
 After logging into the {OpenStack} undercloud as the `stack` user, create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 
 IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you wish to share the data storage domain with multiple clouds, then you should follow the process in <<configuring-multiple-clouds_advanced-features>>.
 
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} bus on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you are enabling collection of Ceilometer events and transporting them to {ProjectShort}. Replace the `host` parameter with the value retrieved in <<retrieving-the-qdr-route-address>>:
+. Create a configuration file and name it `stf-connectors.yaml` in `/home/stack`.
+
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you want to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
 ----
 parameter_defaults:
