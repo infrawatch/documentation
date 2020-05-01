@@ -23,13 +23,12 @@
 [id="creating-openstack-environment-file_{context}"]
 = Creating the OpenStack environment file
 
-To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names.  Create an `stf-connectors.yaml` file and adjust the `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. See <<planning-amqp-address-prefixes_advanced-features>> for more information. Place the file in a directory storing custom environment files, for example `/home/stack/custom_templates/`.
+To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 
-Be sure the naming convension in the `stf-connectors.yaml` align with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configuring the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`
 
 WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment as the configuration is redundant and will result in duplicate information being sent from each cloud node.
 
-. Create the `stf-connectors.yaml` and modify it to match the AMQP address desired for this cloud deployment:
+. Create the `stf-connectors.yaml` and modify it to match the AMQP address you want for this cloud deployment:
 +
 .stf-connectors.yaml
 ----
@@ -84,6 +83,10 @@ parameter_defaults:
 <2> Define the topic for collectd events. Will take the format of `collectd/cloud1-notify`.
 <3> Define the topic for collectd metrics. Will take the format of `collectd/cloud1-telemetry`.
 <4> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
+
+. Ensure that the naming convension in the `stf-connectors.yaml` aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
+
+. Save the file in a directory for custom environment files, for example `/home/stack/custom_templates/`.
 
 . Source the authentication file:
 +
