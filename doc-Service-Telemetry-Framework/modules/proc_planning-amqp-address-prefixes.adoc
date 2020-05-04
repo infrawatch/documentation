@@ -23,12 +23,15 @@
 [id="planning-amqp-address-prefixes_{context}"]
 = Planning AMQP address prefixes
 
-By default, {OpenStack} nodes send data to the `collectd/telemetry` and `collectd/notify` addresses on the AMQP bus and {ProjectShort} listens on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. It is recommended that you prefix a cloud identifier to the second part of the
-address. The following example list shows some of the addresses and identifiers you can include:
+By default, {OpenStack} nodes get data through two data collectors; collectd and Ceilometer. These components each send telemetry data or notifications to the respective AMQP addresses, for example `collectd/telemetry`, where {ProjectShort} Smart Gateways listen on those addresses for monitoring data.
 
-* collectd/cloud1-telemetry
-* collectd/cloud1-notify
-* collectd/cloud2-telemetry
-* collectd/cloud2-notify
-* collectd/us-east-1-telemetry
-* collectd/us-west-3-telemetry
+To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
+
+* `collectd/cloud1-telemetry`
+* `collectd/cloud1-notify`
+* `anycast/ceilometer/cloud1-event.sample`
+* `collectd/cloud2-telemetry`
+* `collectd/cloud2-notify`
+* `anycast/ceilometer/cloud2-event.sample`
+* `collectd/us-east-1-telemetry`
+* `collectd/us-west-3-telemetry`

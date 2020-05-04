@@ -23,74 +23,71 @@
 [id="example-manifests_{context}"]
 = Example manifests
 
-[IMPORTANT]
-The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
+IMPORTANT: The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
 
 Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 
+NOTE: Your output may have some additional `metadata` parameters that you can remove from the manifests you load into {OpenShiftShort}.
 
-.metrics-smartgateway.yaml
-[source, yaml]
+[source,yaml]
 ----
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud1-telemetry
-  spec:
-    size: 1
-    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
-    debug: "false"
-    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
-    service_type: "metrics"
-
-  ---
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud2-telemetry
-  spec:
-    size: 1
-    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
-    debug: "false"
-    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
-    service_type: "metrics"
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-ceilometer-notification-cloud1  <1>
+spec:
+  amqpDataSource: ceilometer
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/anycast/ceilometer/cloud1-event.sample  <2>
+  debug: false
+  elasticPass: fkzfhghw......
+  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
+  elasticUser: elastic
+  resetIndex: false
+  serviceType: events
+  size: 1
+  tlsCaCert: /config/certs/ca.crt
+  tlsClientCert: /config/certs/tls.crt
+  tlsClientKey: /config/certs/tls.key
+  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
+  useBasicAuth: true
+  useTls: true
+---
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-collectd-notification-cloud1  <3>
+spec:
+  amqpDataSource: collectd
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify  <4>
+  debug: false
+  elasticPass: fkzfhghw......
+  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
+  elasticUser: elastic
+  resetIndex: false
+  serviceType: events
+  size: 1
+  tlsCaCert: /config/certs/ca.crt
+  tlsClientCert: /config/certs/tls.crt
+  tlsClientKey: /config/certs/tls.key
+  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
+  useBasicAuth: true
+  useTls: true
+---
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-collectd-telemetry-cloud1 <5>
+spec:
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry  <6>
+  debug: false
+  prefetch: 15000
+  serviceType: metrics
+  size: 1
+  useTimestamp: true
 ----
-
-.events-smartgateway.yaml
-[source, yaml]
-----
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud1-notify
-  spec:
-    size: 1
-    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
-    service_type: events
-    debug: "false"
-    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
-    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-    use_tls: "true"
-    tls_client_cert: /config/certs/admin-cert
-    tls_client_key: /config/certs/admin-key
-    tls_ca_cert: /config/certs/admin-ca
-    reset_index: "true"
-
-  ---
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud2-notify
-  spec:
-    size: 1
-    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
-    service_type: events
-    debug: "false"
-    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
-    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-    use_tls: "true"
-    tls_client_cert: /config/certs/admin-cert
-    tls_client_key: /config/certs/admin-key
-    tls_ca_cert: /config/certs/admin-ca
-    reset_index: "true"
-----
+<1> Name for Ceilometer notifications for `cloud1`
+<2> AMQP Address for Ceilometer notifications for `cloud1`
+<3> Name for collectd telemetry for `cloud1`
+<4> AMQP Address for collectd telemetry for `cloud1`
+<5> Name for collectd notifications for `cloud1`
+<6> AMQP Address for collectd notifications for `cloud1`

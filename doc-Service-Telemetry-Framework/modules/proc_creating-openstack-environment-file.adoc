@@ -1,0 +1,109 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_updating-collectd-configuration.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="creating-openstack-environment-file_{context}"]
+= Creating the OpenStack environment file
+
+To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
+
+
+WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment as the configuration is redundant and will result in duplicate information being sent from each cloud node.
+
+. Create the `stf-connectors.yaml` and modify it to match the AMQP address you want for this cloud deployment:
++
+.stf-connectors.yaml
+----
+resource_registry:
+    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
+    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-central-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentNotification: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-notification-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentIpmi: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-ipmi-container-puppet.yaml
+    OS::TripleO::Services::ComputeCeilometerAgent: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-compute-container-puppet.yaml
+    OS::TripleO::Services::Redis: /usr/share/openstack-tripleo-heat-templates/deployment/database/redis-pacemaker-puppet.yaml
+
+parameter_defaults:
+    EnableSTF: true
+
+    CeilometerEnablePanko: false
+    CeilometerQdrPublishEvents: true
+    CeilometerQdrEventsConfig:
+        driver: amqp
+        topic: cloud1-event   # <1>
+
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+
+    CollectdAmqpInstances:
+        cloud1-notify:        # <2>
+            notify: true
+            format: JSON
+            presettle: false
+        cloud1-telemetry:     # <3>
+            format: JSON
+            presettle: true
+
+    MetricsQdrAddresses:
+        - prefix: collectd
+          distribution: multicast
+        - prefix: anycast/ceilometer
+          distribution: multicast
+
+    MetricsQdrSSLProfiles:
+        - name: sslProfile
+
+    MetricsQdrConnectors:
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <4>
+          port: 443
+          role: edge
+          verifyHostname: false
+          sslProfile: sslProfile
+----
+<1> Define the topic for Ceilometer events. Will take the address format of `anycast/ceilometer/cloud1-event.sample`.
+<2> Define the topic for collectd events. Will take the format of `collectd/cloud1-notify`.
+<3> Define the topic for collectd metrics. Will take the format of `collectd/cloud1-telemetry`.
+<4> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
+
+. Ensure that the naming convension in the `stf-connectors.yaml` aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
+
+. Save the file in a directory for custom environment files, for example `/home/stack/custom_templates/`.
+
+. Source the authentication file:
++
+----
+[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$
+----
+
+. Deploy the cloud with `stf-connectors.yaml` environment file provided to the `openstack overcloud deploy` command:
++
+----
+(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
+--templates /usr/share/openstack-tripleo-heat-templates \
+...
+-e /home/stack/custom_templates/stf-connectors.yaml \
+...
+----
+
+For information about validating the deployment, see <<validating-clientside-installation_completing-the-stf-configuration>>.

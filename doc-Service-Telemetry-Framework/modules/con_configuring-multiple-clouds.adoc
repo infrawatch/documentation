@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_configuring-stf-for-multi-cloud.adoc[leveloffset=+1]
+// include::<path>/con_configuring-stf-for-multi-cloud.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -26,11 +26,8 @@
 To configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}), complete the following tasks:
 
 . Plan the AMQP address prefixes to use for each cloud. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
-. Deploy metrics and events consumer Smart Gateways for each cloud to listen on
- the corresponding address prefixes. For more information, see <<deploying-smart-gateways_advanced-features>>.
-. Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <<deleting-the-default-smart-gateways_advanced-features>>.
-. Configure each cloud to send its metrics and events to {ProjectShort} on the
- correct address. For more information, see <<updating-collectd-configuration_advanced-features>>.
+. Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <<deploying-smart-gateways_advanced-features>>.
+. Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see <<creating-openstack-environment-file_advanced-features>>.
 
 This diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
 

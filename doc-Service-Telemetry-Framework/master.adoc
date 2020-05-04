@@ -3,6 +3,7 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
 :vernum: 16
 :toc: left
+:icons: font
 :compat-mode:
 :doctype: book
 :director-guide: true
