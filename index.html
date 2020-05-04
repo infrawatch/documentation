@@ -436,6 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
@@ -556,7 +557,7 @@ For more information about STF performance and scaling, see <a href="https://acc
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 Do not install OpenShift on the same infrastructure that you want to monitor.
@@ -967,7 +968,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s</p
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The AMQ Certificate Manager is installed globally for all namespaces, so the <code>namespace</code> value provided is <code>openshift-operators</code>. You might not see your <code>amq7-cert-manager.v1.0.0</code> ClusterServiceVersion in the <code>service-telemetry</code> namespace for a few minutes until the processing executes against the namespace.
@@ -1181,7 +1182,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 If you set <code>eventsEnabled: true</code>, the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time before ElasticSearch starts.
@@ -1378,6 +1379,25 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <li>
 <p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After logging into the OpenStack undercloud as the <code>stack</code> user, create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you wish to share the data storage domain with multiple clouds, then you should follow the process in <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Create a configuration file and name it <code>stf-connectors.yaml</code> in <code>/home/stack</code>.</p>
 </li>
@@ -1616,7 +1636,7 @@ Router Addresses
 <table>
 <tr>
 <td class="icon">
-<div class="title">Warning</div>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
 When you override the manifest, you must provide the entire manifest contents, including object names or namespaces. There is no dynamic parameter substitution when you override a manifest.
@@ -1707,7 +1727,7 @@ When you override the manifest, you must provide the entire manifest contents, i
 <table>
 <tr>
 <td class="icon">
-<div class="title">Tip</div>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>
@@ -1731,7 +1751,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The trailing pipe (<code>|</code>) after entering the manifest override parameter indicates that the value provided is multi-line.
@@ -1758,7 +1778,7 @@ metadata:
   uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
 spec:
   metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | <b class="conum">(1)</b>
+  smartgatewayCollectdMetricsManifest: | <i class="conum" data-value="1"></i><b>(1)</b>
     apiVersion: smartgateway.infra.watch/v2alpha1
     kind: SmartGateway
     metadata:
@@ -1770,7 +1790,7 @@ spec:
       prefetch: 15000
       serviceType: metrics
       size: 1
-      useTimestamp: true <b class="conum">(2)</b>
+      useTimestamp: true <i class="conum" data-value="2"></i><b>(2)</b>
 status:
   conditions:
   - ansibleResult:
@@ -1787,14 +1807,16 @@ status:
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Manifest override parameter is defined in the <code>spec</code> of the <code>ServiceTelemetry</code> object.</p>
-</li>
-<li>
-<p>End of the manifest override content.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Manifest override parameter is defined in the <code>spec</code> of the <code>ServiceTelemetry</code> object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>End of the manifest override content.</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -2081,7 +2103,7 @@ pod "curl" deleted</pre>
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 STF is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
@@ -2539,15 +2561,10 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <p>Plan the AMQP address prefixes to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </li>
 <li>
-<p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on
-the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_advanced-features">Deploying Smart Gateways</a>.</p>
+<p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_advanced-features">Deploying Smart Gateways</a>.</p>
 </li>
 <li>
-<p>Optional: Delete the default Smart Gateways if they are no longer needed. For more information, see <a href="#deleting-the-default-smart-gateways_advanced-features">Deleting the default Smart Gateways</a>.</p>
-</li>
-<li>
-<p>Configure each cloud to send its metrics and events to STF on the
-correct address. For more information, see <a href="#updating-collectd-configuration_advanced-features">Updating collectd configuration</a>.</p>
+<p>Configure each cloud to send its metrics and events to STF on the correct address. For more information, see <a href="#creating-openstack-environment-file_advanced-features">Creating the OpenStack environment file</a>.</p>
 </li>
 </ol>
 </div>
@@ -2562,28 +2579,36 @@ correct address. For more information, see <a href="#updating-collectd-configura
 <div class="sect3">
 <h4 id="planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</h4>
 <div class="paragraph">
-<p>By default, OpenStack nodes send data to the <code>collectd/telemetry</code> and <code>collectd/notify</code> addresses on the AMQP bus and STF listens on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. It is recommended that you prefix a cloud identifier to the second part of the
-address. The following example list shows some of the addresses and identifiers you can include:</p>
+<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components each send telemetry data or notifications to the respective AMQP addresses, for example <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data.</p>
+</div>
+<div class="paragraph">
+<p>To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>collectd/cloud1-telemetry</p>
+<p><code>collectd/cloud1-telemetry</code></p>
 </li>
 <li>
-<p>collectd/cloud1-notify</p>
+<p><code>collectd/cloud1-notify</code></p>
 </li>
 <li>
-<p>collectd/cloud2-telemetry</p>
+<p><code>anycast/ceilometer/cloud1-event.sample</code></p>
 </li>
 <li>
-<p>collectd/cloud2-notify</p>
+<p><code>collectd/cloud2-telemetry</code></p>
 </li>
 <li>
-<p>collectd/us-east-1-telemetry</p>
+<p><code>collectd/cloud2-notify</code></p>
 </li>
 <li>
-<p>collectd/us-west-3-telemetry</p>
+<p><code>anycast/ceilometer/cloud2-event.sample</code></p>
+</li>
+<li>
+<p><code>collectd/us-east-1-telemetry</code></p>
+</li>
+<li>
+<p><code>collectd/us-west-3-telemetry</code></p>
 </li>
 </ul>
 </div>
@@ -2591,39 +2616,63 @@ address. The following example list shows some of the addresses and identifiers 
 <div class="sect3">
 <h4 id="deploying-smart-gateways_advanced-features">Deploying Smart Gateways</h4>
 <div class="paragraph">
-<p>You must deploy two Smart Gateways for each cloud; one for metrics and one for events. Configure both Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.</p>
+<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.</p>
 </div>
 <div class="paragraph">
-<p>When you deploy STF for the first time, two Smart Gateway manifests are created that define the two initial Smart Gateways for a single cloud. When you deploy multiple Smart Gateways, you must edit these manifests to define the Smart Gateways that handle the metrics and the events data for each cloud.</p>
+<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
 <div class="paragraph">
-<p>To deploy multiple Smart Gateways, complete the following steps:</p>
+<p>To deploy additional Smart Gateways for each cloud you want to monitor, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the following Smart Gateway manifests and edit them to define a Smart Gateway for each cloud: <code>deploy/service-telemetry/smartgateway/metrics-smartgateway.yaml</code> and <code>deploy/service-telemetry/smartgateway/events-smartgateway.yaml</code>. For more information, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
+<p>Switch to the <code>service-telemetry</code> project:</p>
 <div class="listingblock">
 <div class="content">
-<pre>pushd deploy/service-telemetry/smartgateway/
-cp events-smartgateway.yaml events-smartgateway-multicloud.yaml
-cp metrics-smartgateway.yaml metrics-smartgateway-multicloud.yaml
-vi events-smartgateway-multicloud.yaml metrics-smartgateway-multicloud.yaml
-popd</pre>
+<pre>oc project service-telemetry</pre>
 </div>
 </div>
+</li>
+<li>
+<p>Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with <code>oc get SmartGateways</code>. Assuming you deployed with <code>metricsEnabled: true</code> and <code>eventsEnabled: true</code>, the following Smart Gateways are displayed in the output:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get smartgateways
+
+NAME                                         AGE
+stf-default-ceilometer-notification          14d
+stf-default-collectd-notification            14d
+stf-default-collectd-telemetry               14d</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the manifests for each Smart Gateway and store the contents in a temporary file, which you can modify later and use to create the new set of Smart Gateways:</p>
+<div class="listingblock">
+<div class="content">
+<pre>truncate --size 0 /tmp/cloud1-smartgateways.yaml &amp;&amp; \
+for sg in $(oc get smartgateways -oname)
+do
+  echo "---" &gt;&gt; /tmp/cloud1-smartgateways.yaml
+  oc get ${sg} -oyaml --export &gt;&gt; /tmp/cloud1-smartgateways.yaml
+done</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To modify the manifests, change the <code>metadata.name</code> field and <code>spec.amqpUrl</code> field to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
 </li>
 <li>
 <p>Deploy your new Smart Gateways.</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f deploy/service-telemetry/smartgateway/</pre>
+<pre>oc apply -f /tmp/cloud1-smartgateways.yaml</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Verify that each Smart Gateway is running. This can take several minutes
-depending on the number of Smart Gateways.</p>
+<p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways.</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc get po -l app=smart-gateway</pre>
@@ -2638,7 +2687,7 @@ depending on the number of Smart Gateways.</p>
 <table>
 <tr>
 <td class="icon">
-<div class="title">Important</div>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
 The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
@@ -2649,140 +2698,239 @@ The content in the following examples might be different to the file content in 
 <div class="paragraph">
 <p>Ensure that the <code>name</code> and <code>amqp_url</code> parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </div>
-<div class="listingblock">
-<div class="title">metrics-smartgateway.yaml</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud1-telemetry
-  spec:
-    size: 1
-    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry
-    debug: "false"
-    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
-    service_type: "metrics"
-
-  ---
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud2-telemetry
-  spec:
-    size: 1
-    amqp_url: qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-telemetry
-    debug: "false"
-    container_image_path: "docker-registry.default.svc:5000/service-telemetry/smart-gateway:latest"
-    service_type: "metrics"</code></pre>
-</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Your output may have some additional <code>metadata</code> parameters that you can remove from the manifests you load into OKD.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
-<div class="title">events-smartgateway.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud1-notify
-  spec:
-    size: 1
-    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify"
-    service_type: events
-    debug: "false"
-    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
-    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-    use_tls: "true"
-    tls_client_cert: /config/certs/admin-cert
-    tls_client_key: /config/certs/admin-key
-    tls_ca_cert: /config/certs/admin-ca
-    reset_index: "true"
-
-  ---
-  apiVersion: smartgateway.infra.watch/v1alpha1
-  kind: SmartGateway
-  metadata:
-    name: cloud2-notify
-  spec:
-    size: 1
-    amqp_url: "qdr-white.service-telemetry.svc.cluster.local:5672/collectd/cloud2-notify"
-    service_type: events
-    debug: "false"
-    elastic_url: "https://elasticsearch.service-telemetry.svc:9200"
-    container_image_path: docker-registry.default.svc:5000/sa-telemetry/smart-gateway:latest
-    use_tls: "true"
-    tls_client_cert: /config/certs/admin-cert
-    tls_client_key: /config/certs/admin-key
-    tls_ca_cert: /config/certs/admin-ca
-    reset_index: "true"</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-ceilometer-notification-cloud1  <i class="conum" data-value="1"></i><b>(1)</b>
+spec:
+  amqpDataSource: ceilometer
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/anycast/ceilometer/cloud1-event.sample  <i class="conum" data-value="2"></i><b>(2)</b>
+  debug: false
+  elasticPass: fkzfhghw......
+  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
+  elasticUser: elastic
+  resetIndex: false
+  serviceType: events
+  size: 1
+  tlsCaCert: /config/certs/ca.crt
+  tlsClientCert: /config/certs/tls.crt
+  tlsClientKey: /config/certs/tls.key
+  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
+  useBasicAuth: true
+  useTls: true
+---
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-collectd-notification-cloud1  <i class="conum" data-value="3"></i><b>(3)</b>
+spec:
+  amqpDataSource: collectd
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify  <i class="conum" data-value="4"></i><b>(4)</b>
+  debug: false
+  elasticPass: fkzfhghw......
+  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
+  elasticUser: elastic
+  resetIndex: false
+  serviceType: events
+  size: 1
+  tlsCaCert: /config/certs/ca.crt
+  tlsClientCert: /config/certs/tls.crt
+  tlsClientKey: /config/certs/tls.key
+  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
+  useBasicAuth: true
+  useTls: true
+---
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-collectd-telemetry-cloud1 <i class="conum" data-value="5"></i><b>(5)</b>
+spec:
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry  <i class="conum" data-value="6"></i><b>(6)</b>
+  debug: false
+  prefetch: 15000
+  serviceType: metrics
+  size: 1
+  useTimestamp: true</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name for Ceilometer notifications for <code>cloud1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>AMQP Address for Ceilometer notifications for <code>cloud1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Name for collectd telemetry for <code>cloud1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>AMQP Address for collectd telemetry for <code>cloud1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Name for collectd notifications for <code>cloud1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>AMQP Address for collectd notifications for <code>cloud1</code></td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-the-default-smart-gateways_advanced-features">Deleting the default Smart Gateways</h4>
+<h4 id="creating-openstack-environment-file_advanced-features">Creating the OpenStack environment file</h4>
 <div class="paragraph">
-<p>When you have configured STF for multiple clouds, you can delete the
-default Smart Gateways if they are no longer in use.</p>
+<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </div>
-<div class="paragraph">
-<p>To delete the Smart Gateways, complete the following steps:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment as the configuration is redundant and will result in duplicate information being sent from each cloud node.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Delete the default Smart Gateways from the cluster:</p>
+<p>Create the <code>stf-connectors.yaml</code> and modify it to match the AMQP address you want for this cloud deployment:</p>
+<div class="listingblock">
+<div class="title">stf-connectors.yaml</div>
+<div class="content">
+<pre>resource_registry:
+    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
+    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-central-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentNotification: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-notification-container-puppet.yaml
+    OS::TripleO::Services::CeilometerAgentIpmi: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-ipmi-container-puppet.yaml
+    OS::TripleO::Services::ComputeCeilometerAgent: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-compute-container-puppet.yaml
+    OS::TripleO::Services::Redis: /usr/share/openstack-tripleo-heat-templates/deployment/database/redis-pacemaker-puppet.yaml
+
+parameter_defaults:
+    EnableSTF: true
+
+    CeilometerEnablePanko: false
+    CeilometerQdrPublishEvents: true
+    CeilometerQdrEventsConfig:
+        driver: amqp
+        topic: cloud1-event   <i class="conum" data-value="1"></i><b>(1)</b>
+
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+
+    CollectdAmqpInstances:
+        cloud1-notify:        <i class="conum" data-value="2"></i><b>(2)</b>
+            notify: true
+            format: JSON
+            presettle: false
+        cloud1-telemetry:     <i class="conum" data-value="3"></i><b>(3)</b>
+            format: JSON
+            presettle: true
+
+    MetricsQdrAddresses:
+        - prefix: collectd
+          distribution: multicast
+        - prefix: anycast/ceilometer
+          distribution: multicast
+
+    MetricsQdrSSLProfiles:
+        - name: sslProfile
+
+    MetricsQdrConnectors:
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="4"></i><b>(4)</b>
+          port: 443
+          role: edge
+          verifyHostname: false
+          sslProfile: sslProfile</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define the topic for Ceilometer events. Will take the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Define the topic for collectd events. Will take the format of <code>collectd/cloud1-notify</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Define the topic for collectd metrics. Will take the format of <code>collectd/cloud1-telemetry</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Adjust the <code>MetricsQdrConnectors</code> host to the address of the STF route.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Ensure that the naming convension in the <code>stf-connectors.yaml</code> aligns with the <code>spec.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
+</li>
+<li>
+<p>Save the file in a directory for custom environment files, for example <code>/home/stack/custom_templates/</code>.</p>
+</li>
+<li>
+<p>Source the authentication file:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc delete smartgateway cloud1-notify cloud1-telemetry</pre>
+<pre>[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Optional: Delete the default manifests:</p>
+<p>Deploy the cloud with <code>stf-connectors.yaml</code> environment file provided to the <code>openstack overcloud deploy</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>rm deploy/service-telemetry/smartgateway/{events,metrics}-smartgateway.yaml</pre>
+<pre>(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
+--templates /usr/share/openstack-tripleo-heat-templates \
+...
+-e /home/stack/custom_templates/stf-connectors.yaml \
+...</pre>
 </div>
 </div>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect3">
-<h4 id="updating-collectd-configuration_advanced-features">Updating collectd configuration</h4>
 <div class="paragraph">
-<p>To label traffic according to the cloud of origin, you must update the collectd configuration with cloud-specific instance names.  Edit your OpenStack&#160;Queens TripleO configuration to include the following <code>CollectdAmqpInstances</code>.</p>
-</div>
-<div class="listingblock">
-<div class="title">metrics-collectd-qdr.yaml</div>
-<div class="content">
-<pre>parameter_defaults:
-   CollectdAmqpInstances:
-       cloud1-telemetry:
-           format: JSON
-           presettle: true
-       cloud1-notify:
-           notify: true
-           format: JSON
-           presettle: false</pre>
-</div>
+<p>For information about validating the deployment, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="querying-metrics-data-from-multiple-clouds_advanced-features">Querying metrics data from multiple clouds</h4>
 <div class="paragraph">
-<p>Data stored in Prometheus has a "service" label attached according to the
-Smart Gateway it was scraped from. You can use this label to query data from a
-specific cloud.</p>
+<p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
 </div>
 <div class="paragraph">
-<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated "service" label; for example: <code>collectd_uptime{service="cloud1-smartgateway"}</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="using-the-amq-interconnect-message-bus_advanced-features">Using the Apache&#160;Qpid&#160;Dispatch&#160;Router message bus</h4>
-<div class="paragraph">
-<p>To use Apache&#160;Qpid&#160;Dispatch&#160;Router, see the
-<a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.0/html-single/using_amq_interconnect/index">Using AMQ Interconnect</a> guide.</p>
+<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="stf-default-collectd-telemetry-cloud1-smartgateway"}</code>.</p>
 </div>
 </div>
 </div>
@@ -4040,7 +4188,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-27 21:33:25 UTC
+Last updated 2020-05-04 03:02:18 UTC
 </div>
 </div>
 </body>
