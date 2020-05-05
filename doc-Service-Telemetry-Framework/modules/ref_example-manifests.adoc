@@ -25,9 +25,9 @@
 
 IMPORTANT: The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
 
-Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
+Ensure that the `name` and `amqp_url` parameters of each Smart Gateway match the names that you want to use for your clouds. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 
-NOTE: Your output may have some additional `metadata` parameters that you can remove from the manifests you load into {OpenShiftShort}.
+NOTE: Your output may have some additional `metadata` parameters that you can remove from the manifests you that load into {OpenShiftShort}.
 
 [source,yaml]
 ----
