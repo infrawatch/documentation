@@ -26,9 +26,9 @@
 To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 
 
-WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment as the configuration is redundant and will result in duplicate information being sent from each cloud node.
+WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 
-. Create the `stf-connectors.yaml` and modify it to match the AMQP address you want for this cloud deployment:
+. Create the `stf-connectors.yaml` file and modify it to match the AMQP address that you want for this cloud deployment:
 +
 .stf-connectors.yaml
 ----
@@ -79,12 +79,12 @@ parameter_defaults:
           verifyHostname: false
           sslProfile: sslProfile
 ----
-<1> Define the topic for Ceilometer events. Will take the address format of `anycast/ceilometer/cloud1-event.sample`.
-<2> Define the topic for collectd events. Will take the format of `collectd/cloud1-notify`.
-<3> Define the topic for collectd metrics. Will take the format of `collectd/cloud1-telemetry`.
+<1> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
+<2> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
+<3> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 <4> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
 
-. Ensure that the naming convension in the `stf-connectors.yaml` aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
+. Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
 . Save the file in a directory for custom environment files, for example `/home/stack/custom_templates/`.
 
@@ -96,7 +96,7 @@ parameter_defaults:
 (undercloud) [stack@undercloud-0 ~]$
 ----
 
-. Deploy the cloud with `stf-connectors.yaml` environment file provided to the `openstack overcloud deploy` command:
+. Include the `stf-connectors.yaml` file in the `overcloud deployment` command, along with any other environment files relevant to your environment:
 +
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \

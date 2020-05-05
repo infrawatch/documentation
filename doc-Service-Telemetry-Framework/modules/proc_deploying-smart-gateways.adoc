@@ -27,7 +27,7 @@ You must deploy a Smart Gateway for each of the data collection types for each c
 
 When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.
 
-To deploy additional Smart Gateways for each cloud you want to monitor, complete the following steps:
+To deploy additional Smart Gateways for each cloud that you want to monitor, complete the following steps:
 
 . Switch to the `service-telemetry` project:
 +
@@ -35,7 +35,7 @@ To deploy additional Smart Gateways for each cloud you want to monitor, complete
 oc project service-telemetry
 ----
 
-. Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with `oc get SmartGateways`. Assuming you deployed with `metricsEnabled: true` and `eventsEnabled: true`, the following Smart Gateways are displayed in the output:
+. Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with the `oc get smartgateways` command. For example, if you deployed {ProjectShort} with `metricsEnabled: true` and `eventsEnabled: true`, the following Smart Gateways are displayed in the output:
 +
 ----
 $ oc get smartgateways
@@ -57,15 +57,15 @@ do
 done
 ----
 
-. To modify the manifests, change the `metadata.name` field and `spec.amqpUrl` field to include the cloud identifier from your schema. For more information, see <<planning-amqp-address-prefixes_advanced-features>>. To view example Smart Gateway manifests, see <<example-manifests_advanced-features>>.
+. Modify the Smart Gateway manifest in the `/tmp/cloud1-smartgateways.yaml` file. Adjust the `metadata.name` and `spec.amqpUrl` fields to include the cloud identifier from your schema. For more information, see <<planning-amqp-address-prefixes_advanced-features>>. To view example Smart Gateway manifests, see <<example-manifests_advanced-features>>.
 
-. Deploy your new Smart Gateways.
+. Deploy your new Smart Gateways:
 +
 ----
 oc apply -f /tmp/cloud1-smartgateways.yaml
 ----
 
-. Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways.
+. Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
 ----
 oc get po -l app=smart-gateway
