@@ -2553,12 +2553,12 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="sect2">
 <h3 id="configuring-multiple-clouds_advanced-features">Configuring multiple clouds</h3>
 <div class="paragraph">
-<p>To configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF), complete the following tasks:</p>
+<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF):</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Plan the AMQP address prefixes to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
+<p>Plan the AMQP address prefixes that you want to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </li>
 <li>
 <p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_advanced-features">Deploying Smart Gateways</a>.</p>
@@ -2579,7 +2579,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="sect3">
 <h4 id="planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</h4>
 <div class="paragraph">
-<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components each send telemetry data or notifications to the respective AMQP addresses, for example <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data.</p>
+<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data.</p>
 </div>
 <div class="paragraph">
 <p>To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:</p>
@@ -2622,7 +2622,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
 <div class="paragraph">
-<p>To deploy additional Smart Gateways for each cloud you want to monitor, complete the following steps:</p>
+<p>To deploy additional Smart Gateways for each cloud that you want to monitor, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2635,7 +2635,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </div>
 </li>
 <li>
-<p>Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with <code>oc get SmartGateways</code>. Assuming you deployed with <code>metricsEnabled: true</code> and <code>eventsEnabled: true</code>, the following Smart Gateways are displayed in the output:</p>
+<p>Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with the <code>oc get smartgateways</code> command. For example, if you deployed STF with <code>metricsEnabled: true</code> and <code>eventsEnabled: true</code>, the following Smart Gateways are displayed in the output:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get smartgateways
@@ -2661,10 +2661,10 @@ done</pre>
 </div>
 </li>
 <li>
-<p>To modify the manifests, change the <code>metadata.name</code> field and <code>spec.amqpUrl</code> field to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
+<p>Modify the Smart Gateway manifest in the <code>/tmp/cloud1-smartgateways.yaml</code> file. Adjust the <code>metadata.name</code> and <code>spec.amqpUrl</code> fields to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
 </li>
 <li>
-<p>Deploy your new Smart Gateways.</p>
+<p>Deploy your new Smart Gateways:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc apply -f /tmp/cloud1-smartgateways.yaml</pre>
@@ -2672,7 +2672,7 @@ done</pre>
 </div>
 </li>
 <li>
-<p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways.</p>
+<p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc get po -l app=smart-gateway</pre>
@@ -2696,7 +2696,7 @@ The content in the following examples might be different to the file content in 
 </table>
 </div>
 <div class="paragraph">
-<p>Ensure that the <code>name</code> and <code>amqp_url</code> parameters of each Smart Gateway match the names you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
+<p>Ensure that the <code>name</code> and <code>amqpUrl</code> parameters of each Smart Gateway match the names that you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2705,7 +2705,7 @@ The content in the following examples might be different to the file content in 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Your output may have some additional <code>metadata</code> parameters that you can remove from the manifests you load into OKD.
+Your output may have some additional <code>metadata</code> parameters that you can remove from the manifests you that load into OKD.
 </td>
 </tr>
 </table>
@@ -2809,7 +2809,7 @@ spec:
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment as the configuration is redundant and will result in duplicate information being sent from each cloud node.
+Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 </td>
 </tr>
 </table>
@@ -2817,7 +2817,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the <code>stf-connectors.yaml</code> and modify it to match the AMQP address you want for this cloud deployment:</p>
+<p>Create the <code>stf-connectors.yaml</code> file and modify it to match the AMQP address that you want for this cloud deployment:</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -2873,15 +2873,15 @@ parameter_defaults:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define the topic for Ceilometer events. Will take the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
+<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define the topic for collectd events. Will take the format of <code>collectd/cloud1-notify</code>.</td>
+<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Define the topic for collectd metrics. Will take the format of <code>collectd/cloud1-telemetry</code>.</td>
+<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -2891,7 +2891,7 @@ parameter_defaults:
 </div>
 </li>
 <li>
-<p>Ensure that the naming convension in the <code>stf-connectors.yaml</code> aligns with the <code>spec.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
+<p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
 </li>
 <li>
 <p>Save the file in a directory for custom environment files, for example <code>/home/stack/custom_templates/</code>.</p>
@@ -2907,7 +2907,7 @@ parameter_defaults:
 </div>
 </li>
 <li>
-<p>Deploy the cloud with <code>stf-connectors.yaml</code> environment file provided to the <code>openstack overcloud deploy</code> command:</p>
+<p>Include the <code>stf-connectors.yaml</code> file in the <code>overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
 <div class="listingblock">
 <div class="content">
 <pre>(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
@@ -4188,7 +4188,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-04 03:02:18 UTC
+Last updated 2020-05-05 22:53:09 UTC
 </div>
 </div>
 </body>
