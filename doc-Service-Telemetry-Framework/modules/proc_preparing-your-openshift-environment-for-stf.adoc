@@ -34,13 +34,13 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 [id="persistent-volumes"]
 == Persistent volumes
 
-{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html
+{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html[Understanding persistent storage.]
 
 
 [id="ephemeral-storage"]
 === Using ephemeral storage
 
-WARNING:
+[WARNING]
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
 To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage_advanced-features>>.
@@ -73,4 +73,4 @@ The output of the default specification is documented at https://docs.openshift.
 
 When scheduling an ElasticSearch pod, there must be a label present that matches `tuned.openshift.io/elasticsearch`. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with {ProjectShort}, ensure that you add the `tuned.openshift.io/elasticsearch` label to all scheduled pods.
 
-For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator
+For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator[Custom tuning specification].

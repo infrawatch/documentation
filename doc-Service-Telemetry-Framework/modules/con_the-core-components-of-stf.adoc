@@ -23,7 +23,7 @@
 [id="installing-the-core-components-of-stf_{context}"]
 = The core components of {ProjectShort}
 
-The following {ProjectShort} core components are managed by https://coreos.com/blog/introducing-operators.html[Operators]:
+The following {ProjectShort} core components are managed by https://docs.openshift.com/container-platform/4.3/operators/olm-what-operators-are.html[Operators]:
 
 * Prometheus and AlertManager
 * ElasticSearch
