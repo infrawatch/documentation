@@ -25,7 +25,7 @@
 [id="alerts_{context}"]
 = Alerts
 
-You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications using email, on-call notification systems, or chat platforms. 
+You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications using email, on-call notification systems, or chat platforms.
 
 To create an alert, complete the following tasks:
 
@@ -38,4 +38,4 @@ To create an alert, complete the following tasks:
 
 For more information about alerts or notifications with Prometheus and Alertmanager, see https://prometheus.io/docs/alerting/overview/
 
-To view an example set of alerts that you can use with {ProjectShort}, see https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts
+To view an example set of alerts that you can use with {Project} ({ProjectShort}), see https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts

@@ -23,7 +23,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
+Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} ({OpenShiftShort}) secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
 
 ----
 alertmanager.yaml: |-
@@ -59,7 +59,7 @@ oc edit servicetelemetry stf-default
 
 . Add a new parameter, `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
 +
-NOTE:
+[NOTE]
 This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the `alertmanager-stf-default` secret, and verify that the new value is loaded into memory, for example, changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
 

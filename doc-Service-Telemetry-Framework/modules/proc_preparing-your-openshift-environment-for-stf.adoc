@@ -49,7 +49,7 @@ To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: tr
 [id="resource-allocation"]
 == Resource allocation
 
-To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
+To enable the scheduling of pods within the {OpenShiftShort} infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
 
 The amount of resources that you require to run {ProjectShort} depends on your environment and the number of nodes and clouds that you want to monitor. For recommendations about sizing for metrics collection see https://access.redhat.com/articles/4907241. For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html
 
