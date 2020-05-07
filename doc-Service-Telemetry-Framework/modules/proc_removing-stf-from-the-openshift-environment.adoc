@@ -31,13 +31,18 @@ Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer requ
 [id="deleting-the-namespace"]
 == Deleting the namespace
 
-. To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace:
+To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace.
+
+[discrete]
+=== Procedure
+
+. Run the `oc delete` command:
 +
 ----
 oc delete project service-telemetry
 ----
 
-. Validate that the resources have been deleted from the namespace:
+. Verify that the resources have been deleted from the namespace:
 +
 ----
 $ oc get all
@@ -47,14 +52,18 @@ No resources found.
 [id="removing-the-operatorsource"]
 == Removing the OperatorSource
 
-. If you do not expect to install {Project} again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
-+
+If you do not expect to install {Project} again, delete the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
+
+[discrete]
+=== Procedure
+
+. Delete the OperatorSource:
 ----
 $ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
 operatorsource.operators.coreos.com "infrawatch-operators" deleted
 ----
 
-. Validate that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
+. Verify that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
 +
 ----
 $ oc get packagemanifests | grep InfraWatch
@@ -66,5 +75,7 @@ $ oc get packagemanifests | grep InfraWatch
 $ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
 catalogsource.operators.coreos.com "operatorhubio-operators" deleted
 ----
-+
+
+[discrete]
+=== Additional resources
 For more information about the OperatorHub.io Community Catalog Source, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.

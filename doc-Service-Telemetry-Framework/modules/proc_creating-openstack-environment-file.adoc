@@ -28,6 +28,9 @@ To label traffic according to the cloud of origin, you must create a configurati
 
 WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 
+[discrete]
+== Procedure
+
 . Create the `stf-connectors.yaml` file and modify it to match the AMQP address that you want for this cloud deployment:
 +
 .stf-connectors.yaml
@@ -105,5 +108,9 @@ parameter_defaults:
 -e /home/stack/custom_templates/stf-connectors.yaml \
 ...
 ----
+
+
+[discrete]
+== Additional resources
 
 For information about validating the deployment, see <<validating-clientside-installation_completing-the-stf-configuration>>.

@@ -33,7 +33,10 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 [[retrieving-the-qdr-route-address]]
 == Retrieving the {MessageBus} route address
 
-When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the {MessageBus} route address for the `MetricsQdrConnectors` host parameter:
+When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the {MessageBus} route address for the `MetricsQdrConnectors` host parameter.
+
+[discrete]
+=== Procedure
 
 . Log in to your {OpenShift} ({OpenShiftShort}) environment.
 
@@ -51,7 +54,10 @@ Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671`
 
 [[creating-stf-connectors]]
 == Creating the {ProjectShort} connection file
-Create a file in which you configure the connection of the {MessageBus} on the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}:
+Create a file in which you configure the connection of the {MessageBus} on the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}.
+
+[discrete]
+=== Procedure
 
 . Log in to the {OpenStack} undercloud as the `stack` user.
 
@@ -75,7 +81,10 @@ parameter_defaults:
 [[deploying-the-overcloud]]
 == Deploying the overcloud
 
-From the {OpenStack} undercloud, update the `openstack overcloud deploy` command to include the prerequisite environment files along with `stf-connectors.yaml`:
+From the {OpenStack} undercloud, update the `openstack overcloud deploy` command to include the prerequisite environment files along with `stf-connectors.yaml`.
+
+[discrete]
+=== Procedure
 
 . Add the `stf-connectors.yaml` environment file to a {OpenStack} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}. Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the `ceilometer-write-qdr.yaml` file to the deployment to ensure that Ceilometer telemetry is sent to {ProjectShort}:
 +
