@@ -33,8 +33,8 @@
 * An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
 * Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
 
-The following diagram is an overview of {ProjectShort} architecture:
-
+[[osp-stf-overview]]
+.Service Telemetry Framework architecture overview
 image::OpenStack_STF_Overview_37_1019_arch.png[]
 
 On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
@@ -46,6 +46,8 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 * {OpenShift} ({OpenShiftShort})
 * Infrastructure platform
 
+[[osp-stf-server-side-monitoring]]
+.Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[]
 
 For more information about how to deploy {OpenShift}, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[Product Documentation]. You can install {OpenShift} on cloud platforms or on bare metal.

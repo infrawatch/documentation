@@ -29,6 +29,6 @@ You can configure multiple {OpenStack} clouds to target a single instance of {Pr
 . Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <<deploying-smart-gateways_advanced-features>>.
 . Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see <<creating-openstack-environment-file_advanced-features>>.
 
-This diagram demonstrates how two {OpenStack} clouds connect to {ProjectShort}.
-
+[[osp-stf-multiple-clouds]]
+.Two {OpenStack} clouds connect to {ProjectShort}
 image::OpenStack_STF_Overview_37_0919_topology.png[]
