@@ -516,13 +516,11 @@ STF provides metrics and events data collection from OpenStack infrastructure, f
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following diagram is an overview of STF architecture:</p>
-</div>
-<div class="imageblock">
+<div id="osp-stf-overview" class="imageblock">
 <div class="content">
 <img src="images/OpenStack_STF_Overview_37_1019_arch.png" alt="OpenStack STF Overview 37 1019 arch"/>
 </div>
+<div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
 <div class="paragraph">
 <p>On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
@@ -544,10 +542,11 @@ message bus. On the server side, a Golang application called the Smart Gateway t
 </li>
 </ul>
 </div>
-<div class="imageblock">
+<div id="osp-stf-server-side-monitoring" class="imageblock">
 <div class="content">
 <img src="images/STF_Overview_37_0819_deployment_prereq.png" alt="STF Overview 37 0819 deployment prereq"/>
 </div>
+<div class="title">Figure 2. Server-side STF monitoring infrastructure</div>
 </div>
 <div class="paragraph">
 <p>For more information about how to deploy OpenShift, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/">Product Documentation</a>. You can install OpenShift on cloud platforms or on bare metal.
@@ -588,10 +587,10 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </ul>
 </div>
 <div class="paragraph">
-<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment. It is recommended that installation of monitoring for OpenStack is on a platform separate from your OpenStack environment. You can install OpenShift (OKD) on baremetal or various supported cloud platforms. For more information about installing OKD, see <a href="https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities" class="bare">https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities</a> [OpenShift Container Platform 4.3 Documentation].</p>
+<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment. It is recommended that installation of monitoring for OpenStack is on a platform separate from your OpenStack environment. You can install OpenShift (OKD) on baremetal or various supported cloud platforms. For more information about installing OKD, see <a href="https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.3 Documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The sizing of OKD depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal" class="bare">https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal</a>. For installation requirements of the various public and private cloud platforms to which you can install, see the corresponding installation documentation for your cloud of choice.</p>
+<p>The sizing of OKD depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a>. For installation requirements of the various public and private cloud platforms to which you can install, see the corresponding installation documentation for your cloud of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirement_introduction-to-stf">Development environment resource requirements</h4>
@@ -656,12 +655,12 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <h2 id="installing-the-core-components-of-stf_introduction-to-stf">Installing the core components of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before you install STF, ensure that OpenShift version 4.x is running and that you understand the core components of the framework. As part of the OpenShift installation planning process, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OpenShift environment.</p>
+<p>Before you install Service&#160;Telemetry&#160;Framework (STF), ensure that OpenShift (OKD) version 4.x is running and that you understand the core components of the framework. As part of the OKD installation planning process, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OKD environment.</p>
 </div>
 <div class="sect2">
 <h3 id="installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</h3>
 <div class="paragraph">
-<p>The following STF core components are managed by <a href="https://coreos.com/blog/introducing-operators.html">Operators</a>:</p>
+<p>The following STF core components are managed by <a href="https://docs.openshift.com/container-platform/4.3/operators/olm-what-operators-are.html">Operators</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -707,13 +706,25 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <div class="sect3">
 <h4 id="persistent-volumes">Persistent volumes</h4>
 <div class="paragraph">
-<p>STF uses persistent storage in OKD to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html" class="bare">https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html</a></p>
+<p>STF uses persistent storage in OKD to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.</p>
+</div>
+<h5 id="_additional_resources" class="discrete">Additional resources</h5>
+<div class="paragraph">
+<p>For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </div>
 <div class="sect4">
 <h5 id="ephemeral-storage">Using ephemeral storage</h5>
-<div class="paragraph">
-<p>WARNING:
-You can use ephemeral storage with STF. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You can use ephemeral storage with STF. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To enable ephemeral storage for STF, set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest. For more information about enabling ephemeral storage for STF, see <a href="#configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</a>.</p>
@@ -723,16 +734,23 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="sect3">
 <h4 id="resource-allocation">Resource allocation</h4>
 <div class="paragraph">
-<p>To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
+<p>To enable the scheduling of pods within the OKD infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
 </div>
 <div class="paragraph">
-<p>The amount of resources that you require to run STF depends on your environment and the number of nodes and clouds that you want to monitor. For recommendations about sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>. For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
+<p>The amount of resources that you require to run STF depends on your environment and the number of nodes and clouds that you want to monitor.</p>
+</div>
+<h5 id="_additional_resources_2" class="discrete">Additional resources</h5>
+<div class="paragraph">
+<p>For recommendations about sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
+</div>
+<div class="paragraph">
+<p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="node-tuning-operator">Node tuning operator</h4>
 <div class="paragraph">
-<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
+<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
 </div>
 <div class="paragraph">
 <p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
@@ -761,8 +779,12 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="paragraph">
 <p>When scheduling an ElasticSearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
 </div>
+<h5 id="_additional_resources_3" class="discrete">Additional resources</h5>
 <div class="paragraph">
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator" class="bare">https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator</a></p>
+<p>For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
+</div>
+<div class="paragraph">
+<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
 </div>
 </div>
 </div>
@@ -873,6 +895,7 @@ spec:
 EOF</pre>
 </div>
 </div>
+<h4 id="_additional_resources_4" class="discrete">Additional resources</h4>
 <div class="paragraph">
 <p>For more information, see <a href="https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
@@ -902,8 +925,9 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</h4>
 <div class="paragraph">
-<p>Before you deploy STF on OpenShift, you must enable the operator source:</p>
+<p>Before you deploy STF on OpenShift, you must enable the operator source.</p>
 </div>
+<h5 id="_procedure" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -959,7 +983,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s</p
 <div class="paragraph">
 <p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
 </div>
-<h5 id="_procedure" class="discrete">Procedure</h5>
+<h5 id="_procedure_2" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1014,7 +1038,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 <div class="paragraph">
 <p>Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
 </div>
-<h5 id="_procedure_2" class="discrete">Procedure</h5>
+<h5 id="_procedure_3" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1057,7 +1081,7 @@ elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1
 <div class="paragraph">
 <p>To instantiate an STF instance, create the <code>ServiceTelemetry</code> object to allow the Service Telemetry Operator to create the environment.</p>
 </div>
-<h5 id="_procedure_3" class="discrete">Procedure</h5>
+<h5 id="_procedure_4" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1106,7 +1130,8 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 <div class="paragraph">
 <p>The following core parameters are available for a <code>ServiceTelemetry</code> manifest:</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="table-core-manifest-parameters" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Core parameters for a <code>ServiceTelemetry</code> manifest</caption>
 <colgroup>
 <col style="width: 33.3333%;"/>
 <col style="width: 33.3333%;"/>
@@ -1142,7 +1167,7 @@ smart-gateway-operator.v1.0.1       Smart Gateway Operator                      
 </tr>
 </tbody>
 </table>
-<h5 id="_procedure_4" class="discrete">Procedure</h5>
+<h5 id="_procedure_5" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1231,10 +1256,14 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 </div>
 <div class="sect3">
 <h4 id="deleting-the-namespace">Deleting the namespace</h4>
+<div class="paragraph">
+<p>To remove the operational resources for STF from OKD, delete the namespace.</p>
+</div>
+<h5 id="_procedure_6" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>To remove the operational resources for STF from OKD, delete the namespace:</p>
+<p>Run the <code>oc delete</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc delete project service-telemetry</pre>
@@ -1242,7 +1271,7 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 </div>
 </li>
 <li>
-<p>Validate that the resources have been deleted from the namespace:</p>
+<p>Verify that the resources have been deleted from the namespace:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get all
@@ -1255,19 +1284,27 @@ No resources found.</pre>
 </div>
 <div class="sect3">
 <h4 id="removing-the-operatorsource">Removing the OperatorSource</h4>
+<div class="paragraph">
+<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, delete the OperatorSource. When you remove the OperatorSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.</p>
+</div>
+<h5 id="_procedure_7" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, remove the OperatorSource. When you remove the OperatorSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.</p>
+<p>Delete the OperatorSource:</p>
+</li>
+</ol>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
 operatorsource.operators.coreos.com "infrawatch-operators" deleted</pre>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Validate that the STF PackageManifests are removed from the platform. If successful, the following command returns no result:</p>
+<p>Verify that the STF PackageManifests are removed from the platform. If successful, the following command returns no result:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc get packagemanifests | grep InfraWatch</pre>
@@ -1282,11 +1319,12 @@ operatorsource.operators.coreos.com "infrawatch-operators" deleted</pre>
 catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>For more information about the OperatorHub.io Community Catalog Source, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
-</div>
 </li>
 </ol>
+</div>
+<h5 id="_additional_resources_5" class="discrete">Additional resources</h5>
+<div class="paragraph">
+<p>For more information about the OperatorHub.io Community Catalog Source, see <a href="#deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
 </div>
 </div>
 </div>
@@ -1298,7 +1336,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect2">
 <h3 id="connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>To collect metrics, events, or both, and to send them to the STF storage domain, you must configure the OpenStack overcloud to enable data collect and transport. To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
+<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport. To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1316,6 +1354,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"</code></pre>
 </div>
 </div>
+<h4 id="_additional_resources_6" class="discrete">Additional resources</h4>
 <div class="paragraph">
 <p>For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
@@ -1334,7 +1373,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <p>Log in to the OpenStack undercloud. Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
 </li>
 <li>
-<p>Run the overcloud deployment command and include the stf-connectors.yaml file, as well as any other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
+<p>Run the overcloud deployment command and include the <code>stf-connectors.yaml</code> file, as well as any other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
 </li>
 <li>
 <p>Validate the client-side installation. For more information, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
@@ -1344,12 +1383,13 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
 <div class="paragraph">
-<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter:</p>
+<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
 </div>
+<h5 id="_procedure_8" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log in to your OpenShift environment.</p>
+<p>Log in to your OpenShift (OKD) environment.</p>
 </li>
 <li>
 <p>Run the <code>oc get routes</code> command in the <code>service-telemetry</code> project:</p>
@@ -1372,18 +1412,16 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="sect3">
 <h4 id="creating-stf-connectors">Creating the STF connection file</h4>
 <div class="paragraph">
-<p>Create a file in which you configure the connection of the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment, and enable collection of events and storage of the events in STF:</p>
+<p>Create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment, and enable collection of events and storage of the events in STF.</p>
 </div>
+<h5 id="_procedure_9" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>After logging into the OpenStack undercloud as the <code>stack</code> user, create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
-</div>
+<li>
+<p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1391,15 +1429,11 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you wish to share the data storage domain with multiple clouds, then you should follow the process in <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you want to share the data storage domain with multiple clouds, follow the procedure in <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create a configuration file and name it <code>stf-connectors.yaml</code> in <code>/home/stack</code>.</p>
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter if you want to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
@@ -1422,8 +1456,9 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="sect3">
 <h4 id="deploying-the-overcloud">Deploying the overcloud</h4>
 <div class="paragraph">
-<p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>:</p>
+<p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>.</p>
 </div>
+<h5 id="_procedure_10" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1451,6 +1486,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="paragraph">
 <p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
 </div>
+<h4 id="_procedure_11" class="discrete">Procedure</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1603,7 +1639,7 @@ Router Addresses
 <h2 id="advanced-features_completing-the-stf-configuration">Advanced features</h2>
 <div class="sectionbody">
 <div id="advanced-features_advanced-features" class="paragraph">
-<p>The following optional features can provide additional functionality to the Service&#160;Telemetry&#160;Framework:</p>
+<p>The following optional features can provide additional functionality to the Service&#160;Telemetry&#160;Framework (STF):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1655,8 +1691,8 @@ When you override the manifest, you must provide the entire manifest contents, i
 <div class="paragraph">
 <p>This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Manifest override parameters</caption>
+<table id="table-manifest-override-parameters" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Manifest override parameters</caption>
 <colgroup>
 <col style="width: 33.3333%;"/>
 <col style="width: 33.3333%;"/>
@@ -1730,11 +1766,12 @@ When you override the manifest, you must provide the entire manifest contents, i
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>
+The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>.
 </td>
 </tr>
 </table>
 </div>
+<h5 id="_procedure_12" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1844,19 +1881,19 @@ status:
 </li>
 </ol>
 </div>
-<h4 id="_additional_resources" class="discrete">Additional resources</h4>
+<h4 id="_additional_resources_7" class="discrete">Additional resources</h4>
 <div class="paragraph">
 <p>For more information about alerts or notifications with Prometheus and Alertmanager, see <a href="https://prometheus.io/docs/alerting/overview/" class="bare">https://prometheus.io/docs/alerting/overview/</a></p>
 </div>
 <div class="paragraph">
-<p>To view an example set of alerts that you can use with STF, see <a href="https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts" class="bare">https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts</a></p>
+<p>To view an example set of alerts that you can use with Service&#160;Telemetry&#160;Framework (STF), see <a href="https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts" class="bare">https://github.com/infrawatch/service-telemetry-operator/tree/master/deploy/alerts</a></p>
 </div>
 <div class="sect3">
 <h4 id="creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</h4>
 <div class="paragraph">
 <p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.</p>
 </div>
-<h5 id="_procedure_5" class="discrete">Procedure</h5>
+<h5 id="_procedure_13" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1920,7 +1957,7 @@ pod "curl" deleted</pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_2" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_8" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For more information on alerting, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
@@ -1928,8 +1965,9 @@ pod "curl" deleted</pre>
 <div class="sect3">
 <h4 id="configuring-custom-alerts_advanced-features">Configuring custom alerts</h4>
 <div class="paragraph">
-<p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>:</p>
+<p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </div>
+<h5 id="_procedure_14" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1941,18 +1979,25 @@ pod "curl" deleted</pre>
 </div>
 </li>
 <li>
-<p>Edit the PrometheusRules manifest. For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>. For more information about PrometheusRules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+<p>Edit the PrometheusRules manifest.</p>
 </li>
 <li>
 <p>Save and close.</p>
 </li>
 </ol>
 </div>
+<h5 id="_additional_resources_9" class="discrete">Additional resources</h5>
+<div class="paragraph">
+<p>For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
+</div>
+<div class="paragraph">
+<p>For more information about PrometheusRules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="creating-an-alert-route-in-alertmanager_advanced-features">Creating an alert route in Alertmanager</h4>
 <div class="paragraph">
-<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an OpenShift secret. STF by default deploys a basic configuration that results in no receivers:</p>
+<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an OpenShift (OKD) secret. STF by default deploys a basic configuration that results in no receivers:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1972,7 +2017,7 @@ pod "curl" deleted</pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <a href="#configuring-manifest-overrides_advanced-features">Overriding a managed manifest</a>.</p>
 </div>
-<h5 id="_procedure_6" class="discrete">Procedure</h5>
+<h5 id="_procedure_15" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1996,9 +2041,17 @@ pod "curl" deleted</pre>
 </li>
 <li>
 <p>Add a new parameter, <code>alertmanagerConfigManifest</code> and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
-<div class="paragraph">
-<p>NOTE:
-This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-stf-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-stf-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2088,7 +2141,7 @@ pod "curl" deleted</pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_3" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_10" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
@@ -2132,6 +2185,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="paragraph">
 <p>To configure STF for high availability, add <code>highAvailabilityEnabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
+<h5 id="_procedure_16" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2168,8 +2222,9 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="sect3">
 <h4 id="setting-up-the-dashboard-to-host-grafana_advanced-features">Setting up the dashboard to host Grafana</h4>
 <div class="paragraph">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>:</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </div>
+<h5 id="_procedure_17" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2260,6 +2315,7 @@ service-telemetry-grafanadatasource   1m</pre>
 </div>
 <div class="sect4">
 <h5 id="viewing-and-editing-queries">Viewing and editing queries</h5>
+<h6 id="_procedure_18" class="discrete">Procedure</h6>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2568,13 +2624,11 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>This diagram demonstrates how two OpenStack clouds connect to STF.</p>
-</div>
-<div class="imageblock">
+<div id="osp-stf-multiple-clouds" class="imageblock">
 <div class="content">
 <img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="OpenStack STF Overview 37 0919 topology"/>
 </div>
+<div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
 </div>
 <div class="sect3">
 <h4 id="planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</h4>
@@ -2621,9 +2675,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="paragraph">
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
-<div class="paragraph">
-<p>To deploy additional Smart Gateways for each cloud that you want to monitor, complete the following steps:</p>
-</div>
+<h5 id="_procedure_19" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2814,6 +2866,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 </tr>
 </table>
 </div>
+<h5 id="_procedure_20" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2920,6 +2973,7 @@ parameter_defaults:
 </li>
 </ol>
 </div>
+<h5 id="_additional_resources_11" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For information about validating the deployment, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </div>
@@ -2937,7 +2991,7 @@ parameter_defaults:
 <div class="sect2">
 <h3 id="ephemeral-storage_advanced-features">Ephemeral Storage</h3>
 <div class="paragraph">
-<p>Use ephemeral storage to run STF without persistently storing data in your OKD cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
+<p>Use ephemeral storage to run Service&#160;Telemetry&#160;Framework (STF) without persistently storing data in your OpenShift (OKD) cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
 </div>
 <div class="paragraph">
 <p>If you enable ephemeral storage in STF, the Service Telemetry Operator does not add the relevant <code>storage</code> sections to the data storage components manifests.</p>
@@ -2947,6 +3001,7 @@ parameter_defaults:
 <div class="paragraph">
 <p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
+<h5 id="_procedure_21" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4188,7 +4243,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-05 22:53:09 UTC
+Last updated 2020-05-08 16:41:53 UTC
 </div>
 </div>
 </body>
