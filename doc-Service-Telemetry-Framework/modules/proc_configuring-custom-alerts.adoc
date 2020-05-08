@@ -23,7 +23,10 @@
 [id="configuring-custom-alerts_{context}"]
 = Configuring custom alerts
 
-You can add custom alerts to the `PrometheusRule` object that you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>:
+You can add custom alerts to the `PrometheusRule` object that you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>.
+
+[discrete]
+== Procedure
 
 . Use the `oc edit` command:
 +
@@ -31,6 +34,13 @@ You can add custom alerts to the `PrometheusRule` object that you created in <<c
 oc edit prometheusrules prometheus-alarm-rules
 ----
 
-. Edit the PrometheusRules manifest. For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/. For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+. Edit the PrometheusRules manifest.
 
 . Save and close.
+
+[discrete]
+== Additional resources
+
+For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
+
+For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

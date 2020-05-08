@@ -26,6 +26,7 @@
 The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
 == Top panels
+
 |===
 
 |**Title** | **Unit** | **Description**

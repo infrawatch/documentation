@@ -25,4 +25,4 @@
 [id="connecting-openstack_{context}"]
 = Connecting {OpenStack} to {Project}
 
-To collect metrics, events, or both, and to send them to the {ProjectShort} storage domain, you must configure the {OpenStack} overcloud to enable data collect and transport. To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <<deploying-with-routed-l3-networks_completing-the-stf-configuration>>.
+To collect metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} overcloud to enable data collection and transport. To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <<deploying-with-routed-l3-networks_completing-the-stf-configuration>>.

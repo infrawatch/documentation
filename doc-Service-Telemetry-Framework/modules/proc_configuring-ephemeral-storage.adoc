@@ -25,6 +25,9 @@
 
 To configure {ProjectShort} for ephemeral storage, add `storageEphemeralEnabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can add `storageEphemeralEnabled: true` at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
+[discrete]
+== Procedure
+
 . Edit the ServiceTelemetry object:
 +
 ----

@@ -27,7 +27,8 @@ You must deploy a Smart Gateway for each of the data collection types for each c
 
 When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.
 
-To deploy additional Smart Gateways for each cloud that you want to monitor, complete the following steps:
+[discrete]
+== Procedure
 
 . Switch to the `service-telemetry` project:
 +

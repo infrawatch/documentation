@@ -25,6 +25,7 @@
 
 This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.
 
+[[table-manifest-override-parameters]]
 .Manifest override parameters
 
 |===

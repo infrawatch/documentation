@@ -28,6 +28,9 @@ To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {O
 
 The following core parameters are available for a `ServiceTelemetry` manifest:
 
+
+[[table-core-manifest-parameters]]
+.Core parameters for a `ServiceTelemetry` manifest
 |===
 | Parameter | Description | Default Value
 

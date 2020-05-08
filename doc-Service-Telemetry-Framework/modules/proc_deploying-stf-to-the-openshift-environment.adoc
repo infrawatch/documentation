@@ -82,12 +82,16 @@ spec:
 EOF
 ----
 
+[discrete]
+== Additional resources
+
 For more information, see https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
 
 [id="enabling-the-operatorhubio-community-catalog-source"]
 == Enabling the OperatorHub.io Community Catalog Source
 
 Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:
+
 [source,bash]
 ----
 oc apply -f - <<EOF
@@ -107,7 +111,10 @@ EOF
 [id="enabling-the-infrawatch-operator-source"]
 == Enabling InfraWatch Operator Source
 
-Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source:
+Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source.
+
+[discrete]
+=== Procedure
 
 . Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +

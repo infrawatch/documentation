@@ -26,7 +26,10 @@
 Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see <<manifest-overrides_advanced-features>>. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
 
 [TIP]
-The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`
+The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`.
+
+[discrete]
+== Procedure
 
 . Load the `ServiceTelemetry` object into an editor:
 +

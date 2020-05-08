@@ -23,7 +23,10 @@
 [id="setting-up-the-dashboard-to-host-grafana_{context}"]
 = Setting up the dashboard to host Grafana
 
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <<enabling-the-operatorhubio-community-catalog-source>>:
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <<enabling-the-operatorhubio-community-catalog-source>>.
+
+[discrete]
+== Procedure
 
 . Clone the dashboard repository.
 +
@@ -94,6 +97,9 @@ oc get routes
 
 [id="viewing-and-editing-queries"]
 == Viewing and editing queries
+
+[discrete]
+=== Procedure
 
 . To view and edit queries, log in as the `admin` user.
 
