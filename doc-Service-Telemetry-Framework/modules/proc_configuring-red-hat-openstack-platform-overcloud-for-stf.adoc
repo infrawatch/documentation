@@ -54,7 +54,7 @@ Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671`
 
 [[creating-stf-connectors]]
 == Creating the {ProjectShort} connection file
-Create a file in which you configure the connection of the {MessageBus} on the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}.
+Create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}.
 
 [discrete]
 === Procedure
