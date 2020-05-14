@@ -109,7 +109,12 @@ EOF
 ----
 
 [id="enabling-the-infrawatch-operator-source"]
+ifeval::["{build}" == "upstream"]
 == Enabling InfraWatch Operator Source
+endif::[]
+ifeval::["{build}" == "downstream"]
+== Enabling Red Hat STF Operator Source
+endif::[]
 
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source.
 
@@ -118,7 +123,9 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator so
 
 . Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
+
 [source,bash]
+ifeval::["{build}" == "upstream"]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -137,24 +144,65 @@ spec:
   type: appregistry
 EOF
 ----
+endif::[]
+ifeval::["{build}" == "downstream"]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorSource
+metadata:
+  labels:
+    opsrc-provider: redhat-operators-stf
+  name: redhat-operators-stf
+  namespace: openshift-marketplace
+spec:
+  authorizationToken: {}
+  displayName: Red Hat STF Operators
+  endpoint: https://quay.io/cnr
+  publisher: Red Hat
+  registryNamespace: redhat-operators-stf
+  type: appregistry
+EOF
+----
+endif::[]
 
 . To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
 +
+ifeval::["{build}" == "upstream"]
 ----
 $ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
-NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE                                       AGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled   5m23s
+NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
+infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled
 ----
+endif::[]
+ifeval::["{build}" == "downstream"]
+----
+$ oc get -nopenshift-marketplace operatorsource redhat-operators-stf
+
+NAME                   TYPE          ENDPOINT              REGISTRY               DISPLAYNAME             PUBLISHER   STATUS      MESSAGE
+redhat-operators-stf   appregistry   https://quay.io/cnr   redhat-operators-stf   Red Hat STF Operators   Red Hat     Succeeded   The object has been successfully reconciled
+----
+endif::[]
 
 . To validate that the Operators are available from the catalog, run the `oc get packagemanifest` command:
 +
+ifeval::["{build}" == "upstream"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
 servicetelemetry-operator                    InfraWatch Operators       7m20s
 smartgateway-operator                        InfraWatch Operators       7m20s
 ----
+endif::[]
+ifeval::["{build}" == "downstream"]
+----
+$ oc get packagemanifests | grep "Red Hat STF"
+
+smartgateway-operator                        Red Hat STF Operators      2m50s
+servicetelemetry-operator                    Red Hat STF Operators      2m50s
+----
+endif::[]
 
 [id="subscribing-to-the-amq-certificate-manager-operator"]
 == Subscribing to the AMQ Certificate Manager Operator
@@ -221,7 +269,7 @@ spec:
   name: elastic-cloud-eck
   source: operatorhubio-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: elastic-cloud-eck.v1.0.1
+  startingCSV: elastic-cloud-eck.v1.1.0
 EOF
 ----
 
@@ -231,7 +279,7 @@ EOF
 $ oc get csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0   Succeeded
+elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded
 ----
 
 [id="subscribing-to-the-service-telemetry-operator"]
@@ -243,9 +291,9 @@ To instantiate an {ProjectShort} instance, create the `ServiceTelemetry` object 
 === Procedure
 
 . To create the Service Telemetry Operator subscription, run the `oc apply -f` command:
-
 +
 [source,bash]
+ifeval::["{build}" == "upstream"]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -261,6 +309,25 @@ spec:
   sourceNamespace: openshift-marketplace
 EOF
 ----
+endif::[]
+ifeval::["{build}" == "downstream"]
+----
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: servicetelemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: servicetelemetry-operator
+  source: redhat-operators-stf
+  sourceNamespace: openshift-marketplace
+EOF
+----
+endif::[]
+
 
 . To validate the Service Telemetry Operator and the dependent operators, run the following command:
 
@@ -270,8 +337,8 @@ $ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
 amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
-elastic-cloud-eck.v1.0.1            Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0            Succeeded
-prometheusoperator.0.32.0           Prometheus Operator                             0.32.0    prometheusoperator.0.27.0           Succeeded
-service-telemetry-operator.v1.0.1   Service Telemetry Operator                      1.0.1     service-telemetry-operator.v1.0.0   Succeeded
+elastic-cloud-eck.v1.1.0            Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1            Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
+service-telemetry-operator.v1.0.2   Service Telemetry Operator                      1.0.2     service-telemetry-operator.v1.0.1   Succeeded
 smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded
 ----

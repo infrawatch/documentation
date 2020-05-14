@@ -48,7 +48,7 @@ oc create -f deploy/subscription.yaml
 $ oc get csv
 
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-grafana-operator.v3.0.2             Grafana Operator                                3.0.2                                         Succeeded
+grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...
 ----
 
