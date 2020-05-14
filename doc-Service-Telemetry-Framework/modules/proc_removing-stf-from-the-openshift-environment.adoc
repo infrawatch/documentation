@@ -58,6 +58,7 @@ If you do not expect to install {Project} again, delete the OperatorSource. When
 === Procedure
 
 . Delete the OperatorSource:
++
 ifeval::["{build}" == "upstream"]
 ----
 $ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
