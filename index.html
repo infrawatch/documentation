@@ -959,8 +959,8 @@ EOF</code></pre>
 <div class="content">
 <pre>$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
-NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE                                       AGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled   5m23s</pre>
+NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
+infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled</pre>
 </div>
 </div>
 </li>
@@ -1057,7 +1057,7 @@ spec:
   name: elastic-cloud-eck
   source: operatorhubio-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: elastic-cloud-eck.v1.0.1
+  startingCSV: elastic-cloud-eck.v1.1.0
 EOF</code></pre>
 </div>
 </div>
@@ -1069,7 +1069,7 @@ EOF</code></pre>
 <pre>$ oc get csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-elastic-cloud-eck.v1.0.1   Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0   Succeeded</pre>
+elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded</pre>
 </div>
 </div>
 </li>
@@ -1112,9 +1112,9 @@ EOF</code></pre>
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
 amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
-elastic-cloud-eck.v1.0.1            Elastic Cloud on Kubernetes                     1.0.1     elastic-cloud-eck.v1.0.0            Succeeded
-prometheusoperator.0.32.0           Prometheus Operator                             0.32.0    prometheusoperator.0.27.0           Succeeded
-service-telemetry-operator.v1.0.1   Service Telemetry Operator                      1.0.1     service-telemetry-operator.v1.0.0   Succeeded
+elastic-cloud-eck.v1.1.0            Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1            Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
+service-telemetry-operator.v1.0.2   Service Telemetry Operator                      1.0.2     service-telemetry-operator.v1.0.1   Succeeded
 smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</pre>
 </div>
 </div>
@@ -1524,12 +1524,12 @@ listener {
 <pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
-  id   host                                                                                               container                                                                                                  role    dir  security                            authentication  tenant
+  id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
   ============================================================================================================================================================================================================================================================================================
-  1    stf-default-interconnect-5671-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
-  12   172.17.1.44:60290                                                                                  openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
-  16   172.17.1.44:36408                                                                                  metrics                                                                                                    normal  in   no-security                         anonymous-user
-  899  172.17.1.44:39500                                                                                  10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</pre>
+  1    stf-default-interconnect-5671-service-telemetry.apps.infra.watch:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  12   172.17.1.44:60290                                                     openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
+  16   172.17.1.44:36408                                                     metrics                                                                                                    normal  in   no-security                         anonymous-user
+  899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2252,7 +2252,7 @@ oc create -f deploy/subscription.yaml</pre>
 <pre>$ oc get csv
 
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-grafana-operator.v3.0.2             Grafana Operator                                3.0.2                                         Succeeded
+grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...</pre>
 </div>
 </div>
@@ -4243,7 +4243,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-08 16:41:53 UTC
+Last updated 2020-05-14 18:17:55 UTC
 </div>
 </div>
 </body>
