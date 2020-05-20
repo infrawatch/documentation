@@ -1332,7 +1332,10 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect2">
 <h3 id="connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport. To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
+<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport.</p>
+</div>
+<div class="paragraph">
+<p>To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1340,8 +1343,13 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="paragraph">
 <p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
 </div>
-<div class="paragraph">
-<p>Add the following configuration example in the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network that the Compute node <code>N</code> is connected to. <code>N</code> represents a value that is different from the default internal API network name.</p>
+<h4 id="_procedure_8" class="discrete">Procedure</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the following configuration example to the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network to which the Compute node <code>N</code> is connected. <code>N</code> represents a value that is different from the default internal API network name.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1358,7 +1366,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect2">
 <h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</h3>
 <div class="paragraph">
-<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF:</p>
+<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1369,7 +1377,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <p>Log in to the OpenStack undercloud. Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
 </li>
 <li>
-<p>Run the overcloud deployment command and include the <code>stf-connectors.yaml</code> file, as well as any other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
+<p>Run the <code>overcloud deploy</code> command, include the <code>stf-connectors.yaml</code> file, and other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
 </li>
 <li>
 <p>Validate the client-side installation. For more information, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
@@ -1381,7 +1389,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="paragraph">
 <p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
 </div>
-<h5 id="_procedure_8" class="discrete">Procedure</h5>
+<h5 id="_procedure_9" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1410,7 +1418,7 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="paragraph">
 <p>Create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment, and enable collection of events and storage of the events in STF.</p>
 </div>
-<h5 id="_procedure_9" class="discrete">Procedure</h5>
+<h5 id="_procedure_10" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1425,14 +1433,14 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you want to share the data storage domain with multiple clouds, follow the procedure in <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter if you want to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>parameter_defaults:
@@ -1454,7 +1462,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="paragraph">
 <p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>.</p>
 </div>
-<h5 id="_procedure_10" class="discrete">Procedure</h5>
+<h5 id="_procedure_11" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1482,7 +1490,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="paragraph">
 <p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
 </div>
-<h4 id="_procedure_11" class="discrete">Procedure</h4>
+<h4 id="_procedure_12" class="discrete">Procedure</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1767,7 +1775,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 </tr>
 </table>
 </div>
-<h5 id="_procedure_12" class="discrete">Procedure</h5>
+<h5 id="_procedure_13" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1889,7 +1897,7 @@ status:
 <div class="paragraph">
 <p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.</p>
 </div>
-<h5 id="_procedure_13" class="discrete">Procedure</h5>
+<h5 id="_procedure_14" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1963,7 +1971,7 @@ pod "curl" deleted</pre>
 <div class="paragraph">
 <p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </div>
-<h5 id="_procedure_14" class="discrete">Procedure</h5>
+<h5 id="_procedure_15" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2013,7 +2021,7 @@ pod "curl" deleted</pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <a href="#configuring-manifest-overrides_advanced-features">Overriding a managed manifest</a>.</p>
 </div>
-<h5 id="_procedure_15" class="discrete">Procedure</h5>
+<h5 id="_procedure_16" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2181,7 +2189,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="paragraph">
 <p>To configure STF for high availability, add <code>highAvailabilityEnabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_16" class="discrete">Procedure</h5>
+<h5 id="_procedure_17" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2220,7 +2228,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="paragraph">
 <p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </div>
-<h5 id="_procedure_17" class="discrete">Procedure</h5>
+<h5 id="_procedure_18" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2311,7 +2319,7 @@ service-telemetry-grafanadatasource   1m</pre>
 </div>
 <div class="sect4">
 <h5 id="viewing-and-editing-queries">Viewing and editing queries</h5>
-<h6 id="_procedure_18" class="discrete">Procedure</h6>
+<h6 id="_procedure_19" class="discrete">Procedure</h6>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2671,7 +2679,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="paragraph">
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
-<h5 id="_procedure_19" class="discrete">Procedure</h5>
+<h5 id="_procedure_20" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2862,7 +2870,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 </tr>
 </table>
 </div>
-<h5 id="_procedure_20" class="discrete">Procedure</h5>
+<h5 id="_procedure_21" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2997,7 +3005,7 @@ parameter_defaults:
 <div class="paragraph">
 <p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_21" class="discrete">Procedure</h5>
+<h5 id="_procedure_22" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4239,7 +4247,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-14 19:35:35 UTC
+Last updated 2020-05-20 14:20:53 UTC
 </div>
 </div>
 </body>
