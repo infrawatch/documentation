@@ -23,11 +23,11 @@
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
 = Configuring {OpenStack} overcloud for {ProjectShort}
 
-To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}:
+To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}.
 
 . Retrieve the {MessageBus} route address for the `MetricsQdrConnectors` host parameter in `stf-connectors.yaml`. For more information, see <<retrieving-the-qdr-route-address>>.
 . Log in to the {OpenStack} undercloud. Create a file and name it `stf-connectors.yaml`. For more information, see <<creating-stf-connectors>>.
-. Run the overcloud deployment command and include the `stf-connectors.yaml` file, as well as any other environment files relevant to your deployment. For more information, see <<deploying-the-overcloud>>.
+. Run the `overcloud deploy` command, include the `stf-connectors.yaml` file, and other environment files relevant to your deployment. For more information, see <<deploying-the-overcloud>>.
 . Validate the client-side installation. For more information, see <<validating-clientside-installation_completing-the-stf-configuration>>.
 
 [[retrieving-the-qdr-route-address]]
@@ -63,9 +63,9 @@ Create a file that contains the connection configuration of the {MessageBus} for
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 +
-IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. If you want to share the data storage domain with multiple clouds, follow the procedure in <<configuring-multiple-clouds_advanced-features>>.
+IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. To share the data storage domain with multiple clouds, see <<configuring-multiple-clouds_advanced-features>>.
 
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter if you want to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value that you retrieved in <<retrieving-the-qdr-route-address>>:
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
 ----
 parameter_defaults:
