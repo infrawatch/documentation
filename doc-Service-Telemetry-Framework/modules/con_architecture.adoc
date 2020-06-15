@@ -37,6 +37,13 @@
 .Service Telemetry Framework architecture overview
 image::OpenStack_STF_Overview_37_1019_arch.png[]
 
+ifeval::["{build}" == "downstream"]
+
+[NOTE]
+The Service Telemetry Operator is fully supported. Prometheus  and ElasticSearch are third-party components.
+
+endif::[]
+
 On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
 message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
