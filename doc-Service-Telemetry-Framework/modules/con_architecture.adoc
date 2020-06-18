@@ -37,6 +37,13 @@
 .Service Telemetry Framework architecture overview
 image::OpenStack_STF_Overview_37_1019_arch.png[]
 
+ifeval::["{build}" == "downstream"]
+
+[NOTE]
+The {Project} data collection components, collectd and Ceilometer, and the transport components, {MessageBus} and Smart Gateway, are fully supported. The data storage components, Prometheus and ElasticSearch, including the Operator artifacts, and visualization component Grafana are community-supported, and are not officially supported.
+
+endif::[]
+
 On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
 message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
