@@ -20,13 +20,13 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="setting-up-the-dashboard-to-host-grafana_{context}"]
-= Setting up the dashboard to host Grafana
+[id="setting-up-grafana-to-host-the-dashboard_{context}"]
+= Setting up Grafana to host the dashboard
 
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <<enabling-the-operatorhubio-community-catalog-source>>.
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io.
 
 [discrete]
-== Procedure
+.Procedure
 
 . Clone the dashboard repository.
 +
@@ -95,11 +95,18 @@ oc get routes
 
 . To view the dashboard, click *Dashboards* and *Manage*.
 
+[discrete]
+.Additional resources
+
+* For more information about enabling the OperatorHub.io catalog source, see <<enabling-the-operatorhubio-community-catalog-source>>.
+
+
+
 [id="viewing-and-editing-queries"]
 == Viewing and editing queries
 
 [discrete]
-=== Procedure
+.Procedure
 
 . To view and edit queries, log in as the `admin` user.
 

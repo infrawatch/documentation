@@ -53,7 +53,7 @@ include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
 
 //Dashboards
 include::../modules/con_dashboards.adoc[leveloffset=+1]
-include::../modules/proc_setting-up-the-dashboard-to-host-grafana.adoc[leveloffset=+2]
+include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffset=+2]
 include::../modules/ref_the-grafana-infrastructure-dashboard.adoc[leveloffset=+2]
 
 //Connecting multiple clouds
