@@ -44,8 +44,9 @@ The {Project} data collection components, collectd and Ceilometer, and the trans
 
 endif::[]
 
-On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
-message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+For metrics, on the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+
+If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the AMQP1 plugin, which places the data onto the message bus. A second (or another) Smart Gateway writes the data to the ElasticSearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
