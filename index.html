@@ -523,8 +523,10 @@ STF provides metrics and events data collection from OpenStack infrastructure, f
 <div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
 <div class="paragraph">
-<p>On the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the
-message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
+<p>For metrics, on the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
+</div>
+<div class="paragraph">
+<p>If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the AMQP1 plugin, which places the data onto the message bus. A second (or another) Smart Gateway writes the data to the ElasticSearch datastore.</p>
 </div>
 <div class="paragraph">
 <p>Server-side STF monitoring infrastructure consists of the following layers:</p>
@@ -4255,7 +4257,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-24 09:59:18 UTC
+Last updated 2020-06-24 18:58:59 UTC
 </div>
 </div>
 </body>
