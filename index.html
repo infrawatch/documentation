@@ -2224,13 +2224,13 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="setting-up-the-dashboard-to-host-grafana_advanced-features">Setting up the dashboard to host Grafana</h4>
+<h4 id="setting-up-grafana-to-host-the-dashboard_advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io.</p>
 </div>
-<h5 id="_procedure_18" class="discrete">Procedure</h5>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>Clone the dashboard repository.</p>
 <div class="listingblock">
@@ -2317,11 +2317,19 @@ service-telemetry-grafanadatasource   1m</pre>
 </li>
 </ol>
 </div>
+<div class="ulist discrete">
+<div class="title">Additional resources</div>
+<ul class="discrete">
+<li>
+<p>For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+</li>
+</ul>
+</div>
 <div class="sect4">
 <h5 id="viewing-and-editing-queries">Viewing and editing queries</h5>
-<h6 id="_procedure_19" class="discrete">Procedure</h6>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>To view and edit queries, log in as the <code>admin</code> user.</p>
 </li>
@@ -2679,7 +2687,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="paragraph">
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
-<h5 id="_procedure_20" class="discrete">Procedure</h5>
+<h5 id="_procedure_18" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2870,7 +2878,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 </tr>
 </table>
 </div>
-<h5 id="_procedure_21" class="discrete">Procedure</h5>
+<h5 id="_procedure_19" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3005,7 +3013,7 @@ parameter_defaults:
 <div class="paragraph">
 <p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_22" class="discrete">Procedure</h5>
+<h5 id="_procedure_20" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4247,7 +4255,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-18 16:15:21 UTC
+Last updated 2020-06-24 09:59:18 UTC
 </div>
 </div>
 </body>
