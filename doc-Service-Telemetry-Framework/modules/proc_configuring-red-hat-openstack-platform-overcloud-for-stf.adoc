@@ -36,12 +36,13 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the {MessageBus} route address for the `MetricsQdrConnectors` host parameter.
 
 [discrete]
-=== Procedure
+.Procedure
 
 . Log in to your {OpenShift} ({OpenShiftShort}) environment.
 
-.  Run the `oc get routes` command in the `service-telemetry` project:
+.  Enter `oc get routes` in the `service-telemetry` project:
 +
+[options="nowrap", subs="+quotes"]
 ----
 oc get routes
 NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
@@ -57,7 +58,7 @@ Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671`
 Create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment, and enable collection of events and storage of the events in {ProjectShort}.
 
 [discrete]
-=== Procedure
+.Procedure
 
 . Log in to the {OpenStack} undercloud as the `stack` user.
 
@@ -67,6 +68,7 @@ IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data 
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
+[source,yaml]
 ----
 parameter_defaults:
     CeilometerQdrPublishEvents: true
@@ -84,10 +86,11 @@ parameter_defaults:
 From the {OpenStack} undercloud, update the `openstack overcloud deploy` command to include the prerequisite environment files along with `stf-connectors.yaml`.
 
 [discrete]
-=== Procedure
+.Procedure
 
 . Add the `stf-connectors.yaml` environment file to a {OpenStack} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}. Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the `ceilometer-write-qdr.yaml` file to the deployment to ensure that Ceilometer telemetry is sent to {ProjectShort}:
 +
+[options="nowrap", subs="+quotes"]
 ----
 openstack overcloud deploy <other arguments>
 --templates /usr/share/openstack-tripleo-heat-templates \
