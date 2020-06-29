@@ -1345,9 +1345,9 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="paragraph">
 <p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
 </div>
-<h4 id="_procedure_8" class="discrete">Procedure</h4>
-<div class="ulist">
-<ul>
+<div class="ulist discrete">
+<div class="title">Procedure</div>
+<ul class="discrete">
 <li>
 <p>Add the following configuration example to the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network to which the Compute node <code>N</code> is connected. <code>N</code> represents a value that is different from the default internal API network name.</p>
 </li>
@@ -1360,8 +1360,8 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"</code></pre>
 </div>
 </div>
-<h4 id="_additional_resources_6" class="discrete">Additional resources</h4>
 <div class="paragraph">
+<div class="title">Additional resources</div>
 <p>For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 </div>
@@ -1391,17 +1391,17 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="paragraph">
 <p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
 </div>
-<h5 id="_procedure_9" class="discrete">Procedure</h5>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>Log in to your OpenShift (OKD) environment.</p>
 </li>
 <li>
-<p>Run the <code>oc get routes</code> command in the <code>service-telemetry</code> project:</p>
+<p>Enter <code>oc get routes</code> in the <code>service-telemetry</code> project:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc get routes
+<pre class="nowrap">oc get routes
 NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
 stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
 stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
@@ -1420,9 +1420,9 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <div class="paragraph">
 <p>Create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment, and enable collection of events and storage of the events in STF.</p>
 </div>
-<h5 id="_procedure_10" class="discrete">Procedure</h5>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
 </li>
@@ -1445,14 +1445,14 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
     CeilometerQdrPublishEvents: true
     MetricsQdrConnectors:
     - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
       role: edge
       sslProfile: sslProfile
-      verifyHostname: false</pre>
+      verifyHostname: false</code></pre>
 </div>
 </div>
 </li>
@@ -1464,14 +1464,14 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="paragraph">
 <p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>.</p>
 </div>
-<h5 id="_procedure_11" class="discrete">Procedure</h5>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>Add the <code>stf-connectors.yaml</code> environment file to a OpenStack TripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router. Add the <code>enable-stf.yaml</code> file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the <code>ceilometer-write-qdr.yaml</code> file to the deployment to ensure that Ceilometer telemetry is sent to STF:</p>
 <div class="listingblock">
 <div class="content">
-<pre>openstack overcloud deploy &lt;other arguments&gt;
+<pre class="nowrap">openstack overcloud deploy &lt;other arguments&gt;
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file &lt;...other-environment-files...&gt; \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
@@ -1492,9 +1492,9 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="paragraph">
 <p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
 </div>
-<h4 id="_procedure_12" class="discrete">Procedure</h4>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="olist discrete">
+<div class="title">Procedure</div>
+<ol class="discrete">
 <li>
 <p>Log in to an overcloud node, for example, controller-0:</p>
 </li>
@@ -1502,7 +1502,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+<pre class="nowrap">$ sudo podman container inspect --format <em>{{.State.Status}}</em> metrics_qdr
 
 running</pre>
 </div>
@@ -1527,7 +1527,7 @@ listener {
 <p>Return a list of connections to the local Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+<pre class="nowrap">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
@@ -1565,7 +1565,7 @@ Connections
 <p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+<pre class="nowrap">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
   type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel  mod  delay  rate
   ===========================================================================================================================================================
@@ -1587,7 +1587,7 @@ Router Links
 <p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pods -l application=stf-default-interconnect
+<pre class="nowrap">$ oc get pods -l application=stf-default-interconnect
 
 NAME                                        READY   STATUS    RESTARTS   AGE
 stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</pre>
@@ -1598,7 +1598,7 @@ stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</
 <p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+<pre class="nowrap">oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
 2020-04-21 18:25:47.243852 UTC
 stf-default-interconnect-7458fd4d69-bgzfb
 
@@ -1615,14 +1615,14 @@ Connections
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, there are three <code>edge</code> connections from our OpenStack nodes with connection <code>id</code> 22, 23, and 24.</p>
+<p>In this example, there are three <code>edge</code> connections from the OpenStack nodes with connection <code>id</code> 22, 23, and 24.</p>
 </div>
 </li>
 <li>
-<p>To view the number of messages delivered by the network, use each address in the <code>oc exec</code> command:</p>
+<p>To view the number of messages delivered by the network, use each address with the <code>oc exec</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+<pre class="nowrap">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
 stf-default-interconnect-7458fd4d69-bgzfb
@@ -1777,7 +1777,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 </tr>
 </table>
 </div>
-<h5 id="_procedure_13" class="discrete">Procedure</h5>
+<h5 id="_procedure_8" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1887,7 +1887,7 @@ status:
 </li>
 </ol>
 </div>
-<h4 id="_additional_resources_7" class="discrete">Additional resources</h4>
+<h4 id="_additional_resources_6" class="discrete">Additional resources</h4>
 <div class="paragraph">
 <p>For more information about alerts or notifications with Prometheus and Alertmanager, see <a href="https://prometheus.io/docs/alerting/overview/" class="bare">https://prometheus.io/docs/alerting/overview/</a></p>
 </div>
@@ -1899,7 +1899,7 @@ status:
 <div class="paragraph">
 <p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.</p>
 </div>
-<h5 id="_procedure_14" class="discrete">Procedure</h5>
+<h5 id="_procedure_9" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1963,7 +1963,7 @@ pod "curl" deleted</pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_8" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_7" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For more information on alerting, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
@@ -1973,7 +1973,7 @@ pod "curl" deleted</pre>
 <div class="paragraph">
 <p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </div>
-<h5 id="_procedure_15" class="discrete">Procedure</h5>
+<h5 id="_procedure_10" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1992,7 +1992,7 @@ pod "curl" deleted</pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_9" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_8" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
 </div>
@@ -2023,7 +2023,7 @@ pod "curl" deleted</pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <a href="#configuring-manifest-overrides_advanced-features">Overriding a managed manifest</a>.</p>
 </div>
-<h5 id="_procedure_16" class="discrete">Procedure</h5>
+<h5 id="_procedure_11" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2147,7 +2147,7 @@ pod "curl" deleted</pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_10" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_9" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
@@ -2191,7 +2191,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="paragraph">
 <p>To configure STF for high availability, add <code>highAvailabilityEnabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_17" class="discrete">Procedure</h5>
+<h5 id="_procedure_12" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2689,7 +2689,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="paragraph">
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
 </div>
-<h5 id="_procedure_18" class="discrete">Procedure</h5>
+<h5 id="_procedure_13" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2880,7 +2880,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 </tr>
 </table>
 </div>
-<h5 id="_procedure_19" class="discrete">Procedure</h5>
+<h5 id="_procedure_14" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2987,7 +2987,7 @@ parameter_defaults:
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_11" class="discrete">Additional resources</h5>
+<h5 id="_additional_resources_10" class="discrete">Additional resources</h5>
 <div class="paragraph">
 <p>For information about validating the deployment, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </div>
@@ -3015,7 +3015,7 @@ parameter_defaults:
 <div class="paragraph">
 <p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_20" class="discrete">Procedure</h5>
+<h5 id="_procedure_15" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4257,7 +4257,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-24 18:58:59 UTC
+Last updated 2020-06-29 13:45:49 UTC
 </div>
 </div>
 </body>
