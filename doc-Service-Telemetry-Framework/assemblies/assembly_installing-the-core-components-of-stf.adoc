@@ -45,7 +45,7 @@ Before you install {Project} ({ProjectShort}), ensure that {OpenShift} ({OpenShi
 
 ifeval::["{build}" == "downstream"]
 [WARNING]
-{OpenShift} version 4.3 is currently required for a successful installation of {ProjectShort}. The release of Smart Gateway Operator 1.0.2 will result in support of {OpenShift} version 4.4 and later.
+{OpenShift} version 4.3 or 4.4 is currently required for a successful installation of {ProjectShort}.
 endif::[]
 
 //include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
