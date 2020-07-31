@@ -71,7 +71,7 @@ Never write "Service Telemetry Framework" or "STF" words directly but use the fo
 | OpenShift          | OpenShift                      | Red Hat OpenShift Container Platform |
 | OpenShiftShort     | OKD                            | OCP                                  |
 | OpenStack          | OpenStack                      | Red Hat OpenStack Platform           |
-| OpenStackVersion   | Queens                         | 13                                   |
+| OpenStackVersion   | Train                          | 16                                   |
 | OpenStackLong      | {OpenStack} {OpenStackVersion} | _same_                               |
 | OpenStackInstaller | TripleO                        | Director                             |
 | OVirt              | oVirt                          | Red Hat Virtualization               |
