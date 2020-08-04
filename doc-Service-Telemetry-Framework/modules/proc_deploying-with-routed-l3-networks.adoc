@@ -39,4 +39,4 @@ ComputeNExtraConfig:
 [discrete]
 .Additional resources
 
-For more information about DCN configuration, see the link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
+For more information about DCN configuration, see the link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{OpenStackVersion}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
