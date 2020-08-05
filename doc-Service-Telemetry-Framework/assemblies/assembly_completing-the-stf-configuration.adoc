@@ -45,7 +45,7 @@
 include::../modules/con_connecting-openstack.adoc[leveloffset=+1]
 include::../modules/proc_deploying-with-routed-l3-networks.adoc[leveloffset=+1]
 include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+1]
+include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
 
 // [leveloffset=+1] ensures that when a module starts with a level-1 heading
 // (= Heading), the heading will be interpreted as a level-2 heading
