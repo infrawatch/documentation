@@ -68,6 +68,47 @@ IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data 
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
+ifeval::[{vernum} < 16.0]
+[source,yaml]
+----
+parameter_defaults:
+    CeilometerEnablePanko: false
+    CeilometerQdrPublishEvents: true
+    CollectdAmqpInstances:
+        notify:
+            format: JSON
+            notify: true
+            presettle: false
+        telemetry:
+            format: JSON
+            presettle: false
+    CollectdAmqpInterval: 5
+    CollectdConnectionType: amqp1
+    CollectdDefaultPlugins:
+    - cpu
+    - df
+    - load
+    - connectivity
+    - intel_rdt
+    - ipmi
+    - procevent
+    CollectdDefaultPollingInterval: 5
+    MetricsQdrAddresses:
+    -   distribution: multicast
+        prefix: collectd
+    -   distribution: multicast
+        prefix: anycast/ceilometer
+    MetricsQdrConnectors:
+    -   host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+        port: 443
+        role: edge
+        sslProfile: sslProfile
+        verifyHostname: false
+    MetricsQdrSSLProfiles:
+    -   name: sslProfile
+----
+endif::[]
+ifeval::[{vernum} >= 16.0]
 [source,yaml]
 ----
 parameter_defaults:
@@ -79,6 +120,7 @@ parameter_defaults:
       sslProfile: sslProfile
       verifyHostname: false
 ----
+endif::[]
 
 [[deploying-the-overcloud]]
 == Deploying the overcloud
