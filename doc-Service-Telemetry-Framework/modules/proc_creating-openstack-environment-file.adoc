@@ -26,7 +26,12 @@
 To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see <<planning-amqp-address-prefixes_advanced-features>>.
 
 
-WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
+[WARNING]
+Remove
+ifdef::include_when_16[]
+`enable-stf.yaml` and 
+endif::include_when_16[]
+`ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 
 [discrete]
 == Procedure
@@ -35,6 +40,63 @@ WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment fi
 +
 [options="nowrap"]
 .stf-connectors.yaml
+ifdef::include_when_13[]
+----
+resource_registry:
+    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/docker/services/metrics/collectd.yaml
+    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/docker/services/metrics/qdr.yaml
+    OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/docker/services/ceilometer-agent-central.yaml
+    OS::TripleO::Services::CeilometerAgentNotification: /usr/share/openstack-tripleo-heat-templates/docker/services/ceilometer-agent-notification.yaml
+    OS::TripleO::Services::CeilometerAgentIpmi: /usr/share/openstack-tripleo-heat-templates/docker/services/ceilometer-agent-ipmi.yaml
+    OS::TripleO::Services::ComputeCeilometerAgent: /usr/share/openstack-tripleo-heat-templates/docker/services/ceilometer-agent-compute.yaml
+    OS::TripleO::Services::Redis: /usr/share/openstack-tripleo-heat-templates/docker/services/database/redis.yaml
+
+parameter_defaults:
+    CeilometerEnablePanko: false
+    CeilometerQdrPublishEvents: true
+    CeilometerQdrEventsConfig:
+        driver: amqp
+        topic: cloud1-event   # <1>
+
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+    CollectdDefaultPlugins:
+        - cpu
+        - df
+        - load
+        - connectivity
+        - intel_rdt
+        - ipmi
+        - procevent
+
+    CollectdAmqpInstances:
+        cloud1-notify:        # <2>
+            notify: true
+            format: JSON
+            presettle: false
+        cloud1-telemetry:     # <3>
+            format: JSON
+            presettle: true
+
+    MetricsQdrAddresses:
+        - prefix: collectd
+          distribution: multicast
+        - prefix: anycast/ceilometer
+          distribution: multicast
+
+    MetricsQdrSSLProfiles:
+        - name: sslProfile
+
+    MetricsQdrConnectors:
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <4>
+          port: 443
+          role: edge
+          verifyHostname: false
+          sslProfile: sslProfile
+----
+endif::include_when_13[]
+ifdef::include_when_16[]
 ----
 resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
@@ -83,6 +145,8 @@ parameter_defaults:
           verifyHostname: false
           sslProfile: sslProfile
 ----
+endif::include_when_16[]
++
 <1> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
 <2> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
 <3> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
