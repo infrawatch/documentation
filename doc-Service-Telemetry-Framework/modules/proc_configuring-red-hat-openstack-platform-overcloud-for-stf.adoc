@@ -35,24 +35,23 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 
 When you configure the {OpenStack} overcloud for {ProjectShort}, you must provide the {MessageBus} route address in the {ProjectShort} connection file.
 
-[discrete]
 .Procedure
 
 . Log in to your {OpenShift} ({OpenShiftShort}) environment.
 //subs="+quotes"
-. Enter `oc get routes` in the `service-telemetry` project:
+. In the `service-telemetry` project, retrieve the {MessageBus} route address:
 +
 [options="nowrap", subs="verbatim"]
 ----
-oc get routes
-
-NAME                             HOST/PORT                                                                                      PATH   SERVICES                   PORT    TERMINATION        WILDCARD
-stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
-stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
-stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None
+$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
+stf-default-interconnect-5671-service-telemetry.apps.infra.watch
 ----
 +
-Note the value in the `HOST/PORT` column for the `stf-default-interconnect-5671` route.
+[NOTE:]
+If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address. 
+
+
+
 
 [[creating-stf-connectors]]
 == Configuring the {ProjectShort} connection for the overcloud
