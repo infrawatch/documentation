@@ -1,6 +1,16 @@
 :TargetVersion: 1.0
 :ProductVersion: 1.0
 :context: assembly
+:containerbin: podman
+
+ifeval::[{vernum} >= 16.0]
+:include_when_16:
+endif::[]
+
+ifeval::[{vernum} < 16.0]
+:containerbin: docker
+:include_when_13:
+endif::[]
 
 ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift

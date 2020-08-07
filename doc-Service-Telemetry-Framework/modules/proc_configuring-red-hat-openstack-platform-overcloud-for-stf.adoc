@@ -68,7 +68,7 @@ IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data 
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}. Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in <<retrieving-the-qdr-route-address>>:
 +
-ifeval::[{vernum} < 16.0]
+ifdef::include_when_13[]
 [source,yaml]
 ----
 parameter_defaults:
@@ -107,8 +107,8 @@ parameter_defaults:
     MetricsQdrSSLProfiles:
     -   name: sslProfile
 ----
-endif::[]
-ifeval::[{vernum} >= 16.0]
+endif::include_when_13[]
+ifdef::include_when_16[]
 [source,yaml]
 ----
 parameter_defaults:
@@ -120,7 +120,7 @@ parameter_defaults:
       sslProfile: sslProfile
       verifyHostname: false
 ----
-endif::[]
+endif::include_when_16[]
 
 [[deploying-the-overcloud]]
 == Deploying the overcloud
@@ -131,13 +131,11 @@ From the {OpenStack} undercloud, update the `openstack overcloud deploy` command
 .Procedure
 
 . Add the `stf-connectors.yaml` environment file to a {OpenStack} {OpenStackInstaller} deployment to configure and setup collectd and {MessageBus}.
-ifeval::[{vernum} >= 16.0]
-Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment.
-endif::[]
+ifdef::include_when_16[Add the `enable-stf.yaml` file to the deployment to ensure that the environment is being used during the overcloud deployment.]
 Add the `ceilometer-write-qdr.yaml` file to the deployment to ensure that Ceilometer telemetry is sent to {ProjectShort}:
 +
 [options="nowrap", subs="+quotes"]
-ifeval::[{vernum} < 16.0]
+ifdef::include_when_13[]
 ----
 openstack overcloud deploy <other arguments>
 --templates /usr/share/openstack-tripleo-heat-templates \
@@ -147,8 +145,8 @@ openstack overcloud deploy <other arguments>
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
-endif::[]
-ifeval::[{vernum} >= 16.0]
+endif::include_when_13[]
+ifdef::include_when_16[]
 ----
 openstack overcloud deploy <other arguments>
 --templates /usr/share/openstack-tripleo-heat-templates \
@@ -157,6 +155,6 @@ openstack overcloud deploy <other arguments>
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
-endif::[]
+endif::include_when_16[]
 
 . Deploy the {OpenStack} overcloud.

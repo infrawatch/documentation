@@ -21,10 +21,6 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 
-:containerbin: podman
-ifeval::[{vernum} < 16.0]
-:containerbin: docker
-endif::[]
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
