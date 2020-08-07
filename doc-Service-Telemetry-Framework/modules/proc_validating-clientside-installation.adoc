@@ -20,6 +20,11 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
+
+:containerbin: podman
+ifeval::[{vernum} < 16.0]
+:containerbin: docker
+endif::[]
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
@@ -32,17 +37,18 @@ To validate data collection from the {ProjectShort} storage domain, query the da
 
 . Ensure that `metrics_qdr` container is running on the node:
 +
-[options="nowrap", subs="+quotes"]
+[options="nowrap",subs="+quotes,attributes"]
 ----
-$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+$ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr
 
 running
 ----
 
 . Return the internal network address on which {MessageBus} is running, for example, `172.17.1.44` listening on port `5666`:
 +
+[options="nowrap",subs="+quotes,attributes"]
 ----
-$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+$ sudo {containerbin} exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
 listener {
     host: 172.17.1.44
@@ -54,9 +60,9 @@ listener {
 
 . Return a list of connections to the local {MessageBus}:
 +
-[options="nowrap", subs="+quotes"]
+[options="nowrap",subs="+quotes,attributes"]
 ----
-$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+$ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
@@ -78,9 +84,9 @@ The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors`
 
 . To ensure that messages are being delivered, list the links, and view the `_edge` address in the `deliv` column for delivery of messages:
 +
-[options="nowrap", subs="+quotes"]
+[options="nowrap", subs="+quotes,attributes"]
 ----
-$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+$ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
   type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel  mod  delay  rate
   ===========================================================================================================================================================
