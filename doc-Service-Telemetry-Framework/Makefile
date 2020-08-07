@@ -4,6 +4,7 @@ ROOTDIR = $(realpath .)
 NAME = $(notdir $(ROOTDIR))
 DEST_DIR = $(BUILD_DIR)/$(NAME)
 DEST_HTML = $(DEST_DIR)/index-$(BUILD).html
+DEST_HTML_13 = $(DEST_DIR)/index-$(BUILD)-13.html
 DEST_PDF = $(BUILD_DIR)/$(NAME)-$(BUILD).pdf
 IMAGES_DIR = $(DEST_DIR)/images
 IMAGES_TS = $(DEST_DIR)/.timestamp-images
@@ -21,6 +22,8 @@ endif
 all: html
 
 html: prepare $(IMAGES_TS) $(DEST_HTML)
+
+html13: prepare $(IMAGES_TS) $(DEST_HTML_13)
 
 pdf: prepare $(DEST_PDF)
 
@@ -43,6 +46,9 @@ $(IMAGES_TS): $(IMAGES)
 
 $(DEST_HTML): $(SOURCES)
 	asciidoctor --failure-level WARN -a build=$(BUILD) -b xhtml5 -d book -o $@ $<
+
+$(DEST_HTML_13): $(SOURCES)
+	asciidoctor --failure-level WARN -a build=$(BUILD) -a vernum=13 -b xhtml5 -d book -o $@ $<
 
 $(DEST_PDF): $(SOURCES) $(IMAGES)
 	asciidoctor-pdf -a build=$(BUILD) -d book -o $@ $<
