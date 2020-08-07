@@ -33,6 +33,7 @@ WARNING: Remove `enable-stf.yaml` and `ceilometer-write-qdr.yaml` environment fi
 
 . Create the `stf-connectors.yaml` file and modify it to match the AMQP address that you want for this cloud deployment:
 +
+[options="nowrap"]
 .stf-connectors.yaml
 ----
 resource_registry:

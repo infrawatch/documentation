@@ -44,6 +44,7 @@ oc create -f deploy/subscription.yaml
 
 . To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
 +
+[options="nowrap", subs="+quotes"]
 ----
 $ oc get csv
 

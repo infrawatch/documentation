@@ -42,10 +42,11 @@ When you configure the {OpenStack} overcloud for {ProjectShort}, you must provid
 
 .  Enter `oc get routes` in the `service-telemetry` project:
 +
-[options="nowrap", subs="+quotes"]
+[options="nowrap"]
 ----
-oc get routes
-NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
+$ oc get routes
+
+NAME                             HOST/PORT                                                          PATH    SERVICES                   PORT    TERMINATION        WILDCARD
 stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
 stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
 stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None
