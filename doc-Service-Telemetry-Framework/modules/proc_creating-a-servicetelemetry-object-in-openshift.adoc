@@ -24,7 +24,7 @@
 [id="creating-a-servicetelemetry-object-in-openshift"]
 == Creating a ServiceTelemetry object in {OpenShiftShort}
 
-To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
+To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. By default, `eventsEnabled` is set to false. If you do not want to store events in ElasticSearch, ensure that `eventsEnabled` is set to false. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
 
 The following core parameters are available for a `ServiceTelemetry` manifest:
 
@@ -34,14 +34,14 @@ The following core parameters are available for a `ServiceTelemetry` manifest:
 |===
 | Parameter | Description | Default Value
 
-| `eventsEnabled` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <<subscribing-to-elastic-cloud-on-kubernetes-operator>>. | `false`
+| `eventsEnabled` | Enable events support in {ProjectShort}. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. | `false`
 
 | `metricsEnabled` | Enable metrics support in {ProjectShort}.| `true`
 
 
-| `highAvailabilityEnabled` | Enable high availability in {ProjectShort}. For more information, see <<high-availability_advanced-features>>. | `false`
+| `highAvailabilityEnabled` | Enable high availability in {ProjectShort}. For more information, see xref:high-availability_advanced-features[]. | `false`
 
-| `storageEphemeralEnabled` | Enable ephemeral storage support in {ProjectShort}. For more information, see <<ephemeral-storage_advanced-features>>. | `false`
+| `storageEphemeralEnabled` | Enable ephemeral storage support in {ProjectShort}. For more information, see xref:ephemeral-storage_advanced-features[]. | `false`
 |===
 
 [discrete]

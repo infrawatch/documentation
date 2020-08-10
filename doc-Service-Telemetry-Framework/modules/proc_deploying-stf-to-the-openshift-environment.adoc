@@ -25,44 +25,44 @@
 
 You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two ways:
 
-* Deploy {ProjectShort} and store events with ElasticSearch. For more information, see <<deploying-stf-to-the-openshift-environment-with-elasticsearch>>.
-* Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see <<deploying-stf-to-the-openshift-environment-without-elasticsearch>>.
+* Deploy {ProjectShort} and store events with ElasticSearch. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch[].
+* Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
 
 [id="deploying-stf-to-the-openshift-environment-with-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment with ElasticSearch
 
 Complete the following tasks:
 
-. Create a namespace. For more information, see <<creating-a-namespace>>.
-. Create an OperatorGroup. For more information, see <<creating-an-operatorgroup>>.
-. Enable the OperatorHub.io Community Catalog Source. For more information, see <<enabling-the-operatorhubio-community-catalog-source>>.
+. Create a namespace. For more information, see xref:creating-a-namespace[].
+. Create an OperatorGroup. For more information, see xref:creating-an-operatorgroup[].
+. Enable the OperatorHub.io Community Catalog Source. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
 ifeval::["{build}" == "upstream"]
-. Enable the InfraWatch Operator Source. For more information, see <<enabling-the-infrawatch-operator-source>>.
+. Enable the InfraWatch Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. Enable the Red Hat STF Operator Source. For more information, see <<enabling-the-infrawatch-operator-source>>.
+. Enable the Red Hat STF Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
 endif::[]
-. Subscribe to the AMQ Certificate Manager Operator. For more information, see <<subscribing-to-the-amq-certificate-manager-operator>>.
-. Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see <<subscribing-to-elastic-cloud-on-kubernetes-operator>>.
-. Subscribe to the Service Telemetry Operator. For more information, see <<subscribing-to-the-service-telemetry-operator>>.
-. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
+. Subscribe to the AMQ Certificate Manager Operator. For more information, see xref:subscribing-to-the-amq-certificate-manager-operator[].
+. Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
+. Subscribe to the Service Telemetry Operator. For more information, see xref:subscribing-to-the-service-telemetry-operator[].
+. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see xref:creating-a-servicetelemetry-object-in-openshift[].
 
 [id="deploying-stf-to-the-openshift-environment-without-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment without ElasticSearch
 
 Complete the following tasks:
 
-. Create a namespace. For more information, see <<creating-a-namespace>>.
-. Create an OperatorGroup. For more information, see <<creating-an-operatorgroup>>.
+. Create a namespace. For more information, see xref:creating-a-namespace[].
+. Create an OperatorGroup. For more information, see xref:creating-an-operatorgroup[].
 ifeval::["{build}" == "upstream"]
-. Enable the InfraWatch Operator Source. For more information, see <<enabling-the-infrawatch-operator-source>>.
+. Enable the InfraWatch Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. Enable the Red Hat STF Operator Source. For more information, see <<enabling-the-infrawatch-operator-source>>.
+. Enable the Red Hat STF Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
 endif::[]
-. Subscribe to the AMQ Certificate Manager Operator. For more information, see <<subscribing-to-the-amq-certificate-manager-operator>>.
-. Subscribe to the Service Telemetry Operator. For more information, see <<subscribing-to-the-service-telemetry-operator>>.
-. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see <<creating-a-servicetelemetry-object-in-openshift>>.
+. Subscribe to the AMQ Certificate Manager Operator. For more information, see xref:subscribing-to-the-amq-certificate-manager-operator[].
+. Subscribe to the Service Telemetry Operator. For more information, see xref:subscribing-to-the-service-telemetry-operator[].
+. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see xref:creating-a-servicetelemetry-object-in-openshift[].
 
 
 [id="creating-a-namespace"]

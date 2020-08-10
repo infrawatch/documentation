@@ -99,7 +99,7 @@ oc get routes
 [discrete]
 .Additional resources
 
-* For more information about enabling the OperatorHub.io catalog source, see <<enabling-the-operatorhubio-community-catalog-source>>.
+* For more information about enabling the OperatorHub.io catalog source, see xref:enabling-the-operatorhubio-community-catalog-source[].
 
 
 
