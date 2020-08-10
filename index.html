@@ -958,7 +958,7 @@ EOF</code></pre>
 <p>To validate the creation of your OperatorSource, run the <code>oc get operatorsources</code> command. A successful import results in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconciled</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+<pre class="nowrap">$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
 NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
 infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled</pre>
@@ -969,7 +969,7 @@ infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWat
 <p>To validate that the Operators are available from the catalog, run the <code>oc get packagemanifest</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get packagemanifests | grep InfraWatch
+<pre class="nowrap">$ oc get packagemanifests | grep InfraWatch
 
 servicetelemetry-operator                    InfraWatch Operators       7m20s
 smartgateway-operator                        InfraWatch Operators       7m20s</pre>
@@ -1024,7 +1024,7 @@ EOF</code></pre>
 <p>To validate your <code>ClusterServiceVersion</code>, run the <code>oc get csv</code> command. Ensure that amq7-cert-manager.v1.0.0 has a phase <code>Succeeded</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get --namespace openshift-operators csv
+<pre class="nowrap">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
 amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</pre>
@@ -1067,7 +1067,7 @@ EOF</code></pre>
 <p>To verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>succeeded</code>, run the <code>oc get csv</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get csv
+<pre class="nowrap">$ oc get csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
 elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded</pre>
@@ -1109,7 +1109,7 @@ EOF</code></pre>
 <p>To validate the Service Telemetry Operator and the dependent operators, run the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get csv --namespace service-telemetry
+<pre class="nowrap">$ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
 amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
@@ -1197,7 +1197,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>PLAY RECAP *********************************************************************
+<pre class="nowrap">PLAY RECAP <strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong></strong>***
 localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0</pre>
 </div>
 </div>
@@ -1218,7 +1218,7 @@ If you set <code>eventsEnabled: true</code>, the notification Smart Gateways wil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pods
+<pre class="nowrap">$ oc get pods
 
 NAME                                                              READY   STATUS             RESTARTS   AGE
 alertmanager-stf-default-0                                        2/2     Running            0          26m
@@ -1449,6 +1449,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
+    EventPipelinePublishers: []
     CeilometerQdrPublishEvents: true
     MetricsQdrConnectors:
     - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
@@ -1488,6 +1489,9 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 </ul>
 </div>
 </li>
+<li>
+<p>Deploy the OpenStack overcloud.</p>
+</li>
 </ol>
 </div>
 </div>
@@ -1506,7 +1510,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ sudo podman container inspect --format <em>{{.State.Status}}</em> metrics_qdr
+<pre class="nowrap">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
 
 running</pre>
 </div>
@@ -1516,7 +1520,7 @@ running</pre>
 <p>Return the internal network address on which Apache&#160;Qpid&#160;Dispatch&#160;Router is running, for example, <code>172.17.1.44</code> listening on port <code>5666</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+<pre class="nowrap">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
 listener {
     host: 172.17.1.44
@@ -1591,7 +1595,7 @@ Router Links
 <p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get pods -l application=stf-default-interconnect
+<pre>$ oc get pods -l application=stf-default-interconnect
 
 NAME                                        READY   STATUS    RESTARTS   AGE
 stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</pre>
@@ -1602,7 +1606,8 @@ stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</
 <p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+<pre class="nowrap">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+
 2020-04-21 18:25:47.243852 UTC
 stf-default-interconnect-7458fd4d69-bgzfb
 
@@ -1809,7 +1814,7 @@ The trailing pipe (<code>|</code>) after entering the manifest override paramete
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit servicetelemetry stf-default
+<pre class="nowrap">$ oc edit servicetelemetry stf-default
 
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -1851,7 +1856,7 @@ status:
     message: Awaiting next reconciliation
     reason: Successful
     status: "True"
-    type: Running</code></pre>
+    type: Running</pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1911,7 +1916,7 @@ status:
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="nowrap">oc apply -f - &lt;&lt;EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -1943,7 +1948,7 @@ EOF</pre>
 <p>Run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
 <div class="listingblock">
 <div class="content">
-<pre>[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
+<pre class="nowrap">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</pre>
 </div>
 </div>
@@ -2066,7 +2071,7 @@ This loads the default template that is already managed by Service Telemetry Ope
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
+<pre class="nowrap">apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
 metadata:
   name: stf-default
@@ -2091,7 +2096,7 @@ spec:
           repeat_interval: 12h
           receiver: 'null'
         receivers:
-        - name: 'null'</code></pre>
+        - name: 'null'</pre>
 </div>
 </div>
 </li>
@@ -2099,7 +2104,7 @@ spec:
 <p>Verify that the configuration was applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+<pre class="nowrap">$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
 global:
   resolve_timeout: 10m
@@ -2126,7 +2131,7 @@ receivers:
 <p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents and review the supplied configuration matches the configuration loaded into Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre>[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+<pre class="nowrap">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
 {"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</pre>
 </div>
@@ -2203,7 +2208,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Use the oc command to edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre>    oc edit ServiceTelemetry</pre>
+<pre>$ oc edit ServiceTelemetry</pre>
 </div>
 </div>
 </li>
@@ -2260,7 +2265,7 @@ oc create -f deploy/subscription.yaml</pre>
 <p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is Succeeded, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get csv
+<pre class="nowrap">$ oc get csv
 
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
@@ -2783,7 +2788,7 @@ Your output may have some additional <code>metadata</code> parameters that you c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: smartgateway.infra.watch/v2alpha1
+<pre class="nowrap">apiVersion: smartgateway.infra.watch/v2alpha1
 kind: SmartGateway
 metadata:
   name: stf-default-ceilometer-notification-cloud1  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -2835,7 +2840,7 @@ spec:
   prefetch: 15000
   serviceType: metrics
   size: 1
-  useTimestamp: true</code></pre>
+  useTimestamp: true</pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -2880,7 +2885,9 @@ spec:
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
+Remove
+<code>enable-stf.yaml</code> and
+<code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 </td>
 </tr>
 </table>
@@ -2890,8 +2897,10 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 <ol class="arabic">
 <li>
 <p>Create the <code>stf-connectors.yaml</code> file and modify it to match the AMQP address that you want for this cloud deployment:</p>
+</li>
+</ol>
+</div>
 <div class="listingblock">
-<div class="title">stf-connectors.yaml</div>
 <div class="content">
 <pre>resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
@@ -2905,6 +2914,7 @@ Remove <code>enable-stf.yaml</code> and <code>ceilometer-write-qdr.yaml</code> e
 parameter_defaults:
     EnableSTF: true
 
+    EventPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrEventsConfig:
@@ -2941,27 +2951,15 @@ parameter_defaults:
           sslProfile: sslProfile</pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Adjust the <code>MetricsQdrConnectors</code> host to the address of the STF route.</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>+
+&lt;1&gt; Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.
+&lt;2&gt; Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.
+&lt;3&gt; Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.
+&lt;4&gt; Adjust the <code>MetricsQdrConnectors</code> host to the address of the STF route.</p>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
 </li>
@@ -3027,7 +3025,7 @@ parameter_defaults:
 <p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre>    oc edit ServiceTelemetry</pre>
+<pre>$ oc edit ServiceTelemetry</pre>
 </div>
 </div>
 </li>
@@ -4262,7 +4260,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-10 15:06:44 UTC
+Last updated 2020-08-10 17:38:01 UTC
 </div>
 </div>
 </body>
