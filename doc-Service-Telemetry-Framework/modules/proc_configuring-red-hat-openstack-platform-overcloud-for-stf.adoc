@@ -85,7 +85,7 @@ parameter_defaults:
 . Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup collectd and {MessageBus}:
 +
 * `stf-connectors.yaml` environment file
-* `enable-stf.yaml` file to ensure that the environment is being used during the overcloud deployment
+* the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment
 * `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry is sent to {ProjectShort}
 +
 [options="nowrap", subs="+quotes"]
