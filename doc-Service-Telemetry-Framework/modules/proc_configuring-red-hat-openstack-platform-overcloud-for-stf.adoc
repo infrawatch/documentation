@@ -58,7 +58,6 @@ If your {ProjectShort} installation differs from the documentation, ensure that 
 
 To configure the {ProjectShort} connection, you must create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment. Enable the collection of events and storage of the events in {ProjectShort} and deploy the overcloud.
 
-[discrete]
 .Procedure
 
 . Log in to the {OpenStack} undercloud as the `stack` user.
