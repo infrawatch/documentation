@@ -86,7 +86,7 @@ parameter_defaults:
 +
 * the `stf-connectors.yaml` environment file
 * the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment
-* `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry is sent to {ProjectShort}
+* the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry is sent to {ProjectShort}
 +
 [options="nowrap", subs="+quotes"]
 ----
