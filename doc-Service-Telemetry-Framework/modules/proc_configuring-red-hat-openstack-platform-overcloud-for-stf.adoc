@@ -72,6 +72,7 @@ ifdef::include_when_13[]
 [source,yaml]
 ----
 parameter_defaults:
+    EventPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CollectdAmqpInstances:
@@ -112,6 +113,7 @@ ifdef::include_when_16[]
 [source,yaml]
 ----
 parameter_defaults:
+    EventPipelinePublishers: []
     CeilometerQdrPublishEvents: true
     MetricsQdrConnectors:
     - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch

@@ -111,6 +111,7 @@ resource_registry:
 parameter_defaults:
     EnableSTF: true
 
+    EventPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrEventsConfig:
