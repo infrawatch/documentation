@@ -466,8 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</a></li>
 <li><a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a></li>
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a></li>
-<li><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a></li>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a></li>
 </ul>
 </li>
 <li><a href="#advanced-features_completing-the-stf-configuration">Advanced features</a>
@@ -1343,11 +1342,11 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <div class="sect2">
 <h3 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h3>
 <div class="paragraph">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make several changes so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make changes to ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
 </div>
-<div class="ulist discrete">
+<div class="ulist">
 <div class="title">Procedure</div>
-<ul class="discrete">
+<ul>
 <li>
 <p>Add the following configuration example to the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network to which the Compute node <code>N</code> is connected. <code>N</code> represents a value that is different from the default internal API network name.</p>
 </li>
@@ -1366,63 +1365,60 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph">
-<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF.</p>
+<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF, and deploy the overcloud.</p>
+</div>
+<div class="paragraph">
+<p>To configure the OpenStack overcloud, complete the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter in <code>stf-connectors.yaml</code>. For more information, see <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+<p><a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></p>
 </li>
 <li>
-<p>Log in to the OpenStack undercloud. Create a file and name it <code>stf-connectors.yaml</code>. For more information, see <a href="#creating-stf-connectors">Creating the STF connection file</a>.</p>
+<p><a href="#configuring-the-stf-connection-for-the-overcloud">Configuring the STF connection for the overcloud</a></p>
 </li>
 <li>
-<p>Run the <code>overcloud deploy</code> command, include the <code>stf-connectors.yaml</code> file, and other environment files relevant to your deployment. For more information, see <a href="#deploying-the-overcloud">Deploying the overcloud</a>.</p>
-</li>
-<li>
-<p>Validate the client-side installation. For more information, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
+<p><a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a></p>
 </li>
 </ol>
 </div>
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
 <div class="paragraph">
-<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address for the <code>MetricsQdrConnectors</code> host parameter.</p>
+<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address in the STF connection file.</p>
 </div>
-<div class="olist discrete">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ol class="discrete">
+<ol class="arabic">
 <li>
 <p>Log in to your OpenShift (OKD) environment.</p>
 </li>
 <li>
-<p>Enter <code>oc get routes</code> in the <code>service-telemetry</code> project:</p>
+<p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc get routes
-NAME                             HOST/PORT                                                                                        PATH   SERVICES                   PORT    TERMINATION        WILDCARD
-stf-default-interconnect-55671   stf-default-interconnect-55671-service-telemetry.apps.infra.watch          stf-default-interconnect   55671   passthrough/None   None
-stf-default-interconnect-5671    stf-default-interconnect-5671-service-telemetry.apps.infra.watch           stf-default-interconnect   5671    passthrough/None   None
-stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry.apps.infra.watch           stf-default-interconnect   8672    edge/Redirect      None</pre>
+<pre class="nowrap">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
+stf-default-interconnect-5671-service-telemetry.apps.infra.watch</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note the value in the <code>HOST/PORT</code> column for the <code>stf-default-interconnect-5671</code> route.</p>
+<p>If your STF installation differs from the documentation, ensure that you retrieve the correct Apache&#160;Qpid&#160;Dispatch&#160;Router route address.</p>
 </div>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="creating-stf-connectors">Creating the STF connection file</h4>
+<h4 id="configuring-the-stf-connection-for-the-overcloud">Configuring the STF connection for the overcloud</h4>
 <div class="paragraph">
-<p>Create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment, and enable collection of events and storage of the events in STF.</p>
+<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud.</p>
 </div>
-<div class="olist discrete">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ol class="discrete">
+<ol class="arabic">
 <li>
 <p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
 </li>
@@ -1435,14 +1431,21 @@ stf-default-interconnect-8672    stf-default-interconnect-8672-service-telemetry
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components, but does so with a bias towards a single cloud per deployment. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF. Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
@@ -1456,23 +1459,25 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 </div>
 </div>
 </li>
-</ol>
+</ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="deploying-the-overcloud">Deploying the overcloud</h4>
-<div class="paragraph">
-<p>From the OpenStack undercloud, update the <code>openstack overcloud deploy</code> command to include the prerequisite environment files along with <code>stf-connectors.yaml</code>.</p>
-</div>
-<div class="olist discrete">
-<div class="title">Procedure</div>
-<ol class="discrete">
+</li>
 <li>
-<p>Add the <code>stf-connectors.yaml</code> environment file to a OpenStack TripleO deployment to configure and setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router. Add the <code>enable-stf.yaml</code> file to the deployment to ensure that the environment is being used during the overcloud deployment. Add the <code>ceilometer-write-qdr.yaml</code> file to the deployment to ensure that Ceilometer telemetry is sent to STF:</p>
+<p>Add the following files to your OpenStack TripleO deployment to setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>stf-connectors.yaml</code> environment file</p>
+</li>
+<li>
+<p>the <code>enable-stf.yaml</code> file that ensures that the environment is being used during the overcloud deployment</p>
+</li>
+<li>
+<p>the <code>ceilometer-write-qdr.yaml</code> file that ensures that Ceilometer telemetry is sent to STF</p>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">openstack overcloud deploy &lt;other arguments&gt;
---templates /usr/share/openstack-tripleo-heat-templates \
+  --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file &lt;...other-environment-files...&gt; \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
@@ -1480,23 +1485,22 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 </div>
 </div>
 </li>
-<li>
-<p>Deploy the OpenStack overcloud.</p>
+</ul>
+</div>
 </li>
 </ol>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h3>
+<div class="sect3">
+<h4 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h4>
 <div class="paragraph">
 <p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
 </div>
-<div class="olist discrete">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ol class="discrete">
+<ol class="arabic">
 <li>
-<p>Log in to an overcloud node, for example, controller-0:</p>
+<p>Log in to an overcloud node, for example, controller-0.</p>
 </li>
 <li>
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
@@ -1637,6 +1641,7 @@ Router Addresses
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 </div>
@@ -2223,7 +2228,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="sect2">
 <h3 id="dashboards_advanced-features">Dashboards</h3>
 <div class="paragraph">
-<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for STF</a>.</p>
+<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node. For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_advanced-features">Setting up Grafana to host the dashboard</h4>
@@ -2727,7 +2732,7 @@ done</pre>
 </div>
 </li>
 <li>
-<p>Modify the Smart Gateway manifest in the <code>/tmp/cloud1-smartgateways.yaml</code> file. Adjust the <code>metadata.name</code> and <code>spec.amqpUrl</code> fields to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see <a href="#example-manifests_advanced-features">Example manifests</a>.</p>
+<p>Modify the Smart Gateway manifest in the <code>/tmp/cloud1-smartgateways.yaml</code> file. Adjust the <code>metadata.name</code> and <code>spec.amqpUrl</code> fields to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see &lt;&lt;example-manifests_advanced-features[].</p>
 </li>
 <li>
 <p>Deploy your new Smart Gateways:</p>
@@ -4257,7 +4262,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-07 14:49:32 UTC
+Last updated 2020-08-10 15:06:44 UTC
 </div>
 </div>
 </body>
