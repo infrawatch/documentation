@@ -26,5 +26,5 @@
 Complete the following tasks:
 
 . Deploy {OpenShift}. For more information, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/
-. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
+. Deploy {ProjectShort} to the {OpenShiftShort} environment. For more information, see xref:deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf[].
 . Configure {OpenStack} templates and deploy changes into the cloud infrastructure. For more information, see Completing the STF configuration.
