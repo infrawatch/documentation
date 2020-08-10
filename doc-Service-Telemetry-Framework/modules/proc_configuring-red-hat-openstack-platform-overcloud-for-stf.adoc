@@ -51,9 +51,6 @@ stf-default-interconnect-5671-service-telemetry.apps.infra.watch
 [NOTE:]
 If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address. 
 
-
-
-
 [[configuring-the-stf-connection-for-the-overcloud]]
 == Configuring the {ProjectShort} connection for the overcloud
 
@@ -71,10 +68,11 @@ IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data 
 * Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}.
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address[]:
 +
-ifeval::[{vernum} < 16.0]
+ifdef::include_when_13[]
 [source,yaml]
 ----
 parameter_defaults:
+    EventPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CollectdAmqpInstances:
@@ -110,11 +108,12 @@ parameter_defaults:
     MetricsQdrSSLProfiles:
     -   name: sslProfile
 ----
-endif::[]
-ifeval::[{vernum} >= 16.0]
+endif::include_when_13[]
+ifdef::include_when_16[]
 [source,yaml]
 ----
 parameter_defaults:
+    EventPipelinePublishers: []
     CeilometerQdrPublishEvents: true
     MetricsQdrConnectors:
     - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
@@ -123,7 +122,7 @@ parameter_defaults:
       sslProfile: sslProfile
       verifyHostname: false
 ----
-endif::[]
+endif::include_when_16[]
 
 . Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup collectd and {MessageBus}:
 +
@@ -132,6 +131,18 @@ endif::[]
 * the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry is sent to {ProjectShort}
 +
 [options="nowrap", subs="+quotes"]
+ifdef::include_when_13[]
+----
+openstack overcloud deploy <other arguments>
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file <...other-environment-files...> \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/stf-connectors.yaml
+----
+endif::include_when_13[]
+ifdef::include_when_16[]
 ----
 openstack overcloud deploy <other arguments>
   --templates /usr/share/openstack-tripleo-heat-templates \
@@ -140,3 +151,6 @@ openstack overcloud deploy <other arguments>
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
+endif::include_when_16[]
+
+. Deploy the {OpenStack} overcloud.

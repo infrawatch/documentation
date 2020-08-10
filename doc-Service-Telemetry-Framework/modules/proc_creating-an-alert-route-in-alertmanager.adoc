@@ -62,9 +62,7 @@ oc edit servicetelemetry stf-default
 [NOTE]
 This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the `alertmanager-stf-default` secret, and verify that the new value is loaded into memory, for example, changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
-
-[source,yaml]
-
+[options="nowrap"]
 ----
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -96,6 +94,7 @@ spec:
 
 . Verify that the configuration was applied to the secret:
 +
+[options="nowrap"]
 ----
 $ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
@@ -119,6 +118,7 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 
 . Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and review the supplied configuration matches the configuration loaded into Alertmanager:
 +
+[options="nowrap"]
 ----
 [ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 

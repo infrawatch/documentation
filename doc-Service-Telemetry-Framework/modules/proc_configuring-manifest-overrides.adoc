@@ -42,8 +42,7 @@ oc edit servicetelemetry stf-default
 NOTE: The trailing pipe (`|`) after entering the manifest override parameter indicates that the value provided is multi-line.
 
 +
-[source,bash]
-
+[options="nowrap"]
 ----
 $ oc edit servicetelemetry stf-default
 

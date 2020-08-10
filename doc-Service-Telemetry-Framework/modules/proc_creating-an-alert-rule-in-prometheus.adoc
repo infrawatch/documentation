@@ -30,6 +30,7 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 
 . Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
+[options="nowrap"]
 ----
 oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1
@@ -58,6 +59,7 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 
 . Run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
 +
+[options="nowrap"]
 ----
 [ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}

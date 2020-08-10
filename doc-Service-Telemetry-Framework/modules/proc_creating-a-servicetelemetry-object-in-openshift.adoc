@@ -65,11 +65,13 @@ EOF
 
 . To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
 +
+[]
 ----
 oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible
 ----
 
 +
+[options="nowrap", subs="+quotes"]
 ----
 PLAY RECAP *********************************************************************
 localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
@@ -80,6 +82,7 @@ localhost                  : ok=37   changed=0    unreachable=0    failed=0    s
 NOTE: If you set `eventsEnabled: true`, the notification Smart Gateways will `Error` and `CrashLoopBackOff` for a period of time before ElasticSearch starts.
 
 +
+[options="nowrap", subs="+quotes"]
 ----
 $ oc get pods
 

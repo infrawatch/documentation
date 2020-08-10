@@ -31,7 +31,7 @@ To configure {ProjectShort} for high availability, add `highAvailabilityEnabled:
 . Use the oc command to edit the ServiceTelemetry object:
 +
 ----
-    oc edit ServiceTelemetry
+$ oc edit ServiceTelemetry
 ----
 
 . Add `highAvailabilityEnabled: true` to the `spec` section:

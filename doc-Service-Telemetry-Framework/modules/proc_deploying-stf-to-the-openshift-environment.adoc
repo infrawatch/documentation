@@ -178,6 +178,7 @@ endif::[]
 
 . To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
 +
+[options="nowrap", subs="+quotes"]
 ifeval::["{build}" == "upstream"]
 ----
 $ oc get -nopenshift-marketplace operatorsource infrawatch-operators
@@ -197,6 +198,7 @@ endif::[]
 
 . To validate that the Operators are available from the catalog, run the `oc get packagemanifest` command:
 +
+[options="nowrap", subs="+quotes"]
 ifeval::["{build}" == "upstream"]
 ----
 $ oc get packagemanifests | grep InfraWatch
@@ -248,6 +250,7 @@ EOF
 
 . To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
 +
+[options="nowrap", subs="+quotes"]
 ----
 $ oc get --namespace openshift-operators csv
 
@@ -285,6 +288,7 @@ EOF
 
 . To verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`, run the `oc get csv` command:
 +
+[options="nowrap", subs="+quotes"]
 ----
 $ oc get csv
 
@@ -340,8 +344,8 @@ endif::[]
 
 
 . To validate the Service Telemetry Operator and the dependent operators, run the following command:
-
 +
+[options="nowrap", subs="+quotes"]
 ----
 $ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE

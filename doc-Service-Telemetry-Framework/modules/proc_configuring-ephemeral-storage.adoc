@@ -31,7 +31,7 @@ To configure {ProjectShort} for ephemeral storage, add `storageEphemeralEnabled:
 . Edit the ServiceTelemetry object:
 +
 ----
-    oc edit ServiceTelemetry
+$ oc edit ServiceTelemetry
 ----
 
 . Add the `storageEphemeralEnabled: true` parameter to the `spec` section:
