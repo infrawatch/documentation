@@ -23,7 +23,7 @@
 [id="configuring-custom-alerts_{context}"]
 = Configuring custom alerts
 
-You can add custom alerts to the `PrometheusRule` object that you created in <<creating-an-alert-rule-in-prometheus_advanced-features>>.
+You can add custom alerts to the `PrometheusRule` object that you created in xref:creating-an-alert-rule-in-prometheus_advanced-features[].
 
 [discrete]
 == Procedure
