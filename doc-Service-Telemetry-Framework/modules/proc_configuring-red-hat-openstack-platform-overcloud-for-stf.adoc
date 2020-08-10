@@ -25,9 +25,10 @@
 
 To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}, and deploy the overcloud.
 
+To configure the {OpenStack} overcloud, complete the following tasks:
 
 . xref:retrieving-the-qdr-route-address[]
-. xref:creating-stf-connectors[]
+. xref:configuring-the-stf-connection-for-the-overcloud[]
 . xref:validating-clientside-installation_completing-the-stf-configuration[]
 
 [[retrieving-the-qdr-route-address]]
@@ -53,7 +54,7 @@ If your {ProjectShort} installation differs from the documentation, ensure that 
 
 
 
-[[creating-stf-connectors]]
+[[configuring-the-stf-connection-for-the-overcloud]]
 == Configuring the {ProjectShort} connection for the overcloud
 
 To configure the {ProjectShort} connection, you must create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment. Enable the collection of events and storage of the events in {ProjectShort} and deploy the overcloud.
