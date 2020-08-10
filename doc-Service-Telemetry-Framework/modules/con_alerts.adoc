@@ -29,8 +29,8 @@ You create alert rules in Prometheus and alert routes in Alertmanager. Alert rul
 
 To create an alert, complete the following tasks:
 
-. Create an alert rule in Prometheus. For more information, see <<creating-an-alert-rule-in-prometheus_advanced-features>>.
-. Create an alert route in Alertmanager. For more information, see <<creating-an-alert-route-in-alertmanager_advanced-features>>.
+. Create an alert rule in Prometheus. For more information, see xref:creating-an-alert-rule-in-prometheus_advanced-features[].
+. Create an alert route in Alertmanager. For more information, see xref:creating-an-alert-route-in-alertmanager_advanced-features[].
 
 
 [discrete]

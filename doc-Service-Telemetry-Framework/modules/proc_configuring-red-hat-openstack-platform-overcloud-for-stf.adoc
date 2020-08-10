@@ -26,9 +26,9 @@
 To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}, and deploy the overcloud.
 
 
-. <<retrieving-the-qdr-route-address>>
-. <<creating-stf-connectors>>
-. <<validating-clientside-installation_completing-the-stf-configuration>>
+. xref:retrieving-the-qdr-route-address[]
+. xref:creating-stf-connectors[]
+. xref:validating-clientside-installation_completing-the-stf-configuration[]
 
 [[retrieving-the-qdr-route-address]]
 == Retrieving the {MessageBus} route address
@@ -65,11 +65,11 @@ To configure the {ProjectShort} connection, you must create a file that contains
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 +
-IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <<configuring-multiple-clouds_advanced-features>>.
+IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_advanced-features[].
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment.
 * Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}.
-* Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in <<retrieving-the-qdr-route-address>>:
+* Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address[]:
 +
 [source,yaml]
 ----

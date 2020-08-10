@@ -25,10 +25,10 @@
 
 As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
-* Ensure that persistent storage is available in your {OpenShift} cluster to permit a production grade deployment. For more information, see <<persistent-volumes>>.
-* Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation>>.
-* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf>>.
-* {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator>>.
+* Ensure that persistent storage is available in your {OpenShift} cluster to permit a production grade deployment. For more information, see xref:persistent-volumes[].
+* Ensure that enough resources are available to run the Operators and the application containers. For more information, see xref:resource-allocation[].
+* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see xref:deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf[].
+* {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see xref:node-tuning-operator[].
 
 
 [id="persistent-volumes"]
@@ -47,7 +47,7 @@ For more information about configuring persistent storage for {OpenShiftShort}, 
 [WARNING]
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
-To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see <<configuring-ephemeral-storage_advanced-features>>.
+To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see xref:configuring-ephemeral-storage_advanced-features[].
 
 
 [id="resource-allocation"]

@@ -39,7 +39,7 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <<configuring-manifest-overrides_advanced-features>>.
+To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see xref:configuring-manifest-overrides_advanced-features[].
 
 [discrete]
 == Procedure

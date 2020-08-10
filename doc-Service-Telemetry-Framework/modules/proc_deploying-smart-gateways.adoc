@@ -58,7 +58,7 @@ do
 done
 ----
 
-. Modify the Smart Gateway manifest in the `/tmp/cloud1-smartgateways.yaml` file. Adjust the `metadata.name` and `spec.amqpUrl` fields to include the cloud identifier from your schema. For more information, see <<planning-amqp-address-prefixes_advanced-features>>. To view example Smart Gateway manifests, see <<example-manifests_advanced-features>>.
+. Modify the Smart Gateway manifest in the `/tmp/cloud1-smartgateways.yaml` file. Adjust the `metadata.name` and `spec.amqpUrl` fields to include the cloud identifier from your schema. For more information, see xref:planning-amqp-address-prefixes_advanced-features[]. To view example Smart Gateway manifests, see <<example-manifests_advanced-features[].
 
 . Deploy your new Smart Gateways:
 +

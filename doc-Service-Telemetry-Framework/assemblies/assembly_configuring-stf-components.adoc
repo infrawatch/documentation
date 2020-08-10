@@ -61,7 +61,7 @@ $ openstack overcloud deploy
 -e /home/templates/custom/collectd-standalone.yaml
 ----
 +
-To view the collectd plug-ins and configurations, see <<appe-stf-collectd-plugins>>.
+To view the collectd plug-ins and configurations, see xref:collectd-plugins_appendix[].
 
 
 //include::../common/collectd/con_data-collecting-agent.adoc[leveloffset=+1]
