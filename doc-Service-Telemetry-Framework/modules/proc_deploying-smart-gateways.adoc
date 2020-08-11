@@ -30,7 +30,7 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 [discrete]
 == Procedure
 
-. Log in to OpenShift.
+. Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
 ----

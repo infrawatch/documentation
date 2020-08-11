@@ -28,7 +28,7 @@ To configure {ProjectShort} for ephemeral storage, add `storageEphemeralEnabled:
 [discrete]
 == Procedure
 
-. Log in to OpenShift.
+. Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
 ----

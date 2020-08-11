@@ -28,7 +28,7 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 [discrete]
 == Procedure
 
-. Log in to OpenShift.
+. Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
 ----
