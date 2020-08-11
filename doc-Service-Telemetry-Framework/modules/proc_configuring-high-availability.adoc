@@ -28,6 +28,13 @@ To configure {ProjectShort} for high availability, add `highAvailabilityEnabled:
 [discrete]
 == Procedure
 
+. Log in to OpenShift.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
+
 . Use the oc command to edit the ServiceTelemetry object:
 +
 ----

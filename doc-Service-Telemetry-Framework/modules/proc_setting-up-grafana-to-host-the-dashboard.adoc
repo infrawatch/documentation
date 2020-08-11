@@ -28,6 +28,13 @@ Grafana is not included in the default {Project} ({ProjectShort}) deployment so 
 [discrete]
 .Procedure
 
+. Log in to OpenShift.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
+
 . Clone the dashboard repository.
 +
 ----
@@ -35,10 +42,9 @@ git clone https://github.com/infrawatch/dashboards
 cd dashboards
 ----
 
-. Change to the `service-telemetry` namespace and deploy the Grafana operator:
+. Deploy the Grafana operator:
 +
 ----
-oc project service-telemetry
 oc create -f deploy/subscription.yaml
 ----
 
@@ -109,7 +115,12 @@ oc get routes
 [discrete]
 .Procedure
 
-. To view and edit queries, log in as the `admin` user.
+. Log in to OpenShift. To view and edit queries, log in as the `admin` user.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
 
 . To retrieve the default username and password, describe the Grafana object using `oc describe`:
 +

@@ -28,6 +28,13 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 [discrete]
 == Procedure
 
+. Log in to OpenShift.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
+
 . Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
 [options="nowrap"]
