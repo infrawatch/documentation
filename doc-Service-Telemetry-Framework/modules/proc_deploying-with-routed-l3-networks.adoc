@@ -23,7 +23,7 @@
 [id="deploying-to-non-standard-network-topologies_{context}"]
 = Deploying to non-standard network topologies
 
-If your nodes are on a separate network from the default `InternalApi` network, you must make several changes so that {MessageBus} can transport data to the {Project} ({ProjectShort}) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
+If your nodes are on a separate network from the default `InternalApi` network, you must make configuration adjustments so that {MessageBus} can transport data to the {Project} ({ProjectShort}) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
 
 
 // TODO: remove this after OSP13 z13 since it will no longer be necessary.
