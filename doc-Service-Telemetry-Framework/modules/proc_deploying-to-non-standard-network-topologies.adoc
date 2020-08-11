@@ -100,7 +100,7 @@ ComputeLeaf1ExtraConfig:
 ----
 endif::[]
 +
-On a CephStorage leaf role, an example configuration would be:
+This example configuration is on a CephStorage leaf role:
 +
 [source,yaml]
 ifdef::include_when_13[]
