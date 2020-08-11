@@ -28,10 +28,17 @@ To configure {ProjectShort} for ephemeral storage, add `storageEphemeralEnabled:
 [discrete]
 == Procedure
 
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
+
 . Edit the ServiceTelemetry object:
 +
 ----
-$ oc edit ServiceTelemetry
+$ oc edit ServiceTelemetry stf-default
 ----
 
 . Add the `storageEphemeralEnabled: true` parameter to the `spec` section:

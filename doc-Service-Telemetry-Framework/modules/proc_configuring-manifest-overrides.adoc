@@ -31,6 +31,13 @@ The `oc edit` command loads the default system editor. To override the default e
 [discrete]
 == Procedure
 
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+----
+oc project service-telemetry
+----
+
 . Load the `ServiceTelemetry` object into an editor:
 +
 ----
