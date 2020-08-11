@@ -1347,7 +1347,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">  CephStorageExtraConfig:
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">  CephStorageExtraConfig:
       tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
       tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
       tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
@@ -1357,8 +1357,8 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses  Block and Object storage roles.</p>
 </div>
 <div class="paragraph">
-<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an {OpenStackShort} deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the {OpenStackShort}  environment files.</p>
+<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an OpenStack deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OpenStack  environment files.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1367,25 +1367,43 @@ Because a spine-leaf configuration can result in different networks being assign
 <p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
 </li>
 <li>
-<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example, <code>internal_api0</code> is the value defined in the <code>name_lower</code> parameter of your network definition, and is the network to which the <code>Compute0</code> leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
+<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
+<code>internal_api_subnet</code>
+is the value defined in the <code>name_lower</code> parameter of your network definition
+(with <code>_subnet</code> appended to the name for Leaf 0)
+, and is the network the
+<code>ComputeLeaf0</code>
+leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
 <div class="paragraph">
-<p>For the <code>Compute0</code> leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.</p>
+<p>For the
+<code>ComputeLeaf0</code>
+leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">Compute0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">ComputeLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On a CephStorage leaf role, an example configuration would be:</p>
+<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code> where <code>N</code> represents a unique indentifier for the leaf.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">CephStorage0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"</code></pre>
+<pre>ComputeLeaf1ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example configuration is on a CephStorage leaf role:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">CephStorageLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
 </div>
 </div>
 </li>
@@ -4362,7 +4380,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 15:50:40 UTC
+Last updated 2020-08-11 20:38:46 UTC
 </div>
 </div>
 </body>
