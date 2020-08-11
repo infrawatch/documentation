@@ -20,7 +20,7 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="deploying-to-non-standard network-topologies_{context}"]
+[id="deploying-to-non-standard-network-topologies_{context}"]
 = Deploying to non-standard network topologies
 
 If your nodes are on a separate network from the default `InternalApi` network, you must make several changes so that {MessageBus} can transport data to the {Project} ({ProjectShort}) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
