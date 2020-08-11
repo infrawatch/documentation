@@ -20,21 +20,49 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="deploying-with-routed-l3-networks_{context}"]
-= Deploying with routed L3 networks
-If your nodes are on a separate network from the default `InternalApi` network that the Controller nodes use, you must make changes to ensure that {MessageBus} can transport data to the {ProjectShort} server instance. This scenario is typical in a spine-leaf or a DCN topology.
+[id="deploying-to-non-standard network-topologies_{context}"]
+= Deploying to non-standard network topologies
 
-.Procedure
+If your nodes are on a separate network from the default `InternalApi` network, you must make several changes so that {MessageBus} can transport data to the {Project} ({ProjectShort}) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
 
-* Add the following configuration example to the `ExtraConfig` section for each Compute node. In this example, `internal_apiN` is the network to which the Compute node `N` is connected. `N` represents a value that is different from the default internal API network name.
+
+// TODO: remove this after OSP13 z13 since it will no longer be necessary.
+If you use {ProjectShort}  with {OpenStack} {OpenStackVersion}  and plan to monitor your Ceph, Block, or Object storage nodes, you must make a similar adjustment to what is done for spine-leaf and DCN network configuration. To monitor Ceph nodes, use the `CephStorageExtraConfig` parameter to define which network interface should be loaded into the QDR and collectd configuration files.
 
 [source,yaml]
 ----
-ComputeNExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_apiN')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"
+  CephStorageExtraConfig:
+      tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
+      tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
+      tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"
 ----
 
-.Additional resources
+Similarly, you must specify  `BlockStorageExtraConfig` and `ObjectStorageExtraConfig` parameters if your environment uses  Block and Object storage roles.
 
-For more information about DCN configuration, see the link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{OpenStackVersion}/html-single/spine_leaf_networking/[Spine Leaf Networking] guide.
+The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for {ProjectShort} for an {OpenStackShort} deployment, the default network for roles is `InternalApi`. For Ceph, Block and Object storage roles, the default network is `Storage`.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the `parameter_defaults` section of the {OpenStackShort}  environment files.
+
+
+.Procedure
+
+. Document which networks are available for each of the Leaf roles. For examples of network name definitions, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-network-data-file[Creating a network data file] in the _Spine Leaf Networking_ guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-roles-data-file[Creating a roles data file] in the _Spine Leaf Networking_ guide.
+
+. Add the following configuration example to the `ExtraConfig` section for each of the leaf roles. In this example, `internal_api0` is the value defined in the `name_lower` parameter of your network definition, and is the network to which the `Compute0` leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.
+
+For the `Compute0` leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.
+
+[source,yaml]
+----
+Compute0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"
+----
+
+On a CephStorage leaf role, an example configuration would be:
+
+[source,yaml]
+----
+CephStorage0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"
+----

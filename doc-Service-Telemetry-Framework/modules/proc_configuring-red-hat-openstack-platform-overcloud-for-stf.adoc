@@ -48,8 +48,8 @@ $ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{
 stf-default-interconnect-5671-service-telemetry.apps.infra.watch
 ----
 +
-[NOTE:]
-If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address. 
+[NOTE]
+If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address.
 
 [[configuring-the-stf-connection-for-the-overcloud]]
 == Configuring the {ProjectShort} connection for the overcloud
