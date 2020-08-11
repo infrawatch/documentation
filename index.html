@@ -465,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#completing-the-stf-configuration_installing-the-core-components-of-stf">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
 <ul class="sectlevel2">
 <li><a href="#connecting-openstack_completing-the-stf-configuration">Connecting OpenStack to Service&#160;Telemetry&#160;Framework</a></li>
-<li><a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a></li>
+<li><a href="#deploying-to-non-standard-network-topologies_completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a></li>
 </ul>
 </li>
@@ -1334,32 +1334,62 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 <p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport.</p>
 </div>
 <div class="paragraph">
-<p>To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</a>.</p>
+<p>To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies">[deploying-to-non-standard-network-topologies]</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploying-with-routed-l3-networks_completing-the-stf-configuration">Deploying with routed L3 networks</h3>
+<h3 id="deploying-to-non-standard-network-topologies_completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
 <div class="paragraph">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network that the Controller nodes use, you must make changes to ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the STF server instance. This scenario is typical in a spine-leaf or a DCN topology.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>Add the following configuration example to the <code>ExtraConfig</code> section for each Compute node. In this example, <code>internal_apiN</code> is the network to which the Compute node <code>N</code> is connected. <code>N</code> represents a value that is different from the default internal API network name.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>If you use STF with OpenStack Queens  and plan to monitor your Ceph, Block, or Object storage nodes, you must make a similar adjustment to what is done for spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface should be loaded into the QDR and collectd configuration files.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">ComputeNExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_apiN')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_apiN')}"</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">  CephStorageExtraConfig:
+      tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
+      tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
+      tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<div class="title">Additional resources</div>
-<p>For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/Queens/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
+<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses  Block and Object storage roles.</p>
+</div>
+<div class="paragraph">
+<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an {OpenStackShort} deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the {OpenStackShort}  environment files.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
+</li>
+<li>
+<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example, <code>internal_api0</code> is the value defined in the <code>name_lower</code> parameter of your network definition, and is the network to which the <code>Compute0</code> leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
+<div class="paragraph">
+<p>For the <code>Compute0</code> leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">Compute0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On a CephStorage leaf role, an example configuration would be:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">CephStorage0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -1402,8 +1432,17 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
 stf-default-interconnect-5671-service-telemetry.apps.infra.watch</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>If your STF installation differs from the documentation, ensure that you retrieve the correct Apache&#160;Qpid&#160;Dispatch&#160;Router route address.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your STF installation differs from the documentation, ensure that you retrieve the correct Apache&#160;Qpid&#160;Dispatch&#160;Router route address.
+</td>
+</tr>
+</table>
 </div>
 </li>
 </ol>
@@ -4323,7 +4362,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 15:19:32 UTC
+Last updated 2020-08-11 15:31:21 UTC
 </div>
 </div>
 </body>
