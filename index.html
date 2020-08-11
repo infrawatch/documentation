@@ -1791,6 +1791,17 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
@@ -1912,6 +1923,17 @@ status:
 <h5 id="_procedure_9" class="discrete">Procedure</h5>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
 <li>
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
@@ -2205,6 +2227,17 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Use the oc command to edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
@@ -2244,6 +2277,17 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="title">Procedure</div>
 <ol class="discrete">
 <li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Clone the dashboard repository.</p>
 <div class="listingblock">
 <div class="content">
@@ -2253,11 +2297,10 @@ cd dashboards</pre>
 </div>
 </li>
 <li>
-<p>Change to the <code>service-telemetry</code> namespace and deploy the Grafana operator:</p>
+<p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry
-oc create -f deploy/subscription.yaml</pre>
+<pre>oc create -f deploy/subscription.yaml</pre>
 </div>
 </div>
 </li>
@@ -2343,7 +2386,15 @@ service-telemetry-grafanadatasource   1m</pre>
 <div class="title">Procedure</div>
 <ol class="discrete">
 <li>
-<p>To view and edit queries, log in as the <code>admin</code> user.</p>
+<p>Log in to OpenShift. To view and edit queries, log in as the <code>admin</code> user.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
 </li>
 <li>
 <p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
@@ -2703,7 +2754,10 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Switch to the <code>service-telemetry</code> project:</p>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
 <pre>oc project service-telemetry</pre>
@@ -3022,10 +3076,21 @@ parameter_defaults:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit ServiceTelemetry</pre>
+<pre>$ oc edit ServiceTelemetry stf-default</pre>
 </div>
 </div>
 </li>
@@ -4260,7 +4325,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 11:38:08 UTC
+Last updated 2020-08-11 15:15:54 UTC
 </div>
 </div>
 </body>
