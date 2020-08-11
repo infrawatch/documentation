@@ -16,7 +16,7 @@ ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift
 :OpenShiftShort: OKD
 :OpenStack: OpenStack
-:OpenStackVersion: 13
+:OpenStackVersion: Queens
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: TripleO
 :OVirt: oVirt
