@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_deploying-with-routed-l3-networks.adoc[leveloffset=+1]
+// include::<path>/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -29,7 +29,7 @@ If your nodes are on a separate network from the default `InternalApi` network, 
 // TODO: remove this after OSP13 z13 since it will no longer be necessary.
 If you use {ProjectShort} with {OpenStack} {OpenStackVersion}  and plan to monitor your Ceph, Block, or Object storage nodes, you must make a similar adjustment to what is done for spine-leaf and DCN network configuration. To monitor Ceph nodes, use the `CephStorageExtraConfig` parameter to define which network interface should be loaded into the QDR and collectd configuration files.
 
-[source,yaml]
+[source,yaml,options="nowrap"]
 ----
   CephStorageExtraConfig:
       tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
@@ -39,30 +39,81 @@ If you use {ProjectShort} with {OpenStack} {OpenStackVersion}  and plan to monit
 
 Similarly, you must specify  `BlockStorageExtraConfig` and `ObjectStorageExtraConfig` parameters if your environment uses  Block and Object storage roles.
 
-The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for {ProjectShort} for an {OpenStackShort} deployment, the default network for roles is `InternalApi`. For Ceph, Block and Object storage roles, the default network is `Storage`.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the `parameter_defaults` section of the {OpenStackShort}  environment files.
+The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for {ProjectShort} for an {Openstack} deployment, the default network for roles is `InternalApi`. For Ceph, Block and Object storage roles, the default network is `Storage`.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the `parameter_defaults` section of the {Openstack}  environment files.
 
 
 .Procedure
 
 . Document which networks are available for each of the Leaf roles. For examples of network name definitions, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-network-data-file[Creating a network data file] in the _Spine Leaf Networking_ guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-roles-data-file[Creating a roles data file] in the _Spine Leaf Networking_ guide.
 
-. Add the following configuration example to the `ExtraConfig` section for each of the leaf roles. In this example, `internal_api0` is the value defined in the `name_lower` parameter of your network definition, and is the network to which the `Compute0` leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.
+. Add the following configuration example to the `ExtraConfig` section for each of the leaf roles. In this example,
+ifdef::include_when_13[]
+`internal_api0`
+endif::[]
+ifdef::include_when_16[]
+`internal_api_subnet`
+endif::[]
+is the value defined in the `name_lower` parameter of your network definition
+ifdef::include_when_16[]
+(with `_subnet` appended to the name for Leaf 0)
+endif::[]
+, and is the network the
+ifdef::include_when_13[]
+`Compute0`
+endif::[]
+ifdef::include_when_16[]
+`ComputeLeaf0`
+endif::[]
+leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.
 +
-For the `Compute0` leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.
+For the
+ifdef::include_when_13[]
+`Compute0`
+endif::[]
+ifdef::include_when_16[]
+`ComputeLeaf0`
+endif::[]
+leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.
 +
 [source,yaml]
+ifdef::include_when_13[]
 ----
 Compute0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"
 ----
+endif::[]
+ifdef::include_when_16[]
+----
+ComputeLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"
+----
 +
-On a CephStorage leaf role, an example configuration would be:
+Additional leaf roles typically replace `_subnet` with `_leafN` where `N` represents a unique indentifier for the leaf.
++
+----
+ComputeLeaf1ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"
+----
+endif::[]
++
+This example configuration is on a CephStorage leaf role:
 +
 [source,yaml]
+ifdef::include_when_13[]
 ----
 CephStorage0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"
 ----
+endif::[]
+ifdef::include_when_16[]
+----
+CephStorageLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"
+----
+endif::[]
