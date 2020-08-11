@@ -48,18 +48,18 @@ Because a spine-leaf configuration can result in different networks being assign
 . Document which networks are available for each of the Leaf roles. For examples of network name definitions, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-network-data-file[Creating a network data file] in the _Spine Leaf Networking_ guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/spine_leaf_networking/index#creating-a-roles-data-file[Creating a roles data file] in the _Spine Leaf Networking_ guide.
 
 . Add the following configuration example to the `ExtraConfig` section for each of the leaf roles. In this example, `internal_api0` is the value defined in the `name_lower` parameter of your network definition, and is the network to which the `Compute0` leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.
-
++
 For the `Compute0` leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.
-
++
 [source,yaml]
 ----
 Compute0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"
 ----
-
++
 On a CephStorage leaf role, an example configuration would be:
-
++
 [source,yaml]
 ----
 CephStorage0ExtraConfig:
