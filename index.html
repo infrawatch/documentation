@@ -619,7 +619,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>crc start --memory=49152 --cpus=8</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -634,7 +634,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>Run the <code>crc delete</code> command.</p>
 <div class="listingblock">
 <div class="content">
-<pre>crc delete</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">crc delete</code></pre>
 </div>
 </div>
 </li>
@@ -642,7 +642,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <p>Run the <code>crc start</code> command to create your environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre>crc start --memory=49152 --cpus=8</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
 </div>
 </div>
 </li>
@@ -761,7 +761,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -873,7 +873,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc new-project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc new-project service-telemetry</code></pre>
 </div>
 </div>
 </div>
@@ -884,7 +884,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -893,7 +893,7 @@ metadata:
 spec:
   targetNamespaces:
   - service-telemetry
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 <h4 id="_additional_resources_4" class="discrete">Additional resources</h4>
@@ -958,10 +958,10 @@ EOF</code></pre>
 <p>To validate the creation of your OperatorSource, run the <code>oc get operatorsources</code> command. A successful import results in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconciled</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
 NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled</pre>
+infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled</code></pre>
 </div>
 </div>
 </li>
@@ -969,10 +969,10 @@ infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWat
 <p>To validate that the Operators are available from the catalog, run the <code>oc get packagemanifest</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get packagemanifests | grep InfraWatch
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
 
 servicetelemetry-operator                    InfraWatch Operators       7m20s
-smartgateway-operator                        InfraWatch Operators       7m20s</pre>
+smartgateway-operator                        InfraWatch Operators       7m20s</code></pre>
 </div>
 </div>
 </li>
@@ -1023,10 +1023,10 @@ EOF</code></pre>
 <p>To validate your <code>ClusterServiceVersion</code>, run the <code>oc get csv</code> command. Ensure that amq7-cert-manager.v1.0.0 has a phase <code>Succeeded</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get --namespace openshift-operators csv
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</pre>
+amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1065,10 +1065,10 @@ EOF</code></pre>
 <p>To verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>succeeded</code>, run the <code>oc get csv</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get csv
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded</pre>
+elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1107,14 +1107,14 @@ EOF</code></pre>
 <p>To validate the Service Telemetry Operator and the dependent operators, run the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get csv --namespace service-telemetry
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
 amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
 elastic-cloud-eck.v1.1.0            Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1            Succeeded
 prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
 service-telemetry-operator.v1.0.2   Service Telemetry Operator                      1.0.2     service-telemetry-operator.v1.0.1   Succeeded
-smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</pre>
+smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1190,7 +1190,7 @@ EOF</code></pre>
 <p>To view the STF deployment logs in the Service Telemetry Operator, run the <code>oc logs</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1216,7 +1216,7 @@ If you set <code>eventsEnabled: true</code>, the notification Smart Gateways wil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get pods
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get pods
 
 NAME                                                              READY   STATUS             RESTARTS   AGE
 alertmanager-stf-default-0                                        2/2     Running            0          26m
@@ -1230,7 +1230,7 @@ smart-gateway-operator-7ff58bcf94-66rvx                           2/2     Runnin
 stf-default-ceilometer-notification-smartgateway-6675df547q4lbj   1/1     Running            0          26m
 stf-default-collectd-notification-smartgateway-698c87fbb7-xj528   1/1     Running            0          26m
 stf-default-collectd-telemetry-smartgateway-79c967c8f7-9hsqn      1/1     Running            0          26m
-stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m</pre>
+stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m</code></pre>
 </div>
 </div>
 </li>
@@ -1265,7 +1265,7 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 <p>Run the <code>oc delete</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc delete project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc delete project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -1273,8 +1273,8 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 <p>Verify that the resources have been deleted from the namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get all
-No resources found.</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get all
+No resources found.</code></pre>
 </div>
 </div>
 </li>
@@ -1293,8 +1293,8 @@ No resources found.</pre>
 <p>Delete the OperatorSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
-operatorsource.operators.coreos.com "infrawatch-operators" deleted</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
+operatorsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -1302,7 +1302,7 @@ operatorsource.operators.coreos.com "infrawatch-operators" deleted</pre>
 <p>Verify that the STF PackageManifests are removed from the platform. If successful, the following command returns no result:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get packagemanifests | grep InfraWatch</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch</code></pre>
 </div>
 </div>
 </li>
@@ -1310,8 +1310,8 @@ operatorsource.operators.coreos.com "infrawatch-operators" deleted</pre>
 <p>If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
-catalogsource.operators.coreos.com "operatorhubio-operators" deleted</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
+catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -1391,9 +1391,9 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>ComputeLeaf1ExtraConfig:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">ComputeLeaf1ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</pre>
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1565,9 +1565,9 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
 
-running</pre>
+running</code></pre>
 </div>
 </div>
 </li>
@@ -1575,14 +1575,14 @@ running</pre>
 <p>Return the internal network address on which Apache&#160;Qpid&#160;Dispatch&#160;Router is running, for example, <code>172.17.1.44</code> listening on port <code>5666</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
 listener {
     host: 172.17.1.44
     port: 5666
     authenticatePeer: no
     saslMechanisms: ANONYMOUS
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -1590,7 +1590,7 @@ listener {
 <p>Return a list of connections to the local Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
@@ -1598,7 +1598,7 @@ Connections
   1    stf-default-interconnect-5671-service-telemetry.apps.infra.watch:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
   12   172.17.1.44:60290                                                     openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
   16   172.17.1.44:36408                                                     metrics                                                                                                    normal  in   no-security                         anonymous-user
-  899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</pre>
+  899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1628,7 +1628,7 @@ Connections
 <p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
   type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel  mod  delay  rate
   ===========================================================================================================================================================
@@ -1642,7 +1642,7 @@ Router Links
   endpoint  out  12       32          local   temp.lSY6Mcicol4J2Kp       250  0    0      0       0        0        0       0    0    0    0    0      0
   endpoint  in   16       41                                             250  0    0      0       2979924  2979924  0       0    0    0    0    0      0
   endpoint  in   912      1834        mobile  $management           0    250  0    0      0       1        0        0       1    0    0    0    0      0
-  endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0</pre>
+  endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0    0    0      0</code></pre>
 </div>
 </div>
 </li>
@@ -1650,10 +1650,10 @@ Router Links
 <p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pods -l application=stf-default-interconnect
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods -l application=stf-default-interconnect
 
 NAME                                        READY   STATUS    RESTARTS   AGE
-stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</pre>
+stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code></pre>
 </div>
 </div>
 </li>
@@ -1661,7 +1661,7 @@ stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</
 <p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
 stf-default-interconnect-7458fd4d69-bgzfb
@@ -1675,7 +1675,7 @@ Connections
   22  10.128.0.1:51948   Router.ceph-0.redhat.local                                            edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
   23  10.128.0.1:51950   Router.compute-0.redhat.local                                         edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
   24  10.128.0.1:52082   Router.controller-0.redhat.local                                      edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
-  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                                  normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00</pre>
+  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                                  normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1686,7 +1686,7 @@ Connections
 <p>To view the number of messages delivered by the network, use each address with the <code>oc exec</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
 stf-default-interconnect-7458fd4d69-bgzfb
@@ -1696,7 +1696,7 @@ Router Addresses
   ====================================================================================================================
   mobile  anycast/ceilometer/event.sample   0    balanced   -    1      0       1,553      1,553      0     0
   mobile  collectd/notify                   0    multicast  -    1      0       10         10         0     0
-  mobile  collectd/telemetry                0    multicast  -    1      0       7,798,049  7,798,049  0     0</pre>
+  mobile  collectd/telemetry                0    multicast  -    1      0       7,798,049  7,798,049  0     0</code></pre>
 </div>
 </div>
 </li>
@@ -1852,7 +1852,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -1860,7 +1860,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc edit servicetelemetry stf-default</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry stf-default</code></pre>
 </div>
 </div>
 </li>
@@ -1880,7 +1880,7 @@ The trailing pipe (<code>|</code>) after entering the manifest override paramete
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc edit servicetelemetry stf-default
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">$ oc edit servicetelemetry stf-default
 
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -1922,7 +1922,7 @@ status:
     message: Awaiting next reconciliation
     reason: Successful
     status: "True"
-    type: Running</pre>
+    type: Running</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1985,7 +1985,7 @@ status:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -1993,7 +1993,7 @@ status:
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc apply -f - &lt;&lt;EOF
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -2009,7 +2009,7 @@ spec:
       rules:
         - alert: Metric Listener down
           expr: collectd_qpid_router_status &lt; 1 # To change the rule, edit the value of the expr parameter.
-EOF</pre>
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -2017,7 +2017,7 @@ EOF</pre>
 <p>To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2025,8 +2025,8 @@ EOF</pre>
 <p>Run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
-{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</code></pre>
 </div>
 </div>
 </li>
@@ -2034,7 +2034,7 @@ EOF</pre>
 <p>To verify that the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre>[ root@curl:/ ]$ exit</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
 </div>
 </div>
 </li>
@@ -2042,9 +2042,9 @@ EOF</pre>
 <p>Clean up the environment by deleting the <code>curl</code> pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete pod curl
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete pod curl
 
-pod "curl" deleted</pre>
+pod "curl" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -2067,7 +2067,7 @@ pod "curl" deleted</pre>
 <p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc edit prometheusrules prometheus-alarm-rules</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit prometheusrules prometheus-alarm-rules</code></pre>
 </div>
 </div>
 </li>
@@ -2094,7 +2094,7 @@ pod "curl" deleted</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>alertmanager.yaml: |-
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">alertmanager.yaml: |-
   global:
     resolve_timeout: 5m
   route:
@@ -2104,7 +2104,7 @@ pod "curl" deleted</pre>
     repeat_interval: 12h
     receiver: 'null'
   receivers:
-  - name: 'null'</pre>
+  - name: 'null'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2120,7 +2120,7 @@ pod "curl" deleted</pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2128,7 +2128,7 @@ pod "curl" deleted</pre>
 <p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc edit servicetelemetry stf-default</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry stf-default</code></pre>
 </div>
 </div>
 </li>
@@ -2148,7 +2148,7 @@ This loads the default template that is already managed by Service Telemetry Ope
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">apiVersion: infra.watch/v1alpha1
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
 metadata:
   name: stf-default
@@ -2173,7 +2173,7 @@ spec:
           repeat_interval: 12h
           receiver: 'null'
         receivers:
-        - name: 'null'</pre>
+        - name: 'null'</code></pre>
 </div>
 </div>
 </li>
@@ -2181,7 +2181,7 @@ spec:
 <p>Verify that the configuration was applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
 global:
   resolve_timeout: 10m
@@ -2192,7 +2192,7 @@ route:
   repeat_interval: 12h
   receiver: 'null'
 receivers:
-- name: 'null'</pre>
+- name: 'null'</code></pre>
 </div>
 </div>
 </li>
@@ -2200,7 +2200,7 @@ receivers:
 <p>To verify the configuration has been loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2208,9 +2208,9 @@ receivers:
 <p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents and review the supplied configuration matches the configuration loaded into Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
-{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</pre>
+{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</code></pre>
 </div>
 </div>
 </li>
@@ -2218,7 +2218,7 @@ receivers:
 <p>Verify that the <code>configYAML</code> field contains the expected changes. Exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre>[ root@curl:/ ]$ exit</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
 </div>
 </div>
 </li>
@@ -2226,9 +2226,9 @@ receivers:
 <p>To clean up the environment, delete the <code>curl</code> pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete pod curl
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete pod curl
 
-pod "curl" deleted</pre>
+pod "curl" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -2288,7 +2288,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2296,7 +2296,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Use the oc command to edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit ServiceTelemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2304,10 +2304,10 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Add <code>highAvailabilityEnabled: true</code> to the <code>spec</code> section:</p>
 <div class="listingblock">
 <div class="content">
-<pre>spec:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
   eventsEnabled: true
   metricsEnabled: true
-  highAvailabilityEnabled: true</pre>
+  highAvailabilityEnabled: true</code></pre>
 </div>
 </div>
 </li>
@@ -2338,7 +2338,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2346,8 +2346,8 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Clone the dashboard repository.</p>
 <div class="listingblock">
 <div class="content">
-<pre>git clone https://github.com/infrawatch/dashboards
-cd dashboards</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/infrawatch/dashboards
+cd dashboards</code></pre>
 </div>
 </div>
 </li>
@@ -2355,7 +2355,7 @@ cd dashboards</pre>
 <p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f deploy/subscription.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc create -f deploy/subscription.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -2363,11 +2363,11 @@ cd dashboards</pre>
 <p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is Succeeded, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get csv
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv
 
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
-...</pre>
+...</code></pre>
 </div>
 </div>
 </li>
@@ -2375,7 +2375,7 @@ grafana-operator.v3.2.0             Grafana Operator                            
 <p>Launch a Grafana instance:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f deploy/grafana.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f deploy/grafana.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -2383,10 +2383,10 @@ grafana-operator.v3.2.0             Grafana Operator                            
 <p>Verify that the Grafana instance deployed:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pod -l app=grafana
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pod -l app=grafana
 
 NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
 </div>
 </div>
 </li>
@@ -2394,8 +2394,8 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 <p>Create the datasource and dashboard resources:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc create -f deploy/datasource.yaml \
-    -f deploy/rhos-dashboard.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc create -f deploy/datasource.yaml \
+    -f deploy/rhos-dashboard.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -2403,14 +2403,14 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 <p>Verify that the resources installed correctly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get grafanadashboards
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadashboards
 
 NAME             AGE
 rhos-dashboard   7d21h
 
 $ oc get grafanadatasources
 NAME                                  AGE
-service-telemetry-grafanadatasource   1m</pre>
+service-telemetry-grafanadatasource   1m</code></pre>
 </div>
 </div>
 </li>
@@ -2418,7 +2418,7 @@ service-telemetry-grafanadatasource   1m</pre>
 <p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use the <code>oc get routes</code> command to retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc get routes</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc get routes</code></pre>
 </div>
 </div>
 </li>
@@ -2447,7 +2447,7 @@ service-telemetry-grafanadatasource   1m</pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2455,7 +2455,7 @@ service-telemetry-grafanadatasource   1m</pre>
 <p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc describe grafana service-telemetry-grafana</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc describe grafana service-telemetry-grafana</code></pre>
 </div>
 </div>
 </li>
@@ -2897,7 +2897,7 @@ Your output may have some additional <code>metadata</code> parameters that you c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">apiVersion: smartgateway.infra.watch/v2alpha1
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">apiVersion: smartgateway.infra.watch/v2alpha1
 kind: SmartGateway
 metadata:
   name: stf-default-ceilometer-notification-cloud1  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -2949,7 +2949,7 @@ spec:
   prefetch: 15000
   serviceType: metrics
   size: 1
-  useTimestamp: true</pre>
+  useTimestamp: true</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -3011,7 +3011,7 @@ Remove
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>resource_registry:
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
     OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-puppet.yaml
     OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-central-container-puppet.yaml
@@ -3057,7 +3057,7 @@ parameter_defaults:
           port: 443
           role: edge
           verifyHostname: false
-          sslProfile: sslProfile</pre>
+          sslProfile: sslProfile</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3079,9 +3079,9 @@ parameter_defaults:
 <p>Source the authentication file:</p>
 <div class="listingblock">
 <div class="content">
-<pre>[stack@undercloud-0 ~]$ source stackrc
+<pre class="highlight"><code class="language-bash" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
 
-(undercloud) [stack@undercloud-0 ~]$</pre>
+(undercloud) [stack@undercloud-0 ~]$</code></pre>
 </div>
 </div>
 </li>
@@ -3089,11 +3089,11 @@ parameter_defaults:
 <p>Include the <code>stf-connectors.yaml</code> file in the <code>overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre>(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
+<pre class="highlight"><code class="language-bash" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
 --templates /usr/share/openstack-tripleo-heat-templates \
 ...
 -e /home/stack/custom_templates/stf-connectors.yaml \
-...</pre>
+...</code></pre>
 </div>
 </div>
 </li>
@@ -3137,7 +3137,7 @@ parameter_defaults:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -3145,7 +3145,7 @@ parameter_defaults:
 <p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit ServiceTelemetry stf-default</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry stf-default</code></pre>
 </div>
 </div>
 </li>
@@ -3153,10 +3153,10 @@ parameter_defaults:
 <p>Add the <code>storageEphemeralEnabled: true</code> parameter to the <code>spec</code> section:</p>
 <div class="listingblock">
 <div class="content">
-<pre>spec:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
   eventsEnabled: true
   metricsEnabled: true
-  storageEphemeralEnabled: true</pre>
+  storageEphemeralEnabled: true</code></pre>
 </div>
 </div>
 </li>
@@ -4380,7 +4380,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-12 07:20:25 UTC
+Last updated 2020-08-12 15:46:26 UTC
 </div>
 </div>
 </body>
