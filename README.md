@@ -18,9 +18,8 @@ On MacOS, to install the required tools use brew and replace the "make" command 
 
     brew install asciidoctor make
 
-Alternatively, you can install the XCode development environment to make the "make"
-utility available on PATH, however this takes about an hour to download and
-install and requires several gigabytes of HDD space:
+Alternatively, to make the "make" utility available on PATH, you can install the XCode development environment. 
+However,  you must ensure you have several gigabytes of HDD space available and allow for approximately an hour to download and install the XCode development environment:
 
     xcode-select --install
 
