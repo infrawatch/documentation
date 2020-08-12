@@ -91,7 +91,7 @@ variable called "build". Its value can be set either to "downstream" or
 	NOTE: This part is only relevant for deployments with Katello plugin.
 	endif::[]
 
-When peforming a review, consider checking out the topic branch and putting necessary
+When performing a review, consider checking out the topic branch and putting necessary
 changes on top of the author's work instead of making many comments on github.
 
 We should avoid using phases like, "Starting from version 6.5 or 1.22" because
