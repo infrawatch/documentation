@@ -50,6 +50,7 @@ The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[m
 
 After you complete the installation of CRC, use the `crc start` command to start your environment. The recommended minimum system resources for running {ProjectShort} in CodeReady Containers is 48 GB of memory and 8 virtual CPU cores:
 
+[source,bash]
 ----
 crc start --memory=49152 --cpus=8
 ----
@@ -60,12 +61,14 @@ To recreate the environment:
 
 . Run the `crc delete` command.
 +
+[source,bash]
 ----
 crc delete
 ----
 
 . Run the `crc start` command to create your environment:
 +
+[source,bash]
 ----
 crc start --memory=49152 --cpus=8
 ----

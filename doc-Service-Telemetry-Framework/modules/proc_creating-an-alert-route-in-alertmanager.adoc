@@ -25,6 +25,7 @@
 
 Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} ({OpenShiftShort}) secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
 
+[source,yaml]
 ----
 alertmanager.yaml: |-
   global:
@@ -47,12 +48,14 @@ To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfi
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . Edit the `ServiceTelemetry` object for your {ProjectShort} deployment
 +
+[source,bash]
 ----
 oc edit servicetelemetry stf-default
 ----
@@ -62,7 +65,7 @@ oc edit servicetelemetry stf-default
 [NOTE]
 This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the `alertmanager-stf-default` secret, and verify that the new value is loaded into memory, for example, changing the value `global.resolve_timeout` from `5m` to `10m`.
 +
-[options="nowrap"]
+[source,yaml,options="nowrap"]
 ----
 apiVersion: infra.watch/v1alpha1
 kind: ServiceTelemetry
@@ -94,7 +97,7 @@ spec:
 
 . Verify that the configuration was applied to the secret:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
@@ -112,13 +115,14 @@ receivers:
 
 . To verify the configuration has been loaded into Alertmanager, create a pod with access to `curl`:
 +
+[source,bash]
 ----
 oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and review the supplied configuration matches the configuration loaded into Alertmanager:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 [ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
@@ -127,12 +131,14 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 
 . Verify that the `configYAML` field contains the expected changes. Exit from the pod:
 +
+[source,bash]
 ----
 [ root@curl:/ ]$ exit
 ----
 
 . To clean up the environment, delete the `curl` pod:
 +
+[source,bash]
 ----
 $ oc delete pod curl
 

@@ -31,18 +31,21 @@ To configure {ProjectShort} for high availability, add `highAvailabilityEnabled:
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . Use the oc command to edit the ServiceTelemetry object:
 +
+[source,bash]
 ----
 $ oc edit ServiceTelemetry
 ----
 
 . Add `highAvailabilityEnabled: true` to the `spec` section:
 +
+[source,yaml]
 ----
 spec:
   eventsEnabled: true

@@ -32,7 +32,7 @@ To validate data collection from the {ProjectShort} storage domain, query the da
 
 . Ensure that `metrics_qdr` container is running on the node:
 +
-[options="nowrap",subs="attributes"]
+[source,bash,options="nowrap",subs="attributes"]
 ----
 $ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr
 
@@ -41,7 +41,7 @@ running
 
 . Return the internal network address on which {MessageBus} is running, for example, `172.17.1.44` listening on port `5666`:
 +
-[options="nowrap",subs="attributes"]
+[source,bash,options="nowrap",subs="attributes"]
 ----
 $ sudo {containerbin} exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
@@ -55,7 +55,7 @@ listener {
 
 . Return a list of connections to the local {MessageBus}:
 +
-[options="nowrap",subs="attributes"]
+[source,bash,options="nowrap",subs="attributes"]
 ----
 $ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
@@ -79,7 +79,7 @@ The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors`
 
 . To ensure that messages are being delivered, list the links, and view the `_edge` address in the `deliv` column for delivery of messages:
 +
-[options="nowrap", subs="attributes"]
+[source,bash,options="nowrap", subs="attributes"]
 ----
 $ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
@@ -100,6 +100,7 @@ Router Links
 
 . To list the addresses from {OpenStack} nodes to {ProjectShort}, connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections. List the available {MessageBus} pods:
 +
+[source,bash]
 ----
 $ oc get pods -l application=stf-default-interconnect
 
@@ -109,7 +110,7 @@ stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
 
 . Connect to the pod and run the `qdstat --connections` command to list the known connections:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
 
@@ -132,7 +133,7 @@ In this example, there are three `edge` connections from the {OpenStack} nodes w
 
 . To view the number of messages delivered by the network, use each address with the `oc exec` command:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc exec -it stf-default-interconnect-7458fd4d69-bgzfb -- qdstat --address
 

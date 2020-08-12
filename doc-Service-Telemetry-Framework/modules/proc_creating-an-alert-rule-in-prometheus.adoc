@@ -31,13 +31,14 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1
@@ -60,13 +61,14 @@ EOF
 
 . To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
 +
+[source,bash]
 ----
 oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
 +
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 [ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
@@ -74,12 +76,14 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 
 . To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit from the pod:
 +
+[source,bash]
 ----
 [ root@curl:/ ]$ exit
 ----
 
 . Clean up the environment by deleting the `curl` pod:
 +
+[source,bash]
 ----
 $ oc delete pod curl
 

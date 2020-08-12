@@ -30,11 +30,13 @@ To delete the Smart Gateways, complete the following steps:
 
 . Delete the default Smart Gateways from the cluster:
 +
+[source,bash]
 ----
 oc delete smartgateway cloud1-notify cloud1-telemetry
 ----
 . Optional: Delete the default manifests:
 +
+[source,bash]
 ----
 rm deploy/service-telemetry/smartgateway/{events,metrics}-smartgateway.yaml
 ----

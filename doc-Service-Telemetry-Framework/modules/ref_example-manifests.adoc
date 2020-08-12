@@ -29,7 +29,7 @@ Ensure that the `name` and `amqpUrl` parameters of each Smart Gateway match the 
 
 NOTE: Your output may have some additional `metadata` parameters that you can remove from the manifests you that load into {OpenShiftShort}.
 
-[options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 apiVersion: smartgateway.infra.watch/v2alpha1
 kind: SmartGateway
