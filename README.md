@@ -13,7 +13,7 @@ Install the required tools. On Fedora, run the following command:
 
     dnf -y install rubygem-asciidoctor rubygem-asciidoctor-pdf make
 
-In MacOS, you can install the required tools using brew but instead of the command "make", use
+On MacOS, to install the required tools use brew and replace the "make" command with
 "gmake":
 
     brew install asciidoctor make
