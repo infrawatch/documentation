@@ -42,7 +42,7 @@ When you configure the {OpenStack} overcloud for {ProjectShort}, you must provid
 //subs="+quotes"
 . In the `service-telemetry` project, retrieve the {MessageBus} route address:
 +
-[options="nowrap", subs="verbatim"]
+[source,bash,options="nowrap", subs="verbatim"]
 ----
 $ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
 stf-default-interconnect-5671-service-telemetry.apps.infra.watch
@@ -130,8 +130,8 @@ endif::include_when_16[]
 * the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment
 * the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry is sent to {ProjectShort}
 +
-[options="nowrap", subs="+quotes"]
 ifdef::include_when_13[]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 openstack overcloud deploy <other arguments>
 --templates /usr/share/openstack-tripleo-heat-templates \
@@ -143,6 +143,7 @@ openstack overcloud deploy <other arguments>
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 openstack overcloud deploy <other arguments>
   --templates /usr/share/openstack-tripleo-heat-templates \
