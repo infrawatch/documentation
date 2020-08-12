@@ -51,7 +51,7 @@ rebuild use `make clean` to delete build directory and start over.
 
 Publishing the upstream documentation is done automatically on merge to the
 `master` branch. Automation in Travis-CI will then result in a built html
-output being pushed into the `gh-pages` branch. You can read the content at:
+output that is pushed into the `gh-pages` branch. You can read the content at:
 https://infrawatch.github.io/documentation
 
 ## Contributing
