@@ -33,7 +33,7 @@ PDF output is slow so use the `make pdf` command separately. To
 make both formats in one command, use `make html pdf`. To build downstream
 version perform `make BUILD=downstream`.
 
-Few additional make targets are available on the guide level. To quickly build
+Few additional make targets are available on the guide level. To build
 HTML version and open new tab in a browser, enter the following commands:
 
     cd doc-Service-Telemetry-Framework
