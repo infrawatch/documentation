@@ -9,17 +9,17 @@ for Red Hat Documentation](https://redhat-documentation.github.io/). This is a
 
 ## Building
 
-Install the required tools. On Fedora, run the following command:
+Install the required tools. On Fedora, enter the following command:
 
     dnf -y install rubygem-asciidoctor rubygem-asciidoctor-pdf make
 
-On MacOS, to install the required tools use brew and replace the "make" command with
+On MacOS, to install the required tools, use brew and replace the "make" command with
 "gmake":
 
     brew install asciidoctor make
 
 Alternatively, to make the "make" utility available on PATH, you can install the XCode development environment. 
-However,  you must ensure you have several gigabytes of HDD space available and allow for approximately an hour to download and install the XCode development environment:
+However, you must ensure you have several gigabytes of HDD space available and allow for approximately an hour to download and install the XCode development environment:
 
     xcode-select --install
 
@@ -39,7 +39,7 @@ HTML version and open new tab in a browser, enter the following commands:
     cd doc-Service-Telemetry-Framework
     make browser
 
-Similarly, to build and open PDF version do:
+Similarly, to build and open PDF version, enter the following command:
 
     make open-pdf
 
