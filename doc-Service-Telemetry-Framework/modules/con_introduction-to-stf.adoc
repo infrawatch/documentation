@@ -30,6 +30,6 @@
 * Metric - a numeric measurement of an application or system
 * Event - irregular and discrete occurrences that happen in a system
 
-The collection components required on the clients are lightweight, and a multicast message bus, which is shared by all clients and the deployment, provides fast and reliable data transport. Other modular components for receiving and storing data are deployed in containers on {OpenShiftShort}.
+The collection components that are required on the clients are lightweight. The multicast message bus that is shared by all clients and the deployment provides fast and reliable data transport. Other modular components for receiving and storing data are deployed in containers on {OpenShiftShort}.
 
 {ProjectShort} provides access to monitoring functions such as alert generation, visualization via dashboards, and single source of truth telemetry analysis to support orchestration.
