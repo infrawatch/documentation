@@ -496,25 +496,52 @@ STF provides metrics and events data collection from OpenStack infrastructure, f
 <div class="paragraph">
 <p>STF uses the following components:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd to collect metrics</p>
-</li>
-<li>
-<p>Prometheus as time-series data storage</p>
-</li>
-<li>
-<p>ElasticSearch as events data storage</p>
-</li>
-<li>
-<p>An AMQP 1.x compatible messaging bus to shuttle the metrics to STF for storage in Prometheus</p>
-</li>
-<li>
-<p>Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus</p>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Client</th>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Server (OKD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An AMQP 1.x compatible messaging bus to shuttle the metrics to STF for storage in Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus as time-series data storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic Search as events data storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd to collect infrastructure metrics and events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer to collect OpenStack metrics and events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+</tbody>
+</table>
 <div id="osp-stf-overview" class="imageblock">
 <div class="content">
 <img src="images/OpenStack_STF_Overview_37_1019_arch.png" alt="OpenStack STF Overview 37 1019 arch"/>
@@ -4380,7 +4407,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-12 15:46:26 UTC
+Last updated 2020-08-12 20:15:34 UTC
 </div>
 </div>
 </body>
