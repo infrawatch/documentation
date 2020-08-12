@@ -25,5 +25,11 @@
 [id="introduction-to-stf_{context}"]
 = Introduction to {Project}
 
-{Project} ({ProjectShort}) is an application that runs on {OpenShift} ({OpenShiftShort}). Use {ProjectShort} to collect metrics and record events from the nodes in your systems that you want to monitor. The metrics and event information travels on a message bus to the server side for storage. Use this centralized information as the source for alerts, visualization, or the source of truth for orchestration frameworks.
-{ProjectShort} provides metrics and events data collection from OpenStack infrastructure, fast and reliable transport of data, and built-in data storage and alerting capabilities. An advantage over other monitoring systems is its lighter weight and modular design.
+{Project} ({ProjectShort}) provides automated collection of measurements and data from remote clients - {OpenStack} or third-party nodes - and transmission of that information to a centralized, receiving {OpenShift} ({OpenShiftShort}) deployment for storage, retrieval, and monitoring. The data can be either of two types:
+
+* Metric - a numeric measurement of an application or system
+* Event - irregular and discrete occurrences that happen in a system
+
+The collection components that are required on the clients are lightweight. The multicast message bus that is shared by all clients and the deployment provides fast and reliable data transport. Other modular components for receiving and storing data are deployed in containers on {OpenShiftShort}.
+
+{ProjectShort} provides access to monitoring functions such as alert generation, visualization via dashboards, and single source of truth telemetry analysis to support orchestration.
