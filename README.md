@@ -29,7 +29,7 @@ install it from rubygems:
     gem install asciidoctor asciidoctor-pdf --pre
 
 Run `make` or `make html` which builds HTML output. Generating
-PDF output is slow so use the `make pdf` command separately. To
+PDF output is slow, therefore use the `make pdf` command separately. To
 make both formats in one command, use `make html pdf`. To build downstream
 version perform `make BUILD=downstream`.
 
