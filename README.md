@@ -9,33 +9,33 @@ for Red Hat Documentation](https://redhat-documentation.github.io/). This is a
 
 ## Building
 
-Install required tools. In Fedora perform:
+Install the required tools. In Fedora, run the following command:
 
     dnf -y install rubygem-asciidoctor rubygem-asciidoctor-pdf make
 
-In MacOS required tools can be installed via brew but instead "make" call
+In MacOS, you can install the required tools using brew but instead of the command "make", use
 "gmake":
 
     brew install asciidoctor make
 
-Alternatively, XCode development environment can be installed to have make
+Alternatively, you can install the XCode development environment to make the "make"
 utility available on PATH, however this takes about an hour to download and
 install and requires several gigabytes of HDD space:
 
     xcode-select --install
 
-If AsciiDoctor is not available in repositories or under RVM/rbenv, simply
+If AsciiDoctor is not available in repositories or under RVM/rbenv,
 install it from rubygems:
 
     gem install asciidoctor asciidoctor-pdf --pre
 
-Then simply run `make` or `make html` which builds HTML artifacts. Generating
-PDF output is slow, therefore command `make pdf` must be used separately. To
+Run `make` or `make html` which builds HTML output. Generating
+PDF output is slow so use the `make pdf` command separately. To
 make both formats in one command, use `make html pdf`. To build downstream
 version perform `make BUILD=downstream`.
 
 Few additional make targets are available on the guide level. To quickly build
-HTML version and open new tab in a browser do:
+HTML version and open new tab in a browser, enter the following commands:
 
     cd doc-Service-Telemetry-Framework
     make browser
@@ -44,16 +44,15 @@ Similarly, to build and open PDF version do:
 
     make open-pdf
 
-The final artifacts can be found in the ./build subdirectory. Note that GNU
+You can find the final artifacts in the ./build subdirectory. Note that GNU
 Makefile tracks changes and only builds relevant artifacts, to trigger full
 rebuild use `make clean` to delete build directory and start over.
 
-## Reading or Publishing
+## Reading or publishing
 
-Publishing up the upstream documentation is done automatically on merge to the
+Publishing the upstream documentation is done automatically on merge to the
 `master` branch. Automation in Travis-CI will then result in a built html
-output being pushing into the `gh-pages` branch. The resulting artifacts are
-then available for reading at
+output being pushed into the `gh-pages` branch. You can read the content at:
 https://infrawatch.github.io/documentation
 
 ## Contributing
@@ -93,8 +92,8 @@ variable called "build". Its value can be set either to "downstream" or
 	NOTE: This part is only relevant for deployments with Katello plugin.
 	endif::[]
 
-When doing review, consider checking out the topic branch and putting necessary
-changes on top of author's work vs making many comments on github.
+When peforming a review, consider checking out the topic branch and putting necessary
+changes on top of the author's work instead of making many comments on github.
 
 We should avoid using phases like, "Starting from version 6.5 or 1.22" because
 it is not possible to easily translate these strings in both the streams.
