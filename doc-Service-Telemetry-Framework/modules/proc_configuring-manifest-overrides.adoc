@@ -34,12 +34,14 @@ The `oc edit` command loads the default system editor. To override the default e
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . Load the `ServiceTelemetry` object into an editor:
 +
+[source,bash]
 ----
 oc edit servicetelemetry stf-default
 ----
@@ -49,7 +51,7 @@ oc edit servicetelemetry stf-default
 NOTE: The trailing pipe (`|`) after entering the manifest override parameter indicates that the value provided is multi-line.
 
 +
-[options="nowrap"]
+[source,yaml,options="nowrap"]
 ----
 $ oc edit servicetelemetry stf-default
 

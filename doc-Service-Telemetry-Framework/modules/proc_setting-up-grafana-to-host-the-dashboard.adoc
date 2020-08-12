@@ -31,12 +31,14 @@ Grafana is not included in the default {Project} ({ProjectShort}) deployment so 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . Clone the dashboard repository.
 +
+[source,bash]
 ----
 git clone https://github.com/infrawatch/dashboards
 cd dashboards
@@ -44,13 +46,14 @@ cd dashboards
 
 . Deploy the Grafana operator:
 +
+[source,bash]
 ----
 oc create -f deploy/subscription.yaml
 ----
 
 . To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
 +
-[options="nowrap", subs="+quotes"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv
 
@@ -61,12 +64,14 @@ grafana-operator.v3.2.0             Grafana Operator                            
 
 . Launch a Grafana instance:
 +
+[source,bash]
 ----
 $ oc create -f deploy/grafana.yaml
 ----
 
 . Verify that the Grafana instance deployed:
 +
+[source,bash]
 ----
 $ oc get pod -l app=grafana
 
@@ -76,6 +81,7 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 
 . Create the datasource and dashboard resources:
 +
+[source,bash]
 ----
 oc create -f deploy/datasource.yaml \
     -f deploy/rhos-dashboard.yaml
@@ -83,6 +89,7 @@ oc create -f deploy/datasource.yaml \
 
 . Verify that the resources installed correctly:
 +
+[source,bash]
 ----
 $ oc get grafanadashboards
 
@@ -96,6 +103,7 @@ service-telemetry-grafanadatasource   1m
 
 . Navigate to https://<grafana-route-address> in a web browser. Use the `oc get routes` command to retrieve the Grafana route address:
 +
+[source,bash]
 ----
 oc get routes
 ----
@@ -118,12 +126,14 @@ oc get routes
 . Log in to {OpenShift}. To view and edit queries, log in as the `admin` user.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 oc project service-telemetry
 ----
 
 . To retrieve the default username and password, describe the Grafana object using `oc describe`:
 +
+[source,bash]
 ----
 oc describe grafana service-telemetry-grafana
 ----

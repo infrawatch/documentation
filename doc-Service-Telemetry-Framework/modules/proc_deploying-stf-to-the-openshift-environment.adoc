@@ -70,6 +70,7 @@ endif::[]
 
 Create a namespace to hold the {ProjectShort} components. The `service-telemetry` namespace is used throughout the documentation:
 
+[source,bash]
 ----
 oc new-project service-telemetry
 ----
@@ -79,6 +80,7 @@ oc new-project service-telemetry
 
 Create an OperatorGroup in the namespace so that you can schedule the Operator pods:
 
+[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -134,8 +136,8 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator so
 . Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
 
-[source,bash]
 ifeval::["{build}" == "upstream"]
+[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -156,6 +158,7 @@ EOF
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
+[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -178,8 +181,8 @@ endif::[]
 
 . To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
 +
-[options="nowrap", subs="+quotes"]
 ifeval::["{build}" == "upstream"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get -nopenshift-marketplace operatorsource infrawatch-operators
 
@@ -188,6 +191,7 @@ infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWat
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get -nopenshift-marketplace operatorsource redhat-operators-stf
 
@@ -198,8 +202,8 @@ endif::[]
 
 . To validate that the Operators are available from the catalog, run the `oc get packagemanifest` command:
 +
-[options="nowrap", subs="+quotes"]
 ifeval::["{build}" == "upstream"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
@@ -208,6 +212,7 @@ smartgateway-operator                        InfraWatch Operators       7m20s
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get packagemanifests | grep "Red Hat STF"
 
@@ -228,7 +233,6 @@ You must subscribe to the AMQ Certificate Manager Operator before you deploy the
 +
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
-
 +
 [source,bash]
 ----
@@ -249,7 +253,7 @@ EOF
 
 . To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
 +
-[options="nowrap", subs="+quotes"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get --namespace openshift-operators csv
 
@@ -286,7 +290,7 @@ EOF
 
 . To verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`, run the `oc get csv` command:
 +
-[options="nowrap", subs="+quotes"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv
 
@@ -304,8 +308,8 @@ To instantiate an {ProjectShort} instance, create the `ServiceTelemetry` object 
 
 . To create the Service Telemetry Operator subscription, run the `oc apply -f` command:
 +
-[source,bash]
 ifeval::["{build}" == "upstream"]
+[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -323,6 +327,7 @@ EOF
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
+[source,bash]
 ----
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -343,7 +348,7 @@ endif::[]
 
 . To validate the Service Telemetry Operator and the dependent operators, run the following command:
 +
-[options="nowrap", subs="+quotes"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv --namespace service-telemetry
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE

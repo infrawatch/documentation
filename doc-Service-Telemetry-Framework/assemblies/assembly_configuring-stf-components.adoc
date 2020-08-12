@@ -39,6 +39,7 @@ After you install the {Project} ({ProjectShort}) server-side components, configu
 
 . Copy the `/usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-standalone.yaml` file to your local directory, for example, /home/templates/custom.  Open the file and set additional parameters in the `ExtraConfig` section:
 +
+[source,yaml]
 ----
 parameter_defaults:
    CollectdExtraPlugins:
@@ -55,6 +56,7 @@ By default, collectd includes the `disk`, `interface`, `load`, `memory`, `proces
 
 . Include the modified YAML files in the `openstack overcloud deploy` command:
 +
+[source,bash]
 ----
 $ openstack overcloud deploy
 --templates /home/templates/environments/collectd.yaml \

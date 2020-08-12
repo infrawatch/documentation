@@ -73,6 +73,7 @@ If you want to edit the value of `vm.max_map_count`, you cannot apply node tunin
 
 In an {OpenShiftShort} deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:
 
+[source,bash]
 ----
 oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator
 ----

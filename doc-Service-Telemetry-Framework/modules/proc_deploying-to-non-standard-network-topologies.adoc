@@ -76,8 +76,8 @@ ifdef::include_when_16[]
 endif::[]
 leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the QDR listener address parameter.
 +
-[source,yaml]
 ifdef::include_when_13[]
+[source,yaml]
 ----
 Compute0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
@@ -85,6 +85,7 @@ Compute0ExtraConfig:
 ----
 endif::[]
 ifdef::include_when_16[]
+[source,yaml]
 ----
 ComputeLeaf0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
@@ -93,6 +94,7 @@ ComputeLeaf0ExtraConfig:
 +
 Additional leaf roles typically replace `_subnet` with `_leafN` where `N` represents a unique indentifier for the leaf.
 +
+[source,yaml]
 ----
 ComputeLeaf1ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
@@ -102,8 +104,8 @@ endif::[]
 +
 This example configuration is on a CephStorage leaf role:
 +
-[source,yaml]
 ifdef::include_when_13[]
+[source,yaml]
 ----
 CephStorage0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
@@ -111,6 +113,7 @@ CephStorage0ExtraConfig:
 ----
 endif::[]
 ifdef::include_when_16[]
+[source,yaml]
 ----
 CephStorageLeaf0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"

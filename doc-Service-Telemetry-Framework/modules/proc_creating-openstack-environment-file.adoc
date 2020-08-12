@@ -29,7 +29,7 @@ To label traffic according to the cloud of origin, you must create a configurati
 [WARNING]
 Remove
 ifdef::include_when_16[]
-`enable-stf.yaml` and 
+`enable-stf.yaml` and
 endif::include_when_16[]
 `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 
@@ -38,9 +38,9 @@ endif::include_when_16[]
 
 . Create the `stf-connectors.yaml` file and modify it to match the AMQP address that you want for this cloud deployment:
 +
-[options="nowrap"]
 .stf-connectors.yaml
 ifdef::include_when_13[]
+[source,yaml,options="nowrap"]
 ----
 resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/docker/services/metrics/collectd.yaml
@@ -98,6 +98,7 @@ parameter_defaults:
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
+[source,yaml,options="nowrap"]
 ----
 resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
@@ -160,6 +161,7 @@ endif::include_when_16[]
 
 . Source the authentication file:
 +
+[source,bash]
 ----
 [stack@undercloud-0 ~]$ source stackrc
 
@@ -168,6 +170,7 @@ endif::include_when_16[]
 
 . Include the `stf-connectors.yaml` file in the `overcloud deployment` command, along with any other environment files relevant to your environment:
 +
+[source,bash]
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
 --templates /usr/share/openstack-tripleo-heat-templates \

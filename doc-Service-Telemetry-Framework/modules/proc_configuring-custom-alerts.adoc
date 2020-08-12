@@ -30,6 +30,7 @@ You can add custom alerts to the `PrometheusRule` object that you created in xre
 
 . Use the `oc edit` command:
 +
+[source,bash]
 ----
 oc edit prometheusrules prometheus-alarm-rules
 ----
