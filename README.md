@@ -9,7 +9,7 @@ for Red Hat Documentation](https://redhat-documentation.github.io/). This is a
 
 ## Building
 
-Install the required tools. In Fedora, run the following command:
+Install the required tools. On Fedora, run the following command:
 
     dnf -y install rubygem-asciidoctor rubygem-asciidoctor-pdf make
 
