@@ -27,11 +27,35 @@
 
 {ProjectShort} uses the following components:
 
-* collectd to collect metrics
-* Prometheus as time-series data storage
-* ElasticSearch as events data storage
-* An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
-* Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
+|===
+|Client |Component |Server ({OpenShiftShort})
+
+|yes
+|An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
+|yes
+
+|no
+|Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
+|yes
+
+|no
+|Prometheus as time-series data storage
+|yes
+
+|no
+|Elastic Search as events data storage
+|yes
+
+|yes
+|collectd to collect infrastructure metrics and events
+|no
+
+|yes
+|Ceilometer to collect {OpenStack} metrics and events
+|no
+
+|===
+
 
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
