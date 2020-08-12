@@ -1446,8 +1446,8 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
-stf-default-interconnect-5671-service-telemetry.apps.infra.watch</pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
+stf-default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1532,12 +1532,12 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
 <p>the <code>ceilometer-write-qdr.yaml</code> file that ensures that Ceilometer telemetry is sent to STF</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">openstack overcloud deploy &lt;other arguments&gt;
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">openstack overcloud deploy &lt;other arguments&gt;
   --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file &lt;...other-environment-files...&gt; \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml</pre>
+  --environment-file /home/stack/stf-connectors.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -4380,7 +4380,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 20:38:46 UTC
+Last updated 2020-08-12 07:20:25 UTC
 </div>
 </div>
 </body>
