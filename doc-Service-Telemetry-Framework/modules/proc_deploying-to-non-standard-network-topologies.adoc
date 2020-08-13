@@ -27,7 +27,7 @@ If your nodes are on a separate network from the default `InternalApi` network, 
 
 
 // TODO: remove this after OSP13 z13 since it will no longer be necessary.
-If you use {ProjectShort} with {OpenStack} {OpenStackVersion}  and plan to monitor your Ceph, Block, or Object storage nodes, you must make a similar adjustment to what is done for spine-leaf and DCN network configuration. To monitor Ceph nodes, use the `CephStorageExtraConfig` parameter to define which network interface to load into the {MessageBus} and collectd configuration files.
+If you use {ProjectShort} with {OpenStack} {OpenStackVersion}  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the `CephStorageExtraConfig` parameter to define which network interface to load into the {MessageBus} and collectd configuration files.
 
 [source,yaml,options="nowrap"]
 ----
