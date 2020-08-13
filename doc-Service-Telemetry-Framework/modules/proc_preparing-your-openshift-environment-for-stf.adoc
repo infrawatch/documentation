@@ -36,8 +36,7 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 
 {ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.
 
-[discrete]
-=== Additional resources
+.Additional resources
 For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html[Understanding persistent storage.]
 
 
@@ -47,7 +46,13 @@ For more information about configuring persistent storage for {OpenShiftShort}, 
 [WARNING]
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
-To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest. For more information about enabling ephemeral storage for {ProjectShort}, see xref:configuring-ephemeral-storage_advanced-features[].
+.Procedure
+
+* To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest.
+
+.Additional resources
+
+For more information about enabling ephemeral storage for {ProjectShort}, see xref:configuring-ephemeral-storage_advanced-features[].
 
 
 [id="resource-allocation"]
@@ -57,8 +62,7 @@ To enable the scheduling of pods within the {OpenShiftShort} infrastructure, you
 
 The amount of resources that you require to run {ProjectShort} depends on your environment and the number of nodes and clouds that you want to monitor.
 
-[discrete]
-=== Additional resources
+.Additional resources
 
 For recommendations about sizing for metrics collection see https://access.redhat.com/articles/4907241.
 
@@ -85,8 +89,7 @@ The output of the default specification is documented at https://docs.openshift.
 
 When scheduling an ElasticSearch pod, there must be a label present that matches `tuned.openshift.io/elasticsearch`. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with {ProjectShort}, ensure that you add the `tuned.openshift.io/elasticsearch` label to all scheduled pods.
 
-[discrete]
-=== Additional resources
+.Additional resources
 
 For more information about virtual memory usage by ElasticSearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 

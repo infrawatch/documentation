@@ -32,9 +32,9 @@ The size of your {OpenShift} installation depends on the following factors:
 * The resolution of metrics.
 * The length of time that you want to store the data.
 
-Installation of {Project} ({ProjectShort}) depends on an existing {OpenShift} environment. It is recommended that installation of monitoring for {OpenStack} is on a platform separate from your {OpenStack} environment. You can install {OpenShift} ({OpenShiftShort}) on baremetal or various supported cloud platforms. For more information about installing {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities[OpenShift Container Platform 4.3 Documentation].
+Installation of {Project} ({ProjectShort}) depends on the existing {OpenShift} environment. Ensure that you install monitoring for {OpenStack} on a platform separate from your {OpenStack} environment. You can install {OpenShift} ({OpenShiftShort}) on baremetal or other supported cloud platforms. For more information about installing {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/welcome/index.html#cluster-installer-activities[OpenShift Container Platform 4.3 Documentation].
 
-The sizing of {OpenShiftShort} depends on the infrastructure you select. For more information about minimum resources requirements when installing {OpenShiftShort} on baremetal, see https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal[Minimum resource requirements]. For installation requirements of the various public and private cloud platforms to which you can install, see the corresponding installation documentation for your cloud of choice.
+The size of your {OpenShiftShort} environment depends on the infrastructure you select. For more information about minimum resources requirements when installing {OpenShiftShort} on baremetal, see https://docs.openshift.com/container-platform/4.3/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal[Minimum resource requirements] in the _Installing a cluster on bare metal_ guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.
 
 ifeval::["{build}" == "upstream"]
 [id="development-environment-resource-requirement_{context}"]
@@ -42,7 +42,7 @@ ifeval::["{build}" == "upstream"]
 
 You can create an all-in-one development environment for {ProjectShort} locally by using https://code-ready.github.io/crc/[CodeReady Containers]. The installation process of CodeReady Containers (CRC) is available at https://code-ready.github.io/crc/#installation_gsg.
 
-The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[minimum resource requirements] for CRC is not enough by default to run {ProjectShort}. It is recommended that your host system has the following resources available:
+The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[minimum resource requirements] for CRC is not enough by default to run {ProjectShort}. Ensure that your host system has the following resources available:
 
 * 4 physical cores (8 hyperthreaded cores)
 * 64 GB of memory
@@ -57,9 +57,9 @@ crc start --memory=49152 --cpus=8
 
 If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect.
 
-To recreate the environment:
+.Procedure
 
-. Run the `crc delete` command.
+. Enter the `crc delete` command.
 +
 [source,bash]
 ----
