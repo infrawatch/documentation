@@ -59,7 +59,7 @@ If you have an existing environment, delete it, and recreate it to ensure that t
 
 .Procedure
 
-. Run the `crc delete` command.
+. Enter the `crc delete` command.
 +
 [source,bash]
 ----
