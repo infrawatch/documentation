@@ -33,36 +33,36 @@ You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two 
 
 Complete the following tasks:
 
-. Create a namespace. For more information, see xref:creating-a-namespace[].
-. Create an OperatorGroup. For more information, see xref:creating-an-operatorgroup[].
-. Enable the OperatorHub.io Community Catalog Source. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
+. xref:creating-a-namespace[].
+. xref:creating-an-operatorgroup[].
+. xref:enabling-the-operatorhubio-community-catalog-source[].
 ifeval::["{build}" == "upstream"]
-. Enable the InfraWatch Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-operator-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. Enable the Red Hat STF Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-operator-source[].
 endif::[]
-. Subscribe to the AMQ Certificate Manager Operator. For more information, see xref:subscribing-to-the-amq-certificate-manager-operator[].
-. Subscribe to the Elastic Cloud on Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
-. Subscribe to the Service Telemetry Operator. For more information, see xref:subscribing-to-the-service-telemetry-operator[].
-. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:subscribing-to-the-amq-certificate-manager-operator[].
+. xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
+. xref:subscribing-to-the-service-telemetry-operator[].
+. xref:creating-a-servicetelemetry-object-in-openshift[].
 
 [id="deploying-stf-to-the-openshift-environment-without-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment without ElasticSearch
 
 Complete the following tasks:
 
-. Create a namespace. For more information, see xref:creating-a-namespace[].
-. Create an OperatorGroup. For more information, see xref:creating-an-operatorgroup[].
+. xref:creating-a-namespace[].
+. xref:creating-an-operatorgroup[].
 ifeval::["{build}" == "upstream"]
-. Enable the InfraWatch Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-operator-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. Enable the Red Hat STF Operator Source. For more information, see xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-operator-source[].
 endif::[]
-. Subscribe to the AMQ Certificate Manager Operator. For more information, see xref:subscribing-to-the-amq-certificate-manager-operator[].
-. Subscribe to the Service Telemetry Operator. For more information, see xref:subscribing-to-the-service-telemetry-operator[].
-. Create a ServiceTelemetry object in {OpenShiftShort}. For more information, see xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:subscribing-to-the-amq-certificate-manager-operator[].
+. xref:subscribing-to-the-service-telemetry-operator[].
+. xref:creating-a-servicetelemetry-object-in-openshift[].
 
 
 [id="creating-a-namespace"]
@@ -70,6 +70,10 @@ endif::[]
 
 Create a namespace to hold the {ProjectShort} components. The `service-telemetry` namespace is used throughout the documentation:
 
+.Procedure
+
+* Enter the following command:
++
 [source,bash]
 ----
 oc new-project service-telemetry
@@ -78,8 +82,12 @@ oc new-project service-telemetry
 [id="creating-an-operatorgroup"]
 == Creating an OperatorGroup
 
-Create an OperatorGroup in the namespace so that you can schedule the Operator pods:
+Create an OperatorGroup in the namespace so that you can schedule the Operator pods.
 
+.Procedure
+
+* Enter the following command:
++
 [source,bash]
 ----
 oc apply -f - <<EOF
@@ -94,8 +102,7 @@ spec:
 EOF
 ----
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information, see https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
 
@@ -104,6 +111,10 @@ For more information, see https://docs.openshift.com/container-platform/4.3/oper
 
 Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:
 
+.Procedure
+
+* Enter the following command:
++
 [source,bash]
 ----
 oc apply -f - <<EOF
@@ -130,8 +141,7 @@ endif::[]
 
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source.
 
-[discrete]
-=== Procedure
+.Procedure
 
 . Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
@@ -179,7 +189,7 @@ EOF
 ----
 endif::[]
 
-. To validate the creation of your OperatorSource, run the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
+. To validate the creation of your OperatorSource, use the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
 +
 ifeval::["{build}" == "upstream"]
 [source,bash,options="nowrap",subs="+quotes"]
@@ -200,7 +210,7 @@ redhat-operators-stf   appregistry   https://quay.io/cnr   redhat-operators-stf 
 ----
 endif::[]
 
-. To validate that the Operators are available from the catalog, run the `oc get packagemanifest` command:
+. To validate that the Operators are available from the catalog, use the `oc get packagemanifest` command:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash,options="nowrap",subs="+quotes"]
@@ -226,8 +236,7 @@ endif::[]
 
 You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.
 
-[discrete]
-=== Procedure
+.Procedure
 
 . Subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
 +
@@ -251,7 +260,7 @@ spec:
 EOF
 ----
 
-. To validate your `ClusterServiceVersion`, run the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
+. To validate your `ClusterServiceVersion`, use the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -266,8 +275,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 
 Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.
 
-[discrete]
-=== Procedure
+.Procedure
 
 . Apply the following manifest to your {OpenShiftShort} environment to enable the Elastic Cloud on Kubernetes Operator:
 +
@@ -288,7 +296,7 @@ spec:
 EOF
 ----
 
-. To verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`, run the `oc get csv` command:
+. To verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`, enter the `oc get csv` command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -303,10 +311,9 @@ elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0
 
 To instantiate an {ProjectShort} instance, create the `ServiceTelemetry` object to allow the Service Telemetry Operator to create the environment.
 
-[discrete]
-=== Procedure
+.Procedure
 
-. To create the Service Telemetry Operator subscription, run the `oc apply -f` command:
+. To create the Service Telemetry Operator subscription, enter the `oc apply -f` command:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash]
@@ -346,7 +353,7 @@ EOF
 endif::[]
 
 
-. To validate the Service Telemetry Operator and the dependent operators, run the following command:
+. To validate the Service Telemetry Operator and the dependent operators, enter the following command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----

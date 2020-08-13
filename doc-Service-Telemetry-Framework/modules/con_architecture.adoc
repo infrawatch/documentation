@@ -23,10 +23,13 @@
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
 [id="architecture_{context}"]
-= {ProjectShort} architecture
+= {Project} architecture
 
-{ProjectShort} uses the following components:
+{Project} ({ProjectShort}) uses the components described in xref:table-stf-components[]:
 
+[[table-stf-components]]
+.{ProjectShort} components
+[cols="15,70,15"]
 |===
 |Client |Component |Server ({OpenShiftShort})
 
@@ -43,7 +46,7 @@
 |yes
 
 |no
-|Elastic Search as events data storage
+|ElasticSearch as events data storage
 |yes
 
 |yes
@@ -70,7 +73,7 @@ endif::[]
 
 For metrics, on the client side, collectd collects high-resolution metrics. collectd delivers the data to Prometheus by using the AMQP1 plugin, which places the data onto the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the AMQP1 plugin, which places the data onto the message bus. A second (or another) Smart Gateway writes the data to the ElasticSearch datastore.
+If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the AMQP1 plugin, which places the data onto the message bus. Another Smart Gateway writes the data to the ElasticSearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
@@ -82,8 +85,8 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 .Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[]
 
-For more information about how to deploy {OpenShift}, see https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[Product Documentation]. You can install {OpenShift} on cloud platforms or on bare metal.
+For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/4.3/[{OpenShiftShort} product documentation]. You can install {OpenShiftShort} on cloud platforms or on bare metal.
 For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
 
 [NOTE]
-Do not install {OpenShift} on the same infrastructure that you want to monitor.
+Do not install {OpenShiftShort} on the same infrastructure that you want to monitor.

@@ -23,18 +23,19 @@
 [id="removing-stf-from-the-openshift-environment_{context}"]
 = Removing {ProjectShort} from the {OpenShiftShort} environment
 
-Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer require the {ProjectShort} functionality:
+Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer require the {ProjectShort} functionality.
 
-. Delete the namespace. For more information, see xref:deleting-the-namespace[].
-. Delete the OperatorSource. For more information, see xref:removing-the-operatorsource[].
+Complete the following tasks:
+
+. xref:deleting-the-namespace[].
+. xref:removing-the-operatorsource[].
 
 [id="deleting-the-namespace"]
 == Deleting the namespace
 
 To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace.
 
-[discrete]
-=== Procedure
+.Procedure
 
 . Run the `oc delete` command:
 +
@@ -56,8 +57,7 @@ No resources found.
 
 If you do not expect to install {Project} again, delete the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
 
-[discrete]
-=== Procedure
+.Procedure
 
 . Delete the OperatorSource:
 +
@@ -99,6 +99,5 @@ $ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operat
 catalogsource.operators.coreos.com "operatorhubio-operators" deleted
 ----
 
-[discrete]
-=== Additional resources
+.Additional resources
 For more information about the OperatorHub.io Community Catalog Source, see xref:deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf[].

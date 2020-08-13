@@ -44,8 +44,7 @@ The following core parameters are available for a `ServiceTelemetry` manifest:
 | `storageEphemeralEnabled` | Enable ephemeral storage support in {ProjectShort}. For more information, see xref:ephemeral-storage_advanced-features[]. | `false`
 |===
 
-[discrete]
-=== Procedure
+.Procedure
 
 . To store events in ElasticSearch, set `eventsEnabled` to true during deployment:
 +
@@ -63,7 +62,7 @@ spec:
 EOF
 ----
 
-. To view the {ProjectShort} deployment logs in the Service Telemetry Operator, run the `oc logs` command:
+. To view the {ProjectShort} deployment logs in the Service Telemetry Operator, use the `oc logs` command:
 +
 [source,bash]
 ----

@@ -23,7 +23,7 @@
 [id="installing-the-core-components-of-stf_{context}"]
 = The core components of {ProjectShort}
 
-The following {ProjectShort} core components are managed by https://docs.openshift.com/container-platform/4.3/operators/olm-what-operators-are.html[Operators]:
+The following {ProjectShort} core components are managed by Operators:
 
 * Prometheus and AlertManager
 * ElasticSearch
@@ -31,3 +31,7 @@ The following {ProjectShort} core components are managed by https://docs.openshi
 * {MessageBus}
 
 Each component has a corresponding Operator that you can use to load the various application components and objects.
+
+.Additional resources
+
+For more information about Operators, see the https://docs.openshift.com/container-platform/4.3/operators/olm-what-operators-are.html[Understanding Operators] guide.
