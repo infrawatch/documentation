@@ -1423,10 +1423,10 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <div class="sect2">
 <h3 id="deploying-to-non-standard-network-topologies_completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
 <div class="paragraph">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 <div class="paragraph">
-<p>If you use STF with OpenStack Queens  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
+<p>If you use STF with OpenStack Train  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1447,7 +1447,7 @@ Because a spine-leaf configuration can result in different networks being assign
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
+<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
 </li>
 <li>
 <p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
@@ -3256,7 +3256,7 @@ parameter_defaults:
 <h2 id="appe-stf-collectd-plugins">Appendix A: collectd plug-ins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section contains a complete list of collectd plug-ins and configurations for OpenStack Queens.</p>
+<p>This section contains a complete list of collectd plug-ins and configurations for OpenStack Train.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -4463,7 +4463,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-13 17:40:46 UTC
+Last updated 2020-08-17 09:32:58 UTC
 </div>
 </div>
 </body>
