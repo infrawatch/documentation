@@ -127,7 +127,8 @@ endif::include_when_16[]
 . Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup collectd and {MessageBus}:
 +
 * the `stf-connectors.yaml` environment file
-* the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment
+ifdef::include_when_16[* the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment]
+ifdef::include_when_13[* the `collectd-write-qdr.yaml` file that ensures that collectd telemetry is sent to {ProjectShort}]
 * the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry is sent to {ProjectShort}
 +
 ifdef::include_when_13[]
