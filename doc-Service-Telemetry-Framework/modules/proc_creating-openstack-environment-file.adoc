@@ -65,7 +65,14 @@ parameter_defaults:
     CollectdDefaultPlugins:
         - cpu
         - df
+        - disk
+        - hugepages
+        - interface
         - load
+        - memory
+        - processes
+        - unixsock
+        - uptime
         - connectivity
         - intel_rdt
         - ipmi
