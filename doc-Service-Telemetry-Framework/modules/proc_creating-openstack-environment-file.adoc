@@ -115,7 +115,6 @@ parameter_defaults:
         collectd::plugin::virt::connection: "qemu:///system"
         collectd::plugin::virt::extra_stats: "cpu_util disk disk_err pcpu job_stats_background perf vcpupin"
         collectd::plugin::virt::hostname_format: "hostname"
-
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
