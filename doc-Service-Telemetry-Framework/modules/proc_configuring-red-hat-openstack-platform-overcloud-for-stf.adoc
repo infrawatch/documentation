@@ -31,7 +31,7 @@ To configure the {OpenStack} overcloud, complete the following tasks:
 . xref:configuring-the-stf-connection-for-the-overcloud[]
 . xref:validating-clientside-installation_completing-the-stf-configuration[]
 
-ifdef::include_when_161[]
+ifdef::include_when_16_1[]
 
 If you want to collect data without using the server side of {ProjectShort}, complete the following task:
 
@@ -76,7 +76,7 @@ openstack overcloud deploy <other arguments>
 
 . Deploy the {OpenStack} overcloud.
 
-endif::include_when_161[]
+endif::include_when_16_1[]
 
 
 
