@@ -23,7 +23,13 @@
 [id="setting-up-grafana-to-host-the-dashboard_{context}"]
 = Setting up Grafana to host the dashboard
 
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io.
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana will result in a Grafana instance
+and the default datasources configured for the local {ProjectShort} deployment.
+
+[discrete]
+.Prerequisites
+
+Enable OperatorHub.io catalog source for the Grafana Operator. See xref:enabling-the-operatorhubio-community-catalog-source[].
 
 [discrete]
 .Procedure
@@ -36,19 +42,23 @@ Grafana is not included in the default {Project} ({ProjectShort}) deployment so 
 oc project service-telemetry
 ----
 
-. Clone the dashboard repository.
-+
-[source,bash]
-----
-git clone https://github.com/infrawatch/dashboards
-cd dashboards
-----
-
 . Deploy the Grafana operator:
 +
 [source,bash]
 ----
-oc create -f deploy/subscription.yaml
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: grafana-operator
+  namespace: service-telemetry
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: grafana-operator
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+EOF
 ----
 
 . To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
@@ -56,17 +66,30 @@ oc create -f deploy/subscription.yaml
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv
-
+----
++
+[source,bash,options="nowrap"]
+----
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...
 ----
 
-. Launch a Grafana instance:
+. Launch a Grafana instance by creating or modifying the `ServiceTelemetry` object. Set `graphingEnabled` to `true`.
 +
 [source,bash]
 ----
-$ oc create -f deploy/grafana.yaml
+$ oc edit ServiceTelemetry stf-default
+----
++
+[source,yaml]
+----
+apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+...
+spec:
+  graphingEnabled: true
+  ...
 ----
 
 . Verify that the Grafana instance deployed:
@@ -74,41 +97,12 @@ $ oc create -f deploy/grafana.yaml
 [source,bash]
 ----
 $ oc get pod -l app=grafana
-
+----
++
+----
 NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
-
-. Create the datasource and dashboard resources:
-+
-[source,bash]
-----
-oc create -f deploy/datasource.yaml \
-    -f deploy/rhos-dashboard.yaml
-----
-
-. Verify that the resources installed correctly:
-+
-[source,bash]
-----
-$ oc get grafanadashboards
-
-NAME             AGE
-rhos-dashboard   7d21h
-
-$ oc get grafanadatasources
-NAME                                  AGE
-service-telemetry-grafanadatasource   1m
-----
-
-. Navigate to https://<grafana-route-address> in a web browser. Use the `oc get routes` command to retrieve the Grafana route address:
-+
-[source,bash]
-----
-oc get routes
-----
-
-. To view the dashboard, click *Dashboards* and *Manage*.
 
 [discrete]
 .Additional resources
@@ -116,9 +110,72 @@ oc get routes
 * For more information about enabling the OperatorHub.io catalog source, see xref:enabling-the-operatorhubio-community-catalog-source[].
 
 
+[id="importing-dashboards_{context}"]
+= Importing dashboards
+
+Dashboards can be imported and managed by the Grafana Operator by creating `GrafanaDashboard` objects. Example dashboards are provided at https://github.com/infrawatch/dashboards.
+
+[discrete]
+.Procedure
+
+. Import a dashboard.
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml
+----
++
+----
+grafanadashboard.integreatly.org/rhos-dashboard created
+----
+
+. Verify that the resources installed correctly:
++
+[source,bash]
+----
+$ oc get grafanadashboards
+----
++
+----
+NAME             AGE
+rhos-dashboard   7d21h
+----
++
+[source,bash]
+----
+$ oc get grafanadatasources
+----
++
+----
+NAME                        AGE
+stf-default-ds-prometheus   20h
+----
+
+. Expose the grafana service as a route
++
+[source,bash,options="nowrap"]
+----
+oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000
+----
+
+. Navigate to https://<grafana-route-address> in a web browser. Use the `oc get routes` command to retrieve the Grafana route address:
++
+[source,bash]
+----
+oc get route dashboards
+----
++
+[source,bash,options="nowrap"]
+----
+NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
+dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None
+----
+
+. To view the dashboard, click *Dashboards* and *Manage*.
+
 
 [id="viewing-and-editing-queries"]
-== Viewing and editing queries
+= Viewing and editing queries
 
 [discrete]
 .Procedure
