@@ -31,6 +31,55 @@ To configure the {OpenStack} overcloud, complete the following tasks:
 . xref:configuring-the-stf-connection-for-the-overcloud[]
 . xref:validating-clientside-installation_completing-the-stf-configuration[]
 
+ifdef::include_when_161[]
+
+If you want to collect data without using the server side of {ProjectShort}, complete the following task:
+
+* xref:collecting-data-without-using-stf-server-side[]
+
+[[collecting-data-without-using-stf-server-side]]
+== Collecting data without using {ProjectShort} server side
+
+To collect data without using {ProjectShort} server side, you must create a file that contains the connection configuration of the client side {MessageBus} for the overcloud, enable external endpoints, and deploy the overcloud.
+
+.Procedure
+
+. Log in to the {OpenStack} undercloud as the `stack` user.
+
+. Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
++
+IMPORTANT: The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_advanced-features[].
+
+. In the `stf-connectors.yaml` file, add the `MetricsQdrExternalEndpoint: true` parameter to enable external endpoints.
++
+[source,yaml]
+----
+parameter_defaults:
+    MetricsQdrExternalEndpoint: true
+----
+
+. Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup collectd and {MessageBus}:
++
+* the `stf-connectors.yaml` environment file
+* the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment
+* the `qdr-form-controller-mesh.yaml` file that enables the client side {MessageBus} to connect to the external endpoints
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+openstack overcloud deploy <other arguments>
+  --templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file <...other-environment-files...> \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-form-controller-mesh.yaml
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml
+----
+
+. Deploy the {OpenStack} overcloud.
+
+endif::include_when_161[]
+
+
+
 [[retrieving-the-qdr-route-address]]
 == Retrieving the {MessageBus} route address
 

@@ -3,6 +3,10 @@
 :context: assembly
 :containerbin: podman
 
+ifeval::[{vernum} > 16.0]
+:include_when_161:
+endif::[]
+
 ifeval::[{vernum} >= 16.0]
 :include_when_16:
 endif::[]
