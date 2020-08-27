@@ -73,7 +73,7 @@ grafana-operator.v3.2.0             Grafana Operator                            
 ...
 ----
 
-. Launch a Grafana instance by creating or modifying the `ServiceTelemetry` object. Set `graphingEnabled` to `true`.
+. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphingEnabled` to `true`.
 +
 [source,bash]
 ----
