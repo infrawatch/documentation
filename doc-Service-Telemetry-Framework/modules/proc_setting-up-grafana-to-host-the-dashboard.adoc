@@ -29,7 +29,7 @@ and the default datasources configured for the local {ProjectShort} deployment.
 [discrete]
 .Prerequisites
 
-Enable OperatorHub.io catalog source for the Grafana Operator. See xref:enabling-the-operatorhubio-community-catalog-source[].
+Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
 
 [discrete]
 .Procedure
