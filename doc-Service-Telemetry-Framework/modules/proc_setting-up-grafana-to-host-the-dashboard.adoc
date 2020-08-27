@@ -31,7 +31,6 @@ and the default datasources configured for the local {ProjectShort} deployment.
 
 Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
 
-[discrete]
 .Procedure
 
 . Log in to {OpenShift}.
