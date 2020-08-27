@@ -102,7 +102,6 @@ NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
 
-.Additional resources
 
 
 
