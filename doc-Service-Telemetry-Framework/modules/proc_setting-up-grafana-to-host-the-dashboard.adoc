@@ -115,7 +115,7 @@ Dashboards can be imported and managed by the Grafana Operator by creating `Graf
 
 .Procedure
 
-. Import a dashboard.
+. Import a dashboard:
 +
 [source,bash,options="nowrap"]
 ----
