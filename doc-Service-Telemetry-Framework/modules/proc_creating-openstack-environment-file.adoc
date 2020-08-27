@@ -65,7 +65,14 @@ parameter_defaults:
     CollectdDefaultPlugins:
         - cpu
         - df
+        - disk
+        - hugepages
+        - interface
         - load
+        - memory
+        - processes
+        - unixsock
+        - uptime
         - connectivity
         - intel_rdt
         - ipmi
@@ -95,6 +102,19 @@ parameter_defaults:
           role: edge
           verifyHostname: false
           sslProfile: sslProfile
+
+    ExtraConfig:
+        collectd::plugin::cpu::reportbycpu: true
+        collectd::plugin::cpu::reportbystate: true
+        collectd::plugin::cpu::reportnumcpu: false
+        collectd::plugin::cpu::valuespercentage: true
+        collectd::plugin::df::ignoreselected: true
+        collectd::plugin::df::reportbydevice: true
+        collectd::plugin::df::fstypes: ['xfs']
+        collectd::plugin::load::reportrelative: true
+        collectd::plugin::virt::connection: "qemu:///system"
+        collectd::plugin::virt::extra_stats: "cpu_util disk disk_err pcpu job_stats_background perf vcpupin"
+        collectd::plugin::virt::hostname_format: "hostname"
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
