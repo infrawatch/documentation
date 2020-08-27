@@ -148,7 +148,7 @@ NAME                        AGE
 stf-default-ds-prometheus   20h
 ----
 
-. Expose the grafana service as a route
+. Expose the grafana service as a route:
 +
 [source,bash,options="nowrap"]
 ----
