@@ -108,7 +108,7 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 [id="importing-dashboards_{context}"]
 = Importing dashboards
 
-Dashboards can be imported and managed by the Grafana Operator by creating `GrafanaDashboard` objects. Example dashboards are provided at https://github.com/infrawatch/dashboards.
+The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
 .Procedure
 
