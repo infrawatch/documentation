@@ -23,7 +23,7 @@
 [id="setting-up-grafana-to-host-the-dashboard_{context}"]
 = Setting up Grafana to host the dashboard
 
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana will result in a Grafana instance
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local {ProjectShort} deployment.
 and the default datasources configured for the local {ProjectShort} deployment.
 
 [discrete]
