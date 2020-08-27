@@ -174,7 +174,6 @@ dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.red
 [id="viewing-and-editing-queries"]
 = Viewing and editing queries
 
-[discrete]
 .Procedure
 
 . Log in to {OpenShift}. To view and edit queries, log in as the `admin` user.
