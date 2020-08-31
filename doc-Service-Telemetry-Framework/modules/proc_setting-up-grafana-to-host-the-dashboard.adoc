@@ -151,19 +151,6 @@ stf-default-ds-prometheus   20h
 oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000
 ----
 
-. Navigate to https://<grafana-route-address> in a web browser. Use the `oc get routes` command to retrieve the Grafana route address:
-+
-[source,bash]
-----
-oc get route dashboards
-----
-+
-[source,bash,options="nowrap"]
-----
-NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
-dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None
-----
-
 . Retrieve the Grafana route address:
 
 +
