@@ -25,7 +25,6 @@
 
 Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local {ProjectShort} deployment.
 
-[discrete]
 .Prerequisites
 
 Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
@@ -164,6 +163,24 @@ oc get route dashboards
 NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
 dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None
 ----
+
+. Retrieve the Grafana route address:
+
++
+[source,bash]
+----
+oc get route dashboards
+----
++
+[source,bash,options="nowrap"]
+----
+NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
+dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None
+----
++
+The `HOST/PORT` value is the Grafana route address.
+
+. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the `HOST/PORT` value that you retrieved in the previous step.
 
 . To view the dashboard, click *Dashboards* and *Manage*.
 
