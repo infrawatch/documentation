@@ -2409,11 +2409,15 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local STF deployment.</p>
 </div>
-<div class="olist discrete">
+<div class="paragraph">
+<div class="title">Prerequisites</div>
+<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+</div>
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ol class="discrete">
+<ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
 </li>
@@ -2426,19 +2430,22 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 </div>
 </li>
 <li>
-<p>Clone the dashboard repository.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/infrawatch/dashboards
-cd dashboards</code></pre>
-</div>
-</div>
-</li>
-<li>
 <p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc create -f deploy/subscription.yaml</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: grafana-operator
+  namespace: service-telemetry
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: grafana-operator
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -2446,19 +2453,32 @@ cd dashboards</code></pre>
 <p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is Succeeded, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv
-
-NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Launch a Grafana instance:</p>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphingEnabled</code> to <code>true</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f deploy/grafana.yaml</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry stf-default</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
+kind: ServiceTelemetry
+...
+spec:
+  graphingEnabled: true
+  ...</code></pre>
 </div>
 </div>
 </li>
@@ -2466,19 +2486,37 @@ grafana-operator.v3.2.0             Grafana Operator                            
 <p>Verify that the Grafana instance deployed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pod -l app=grafana
-
-NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pod -l app=grafana</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 </div>
 </div>
 </li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="importing-dashboards_advanced-features">Importing dashboards</h4>
+<div class="paragraph">
+<p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
 <li>
-<p>Create the datasource and dashboard resources:</p>
+<p>Import a dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc create -f deploy/datasource.yaml \
-    -f deploy/rhos-dashboard.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>grafanadashboard.integreatly.org/rhos-dashboard created</pre>
 </div>
 </div>
 </li>
@@ -2486,43 +2524,66 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pr
 <p>Verify that the resources installed correctly:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadashboards
-
-NAME             AGE
-rhos-dashboard   7d21h
-
-$ oc get grafanadatasources
-NAME                                  AGE
-service-telemetry-grafanadatasource   1m</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadashboards</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME             AGE
+rhos-dashboard   7d21h</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadatasources</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                        AGE
+stf-default-ds-prometheus   20h</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Navigate to <a href="https://&lt;grafana-route-address&gt" class="bare">https://&lt;grafana-route-address&gt</a>; in a web browser. Use the <code>oc get routes</code> command to retrieve the Grafana route address:</p>
+<p>Expose the grafana service as a route:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc get routes</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000</code></pre>
 </div>
 </div>
+</li>
+<li>
+<p>Retrieve the Grafana route address:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc get route dashboards</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
+dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>HOST/PORT</code> value is the Grafana route address.</p>
+</div>
+</li>
+<li>
+<p>Navigate to <a href="https://&lt;GRAFANA-ROUTE-ADDRESS&gt" class="bare">https://&lt;GRAFANA-ROUTE-ADDRESS&gt</a>; in a web browser. Replace &lt;GRAFANA-ROUTE-ADDRESS&gt; with the <code>HOST/PORT</code> value that you retrieved in the previous step.</p>
 </li>
 <li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
 </li>
 </ol>
 </div>
-<div class="ulist discrete">
-<div class="title">Additional resources</div>
-<ul class="discrete">
-<li>
-<p>For more information about enabling the OperatorHub.io catalog source, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
-</li>
-</ul>
 </div>
-<div class="sect4">
-<h5 id="viewing-and-editing-queries">Viewing and editing queries</h5>
-<div class="olist discrete">
+<div class="sect3">
+<h4 id="viewing-and-editing-queries">Viewing and editing queries</h4>
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ol class="discrete">
+<ol class="arabic">
 <li>
 <p>Log in to OpenShift. To view and edit queries, log in as the <code>admin</code> user.</p>
 </li>
@@ -2543,7 +2604,6 @@ service-telemetry-grafanadatasource   1m</code></pre>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -4463,7 +4523,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-27 16:39:50 UTC
+Last updated 2020-08-31 19:46:51 UTC
 </div>
 </div>
 </body>
