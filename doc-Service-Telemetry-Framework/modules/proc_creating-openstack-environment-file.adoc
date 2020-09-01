@@ -85,7 +85,7 @@ parameter_defaults:
             presettle: false
         cloud1-telemetry:     # <3>
             format: JSON
-            presettle: true
+            presettle: false
 
     MetricsQdrAddresses:
         - prefix: collectd
