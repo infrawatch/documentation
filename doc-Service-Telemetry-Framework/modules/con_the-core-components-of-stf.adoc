@@ -34,4 +34,4 @@ Each component has a corresponding Operator that you can use to load the various
 
 .Additional resources
 
-For more information about Operators, see the https://docs.openshift.com/container-platform/4.3/operators/olm-what-operators-are.html[Understanding Operators] guide.
+For more information about Operators, see the https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/operators/olm-what-operators-are.html[Understanding Operators] guide.
