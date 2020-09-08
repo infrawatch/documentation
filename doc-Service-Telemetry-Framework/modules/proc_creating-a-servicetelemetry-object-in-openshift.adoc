@@ -72,7 +72,7 @@ oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ans
 [options="nowrap", subs="+quotes"]
 ----
 PLAY RECAP *********************************************************************
-localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+localhost                  : ok=68   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 ----
 
 
