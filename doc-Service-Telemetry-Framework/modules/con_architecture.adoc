@@ -71,7 +71,7 @@ The {Project} data collection components, collectd and Ceilometer, and the trans
 
 endif::[]
 
-For metrics, on the client side, collectd collects high-resolution metrics related to the underlying infrastructure, and Ceilometer provides platform-level metrics for {OpenStack}. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data via the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+For metrics, on the client side, collectd collects high-resolution metrics related to the underlying infrastructure, and Ceilometer provides platform-level metrics for {OpenStack}. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
 If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the {MessageBus} transport, delivering the data through the message bus. Another Smart Gateway writes the data to the ElasticSearch datastore.
 
