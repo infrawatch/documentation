@@ -29,9 +29,11 @@ To support multiple clouds and to identify which cloud generated the monitoring 
 
 * `collectd/cloud1-telemetry`
 * `collectd/cloud1-notify`
+* `anycast/ceilometer/cloud1-metering.sample`
 * `anycast/ceilometer/cloud1-event.sample`
 * `collectd/cloud2-telemetry`
 * `collectd/cloud2-notify`
+* `anycast/ceilometer/cloud2-metering.sample`
 * `anycast/ceilometer/cloud2-event.sample`
 * `collectd/us-east-1-telemetry`
 * `collectd/us-west-3-telemetry`

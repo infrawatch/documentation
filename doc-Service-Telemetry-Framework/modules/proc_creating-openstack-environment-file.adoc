@@ -23,7 +23,7 @@
 [id="creating-openstack-environment-file_{context}"]
 = Creating the OpenStack environment file
 
-To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see xref:planning-amqp-address-prefixes_advanced-features[].
+To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. For more information, see xref:planning-amqp-address-prefixes_advanced-features[].
 
 
 [WARNING]
@@ -40,6 +40,7 @@ endif::include_when_16[]
 +
 .stf-connectors.yaml
 ifdef::include_when_13[]
++
 [source,yaml,options="nowrap"]
 ----
 resource_registry:
@@ -53,11 +54,16 @@ resource_registry:
 
 parameter_defaults:
     EventPipelinePublishers: []
+    MetricPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
+    CeilometerQdrPublishMetrics: true
     CeilometerQdrEventsConfig:
         driver: amqp
         topic: cloud1-event   # <1>
+    CeilometerQdrMetricsConfig:
+        driver: amqp
+        topic: cloud1-metering   # <2>
 
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 5
@@ -79,11 +85,11 @@ parameter_defaults:
         - procevent
 
     CollectdAmqpInstances:
-        cloud1-notify:        # <2>
+        cloud1-notify:        # <3>
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     # <3>
+        cloud1-telemetry:     # <4>
             format: JSON
             presettle: false
 
@@ -97,7 +103,7 @@ parameter_defaults:
         - name: sslProfile
 
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <4>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <5>
           port: 443
           role: edge
           verifyHostname: false
@@ -118,6 +124,7 @@ parameter_defaults:
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
++
 [source,yaml,options="nowrap"]
 ----
 resource_registry:
@@ -133,22 +140,27 @@ parameter_defaults:
     EnableSTF: true
 
     EventPipelinePublishers: []
+    MetricPipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrEventsConfig:
         driver: amqp
         topic: cloud1-event   # <1>
+    CeilometerQdrMetricsConfig:
+        driver: amqp
+        topic: cloud1-metering   # <2>
+
 
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 5
     CollectdDefaultPollingInterval: 5
 
     CollectdAmqpInstances:
-        cloud1-notify:        # <2>
+        cloud1-notify:        # <3>
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     # <3>
+        cloud1-telemetry:     # <4>
             format: JSON
             presettle: true
 
@@ -162,19 +174,19 @@ parameter_defaults:
         - name: sslProfile
 
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <4>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <5>
           port: 443
           role: edge
           verifyHostname: false
           sslProfile: sslProfile
 ----
 endif::include_when_16[]
-+
 <1> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
-<2> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
-<3> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
-<4> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
-
+<2> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
+<3> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
+<4> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
+<5> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
++
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
 . Save the file in a directory for custom environment files, for example `/home/stack/custom_templates/`.

@@ -42,10 +42,11 @@ oc project service-telemetry
 ----
 $ oc get smartgateways
 
-NAME                                         AGE
-stf-default-ceilometer-notification          14d
-stf-default-collectd-notification            14d
-stf-default-collectd-telemetry               14d
+NAME                                  AGE
+stf-default-ceilometer-notification   7d17h
+stf-default-ceilometer-telemetry      7d22h
+stf-default-collectd-notification     7d17h
+stf-default-collectd-telemetry        7d22h
 ----
 
 . Retrieve the manifests for each Smart Gateway and store the contents in a temporary file, which you can modify later and use to create the new set of Smart Gateways:

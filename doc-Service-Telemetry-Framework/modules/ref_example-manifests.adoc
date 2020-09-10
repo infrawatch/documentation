@@ -55,10 +55,23 @@ spec:
 apiVersion: smartgateway.infra.watch/v2alpha1
 kind: SmartGateway
 metadata:
-  name: stf-default-collectd-notification-cloud1  <3>
+  name: stf-default-ceilometer-telemetry-cloud1  <3>
+spec:
+  amqpDataSource: ceilometer
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5673/anycast/ceilometer/cloud1-metering.sample  <4>
+  debug: false
+  prefetch: 15000
+  serviceType: metrics
+  size: 1
+  useTimestamp: true
+---
+apiVersion: smartgateway.infra.watch/v2alpha1
+kind: SmartGateway
+metadata:
+  name: stf-default-collectd-notification-cloud1  <5>
 spec:
   amqpDataSource: collectd
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify  <4>
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify  <6>
   debug: false
   elasticPass: fkzfhghw......
   elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
@@ -76,9 +89,9 @@ spec:
 apiVersion: smartgateway.infra.watch/v2alpha1
 kind: SmartGateway
 metadata:
-  name: stf-default-collectd-telemetry-cloud1 <5>
+  name: stf-default-collectd-telemetry-cloud1 <7>
 spec:
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry  <6>
+  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry  <8>
   debug: false
   prefetch: 15000
   serviceType: metrics
@@ -87,7 +100,9 @@ spec:
 ----
 <1> Name for Ceilometer notifications for `cloud1`
 <2> AMQP Address for Ceilometer notifications for `cloud1`
-<3> Name for collectd telemetry for `cloud1`
-<4> AMQP Address for collectd telemetry for `cloud1`
-<5> Name for collectd notifications for `cloud1`
-<6> AMQP Address for collectd notifications for `cloud1`
+<3> Name for Ceilometer telemetry for `cloud1`
+<4> AMQP Address for Ceilometer telemetry for `cloud1`
+<5> Name for collectd telemetry for `cloud1`
+<6> AMQP Address for collectd telemetry for `cloud1`
+<7> Name for collectd notifications for `cloud1`
+<8> AMQP Address for collectd notifications for `cloud1`

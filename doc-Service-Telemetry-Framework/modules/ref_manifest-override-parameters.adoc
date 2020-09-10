@@ -47,6 +47,6 @@ This table describes the available parameters that you can use to override a man
 
 | `smartgatewayCollectdEventsManifest` | Override the `SmartGateway` object creation for collectd events. The Smart Gateway Operator watches for `SmartGateway` objects. | `oc get smartgateway stf-default-collectd-notification -oyaml`
 
+| `smartgatewayCeilometerMetricsManifest` | Override the `SmartGateway` object creation for Ceilometer metrics. The Smart Gateway Operator watches for `SmartGateway` objects. | `oc get smartgateway stf-default-ceilometer-telemetry -oyaml`
 | `smartgatewayCeilometerEventsManifest` | Override the `SmartGateway` object creation for Ceilometer events. The Smart Gateway Operator watches for `SmartGateway` objects. | `oc get smartgateway stf-default-ceilometer-notification -oyaml`
-
 |===

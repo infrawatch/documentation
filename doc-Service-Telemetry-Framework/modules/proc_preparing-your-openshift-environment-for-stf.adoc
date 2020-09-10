@@ -37,7 +37,7 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 {ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.
 
 .Additional resources
-For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html[Understanding persistent storage.]
+For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/storage/understanding-persistent-storage.html[Understanding persistent storage.]
 
 
 [id="ephemeral-storage"]
@@ -73,7 +73,7 @@ For information about sizing requirements for ElasticSearch, see https://www.ela
 
 {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
 
-If you want to edit the value of `vm.max_map_count`, you cannot apply node tuning manually using the `sysctl` command because {OpenShift} manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html[Using the Node Tuning Operator].
+If you want to edit the value of `vm.max_map_count`, you cannot apply node tuning manually using the `sysctl` command because {OpenShift} manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html[Using the Node Tuning Operator].
 
 In an {OpenShiftShort} deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:
 
@@ -82,7 +82,7 @@ In an {OpenShiftShort} deployment, the default node tuning operator specificatio
 oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator
 ----
 
-The output of the default specification is documented at https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator[Default profiles set on a cluster]. The assignment of profiles is managed in the `recommend` section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in {ProjectShort}, one of the following profiles is applied:
+The output of the default specification is documented at https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator[Default profiles set on a cluster]. The assignment of profiles is managed in the `recommend` section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in {ProjectShort}, one of the following profiles is applied:
 
 * `openshift-control-plane-es`
 * `openshift-node-es`
@@ -93,4 +93,4 @@ When scheduling an ElasticSearch pod, there must be a label present that matches
 
 For more information about virtual memory usage by ElasticSearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
-For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/4.3/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator[Custom tuning specification].
+For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator[Custom tuning specification].

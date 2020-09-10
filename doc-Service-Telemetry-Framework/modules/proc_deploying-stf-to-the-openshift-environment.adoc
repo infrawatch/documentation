@@ -104,7 +104,7 @@ EOF
 
 .Additional resources
 
-For more information, see https://docs.openshift.com/container-platform/4.3/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
+For more information, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/operators/understanding_olm/olm-understanding-operatorgroups.html[OperatorGroups].
 
 [id="enabling-the-operatorhubio-community-catalog-source"]
 == Enabling the OperatorHub.io Community Catalog Source
