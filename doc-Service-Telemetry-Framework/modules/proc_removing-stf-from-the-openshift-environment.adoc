@@ -28,7 +28,7 @@ Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer requ
 Complete the following tasks:
 
 . xref:deleting-the-namespace[].
-. xref:removing-the-operatorsource[].
+. xref:removing-the-catalogsource[].
 
 [id="deleting-the-namespace"]
 == Deleting the namespace
@@ -52,27 +52,27 @@ $ oc get all
 No resources found.
 ----
 
-[id="removing-the-operatorsource"]
-== Removing the OperatorSource
+[id="removing-the-catalogsource"]
+== Removing the CatalogSource
 
-If you do not expect to install {Project} again, delete the OperatorSource. When you remove the OperatorSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
+If you do not expect to install {Project} again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
 
 .Procedure
 
-. Delete the OperatorSource:
+. Delete the CatalogSource:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
-$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
-operatorsource.operators.coreos.com "infrawatch-operators" deleted
+$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
+catalogsource.operators.coreos.com "infrawatch-operators" deleted
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
 [source,bash]
 ----
-$ oc delete --namespace=openshift-marketplace operatorsource redhat-operators-stf
-operatorsource.operators.coreos.com "redhat-operators-stf" deleted
+$ oc delete --namespace=openshift-marketplace catalogsource redhat-operators-stf
+catalogsource.operators.coreos.com "redhat-operators-stf" deleted
 ----
 endif::[]
 

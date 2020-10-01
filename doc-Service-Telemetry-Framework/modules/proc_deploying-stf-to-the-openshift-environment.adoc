@@ -143,27 +143,25 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator so
 
 .Procedure
 
-. Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
+. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
 
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
 oc apply -f - <<EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorSource
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
 metadata:
-  labels:
-    opsrc-provider: infrawatch
   name: infrawatch-operators
-  namespace: openshift-marketplace
 spec:
-  authorizationToken: {}
   displayName: InfraWatch Operators
-  endpoint: https://quay.io/cnr
+  image: quay.io/infrawatch-operators/infrawatch-catalog:latest
   publisher: InfraWatch
-  registryNamespace: infrawatch
-  type: appregistry
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
 EOF
 ----
 endif::[]
@@ -189,15 +187,15 @@ EOF
 ----
 endif::[]
 
-. To validate the creation of your OperatorSource, use the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
+. To validate the creation of your CatalogSource, use the `oc get catalogsources` command.
 +
 ifeval::["{build}" == "upstream"]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
-NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
