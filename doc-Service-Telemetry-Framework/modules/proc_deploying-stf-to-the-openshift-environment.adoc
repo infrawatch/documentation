@@ -154,6 +154,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
   name: infrawatch-operators
+  namespace: openshift-marketplace
 spec:
   displayName: InfraWatch Operators
   image: quay.io/infrawatch-operators/infrawatch-catalog:latest
