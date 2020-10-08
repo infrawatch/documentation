@@ -45,7 +45,7 @@ Before you install {Project} ({ProjectShort}), ensure that {OpenShift} ({OpenShi
 
 ifeval::["{build}" == "downstream"]
 [WARNING]
-{OpenShift} version 4.3 or later is currently required for a successful installation of {ProjectShort}.
+{OpenShift} version 4.5 or later is currently required for a successful installation of {ProjectShort}.
 endif::[]
 
 //include::../modules/proc_prerequisites-for-stf-deployment.adoc[leveloffset=+1]
