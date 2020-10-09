@@ -877,7 +877,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <p><a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</a>.</p>
+<p><a href="#enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</a>.</p>
 </li>
 <li>
 <p><a href="#subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
@@ -908,7 +908,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <p><a href="#creating-an-operatorgroup">Creating an OperatorGroup</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</a>.</p>
+<p><a href="#enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</a>.</p>
 </li>
 <li>
 <p><a href="#subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
@@ -1004,44 +1004,43 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="enabling-the-infrawatch-operator-source">Enabling InfraWatch Operator Source</h4>
+<h4 id="enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</h4>
 <div class="paragraph">
-<p>Before you deploy STF on OpenShift, you must enable the operator source.</p>
+<p>Before you deploy STF on OpenShift, you must enable the catalog source.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
+<p>Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorSource
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
 metadata:
-  labels:
-    opsrc-provider: infrawatch
   name: infrawatch-operators
   namespace: openshift-marketplace
 spec:
-  authorizationToken: {}
   displayName: InfraWatch Operators
-  endpoint: https://quay.io/cnr
+  image: quay.io/infrawatch-operators/infrawatch-catalog:latest
   publisher: InfraWatch
-  registryNamespace: infrawatch
-  type: appregistry
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
 EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To validate the creation of your OperatorSource, use the <code>oc get operatorsources</code> command. A successful import results in the <code>MESSAGE</code> field returning a result of <code>The object has been successfully reconciled</code>.</p>
+<p>To validate the creation of your CatalogSource, use the <code>oc get catalogsources</code> command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
-NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled</code></pre>
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></pre>
 </div>
 </div>
 </li>
@@ -1171,12 +1170,12 @@ elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   namespace: service-telemetry
 spec:
   channel: stable
   installPlanApproval: Automatic
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   source: infrawatch-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
@@ -1188,13 +1187,13 @@ EOF</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv --namespace service-telemetry
-NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
-amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
-elastic-cloud-eck.v1.1.0            Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1            Succeeded
-prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
-service-telemetry-operator.v1.0.2   Service Telemetry Operator                      1.0.2     service-telemetry-operator.v1.0.1   Succeeded
-smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded</code></pre>
+NAME                                DISPLAY                                         VERSION   REPLACES   PHASE
+amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
+amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
+elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
+service-telemetry-operator.v1.0.3   Service Telemetry Operator                      1.0.3                Succeeded
+smart-gateway-operator.v2.0.1       Smart Gateway Operator                          2.0.1                Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1333,7 +1332,7 @@ stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Runnin
 <p><a href="#deleting-the-namespace">Deleting the namespace</a>.</p>
 </li>
 <li>
-<p><a href="#removing-the-operatorsource">Removing the OperatorSource</a>.</p>
+<p><a href="#removing-the-catalogsource">Removing the CatalogSource</a>.</p>
 </li>
 </ol>
 </div>
@@ -1366,19 +1365,19 @@ No resources found.</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="removing-the-operatorsource">Removing the OperatorSource</h4>
+<h4 id="removing-the-catalogsource">Removing the CatalogSource</h4>
 <div class="paragraph">
-<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, delete the OperatorSource. When you remove the OperatorSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.</p>
+<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Delete the OperatorSource:</p>
+<p>Delete the CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace operatorsource infrawatch-operators
-operatorsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
+catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -4602,7 +4601,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-10 14:42:54 UTC
+Last updated 2020-10-09 13:58:37 UTC
 </div>
 </div>
 </body>
