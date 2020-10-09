@@ -37,10 +37,10 @@ Complete the following tasks:
 . xref:creating-an-operatorgroup[].
 . xref:enabling-the-operatorhubio-community-catalog-source[].
 ifeval::["{build}" == "upstream"]
-. xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
@@ -55,10 +55,10 @@ Complete the following tasks:
 . xref:creating-a-namespace[].
 . xref:creating-an-operatorgroup[].
 ifeval::["{build}" == "upstream"]
-. xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
 ifeval::["{build}" == "downstream"]
-. xref:enabling-the-infrawatch-operator-source[].
+. xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
@@ -131,39 +131,38 @@ spec:
 EOF
 ----
 
-[id="enabling-the-infrawatch-operator-source"]
+[id="enabling-the-infrawatch-catalog-source"]
 ifeval::["{build}" == "upstream"]
-== Enabling InfraWatch Operator Source
+== Enabling InfraWatch Catalog Source
 endif::[]
 ifeval::["{build}" == "downstream"]
-== Enabling Red Hat STF Operator Source
+== Enabling Red Hat STF Catalog Source
 endif::[]
 
-Before you deploy {ProjectShort} on {OpenShift}, you must enable the operator source.
+Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source.
 
 .Procedure
 
-. Install an OperatorSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
+. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
 
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
 oc apply -f - <<EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorSource
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
 metadata:
-  labels:
-    opsrc-provider: infrawatch
   name: infrawatch-operators
   namespace: openshift-marketplace
 spec:
-  authorizationToken: {}
   displayName: InfraWatch Operators
-  endpoint: https://quay.io/cnr
+  image: quay.io/infrawatch-operators/infrawatch-catalog:latest
   publisher: InfraWatch
-  registryNamespace: infrawatch
-  type: appregistry
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
 EOF
 ----
 endif::[]
@@ -171,42 +170,41 @@ ifeval::["{build}" == "downstream"]
 [source,bash]
 ----
 oc apply -f - <<EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorSource
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
 metadata:
-  labels:
-    opsrc-provider: redhat-operators-stf
   name: redhat-operators-stf
   namespace: openshift-marketplace
 spec:
-  authorizationToken: {}
   displayName: Red Hat STF Operators
-  endpoint: https://quay.io/cnr
+  image: quay.io/redhat-operators-stf/stf-catalog:latest
   publisher: Red Hat
-  registryNamespace: redhat-operators-stf
-  type: appregistry
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
 EOF
 ----
 endif::[]
 
-. To validate the creation of your OperatorSource, use the `oc get operatorsources` command. A successful import results in the `MESSAGE` field returning a result of `The object has been successfully reconciled`.
+. To validate the creation of your CatalogSource, use the `oc get catalogsources` command.
 +
 ifeval::["{build}" == "upstream"]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-$ oc get -nopenshift-marketplace operatorsource infrawatch-operators
+$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
-NAME                   TYPE          ENDPOINT              REGISTRY     DISPLAYNAME            PUBLISHER    STATUS      MESSAGE
-infrawatch-operators   appregistry   https://quay.io/cnr   infrawatch   InfraWatch Operators   InfraWatch   Succeeded   The object has been successfully reconciled
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-$ oc get -nopenshift-marketplace operatorsource redhat-operators-stf
+$ oc get -nopenshift-marketplace catalogsource redhat-operators-stf
 
-NAME                   TYPE          ENDPOINT              REGISTRY               DISPLAYNAME             PUBLISHER   STATUS      MESSAGE
-redhat-operators-stf   appregistry   https://quay.io/cnr   redhat-operators-stf   Red Hat STF Operators   Red Hat     Succeeded   The object has been successfully reconciled
+NAME                   DISPLAY                 TYPE   PUBLISHER   AGE
+redhat-operators-stf   Red Hat STF Operators   grpc   Red Hat     62m
 ----
 endif::[]
 
@@ -226,8 +224,8 @@ ifeval::["{build}" == "downstream"]
 ----
 $ oc get packagemanifests | grep "Red Hat STF"
 
-smartgateway-operator                        Red Hat STF Operators      2m50s
-servicetelemetry-operator                    Red Hat STF Operators      2m50s
+smart-gateway-operator                       Red Hat STF Operators      63m
+service-telemetry-operator                   Red Hat STF Operators      63m
 ----
 endif::[]
 
@@ -322,12 +320,12 @@ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   namespace: service-telemetry
 spec:
   channel: stable
   installPlanApproval: Automatic
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   source: infrawatch-operators
   sourceNamespace: openshift-marketplace
 EOF
@@ -340,12 +338,12 @@ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   namespace: service-telemetry
 spec:
   channel: stable
   installPlanApproval: Automatic
-  name: servicetelemetry-operator
+  name: service-telemetry-operator
   source: redhat-operators-stf
   sourceNamespace: openshift-marketplace
 EOF
@@ -358,11 +356,11 @@ endif::[]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv --namespace service-telemetry
-NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                                         Succeeded
-amq7-interconnect-operator.v1.2.0   Red Hat Integration - AMQ Interconnect          1.2.0                                         Succeeded
-elastic-cloud-eck.v1.1.0            Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1            Succeeded
-prometheusoperator.0.37.0           Prometheus Operator                             0.37.0    prometheusoperator.0.32.0           Succeeded
-service-telemetry-operator.v1.0.2   Service Telemetry Operator                      1.0.2     service-telemetry-operator.v1.0.1   Succeeded
-smart-gateway-operator.v1.0.1       Smart Gateway Operator                          1.0.1     smart-gateway-operator.v1.0.0       Succeeded
+NAME                                DISPLAY                                         VERSION   REPLACES   PHASE
+amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
+amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
+elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
+service-telemetry-operator.v1.0.3   Service Telemetry Operator                      1.0.3                Succeeded
+smart-gateway-operator.v2.0.1       Smart Gateway Operator                          2.0.1                Succeeded
 ----
