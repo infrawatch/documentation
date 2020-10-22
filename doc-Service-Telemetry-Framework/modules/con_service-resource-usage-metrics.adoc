@@ -1,9 +1,10 @@
+
 // Module included in the following assemblies:
 //
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_advanced-features.adoc[leveloffset=+1]
+// include::<path>/con_manifest-overrides.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -22,14 +23,6 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="advanced-features_{context}"]
-
-The following optional features can provide additional functionality to the {Project} ({ProjectShort}):
-
-* Customizing the deployment. For more information, see xref:manifest-overrides_advanced-features[].
-* Alerts. For more information, see xref:alerts_advanced-features[].
-* High availability. For more information, see xref:high-availability_advanced-features[].
-* Dashboards. For more information, see xref:dashboards_advanced-features[].
-* Multiple clouds. For more information, see xref:configuring-multiple-clouds_advanced-features[].
-* Ephemeral storage. For more information, see xref:ephemeral-storage_advanced-features[].
-* Service resource usage metrics. For more information, see xref:service-resource-usage-metrics[].
+[id="service-resource-usage-metrics_{context}"]
+= Service resource usage metrics
+Metrics pertaining to the resource usage of individual service contianers within an overcloud are not enabled by default. To gather these metrics, set `CollectdEnableLibpodstats: true` in the xref:configuring-red-hat-openstack-platform-overcloud-for-stf[stf-connectors.yaml] when deploying the overcloud.
