@@ -4,7 +4,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_manifest-overrides.adoc[leveloffset=+1]
+// include::<path>/con_manifest-features.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -24,5 +24,22 @@
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
 [id="service-resource-usage-metrics_{context}"]
-= Service resource usage metrics
-Metrics pertaining to the resource usage of individual service contianers within an overcloud are not enabled by default. To gather these metrics, set `CollectdEnableLibpodstats: true` in the xref:configuring-red-hat-openstack-platform-overcloud-for-stf[stf-connectors.yaml] when deploying the overcloud.
+= OpenStack service monitoring
+Conceptual overview:
+Monitoring the resource usage of the openstack services such as the APIs and other infrastructure processes can be very useful in identifying areas of the cloud that are under a lot of stress. This can be done by enabling the collectd-libpod-stats plugin to gather CPU and memory usage metrics for every container running in the overcloud.
+
+Requirements:
+{OpenStackVersion} //Train and OSP16.1.3
+
+Procedure:
+
+- Modify your `stf-connectors.yaml`. See xref:configuring-red-hat-openstack-platform-overcloud-for-stf[] for more information about creating `stf-connectors.yaml`.
+- Add `CollectdEnableLibpodstats: true`
+```
+---
+parameter_defaults:
+  ...
+  CollectdEnableLibpodstats: true
+
+```
+- Continue with the overcloud deployment procedure
