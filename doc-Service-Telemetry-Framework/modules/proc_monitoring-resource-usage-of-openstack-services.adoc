@@ -23,23 +23,24 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="service-resource-usage-metrics_{context}"]
-= OpenStack service monitoring
-Conceptual overview:
-Monitoring the resource usage of the openstack services such as the APIs and other infrastructure processes can be very useful in identifying areas of the cloud that are under a lot of stress. This can be done by enabling the collectd-libpod-stats plugin to gather CPU and memory usage metrics for every container running in the overcloud.
+[id="monitoring-resource-usage-of-openstack-services_{context}"]
+= Monitoring the resource usage of {OpenStack} services
 
-Requirements:
-{OpenStackVersion} //Train and OSP16.1.3
+Monitor the resource usage of the {OpenStack} services, such as the APIs and other infrastructure processes, to identify areas of the cloud that are under a lot of stress. Enable the `collectd-libpod-stats` plug-in to gather CPU and memory usage metrics for every container running in the overcloud.
 
-Procedure:
+.Prerequisites
 
-- Modify your `stf-connectors.yaml`. See xref:configuring-red-hat-openstack-platform-overcloud-for-stf[] for more information about creating `stf-connectors.yaml`.
-- Add `CollectdEnableLibpodstats: true`
+* You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
+* You are using the most current version of {OpenStack}: {OpenStackVersion}.
+
+.Procedure
+
+. Open the `stf-connectors.yaml`.
+
+. Add the following configuration to `parameter_defaults`:
++
 ```
----
-parameter_defaults:
-  ...
   CollectdEnableLibpodstats: true
-
 ```
-- Continue with the overcloud deployment procedure
+
+. Continue with the overcloud deployment procedure.
