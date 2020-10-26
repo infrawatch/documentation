@@ -50,7 +50,7 @@ The following core parameters are available for a `ServiceTelemetry` manifest:
 
 | `clouds` | Controls which clouds can be connected to {ProjectShort} and what message bus address to subscribe for metrics and events for each of the data collector types supported by the Smart Gateyway (i.e. collectd and Ceilometer).
 
-| `alerting` | Controls the management of alerts. For more information, see xref:alerting_advanced-features[].
+| `alerting` | Controls the management of alerts. For more information, see xref:alerts_advanced-features[].
 
 | `graphing` | Controls options related to graphing data from the available storage backends. For more information, see xref:dashboards_advanced-features[].
 
@@ -123,7 +123,7 @@ spec:
 
 === Alerting
 
-The `alerting` parameter controls creation of an [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) instance and the configuration of the storage backend. By default `alerting.enabled` is set to `true`. For more information, see xref:alerting_advanced-features[].
+The `alerting` parameter controls creation of an [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) instance and the configuration of the storage backend. By default `alerting.enabled` is set to `true`. For more information, see xref:alerts_advanced-features[].
 
 === Graphing
 
