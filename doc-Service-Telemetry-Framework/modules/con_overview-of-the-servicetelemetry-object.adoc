@@ -66,7 +66,7 @@ Let's go through each of the top-level objects to understand how they support a 
 
 The `backends` parameter controls both what storage backends are available for storage of metrics and events, and also controls the enablement of Smart Gateways as defined by the `clouds` parameter. See xref:Clouds[] for more information.
 
-The available storage backends include `metrics` and `events`. The `metrics` backends include `Prometheus`, and the `events` backends include `ElasticSearch`.
+The available storage backends include `metrics` and `events`. The `metrics` backends include Prometheus, and the `events` backends include ElasticSearch.
 
 To enable Prometheus as a storage backend for metrics, configure the `ServiceTelemetry` object:
 
@@ -75,7 +75,7 @@ To enable Prometheus as a storage backend for metrics, configure the `ServiceTel
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   backends:
@@ -136,4 +136,3 @@ The `highAvailability` parameter controls the instantiation of multiple copies o
 === Transports
 
 The `transports` parameter controls the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}, and is required to be enabled for proper operation of {ProjectShort}. By default `transports.qdr.enabled` is `true`.
-
