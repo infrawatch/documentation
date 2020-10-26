@@ -64,7 +64,7 @@ Let's go through each of the top-level objects to understand how they support a 
 
 === Backends
 
-The `backends` parameter controls both what storage backends are available for storage of metrics and events, and also controls the enablement of Smart Gateways as defined by the `clouds` parameter. See xref:Clouds[] for more information.
+The `backends` parameter controls both what storage backends are available for storage of metrics and events, and also controls the enablement of Smart Gateways as defined by the `clouds` parameter. See xref:_clouds[] for more information.
 
 The available storage backends include `metrics` and `events`. The `metrics` backends include Prometheus, and the `events` backends include ElasticSearch.
 
@@ -123,11 +123,11 @@ spec:
 
 === Alerting
 
-The `alerting` parameter controls creation of an [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) instance and the configuration of the storage backend. By default `alerting.enabled` is set to `true`. For more information, see xref:alerts_advanced-features[].
+The `alerting` parameter controls creation of an link:https://prometheus.io/docs/alerting/latest/alertmanager/[Alertmanager] instance and the configuration of the storage backend. By default `alerting.enabled` is set to `true`. For more information, see xref:alerts_advanced-features[].
 
 === Graphing
 
-The `graphing` parameter controls the creation of a [Grafana](https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/) instance. By default `graphing.enabled` is `false`. For more information, see xref:dashboards_advanced-features[].
+The `graphing` parameter controls the creation of a link:https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/[Grafana] instance. By default `graphing.enabled` is `false`. For more information, see xref:dashboards_advanced-features[].
 
 === High Availability
 
