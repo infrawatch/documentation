@@ -26,7 +26,7 @@
 == Overview of the ServiceTelemetry object.
 
 IMPORTANT: Versions of Service Telemetry Operator prior to v1.1.0 used a flat API (`servicetelemetry.infra.watch/v1alpha1`) interface for creating the `ServiceTelemetry` object.
-In Service Telemetry Operator v1.1.0 a dictionary-based API interface was created (`servicetelemetry.infra.watch/v1beta1`) to allow for better control of {ProjectShort} deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future.
+In Service Telemetry Operator v1.1.0 a dictionary-based API interface was created (`servicetelemetry.infra.watch/v1beta1`) to allow for better control of {ProjectShort} deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future. It is strongly recommended that any previously created `ServiceTelemetry` objects are updated to the new interface.
 
 To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. The `ServiceTelemetry` object is made up of several major sections including:
 
