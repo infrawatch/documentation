@@ -23,7 +23,7 @@
 [id="configuring-high-availability_{context}"]
 = Configuring high availability
 
-To configure {ProjectShort} for high availability, add `highAvailabilityEnabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+To configure {ProjectShort} for high availability, add `highAvailability.enabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 [discrete]
 == Procedure
@@ -40,17 +40,20 @@ oc project service-telemetry
 +
 [source,bash]
 ----
-$ oc edit ServiceTelemetry
+$ oc edit stf default
 ----
 
-. Add `highAvailabilityEnabled: true` to the `spec` section:
+. Add `highAvailability.enabled: true` to the `spec` section:
 +
 [source,yaml]
 ----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
 spec:
-  eventsEnabled: true
-  metricsEnabled: true
-  highAvailabilityEnabled: true
+  ...
+  highAvailability:
+    enabled: true
 ----
 
 . Save your changes and close the object.

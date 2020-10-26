@@ -62,7 +62,7 @@ $ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --conne
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
   ============================================================================================================================================================================================================================================================================================
-  1    stf-default-interconnect-5671-service-telemetry.apps.infra.watch:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  1    default-interconnect-5671-service-telemetry.apps.infra.watch:443      default-interconnect-7458fd4d69-bgzfb                                                                      edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
   12   172.17.1.44:60290                                                     openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
   16   172.17.1.44:36408                                                     metrics                                                                                                    normal  in   no-security                         anonymous-user
   899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
@@ -102,28 +102,28 @@ Router Links
 +
 [source,bash]
 ----
-$ oc get pods -l application=stf-default-interconnect
+$ oc get pods -l application=default-interconnect
 
-NAME                                        READY   STATUS    RESTARTS   AGE
-stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
+NAME                                    READY   STATUS    RESTARTS   AGE
+default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
 ----
 
 . Connect to the pod and run the `qdstat --connections` command to list the known connections:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc exec -it deploy/stf-default-interconnect -- qdstat --connections
+$ oc exec -it deploy/default-interconnect -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
-stf-default-interconnect-7458fd4d69-bgzfb
+default-interconnect-7458fd4d69-bgzfb
 
 Connections
   id  host               container                                                             role    dir  security                                authentication  tenant  last dlv      uptime
   ======================================================================================================================================================================================================
-  1   10.129.2.21:43062  rcv[stf-default-collectd-telemetry-smartgateway-79c967c8f7-kq4qv]     normal  in   no-security                             anonymous-user          000:00:00:00  006:21:50:25
-  2   10.130.0.52:55754  rcv[stf-default-ceilometer-notification-smartgateway-6675df547mbjk5]  normal  in   no-security                             anonymous-user          000:21:25:57  006:21:49:36
-  3   10.130.0.51:43110  rcv[stf-default-collectd-notification-smartgateway-698c87fbb7-f28v6]  normal  in   no-security                             anonymous-user          000:21:36:53  006:21:49:09
-  4   10.130.0.37:45154  rcv[stf-default-ceilometer-telemetry-smartgateway-6c99864b45-fwqfc]   edge    in   no-security                             anonymous-user          000:00:00:02  006:21:34:45
+  1   10.129.2.21:43062  rcv[default-collectd-telemetry-smartgateway-79c967c8f7-kq4qv]         normal  in   no-security                             anonymous-user          000:00:00:00  006:21:50:25
+  2   10.130.0.52:55754  rcv[default-ceilometer-notification-smartgateway-6675df547mbjk5]      normal  in   no-security                             anonymous-user          000:21:25:57  006:21:49:36
+  3   10.130.0.51:43110  rcv[default-collectd-notification-smartgateway-698c87fbb7-f28v6]      normal  in   no-security                             anonymous-user          000:21:36:53  006:21:49:09
+  4   10.130.0.37:45154  rcv[default-ceilometer-telemetry-smartgateway-6c99864b45-fwqfc]       edge    in   no-security                             anonymous-user          000:00:00:02  006:21:34:45
   22  10.128.0.1:51948   Router.ceph-0.redhat.local                                            edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
   23  10.128.0.1:51950   Router.compute-0.redhat.local                                         edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
   24  10.128.0.1:52082   Router.controller-0.redhat.local                                      edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
@@ -136,10 +136,10 @@ In this example, there are three `edge` connections from the {OpenStack} nodes w
 +
 [source,bash,options="nowrap"]
 ----
-$ oc exec -it deploy/stf-default-interconnect -- qdstat --address
+$ oc exec -it deploy/default-interconnect -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
-stf-default-interconnect-7458fd4d69-bgzfb
+default-interconnect-7458fd4d69-bgzfb
 
 Router Addresses
   class   addr                                phs  distrib    pri  local  remote  in           out          thru  fallback

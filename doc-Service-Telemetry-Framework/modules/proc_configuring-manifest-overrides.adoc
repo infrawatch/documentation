@@ -23,10 +23,10 @@
 [id="configuring-manifest-overrides_{context}"]
 = Overriding a managed manifest
 
-Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see xref:manifest-overrides_advanced-features[]. The default `ServiceTelemetry` object is `stf-default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
+Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see xref:manifest-overrides_advanced-features[]. The default `ServiceTelemetry` object is `default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
 
 [TIP]
-The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry stf-default`.
+The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry default`.
 
 [discrete]
 == Procedure
@@ -43,7 +43,7 @@ oc project service-telemetry
 +
 [source,bash]
 ----
-oc edit servicetelemetry stf-default
+oc edit servicetelemetry default
 ----
 
 . To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
@@ -53,49 +53,34 @@ NOTE: The trailing pipe (`|`) after entering the manifest override parameter ind
 +
 [source,yaml,options="nowrap"]
 ----
-$ oc edit servicetelemetry stf-default
+$ oc edit stf default
 
-apiVersion: infra.watch/v1alpha1
+apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"infra.watch/v1alpha1","kind":"ServiceTelemetry","metadata":{"annotations":{},"name":"stf-default","namespace":"service-telemetry"},"spec":{metricsEnabled":true}}
-  creationTimestamp: "2020-04-14T20:29:42Z"
-  generation: 1
-  name: stf-default
-  namespace: service-telemetry
-  resourceVersion: "1949423"
-  selfLink: /apis/infra.watch/v1alpha1/namespaces/service-telemetry/servicetelemetrys/stf-default
-  uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
+  ...
 spec:
-  metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | <1>
-    apiVersion: smartgateway.infra.watch/v2alpha1
-    kind: SmartGateway
+  alertmanagerConfigManifest: | <1>
+    apiVersion: v1
+    kind: Secret
     metadata:
-      name: stf-default-collectd-telemetry
-      namespace: service-telemetry
-    spec:
-      amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/telemetry
-      debug: true
-      prefetch: 15000
-      serviceType: metrics
-      size: 1
-      useTimestamp: true <2>
+      name: 'alertmanager-default'
+      namespace: 'service-telemetry'
+    type: Opaque
+    stringData:
+      alertmanager.yaml: |-
+        global:
+          resolve_timeout: 10m
+        route:
+          group_by: ['job']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: 'null'
+        receivers:
+        - name: 'null' <2>
 status:
-  conditions:
-  - ansibleResult:
-      changed: 0
-      completion: 2020-04-14T20:32:19.079508
-      failures: 0
-      ok: 52
-      skipped: 1
-    lastTransitionTime: "2020-04-14T20:29:59Z"
-    message: Awaiting next reconciliation
-    reason: Successful
-    status: "True"
-    type: Running
+  ...
 ----
 +
 <1> Manifest override parameter is defined in the `spec` of the `ServiceTelemetry` object.

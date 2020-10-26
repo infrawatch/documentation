@@ -72,21 +72,22 @@ grafana-operator.v3.2.0             Grafana Operator                            
 ...
 ----
 
-. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphingEnabled` to `true`.
+. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` to `true`.
 +
 [source,bash]
 ----
-$ oc edit ServiceTelemetry stf-default
+$ oc edit stf default
 ----
 +
 [source,yaml]
 ----
-apiVersion: infra.watch/v1alpha1
+apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
 spec:
-  graphingEnabled: true
   ...
+  graphing:
+    enabled: true
 ----
 
 . Verify that the Grafana instance deployed:
@@ -140,8 +141,8 @@ $ oc get grafanadatasources
 ----
 +
 ----
-NAME                        AGE
-stf-default-ds-prometheus   20h
+NAME                    AGE
+default-ds-prometheus   20h
 ----
 
 . Expose the grafana service as a route:
@@ -189,5 +190,7 @@ oc project service-telemetry
 +
 [source,bash]
 ----
-oc describe grafana service-telemetry-grafana
+oc describe grafana default
 ----
++
+TIP: You can set the admin username and password via the `ServiceTelemetry` object using `graphing.grafana.adminUser` and `graphing.grafana.adminPassword`.
