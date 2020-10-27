@@ -117,7 +117,7 @@ Use the `graphing` parameter to control the creation of a link:https://grafana.c
 
 === highAvailability
 
-Use The `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default highAvailability is disabled. For more information, see xref:high-availability_advanced-features[].
+Use The `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_advanced-features[].
 
 === transports
 
