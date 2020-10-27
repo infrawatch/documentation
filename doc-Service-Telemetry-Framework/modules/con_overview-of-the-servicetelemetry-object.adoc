@@ -113,7 +113,7 @@ Use the `alerting` parameter to control creation of an link:https://prometheus.i
 
 === graphing
 
-Use the `graphing` parameter to control the creation of a link:https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/[Grafana] instance. By default, graphing is disabled. For more information, see xref:dashboards_advanced-features[].
+Use the `graphing` parameter to control the creation of a link:https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/[Grafana] instance. By default, `graphing` is disabled. For more information, see xref:dashboards_advanced-features[].
 
 === highAvailability
 
