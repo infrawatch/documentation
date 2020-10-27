@@ -35,7 +35,7 @@ Monitor the resource usage of the {OpenStack} services, such as the APIs and oth
 
 .Procedure
 
-. Open the `stf-connectors.yaml`.
+. Open the `stf-connectors.yaml` file.
 
 . Add the following configuration to `parameter_defaults`:
 +
