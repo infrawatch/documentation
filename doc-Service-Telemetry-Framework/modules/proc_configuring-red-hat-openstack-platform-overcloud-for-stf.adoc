@@ -71,7 +71,9 @@ To configure the {ProjectShort} connection, you must create a file that contains
 +
 [IMPORTANT]
 ====
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_advanced-features[]. Additionally, setting `EventPipelinePublishers` and `MetricPipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_advanced-features[].
+
+Additionally, setting `EventPipelinePublishers` and `MetricPipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
 
 If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object `backends.metrics.prometheus.scrapeInterval` parameter from the default value of `10s` to double the polling interval of the data collectors. For example, if `CollectdAmqpInterval` and `ceilometer::agent::polling::polling_interval` are adjusted to `30` then set the `backends.metrics.prometheus.scrapeInterval` to a value of `60s`.
 ====
