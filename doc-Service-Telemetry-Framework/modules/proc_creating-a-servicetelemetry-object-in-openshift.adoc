@@ -29,7 +29,7 @@ Create a `ServiceTelemetry` object in {OpenShiftShort} to result in the creation
 
 .Procedure
 
-. To create a `ServiceTelemetry` object that will result in a default {ProjectShort} deployment, create a `ServiceTelemetry` object with an empty `spec` object:
+. To create a `ServiceTelemetry` object that results in a default {ProjectShort} deployment, create a `ServiceTelemetry` object with an empty `spec` object:
 +
 [source,bash]
 ----
