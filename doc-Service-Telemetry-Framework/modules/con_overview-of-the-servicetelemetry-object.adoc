@@ -72,6 +72,7 @@ As the parameters are a dictionary of parameters, referencing them in the docume
 
 To enable events support in {ProjectShort} requires, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
 
+[id="clouds_{context}"]
 === clouds
 
 Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default the Service Telemetry Operator will create Smart Gateways for `cloud1`.
