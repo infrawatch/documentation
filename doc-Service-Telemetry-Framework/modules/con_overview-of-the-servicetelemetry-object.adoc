@@ -109,7 +109,7 @@ Each item of the `clouds` parameter represents a cloud instance. The cloud insta
 
 === alerting
 
-Use the `alerting` parameter to control creation of an link:https://prometheus.io/docs/alerting/latest/alertmanager/[Alertmanager] instance and the configuration of the storage backend. By default, alerting is enabled. For more information, see xref:alerts_advanced-features[].
+Use the `alerting` parameter to control creation of an link:https://prometheus.io/docs/alerting/latest/alertmanager/[Alertmanager] instance and the configuration of the storage backend. By default, `alerting` is enabled. For more information, see xref:alerts_advanced-features[].
 
 === graphing
 
