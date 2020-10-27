@@ -70,7 +70,7 @@ As the parameters are a dictionary of parameters, referencing them in the docume
 
 ==== Enabling ElasticSearch as a storage backend for events
 
-To enable events support in {ProjectShort} requires, you must enable the Elastic Cloud Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
+To enable events support in {ProjectShort} requires, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
 
 === clouds
 
