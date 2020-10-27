@@ -25,8 +25,7 @@
 
 You can add custom alerts to the `PrometheusRule` object that you created in xref:creating-an-alert-rule-in-prometheus_advanced-features[].
 
-[discrete]
-== Procedure
+.Procedure
 
 . Use the `oc edit` command:
 +

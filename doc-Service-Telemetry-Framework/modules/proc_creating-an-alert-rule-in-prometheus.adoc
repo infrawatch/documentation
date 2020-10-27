@@ -25,8 +25,7 @@
 
 Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.
 
-[discrete]
-== Procedure
+.Procedure
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:

@@ -28,8 +28,7 @@ Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a l
 [TIP]
 The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry default`.
 
-[discrete]
-== Procedure
+.Procedure
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:

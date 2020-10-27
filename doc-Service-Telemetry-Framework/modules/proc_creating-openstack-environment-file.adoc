@@ -33,8 +33,7 @@ ifdef::include_when_16[]
 endif::include_when_16[]
 `ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
 
-[discrete]
-== Procedure
+.Procedure
 
 . Create the `stf-connectors.yaml` file and modify it to match the AMQP address that you want for this cloud deployment:
 +
