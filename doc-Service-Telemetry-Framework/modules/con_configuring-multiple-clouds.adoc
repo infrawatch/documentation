@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="configuring-multiple-clouds_{context}"]
-= Multi-Cloud Configuration
+= Multiple cloud configuration
 
 You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}):
 
