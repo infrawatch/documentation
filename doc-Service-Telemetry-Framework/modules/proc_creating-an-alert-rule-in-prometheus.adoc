@@ -89,7 +89,6 @@ $ oc delete pod curl
 pod "curl" deleted
 ----
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information on alerting, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

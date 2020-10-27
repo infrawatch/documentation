@@ -38,8 +38,7 @@ oc edit prometheusrules prometheus-alarm-rules
 
 . Save and close.
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
 

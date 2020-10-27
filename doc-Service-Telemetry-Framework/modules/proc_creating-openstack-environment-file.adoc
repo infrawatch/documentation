@@ -211,7 +211,6 @@ endif::include_when_16[]
 ----
 
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For information about validating the deployment, see xref:validating-clientside-installation_completing-the-stf-configuration[].
