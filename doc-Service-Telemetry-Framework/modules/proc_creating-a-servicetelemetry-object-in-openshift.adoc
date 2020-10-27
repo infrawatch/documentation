@@ -107,7 +107,7 @@ spec:
             subscriptionAddress: anycast/ceilometer/event.sample
 ----
 
-. (optional) To create a `ServiceTelemetry` object that will result in collection and storage of events for the default cloud, enable the ElasticSearch backend:
+. Optional: To create a `ServiceTelemetry` object that results in collection and storage of events for the default cloud, enable the ElasticSearch backend:
 +
 [source,yaml]
 ----
