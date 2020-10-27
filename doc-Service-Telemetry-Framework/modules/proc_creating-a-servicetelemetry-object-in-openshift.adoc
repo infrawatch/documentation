@@ -43,7 +43,7 @@ spec: {}
 EOF
 ----
 +
-Creating a default `ServiceTelemetry` object will result in a {ProjectShort} deployment with the following defaults:
+Creating a default `ServiceTelemetry` object results in a {ProjectShort} deployment with the following defaults:
 +
 [source,yaml]
 ----
