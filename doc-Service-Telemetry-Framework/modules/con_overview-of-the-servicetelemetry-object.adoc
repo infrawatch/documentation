@@ -23,12 +23,12 @@
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
 [id="overview-of-the-servicetelemetry-object"]
-== Overview of the ServiceTelemetry object.
+== Overview of the ServiceTelemetry object
 
 IMPORTANT: Versions of Service Telemetry Operator prior to v1.1.0 used a flat API (`servicetelemetry.infra.watch/v1alpha1`) interface for creating the `ServiceTelemetry` object.
-In Service Telemetry Operator v1.1.0 a dictionary-based API interface was created (`servicetelemetry.infra.watch/v1beta1`) to allow for better control of {ProjectShort} deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future. It is strongly recommended that any previously created `ServiceTelemetry` objects are updated to the new interface.
+In Service Telemetry Operator v1.1.0, there is a dictionary-based API interface (`servicetelemetry.infra.watch/v1beta1`) to allow for better control of {ProjectShort} deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future. Ensure that any previously created `ServiceTelemetry` objects are updated to the new interface.
 
-To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. The `ServiceTelemetry` object is made up of several major sections including:
+To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {OpenShiftShort}. The `ServiceTelemetry` object is made up of the following major configuration parameters:
 
 * `alerting`
 * `backends`
@@ -37,39 +37,21 @@ To deploy the {Project}, you must create an instance of `ServiceTelemetry` in {O
 * `highAvailability`
 * `transports`
 
-Each of these top-level configuration parameters provides various controls for a {Project} deployment. For example, the `backends` parameter has several options to control the deployment of storage backends for metrics and events. The `clouds` parameter controls the deployment of `SmartGateway` objects that are consumed by the Smart Gateway Operator.
+Each of these top-level configuration parameters provides various controls for a {Project} deployment.
 
-The following core parameters are available for a `ServiceTelemetry` manifest:
+=== backends
 
-[[table-core-manifest-parameters]]
-.Core parameters for a `ServiceTelemetry` manifest
-|===
-| Parameter | Description
+Use the `backends` parameter to control what storage backends are available for storage of metrics and events and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:_clouds[].
 
-| `backends` | Controls what storage backends are available for metrics and events. Also controls which Smart Gateway deployments are available and connected to storage backends.
+The available storage backends include `metrics` and `events`. The metrics backends include Prometheus and the events backends include ElasticSearch.
 
-| `clouds` | Controls which clouds can be connected to {ProjectShort} and what message bus address to subscribe for metrics and events for each of the data collector types supported by the Smart Gateyway (i.e. collectd and Ceilometer).
 
-| `alerting` | Controls the management of alerts. For more information, see xref:alerts_advanced-features[].
+==== Enabling Prometheus as a storage backend for metrics
 
-| `graphing` | Controls options related to graphing data from the available storage backends. For more information, see xref:dashboards_advanced-features[].
+.Procedure
 
-| `highAvailability` | Controls options related to high availability in {ProjectShort}. For more information, see xref:high-availability_advanced-features[].
-
-| `transports` | Controls options related to available data transports. The default is to enable the QDR backend, the only supported transport, and is required to be enabled for operation of {ProjectShort}. The default is `enabled: true`.
-
-|===
-
-Let's go through each of the top-level objects to understand how they support a deployment of {ProjectShort}.
-
-=== Backends
-
-The `backends` parameter controls both what storage backends are available for storage of metrics and events, and also controls the enablement of Smart Gateways as defined by the `clouds` parameter. See xref:_clouds[] for more information.
-
-The available storage backends include `metrics` and `events`. The `metrics` backends include Prometheus, and the `events` backends include ElasticSearch.
-
-To enable Prometheus as a storage backend for metrics, configure the `ServiceTelemetry` object:
-
+* To enable Prometheus as a storage backend for metrics, configure the `ServiceTelemetry` object:
++
 [source,yaml]
 ----
 apiVersion: infra.watch/v1beta1
@@ -86,15 +68,17 @@ spec:
 
 As the parameters are a dictionary of parameters, referencing them in the documentation will to be presented using dotted notation. For example, the configuration example for enabling the Prometheus backend for storage of metrics would be noted as `backends.metrics.prometheus.enabled: true`.
 
-To enable events support in {ProjectShort} requires prerequisite steps to ensure ElasticSearch can be started. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. By default, `backends.events.elasticsearch.enabled` is set to false. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
+==== Enabling ElasticSearch as a storage backend for events
 
-=== Clouds
+To enable events support in {ProjectShort} requires, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-elastic-cloud-on-kubernetes-operator[]. By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
 
-The `clouds` parameter controls what Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud enviornments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration will be created. By default the Service Telemetry Operator will create Smart Gateways for `cloud1`.
+=== clouds
 
-A list of cloud objects can be created to allow control of which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are one of `metrics` or `events`. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are `collectd` and `ceilometer`. The subscription address for each of these collectors should be unique for every cloud, data type, and collector combination.
+Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default the Service Telemetry Operator will create Smart Gateways for `cloud1`.
 
-The default `cloud1` configuration would be represented by the following `ServiceTelemetry` object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud unit.
+You can create a list of cloud objects to control which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are `metrics` or `events`. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
+
+The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud unit:
 
 [source,yaml]
 ----
@@ -121,18 +105,18 @@ spec:
 ----
 
 
-=== Alerting
+=== alerting
 
-The `alerting` parameter controls creation of an link:https://prometheus.io/docs/alerting/latest/alertmanager/[Alertmanager] instance and the configuration of the storage backend. By default `alerting.enabled` is set to `true`. For more information, see xref:alerts_advanced-features[].
+Use the `alerting` parameter to control creation of an link:https://prometheus.io/docs/alerting/latest/alertmanager/[Alertmanager] instance and the configuration of the storage backend. By default, alerting is enabled. For more information, see xref:alerts_advanced-features[].
 
-=== Graphing
+=== graphing
 
-The `graphing` parameter controls the creation of a link:https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/[Grafana] instance. By default `graphing.enabled` is `false`. For more information, see xref:dashboards_advanced-features[].
+Use the `graphing` parameter to control the creation of a link:https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/[Grafana] instance. By default, graphing is disabled. For more information, see xref:dashboards_advanced-features[].
 
-=== High Availability
+=== highAvailability
 
-The `highAvailability` parameter controls the instantiation of multiple copies of {ProjectShort} components to reduce recovery time should components fail or be rescheduled. By default `highAvailability.enabled` is `false`. For more information, see xref:high-availability_advanced-features[].
+Use The `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default highAvailability is disabled. For more information, see xref:high-availability_advanced-features[].
 
-=== Transports
+=== transports
 
-The `transports` parameter controls the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}, and is required to be enabled for proper operation of {ProjectShort}. By default `transports.qdr.enabled` is `true`.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that it is enabled for proper operation of {ProjectShort}. By default, transports is enabled.
