@@ -48,7 +48,7 @@ You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral
 
 .Procedure
 
-* To enable ephemeral storage for {ProjectShort}, set `storageEphemeralEnabled: true` in your `ServiceTelemetry` manifest.
+* To enable ephemeral storage for {ProjectShort}, set `...storage.strategy: ephemeral` for the appropriate top-level parameters.
 
 .Additional resources
 
