@@ -23,7 +23,7 @@
 [id='configuring-ephemeral-storage_{context}']
 = Configuring ephemeral storage
 
-To configure {ProjectShort} for ephemeral storage, add `storageEphemeralEnabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can add `storageEphemeralEnabled: true` at installation time or, if you already deployed {ProjectShort}, complete the following steps:
+To configure {ProjectShort} components for ephemeral storage, add `...storage.strategy: ephemeral` to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus backend, set `backends.metrics.prometheus.storage.strategy: ephemeral`. Components that support configuration of ephemeral storage include `alerting.alertmanager`, `backends.metrics.prometheus`, and `backends.events.elasticsearch`. You can add ephemeral storage configuration at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 .Procedure
 
@@ -39,17 +39,35 @@ oc project service-telemetry
 +
 [source,bash]
 ----
-$ oc edit ServiceTelemetry stf-default
+$ oc edit stf default
 ----
 
-. Add the `storageEphemeralEnabled: true` parameter to the `spec` section:
+. Add the `...storage.strategy: ephemeral` parameter to the `spec` section of the relevant component:
 +
 [source,yaml]
 ----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
 spec:
-  eventsEnabled: true
-  metricsEnabled: true
-  storageEphemeralEnabled: true
+  alerting:
+    enabled: true
+    alertmanager:
+      storage:
+        strategy: ephemeral
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        storage:
+          strategy: ephemeral
+    events:
+      elasticsearch:
+        enabled: true
+        storage:
+          strategy: ephemeral
 ----
 
 . Save your changes and close the object.

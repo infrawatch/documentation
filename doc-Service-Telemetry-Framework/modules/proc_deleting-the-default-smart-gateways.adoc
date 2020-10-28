@@ -23,20 +23,36 @@
 [id="deleting-the-default-smart-gateways_{context}"]
 = Deleting the default Smart Gateways
 
-When you have configured {ProjectShort} for multiple clouds, you can delete the
-default Smart Gateways if they are no longer in use.
+After you configure {ProjectShort} for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove `SmartGateway` objects that have been created but are no longer listed in the ServiceTelemetry `clouds` list of objects. You can enable the removal of SmartGateway objects that are not defined by the `clouds` parameter by setting `cloudsRemoveOnMissing: true` in the `ServiceTelemetry` manifest.
 
-To delete the Smart Gateways, complete the following steps:
+TIP: If you do not want any Smart Gateways deployed, define an empty clouds object using the `clouds: {}` parameter.
 
-. Delete the default Smart Gateways from the cluster:
+WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you enable the `cloudsRemoveOnMissing` parameter, you remove any manually created `SmartGateway` objects in the current namespace without any possibility to restore. 
+
+.Procedure
+
+
+. Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_installing-the-core-components-of-stf[].
+
+. Edit the ServiceTelemetry object and add the `cloudsRemoveOnMissing` parameter:
++
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  ...
+spec:
+  ...
+  cloudsRemoveOnMissing: true
+  clouds:
+    ...
+----
+
+. Save the modifications.
+
+. Verify that the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:
 +
 [source,bash]
 ----
-oc delete smartgateway cloud1-notify cloud1-telemetry
-----
-. Optional: Delete the default manifests:
-+
-[source,bash]
-----
-rm deploy/service-telemetry/smartgateway/{events,metrics}-smartgateway.yaml
+oc get smartgateways
 ----

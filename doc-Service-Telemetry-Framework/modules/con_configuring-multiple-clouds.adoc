@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_configuring-stf-for-multi-cloud.adoc[leveloffset=+1]
+// include::<path>/con_configuring-multiple-clouds.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="configuring-multiple-clouds_{context}"]
-= Configuring multiple clouds
+= Multiple cloud configuration
 
 You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}):
 

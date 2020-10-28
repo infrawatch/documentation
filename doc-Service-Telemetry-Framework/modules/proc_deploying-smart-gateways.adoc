@@ -23,12 +23,23 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
-You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.
+You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the `clouds` parameter in the `ServiceTelemetry` manifest.
 
-When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.
+When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under `cloud1` with the following subscription addresses:
 
-[discrete]
-== Procedure
+|===
+| **collector** | **type** | **default subscription address**
+| collectd | metrics | collectd/telemetry
+| collectd | events | collectd/notify
+| Ceilometer | metrics | anycast/ceilometer/metering.sample
+| Ceilometer | events | anycast/ceilometer/event.sample
+|===
+
+.Prerequisites
+
+You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_advanced-features[]. For more information about creating the content for the `clouds` parameter, see xref:clouds_installing-the-core-components-of-stf[].
+
+.Procedure
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
@@ -37,39 +48,50 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 oc project service-telemetry
 ----
 
-. Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with the `oc get smartgateways` command. For example, if you deployed {ProjectShort} with `metricsEnabled: true` and `eventsEnabled: true`, the following Smart Gateways are displayed in the output:
+. Edit the `default` ServiceTelemetry object and add a `clouds` parameter with your configuration:
 +
 ----
-$ oc get smartgateways
-
-NAME                                  AGE
-stf-default-ceilometer-notification   7d17h
-stf-default-ceilometer-telemetry      7d22h
-stf-default-collectd-notification     7d17h
-stf-default-collectd-telemetry        7d22h
+oc edit stf default
 ----
-
-. Retrieve the manifests for each Smart Gateway and store the contents in a temporary file, which you can modify later and use to create the new set of Smart Gateways:
 +
 ----
-truncate --size 0 /tmp/cloud1-smartgateways.yaml && \
-for sg in $(oc get smartgateways -oname)
-do
-  echo "---" >> /tmp/cloud1-smartgateways.yaml
-  oc get ${sg} -oyaml --export >> /tmp/cloud1-smartgateways.yaml
-done
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  ...
+spec:
+  ...
+  clouds:
+  - name: cloud1
+    events:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-notify
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+    metrics:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+  - name: cloud2
+    events:
+      ...
 ----
 
-. Modify the Smart Gateway manifest in the `/tmp/cloud1-smartgateways.yaml` file. Adjust the `metadata.name` and `spec.amqpUrl` fields to include the cloud identifier from your schema. For more information, see xref:planning-amqp-address-prefixes_advanced-features[]. To view example Smart Gateway manifests, see <<example-manifests_advanced-features[].
-
-. Deploy your new Smart Gateways:
-+
-----
-oc apply -f /tmp/cloud1-smartgateways.yaml
-----
+. Save the ServiceTelemetry object.
 
 . Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
 ----
 oc get po -l app=smart-gateway
+----
++
+----
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
+default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
+default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
+default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h
 ----

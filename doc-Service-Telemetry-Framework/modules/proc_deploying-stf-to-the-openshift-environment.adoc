@@ -215,8 +215,8 @@ ifeval::["{build}" == "upstream"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
-servicetelemetry-operator                    InfraWatch Operators       7m20s
-smartgateway-operator                        InfraWatch Operators       7m20s
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s
 ----
 endif::[]
 ifeval::["{build}" == "downstream"]
@@ -300,8 +300,8 @@ EOF
 ----
 $ oc get csv
 
-NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded
+NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
+elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1                Succeeded
 ----
 
 [id="subscribing-to-the-service-telemetry-operator"]
@@ -361,6 +361,6 @@ amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manage
 amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
 elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
 prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
-service-telemetry-operator.v1.0.3   Service Telemetry Operator                      1.0.3                Succeeded
-smart-gateway-operator.v2.0.1       Smart Gateway Operator                          2.0.1                Succeeded
+service-telemetry-operator.v1.1.0   Service Telemetry Operator                      1.1.0                Succeeded
+smart-gateway-operator.v2.1.0       Smart Gateway Operator                          2.1.0                Succeeded
 ----

@@ -25,8 +25,7 @@
 
 Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.
 
-[discrete]
-== Procedure
+.Procedure
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
@@ -46,7 +45,7 @@ kind: PrometheusRule
 metadata:
   creationTimestamp: null
   labels:
-    prometheus: stf-default
+    prometheus: default
     role: alert-rules
   name: prometheus-alarm-rules
   namespace: service-telemetry
@@ -71,7 +70,7 @@ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 [source,bash,options="nowrap"]
 ----
 [ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
-{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
 ----
 
 . To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit from the pod:
@@ -90,7 +89,6 @@ $ oc delete pod curl
 pod "curl" deleted
 ----
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information on alerting, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

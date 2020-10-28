@@ -25,8 +25,7 @@
 
 You can add custom alerts to the `PrometheusRule` object that you created in xref:creating-an-alert-rule-in-prometheus_advanced-features[].
 
-[discrete]
-== Procedure
+.Procedure
 
 . Use the `oc edit` command:
 +
@@ -39,8 +38,7 @@ oc edit prometheusrules prometheus-alarm-rules
 
 . Save and close.
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
 

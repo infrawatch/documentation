@@ -33,8 +33,7 @@ To create an alert, complete the following tasks:
 . Create an alert route in Alertmanager. For more information, see xref:creating-an-alert-route-in-alertmanager_advanced-features[].
 
 
-[discrete]
-== Additional resources
+.Additional resources
 
 For more information about alerts or notifications with Prometheus and Alertmanager, see https://prometheus.io/docs/alerting/overview/
 
