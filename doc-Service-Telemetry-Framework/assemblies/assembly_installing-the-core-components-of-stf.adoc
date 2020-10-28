@@ -44,7 +44,7 @@
 Before you install {Project} ({ProjectShort}), ensure that {OpenShift} ({OpenShiftShort}) version 4.5 is running and that you understand the core components of the framework. As part of the {OpenShiftShort} installation planning process, ensure that the administrator provides persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
 
 ifeval::["{build}" == "downstream"]
-[WARNING]
+[IMPORTANT]
 {OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}.
 endif::[]
 
