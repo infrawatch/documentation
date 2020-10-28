@@ -51,7 +51,7 @@ spec:
 
 . Save the modifications.
 
-. Verify the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:
+. Verify that the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:
 +
 [source,bash]
 ----
