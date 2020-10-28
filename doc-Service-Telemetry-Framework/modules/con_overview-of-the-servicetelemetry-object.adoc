@@ -75,7 +75,7 @@ To enable events support in {ProjectShort}, you must enable the Elastic Cloud fo
 [id="clouds_{context}"]
 === clouds
 
-Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default the Service Telemetry Operator will create Smart Gateways for `cloud1`.
+Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
 
 You can create a list of cloud objects to control which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are `metrics` or `events`. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
 
