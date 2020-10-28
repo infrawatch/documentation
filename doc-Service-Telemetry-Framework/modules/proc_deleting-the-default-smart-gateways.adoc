@@ -31,7 +31,6 @@ WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you en
 
 .Procedure
 
-To delete the Smart Gateways, complete the following steps:
 
 . Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_installing-the-core-components-of-stf[].
 
