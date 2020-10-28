@@ -66,7 +66,6 @@ spec:
         enabled: true
 ----
 
-As the parameters are a dictionary of parameters, referencing them in the documentation will to be presented using dotted notation. For example, the configuration example for enabling the Prometheus backend for storage of metrics would be noted as `backends.metrics.prometheus.enabled: true`.
 
 ==== Enabling ElasticSearch as a storage backend for events
 
