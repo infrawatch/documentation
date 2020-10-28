@@ -26,9 +26,10 @@
 
 The following optional features can provide additional functionality to the {Project} ({ProjectShort}):
 
-* Customizing the deployment. For more information, see xref:manifest-overrides_advanced-features[].
-* Alerts. For more information, see xref:alerts_advanced-features[].
-* High availability. For more information, see xref:high-availability_advanced-features[].
-* Dashboards. For more information, see xref:dashboards_advanced-features[].
-* Multiple clouds. For more information, see xref:configuring-multiple-clouds_advanced-features[].
-* Ephemeral storage. For more information, see xref:ephemeral-storage_advanced-features[].
+* xref:manifest-overrides_advanced-features[]
+* xref:alerts_advanced-features[]
+* xref:high-availability_advanced-features[]
+* xref:dashboards_advanced-features[]
+* xref:configuring-multiple-clouds_advanced-features[]
+* xref:ephemeral-storage_advanced-features[]
+* xref:monitoring-resource-usage-of-openstack-services_advanced-features[]

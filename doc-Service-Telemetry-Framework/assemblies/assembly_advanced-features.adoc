@@ -67,3 +67,6 @@ include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[levelof
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
+
+//Monitoring the resource usage of Openstack services
+include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
