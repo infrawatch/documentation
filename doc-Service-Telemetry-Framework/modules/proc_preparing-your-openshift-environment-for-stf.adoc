@@ -46,7 +46,6 @@ For more information about configuring persistent storage for {OpenShiftShort}, 
 [WARNING]
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
-.Procedure
 
 
 .Additional resources
