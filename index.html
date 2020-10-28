@@ -475,7 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#alerts_advanced-features">Alerts</a></li>
 <li><a href="#high-availability_advanced-features">High availability</a></li>
 <li><a href="#dashboards_advanced-features">Dashboards</a></li>
-<li><a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a></li>
+<li><a href="#configuring-multiple-clouds_advanced-features">Multiple cloud configuration</a></li>
 <li><a href="#ephemeral-storage_advanced-features">Ephemeral storage</a></li>
 <li><a href="#monitoring-resource-usage-of-openstack-services_advanced-features">Monitoring the resource usage of OpenStack services</a></li>
 </ul>
@@ -700,7 +700,7 @@ Do not install OKD on the same infrastructure that you want to monitor.
 <h2 id="installing-the-core-components-of-stf_introduction-to-stf">Installing the core components of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before you install Service&#160;Telemetry&#160;Framework (STF), ensure that OpenShift (OKD) version 4.x is running and that you understand the core components of the framework. As part of the OKD installation planning process, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OKD environment.</p>
+<p>Before you install Service&#160;Telemetry&#160;Framework (STF), ensure that OpenShift (OKD) version 4.5 is running and that you understand the core components of the framework. As part of the OKD installation planning process, ensure that the administrator provides persistent storage and enough resources to run the STF components on top of the OKD environment.</p>
 </div>
 <div class="sect2">
 <h3 id="installing-the-core-components-of-stf_installing-the-core-components-of-stf">The core components of STF</h3>
@@ -774,14 +774,6 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </td>
 </tr>
 </table>
-</div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>To enable ephemeral storage for STF, set <code>storageEphemeralEnabled: true</code> in your <code>ServiceTelemetry</code> manifest.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
@@ -1051,8 +1043,8 @@ infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
 
-servicetelemetry-operator                    InfraWatch Operators       7m20s
-smartgateway-operator                        InfraWatch Operators       7m20s</code></pre>
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s</code></pre>
 </div>
 </div>
 </li>
@@ -1147,8 +1139,8 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv
 
-NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-elastic-cloud-eck.v1.1.0   Elastic Cloud on Kubernetes                     1.1.0     elastic-cloud-eck.v1.0.1   Succeeded</code></pre>
+NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
+elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1                Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1193,8 +1185,8 @@ amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manage
 amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
 elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
 prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
-service-telemetry-operator.v1.0.3   Service Telemetry Operator                      1.0.3                Succeeded
-smart-gateway-operator.v2.0.1       Smart Gateway Operator                          2.0.1                Succeeded</code></pre>
+service-telemetry-operator.v1.1.0   Service Telemetry Operator                      1.1.0                Succeeded
+smart-gateway-operator.v2.1.0       Smart Gateway Operator                          2.1.0                Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1202,66 +1194,255 @@ smart-gateway-operator.v2.0.1       Smart Gateway Operator                      
 </div>
 </div>
 <div class="sect3">
-<h4 id="creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</h4>
-<div class="paragraph">
-<p>To deploy the Service&#160;Telemetry&#160;Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. By default, <code>eventsEnabled</code> is set to false. If you do not want to store events in ElasticSearch, ensure that <code>eventsEnabled</code> is set to false. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
-</div>
-<div class="paragraph">
-<p>The following core parameters are available for a <code>ServiceTelemetry</code> manifest:</p>
-</div>
-<table id="table-core-manifest-parameters" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Core parameters for a <code>ServiceTelemetry</code> manifest</caption>
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<thead>
+<h4 id="overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</h4>
+<div class="admonitionblock important">
+<table>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Versions of Service Telemetry Operator prior to v1.1.0 used a flat API (<code>servicetelemetry.infra.watch/v1alpha1</code>) interface for creating the <code>ServiceTelemetry</code> object.
+In Service Telemetry Operator v1.1.0, there is a dictionary-based API interface (<code>servicetelemetry.infra.watch/v1beta1</code>) to allow for better control of STF deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future. Ensure that any previously created <code>ServiceTelemetry</code> objects are updated to the new interface.
+</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eventsEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable events support in STF. Requires prerequisite steps to ensure ElasticSearch can be started. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable metrics support in STF.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>highAvailabilityEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable high availability in STF. For more information, see <a href="#high-availability_advanced-features">High availability</a>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageEphemeralEnabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ephemeral storage support in STF. For more information, see <a href="#ephemeral-storage_advanced-features">Ephemeral storage</a>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-</tr>
-</tbody>
 </table>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
+</div>
+<div class="paragraph">
+<p>To deploy the Service&#160;Telemetry&#160;Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. The <code>ServiceTelemetry</code> object is made up of the following major configuration parameters:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>To store events in ElasticSearch, set <code>eventsEnabled</code> to true during deployment:</p>
+<p><code>alerting</code></p>
+</li>
+<li>
+<p><code>backends</code></p>
+</li>
+<li>
+<p><code>clouds</code></p>
+</li>
+<li>
+<p><code>graphing</code></p>
+</li>
+<li>
+<p><code>highAvailability</code></p>
+</li>
+<li>
+<p><code>transports</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of these top-level configuration parameters provides various controls for a Service&#160;Telemetry&#160;Framework deployment.</p>
+</div>
+<div class="sect4">
+<h5 id="_backends">backends</h5>
+<div class="paragraph">
+<p>Use the <code>backends</code> parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the <code>clouds</code> parameter. For more information, see <a href="#clouds_installing-the-core-components-of-stf">clouds</a>.</p>
+</div>
+<div class="paragraph">
+<p>The available storage backends include <code>metrics</code> and <code>events</code>. The metrics backends include Prometheus and the events backends include ElasticSearch.</p>
+</div>
+<div class="sect5">
+<h6 id="_enabling_prometheus_as_a_storage_backend_for_metrics">Enabling Prometheus as a storage backend for metrics</h6>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To enable Prometheus as a storage backend for metrics, configure the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
-apiVersion: infra.watch/v1alpha1
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    metrics:
+      prometheus:
+        enabled: true</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_enabling_elasticsearch_as_a_storage_backend_for_events">Enabling ElasticSearch as a storage backend for events</h6>
+<div class="paragraph">
+<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>. By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="clouds_installing-the-core-components-of-stf">clouds</h5>
+<div class="paragraph">
+<p>Use the <code>clouds</code> parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of STF. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can create a list of cloud objects to control which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
+</div>
+<div class="paragraph">
+<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: stf-default
   namespace: service-telemetry
 spec:
-  eventsEnabled: true
-  metricsEnabled: true
+  clouds:
+    - name: cloud1
+      metrics:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/telemetry
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/metering.sample
+      events:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/notify
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/event.sample</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each item of the <code>clouds</code> parameter represents a cloud instance. The cloud instances are made up of 3 top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The metrics and events parameters represent the corresponding backend for storage of that data type. The <code>collectors</code> parameter then specifies a list of objects made up of two parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The collectorType specifies data collected by either collectd or Ceilometer. The subscriptionAddress parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address that a Smart Gateway instance should subscribe to.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_alerting">alerting</h5>
+<div class="paragraph">
+<p>Use the <code>alerting</code> parameter to control creation of an <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> instance and the configuration of the storage backend. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_advanced-features">Alerts</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_graphing">graphing</h5>
+<div class="paragraph">
+<p>Use the <code>graphing</code> parameter to control the creation of a <a href="https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/">Grafana</a> instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_advanced-features">Dashboards</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_highavailability">highAvailability</h5>
+<div class="paragraph">
+<p>Use The <code>highAvailability</code> parameter to control the instantiation of multiple copies of STF components to reduce recovery time of components that fail or are rescheduled. By default, <code>highAvailability</code> is disabled. For more information, see <a href="#high-availability_advanced-features">High availability</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_transports">transports</h5>
+<div class="paragraph">
+<p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. Ensure that it is enabled for proper operation of STF. By default, transports is enabled.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</h4>
+<div class="paragraph">
+<p>Create a <code>ServiceTelemetry</code> object in OKD to result in the creation of supporting components for a Service&#160;Telemetry&#160;Framework deployment. For more information, see <a href="#overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</a>.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>To create a <code>ServiceTelemetry</code> object that results in a default STF deployment, create a <code>ServiceTelemetry</code> object with an empty <code>spec</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec: {}
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creating a default <code>ServiceTelemetry</code> object results in a STF deployment with the following defaults:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+spec:
+  alerting:
+    enabled: true
+    alertmanager:
+      storage:
+        strategy: persistent
+        persistent:
+          storageResources: {}
+          storageSelector: {}
+          pvcStorageRequest: 20G
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        scrapeInterval: 10s
+        storage:
+          strategy: persistent
+          persistent:
+            storageResources: {}
+            storageSelector: {}
+            pvcStorageRequest: 20G
+    events:
+      elasticsearch:
+        enabled: false
+        storage:
+          strategy: persistent
+          persistent:
+            pvcStorageRequest: 20Gi
+  graphing:
+    enabled: false
+    grafana:
+      ingressEnabled: false
+      adminPassword: secret
+      adminUser: root
+      disableSignoutMenu: false
+  transports:
+    qdr:
+      enabled: true
+  highAvailability:
+    enabled: false
+  clouds:
+    - name: cloud1
+      metrics:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/telemetry
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/metering.sample
+      events:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/notify
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/event.sample</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optional: To create a <code>ServiceTelemetry</code> object that results in collection and storage of events for the default cloud, enable the ElasticSearch backend:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
 EOF</code></pre>
 </div>
 </div>
@@ -1270,13 +1451,13 @@ EOF</code></pre>
 <p>To view the STF deployment logs in the Service Telemetry Operator, use the <code>oc logs</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc logs $(oc get pod --selector='name=service-telemetry-operator' -oname) -c ansible</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc logs --selector name=service-telemetry-operator -c ansible</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">PLAY RECAP <strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong><strong></strong></strong><strong><strong></strong></strong>***
-localhost                  : ok=68   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0</pre>
+localhost                  : ok=55   changed=0    unreachable=0    failed=0    skipped=16   rescued=0    ignored=0</pre>
 </div>
 </div>
 </li>
@@ -1289,7 +1470,7 @@ localhost                  : ok=68   changed=0    unreachable=0    failed=0    s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you set <code>eventsEnabled: true</code>, the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time before ElasticSearch starts.
+If you set <code>backends.events.elasticsearch.enabled: true</code>, the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time before ElasticSearch starts.
 </td>
 </tr>
 </table>
@@ -1298,20 +1479,17 @@ If you set <code>eventsEnabled: true</code>, the notification Smart Gateways wil
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get pods
 
-NAME                                                              READY   STATUS             RESTARTS   AGE
-alertmanager-stf-default-0                                        2/2     Running            0          26m
-elastic-operator-645dc8b8ff-jwnzt                                 1/1     Running            0          88m
-elasticsearch-es-default-0                                        1/1     Running            0          26m
-interconnect-operator-6fd49d9fb9-4bl92                            1/1     Running            0          46m
-prometheus-operator-bf7d97fb9-kwnlx                               1/1     Running            0          46m
-prometheus-stf-default-0                                          3/3     Running            0          26m
-service-telemetry-operator-54f4c99d9b-k7ll6                       2/2     Running            0          46m
-smart-gateway-operator-7ff58bcf94-66rvx                           2/2     Running            0          46m
-stf-default-ceilometer-notification-smartgateway-7c45b755bzhhw2   1/1     Running            2          26m
-stf-default-ceilometer-telemetry-smartgateway-6c99864b45-fwqfc    1/1     Running            0          26m
-stf-default-collectd-notification-smartgateway-787974df89-6xpr4   1/1     Running            2          26m
-stf-default-collectd-telemetry-smartgateway-68f5cd5ffc-9758h      2/2     Running            0          26m
-stf-default-interconnect-7458fd4d69-nqbfs                         1/1     Running            0          26m</code></pre>
+NAME                                                      READY   STATUS    RESTARTS   AGE
+alertmanager-default-0                                    2/2     Running   0          38s
+default-cloud1-ceil-meter-smartgateway-58d8876857-lbf9d   1/1     Running   0          159m
+default-cloud1-coll-meter-smartgateway-8645d64f5f-rxfpb   2/2     Running   0          159m
+default-interconnect-79d9994b5-xnfvv                      1/1     Running   0          167m
+elastic-operator-746f86c956-jkvcq                         1/1     Running   0          6h23m
+interconnect-operator-5b474bdddc-sztsj                    1/1     Running   0          6h19m
+prometheus-default-0                                      3/3     Running   1          5m39s
+prometheus-operator-7dfb478c8b-bfd4j                      1/1     Running   0          6h19m
+service-telemetry-operator-656fc8ccb6-4w8x4               2/2     Running   0          98m
+smart-gateway-operator-7f49676d5d-nqzmp                   2/2     Running   0          6h21m</code></pre>
 </div>
 </div>
 </li>
@@ -1539,7 +1717,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
-stf-default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
+default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1578,7 +1756,15 @@ If your STF installation differs from the documentation, ensure that you retriev
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a>. Additionally, setting <code>EventPipelinePublishers</code> and <code>MetricPipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
+<div class="paragraph">
+<p>The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_advanced-features">Multiple cloud configuration</a>.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, setting <code>EventPipelinePublishers</code> and <code>MetricPipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.</p>
+</div>
+<div class="paragraph">
+<p>If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object <code>backends.metrics.prometheus.scrapeInterval</code> parameter from the default value of <code>10s</code> to double the polling interval of the data collectors. For example, if <code>CollectdAmqpInterval</code> and <code>ceilometer::agent::polling::polling_interval</code> are adjusted to <code>30</code> then set the <code>backends.metrics.prometheus.scrapeInterval</code> to a value of <code>60s</code>.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -1613,7 +1799,7 @@ The Service Telemetry Operator simplifies the deployment of all data ingestion a
     CeilometerQdrPublishEvents: true
     CeilometerQdrPublishMetrics: true
     MetricsQdrConnectors:
-    - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+    - host: default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
       role: edge
       sslProfile: sslProfile
@@ -1703,7 +1889,7 @@ listener {
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
   ============================================================================================================================================================================================================================================================================================
-  1    stf-default-interconnect-5671-service-telemetry.apps.infra.watch:443  stf-default-interconnect-7458fd4d69-bgzfb                                                                  edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  1    default-interconnect-5671-service-telemetry.apps.infra.watch:443      default-interconnect-7458fd4d69-bgzfb                                                                      edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
   12   172.17.1.44:60290                                                     openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
   16   172.17.1.44:36408                                                     metrics                                                                                                    normal  in   no-security                         anonymous-user
   899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth</code></pre>
@@ -1758,10 +1944,10 @@ Router Links
 <p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods -l application=stf-default-interconnect
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods -l application=default-interconnect
 
-NAME                                        READY   STATUS    RESTARTS   AGE
-stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code></pre>
+NAME                                    READY   STATUS    RESTARTS   AGE
+default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code></pre>
 </div>
 </div>
 </li>
@@ -1769,22 +1955,22 @@ stf-default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</
 <p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it deploy/stf-default-interconnect -- qdstat --connections
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it deploy/default-interconnect -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
-stf-default-interconnect-7458fd4d69-bgzfb
+default-interconnect-7458fd4d69-bgzfb
 
 Connections
-  id  host               container                                                             role    dir  security                                authentication  tenant  last dlv      uptime
-  ======================================================================================================================================================================================================
-  1   10.129.2.21:43062  rcv[stf-default-collectd-telemetry-smartgateway-79c967c8f7-kq4qv]     normal  in   no-security                             anonymous-user          000:00:00:00  006:21:50:25
-  2   10.130.0.52:55754  rcv[stf-default-ceilometer-notification-smartgateway-6675df547mbjk5]  normal  in   no-security                             anonymous-user          000:21:25:57  006:21:49:36
-  3   10.130.0.51:43110  rcv[stf-default-collectd-notification-smartgateway-698c87fbb7-f28v6]  normal  in   no-security                             anonymous-user          000:21:36:53  006:21:49:09
-  4   10.130.0.37:45154  rcv[stf-default-ceilometer-telemetry-smartgateway-6c99864b45-fwqfc]   edge    in   no-security                             anonymous-user          000:00:00:02  006:21:34:45
-  22  10.128.0.1:51948   Router.ceph-0.redhat.local                                            edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
-  23  10.128.0.1:51950   Router.compute-0.redhat.local                                         edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
-  24  10.128.0.1:52082   Router.controller-0.redhat.local                                      edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
-  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                                  normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00</code></pre>
+  id  host               container                                                      role    dir  security                                authentication  tenant  last dlv      uptime
+  ===============================================================================================================================================================================================
+  5   10.129.0.110:48498  bridge-3f5                                                    edge    in   no-security                             anonymous-user          000:00:00:02  000:17:36:29
+  6   10.129.0.111:43254  rcv[default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn]  edge    in   no-security                             anonymous-user          000:00:00:02  000:17:36:20
+  7   10.130.0.109:50518  rcv[default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd]  normal  in   no-security                             anonymous-user          -             000:17:36:11
+  8   10.130.0.110:33802  rcv[default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82]  normal  in   no-security                             anonymous-user          000:01:26:18  000:17:36:05
+  22  10.128.0.1:51948   Router.ceph-0.redhat.local                                     edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  23  10.128.0.1:51950   Router.compute-0.redhat.local                                  edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:03  000:22:08:43
+  24  10.128.0.1:52082   Router.controller-0.redhat.local                               edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
+  27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                           normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1795,10 +1981,10 @@ Connections
 <p>To view the number of messages delivered by the network, use each address with the <code>oc exec</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it deploy/stf-default-interconnect -- qdstat --address
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it deploy/default-interconnect -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
-stf-default-interconnect-7458fd4d69-bgzfb
+default-interconnect-7458fd4d69-bgzfb
 
 Router Addresses
   class   addr                                phs  distrib    pri  local  remote  in           out          thru  fallback
@@ -1837,7 +2023,7 @@ Router Addresses
 <p><a href="#dashboards_advanced-features">Dashboards</a></p>
 </li>
 <li>
-<p><a href="#configuring-multiple-clouds_advanced-features">Configuring multiple clouds</a></p>
+<p><a href="#configuring-multiple-clouds_advanced-features">Multiple cloud configuration</a></p>
 </li>
 <li>
 <p><a href="#ephemeral-storage_advanced-features">Ephemeral storage</a></p>
@@ -1859,7 +2045,12 @@ Router Addresses
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-When you override the manifest, you must provide the entire manifest contents, including object names or namespaces. There is no dynamic parameter substitution when you override a manifest.
+<div class="paragraph">
+<p>When you override the manifest, you must provide the entire manifest contents, including object names or namespaces. There is no dynamic parameter substitution when you override a manifest.</p>
+</div>
+<div class="paragraph">
+<p>Use manifest overrides only as a last resort short circuit.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -1868,7 +2059,7 @@ When you override the manifest, you must provide the entire manifest contents, i
 <p>To override a manifest successfully with Service&#160;Telemetry&#160;Framework (STF), deploy a default environment using the core options only. For more information about the core options, see <a href="#creating-a-servicetelemetry-object-in-openshift">Creating a ServiceTelemetry object in OKD</a>. When you deploy STF, use the <code>oc get</code> command to retrieve the default deployed manifest. When you use a manifest that was originally generated by Service Telemetry Operator, the manifest is compatible with the other objects that are managed by the Operators.</p>
 </div>
 <div class="paragraph">
-<p>For example, when the <code>metricsEnabled: true</code> parameter is configured in the <code>ServiceTelemetry</code> manifest, the Service Telemetry Operator requests components for metrics retrieval and storage using the default manifests. In some cases, you might want to override the default manifest. For more information, see <a href="#manifest-override-parameters_advanced-features">Manifest override parameters</a>.</p>
+<p>For example, when the <code>backends.metrics.prometheus.enabled: true</code> parameter is configured in the <code>ServiceTelemetry</code> manifest, the Service Telemetry Operator requests components for metrics retrieval and storage using the default manifests. In some cases, you might want to override the default manifest. For more information, see <a href="#manifest-override-parameters_advanced-features">Manifest override parameters</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="manifest-override-parameters_advanced-features">Manifest override parameters</h4>
@@ -1876,7 +2067,7 @@ When you override the manifest, you must provide the entire manifest contents, i
 <p>This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.</p>
 </div>
 <table id="table-manifest-override-parameters" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Manifest override parameters</caption>
+<caption class="title">Table 2. Manifest override parameters</caption>
 <colgroup>
 <col style="width: 33.3333%;"/>
 <col style="width: 33.3333%;"/>
@@ -1893,12 +2084,12 @@ When you override the manifest, you must provide the entire manifest contents, i
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerManifest</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Alertmanager</code> object creation. The Prometheus Operator watches for <code>Alertmanager</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get alertmanager stf-default -oyaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get alertmanager default -oyaml</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerConfigManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Secret</code> that contains the Alertmanager configuration. The Prometheus Operator uses a secret named <code>alertmanager-{{ alertmanager-name }}</code>, for example, <code>stf-default</code>, to provide the <code>alertmanager.yaml</code> configuration to Alertmanager.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get secret alertmanager-stf-default -oyaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Secret</code> that contains the Alertmanager configuration. The Prometheus Operator uses a secret named <code>alertmanager-{{ alertmanager-name }}</code>, for example, <code>default</code>, to provide the <code>alertmanager.yaml</code> configuration to Alertmanager.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get secret alertmanager-default -oyaml</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>elasticsearchManifest</code></p></td>
@@ -1908,37 +2099,17 @@ When you override the manifest, you must provide the entire manifest contents, i
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>interconnectManifest</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Interconnect</code> object creation. The AMQ Interconnect Operator watches for <code>Interconnect</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get interconnect stf-default-interconnect -oyaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get interconnect default-interconnect -oyaml</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusManifest</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Prometheus</code> object creation. The Prometheus Operator watches for <code>Prometheus</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get prometheus stf-default -oyaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get prometheus default -oyaml</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>servicemonitorManifest</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>ServiceMonitor</code> object creation. The Prometheus Operator watches for <code>ServiceMonitor</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get servicemonitor stf-default -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>smartgatewayCollectdMetricsManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>SmartGateway</code> object creation for collectd metrics. The Smart Gateway Operator watches for <code>SmartGateway</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get smartgateway stf-default-collectd-telemetry -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>smartgatewayCollectdEventsManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>SmartGateway</code> object creation for collectd events. The Smart Gateway Operator watches for <code>SmartGateway</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get smartgateway stf-default-collectd-notification -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>smartgatewayCeilometerMetricsManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>SmartGateway</code> object creation for Ceilometer metrics. The Smart Gateway Operator watches for <code>SmartGateway</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get smartgateway stf-default-ceilometer-telemetry -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>smartgatewayCeilometerEventsManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>SmartGateway</code> object creation for Ceilometer events. The Smart Gateway Operator watches for <code>SmartGateway</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get smartgateway stf-default-ceilometer-notification -oyaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get servicemonitor default -oyaml</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1946,7 +2117,7 @@ When you override the manifest, you must provide the entire manifest contents, i
 <div class="sect3">
 <h4 id="configuring-manifest-overrides_advanced-features">Overriding a managed manifest</h4>
 <div class="paragraph">
-<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_advanced-features">Customizing the deployment</a>. The default <code>ServiceTelemetry</code> object is <code>stf-default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
+<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_advanced-features">Customizing the deployment</a>. The default <code>ServiceTelemetry</code> object is <code>default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1955,13 +2126,13 @@ When you override the manifest, you must provide the entire manifest contents, i
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry stf-default</code>.
+The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry default</code>.
 </td>
 </tr>
 </table>
 </div>
-<h5 id="_procedure" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
@@ -1978,7 +2149,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry stf-default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry default</code></pre>
 </div>
 </div>
 </li>
@@ -1998,49 +2169,34 @@ The trailing pipe (<code>|</code>) after entering the manifest override paramete
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">$ oc edit servicetelemetry stf-default
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">$ oc edit stf default
 
-apiVersion: infra.watch/v1alpha1
+apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"infra.watch/v1alpha1","kind":"ServiceTelemetry","metadata":{"annotations":{},"name":"stf-default","namespace":"service-telemetry"},"spec":{metricsEnabled":true}}
-  creationTimestamp: "2020-04-14T20:29:42Z"
-  generation: 1
-  name: stf-default
-  namespace: service-telemetry
-  resourceVersion: "1949423"
-  selfLink: /apis/infra.watch/v1alpha1/namespaces/service-telemetry/servicetelemetrys/stf-default
-  uid: d058bc41-1bb0-49f5-9a8b-642f4b8adb95
+  ...
 spec:
-  metricsEnabled: true
-  smartgatewayCollectdMetricsManifest: | <i class="conum" data-value="1"></i><b>(1)</b>
-    apiVersion: smartgateway.infra.watch/v2alpha1
-    kind: SmartGateway
+  alertmanagerConfigManifest: | <i class="conum" data-value="1"></i><b>(1)</b>
+    apiVersion: v1
+    kind: Secret
     metadata:
-      name: stf-default-collectd-telemetry
-      namespace: service-telemetry
-    spec:
-      amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/telemetry
-      debug: true
-      prefetch: 15000
-      serviceType: metrics
-      size: 1
-      useTimestamp: true <i class="conum" data-value="2"></i><b>(2)</b>
+      name: 'alertmanager-default'
+      namespace: 'service-telemetry'
+    type: Opaque
+    stringData:
+      alertmanager.yaml: |-
+        global:
+          resolve_timeout: 10m
+        route:
+          group_by: ['job']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: 'null'
+        receivers:
+        - name: 'null' <i class="conum" data-value="2"></i><b>(2)</b>
 status:
-  conditions:
-  - ansibleResult:
-      changed: 0
-      completion: 2020-04-14T20:32:19.079508
-      failures: 0
-      ok: 52
-      skipped: 1
-    lastTransitionTime: "2020-04-14T20:29:59Z"
-    message: Awaiting next reconciliation
-    reason: Successful
-    status: "True"
-    type: Running</code></pre>
+  ...</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -2081,8 +2237,8 @@ status:
 </li>
 </ol>
 </div>
-<h4 id="_additional_resources" class="discrete">Additional resources</h4>
 <div class="paragraph">
+<div class="title">Additional resources</div>
 <p>For more information about alerts or notifications with Prometheus and Alertmanager, see <a href="https://prometheus.io/docs/alerting/overview/" class="bare">https://prometheus.io/docs/alerting/overview/</a></p>
 </div>
 <div class="paragraph">
@@ -2093,8 +2249,8 @@ status:
 <div class="paragraph">
 <p>Prometheus evaluates alert rules to trigger notifications. If the rule condition returns an empty result set, the condition is false. Otherwise, the rule is true and it triggers an alert.</p>
 </div>
-<h5 id="_procedure_2" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
@@ -2117,7 +2273,7 @@ kind: PrometheusRule
 metadata:
   creationTimestamp: null
   labels:
-    prometheus: stf-default
+    prometheus: default
     role: alert-rules
   name: prometheus-alarm-rules
   namespace: service-telemetry
@@ -2144,7 +2300,7 @@ EOF</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
-{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-stf-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</code></pre>
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</code></pre>
 </div>
 </div>
 </li>
@@ -2168,8 +2324,8 @@ pod "curl" deleted</code></pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_2" class="discrete">Additional resources</h5>
 <div class="paragraph">
+<div class="title">Additional resources</div>
 <p>For more information on alerting, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
 </div>
 </div>
@@ -2178,8 +2334,8 @@ pod "curl" deleted</code></pre>
 <div class="paragraph">
 <p>You can add custom alerts to the <code>PrometheusRule</code> object that you created in <a href="#creating-an-alert-rule-in-prometheus_advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </div>
-<h5 id="_procedure_3" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Use the <code>oc edit</code> command:</p>
@@ -2197,8 +2353,8 @@ pod "curl" deleted</code></pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_3" class="discrete">Additional resources</h5>
 <div class="paragraph">
+<div class="title">Additional resources</div>
 <p>For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
 </div>
 <div class="paragraph">
@@ -2228,8 +2384,8 @@ pod "curl" deleted</code></pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see <a href="#configuring-manifest-overrides_advanced-features">Overriding a managed manifest</a>.</p>
 </div>
-<h5 id="_procedure_4" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
@@ -2246,7 +2402,7 @@ pod "curl" deleted</code></pre>
 <p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry stf-default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit stf default</code></pre>
 </div>
 </div>
 </li>
@@ -2259,25 +2415,28 @@ pod "curl" deleted</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-stf-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
+This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
-  metricsEnabled: true
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
   alertmanagerConfigManifest: |
     apiVersion: v1
     kind: Secret
     metadata:
-      name: 'alertmanager-stf-default'
+      name: 'alertmanager-default'
       namespace: 'service-telemetry'
     type: Opaque
     stringData:
@@ -2299,7 +2458,7 @@ spec:
 <p>Verify that the configuration was applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get secret alertmanager-stf-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
 global:
   resolve_timeout: 10m
@@ -2352,9 +2511,13 @@ pod "curl" deleted</code></pre>
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_4" class="discrete">Additional resources</h5>
-<div class="paragraph">
-<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md">Alerting</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2394,10 +2557,10 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="sect3">
 <h4 id="configuring-high-availability_advanced-features">Configuring high availability</h4>
 <div class="paragraph">
-<p>To configure STF for high availability, add <code>highAvailabilityEnabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
+<p>To configure STF for high availability, add <code>highAvailability.enabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
-<h5 id="_procedure_5" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
@@ -2414,18 +2577,21 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Use the oc command to edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add <code>highAvailabilityEnabled: true</code> to the <code>spec</code> section:</p>
+<p>Add <code>highAvailability.enabled: true</code> to the <code>spec</code> section:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  eventsEnabled: true
-  metricsEnabled: true
-  highAvailabilityEnabled: true</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  highAvailability:
+    enabled: true</code></pre>
 </div>
 </div>
 </li>
@@ -2500,20 +2666,21 @@ grafana-operator.v3.2.0             Grafana Operator                            
 </div>
 </li>
 <li>
-<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphingEnabled</code> to <code>true</code>.</p>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> to <code>true</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry stf-default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1alpha1
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
 spec:
-  graphingEnabled: true
-  ...</code></pre>
+  ...
+  graphing:
+    enabled: true</code></pre>
 </div>
 </div>
 </li>
@@ -2575,8 +2742,8 @@ rhos-dashboard   7d21h</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>NAME                        AGE
-stf-default-ds-prometheus   20h</pre>
+<pre>NAME                    AGE
+default-ds-prometheus   20h</pre>
 </div>
 </div>
 </li>
@@ -2634,8 +2801,20 @@ dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.red
 <p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc describe grafana service-telemetry-grafana</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc describe grafana default</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can set the admin username and password via the <code>ServiceTelemetry</code> object using <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code>.
+</td>
+</tr>
+</table>
 </div>
 </li>
 </ol>
@@ -2915,7 +3094,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-multiple-clouds_advanced-features">Configuring multiple clouds</h3>
+<h3 id="configuring-multiple-clouds_advanced-features">Multiple cloud configuration</h3>
 <div class="paragraph">
 <p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF):</p>
 </div>
@@ -2984,13 +3163,51 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <div class="sect3">
 <h4 id="deploying-smart-gateways_advanced-features">Deploying Smart Gateways</h4>
 <div class="paragraph">
-<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud.</p>
+<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
 <div class="paragraph">
-<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways act as a template to create additional Smart Gateways, along with any authentication information required to connect to the data stores.</p>
+<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under <code>cloud1</code> with the following subscription addresses:</p>
 </div>
-<h5 id="_procedure_6" class="discrete">Procedure</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>collector</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>type</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>default subscription address</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/telemetry</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/notify</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/metering.sample</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/event.sample</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<div class="title">Prerequisites</div>
+<p>You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_installing-the-core-components-of-stf">clouds</a>.</p>
+</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Log in to OpenShift.</p>
@@ -3004,42 +3221,42 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </div>
 </li>
 <li>
-<p>Use the initially deployed Smart Gateways as a template for additional Smart Gateways. List the currently deployed Smart Gateways with the <code>oc get smartgateways</code> command. For example, if you deployed STF with <code>metricsEnabled: true</code> and <code>eventsEnabled: true</code>, the following Smart Gateways are displayed in the output:</p>
+<p>Edit the <code>default</code> ServiceTelemetry object and add a <code>clouds</code> parameter with your configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get smartgateways
-
-NAME                                  AGE
-stf-default-ceilometer-notification   7d17h
-stf-default-ceilometer-telemetry      7d22h
-stf-default-collectd-notification     7d17h
-stf-default-collectd-telemetry        7d22h</pre>
+<pre>oc edit stf default</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  ...
+spec:
+  ...
+  clouds:
+  - name: cloud1
+    events:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-notify
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+    metrics:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+  - name: cloud2
+    events:
+      ...</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Retrieve the manifests for each Smart Gateway and store the contents in a temporary file, which you can modify later and use to create the new set of Smart Gateways:</p>
-<div class="listingblock">
-<div class="content">
-<pre>truncate --size 0 /tmp/cloud1-smartgateways.yaml &amp;&amp; \
-for sg in $(oc get smartgateways -oname)
-do
-  echo "---" &gt;&gt; /tmp/cloud1-smartgateways.yaml
-  oc get ${sg} -oyaml --export &gt;&gt; /tmp/cloud1-smartgateways.yaml
-done</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Modify the Smart Gateway manifest in the <code>/tmp/cloud1-smartgateways.yaml</code> file. Adjust the <code>metadata.name</code> and <code>spec.amqpUrl</code> fields to include the cloud identifier from your schema. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>. To view example Smart Gateway manifests, see &lt;&lt;example-manifests_advanced-features[].</p>
-</li>
-<li>
-<p>Deploy your new Smart Gateways:</p>
-<div class="listingblock">
-<div class="content">
-<pre>oc apply -f /tmp/cloud1-smartgateways.yaml</pre>
-</div>
-</div>
+<p>Save the ServiceTelemetry object.</p>
 </li>
 <li>
 <p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
@@ -3048,144 +3265,82 @@ done</pre>
 <pre>oc get po -l app=smart-gateway</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
+default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
+default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
+default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
-<div class="sect4">
-<h5 id="example-manifests_advanced-features">Example manifests</h5>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-The content in the following examples might be different to the file content in your deployment. Copy the manifests in your deployment.
-</td>
-</tr>
-</table>
 </div>
+<div class="sect3">
+<h4 id="deleting-the-default-smart-gateways_advanced-features">Deleting the default Smart Gateways</h4>
 <div class="paragraph">
-<p>Ensure that the <code>name</code> and <code>amqpUrl</code> parameters of each Smart Gateway match the names that you want to use for your clouds. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
+<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. You can enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter by setting <code>cloudsRemoveOnMissing: true</code> in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Your output may have some additional <code>metadata</code> parameters that you can remove from the manifests you that load into OKD.
+If you do not want any Smart Gateways deployed, define an empty clouds object using the <code>clouds: {}</code> parameter.
 </td>
 </tr>
 </table>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_installing-the-core-components-of-stf">clouds</a>.</p>
+</li>
+<li>
+<p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">apiVersion: smartgateway.infra.watch/v2alpha1
-kind: SmartGateway
+<pre>apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
 metadata:
-  name: stf-default-ceilometer-notification-cloud1  <i class="conum" data-value="1"></i><b>(1)</b>
+  ...
 spec:
-  amqpDataSource: ceilometer
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/anycast/ceilometer/cloud1-event.sample  <i class="conum" data-value="2"></i><b>(2)</b>
-  debug: false
-  elasticPass: fkzfhghw......
-  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
-  elasticUser: elastic
-  resetIndex: false
-  serviceType: events
-  size: 1
-  tlsCaCert: /config/certs/ca.crt
-  tlsClientCert: /config/certs/tls.crt
-  tlsClientKey: /config/certs/tls.key
-  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
-  useBasicAuth: true
-  useTls: true
----
-apiVersion: smartgateway.infra.watch/v2alpha1
-kind: SmartGateway
-metadata:
-  name: stf-default-ceilometer-telemetry-cloud1  <i class="conum" data-value="3"></i><b>(3)</b>
-spec:
-  amqpDataSource: ceilometer
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5673/anycast/ceilometer/cloud1-metering.sample  <i class="conum" data-value="4"></i><b>(4)</b>
-  debug: false
-  prefetch: 15000
-  serviceType: metrics
-  size: 1
-  useTimestamp: true
----
-apiVersion: smartgateway.infra.watch/v2alpha1
-kind: SmartGateway
-metadata:
-  name: stf-default-collectd-notification-cloud1  <i class="conum" data-value="5"></i><b>(5)</b>
-spec:
-  amqpDataSource: collectd
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-notify  <i class="conum" data-value="6"></i><b>(6)</b>
-  debug: false
-  elasticPass: fkzfhghw......
-  elasticUrl: https://elasticsearch-es-http.service-telemetry.svc.cluster.local:9200
-  elasticUser: elastic
-  resetIndex: false
-  serviceType: events
-  size: 1
-  tlsCaCert: /config/certs/ca.crt
-  tlsClientCert: /config/certs/tls.crt
-  tlsClientKey: /config/certs/tls.key
-  tlsServerName: elasticsearch-es-http.service-telemetry.svc.cluster.local
-  useBasicAuth: true
-  useTls: true
----
-apiVersion: smartgateway.infra.watch/v2alpha1
-kind: SmartGateway
-metadata:
-  name: stf-default-collectd-telemetry-cloud1 <i class="conum" data-value="7"></i><b>(7)</b>
-spec:
-  amqpUrl: stf-default-interconnect.service-telemetry.svc.cluster.local:5672/collectd/cloud1-telemetry  <i class="conum" data-value="8"></i><b>(8)</b>
-  debug: false
-  prefetch: 15000
-  serviceType: metrics
-  size: 1
-  useTimestamp: true</code></pre>
+  ...
+  cloudsRemoveOnMissing: true
+  clouds:
+    ...</pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Name for Ceilometer notifications for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>AMQP Address for Ceilometer notifications for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Name for Ceilometer telemetry for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>AMQP Address for Ceilometer telemetry for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Name for collectd telemetry for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>AMQP Address for collectd telemetry for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Name for collectd notifications for <code>cloud1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>AMQP Address for collectd notifications for <code>cloud1</code></td>
-</tr>
-</table>
+</li>
+<li>
+<p>Save the modifications.</p>
+</li>
+<li>
+<p>Verify that the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc get smartgateways</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -3207,8 +3362,8 @@ Remove
 </tr>
 </table>
 </div>
-<h5 id="_procedure_7" class="discrete">Procedure</h5>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Create the <code>stf-connectors.yaml</code> file and modify it to match the AMQP address that you want for this cloud deployment:</p>
@@ -3324,8 +3479,8 @@ parameter_defaults:
 </li>
 </ol>
 </div>
-<h5 id="_additional_resources_5" class="discrete">Additional resources</h5>
 <div class="paragraph">
+<div class="title">Additional resources</div>
 <p>For information about validating the deployment, see <a href="#validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </div>
 </div>
@@ -3335,7 +3490,7 @@ parameter_defaults:
 <p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
 </div>
 <div class="paragraph">
-<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="stf-default-collectd-telemetry-cloud1-smartgateway"}</code>.</p>
+<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter-smartgateway"}</code>.</p>
 </div>
 </div>
 </div>
@@ -3344,13 +3499,10 @@ parameter_defaults:
 <div class="paragraph">
 <p>Use ephemeral storage to run Service&#160;Telemetry&#160;Framework (STF) without persistently storing data in your OpenShift (OKD) cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.</p>
 </div>
-<div class="paragraph">
-<p>If you enable ephemeral storage in STF, the Service Telemetry Operator does not add the relevant <code>storage</code> sections to the data storage components manifests.</p>
-</div>
 <div class="sect3">
 <h4 id="configuring-ephemeral-storage_advanced-features">Configuring ephemeral storage</h4>
 <div class="paragraph">
-<p>To configure STF for ephemeral storage, add <code>storageEphemeralEnabled: true</code> to the ServiceTelemetry object in OKD. You can add <code>storageEphemeralEnabled: true</code> at installation time or, if you already deployed STF, complete the following steps:</p>
+<p>To configure STF components for ephemeral storage, add <code>...storage.strategy: ephemeral</code> to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus backend, set <code>backends.metrics.prometheus.storage.strategy: ephemeral</code>. Components that support configuration of ephemeral storage include <code>alerting.alertmanager</code>, <code>backends.metrics.prometheus</code>, and <code>backends.events.elasticsearch</code>. You can add ephemeral storage configuration at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3370,18 +3522,36 @@ parameter_defaults:
 <p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit ServiceTelemetry stf-default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add the <code>storageEphemeralEnabled: true</code> parameter to the <code>spec</code> section:</p>
+<p>Add the <code>...storage.strategy: ephemeral</code> parameter to the <code>spec</code> section of the relevant component:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  eventsEnabled: true
-  metricsEnabled: true
-  storageEphemeralEnabled: true</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  alerting:
+    enabled: true
+    alertmanager:
+      storage:
+        strategy: ephemeral
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        storage:
+          strategy: ephemeral
+    events:
+      elasticsearch:
+        enabled: true
+        storage:
+          strategy: ephemeral</code></pre>
 </div>
 </div>
 </li>
@@ -4641,7 +4811,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-28 14:28:16 UTC
+Last updated 2020-10-28 15:45:13 UTC
 </div>
 </div>
 </body>
