@@ -80,7 +80,7 @@ spec:
       ...
 ----
 
-. Save your ServiceTelemetry object
+. Save the ServiceTelemetry object.
 
 . Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
