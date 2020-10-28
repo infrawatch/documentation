@@ -41,7 +41,7 @@ Each of these top-level configuration parameters provides various controls for a
 
 === backends
 
-Use the `backends` parameter to control what storage backends are available for storage of metrics and events and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:_clouds[].
+Use the `backends` parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:clouds_installing-the-core-components-of-stf[].
 
 The available storage backends include `metrics` and `events`. The metrics backends include Prometheus and the events backends include ElasticSearch.
 
