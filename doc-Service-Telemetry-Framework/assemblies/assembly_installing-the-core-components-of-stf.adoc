@@ -45,7 +45,7 @@ Before you install {Project} ({ProjectShort}), ensure that {OpenShift} ({OpenShi
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. Installations of {ProjectShort} 1.0 that use an `OperatorSource` must be migrated to `CatalogSource` to upgrade to later versions of {ProjectShort}. For more information about migrating, see https://access.redhat.com/articles/5477371.
+{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. To upgrade to later versions of {ProjectShort}, you must migrate installations of {ProjectShort} 1.0 that use an `OperatorSource` to `CatalogSource` . For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
 endif::[]
 
 include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
