@@ -120,4 +120,4 @@ Use The `highAvailability` parameter to control the instantiation of multiple co
 
 === transports
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that it is enabled for proper operation of {ProjectShort}. By default, transports is enabled.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that it is enabled for proper operation of {ProjectShort}. By default, the qdr transport is enabled.
