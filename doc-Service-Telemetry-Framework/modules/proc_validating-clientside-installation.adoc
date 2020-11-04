@@ -136,7 +136,7 @@ In this example, there are three `edge` connections from the {OpenStack} nodes w
 +
 [source,bash,options="nowrap"]
 ----
-$ oc exec -it deploy/default-interconnect -- qdstat --address
+$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
 default-interconnect-7458fd4d69-bgzfb
