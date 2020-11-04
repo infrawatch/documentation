@@ -112,7 +112,7 @@ default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
 +
 [source,bash,options="nowrap"]
 ----
-$ oc exec -it deploy/default-interconnect -- qdstat --connections
+$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
 default-interconnect-7458fd4d69-bgzfb
