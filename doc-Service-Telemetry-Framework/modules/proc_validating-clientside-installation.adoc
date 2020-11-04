@@ -71,8 +71,8 @@ Connections
 There are four connections:
 +
 * Outbound connection to {ProjectShort}
-* Inbound connection from collectd
 * Inbound connection from ceilometer
+* Inbound connection from collectd
 * Inbound connection from our `qdstat` client
 +
 The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors` host parameter and is the route for the {ProjectShort} storage domain. The other hosts are internal network addresses of the client connections to this {MessageBus}.
