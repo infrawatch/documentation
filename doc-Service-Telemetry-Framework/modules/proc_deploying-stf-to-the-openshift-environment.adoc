@@ -307,7 +307,7 @@ elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1
 [id="subscribing-to-the-service-telemetry-operator"]
 == Subscribing to the Service Telemetry Operator
 
-You must subscribe to the Service Telemetry Operator which will manage the instantiation of {ProjectShort} instances.
+You must subscribe to the Service Telemetry Operator which will manage the {ProjectShort} instances.
 
 .Procedure
 
