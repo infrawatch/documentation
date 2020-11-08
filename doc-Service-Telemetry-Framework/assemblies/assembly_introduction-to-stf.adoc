@@ -36,7 +36,7 @@
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
 
-{Project} ({ProjectShort}) provides a centralized endpoint for receiving synchronous and asynchronous measurements from remote clients - Red Hat OpenStack Platform or third-party nodes. It uses an {OpenShift} ({OpenShiftShort}) deployment for storage, retrieval, and monitoring. The data can be either of two types:
+{Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:
 
 Metric:: a numeric measurement of an application or system
 Event:: irregular and discrete occurrences that happen in a system
