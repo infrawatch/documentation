@@ -43,7 +43,7 @@ Each of these top-level configuration parameters provides various controls for a
 
 Use the `backends` parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:clouds_installing-the-core-components-of-stf[].
 
-The available storage backends include `metrics` and `events`. The metrics backends include Prometheus and the events backends include ElasticSearch.
+Currently, you can use Prometheus as the metrics backend, and ElasticSearch as the events backend. 
 
 
 ==== Enabling Prometheus as a storage backend for metrics
@@ -74,7 +74,7 @@ To enable events support in {ProjectShort}, you must enable the Elastic Cloud fo
 [id="clouds_{context}"]
 === clouds
 
-Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitoring cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
+Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
 
 You can create a list of cloud objects to control which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are `metrics` or `events`. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
 
@@ -120,4 +120,4 @@ Use The `highAvailability` parameter to control the instantiation of multiple co
 
 === transports
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that it is enabled for proper operation of {ProjectShort}. By default, transports is enabled.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that it is enabled for proper operation of {ProjectShort}. By default, the qdr transport is enabled.

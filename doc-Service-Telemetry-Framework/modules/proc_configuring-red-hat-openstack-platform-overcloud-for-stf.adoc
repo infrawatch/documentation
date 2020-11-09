@@ -34,7 +34,7 @@ To configure the {OpenStack} overcloud, complete the following tasks:
 ifdef::include_when_16_1[]
 .Additional resources
 
-* To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/monitoring_tools_configuration_guide/index#collecting-data-through-amq-interconnect[Collecting data through AMQ Interconnect] in the _Monitoring Tools Configuration_ guide.
+* To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/monitoring_tools_configuration_guide/index#amqp1[The amqp1 plug-in] in the _Monitoring Tools Configuration_ guide.
 
 endif::include_when_16_1[]
 
