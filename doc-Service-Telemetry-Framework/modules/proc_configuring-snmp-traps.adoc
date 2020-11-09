@@ -33,7 +33,7 @@ For more information about configuring alerts, see xref:alerts_advanced-features
 
 .Procedure
 
-. To enable SNMP traps, modify the `ServiceTelemetry` object and set the `alerting.alertmanager.recevers.snmpTraps` parameters as shown:
+. To enable SNMP traps, modify the `ServiceTelemetry` object:
 +
 [source,bash]
 ----
