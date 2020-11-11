@@ -55,4 +55,4 @@ spec:
           target: 10.10.10.10
 ----
 
-<1> Set this to the IP address or hostname of the SNMP trap receiver.
+. Ensure that you set the value of `target` to the IP address or hostname of the SNMP trap receiver.
