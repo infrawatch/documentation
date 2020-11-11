@@ -25,7 +25,7 @@
 
 {Project} ({ProjectShort}) can deliver alerts via SNMP Traps. To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters.
 
-For more information about configuring alerts, see xref:alerts_advanced-features[]
+For more information about configuring alerts, see xref:alerts_advanced-features[].
 
 .Prerequisites
 
