@@ -52,7 +52,7 @@ spec:
       receivers:
         snmpTraps:
           enabled: true
-          target: 10.10.10.10 # <1>
+          target: 10.10.10.10
 ----
 
 <1> Set this to the IP address or hostname of the SNMP trap receiver.
