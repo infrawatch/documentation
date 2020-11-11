@@ -40,6 +40,7 @@ For more information about configuring alerts, see xref:alerts_advanced-features
 $ oc edit stf default
 ----
 . Set the `alerting.alertmanager.receivers.snmpTraps` parameters:
++
 [source,yaml]
 ----
 apiVersion: infra.watch/v1beta1
