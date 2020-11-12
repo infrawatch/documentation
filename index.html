@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.11"/>
+<meta name="generator" content="Asciidoctor 2.0.12"/>
 <meta name="author" content="OpenStack Documentation Team"/>
 <title>Service Telemetry Framework</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
@@ -104,12 +104,12 @@ h1{font-size:2.75em}
 h2{font-size:2.3125em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
 h4{font-size:1.4375em}}
-table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
 table thead,table tfoot{background:#f7f8f7}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt{background:#f8f8f7}
-table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .center{margin-left:auto;margin-right:auto}
@@ -207,7 +207,7 @@ table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font
 .admonitionblock>table td.icon{text-align:center;width:80px}
 .admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
-.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
 .exampleblock>.content>:first-child{margin-top:0}
@@ -263,9 +263,8 @@ pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
 .quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
 .quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
-table.tableblock{max-width:100%}
 p.tableblock:last-child{margin-bottom:0}
-td.tableblock>.content{margin-bottom:1.25em}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
 td.tableblock>.content>:last-child{margin-bottom:-1.25em}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
 table.grid-all>*>tr>*{border-width:1px}
@@ -286,7 +285,7 @@ th.valign-top,td.valign-top{vertical-align:top}
 th.valign-bottom,td.valign-bottom{vertical-align:bottom}
 th.valign-middle,td.valign-middle{vertical-align:middle}
 table thead th,table tfoot th{font-weight:bold}
-tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th{background:#f7f8f7}
 tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
 p.tableblock>code:only-child{background:none;padding:0}
 p.tableblock{font-size:1em}
@@ -315,6 +314,7 @@ ol.lowergreek{list-style-type:lower-greek}
 .hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
 .colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
 .colist td:not([class]):first-child img{max-width:none}
@@ -475,6 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#manifest-overrides_advanced-features">Customizing the deployment</a></li>
 <li><a href="#alerts_advanced-features">Alerts</a></li>
+<li><a href="#configuring-snmp-traps_advanced-features">Configuring SNMP Traps</a></li>
 <li><a href="#high-availability_advanced-features">High availability</a></li>
 <li><a href="#dashboards_advanced-features">Dashboards</a></li>
 <li><a href="#configuring-multiple-clouds_advanced-features">Multiple cloud configuration</a></li>
@@ -2019,6 +2020,9 @@ Router Addresses
 <p><a href="#alerts_advanced-features">Alerts</a></p>
 </li>
 <li>
+<p><a href="#configuring-snmp-traps_advanced-features">Configuring SNMP Traps</a></p>
+</li>
+<li>
 <p><a href="#high-availability_advanced-features">High availability</a></p>
 </li>
 <li>
@@ -2521,6 +2525,57 @@ pod "curl" deleted</code></pre>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-snmp-traps_advanced-features">Configuring SNMP Traps</h3>
+<div class="paragraph">
+<p>You can integrate Service&#160;Telemetry&#160;Framework (STF) with an existing infrastructure monitoring platform that receives notifications via SNMP traps. To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters.</p>
+</div>
+<div class="paragraph">
+<p>For more information about configuring alerts, see <a href="#alerts_advanced-features">Alerts</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the <code>alerting.alertmanager.receivers.snmpTraps</code> parameters:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  alerting:
+    alertmanager:
+      receivers:
+        snmpTraps:
+          enabled: true
+          target: 10.10.10.10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that you set the value of <code>target</code> to the IP address or hostname of the SNMP trap receiver.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -4813,7 +4868,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-09 17:57:14 UTC
+Last updated 2020-11-12 14:02:19 UTC
 </div>
 </div>
 </body>
