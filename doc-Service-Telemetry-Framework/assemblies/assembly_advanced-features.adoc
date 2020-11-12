@@ -47,6 +47,9 @@ include::../modules/proc_creating-an-alert-rule-in-prometheus.adoc[leveloffset=+
 include::../modules/proc_configuring-custom-alerts.adoc[leveloffset=+2]
 include::../modules/proc_creating-an-alert-route-in-alertmanager.adoc[leveloffset=+2]
 
+//SNMP Traps
+include::../modules/proc_configuring-snmp-traps.adoc[leveloffset=+1]
+
 //High availability
 include::../modules/con_high-availability.adoc[leveloffset=+1]
 include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]

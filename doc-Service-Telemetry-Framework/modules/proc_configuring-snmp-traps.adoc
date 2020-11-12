@@ -1,0 +1,59 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_setting-up-the-dashboard-to-host-grafana.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="configuring-snmp-traps_{context}"]
+= Configuring SNMP Traps
+
+You can integrate {Project} ({ProjectShort}) with an existing infrastructure monitoring platform that receives notifications via SNMP traps. To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters.
+
+For more information about configuring alerts, see xref:alerts_advanced-features[].
+
+.Prerequisites
+
+* Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts 
+
+.Procedure
+
+. To enable SNMP traps, modify the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+. Set the `alerting.alertmanager.receivers.snmpTraps` parameters:
++
+[source,yaml]
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  alerting:
+    alertmanager:
+      receivers:
+        snmpTraps:
+          enabled: true
+          target: 10.10.10.10
+----
+
+. Ensure that you set the value of `target` to the IP address or hostname of the SNMP trap receiver.

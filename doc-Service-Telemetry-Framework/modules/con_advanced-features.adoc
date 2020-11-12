@@ -28,6 +28,7 @@ The following optional features can provide additional functionality to the {Pro
 
 * xref:manifest-overrides_advanced-features[]
 * xref:alerts_advanced-features[]
+* xref:configuring-snmp-traps_advanced-features[]
 * xref:high-availability_advanced-features[]
 * xref:dashboards_advanced-features[]
 * xref:configuring-multiple-clouds_advanced-features[]
