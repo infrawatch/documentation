@@ -140,7 +140,7 @@ localhost                  : ok=55   changed=0    unreachable=0    failed=0    s
 
 . View the pods and the status of each pod to determine that all workloads are operating nominally:
 +
-NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways will `Error` and `CrashLoopBackOff` for a period of time before ElasticSearch starts.
+NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways reports `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
