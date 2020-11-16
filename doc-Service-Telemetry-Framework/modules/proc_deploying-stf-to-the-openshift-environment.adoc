@@ -76,7 +76,7 @@ Create a namespace to hold the {ProjectShort} components. The `service-telemetry
 +
 [source,bash]
 ----
-oc new-project service-telemetry
+$ oc new-project service-telemetry
 ----
 
 [id="creating-an-operatorgroup"]
@@ -90,7 +90,7 @@ Create an OperatorGroup in the namespace so that you can schedule the Operator p
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -117,7 +117,7 @@ Before you install ElasticSearch, you must have access to the resources on the O
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -149,7 +149,7 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog sou
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -169,7 +169,7 @@ endif::[]
 ifeval::["{build}" == "downstream"]
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -187,7 +187,7 @@ EOF
 ----
 endif::[]
 
-. To validate the creation of your CatalogSource, use the `oc get catalogsources` command.
+. To validate the creation of your CatalogSource, use the `oc get catalogsources` command:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash,options="nowrap",subs="+quotes"]
@@ -232,7 +232,7 @@ endif::[]
 [id="subscribing-to-the-amq-certificate-manager-operator"]
 == Subscribing to the AMQ Certificate Manager Operator
 
-You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.
+You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 .Procedure
 
@@ -240,10 +240,11 @@ You must subscribe to the AMQ Certificate Manager Operator before you deploy the
 +
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
+
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -258,7 +259,7 @@ spec:
 EOF
 ----
 
-. To validate your `ClusterServiceVersion`, use the `oc get csv` command. Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
+. To validate your `ClusterServiceVersion`, use the `oc get csv` command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -267,6 +268,8 @@ $ oc get --namespace openshift-operators csv
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
 amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
 ----
++
+Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
 
 [id="subscribing-to-elastic-cloud-on-kubernetes-operator"]
 == Subscribing to the Elastic Cloud on Kubernetes Operator
@@ -279,7 +282,7 @@ Before you install the Service Telemetry Operator and if you plan to store event
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -316,7 +319,7 @@ You must subscribe to the Service Telemetry Operator, which manages the {Project
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -334,7 +337,7 @@ endif::[]
 ifeval::["{build}" == "downstream"]
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:

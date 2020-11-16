@@ -32,14 +32,14 @@ Prometheus evaluates alert rules to trigger notifications. If the rule condition
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
 [source,bash,options="nowrap"]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -62,7 +62,7 @@ EOF
 +
 [source,bash]
 ----
-oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
+$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:

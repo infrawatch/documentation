@@ -32,7 +32,7 @@ To configure {ProjectShort} for high availability, add `highAvailability.enabled
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Use the oc command to edit the ServiceTelemetry object:

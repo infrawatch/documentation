@@ -31,4 +31,4 @@ You can configure multiple {OpenStack} clouds to target a single instance of {Pr
 
 [[osp-stf-multiple-clouds]]
 .Two {OpenStack} clouds connect to {ProjectShort}
-image::OpenStack_STF_Overview_37_0919_topology.png[]
+image::OpenStack_STF_Overview_37_0919_topology.png[An exmaple of two {OpenStack} clouds connecting to {ProjectShort}]

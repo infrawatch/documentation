@@ -33,7 +33,7 @@ Create a `ServiceTelemetry` object in {OpenShiftShort} to result in the creation
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -111,7 +111,7 @@ spec:
 +
 [source,yaml]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -129,7 +129,7 @@ EOF
 +
 [source,bash]
 ----
-oc logs --selector name=service-telemetry-operator -c ansible
+$ oc logs --selector name=service-telemetry-operator -c ansible
 ----
 +
 [options="nowrap", subs="+quotes"]
@@ -141,6 +141,7 @@ localhost                  : ok=55   changed=0    unreachable=0    failed=0    s
 . View the pods and the status of each pod to determine that all workloads are operating nominally:
 +
 NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways reports `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
+
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
