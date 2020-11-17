@@ -566,7 +566,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 <div id="osp-stf-overview" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_1019_arch.png" alt="OpenStack STF Overview 37 1019 arch"/>
+<img src="images/OpenStack_STF_Overview_37_1019_arch.png" alt="Service Telemetry Framework architecture overview"/>
 </div>
 <div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
@@ -594,7 +594,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="osp-stf-server-side-monitoring" class="imageblock">
 <div class="content">
-<img src="images/STF_Overview_37_0819_deployment_prereq.png" alt="STF Overview 37 0819 deployment prereq"/>
+<img src="images/STF_Overview_37_0819_deployment_prereq.png" alt="Server-side STF monitoring infrastructure"/>
 </div>
 <div class="title">Figure 2. Server-side STF monitoring infrastructure</div>
 </div>
@@ -792,12 +792,16 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="paragraph">
 <p>The amount of resources that you require to run STF depends on your environment and the number of nodes and clouds that you want to monitor.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Additional resources</div>
-<p>For recommendations about sizing for metrics collection see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
-</div>
-<div class="paragraph">
-<p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a></p>
+<ul>
+<li>
+<p>For recommendations about sizing for metrics collection, see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
+</li>
+<li>
+<p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -813,11 +817,11 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. The assignment of profiles is managed in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -832,12 +836,16 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="paragraph">
 <p>When scheduling an ElasticSearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Additional resources</div>
+<ul>
+<li>
 <p>For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -930,7 +938,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <p>Enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc new-project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc new-project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -949,7 +957,7 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <p>Enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -981,7 +989,7 @@ EOF</code></pre>
 <p>Enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1011,7 +1019,7 @@ EOF</code></pre>
 <p>Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1030,7 +1038,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate the creation of your CatalogSource, use the <code>oc get catalogsources</code> command.</p>
+<p>To validate the creation of your CatalogSource, use the <code>oc get catalogsources</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
@@ -1057,7 +1065,7 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <div class="sect3">
 <h4 id="subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</h4>
 <div class="paragraph">
-<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped and is not compatible with the dependency management of Operator Lifecycle Manager when used with other namespace-scoped operators.</p>
+<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1078,7 +1086,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1095,7 +1103,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate your <code>ClusterServiceVersion</code>, use the <code>oc get csv</code> command. Ensure that amq7-cert-manager.v1.0.0 has a phase <code>Succeeded</code>.</p>
+<p>To validate your <code>ClusterServiceVersion</code>, use the <code>oc get csv</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get --namespace openshift-operators csv
@@ -1103,6 +1111,9 @@ EOF</code></pre>
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
 amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Ensure that amq7-cert-manager.v1.0.0 has a phase <code>Succeeded</code>.</p>
 </div>
 </li>
 </ol>
@@ -1120,7 +1131,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 <p>Apply the following manifest to your OKD environment to enable the Elastic Cloud on Kubernetes Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1153,7 +1164,7 @@ elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1
 <div class="sect3">
 <h4 id="subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</h4>
 <div class="paragraph">
-<p>You must subscribe to the Service Telemetry Operator which will manage the STF instances.</p>
+<p>You must subscribe to the Service Telemetry Operator, which manages the STF instances.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1162,7 +1173,7 @@ elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1
 <p>To create the Service Telemetry Operator subscription, enter the <code>oc apply -f</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1355,7 +1366,7 @@ spec:
 <p>To create a <code>ServiceTelemetry</code> object that results in a default STF deployment, create a <code>ServiceTelemetry</code> object with an empty <code>spec</code> object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -1435,7 +1446,7 @@ spec:
 <p>Optional: To create a <code>ServiceTelemetry</code> object that results in collection and storage of events for the default cloud, enable the ElasticSearch backend:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -1454,7 +1465,7 @@ EOF</code></pre>
 <p>To view the STF deployment logs in the Service Telemetry Operator, use the <code>oc logs</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc logs --selector name=service-telemetry-operator -c ansible</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc logs --selector name=service-telemetry-operator -c ansible</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1473,7 +1484,7 @@ localhost                  : ok=55   changed=0    unreachable=0    failed=0    s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you set <code>backends.events.elasticsearch.enabled: true</code>, the notification Smart Gateways will <code>Error</code> and <code>CrashLoopBackOff</code> for a period of time before ElasticSearch starts.
+If you set <code>backends.events.elasticsearch.enabled: true</code>, the notification Smart Gateways reports <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before ElasticSearch starts.
 </td>
 </tr>
 </table>
@@ -1530,7 +1541,7 @@ smart-gateway-operator-7f49676d5d-nqzmp                   2/2     Running   0   
 <p>Run the <code>oc delete</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc delete project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2147,7 +2158,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2155,7 +2166,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit servicetelemetry default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit servicetelemetry default</code></pre>
 </div>
 </div>
 </li>
@@ -2265,7 +2276,7 @@ status:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2273,7 +2284,7 @@ status:
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -2297,7 +2308,7 @@ EOF</code></pre>
 <p>To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2347,7 +2358,7 @@ pod "curl" deleted</code></pre>
 <p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit prometheusrules prometheus-alarm-rules</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit prometheusrules prometheus-alarm-rules</code></pre>
 </div>
 </div>
 </li>
@@ -2359,12 +2370,16 @@ pod "curl" deleted</code></pre>
 </li>
 </ol>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Additional resources</div>
+<ul>
+<li>
 <p>For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>For more information about PrometheusRules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -2400,7 +2415,7 @@ pod "curl" deleted</code></pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2408,12 +2423,12 @@ pod "curl" deleted</code></pre>
 <p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc edit stf default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add a new parameter, <code>alertmanagerConfigManifest</code> and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
+<p>Add a new parameter, <code>alertmanagerConfigManifest</code>, and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2421,7 +2436,7 @@ pod "curl" deleted</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the <code>alertmanager-default</code> secret, and verify that the new value is loaded into memory, for example, changing the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
+This step loads the default template that is already managed by Service Telemetry Operator. To verify that the changes are populating correctly, change a value, return the <code>alertmanager-default</code> secret, and verify that the new value is loaded into memory. For example, change the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
 </td>
 </tr>
 </table>
@@ -2483,7 +2498,7 @@ receivers:
 <p>To verify the configuration has been loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2626,7 +2641,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2683,7 +2698,7 @@ spec:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2691,7 +2706,7 @@ spec:
 <p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -2708,7 +2723,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is Succeeded, the operator launched successfully:</p>
+<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is <code>Succeeded</code>, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv</code></pre>
@@ -2808,7 +2823,7 @@ default-ds-prometheus   20h</pre>
 <p>Expose the grafana service as a route:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000</code></pre>
 </div>
 </div>
 </li>
@@ -2816,7 +2831,7 @@ default-ds-prometheus   20h</pre>
 <p>Retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc get route dashboards</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route dashboards</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2850,15 +2865,15 @@ dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.red
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To retrieve the default username and password, describe the Grafana object using <code>oc describe</code>:</p>
+<p>To retrieve the default username and password, describe the Grafana object using the <code>oc describe</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc describe grafana default</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc describe grafana default</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2868,7 +2883,7 @@ dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.red
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can set the admin username and password via the <code>ServiceTelemetry</code> object using <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code>.
+To set the admin username and password through the <code>ServiceTelemetry</code> object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.
 </td>
 </tr>
 </table>
@@ -3170,7 +3185,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </div>
 <div id="osp-stf-multiple-clouds" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="OpenStack STF Overview 37 0919 topology"/>
+<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An exmaple of two OpenStack clouds connecting to STF"/>
 </div>
 <div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
 </div>
@@ -3273,7 +3288,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc project service-telemetry</pre>
+<pre>$ oc project service-telemetry</pre>
 </div>
 </div>
 </li>
@@ -3281,7 +3296,7 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <p>Edit the <code>default</code> ServiceTelemetry object and add a <code>clouds</code> parameter with your configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc edit stf default</pre>
+<pre>$ oc edit stf default</pre>
 </div>
 </div>
 <div class="listingblock">
@@ -3319,7 +3334,7 @@ spec:
 <p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
 <div class="listingblock">
 <div class="content">
-<pre>oc get po -l app=smart-gateway</pre>
+<pre>$ oc get po -l app=smart-gateway</pre>
 </div>
 </div>
 <div class="listingblock">
@@ -3390,10 +3405,10 @@ spec:
 <p>Save the modifications.</p>
 </li>
 <li>
-<p>Verify that the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:</p>
+<p>Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc get smartgateways</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get smartgateways</code></pre>
 </div>
 </div>
 </li>
@@ -3571,7 +3586,7 @@ parameter_defaults:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc project service-telemetry</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -4868,7 +4883,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-12 14:02:19 UTC
+Last updated 2020-11-17 11:40:10 UTC
 </div>
 </div>
 </body>
