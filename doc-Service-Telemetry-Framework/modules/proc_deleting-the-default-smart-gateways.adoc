@@ -50,7 +50,7 @@ spec:
 
 . Save the modifications.
 
-. Verify that you deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:
+. Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:
 +
 [source,bash]
 ----
