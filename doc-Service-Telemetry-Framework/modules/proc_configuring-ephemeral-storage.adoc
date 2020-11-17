@@ -32,7 +32,7 @@ To configure {ProjectShort} components for ephemeral storage, add `...storage.st
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Edit the ServiceTelemetry object:

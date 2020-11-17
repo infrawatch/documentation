@@ -31,7 +31,7 @@ You can add custom alerts to the `PrometheusRule` object that you created in xre
 +
 [source,bash]
 ----
-oc edit prometheusrules prometheus-alarm-rules
+$ oc edit prometheusrules prometheus-alarm-rules
 ----
 
 . Edit the PrometheusRules manifest.
@@ -40,6 +40,6 @@ oc edit prometheusrules prometheus-alarm-rules
 
 .Additional resources
 
-For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
+* For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
 
-For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+* For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

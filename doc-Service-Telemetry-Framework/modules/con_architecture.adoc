@@ -62,7 +62,7 @@
 
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
-image::OpenStack_STF_Overview_37_1019_arch.png[]
+image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework architecture overview]
 
 ifeval::["{build}" == "downstream"]
 
@@ -83,7 +83,7 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
-image::STF_Overview_37_0819_deployment_prereq.png[]
+image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
 
 For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShiftShort} product documentation]. You can install {OpenShiftShort} on cloud platforms or on bare metal.
 For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.

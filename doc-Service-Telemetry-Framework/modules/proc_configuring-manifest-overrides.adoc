@@ -35,14 +35,14 @@ The `oc edit` command loads the default system editor. To override the default e
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Load the `ServiceTelemetry` object into an editor:
 +
 [source,bash]
 ----
-oc edit servicetelemetry default
+$ oc edit servicetelemetry default
 ----
 
 . To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.

@@ -41,7 +41,7 @@ To remove the operational resources for {ProjectShort} from {OpenShiftShort}, de
 +
 [source,bash]
 ----
-oc delete project service-telemetry
+$ oc delete project service-telemetry
 ----
 
 . Verify that the resources have been deleted from the namespace:

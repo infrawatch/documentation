@@ -49,20 +49,21 @@ To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfi
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Edit the `ServiceTelemetry` object for your {ProjectShort} deployment
 +
 [source,bash]
 ----
-oc edit stf default
+$ oc edit stf default
 ----
 
-. Add a new parameter, `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
+. Add a new parameter, `alertmanagerConfigManifest`, and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
 +
 [NOTE]
-This loads the default template that is already managed by Service Telemetry Operator. To validate the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory, for example, changing the value `global.resolve_timeout` from `5m` to `10m`.
+This step loads the default template that is already managed by Service Telemetry Operator. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value `global.resolve_timeout` from `5m` to `10m`.
+
 +
 [source,yaml,options="nowrap"]
 ----
@@ -119,7 +120,7 @@ receivers:
 +
 [source,bash]
 ----
-oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
+$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and review the supplied configuration matches the configuration loaded into Alertmanager:

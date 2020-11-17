@@ -36,14 +36,14 @@ Enable OperatorHub.io catalog source for the Grafana Operator. For more informat
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Deploy the Grafana operator:
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -58,7 +58,7 @@ spec:
 EOF
 ----
 
-. To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is Succeeded, the operator launched successfully:
+. To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is `Succeeded`, the operator launched successfully:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -149,7 +149,7 @@ default-ds-prometheus   20h
 +
 [source,bash,options="nowrap"]
 ----
-oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000
+$ oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000
 ----
 
 . Retrieve the Grafana route address:
@@ -157,7 +157,7 @@ oc create route edge dashboards --service=grafana-service --insecure-policy="Red
 +
 [source,bash]
 ----
-oc get route dashboards
+$ oc get route dashboards
 ----
 +
 [source,bash,options="nowrap"]
@@ -183,14 +183,14 @@ The `HOST/PORT` value is the Grafana route address.
 +
 [source,bash]
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
-. To retrieve the default username and password, describe the Grafana object using `oc describe`:
+. To retrieve the default username and password, describe the Grafana object using the `oc describe` command:
 +
 [source,bash]
 ----
-oc describe grafana default
+$ oc describe grafana default
 ----
 +
-TIP: You can set the admin username and password via the `ServiceTelemetry` object using `graphing.grafana.adminUser` and `graphing.grafana.adminPassword`.
+TIP: To set the admin username and password through the `ServiceTelemetry` object, use the `graphing.grafana.adminUser` and `graphing.grafana.adminPassword` parameters.

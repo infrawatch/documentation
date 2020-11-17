@@ -45,13 +45,13 @@ You have determined your naming scheme and have created your list of clouds obje
 . Change to the `service-telemetry` namespace:
 +
 ----
-oc project service-telemetry
+$ oc project service-telemetry
 ----
 
 . Edit the `default` ServiceTelemetry object and add a `clouds` parameter with your configuration:
 +
 ----
-oc edit stf default
+$ oc edit stf default
 ----
 +
 ----
@@ -85,7 +85,7 @@ spec:
 . Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
 ----
-oc get po -l app=smart-gateway
+$ oc get po -l app=smart-gateway
 ----
 +
 ----

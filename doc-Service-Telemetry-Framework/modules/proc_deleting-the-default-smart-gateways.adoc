@@ -27,7 +27,7 @@ After you configure {ProjectShort} for multiple clouds, you can delete the defau
 
 TIP: If you do not want any Smart Gateways deployed, define an empty clouds object using the `clouds: {}` parameter.
 
-WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you enable the `cloudsRemoveOnMissing` parameter, you remove any manually created `SmartGateway` objects in the current namespace without any possibility to restore. 
+WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you enable the `cloudsRemoveOnMissing` parameter, you remove any manually created `SmartGateway` objects in the current namespace without any possibility to restore.
 
 .Procedure
 
@@ -50,9 +50,9 @@ spec:
 
 . Save the modifications.
 
-. Verify that the Smart Gateways have been removed. This can take several minutes while the Operators reconcile the changes:
+. Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:
 +
 [source,bash]
 ----
-oc get smartgateways
+$ oc get smartgateways
 ----
