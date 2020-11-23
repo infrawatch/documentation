@@ -809,6 +809,18 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 <div class="paragraph">
 <p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If your host platform is a typical OpenShift 4 environment, do not make any adjustments. The default node tuning operator is configured to account for ElasticSearch workloads.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
@@ -1862,6 +1874,18 @@ If your STF installation differs from the documentation, ensure that you retriev
 <h4 id="validating-clientside-installation_completing-the-stf-configuration">Validating client-side installation</h4>
 <div class="paragraph">
 <p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Some telemetry data is only available when OpenStack has active workloads.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -4883,7 +4907,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-17 11:40:10 UTC
+Last updated 2020-11-23 08:07:14 UTC
 </div>
 </div>
 </body>
