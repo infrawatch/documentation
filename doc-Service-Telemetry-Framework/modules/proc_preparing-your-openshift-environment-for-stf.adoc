@@ -71,7 +71,7 @@ The amount of resources that you require to run {ProjectShort} depends on your e
 
 {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
 
-TIP: If your host platform is a typical {OpenShift} 4 environment, it should not be necessary to make any adjustments. The default node tuning operator is configured to account for ElasticSearch workloads.
+TIP: If your host platform is a typical {OpenShift} 4 environment, do not make any adjustments. The default node tuning operator is configured to account for ElasticSearch workloads.
 
 If you want to edit the value of `vm.max_map_count`, you cannot apply node tuning manually using the `sysctl` command because {OpenShift} manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html[Using the Node Tuning Operator].
 
