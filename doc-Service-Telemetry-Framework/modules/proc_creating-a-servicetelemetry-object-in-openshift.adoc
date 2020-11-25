@@ -58,7 +58,6 @@ spec:
       storage:
         strategy: persistent
         persistent:
-          storageResources: {}
           storageSelector: {}
           pvcStorageRequest: 20G
   backends:
@@ -69,7 +68,6 @@ spec:
         storage:
           strategy: persistent
           persistent:
-            storageResources: {}
             storageSelector: {}
             pvcStorageRequest: 20G
     events:
