@@ -34,7 +34,7 @@ Enabling high availability has the following effects:
 * Three ElasticSearch pods run instead of the default one.
 * The following components run two pods instead of the default one:
 ** {MessageBus}
-** Alert Manager
+** Alertmanager
 ** Prometheus
 ** Events Smart Gateway
 ** Collectd Metrics Smart Gateway
