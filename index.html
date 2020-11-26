@@ -2638,15 +2638,46 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="ulist">
 <ul>
 <li>
-<p>Two Apache&#160;Qpid&#160;Dispatch&#160;Router pods run instead of the default 1.</p>
+<p>Three ElasticSearch pods run instead of the default one.</p>
 </li>
 <li>
-<p>Three ElasticSearch pods run instead of the default 1.</p>
+<p>The following components run two pods instead of the default one:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache&#160;Qpid&#160;Dispatch&#160;Router</p>
 </li>
 <li>
-<p>Recovery time from a lost pod in either of these services reduces to approximately 2 seconds.</p>
+<p>Alertmanager</p>
+</li>
+<li>
+<p>Prometheus</p>
+</li>
+<li>
+<p>Events Smart Gateway</p>
+</li>
+<li>
+<p>Collectd Metrics Smart Gateway</p>
 </li>
 </ul>
+</div>
+</li>
+<li>
+<p>Recovery time from a lost pod in any of these services reduces to approximately 2 seconds.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Ceilometer Metrics Smart Gateway is not yet HA
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="configuring-high-availability_advanced-features">Configuring high availability</h4>
@@ -4905,7 +4936,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-25 20:00:41 UTC
+Last updated 2020-11-26 00:26:44 UTC
 </div>
 </div>
 </body>
