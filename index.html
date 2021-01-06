@@ -758,7 +758,7 @@ Do not install OKD on the same infrastructure that you want to monitor.
 <div class="sect3">
 <h4 id="persistent-volumes">Persistent volumes</h4>
 <div class="paragraph">
-<p>STF uses persistent storage in OKD to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.</p>
+<p>STF uses persistent storage in OKD to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. When persistent storage is enabled through the Service Telemetry Operator, the Persistent Volume Claims requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OKD default configured <code>storageClass</code>. For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
@@ -4936,7 +4936,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-05 17:56:17 UTC
+Last updated 2021-01-06 15:57:50 UTC
 </div>
 </div>
 </body>
