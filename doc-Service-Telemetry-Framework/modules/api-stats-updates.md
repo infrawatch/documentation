@@ -18,7 +18,7 @@ healthcheck results to be events and are thus stored in ElasticSearch.
 
 ## Configuring collectd-sensubility
 
-Within the stf-connectors.yaml, configure collectd-sensubility to use the amqp1
+Within the `stf-connectors.yaml`, configure collectd-sensubility to use the amqp1
 transport protocol:
 ```yaml
 ...
