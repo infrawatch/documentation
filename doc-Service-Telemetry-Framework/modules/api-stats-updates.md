@@ -1,6 +1,6 @@
 # Monitoring Container Health and API Statuses
 
-Container health assesses the status of each of the OpenStack service containers
+Container health assesses the status of each of the {OpenStack} service containers
 by periodically running a health check script using the docker standard. 
 Most OpenStack services implement a healthcheck that logs issues and returns a
 binary status (healthy or unhealthy). For the OpenStack APIs, the healthchecks 
