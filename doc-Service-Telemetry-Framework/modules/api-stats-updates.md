@@ -14,7 +14,7 @@ healthcheck results to be events and are thus stored in ElasticSearch.
 
 - You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
 
-- You are using the most current version of OpenStack: Train.
+- You are using the most current version of {OpenStack} {OpenStackVersion}.
 
 ## Configuring collectd-sensubility
 
