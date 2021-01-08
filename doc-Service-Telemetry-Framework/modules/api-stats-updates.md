@@ -7,7 +7,7 @@ binary status (healthy or unhealthy). For the OpenStack APIs, the healthchecks
 query the root endpoint and determine the health based on the response time.
 
 To monitor healthchecks in {ProjectShort}, the collectd-sensubility plugin must be enabled 
-and configured to work with the amqp1 protocol. The STF architecture considers
+and configured to work with the amqp1 protocol. The {ProjectShort} architecture considers
 healthcheck results to be events and are thus stored in ElasticSearch.
 
 ## Prerequisites
