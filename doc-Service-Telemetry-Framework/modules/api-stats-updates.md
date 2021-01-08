@@ -27,7 +27,7 @@ CollectdSensubilityTransport: amqp1
 ```
 
 In a multicloud environment, the collectd-sensubility events channel will need 
-to be adjusted in  accordance with the new collectd events address. See the [Multiple cloud configuration](https://infrawatch.github.io/documentation/#configuring-multiple-clouds_advanced-features) 
+to be adjusted in accordance with the new collectd events address. For more information, see xref:configuring-multiple-clouds_advanced-features[]
 section for more information on setting up multi-cloud addresses. Configure the 
 new collectd events address by changing the `CollectdSensubilityResultsChannel` 
 in the `stf-connectors.yaml`:
