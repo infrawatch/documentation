@@ -12,7 +12,7 @@ healthcheck results to be events and are thus stored in ElasticSearch.
 
 ## Prerequisites
 
-- You have created the stf-connectors.yaml file. For more information, see Configuring OpenStack overcloud for Service Telemetry Framework.
+- You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
 
 - You are using the most current version of OpenStack: Train.
 
