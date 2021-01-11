@@ -1,4 +1,4 @@
-= Service Telemetry Framework
+= Service Telemetry Framework {ProjectCurrentVersion}
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
 :vernum: 16.1

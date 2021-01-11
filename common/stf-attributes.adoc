@@ -3,6 +3,8 @@
 :context: assembly
 :containerbin: podman
 
+:ProjectCurrentVersion: 1.2
+
 ifeval::[{vernum} > 16.0]
 :include_when_16_1:
 endif::[]
