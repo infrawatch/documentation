@@ -46,6 +46,7 @@ $ oc project service-telemetry
 $ oc get services
 ----
 +
+[source,bash,,options="nowrap",subs="+quotes"]
 ----
 NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
 alertmanager-operated                    ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      93m
@@ -62,7 +63,7 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>    
 
 . Expose the `prometheus-operated` service as an edge route and redirect insecure traffic to the secure endpoint of port `9090`
 +
-[source,bash]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090
 ----
