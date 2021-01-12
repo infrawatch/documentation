@@ -61,7 +61,7 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>    
 
 . Take note of the port and service name to expose as a route, for example, service `prometheus-operated` and port `9090`.
 
-. Expose the `prometheus-operated` service as an edge route and redirect insecure traffic to the secure endpoint of port `9090`
+. Expose the `prometheus-operated` service as an edge route and redirect insecure traffic to the secure endpoint of port `9090`:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
