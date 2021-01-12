@@ -59,7 +59,7 @@ service-telemetry-operator-metrics       ClusterIP   172.30.11.66     <none>    
 smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>        8383/TCP,8686/TCP                               11h
 ----
 
-. Note the port and service name to expose as a route to allow for external access, for example service `prometheus-operated` and port `9090`
+. Take note of the port and service name to expose as a route, for example, service `prometheus-operated` and port `9090`.
 
 . Expose the `prometheus-operated` service as an edge route and redirect insecure traffic to the secure endpoint of port `9090`
 +
