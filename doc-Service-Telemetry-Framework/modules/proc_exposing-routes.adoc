@@ -72,7 +72,7 @@ $ oc create route edge metrics-store --service=prometheus-operated --insecure-po
 route.route.openshift.io/metrics-store created
 ----
 
-. To verify and find the exposed external DNS for the route use the `oc get route` command
+. To verify and find the exposed external DNS for the route, use the `oc get route` command:
 +
 [source,bash]
 ----
