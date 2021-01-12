@@ -39,7 +39,7 @@ The way services are exposed can be environment specific, but a common service t
 $ oc project service-telemetry
 ----
 
-. List the available services in the `service-telemetry` project
+. List the available services in the `service-telemetry` project:
 +
 [source,bash]
 ----
