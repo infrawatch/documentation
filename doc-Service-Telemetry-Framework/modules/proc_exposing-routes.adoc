@@ -25,7 +25,7 @@
 
 In {OpenShift} ingress traffic for applications is done by exposed services and accessing the application via a route. For more information about Configuring ingress cluster traffic, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
-By default in {Project} routes are not exposed in order to limit the attack surface of {ProjectShort} deployments. In order to access some services deployed in {ProjectShort} the services in {OpenShiftShort} must be exposed for access.
+Routes are not exposed by default in {Project} to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShiftShort} for access.
 
 The way services are exposed can be environment specific, but a common service to expose in {ProjectShort} is Prometheus.
 
