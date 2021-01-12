@@ -34,3 +34,4 @@ The following optional features can provide additional functionality to the {Pro
 * xref:configuring-multiple-clouds_advanced-features[]
 * xref:ephemeral-storage_advanced-features[]
 * xref:monitoring-resource-usage-of-openstack-services_advanced-features[]
+* xref:exposing-routes_advanced-features[]

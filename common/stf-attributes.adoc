@@ -1,9 +1,7 @@
-:TargetVersion: 1.0
-:ProductVersion: 1.0
+:TargetVersion: 1.2
+:ProductVersion: 1.2
 :context: assembly
 :containerbin: podman
-
-:ProjectCurrentVersion: 1.2
 
 ifeval::[{vernum} > 16.0]
 :include_when_16_1:

@@ -1,0 +1,94 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_exposing-routes.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="exposing-routes_{context}"]
+= Creating a route in {OpenShift}
+
+In {OpenShift} ingress traffic for applications is done by exposed services and accessing the application via a route. For more information about Configuring ingress cluster traffic, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
+
+By default in {Project} routes are not exposed in order to limit the attack surface of {ProjectShort} deployments. In order to access some services deployed in {ProjectShort} the services in {OpenShiftShort} must be exposed for access.
+
+The way services are exposed can be environment specific, but a common service to expose in {ProjectShort} is Prometheus.
+
+.Procedure
+
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. List the available services in the `service-telemetry` project
++
+[source,bash]
+----
+$ oc get services
+----
++
+----
+NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
+alertmanager-operated                    ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      93m
+default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   <none>        8081/TCP                                        93m
+default-cloud1-coll-meter-smartgateway   ClusterIP   172.30.133.180   <none>        8081/TCP                                        93m
+default-interconnect                     ClusterIP   172.30.3.241     <none>        5672/TCP,8672/TCP,55671/TCP,5671/TCP,5673/TCP   93m
+ibm-auditlogging-operator-metrics        ClusterIP   172.30.216.249   <none>        8383/TCP,8686/TCP                               11h
+prometheus-operated                      ClusterIP   None             <none>        9090/TCP                                        93m
+service-telemetry-operator-metrics       ClusterIP   172.30.11.66     <none>        8383/TCP,8686/TCP                               11h
+smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>        8383/TCP,8686/TCP                               11h
+----
+
+. Note the port and service name to expose as a route to allow for external access, for example service `prometheus-operated` and port `9090`
+
+. Expose the `prometheus-operated` service as an edge route and redirect insecure traffic to the secure endpoint of port `9090`
++
+[source,bash]
+----
+$ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090
+----
++
+----
+route.route.openshift.io/metrics-store created
+----
+
+. To verify and find the exposed external DNS for the route use the `oc get route` command
++
+[source,bash]
+----
+$ oc get route metrics-store -ogo-template='{{.spec.host}}'
+----
++
+----
+metrics-store-service-telemetry.apps.infra.watch
+----
+
+. The `prometheus-operated` service will now be avalable at the exposed DNS address, e.g. https://metrics-store-service-telemetry.apps.infra.watch
++
+[NOTE]
+The address of the route must be resolvable and configuration is environment specific.
+
+.Additional resources
+
+. For more information about {OpenShift} networking, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/understanding-networking.html[Understanding networking]
+. For more information about route configuration, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/routes/route-configuration.html[Route configuration]
+. For more information about ingress cluster traffic, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic overview]
