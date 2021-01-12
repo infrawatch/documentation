@@ -83,7 +83,8 @@ $ oc get route metrics-store -ogo-template='{{.spec.host}}'
 metrics-store-service-telemetry.apps.infra.watch
 ----
 
-. The `prometheus-operated` service will now be avalable at the exposed DNS address, e.g. https://metrics-store-service-telemetry.apps.infra.watch
++
+The `prometheus-operated` service is now available at the exposed DNS address, for example, https://metrics-store-service-telemetry.apps.infra.watch
 +
 [NOTE]
 The address of the route must be resolvable and configuration is environment specific.
