@@ -27,7 +27,7 @@ In {OpenShift}, you can expose applications to the external network via a route.
 
 Routes are not exposed by default in {Project} to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShiftShort} for access.
 
-The way services are exposed can be environment specific, but a common service to expose in {ProjectShort} is Prometheus.
+A common service to expose in {ProjectShort} is Prometheus, as shown in the following example:
 
 .Procedure
 
