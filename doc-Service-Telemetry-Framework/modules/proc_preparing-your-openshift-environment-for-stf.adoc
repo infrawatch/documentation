@@ -67,7 +67,7 @@ The amount of resources that you require to run {ProjectShort} depends on your e
 
 Metrics are stored in Prometheus for a time period of 24 hours by default, providing an overview of the cloud systems and enough data to allow for trends to develop for alerting. To adjust STF for additional metrics retention time set a new value in `backends.metrics.prometheus.storage.retention` such as `7d` for seven days. Long retention periods are not recommended as returning data from heavily populated Prometheus systems could result in queries returning slowly.
 
-For long term storage, use of systems designed for long term data retention such as https://thanos.io/[Thanos], should be used.
+For long-term storage, use systems designed for long-term data retention, for example, https://thanos.io/[Thanos].
 
 .Additional resources
 
