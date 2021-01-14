@@ -806,6 +806,23 @@ You can use ephemeral storage with STF. However, if you use ephemeral storage, y
 </div>
 </div>
 <div class="sect3">
+<h4 id="metrics-retention-time-period">Metrics retention time period</h4>
+<div class="paragraph">
+<p>The default retention time for metrics stored in STF is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust STF for additional metrics retention time, set a new value in <code>backends.metrics.prometheus.storage.retention</code>, for example, <code>7d</code> for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.</p>
+</div>
+<div class="paragraph">
+<p>For long-term storage, use systems designed for long-term data retention, for example, <a href="https://thanos.io/">Thanos</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For recommendations about Prometheus data storage and estimating storage space, see <a href="https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects" class="bare">https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
 <h4 id="node-tuning-operator">Node tuning operator</h4>
 <div class="paragraph">
 <p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
@@ -1363,7 +1380,7 @@ spec:
 <div class="sect4">
 <h5 id="_transports">transports</h5>
 <div class="paragraph">
-<p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. Ensure that it is enabled for proper operation of STF. By default, the qdr transport is enabled.</p>
+<p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. Ensure that it is enabled for proper operation of STF. By default, the <code>qdr</code> transport is enabled.</p>
 </div>
 </div>
 </div>
@@ -1414,6 +1431,7 @@ spec:
         scrapeInterval: 10s
         storage:
           strategy: persistent
+          retention: 24h
           persistent:
             storageSelector: {}
             pvcStorageRequest: 20G
@@ -1434,6 +1452,8 @@ spec:
   transports:
     qdr:
       enabled: true
+      web:
+        enabled: false
   highAvailability:
     enabled: false
   clouds:
@@ -5047,7 +5067,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-14 15:48:29 UTC
+Last updated 2021-01-14 21:53:28 UTC
 </div>
 </div>
 </body>
