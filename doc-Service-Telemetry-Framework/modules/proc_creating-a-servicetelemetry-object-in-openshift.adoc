@@ -67,6 +67,7 @@ spec:
         scrapeInterval: 10s
         storage:
           strategy: persistent
+          retention: 24h
           persistent:
             storageSelector: {}
             pvcStorageRequest: 20G
@@ -87,6 +88,8 @@ spec:
   transports:
     qdr:
       enabled: true
+      web:
+        enabled: false
   highAvailability:
     enabled: false
   clouds:
