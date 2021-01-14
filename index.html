@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="generator" content="Asciidoctor 2.0.12"/>
 <meta name="author" content="OpenStack Documentation Team"/>
-<title>Service Telemetry Framework {ProjectCurrentVersion}</title>
+<title>Service Telemetry Framework 1.2</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -442,7 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Service Telemetry Framework {ProjectCurrentVersion}</h1>
+<h1>Service Telemetry Framework 1.2</h1>
 <div class="details">
 <span id="author" class="author">OpenStack Documentation Team</span><br/>
 <span id="email" class="email"><a href="mailto:rhos-docs@redhat.com">rhos-docs@redhat.com</a></span><br/>
@@ -450,7 +450,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.2</a>
 <ul class="sectlevel2">
 <li><a href="#architecture_introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</a></li>
 <li><a href="#installation-size_introduction-to-stf">Installation size</a></li>
@@ -481,6 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-multiple-clouds_advanced-features">Multiple cloud configuration</a></li>
 <li><a href="#ephemeral-storage_advanced-features">Ephemeral storage</a></li>
 <li><a href="#monitoring-resource-usage-of-openstack-services_advanced-features">Monitoring the resource usage of OpenStack services</a></li>
+<li><a href="#exposing-routes_advanced-features">Creating a route in OpenShift</a></li>
 </ul>
 </li>
 <li><a href="#appe-stf-collectd-plugins">Appendix A: collectd plug-ins</a></li>
@@ -489,7 +490,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.2</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Service&#160;Telemetry&#160;Framework (STF) receives monitoring data from OpenStack or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:</p>
@@ -585,7 +586,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Service&#160;Telemetry&#160;Framework 1.2 (STF)</p>
 </li>
 <li>
-<p>OpenShift (OKD)</p>
+<p>OpenShift 4.5 (OKD)</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -2069,6 +2070,9 @@ Router Addresses
 </li>
 <li>
 <p><a href="#monitoring-resource-usage-of-openstack-services_advanced-features">Monitoring the resource usage of OpenStack services</a></p>
+</li>
+<li>
+<p><a href="#exposing-routes_advanced-features">Creating a route in OpenShift</a></p>
 </li>
 </ul>
 </div>
@@ -3723,6 +3727,113 @@ spec:
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="exposing-routes_advanced-features">Creating a route in OpenShift</h3>
+<div class="paragraph">
+<p>In OpenShift, you can expose applications to the external network via a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.5/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+</div>
+<div class="paragraph">
+<p>Routes are not exposed by default in Service&#160;Telemetry&#160;Framework to limit the attack surface of STF deployments. To access some services deployed in STF, you must expose the services in OKD for access.</p>
+</div>
+<div class="paragraph">
+<p>A common service to expose in STF is Prometheus, as shown in the following example:</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>List the available services in the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get services</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
+alertmanager-operated                    ClusterIP   None             &lt;none&gt;        9093/TCP,9094/TCP,9094/UDP                      93m
+default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   &lt;none&gt;        8081/TCP                                        93m
+default-cloud1-coll-meter-smartgateway   ClusterIP   172.30.133.180   &lt;none&gt;        8081/TCP                                        93m
+default-interconnect                     ClusterIP   172.30.3.241     &lt;none&gt;        5672/TCP,8672/TCP,55671/TCP,5671/TCP,5673/TCP   93m
+ibm-auditlogging-operator-metrics        ClusterIP   172.30.216.249   &lt;none&gt;        8383/TCP,8686/TCP                               11h
+prometheus-operated                      ClusterIP   None             &lt;none&gt;        9090/TCP                                        93m
+service-telemetry-operator-metrics       ClusterIP   172.30.11.66     &lt;none&gt;        8383/TCP,8686/TCP                               11h
+smart-gateway-operator-metrics           ClusterIP   172.30.145.199   &lt;none&gt;        8383/TCP,8686/TCP                               11h</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Take note of the port and service name to expose as a route, for example, service <code>prometheus-operated</code> and port <code>9090</code>.</p>
+</li>
+<li>
+<p>Expose the <code>prometheus-operated</code> service as an edge route and redirect insecure traffic to the secure endpoint of port <code>9090</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>route.route.openshift.io/metrics-store created</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To verify and find the exposed external DNS for the route, use the <code>oc get route</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route metrics-store -ogo-template='{{.spec.host}}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>metrics-store-service-telemetry.apps.infra.watch</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>prometheus-operated</code> service is now available at the exposed DNS address, for example, <a href="https://metrics-store-service-telemetry.apps.infra.watch" class="bare">https://metrics-store-service-telemetry.apps.infra.watch</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The address of the route must be resolvable and configuration is environment specific.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Additional resources</div>
+<ol class="arabic">
+<li>
+<p>For more information about OpenShift networking, see <a href="https://docs.openshift.com/container-platform/4.5/networking/understanding-networking.html">Understanding networking</a></p>
+</li>
+<li>
+<p>For more information about route configuration, see <a href="https://docs.openshift.com/container-platform/4.5/networking/routes/route-configuration.html">Route configuration</a></p>
+</li>
+<li>
+<p>For more information about ingress cluster traffic, see <a href="https://docs.openshift.com/container-platform/4.5/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic overview</a></p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -4936,7 +5047,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-11 16:19:40 UTC
+Last updated 2021-01-14 15:48:29 UTC
 </div>
 </div>
 </body>
