@@ -39,7 +39,7 @@ To monitor healthchecks in {ProjectShort}, you must enable and configure the `co
 
 .Procedure
 
-. Open the `stf-connectors.yaml` and edit the `collectd-sensubility` paramater:
+. Open the `stf-connectors.yaml` and edit the `collectd-sensubility` parameter:
 +
 ----
 CollectdSensubilityTransport: amqp1
