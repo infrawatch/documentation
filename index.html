@@ -3495,7 +3495,19 @@ spec:
 <div class="sect3">
 <h4 id="creating-openstack-environment-file_advanced-features">Creating the OpenStack environment file</h4>
 <div class="paragraph">
-<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a>.</p>
+<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have enabled container health and API status monitoring, you must also modify the <code>CollectdSensubilityResultsChannel</code> parameter. For more information, see <a href="#planning-amqp-address-prefixes_advanced-features">Planning AMQP address prefixes</a> and <a href="#monitoring-container-health-and-api-status_advanced-features">[monitoring-container-health-and-api-status_advanced-features]</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -3555,6 +3567,8 @@ parameter_defaults:
         cloud1-telemetry:     <i class="conum" data-value="4"></i><b>(4)</b>
             format: JSON
             presettle: true
+    CollectdSensubilityTransport: amqp1
+    CollectdSensubilityResultsChannel: collectd/cloud1-notify <i class="conum" data-value="5"></i><b>(5)</b>
 
     MetricsQdrAddresses:
         - prefix: collectd
@@ -3566,7 +3580,7 @@ parameter_defaults:
         - name: sslProfile
 
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="5"></i><b>(5)</b>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="6"></i><b>(6)</b>
           port: 443
           role: edge
           verifyHostname: false
@@ -3593,6 +3607,10 @@ parameter_defaults:
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Define the topic for collectd-sensubility events. This should be the exact string format of <code>collectd/cloud1-notify</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>Adjust the <code>MetricsQdrConnectors</code> host to the address of the STF route.</td>
 </tr>
 </table>
@@ -5067,7 +5085,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-14 21:53:28 UTC
+Last updated 2021-01-21 15:05:53 UTC
 </div>
 </div>
 </body>
