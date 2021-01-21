@@ -27,7 +27,7 @@ To label traffic according to the cloud of origin, you must create a configurati
 
 //[OSP16.1.3+ ONLY] 
 [NOTE]
-If you have enabled Container health and API stats monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:planning-amqp-address-prefixes_advanced-features[].
+If you have enabled Container health and API stats monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:planning-amqp-address-prefixes_advanced-features[] and xref:monitoring-container-health-and-api-status_advanced-features[]. 
 
 
 [WARNING]
