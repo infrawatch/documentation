@@ -1,0 +1,17 @@
+name: CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Test and Publish
+      env:
+        GH_NAME: ${{ secrets.GH_NAME }}
+        GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        docker run -eBRANCH="${GITHUB_REF##*/}" -eGH_NAME -eGH_EMAIL -eGH_TOKEN --network host -i --volume $PWD:/docs:z --workdir /docs quay.io/fedora/fedora:34 /bin/bash -c './build_tools/ci.sh'

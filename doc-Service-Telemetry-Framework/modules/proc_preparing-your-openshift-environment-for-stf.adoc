@@ -34,11 +34,10 @@ As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must pl
 [id="persistent-volumes"]
 == Persistent volumes
 
-{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.
+{ProjectShort} uses persistent storage in {OpenShiftShort} to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events. When persistent storage is enabled through the Service Telemetry Operator, the Persistent Volume Claims requested in an {ProjectShort} deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the {OpenShiftShort} default configured `storageClass`. For more information about recommended configurable storage technology in {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage[Recommended configurable storage technology].
 
 .Additional resources
 For more information about configuring persistent storage for {OpenShiftShort}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/storage/understanding-persistent-storage.html[Understanding persistent storage.]
-
 
 [id="ephemeral-storage"]
 === Using ephemeral storage
@@ -46,12 +45,9 @@ For more information about configuring persistent storage for {OpenShiftShort}, 
 [WARNING]
 You can use ephemeral storage with {ProjectShort}. However, if you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
 
-
-
 .Additional resources
 
 For more information about enabling ephemeral storage for {ProjectShort}, see xref:configuring-ephemeral-storage_advanced-features[].
-
 
 [id="resource-allocation"]
 == Resource allocation
@@ -65,6 +61,17 @@ The amount of resources that you require to run {ProjectShort} depends on your e
 * For recommendations about sizing for metrics collection, see https://access.redhat.com/articles/4907241.
 
 * For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html.
+
+[id="metrics-retention-time-period"]
+== Metrics retention time period
+
+The default retention time for metrics stored in {ProjectShort} is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust {ProjectShort} for additional metrics retention time, set a new value in `backends.metrics.prometheus.storage.retention`, for example, `7d` for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.
+
+For long-term storage, use systems designed for long-term data retention, for example, https://thanos.io/[Thanos].
+
+.Additional resources
+
+* For recommendations about Prometheus data storage and estimating storage space, see https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects
 
 [id="node-tuning-operator"]
 == Node tuning operator
