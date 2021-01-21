@@ -44,7 +44,7 @@ To monitor healthchecks in {ProjectShort}, you must enable and configure the `co
 ----
 CollectdSensubilityTransport: amqp1
 ----
-. If you have a multicloud environment, you must configure `collectd-sensubility` events channel with the new collectd events address. Edit the `stf-connectors.yaml` file:
+. If  your environment has multiple clouds, configure `collectd-sensubility` events channel with the new collectd events address. Edit the `stf-connectors.yaml` file:
 +
 ----
 CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
