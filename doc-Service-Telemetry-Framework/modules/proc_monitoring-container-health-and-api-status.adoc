@@ -52,4 +52,4 @@ CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
 
 .Additional resources
 
-For more information about multi-cloud addresses, see xref:configuring-multiple-clouds_advanced-features[].
+For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_advanced-features[].
