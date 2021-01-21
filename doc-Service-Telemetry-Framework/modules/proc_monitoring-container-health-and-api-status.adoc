@@ -1,0 +1,55 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/ref_manifest-override-parameters.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: ref_my-reference-a.adoc
+// * ID: [id='ref_my-reference-a_{context}']
+// * Title: = My reference A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// In the title, include nouns that are used in the body text. This helps
+// readers and search engines find information quickly.
+[id="monitoring-container-health-and-api-status_{context}"]
+= Monitoring container health and API status
+
+Container health assesses the status of each of the {OpenStack} service containers
+by periodically running a health check script using the OCI (Open Container Initiative) standard.
+Most {OpenStack} services implement a healthcheck that logs issues and returns a
+binary status. For the {OpenStack} APIs, the healthchecks
+query the root endpoint and determine the health based on the response time.
+
+To monitor healthchecks in {ProjectShort}, you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol. The {ProjectShort} architecture considers healthcheck results to be events and are stored in ElasticSearch.
+
+.Prerequisites
+
+* You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
+
+* You are using the most current version of {OpenStack} {OpenStackVersion}.
+
+.Procedure
+
+. Open the `stf-connectors.yaml` and edit the `collectd-sensubility` parameter:
++
+----
+CollectdSensubilityTransport: amqp1
+----
+. If your environment has multiple clouds, configure the `collectd-sensubility` events channel with the new collectd events address. Edit the `stf-connectors.yaml` file:
++
+----
+CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
+----
+
+.Additional resources
+
+For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_advanced-features[].
