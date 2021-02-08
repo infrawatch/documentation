@@ -255,6 +255,7 @@ For more information about configuring the `cgroups` plug-in, see https://collec
 == collectd::plugin::conntrack
 
 * None
+[discrete]
 == collectd::plugin::contextswitch
 
 * collectd::plugin::contextswitch::interval
