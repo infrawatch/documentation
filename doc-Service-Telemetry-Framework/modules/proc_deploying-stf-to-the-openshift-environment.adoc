@@ -326,7 +326,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable
+  channel: stable-1.2
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: infrawatch-operators
@@ -344,7 +344,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable
+  channel: stable-1.2
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: redhat-operators-stf
