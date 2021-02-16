@@ -719,7 +719,7 @@ Use the `ovs_stats` plug-in to collect statistics of OVS connected interfaces. T
         CollectdExtraPlugins:
           - ovs_stats
         ExtraConfig:
-        collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'
+          collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'
 ----
 
 .Additional resources
