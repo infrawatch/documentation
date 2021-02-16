@@ -819,7 +819,7 @@ Use the `snmp_agent` plug-in as an SNMP subagent to map collectd metrics to rele
 ----
 parameter_defaults:
     CollectdExtraPlugins:
-snmp_agent
+        snmp_agent
 resource_registry:
     OS::TripleO::Services::Snmp: /usr/share/openstack-tripleo-heat-
 templates/deployment/snmp/snmp-baremetal-puppet.yaml
