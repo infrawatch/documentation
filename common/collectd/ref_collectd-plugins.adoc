@@ -137,7 +137,7 @@ Use the `apache` plug-in to collect Apache data.
 parameter_defaults:
     ExtraConfig:
         collectd::plugin::apache:
-        localhost:
+          localhost:
             url: "http://10.0.0.111/status?auto"
 ----
 
