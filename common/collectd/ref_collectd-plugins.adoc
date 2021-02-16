@@ -306,7 +306,7 @@ The `cpu` plug-in does not collect percentages. It collects _jiffies_, which are
 |collectd_cpu_total{...,type_instance='wait'}
 |===
 
-.cgroups options
+.cpu options
 [cols="50%,50%"]
 |===
 |Parameter  |Type
