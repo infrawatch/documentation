@@ -26,7 +26,7 @@
 On average, Prometheus uses only around 1-2 bytes per sample. To plan the capacity of a Prometheus server, you can use this formula:
 `needed_disk_space = retention_time_seconds * ingested_samples_per_second * bytes_per_sample`
 
-NOTE:
+[NOTE]
 The result of this formula is an approximate size for the Prometheus server.
 
 In default settings, the retention time is 86400 seconds, and we are assuming 2 bytes per sample.

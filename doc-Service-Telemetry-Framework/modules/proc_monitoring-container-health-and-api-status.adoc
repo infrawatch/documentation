@@ -23,11 +23,7 @@
 [id="monitoring-container-health-and-api-status_{context}"]
 = Monitoring container health and API status
 
-Container health assesses the status of each of the {OpenStack} service containers
-by periodically running a health check script using the OCI (Open Container Initiative) standard.
-Most {OpenStack} services implement a healthcheck that logs issues and returns a
-binary status. For the {OpenStack} APIs, the healthchecks
-query the root endpoint and determine the health based on the response time.
+Container health assesses the status of each of the {OpenStack} service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most {OpenStack} services implement a health check that logs issues and returns a binary status. For the {OpenStack} APIs, the health checks query the root endpoint and determine the health based on the response time.
 
 To monitor healthchecks in {ProjectShort}, you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol. The {ProjectShort} architecture considers healthcheck results to be events and are stored in ElasticSearch.
 

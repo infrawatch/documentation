@@ -33,8 +33,20 @@
 // it is reused multiple times in a guide.
 :context: advanced-features
 
+The following optional features can provide additional functionality to the {Project} ({ProjectShort}):
+
+* xref:manifest-overrides_advanced-features[]
+* xref:alerts_advanced-features[]
+* xref:configuring-snmp-traps_advanced-features[]
+* xref:high-availability_advanced-features[]
+* xref:dashboards_advanced-features[]
+* xref:configuring-multiple-clouds_advanced-features[]
+* xref:ephemeral-storage_advanced-features[]
+* xref:monitoring-resource-usage-of-openstack-services_advanced-features[]
+* xref:exposing-routes_advanced-features[]s
+
 //Intro
-include::../modules/con_advanced-features.adoc[leveloffset=+1]
+//include::../modules/con_advanced-features.adoc[leveloffset=+1]
 
 // Customizing the deployment (manifest overrides)
 include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
@@ -73,6 +85,9 @@ include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
 
 //Monitoring the resource usage of Openstack services
 include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
+
+//Monitoring container health
+include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
 
 //Exposing services as routes
 include::../modules/proc_exposing-routes.adoc[leveloffset=+1]

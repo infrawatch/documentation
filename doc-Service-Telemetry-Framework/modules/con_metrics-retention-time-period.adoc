@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_advanced-features.adoc[leveloffset=+1]
+// include::<path>/con_metrics-retention-time-period.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -22,16 +22,14 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="advanced-features_{context}"]
+[id="metrics-retention-time-period_{context}"]
+= Metrics retention time period
 
-The following optional features can provide additional functionality to the {Project} ({ProjectShort}):
+[role="_abstract"]
+The default retention time for metrics stored in {ProjectShort} is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust {ProjectShort} for additional metrics retention time, set a new value in `backends.metrics.prometheus.storage.retention`, for example, `7d` for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.
 
-* xref:manifest-overrides_advanced-features[]
-* xref:alerts_advanced-features[]
-* xref:configuring-snmp-traps_advanced-features[]
-* xref:high-availability_advanced-features[]
-* xref:dashboards_advanced-features[]
-* xref:configuring-multiple-clouds_advanced-features[]
-* xref:ephemeral-storage_advanced-features[]
-* xref:monitoring-resource-usage-of-openstack-services_advanced-features[]
-* xref:exposing-routes_advanced-features[]
+For long-term storage, use systems designed for long-term data retention, for example, https://thanos.io/[Thanos].
+
+.Additional resources
+
+* For recommendations about Prometheus data storage and estimating storage space, see https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects

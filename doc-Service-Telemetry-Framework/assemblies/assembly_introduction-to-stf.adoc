@@ -36,6 +36,7 @@
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
 
+[role="_abstract"]
 {Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:
 
 Metric:: a numeric measurement of an application or system
@@ -45,6 +46,6 @@ The collection components that are required on the clients are lightweight. The 
 
 {ProjectShort} provides access to monitoring functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration.
 
-include::../modules/con_architecture.adoc[leveloffset=+1]
+include::../modules/con_stf-architecture.adoc[leveloffset=+1]
 
-include::../modules/con_installation-size.adoc[leveloffset=+1]
+include::../modules/con_installation-size-of-ocp.adoc[leveloffset=+1]

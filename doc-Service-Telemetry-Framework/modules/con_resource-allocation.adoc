@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/con_ephemeral-storage.adoc[leveloffset=+1]
+// include::<path>/con_resource-allocation.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: con_my-concept-module-a.adoc
@@ -22,10 +22,16 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="ephemeral-storage_{context}"]
-= Ephemeral storage
-[role="_abstract"]
-You can use ephemeral storage to run {Project} ({ProjectShort}) without persistently storing data in your {OpenShift} ({OpenShiftShort}) cluster.
+[id="resource-allocation_{context}"]
+= Resource allocation
 
-[WARNING]
-If you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
+[role="_abstract"]
+To enable the scheduling of pods within the {OpenShiftShort} infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
+
+The amount of resources that you require to run {ProjectShort} depends on your environment and the number of nodes and clouds that you want to monitor.
+
+.Additional resources
+
+* For recommendations about sizing for metrics collection, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
+
+* For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html.

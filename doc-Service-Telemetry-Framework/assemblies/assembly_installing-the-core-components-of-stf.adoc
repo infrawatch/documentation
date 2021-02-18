@@ -2,54 +2,39 @@
 //
 // <List assemblies here, each on a new line>
 
-// This assembly can be included from other assemblies using the following
-// include statement:
-// include::<path>/assembly_installing-the-core-components-of-stf.adoc[leveloffset=+1]
-
 // The following line is necessary to allow assemblies be included in other
 // assemblies. It restores the `context` variable to its previous state.
 :parent-context-of-installing-the-core-components-of-stf: {context}
 
-// The file name and the ID are based on the assembly title.
-// For example:
-// * file name: assembly_my-assembly-a.adoc
-// * ID: [id='assembly_my-assembly-a_{context}']
-// * Title: = My assembly A
-//
-// The ID is used as an anchor for linking to the module.
-// Avoid changing it after the module has been published
-// to ensure existing links are not broken.
-//
-// In order for  the assembly to be reusable in other assemblies in a guide,
-// include {context} in the ID: [id='a-collection-of-modules_{context}'].
-//
-// If the assembly covers a task, start the title with a verb in the gerund
-// form, such as Creating or Configuring.
 [id="installing-the-core-components-of-stf_{context}"]
 = Installing the core components of {Project}
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: installing-the-core-components-of-stf
 
-// The following block is rendered only if the `internal` variable is set.
-// The table shows various metadata useful when editing this file.
-// include::modules/subsystem/proc_doing_one_procedure.adoc[leveloffset=+1]
+[role="_abstract"]
+You can use Operators to load the various application components and objects. Each of the following {ProjectShort} core components are managed by Operators:
 
-// [leveloffset=+1] ensures that when a module starts with a level-1 heading
-// (= Heading), the heading will be interpreted as a level-2 heading
-// (== Heading) in the assembly.
+* Prometheus and AlertManager
+* ElasticSearch
+* Smart Gateway
+* {MessageBus}
 
-Before you install {Project} ({ProjectShort}), ensure that {OpenShift} ({OpenShiftShort}) version 4.5 is running and that you understand the core components of the framework. As part of the {OpenShiftShort} installation planning process, ensure that the administrator provides persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
+.Prerequisites
+
+* {OpenShift} ({OpenShiftShort}) version 4.5 is running.
+* You have prepared your {OpenShift} ({OpenShiftShort}) environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
+
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. To upgrade to later versions of {ProjectShort}, you must migrate installations of {ProjectShort} 1.0 that use an `OperatorSource` to `CatalogSource` . For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
+{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. To upgrade to later versions of {ProjectShort}, you must migrate installations of {ProjectShort} 1.0 that use an `OperatorSource` to `CatalogSource`. For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
 endif::[]
 
-include::../modules/con_the-core-components-of-stf.adoc[leveloffset=+1]
-include::../modules/proc_preparing-your-openshift-environment-for-stf.adoc[leveloffset=+1]
+.Additional resources
+
+For more information about Operators, see the https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
+
+
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 include::../modules/con_overview-of-the-servicetelemetry-object.adoc[leveloffset=+1]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
