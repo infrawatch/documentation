@@ -32,7 +32,7 @@ endif::[]
 
 .Additional resources
 
-For more information about Operators, see the https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
+* For more information about Operators, see the https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
 
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
