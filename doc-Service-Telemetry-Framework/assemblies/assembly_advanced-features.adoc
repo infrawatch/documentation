@@ -46,7 +46,6 @@ The following optional features can provide additional functionality to the {Pro
 * xref:exposing-routes_advanced-features[]s
 
 //Intro
-//include::../modules/con_advanced-features.adoc[leveloffset=+1]
 
 // Customizing the deployment (manifest overrides)
 include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
