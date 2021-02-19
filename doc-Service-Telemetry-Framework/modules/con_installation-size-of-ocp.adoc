@@ -26,7 +26,7 @@
 = Installation size of {OpenShift}
 
 [role="_abstract"]
-The size of your {OpenShift} (){OpenShiftShort}) installation depends on the following factors:
+The size of your {OpenShift} ({OpenShiftShort}) installation depends on the following factors:
 
 * The number of nodes you want to monitor.
 * The number of metrics you want to collect.
