@@ -23,6 +23,7 @@
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
+[role="_abstract"]
 You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the `clouds` parameter in the `ServiceTelemetry` manifest.
 
 When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under `cloud1` with the following subscription addresses:
@@ -37,7 +38,7 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 
 .Prerequisites
 
-You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_advanced-features[]. For more information about creating the content for the `clouds` parameter, see xref:clouds_installing-the-core-components-of-stf[].
+You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_assembly-advanced-features[]. For more information about creating the content for the `clouds` parameter, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 

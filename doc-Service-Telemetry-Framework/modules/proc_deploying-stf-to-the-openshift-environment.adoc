@@ -5,25 +5,13 @@
 // This module can be included from assemblies using the following include statement:
 // include::<path>/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
+
 [id="deploying-stf-to-the-openshift-environment_{context}"]
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
+[role="_abstract"]
 You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two ways:
+
 
 * Deploy {ProjectShort} and store events with ElasticSearch. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch[].
 * Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
@@ -45,7 +33,7 @@ endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
-. xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
 
 [id="deploying-stf-to-the-openshift-environment-without-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment without ElasticSearch
@@ -62,7 +50,7 @@ ifeval::["{build}" == "downstream"]
 endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
-. xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
 
 
 [id="creating-a-namespace"]

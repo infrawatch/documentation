@@ -24,6 +24,7 @@
 // in _The IBM Style Guide_.
 [id="ephemeral-storage_{context}"]
 = Ephemeral storage
+
 [role="_abstract"]
 You can use ephemeral storage to run {Project} ({ProjectShort}) without persistently storing data in your {OpenShift} ({OpenShiftShort}) cluster.
 

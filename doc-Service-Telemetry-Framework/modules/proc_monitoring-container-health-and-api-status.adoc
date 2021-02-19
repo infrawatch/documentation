@@ -30,7 +30,7 @@ To monitor healthchecks in {ProjectShort}, you must enable and configure the `co
 
 .Prerequisites
 
-* You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
+* You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
 * You are using the most current version of {OpenStack} {OpenStackVersion}.
 
@@ -49,4 +49,4 @@ CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
 
 .Additional resources
 
-For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_advanced-features[].
+* For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_assembly-advanced-features[].

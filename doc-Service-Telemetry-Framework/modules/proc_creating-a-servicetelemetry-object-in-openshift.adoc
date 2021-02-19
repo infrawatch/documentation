@@ -22,9 +22,10 @@
 // _Wording of headings_ in _The IBM Style Guide_.
 
 
-[id="creating-a-servicetelemetry-object-in-openshift"]
-== Creating a ServiceTelemetry object in {OpenShiftShort}
+[id="creating-a-servicetelemetry-object-in-openshift_{context}"]
+= Creating a ServiceTelemetry object in {OpenShiftShort}
 
+[role="_abstract"]
 Create a `ServiceTelemetry` object in {OpenShiftShort} to result in the creation of supporting components for a {Project} deployment. For more information, see xref:overview-of-the-servicetelemetry-object[].
 
 .Procedure

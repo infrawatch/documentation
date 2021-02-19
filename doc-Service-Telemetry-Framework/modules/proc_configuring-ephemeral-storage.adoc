@@ -23,6 +23,7 @@
 [id='configuring-ephemeral-storage_{context}']
 = Configuring ephemeral storage
 
+[role="_abstract"]
 To configure {ProjectShort} components for ephemeral storage, add `...storage.strategy: ephemeral` to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus backend, set `backends.metrics.prometheus.storage.strategy: ephemeral`. Components that support configuration of ephemeral storage include `alerting.alertmanager`, `backends.metrics.prometheus`, and `backends.events.elasticsearch`. You can add ephemeral storage configuration at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 .Procedure

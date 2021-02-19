@@ -23,11 +23,12 @@
 [id="configuring-multiple-clouds_{context}"]
 = Multiple cloud configuration
 
+[role="_abstract"]
 You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}):
 
-. Plan the AMQP address prefixes that you want to use for each cloud. For more information, see xref:planning-amqp-address-prefixes_advanced-features[].
-. Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see xref:deploying-smart-gateways_advanced-features[].
-. Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see xref:creating-openstack-environment-file_advanced-features[].
+. Plan the AMQP address prefixes that you want to use for each cloud. For more information, see xref:planning-amqp-address-prefixes_assembly-advanced-features[].
+. Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see xref:deploying-smart-gateways_assembly-advanced-features[].
+. Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see xref:creating-openstack-environment-file_assembly-advanced-features[].
 
 [[osp-stf-multiple-clouds]]
 .Two {OpenStack} clouds connect to {ProjectShort}

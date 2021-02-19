@@ -23,13 +23,14 @@
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
 = Configuring {OpenStack} overcloud for {Project}
 
+[role="_abstract"]
 To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}, and deploy the overcloud.
 
 To configure the {OpenStack} overcloud, complete the following tasks:
 
 . xref:retrieving-the-qdr-route-address[]
 . xref:configuring-the-stf-connection-for-the-overcloud[]
-. xref:validating-clientside-installation_completing-the-stf-configuration[]
+. xref:validating-clientside-installation_assembly-completing-the-stf-configuration[]
 
 ifdef::include_when_16_1[]
 .Additional resources
@@ -71,7 +72,7 @@ To configure the {ProjectShort} connection, you must create a file that contains
 +
 [IMPORTANT]
 ====
-The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_advanced-features[].
+The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_assembly-advanced-features[].
 
 Additionally, setting `EventPipelinePublishers` and `MetricPipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
 

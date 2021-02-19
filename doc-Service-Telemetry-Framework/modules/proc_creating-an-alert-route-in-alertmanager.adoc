@@ -23,6 +23,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
+[role="_abstract"]
 Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} ({OpenShiftShort}) secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
 
 [source,yaml]
@@ -40,7 +41,9 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator. For more information, see xref:configuring-manifest-overrides_advanced-features[].
+To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
+
+//For more information, see xref:configuring-manifest-overrides_assembly-advanced-features[].
 
 .Procedure
 

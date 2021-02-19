@@ -2,14 +2,18 @@
 //
 // <List assemblies here, each on a new line>
 
-// The following line is necessary to allow assemblies be included in other
-// assemblies. It restores the `context` variable to its previous state.
-:parent-context-of-installing-the-core-components-of-stf: {context}
+////
+Retains the context of the parent assembly if this assembly is nested within another assembly.
+For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
+See also the complementary step on the last line of this file.
+////
 
-[id="installing-the-core-components-of-stf_{context}"]
+ifdef::context[:parent-context: {context}]
+
+[id="assembly-installing-the-core-components-of-stf_{context}"]
 = Installing the core components of {Project}
 
-:context: installing-the-core-components-of-stf
+:context: assembly-installing-the-core-components-of-stf
 
 [role="_abstract"]
 You can use Operators to load the various application components and objects. Each of the following {ProjectShort} core components are managed by Operators:
@@ -41,5 +45,6 @@ include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[le
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
 
+//reset the context
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
