@@ -49,3 +49,6 @@ include::../modules/con_node-tuning-operator.adoc[leveloffset=+1]
 
 
 //:context: {parent-context-of-preparing-your-ocp-environment-for-stf}
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
