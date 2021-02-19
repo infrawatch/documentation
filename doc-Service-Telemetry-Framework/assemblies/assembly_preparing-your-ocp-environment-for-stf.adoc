@@ -33,6 +33,7 @@
 // it is reused multiple times in a guide.
 :context: preparing-your-ocp-environment-for-stf
 
+[role="_abstract"]
 As you prepare your {OpenShiftShort} environment for {ProjectShort}, you must plan for persistent storage, adequate resources, and event storage:
 
 * Ensure that persistent storage is available in your {OpenShift} cluster to permit a production grade deployment. For more information, see <<persistent-volumes_preparing-your-ocp-environment-for-stf>>.
