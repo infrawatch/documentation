@@ -26,11 +26,12 @@
 [id="monitoring-resource-usage-of-openstack-services_{context}"]
 = Monitoring the resource usage of {OpenStack} services
 
+[role="_abstract"]
 Monitor the resource usage of the {OpenStack} services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the `collectd-libpod-stats` plug-in to gather CPU and memory usage metrics for every container running in the overcloud.
 
 .Prerequisites
 
-* You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
+* You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 * You are using the most current version of {OpenStack}: {OpenStackVersion}.
 
 .Procedure

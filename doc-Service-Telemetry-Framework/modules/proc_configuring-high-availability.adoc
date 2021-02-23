@@ -23,6 +23,7 @@
 [id="configuring-high-availability_{context}"]
 = Configuring high availability
 
+[role="_abstract"]
 To configure {ProjectShort} for high availability, add `highAvailability.enabled: true` to the ServiceTelemetry object in {OpenShiftShort}. You can this set this parameter at installation time or, if you already deployed {ProjectShort}, complete the following steps:
 
 .Procedure

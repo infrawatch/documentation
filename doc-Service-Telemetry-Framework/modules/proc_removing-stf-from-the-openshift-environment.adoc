@@ -23,6 +23,7 @@
 [id="removing-stf-from-the-openshift-environment_{context}"]
 = Removing {ProjectShort} from the {OpenShiftShort} environment
 
+[role="_abstract"]
 Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer require the {ProjectShort} functionality.
 
 Complete the following tasks:
@@ -100,4 +101,4 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted
 ----
 
 .Additional resources
-For more information about the OperatorHub.io Community Catalog Source, see xref:deploying-stf-to-the-openshift-environment_installing-the-core-components-of-stf[].
+For more information about the OperatorHub.io Community Catalog Source, see xref:deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf[].

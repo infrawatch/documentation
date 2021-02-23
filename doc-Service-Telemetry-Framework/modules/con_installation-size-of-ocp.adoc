@@ -22,10 +22,11 @@
 // readers and search engines find information quickly.
 // Do not start the title with a verb. See also _Wording of headings_
 // in _The IBM Style Guide_.
-[id="installation-size_{context}"]
-= Installation size
+[id="installation-size-of-ocp_{context}"]
+= Installation size of {OpenShift}
 
-The size of your {OpenShift} installation depends on the following factors:
+[role="_abstract"]
+The size of your {OpenShift} ({OpenShiftShort}) installation depends on the following factors:
 
 * The number of nodes you want to monitor.
 * The number of metrics you want to collect.

@@ -2,40 +2,26 @@
 //
 // <List assemblies here, each on a new line>
 
-// This assembly can be included from other assemblies using the following
-// include statement:
-// include::<path>/assembly_introduction-to-stf.adoc[leveloffset=+1]
+////
+Retains the context of the parent assembly if this assembly is nested within another assembly.
+For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
+See also the complementary step on the last line of this file.
+////
 
-// The following line is necessary to allow assemblies be included in other
-// assemblies. It restores the `context` variable to its previous state.
-:parent-context-of-introduction-to-stf: {context}
+ifdef::context[:parent-context: {context}]
 
-// The file name and the ID are based on the assembly title.
-// For example:
-// * file name: assembly_my-assembly-a.adoc
-// * ID: [id='assembly_my-assembly-a_{context}']
-// * Title: = My assembly A
-//
-// The ID is used as an anchor for linking to the module.
-// Avoid changing it after the module has been published
-// to ensure existing links are not broken.
-//
-// In order for  the assembly to be reusable in other assemblies in a guide,
-// include {context} in the ID: [id='a-collection-of-modules_{context}'].
-//
-// If the assembly covers a task, start the title with a verb in the gerund
-// form, such as Creating or Configuring.
-[id="introduction-to-stf_{context}"]
+[id="assembly-introduction-to-stf_{context}"]
 = Introduction to {Project} {TargetVersion}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
 // it is reused multiple times in a guide.
-:context: introduction-to-stf
+:context: assembly-introduction-to-stf
 
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
 
+[role="_abstract"]
 {Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:
 
 Metric:: a numeric measurement of an application or system
@@ -45,6 +31,11 @@ The collection components that are required on the clients are lightweight. The 
 
 {ProjectShort} provides access to monitoring functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration.
 
-include::../modules/con_architecture.adoc[leveloffset=+1]
+include::../modules/con_stf-architecture.adoc[leveloffset=+1]
 
-include::../modules/con_installation-size.adoc[leveloffset=+1]
+include::../modules/con_installation-size-of-ocp.adoc[leveloffset=+1]
+
+
+//reset the context
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

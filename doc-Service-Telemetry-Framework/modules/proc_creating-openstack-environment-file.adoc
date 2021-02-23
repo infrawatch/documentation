@@ -23,10 +23,11 @@
 [id="creating-openstack-environment-file_{context}"]
 = Creating the OpenStack environment file
 
-To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme. 
+[role="_abstract"]
+To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme.
 
 [NOTE]
-If you have enabled container health and API status monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:planning-amqp-address-prefixes_advanced-features[] and xref:monitoring-container-health-and-api-status_advanced-features[]. 
+If you enabled container health and API status monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
 
 
 [WARNING]
@@ -218,4 +219,4 @@ endif::include_when_16[]
 
 .Additional resources
 
-For information about validating the deployment, see xref:validating-clientside-installation_completing-the-stf-configuration[].
+* For information about validating the deployment, see xref:validating-clientside-installation_assembly-completing-the-stf-configuration[].

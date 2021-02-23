@@ -23,6 +23,7 @@
 [id="the-grafana-infrastructure-dashboard_{context}"]
 = The Grafana infrastructure dashboard
 
+[role="_abstract"]
 The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
 == Top panels

@@ -23,13 +23,14 @@
 [id="configuring-snmp-traps_{context}"]
 = Configuring SNMP Traps
 
+[role="_abstract"]
 You can integrate {Project} ({ProjectShort}) with an existing infrastructure monitoring platform that receives notifications via SNMP traps. To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters.
 
-For more information about configuring alerts, see xref:alerts_advanced-features[].
+For more information about configuring alerts, see xref:alerts_assembly-advanced-features[].
 
 .Prerequisites
 
-* Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts 
+* Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts
 
 .Procedure
 

@@ -20,12 +20,13 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="exposing-routes_{context}"]
+[id="creating-a-route-in-ocp_{context}"]
 = Creating a route in {OpenShift}
 
+[role="_abstract"]
 In {OpenShift}, you can expose applications to the external network via a route. For more information, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
-Routes are not exposed by default in {Project} to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShiftShort} for access.
+In {Project} ({ProjectShort}), routes are not exposed by default  to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShiftShort} for access.
 
 A common service to expose in {ProjectShort} is Prometheus, as shown in the following example:
 
@@ -46,7 +47,7 @@ $ oc project service-telemetry
 $ oc get services
 ----
 +
-[source,bash,,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
 alertmanager-operated                    ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      93m
@@ -91,6 +92,6 @@ The address of the route must be resolvable and configuration is environment spe
 
 .Additional resources
 
-. For more information about {OpenShift} networking, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/understanding-networking.html[Understanding networking]
-. For more information about route configuration, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/routes/route-configuration.html[Route configuration]
-. For more information about ingress cluster traffic, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic overview]
+* For more information about {OpenShift} networking, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/understanding-networking.html[Understanding networking]
+* For more information about route configuration, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/routes/route-configuration.html[Route configuration]
+* For more information about ingress cluster traffic, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic overview]
