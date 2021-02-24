@@ -21,6 +21,13 @@ ifdef::context[:parent-context: {context}]
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
 
+ifeval::["{build}" == "downstream"]
+[IMPORTANT]
+{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. 
+
+//For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
+endif::[]
+
 [role="_abstract"]
 {Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:
 
@@ -30,6 +37,8 @@ Event:: irregular and discrete occurrences that happen in a system
 The collection components that are required on the clients are lightweight. The multicast message bus that is shared by all clients and the deployment provides fast and reliable data transport. Other modular components for receiving and storing data are deployed in containers on {OpenShiftShort}.
 
 {ProjectShort} provides access to monitoring functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration.
+
+
 
 include::../modules/con_stf-architecture.adoc[leveloffset=+1]
 

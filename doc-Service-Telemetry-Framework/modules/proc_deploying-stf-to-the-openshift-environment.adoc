@@ -27,9 +27,6 @@ Complete the following tasks:
 ifeval::["{build}" == "upstream"]
 . xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
-ifeval::["{build}" == "downstream"]
-. xref:enabling-the-infrawatch-catalog-source[].
-endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
@@ -43,9 +40,6 @@ Complete the following tasks:
 . xref:creating-a-namespace[].
 . xref:creating-an-operatorgroup[].
 ifeval::["{build}" == "upstream"]
-. xref:enabling-the-infrawatch-catalog-source[].
-endif::[]
-ifeval::["{build}" == "downstream"]
 . xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
@@ -119,13 +113,16 @@ spec:
 EOF
 ----
 
-[id="enabling-the-infrawatch-catalog-source"]
+//upstream only
+
 ifeval::["{build}" == "upstream"]
+[id="enabling-the-infrawatch-catalog-source"]
 == Enabling InfraWatch Catalog Source
-endif::[]
-ifeval::["{build}" == "downstream"]
-== Enabling Red Hat STF Catalog Source
-endif::[]
+
+
+//ifeval::["{build}" == "downstream"]
+//== Enabling Red Hat STF Catalog Source
+//endif::[]
 
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source.
 
@@ -134,7 +131,7 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog sou
 . Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
 
-ifeval::["{build}" == "upstream"]
+
 [source,bash]
 ----
 $ oc apply -f - <<EOF
@@ -153,31 +150,11 @@ spec:
       interval: 30m
 EOF
 ----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash]
-----
-$ oc apply -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: redhat-operators-stf
-  namespace: openshift-marketplace
-spec:
-  displayName: Red Hat STF Operators
-  image: quay.io/redhat-operators-stf/stf-catalog:latest
-  publisher: Red Hat
-  sourceType: grpc
-  updateStrategy:
-    registryPoll:
-      interval: 30m
-EOF
-----
-endif::[]
+
 
 . To validate the creation of your CatalogSource, use the `oc get catalogsources` command:
 +
-ifeval::["{build}" == "upstream"]
+
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get -nopenshift-marketplace catalogsource infrawatch-operators
@@ -185,35 +162,18 @@ $ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 NAME                   DISPLAY                TYPE   PUBLISHER    AGE
 infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
 ----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-$ oc get -nopenshift-marketplace catalogsource redhat-operators-stf
 
-NAME                   DISPLAY                 TYPE   PUBLISHER   AGE
-redhat-operators-stf   Red Hat STF Operators   grpc   Red Hat     62m
-----
-endif::[]
+
 
 . To validate that the Operators are available from the catalog, use the `oc get packagemanifest` command:
 +
-ifeval::["{build}" == "upstream"]
+
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
 service-telemetry-operator                    InfraWatch Operators       7m20s
 smart-gateway-operator                        InfraWatch Operators       7m20s
-----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-$ oc get packagemanifests | grep "Red Hat STF"
-
-smart-gateway-operator                       Red Hat STF Operators      63m
-service-telemetry-operator                   Red Hat STF Operators      63m
 ----
 endif::[]
 
@@ -335,7 +295,7 @@ spec:
   channel: stable-1.2
   installPlanApproval: Automatic
   name: service-telemetry-operator
-  source: redhat-operators-stf
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
@@ -347,11 +307,6 @@ endif::[]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv --namespace service-telemetry
-NAME                                DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
-amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
-elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
-prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
-service-telemetry-operator.v1.1.0   Service Telemetry Operator                      1.1.0                Succeeded
-smart-gateway-operator.v2.1.0       Smart Gateway Operator                          2.1.0                Succeeded
+
+//TODO: line about succeeded
 ----
