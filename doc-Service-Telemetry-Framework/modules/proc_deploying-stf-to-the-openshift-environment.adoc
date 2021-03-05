@@ -119,11 +119,6 @@ ifeval::["{build}" == "upstream"]
 [id="enabling-the-infrawatch-catalog-source"]
 == Enabling InfraWatch Catalog Source
 
-
-//ifeval::["{build}" == "downstream"]
-//== Enabling Red Hat STF Catalog Source
-//endif::[]
-
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source.
 
 .Procedure
