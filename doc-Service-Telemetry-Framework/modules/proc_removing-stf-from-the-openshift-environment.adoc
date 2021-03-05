@@ -60,38 +60,23 @@ If you do not expect to install {Project} again, delete the CatalogSource. When 
 
 .Procedure
 
+ifeval::["{build}" == "upstream"]
 . Delete the CatalogSource:
 +
-ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
 $ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
 catalogsource.operators.coreos.com "infrawatch-operators" deleted
 ----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash]
-----
-$ oc delete --namespace=openshift-marketplace catalogsource redhat-operators-stf
-catalogsource.operators.coreos.com "redhat-operators-stf" deleted
-----
-endif::[]
 
 . Verify that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
 +
-ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
 $ oc get packagemanifests | grep InfraWatch
 ----
 endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash]
-----
-$ oc get packagemanifests | grep "Red Hat STF"
-----
-endif::[]
-+
+
 . If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:
 +
 [source,bash]
