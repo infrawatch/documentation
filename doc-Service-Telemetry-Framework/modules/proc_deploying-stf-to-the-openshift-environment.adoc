@@ -308,5 +308,12 @@ endif::[]
 ----
 $ oc get csv --namespace service-telemetry
 
-//TODO: line about succeeded
+NAME                                DISPLAY                                         VERSION   REPLACES   PHASE
+amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
+amq7-interconnect-operator.v1.2.3   Red Hat Integration - AMQ Interconnect          1.2.3                Succeeded
+elastic-cloud-eck.v1.4.0            Elasticsearch (ECK) Operator                    1.4.0                Succeeded
+grafana-operator.v3.9.0             Grafana Operator                                3.9.0                Succeeded
+prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
+service-telemetry-operator.v1.2.1   Service Telemetry Operator                      1.2.1                Succeeded
+smart-gateway-operator.v2.2.1       Smart Gateway Operator                          2.2.1                Succeeded
 ----
