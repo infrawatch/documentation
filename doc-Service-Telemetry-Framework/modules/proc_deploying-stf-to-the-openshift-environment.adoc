@@ -204,7 +204,7 @@ spec:
 EOF
 ----
 
-. If you are using {OpenShiftShort} 4.6, install the Red Hat CatalogSource:
+. If you are using {OpenShiftShort} 4.6, Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators-stf` CatalogSource:
 
 +
 [source,bash]
