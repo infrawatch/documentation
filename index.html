@@ -897,7 +897,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>OpenShift (OKD) version 4.5 is running.</p>
+<p>OpenShift (OKD) version 4.5 or 4.6 is running.</p>
 </li>
 <li>
 <p>You have prepared your OpenShift (OKD) environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OKD environment.</p>
@@ -1134,11 +1134,65 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <div class="paragraph">
 <p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are using OpenShift (OKD) 4.5, go directly to step 3.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:</p>
+<p>If you are using OKD 4.6, enable the Red Hat CatalogSource:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: redhat-operators-stf
+  namespace: openshift-marketplace
+spec:
+  displayName: Red Hat STF Operators
+  image: quay.io/redhat-operators-stf/stf-catalog:v4.6
+  publisher: Red Hat
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are using OKD 4.6, Subscribe to the AMQ Certificate Manager Operator via the <code>redhat-operators-stf</code> CatalogSource:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: amq7-cert-manager
+  namespace: openshift-operators
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: amq7-cert-manager
+  source: redhat-operators-stf
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are using OKD 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ Certificate Manager:</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1170,7 +1224,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate your <code>ClusterServiceVersion</code>, use the <code>oc get csv</code> command:</p>
+<p>For OKD versions 4.5 and OCP 4.6, to validate your <code>ClusterServiceVersion</code>, use the <code>oc get csv</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get --namespace openshift-operators csv
@@ -5189,7 +5243,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-05 23:57:01 UTC
+Last updated 2021-03-08 17:18:10 UTC
 </div>
 </div>
 </body>
