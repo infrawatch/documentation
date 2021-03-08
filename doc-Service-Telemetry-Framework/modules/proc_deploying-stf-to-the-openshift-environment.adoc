@@ -179,11 +179,11 @@ endif::[]
 You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 [NOTE]
-If you are using OpenShift Container Platform 4.5, go directly to step 3.
+If you are using {OpenShift} ({OpenShiftShort}) 4.5, go directly to step 3.
 
 .Procedure
 
-. If you are using OCP 4.6, enable the Red Hat CatalogSource:
+. If you are using {OpenShiftShort} 4.6, enable the Red Hat CatalogSource:
 +
 [source,bash]
 ----
@@ -204,7 +204,7 @@ spec:
 EOF
 ----
 
-. If you are using OCP 4.6, run the Red Hat CatalogSource:
+. If you are using {OpenShiftShort} 4.6, install the Red Hat CatalogSource:
 
 +
 [source,bash]
@@ -224,7 +224,7 @@ spec:
 EOF
 ----
 
-. If you are using OCP 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
+. If you are using {OpenShiftShort} 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
 +
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
@@ -247,7 +247,7 @@ spec:
 EOF
 ----
 
-. For OCP 4.5 and OCP 4.6, to validate your `ClusterServiceVersion`, use the `oc get csv` command:
+. For {OpenShiftShort} versions 4.5 and OCP 4.6, to validate your `ClusterServiceVersion`, use the `oc get csv` command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
