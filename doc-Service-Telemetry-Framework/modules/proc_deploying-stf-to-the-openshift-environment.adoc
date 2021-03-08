@@ -224,7 +224,7 @@ spec:
 EOF
 ----
 
-. If you are using {OpenShiftShort} 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
+. If you are using {OpenShiftShort} 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ Certificate Manager:
 +
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
