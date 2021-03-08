@@ -23,7 +23,7 @@ ifdef::context[:parent-context: {context}]
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{OpenShift} version 4.5 is currently required for a successful installation of {ProjectShort}. 
+{Project} ({ProjectShort}) is compatible with {OpenShift} versions 4.5 and 4.6.
 
 //For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
 endif::[]
