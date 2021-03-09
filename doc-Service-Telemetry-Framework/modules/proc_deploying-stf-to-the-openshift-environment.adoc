@@ -183,7 +183,7 @@ If you are using {OpenShift} ({OpenShiftShort}) 4.5, go directly to step 3.
 
 .Procedure
 
-. If you are using {OpenShiftShort} 4.6, enable the Red Hat CatalogSource:
+. If you are using {OpenShiftShort} 4.6, enable the Red Hat STF Operators CatalogSource:
 +
 [source,bash]
 ----
