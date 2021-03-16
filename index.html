@@ -1903,7 +1903,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <p>The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</a>.</p>
 </div>
 <div class="paragraph">
-<p>Additionally, setting <code>EventPipelinePublishers</code> and <code>MetricPipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.</p>
+<p>Additionally, setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.</p>
 </div>
 <div class="paragraph">
 <p>If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object <code>backends.metrics.prometheus.scrapeInterval</code> parameter from the default value of <code>10s</code> to double the polling interval of the data collectors. For example, if <code>CollectdAmqpInterval</code> and <code>ceilometer::agent::polling::polling_interval</code> are adjusted to <code>30</code> then set the <code>backends.metrics.prometheus.scrapeInterval</code> to a value of <code>60s</code>.</p>
@@ -1924,7 +1924,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <p>Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF.</p>
 </li>
 <li>
-<p>Add the <code>EventPiplinePublishers: []</code> and <code>MetricPipelinePublishers: []</code> to avoid writing data to Gnocchi and Panko.</p>
+<p>Add the <code>EventPiplinePublishers: []</code> and <code>PipelinePublishers: []</code> to avoid writing data to Gnocchi and Panko.</p>
 </li>
 <li>
 <p>Add the <code>ManagePolling: true</code> and <code>ManagePipeline: true</code> parameters to allow full control of Ceilometer polling and pipeline configuration.</p>
@@ -1938,7 +1938,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerQdrPublishEvents: true
     CeilometerQdrPublishMetrics: true
     MetricsQdrConnectors:
@@ -3642,7 +3642,7 @@ parameter_defaults:
     EnableSTF: true
 
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrEventsConfig:
@@ -5248,7 +5248,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-09 09:26:28 UTC
+Last updated 2021-03-16 14:50:26 UTC
 </div>
 </div>
 </body>
