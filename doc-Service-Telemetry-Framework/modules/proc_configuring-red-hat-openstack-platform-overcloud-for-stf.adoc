@@ -74,7 +74,7 @@ To configure the {ProjectShort} connection, you must create a file that contains
 ====
 The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_assembly-advanced-features[].
 
-Additionally, setting `EventPipelinePublishers` and `MetricPipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
+Additionally, setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
 
 If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object `backends.metrics.prometheus.scrapeInterval` parameter from the default value of `10s` to double the polling interval of the data collectors. For example, if `CollectdAmqpInterval` and `ceilometer::agent::polling::polling_interval` are adjusted to `30` then set the `backends.metrics.prometheus.scrapeInterval` to a value of `60s`.
 ====
@@ -82,7 +82,7 @@ If an adjustment needs to be made to the polling interval, then modify the Servi
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment.
 * Add the `CeilometerQdrPublishMetrics: true` parameter to enable collection and transport of Ceilometer metrics to {ProjectShort}.
 * Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}.
-* Add the `EventPiplinePublishers: []` and `MetricPipelinePublishers: []` to avoid writing data to Gnocchi and Panko.
+* Add the `EventPiplinePublishers: []` and `PipelinePublishers: []` to avoid writing data to Gnocchi and Panko.
 * Add the `ManagePolling: true` and `ManagePipeline: true` parameters to allow full control of Ceilometer polling and pipeline configuration.
 * Add the `ExtraConfig` parameter `ceilometer::agent::polling::polling_interval` to set the polling interval of Ceilometer to be compatible with the default {ProjectShort} scrape interval.
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address[]:
@@ -92,7 +92,7 @@ ifdef::include_when_13[]
 ----
 parameter_defaults:
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrPublishMetrics: true
@@ -157,7 +157,7 @@ ifdef::include_when_16[]
 ----
 parameter_defaults:
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerQdrPublishEvents: true
     CeilometerQdrPublishMetrics: true
     MetricsQdrConnectors:
