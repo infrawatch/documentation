@@ -1153,7 +1153,7 @@ If you are using OpenShift (OKD) 4.5, go directly to step 3.
 <p>If you are using OKD 4.6, enable the Red Hat STF Operators CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f - &lt;&lt;EOF
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1179,14 +1179,15 @@ EOF</code></pre>
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: amq7-cert-manager
+  name: amq7-cert-manager-operator
   namespace: openshift-operators
 spec:
   channel: alpha
   installPlanApproval: Automatic
-  name: amq7-cert-manager
+  name: amq7-cert-manager-operator
   source: redhat-operators-stf
   sourceNamespace: openshift-marketplace
+  targetNamespaces: global
 EOF</code></pre>
 </div>
 </div>
@@ -5248,7 +5249,7 @@ collectd-multimeter</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-16 14:50:26 UTC
+Last updated 2021-03-16 23:18:52 UTC
 </div>
 </div>
 </body>
