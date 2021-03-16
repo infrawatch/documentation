@@ -57,7 +57,7 @@ resource_registry:
 
 parameter_defaults:
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrPublishMetrics: true
@@ -142,7 +142,7 @@ parameter_defaults:
     EnableSTF: true
 
     EventPipelinePublishers: []
-    MetricPipelinePublishers: []
+    PipelinePublishers: []
     CeilometerEnablePanko: false
     CeilometerQdrPublishEvents: true
     CeilometerQdrEventsConfig:
