@@ -187,7 +187,7 @@ If you are using {OpenShift} ({OpenShiftShort}) 4.5, go directly to step 3.
 +
 [source,bash]
 ----
-oc apply -f - <<EOF
+$ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -213,14 +213,15 @@ $ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: amq7-cert-manager
+  name: amq7-cert-manager-operator
   namespace: openshift-operators
 spec:
   channel: alpha
   installPlanApproval: Automatic
-  name: amq7-cert-manager
+  name: amq7-cert-manager-operator
   source: redhat-operators-stf
   sourceNamespace: openshift-marketplace
+  targetNamespaces: global
 EOF
 ----
 
