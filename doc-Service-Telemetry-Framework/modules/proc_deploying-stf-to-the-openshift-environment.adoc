@@ -5,25 +5,13 @@
 // This module can be included from assemblies using the following include statement:
 // include::<path>/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
+
 [id="deploying-stf-to-the-openshift-environment_{context}"]
 = Deploying {ProjectShort} to the {OpenShiftShort} environment
 
+[role="_abstract"]
 You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two ways:
+
 
 * Deploy {ProjectShort} and store events with ElasticSearch. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch[].
 * Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch[].
@@ -39,13 +27,10 @@ Complete the following tasks:
 ifeval::["{build}" == "upstream"]
 . xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
-ifeval::["{build}" == "downstream"]
-. xref:enabling-the-infrawatch-catalog-source[].
-endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-elastic-cloud-on-kubernetes-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
-. xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
 
 [id="deploying-stf-to-the-openshift-environment-without-elasticsearch"]
 == Deploying {ProjectShort} to the {OpenShiftShort} environment without ElasticSearch
@@ -57,12 +42,9 @@ Complete the following tasks:
 ifeval::["{build}" == "upstream"]
 . xref:enabling-the-infrawatch-catalog-source[].
 endif::[]
-ifeval::["{build}" == "downstream"]
-. xref:enabling-the-infrawatch-catalog-source[].
-endif::[]
 . xref:subscribing-to-the-amq-certificate-manager-operator[].
 . xref:subscribing-to-the-service-telemetry-operator[].
-. xref:creating-a-servicetelemetry-object-in-openshift[].
+. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
 
 
 [id="creating-a-namespace"]
@@ -131,13 +113,11 @@ spec:
 EOF
 ----
 
-[id="enabling-the-infrawatch-catalog-source"]
+//upstream only
+
 ifeval::["{build}" == "upstream"]
+[id="enabling-the-infrawatch-catalog-source"]
 == Enabling InfraWatch Catalog Source
-endif::[]
-ifeval::["{build}" == "downstream"]
-== Enabling Red Hat STF Catalog Source
-endif::[]
 
 Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source.
 
@@ -146,7 +126,7 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog sou
 . Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
 
-ifeval::["{build}" == "upstream"]
+
 [source,bash]
 ----
 $ oc apply -f - <<EOF
@@ -165,8 +145,46 @@ spec:
       interval: 30m
 EOF
 ----
+
+
+. To validate the creation of your CatalogSource, use the `oc get catalogsources` command:
++
+
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
+----
+
+
+
+. To validate that the Operators are available from the catalog, use the `oc get packagemanifest` command:
++
+
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get packagemanifests | grep InfraWatch
+
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s
+----
 endif::[]
-ifeval::["{build}" == "downstream"]
+
+
+[id="subscribing-to-the-amq-certificate-manager-operator"]
+== Subscribing to the AMQ Certificate Manager Operator
+
+You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
+
+[NOTE]
+If you are using {OpenShift} ({OpenShiftShort}) 4.5, go directly to step 3.
+
+.Procedure
+
+. If you are using {OpenShiftShort} 4.6, enable the Red Hat STF Operators CatalogSource:
++
 [source,bash]
 ----
 $ oc apply -f - <<EOF
@@ -177,7 +195,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   displayName: Red Hat STF Operators
-  image: quay.io/redhat-operators-stf/stf-catalog:latest
+  image: quay.io/redhat-operators-stf/stf-catalog:v4.6
   publisher: Red Hat
   sourceType: grpc
   updateStrategy:
@@ -185,58 +203,29 @@ spec:
       interval: 30m
 EOF
 ----
-endif::[]
 
-. To validate the creation of your CatalogSource, use the `oc get catalogsources` command:
+. If you are using {OpenShiftShort} 4.6, Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators-stf` CatalogSource:
+
 +
-ifeval::["{build}" == "upstream"]
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash]
 ----
-$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
-
-NAME                   DISPLAY                TYPE   PUBLISHER    AGE
-infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
+$ oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: amq7-cert-manager-operator
+  namespace: openshift-operators
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: amq7-cert-manager-operator
+  source: redhat-operators-stf
+  sourceNamespace: openshift-marketplace
+  targetNamespaces: global
+EOF
 ----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-$ oc get -nopenshift-marketplace catalogsource redhat-operators-stf
 
-NAME                   DISPLAY                 TYPE   PUBLISHER   AGE
-redhat-operators-stf   Red Hat STF Operators   grpc   Red Hat     62m
-----
-endif::[]
-
-. To validate that the Operators are available from the catalog, use the `oc get packagemanifest` command:
-+
-ifeval::["{build}" == "upstream"]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-$ oc get packagemanifests | grep InfraWatch
-
-service-telemetry-operator                    InfraWatch Operators       7m20s
-smart-gateway-operator                        InfraWatch Operators       7m20s
-----
-endif::[]
-ifeval::["{build}" == "downstream"]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-$ oc get packagemanifests | grep "Red Hat STF"
-
-smart-gateway-operator                       Red Hat STF Operators      63m
-service-telemetry-operator                   Red Hat STF Operators      63m
-----
-endif::[]
-
-[id="subscribing-to-the-amq-certificate-manager-operator"]
-== Subscribing to the AMQ Certificate Manager Operator
-
-You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
-
-.Procedure
-
-. Subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ7 Certificate Manager:
+. If you are using {OpenShiftShort} 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ Certificate Manager:
 +
 [NOTE]
 The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
@@ -259,7 +248,7 @@ spec:
 EOF
 ----
 
-. To validate your `ClusterServiceVersion`, use the `oc get csv` command:
+. For {OpenShiftShort} versions 4.5 and OCP 4.6, to validate your `ClusterServiceVersion`, use the `oc get csv` command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -326,7 +315,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable
+  channel: stable-1.2
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: infrawatch-operators
@@ -344,10 +333,10 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable
+  channel: stable-1.2
   installPlanApproval: Automatic
   name: service-telemetry-operator
-  source: redhat-operators-stf
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
@@ -359,11 +348,13 @@ endif::[]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv --namespace service-telemetry
+
 NAME                                DISPLAY                                         VERSION   REPLACES   PHASE
 amq7-cert-manager.v1.0.0            Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
-amq7-interconnect-operator.v1.2.1   Red Hat Integration - AMQ Interconnect          1.2.1                Succeeded
-elastic-cloud-eck.v1.2.1            Elastic Cloud on Kubernetes                     1.2.1                Succeeded
+amq7-interconnect-operator.v1.2.3   Red Hat Integration - AMQ Interconnect          1.2.3                Succeeded
+elastic-cloud-eck.v1.4.0            Elasticsearch (ECK) Operator                    1.4.0                Succeeded
+grafana-operator.v3.9.0             Grafana Operator                                3.9.0                Succeeded
 prometheusoperator.0.37.0           Prometheus Operator                             0.37.0               Succeeded
-service-telemetry-operator.v1.1.0   Service Telemetry Operator                      1.1.0                Succeeded
-smart-gateway-operator.v2.1.0       Smart Gateway Operator                          2.1.0                Succeeded
+service-telemetry-operator.v1.2.1   Service Telemetry Operator                      1.2.1                Succeeded
+smart-gateway-operator.v2.2.1       Smart Gateway Operator                          2.2.1                Succeeded
 ----

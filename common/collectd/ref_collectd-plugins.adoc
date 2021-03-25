@@ -1107,3 +1107,7 @@ For more information about how to configure the `write_kafka` plug-in, see https
 == collectd::plugin::zfs_arc
 
 * None
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

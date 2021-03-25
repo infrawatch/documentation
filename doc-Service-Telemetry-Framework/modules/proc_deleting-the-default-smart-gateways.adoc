@@ -23,6 +23,7 @@
 [id="deleting-the-default-smart-gateways_{context}"]
 = Deleting the default Smart Gateways
 
+[role="_abstract"]
 After you configure {ProjectShort} for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove `SmartGateway` objects that have been created but are no longer listed in the ServiceTelemetry `clouds` list of objects. You can enable the removal of SmartGateway objects that are not defined by the `clouds` parameter by setting `cloudsRemoveOnMissing: true` in the `ServiceTelemetry` manifest.
 
 TIP: If you do not want any Smart Gateways deployed, define an empty clouds object using the `clouds: {}` parameter.
@@ -32,7 +33,7 @@ WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you en
 .Procedure
 
 
-. Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_installing-the-core-components-of-stf[].
+. Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
 . Edit the ServiceTelemetry object and add the `cloudsRemoveOnMissing` parameter:
 +

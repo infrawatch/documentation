@@ -24,6 +24,8 @@
 // in _The IBM Style Guide_.
 [id="high-availability_{context}"]
 = High availability
+
+[role="_abstract"]
 High availability is the ability of {Project} ({ProjectShort}) to rapidly recover from failures in its component services. Although {OpenShift} ({OpenShiftShort}) restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
 
 [NOTE]
@@ -41,4 +43,4 @@ Enabling high availability has the following effects:
 * Recovery time from a lost pod in any of these services reduces to approximately 2 seconds.
 
 [NOTE]
-The Ceilometer Metrics Smart Gateway is not yet HA
+The Ceilometer Metrics Smart Gateway is not yet HA.

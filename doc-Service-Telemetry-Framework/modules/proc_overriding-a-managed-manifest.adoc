@@ -3,27 +3,14 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_configuring-manifest-overrides.adoc[leveloffset=+1]
+// include::<path>/proc_overriding-a-managed-manifest.adoc[leveloffset=+1]
 
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
-[id="configuring-manifest-overrides_{context}"]
+
+[id="overriding-a-managed-manifest_{context}"]
 = Overriding a managed manifest
 
-Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see xref:manifest-overrides_advanced-features[]. The default `ServiceTelemetry` object is `default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
+[role="_abstract"]
+Edit the `ServiceTelemetry` object and provide a parameter and manifest. For a list of available manifest override parameters, see xref:manifest-overrides_assembly-advanced-features[]. The default `ServiceTelemetry` object is `default`. Use `oc get servicetelemetry` to list the available {ProjectShort} deployments.
 
 [TIP]
 The `oc edit` command loads the default system editor. To override the default editor, pass or set the environment variable `EDITOR` to the preferred editor. For example, `EDITOR=nano oc edit servicetelemetry default`.

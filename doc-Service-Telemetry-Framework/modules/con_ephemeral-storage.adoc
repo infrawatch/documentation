@@ -25,4 +25,8 @@
 [id="ephemeral-storage_{context}"]
 = Ephemeral storage
 
-Use ephemeral storage to run {Project} ({ProjectShort}) without persistently storing data in your {OpenShift} ({OpenShiftShort}) cluster.  Ephemeral storage is not recommended in a production environment due to the volatility of the data in the platform when operating correctly and as designed. For example, restarting a pod or rescheduling the workload to another node results in the loss of any local data written since the pod started.
+[role="_abstract"]
+You can use ephemeral storage to run {Project} ({ProjectShort}) without persistently storing data in your {OpenShift} ({OpenShiftShort}) cluster.
+
+[WARNING]
+If you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.

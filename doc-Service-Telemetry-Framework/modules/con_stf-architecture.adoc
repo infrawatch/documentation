@@ -5,27 +5,11 @@
 // This module can be included from assemblies using the following include statement:
 // include::<path>/con_architecture.adoc[leveloffset=+1]
 
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
-[id="architecture_{context}"]
+[id="stf-architecture_{context}"]
 = {Project} architecture
 
-{Project} ({ProjectShort}) uses the components described in xref:table-stf-components[]:
+[role="_abstract"]
+{Project} ({ProjectShort}) uses the components described in the following table:
 
 [[table-stf-components]]
 .{ProjectShort} components
@@ -78,15 +62,19 @@ If you plan to collect and store events, collectd or Ceilometer delivers event d
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} {ProductVersion} ({ProjectShort})
-* {OpenShift} {SupportedOpenShiftVersion} ({OpenShiftShort})
+* {OpenShift} {SupportedOpenShiftVersion} ({OpenShiftShort}) or 4.6
 * Infrastructure platform
 
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
 
-For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShiftShort} product documentation]. You can install {OpenShiftShort} on cloud platforms or on bare metal.
-For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
 
 [NOTE]
 Do not install {OpenShiftShort} on the same infrastructure that you want to monitor.
+
+.Additional resources
+
+* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShiftShort} product documentation].
+* You can install {OpenShiftShort} on cloud platforms or on bare metal.
+For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.

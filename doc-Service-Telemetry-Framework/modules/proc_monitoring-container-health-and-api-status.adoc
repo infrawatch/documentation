@@ -23,17 +23,14 @@
 [id="monitoring-container-health-and-api-status_{context}"]
 = Monitoring container health and API status
 
-Container health assesses the status of each of the {OpenStack} service containers
-by periodically running a health check script using the OCI (Open Container Initiative) standard.
-Most {OpenStack} services implement a healthcheck that logs issues and returns a
-binary status. For the {OpenStack} APIs, the healthchecks
-query the root endpoint and determine the health based on the response time.
+[role="_abstract"]
+Container health assesses the status of each of the {OpenStack} service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most {OpenStack} services implement a health check that logs issues and returns a binary status. For the {OpenStack} APIs, the health checks query the root endpoint and determine the health based on the response time.
 
 To monitor healthchecks in {ProjectShort}, you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol. The {ProjectShort} architecture considers healthcheck results to be events and are stored in ElasticSearch.
 
 .Prerequisites
 
-* You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_completing-the-stf-configuration[].
+* You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
 * You are using the most current version of {OpenStack} {OpenStackVersion}.
 
@@ -52,4 +49,4 @@ CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
 
 .Additional resources
 
-For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_advanced-features[].
+* For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_assembly-advanced-features[].

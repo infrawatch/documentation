@@ -24,6 +24,7 @@
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
+[role="_abstract"]
 To validate data collection from the {ProjectShort} storage domain, query the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment, connect to the console using SSH.
 
 TIP: Some telemetry data is only available when {OpenStack} has active workloads.

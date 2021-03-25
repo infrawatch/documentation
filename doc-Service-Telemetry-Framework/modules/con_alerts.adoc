@@ -25,12 +25,13 @@
 [id="alerts_{context}"]
 = Alerts
 
+[role="_abstract"]
 You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications using email, on-call notification systems, or chat platforms.
 
 To create an alert, complete the following tasks:
 
-. Create an alert rule in Prometheus. For more information, see xref:creating-an-alert-rule-in-prometheus_advanced-features[].
-. Create an alert route in Alertmanager. For more information, see xref:creating-an-alert-route-in-alertmanager_advanced-features[].
+. Create an alert rule in Prometheus. For more information, see xref:creating-an-alert-rule-in-prometheus_assembly-advanced-features[].
+. Create an alert route in Alertmanager. For more information, see xref:creating-an-alert-route-in-alertmanager_assembly-advanced-features[].
 
 
 .Additional resources

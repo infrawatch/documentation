@@ -15,15 +15,17 @@ include::common/stf-attributes.adoc[]
 // introduction
 include::assemblies/assembly_introduction-to-stf.adoc[leveloffset=+1]
 
-// installing
+//preparing
+include::assemblies/assembly_preparing-your-ocp-environment-for-stf.adoc[leveloffset=+1]
+
+//installing
 include::assemblies/assembly_installing-the-core-components-of-stf.adoc[leveloffset=+1]
 
-
-// completing
+//completing
 include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+1]
 
-// advanced features
+//advanced features
 include::assemblies/assembly_advanced-features.adoc[leveloffset=+1]
 
-// appendix
+//collectd plugins
 include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]
