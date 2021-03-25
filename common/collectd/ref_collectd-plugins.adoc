@@ -34,7 +34,7 @@ endif::[]
 
 You can configure multiple collectd plug-ins to suit your {OpenStack} {OpenStackVersion} environment.
 
-//The following list of headers shows the available heat template `ExtraConfig` options that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
+//The following list of headers shows the available heat template `ExtraConfig` options that you can set to override the //defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is //a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
 
 Some documented plug-ins have a table of available parameters in the Options tables. To make use of this, see the following example:
 ----
