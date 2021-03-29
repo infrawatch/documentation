@@ -387,15 +387,15 @@ Use the `df` plug-in to collect disk space usage information for file systems.
 |Name  |Description | Query
 
 |free
-|Amount of free space
+|Amount of free disk space
 |collectd_df_df_complex{..., type_instance="free"}
 
 |reserved
-|reserved disk space
+|Amount of reserved disk space
 |collectd_df_df_complex{..., type_instance="reserved"}
 
 |used
-|used disk space
+|Amount of used disk space
 |collectd_df_df_complex{..., type_instance="used"}
 |===
 
@@ -955,7 +955,7 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 [discrete]
 == collectd::plugin::virt
 
-Use the `virt` plug-in to collect CPU, disk, network load and other metrics for virtual machines on the host. Metrics are collected through the `libvirt` API.
+Use the `virt` plug-in to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
 
 .virt options
 [cols="50%,50%"]
