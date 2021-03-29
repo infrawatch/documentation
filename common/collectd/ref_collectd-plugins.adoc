@@ -267,7 +267,7 @@ Use the `cpu` plug-in to monitor the time the CPU spends in various states, for 
 
 The `cpu` plug-in collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
-To get a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then you can set the Boolean parameter `valuespercentage` to true.
+To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
 
 
 
