@@ -1059,7 +1059,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::write_kafka
 
-Use the `write_kafka` plug-in to send values to a Kafka topic. The configuration of the `write_kafka` plug-in consists of one or more topic blocks. Each block is given a unique name and specifies one Kafka producer. Inside the topic block, the following per-topic options are understood:
+Use the `write_kafka` plug-in to send values to a Kafka topic. Configure the `write_kafka` plug-in with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:
 
 .write_kafka options
 [cols="50%,50%"]
