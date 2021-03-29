@@ -210,7 +210,7 @@ parameter_defaults:
 ----
 
 [NOTE]
-If the OSDs do not exist on all nodes, you must still ensure that you list the OSDs.
+If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
 
 [NOTE]
 When you deploy collectd, the `ceph` plug-in is added to the ceph nodes. Do not add the `ceph` plug-in on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure. 
