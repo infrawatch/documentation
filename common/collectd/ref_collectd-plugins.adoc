@@ -263,7 +263,7 @@ For more information about configuring the `cgroups` plug-in, see https://collec
 [discrete]
 == collectd::plugin::cpu
 
-Use the `cpu` plug-in to monitor the amount of time spent by the CPU in various states, for example, executing user code, executing system code, waiting for IO-operations, and being idle.
+Use the `cpu` plug-in to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
 
 The `cpu` plug-in collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
