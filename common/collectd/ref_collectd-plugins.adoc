@@ -716,7 +716,7 @@ Use the `ovs_stats` plug-in to collect statistics of OVS connected interfaces. T
 
 
 .Example configuration
-This is an example of how to enable the ovs_stats plugin. If you deploy your overcloud with OVS, you do not need to enable the plugin.
+The following example shows how to enable the ovs_stats plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
 ----
     parameter_defaults:
         CollectdExtraPlugins:
