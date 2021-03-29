@@ -1017,7 +1017,7 @@ For more information about configuring the `virt` plug-in, see https://collectd.
 [discrete]
 == collectd::plugin::write_http
 
-Use the `write_http` output plug-in to submit values to an HTTP server by using POST requests and encoding metrics with JSON or using the `PUTVAL` command.
+Use the `write_http` output plug-in to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the `PUTVAL` command.
 
 .write_http options
 [cols="50%,50%"]
