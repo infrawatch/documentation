@@ -379,7 +379,7 @@ For more information about configuring the `cpu` plug-in, see https://collectd.o
 [discrete]
 == collectd::plugin::df
 
-Use the `df` plug-in to collect file system usage information.
+Use the `df` plug-in to collect disk space usage information for file systems.
 
 .df metrics
 [cols="20%,30%,50%"]
