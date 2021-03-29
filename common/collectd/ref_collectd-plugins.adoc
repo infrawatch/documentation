@@ -47,7 +47,7 @@ You can reference the metrics table information of specific plug-ins for Prometh
 [discrete]
 == collectd::plugin::aggregation
 
-Use the `aggregation` plug-in to aggregate several values into one by using aggregation functions, for example, sum, average, min, and max. This can be put to a wide variety of uses, for example, average and total CPU statistics.
+You can aggregate several values into one with the `aggregation` plug-in. Use the aggregation functions such as `sum`, `average`, `min`, and `max` to calculate metrics, for example average and total CPU statistics.
 
 * collectd::plugin::aggregation::aggregators
 * collectd::plugin::aggregation::interval
