@@ -174,7 +174,7 @@ For more information about configuring the `battery` plug-in, see https://collec
 [discrete]
 == collectd::plugin::bind
 
-The `bind` plug-in retrieves encoded statistics about queries and responses from a DNS server. The plug-in submits the values to collectd.
+Use the `bind` plug-in to retrieve encoded statistics about queries and responses from a DNS server. The plug-in submits the values to collectd.
 
 [discrete]
 ==  collectd::plugin::ceph
