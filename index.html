@@ -450,7 +450,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.2</a>
+<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</a>
 <ul class="sectlevel2">
 <li><a href="#stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</a></li>
 <li><a href="#installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</a></li>
@@ -498,7 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.2</h2>
+<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>Service&#160;Telemetry&#160;Framework (STF) receives monitoring data from OpenStack or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:</p>
@@ -591,10 +591,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Service&#160;Telemetry&#160;Framework 1.2 (STF)</p>
+<p>Service&#160;Telemetry&#160;Framework 1.3 (STF)</p>
 </li>
 <li>
-<p>OpenShift 4.5 (OKD) or 4.6</p>
+<p>OpenShift 4.6 (OKD) or 4.6</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -623,7 +623,7 @@ Do not install OKD on the same infrastructure that you want to monitor.
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.5/">OKD product documentation</a>.</p>
+<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/">OKD product documentation</a>.</p>
 </li>
 <li>
 <p>You can install OKD on cloud platforms or on bare metal.
@@ -654,10 +654,10 @@ For more information about STF performance and scaling, see <a href="https://acc
 </ul>
 </div>
 <div class="paragraph">
-<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment. Ensure that you install monitoring for OpenStack on a platform separate from your OpenStack environment. You can install OpenShift (OKD) on baremetal or other supported cloud platforms. For more information about installing OKD, see <a href="https://docs.openshift.com/container-platform/4.5/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.5 Documentation</a>.</p>
+<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment. Ensure that you install monitoring for OpenStack on a platform separate from your OpenStack environment. You can install OpenShift (OKD) on baremetal or other supported cloud platforms. For more information about installing OKD, see <a href="https://docs.openshift.com/container-platform/4.6/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.6 Documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The size of your OKD environment depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>The size of your OKD environment depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirement_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -750,10 +750,10 @@ For more information about STF performance and scaling, see <a href="https://acc
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.5/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
+<p>For more information about configuring persistent storage for OKD, see <a href="https://docs.openshift.com/container-platform/4.6/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </li>
 <li>
-<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.6/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </li>
 </ul>
 </div>
@@ -831,7 +831,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </table>
 </div>
 <div class="paragraph">
-<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
+<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.6/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
@@ -842,7 +842,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.6/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -864,7 +864,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </li>
 <li>
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.5/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
+<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.6/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
 </li>
 </ul>
 </div>
@@ -908,7 +908,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.5/operators/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.6/operators/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
 </ul>
 </div>
@@ -1037,7 +1037,7 @@ EOF</code></pre>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.5/operators/understanding_olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.6/operators/understanding_olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3932,7 +3932,7 @@ spec:
 <div class="sect2">
 <h3 id="creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, you can expose applications to the external network via a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.5/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, you can expose applications to the external network via a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.6/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
 <p>In Service&#160;Telemetry&#160;Framework (STF), routes are not exposed by default  to limit the attack surface of STF deployments. To access some services deployed in STF, you must expose the services in OKD for access.</p>
@@ -4025,13 +4025,13 @@ The address of the route must be resolvable and configuration is environment spe
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about OpenShift networking, see <a href="https://docs.openshift.com/container-platform/4.5/networking/understanding-networking.html">Understanding networking</a></p>
+<p>For more information about OpenShift networking, see <a href="https://docs.openshift.com/container-platform/4.6/networking/understanding-networking.html">Understanding networking</a></p>
 </li>
 <li>
-<p>For more information about route configuration, see <a href="https://docs.openshift.com/container-platform/4.5/networking/routes/route-configuration.html">Route configuration</a></p>
+<p>For more information about route configuration, see <a href="https://docs.openshift.com/container-platform/4.6/networking/routes/route-configuration.html">Route configuration</a></p>
 </li>
 <li>
-<p>For more information about ingress cluster traffic, see <a href="https://docs.openshift.com/container-platform/4.5/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic overview</a></p>
+<p>For more information about ingress cluster traffic, see <a href="https://docs.openshift.com/container-platform/4.6/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic overview</a></p>
 </li>
 </ul>
 </div>
@@ -5736,7 +5736,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-29 10:07:57 UTC
+Last updated 2021-03-29 16:15:30 UTC
 </div>
 </div>
 </body>
