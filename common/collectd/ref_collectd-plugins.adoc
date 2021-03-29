@@ -1,4 +1,4 @@
-:appendix-caption: Appendix
+//:appendix-caption: Appendix
 // Module included in the following assemblies:
 //
 // <List assemblies here, each on a new line>
@@ -19,119 +19,481 @@
 // The `context` attribute enables module reuse. Every module's ID includes
 // {context}, which ensures that the module has a unique ID even if it is
 // reused multiple times in a guide.
-:context: appendix
+//:context: appendix
 //
 // In the title, include nouns that are used in the body text. This helps
 // readers and search engines find information quickly.
-[appendix]
-[[appe-stf-collectd-plugins]]
-# collectd plug-ins
+//[appendix]
+//[[appe-stf-collectd-plugins]]
+= collectd plugins
 
-This section contains a complete list of collectd plug-ins and configurations for {OpenStack} {OpenStackVersion}.
+ifeval::["{build}" == "downstream"]
+[IMPORTANT]
+Red Hat is currently updating the plugin information in this guide for this release.
+endif::[]
 
-collectd-aggregation::
+You can configure multiple collectd plugins to suit your {OpenStack} {OpenStackVersion} environment.
+//The following list of headers shows the available heat template `ExtraConfig` options that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
+Reference the options tables of available parameters for specific plugins, such as in the following example:
+----
+ExtraConfig:
+  collectd::plugin::example_plugin::<parameter>: <value>
+----
+
+Reference the metrics tables of specific plugins for Prometheus or Grafana queries.
+
+[discrete]
+== collectd::plugin::aggregation
+
+You can aggregate several values into one with the `aggregation` plugin. Use the aggregation functions such as `sum`, `average`, `min`, and `max` to calculate metrics, for example average and total CPU statistics.
+
 * collectd::plugin::aggregation::aggregators
 * collectd::plugin::aggregation::interval
 
-*collectd-amqp1*
+[discrete]
+== collectd::plugin::ampq
 
-collectd-apache::
-* collectd::plugin::apache::instances (ex.: {'localhost' => {'url' => 'http://localhost/mod_status?auto'}})
-* collectd::plugin::apache::interval
 
-*collectd-apcups*
+[discrete]
+== collectd::plugin::amqp1
 
-collectd-battery::
-* collectd::plugin::battery::values_percentage
-* collectd::plugin::battery::report_degraded
-* collectd::plugin::battery::query_state_fs
-* collectd::plugin::battery::interval
+Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {MessageBus}.
 
-collectd-ceph::
-* collectd::plugin::ceph::daemons
-* collectd::plugin::ceph::longrunavglatency
-* collectd::plugin::ceph::convertspecialmetrictypes
+.amqp1 options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
 
-collectd-cgroups::
-* collectd::plugin::cgroups::ignore_selected
-* collectd::plugin::cgroups::interval
+|manage_package
+|Boolean
 
-collectd-conntrack::
+|transport
+|String
+
+|host
+|string
+
+|port
+|integer
+
+|user
+|String
+
+|password
+|String
+
+|address
+|String
+
+|instances
+|Hash
+
+|retry_delay
+|Integer
+
+|send_queue_limit
+|Integer
+
+|interval
+|Integer
+|===
+
+.Example configuration
+
+----
+  Parameter_defaults:
+    CollectdExtraPlugins:
+      - amqp1
+    ExtraConfig:
+      collectd::plugin::amqp1::send_queue_limit: 50
+----
+
+[discrete]
+== collectd::plugin::apache
+
+Use the `apache` plugin to collect Apache data.
+
+.apache options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|instances |Hash
+
+|interval |Integer
+
+|manage-package |Boolean
+
+|package_install_options |List
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::apache:
+          localhost:
+              url: "http://10.0.0.111/status?auto"
+----
+
+
+.Additional resources
+
+For more information about configuring the `apache` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_apache[apache].
+
+[discrete]
+== collectd::plugin::battery
+
+Use the `battery` plugin to report the remaining capacity, power, or voltage of laptop batteries.
+
+.battery options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|values_percentage |Boolean
+
+|report_degraded |Boolean
+
+|query_state_fs |Boolean
+
+|interval | Integer
+|===
+
+
+.Additional resources
+
+For more information about configuring the `battery` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[battery].
+
+
+[discrete]
+== collectd::plugin::bind
+
+Use the `bind` plugin to retrieve encoded statistics about queries and responses from a DNS server. The plugin submits the values to collectd.
+
+[discrete]
+==  collectd::plugin::ceph
+
+Use the `ceph` plugin to gather data from ceph daemons.
+
+.ceph options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|daemons |Array
+
+|longrunavglatency |Boolean
+
+|convertspecialmetrictypes |Boolean
+
+|manage_package |Boolean
+
+|package_name |String
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::ceph::daemons:
+           - ceph-osd.0
+           - ceph-osd.1
+           - ceph-osd.2
+           - ceph-osd.3
+           - ceph-osd.4
+----
+
+[NOTE]
+If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
+
+[NOTE]
+When you deploy collectd, the `ceph` plugin is added to the ceph nodes. Do not add the `ceph` plugin on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure.
+
+.Additional resources
+
+For more information about configuring the `ceph` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[ceph].
+
+
+
+[discrete]
+== collectd::plugins::cgroups
+
+Use the `cgroups` plugin to collect information for processes in a cgroup.
+
+.cgroups options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|ignore_selected
+|Boolean
+
+|interval
+|Integer
+
+|cgroups
+|List
+|===
+
+.Additional resources
+
+For more information about configuring the `cgroups` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups[cgroups].
+
+[discrete]
+== collectd::plugin::chrony
+
+[discrete]
+== collectd::plugin::connectivity
+
+[discrete]
+== collectd::plugin::conntrack
+
 * None
+[discrete]
+== collectd::plugin::contextswitch
 
-collectd-contextswitch::
 * collectd::plugin::contextswitch::interval
 
-collectd-cpu::
-* collectd::plugin::cpu::reportbystate
-* collectd::plugin::cpu::reportbycpu
-* collectd::plugin::cpu::valuespercentage
-* collectd::plugin::cpu::reportnumcpu
-* collectd::plugin::cpu::reportgueststate
-* collectd::plugin::cpu::subtractgueststate
-* collectd::plugin::cpu::interval
+[discrete]
+== collectd::plugin::cpu
 
-collectd-cpufreq::
+Use the `cpu` plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
+
+The `cpu` plugin collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
+
+To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
+
+
+
+.cpu metrics
+[cols="20%,30%,50%"]
+|===
+|Name  |Description | Query
+
+|idle
+|Amount of idle time
+|collectd_cpu_total{...,type_instance='idle'}
+
+|interrupt
+|CPU blocked by interrupts
+|collectd_cpu_total{...,type_instance='interrupt'}
+
+|nice
+|Amount of time running low priority processes
+|collectd_cpu_total{...,type_instance='nice'}
+
+|softirq
+|Amount of cycles spent in servicing interrupt requests
+|collectd_cpu_total{...,type_instance='waitirq'}
+
+|steal
+|The percentage of time a virtual CPU waits for a real CPU while the hypervisor is servicing another virtual processor
+|collectd_cpu_total{...,type_instance='steal'}
+
+|system
+|Amount of time spent on system level (kernel)
+|collectd_cpu_total{...,type_instance='system'}
+
+|user
+|Jiffies used by user processes
+|collectd_cpu_total{...,type_instance='user'}
+
+|wait
+|CPU waiting on outstanding I/O request
+|collectd_cpu_total{...,type_instance='wait'}
+|===
+
+.cpu options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|reportbystate
+|Boolean
+
+|valuespercentage
+|Boolean
+
+|reportbycpu
+|Boolean
+
+|reportnumcpu
+|Boolean
+
+|reportgueststate
+|Boolean
+
+|subtractgueststate
+|Boolean
+
+|interval
+|Integer
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+      - cpu
+    ExtraConfig:
+        collectd::plugin::cpu::reportbystate: true
+----
+
+.Additional resources
+
+For more information about configuring the `cpu` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu[cpu plugin].
+
+[discrete]
+== collectd::plugin::cpufreq
 * None
 
-*collectd-cpusleep*
+[discrete]
+== collectd::plugin::cpusleep
 
-collectd-csv::
+[discrete]
+== collectd::plugin::csv
+
 * collectd::plugin::csv::datadir
 * collectd::plugin::csv::storerates
 * collectd::plugin::csv::interval
 
-collectd-df::
-* collectd::plugin::df::devices
-* collectd::plugin::df::fstypes
-* collectd::plugin::df::ignoreselected
-* collectd::plugin::df::mountpoints
-* collectd::plugin::df::reportbydevice
-* collectd::plugin::df::reportinodes
-* collectd::plugin::df::reportreserved
-* collectd::plugin::df::valuesabsolute
-* collectd::plugin::df::valuespercentage
-* collectd::plugin::df::interval
+[discrete]
+== collectd::plugin::curl_json
 
-collectd-disk::
+[discrete]
+== collectd::plugin::curl
+
+[discrete]
+== collectd::plugin::curl_xml
+
+[discrete]
+== collectd::plugin::dbi
+
+[discrete]
+== collectd::plugin::df
+
+Use the `df` plugin to collect disk space usage information for file systems.
+
+.df metrics
+[cols="20%,30%,50%"]
+|===
+|Name  |Description | Query
+
+|free
+|Amount of free disk space
+|collectd_df_df_complex{..., type_instance="free"}
+
+|reserved
+|Amount of reserved disk space
+|collectd_df_df_complex{..., type_instance="reserved"}
+
+|used
+|Amount of used disk space
+|collectd_df_df_complex{..., type_instance="used"}
+|===
+
+
+.df options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|devices |Array
+
+|fstypes |Array
+
+|ignoreselected |Boolean
+
+|mountpoints |Array
+
+|reportbydevice |Boolean
+
+|reportinodes |Boolean
+
+|reportreserved |Boolean
+
+|valuesabsolute |Boolean
+
+|valuespercentage |Boolean
+
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+      - df
+    ExtraConfig:
+        collectd::plugin::df::FStype: "ext4"
+----
+
+.Additional resources
+
+For more information about configuring the `df` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df[df plugin].
+
+[discrete]
+== collectd::plugin::disk
+
+Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions.
+
 * collectd::plugin::disk::disks
 * collectd::plugin::disk::ignoreselected
 * collectd::plugin::disk::udevnameattr
 * collectd::plugin::disk::interval
 
-collectd-entropy::
+[discrete]
+== collectd::plugin::dns
+
+[discrete]
+== collectd::plugin::dpdk_telemetry
+
+[discrete]
+== collectd::plugin::entropy
+
 * collectd::plugin::entropy::interval
 
-collectd-ethstat::
+[discrete]
+== collectd::plugin::ethstat
+
 * collectd::plugin::ethstat::interfaces
 * collectd::plugin::ethstat::maps
 * collectd::plugin::ethstat::mappedonly
 * collectd::plugin::ethstat::interval
 
-collectd-exec::
+[discrete]
+== collectd::plugin::exec
 * collectd::plugin::exec::commands
 * collectd::plugin::exec::commands_defaults
 * collectd::plugin::exec::globals
 * collectd::plugin::exec::interval
 
-collectd-fhcount::
+[discrete]
+== collectd::plugin::fhcount
 * collectd::plugin::fhcount::valuesabsolute
 * collectd::plugin::fhcount::valuespercentage
 * collectd::plugin::fhcount::interval
 
-collectd-filecount::
+[discrete]
+== collectd::plugin::filecount
 * collectd::plugin::filecount::directories
 * collectd::plugin::filecount::interval
 
-collectd-fscache::
+[discrete]
+== collectd::plugin::fscache
 * None
 
-collectd-hddtemp::
+[discrete]
+== collectd-hddtemp
 * collectd::plugin::hddtemp::host
 * collectd::plugin::hddtemp::port
 * collectd::plugin::hddtemp::interval
 
-collectd-hugepages::
+[discrete]
+== collectd-hugepages
 * collectd::plugin::hugepages::report_per_node_hp
 * collectd::plugin::hugepages::report_root_hp
 * collectd::plugin::hugepages::values_pages
@@ -139,18 +501,25 @@ collectd-hugepages::
 * collectd::plugin::hugepages::values_percentage
 * collectd::plugin::hugepages::interval
 
-*collectd-intel_rdt*
+[discrete]
+== collectd::plugin::intel_pmu
 
-collectd-interface::
+[discrete]
+== collectd::plugin::intel_rdt
+
+[discrete]
+== collectd::plugin::interface
 * collectd::plugin::interface::interfaces
 * collectd::plugin::interface::ignoreselected
 * collectd::plugin::interface::reportinactive
 * Collectd::plugin::interface::interval
 
-collectd-ipc::
+[discrete]
+== collectd::plugin::ipc
 * None
 
-collectd-ipmi::
+[discrete]
+== collectd::plugin::ipmi
 * collectd::plugin::ipmi::ignore_selected
 * collectd::plugin::ipmi::notify_sensor_add
 * collectd::plugin::ipmi::notify_sensor_remove
@@ -158,44 +527,111 @@ collectd-ipmi::
 * collectd::plugin::ipmi::sensors
 * collectd::plugin::ipmi::interval
 
-collectd-irq::
+[discrete]
+== collectd::plugin::iptables
+
+[discrete]
+== collectd::plugin::irq
 * collectd::plugin::irq::irqs
 * collectd::plugin::irq::ignoreselected
 * collectd::plugin::irq::interval
 
-collectd-load::
+[discrete]
+== collectd::plugin::load
+
+Use the `load` plugin to collect the system load and to get overview on  system use.
+
 * collectd::plugin::load::report_relative
 * collectd::plugin::load::interval
 
-collectd-logfile::
+[discrete]
+== collectd::plugin::logfile
 * collectd::plugin::logfile::log_level
 * collectd::plugin::logfile::log_file
 * collectd::plugin::logfile::log_timestamp
 * collectd::plugin::logfile::print_severity
 * collectd::plugin::logfile::interval
 
-*collectd-madwifi*
+[discrete]
+== collectd::plugin::log_logstash
 
-*collectd-mbmon*
+[discrete]
+== collectd::plugin::madwifi
 
-*collectd-md*
+[discrete]
+== collectd::plugin::match_empty_counter
 
-collectd-memcached::
+[discrete]
+== collectd::plugin::match_hashed
+
+[discrete]
+== collectd::plugin::match_regex
+
+[discrete]
+== collectd::plugin::match_timediff
+
+[discrete]
+== collectd::plugin::match_value
+
+[discrete]
+== collectd::plugin::mbmon
+
+[discrete]
+== collectd::plugin::mcelog
+
+Use the `mcelog` plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
+
+.mcelog options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|Mcelogfile |String
+
+|Memory |Hash { mcelogclientsocket[string], persistentnotification[boolean] }
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    CollectdExtraPlugins: mcelog
+    CollectdEnableMcelog: true
+----
+
+.Additional resources
+* For more information about configuring the `mcelog` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_mcelog[mcelog].
+
+[discrete]
+== collectd::plugin::md
+
+[discrete]
+== collectd::plugin::memcachec
+
+[discrete]
+== collectd::plugin::memcached
+
 * collectd::plugin::memcached::instances
 * collectd::plugin::memcached::interval
 
-collectd-memory::
+[discrete]
+== collectd::plugin::memory
+
 * collectd::plugin::memory::valuesabsolute
 * collectd::plugin::memory::valuespercentage
 * collectd::plugin::memory::interval
 collectd-multimeter
 
-*collectd-multimeter*
+[discrete]
+== collectd::plugin::multimeter
 
-collectd-mysql::
+[discrete]
+== collectd::plugin::mysql
+
 * collectd::plugin::mysql::interval
 
-collectd-netlink::
+[discrete]
+== collectd::plugin::netlink
 * collectd::plugin::netlink::interfaces
 * collectd::plugin::netlink::verboseinterfaces
 * collectd::plugin::netlink::qdiscs
@@ -204,7 +640,9 @@ collectd-netlink::
 * collectd::plugin::netlink::ignoreselected
 * collectd::plugin::netlink::interval
 
-collectd-network::
+[discrete]
+== collectd::plugin::network
+
 * collectd::plugin::network::timetolive
 * collectd::plugin::network::maxpacketsize
 * collectd::plugin::network::forward
@@ -213,22 +651,35 @@ collectd-network::
 * collectd::plugin::network::servers
 * collectd::plugin::network::interval
 
-collectd-nfs::
+[discrete]
+== collectd::plugin::nfs
 * collectd::plugin::nfs::interval
 
-collectd-ntpd::
+[discrete]
+== collectd::plugin::notify_nagios
+
+[discrete]
+== collectd::plugin::ntpd
+
 * collectd::plugin::ntpd::host
 * collectd::plugin::ntpd::port
 * collectd::plugin::ntpd::reverselookups
 * collectd::plugin::ntpd::includeunitid
 * collectd::plugin::ntpd::interval
 
-collectd-numa::
+[discrete]
+== collectd::plugin::numa
 * None
 
-*collectd-olsrd*
+[discrete]
+== collectd::plugin::olsrd
 
-collectd-openvpn::
+[discrete]
+== collectd::plugin::openldap
+
+[discrete]
+== collectd::plugin::openvpn
+
 * collectd::plugin::openvpn::statusfile
 * collectd::plugin::openvpn::improvednamingschema
 * collectd::plugin::openvpn::collectcompression
@@ -236,21 +687,77 @@ collectd-openvpn::
 * collectd::plugin::openvpn::collectusercount
 * collectd::plugin::openvpn::interval
 
-collectd-ovs_events::
-* collectd::plugin::ovs_events::address
-* collectd::plugin::ovs_events::dispatch
-* collectd::plugin::ovs_events::interfaces
-* collectd::plugin::ovs_events::send_notification
-* collectd::plugin::ovs_events::$port
-* collectd::plugin::ovs_events::socket
+[discrete]
+== collectd::plugin::ovs_stats
 
-collectd-ovs_stats::
-* collectd::plugin::ovs_stats::address
-* collectd::plugin::ovs_stats::bridges
-* collectd::plugin::ovs_stats::port
-* collectd::plugin::ovs_stats::socket
+Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. The `ovs_stats` plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
 
-collectd-ping::
+.ovs_stats options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|address
+|String
+
+|bridges
+|List
+
+|port
+|Integer
+
+|socket
+|String
+|===
+
+
+.Example configuration
+The following example shows how to enable the ovs_stats plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
+----
+    parameter_defaults:
+        CollectdExtraPlugins:
+          - ovs_stats
+        ExtraConfig:
+          collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'
+----
+
+.Additional resources
+
+* For more information about configuring the `ovs_stats` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats[ovs_stats].
+
+[discrete]
+== collectd::plugin::pcie_errors
+
+Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.
+
+.pcie_errors options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|source |Enum (sysfs, proc)
+
+|access |String
+
+|reportmasked |Boolean
+
+|persistent_notifications |Boolean
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+       - pcie_errors
+----
+
+.Additional resources
+
+* For more information about configuring the `pcie_errors` plugin, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors upstream].
+
+[discrete]
+== collectd::plugin::ping
 * collectd::plugin::ping::hosts
 * collectd::plugin::ping::timeout
 * collectd::plugin::ping::ttl
@@ -260,14 +767,16 @@ collectd-ping::
 * collectd::plugin::ping::size
 * collectd::plugin::ping::interval
 
-collectd-powerdns::
+[discrete]
+== collectd::plugin::powerdns
 * collectd::plugin::powerdns::interval
 * collectd::plugin::powerdns::servers
 * collectd::plugin::powerdns::recursors
 * collectd::plugin::powerdns::local_socket
 * collectd::plugin::powerdns::interval
 
-collectd-processes::
+[discrete]
+== collectd::plugin::processes
 * collectd::plugin::processes::processes
 * collectd::plugin::processes::process_matches
 * collectd::plugin::processes::collect_context_switch
@@ -275,22 +784,52 @@ collectd-processes::
 * collectd::plugin::processes::collect_memory_maps
 * collectd::plugin::powerdns::interval
 
-collectd-protocols::
+[discrete]
+== collectd::plugin::protocols
 * collectd::plugin::protocols::ignoreselected
 * collectd::plugin::protocols::values
 
-*collectd-python*
+[discrete]
+== collectd::plugin::python
 
-*collectd-serial*
+[discrete]
+== collectd::plugin::sensors
 
-collectd-smart::
+[discrete]
+== collectd::plugin::serial
+
+[discrete]
+== collectd::plugin::smart
+
 * collectd::plugin::smart::disks
 * collectd::plugin::smart::ignoreselected
 * collectd::plugin::smart::interval
 
-*collectd-snmp_agent*
+[discrete]
+== collectd::plugin::snmp
 
-collectd-statsd::
+[discrete]
+== collectd::plugin::snmp_agent
+
+Use the `snmp_agent` plugin as an SNMP subagent to map collectd metrics to relevant OIDs. The snmp agent also requires a running snmpd service.
+
+.Example configuration:
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+        snmp_agent
+resource_registry:
+    OS::TripleO::Services::Snmp: /usr/share/openstack-tripleo-heat-
+templates/deployment/snmp/snmp-baremetal-puppet.yaml
+----
+
+.Additional resources:
+
+For more information about how to configure `snmp_agent`, see  https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_snmp_agent[snmp_agent].
+
+[discrete]
+== collectd::plugin::statsd
 * collectd::plugin::statsd::host
 * collectd::plugin::statsd::port
 * collectd::plugin::statsd::deletecounters
@@ -305,7 +844,8 @@ collectd-statsd::
 * collectd::plugin::statsd::timercount
 * collectd::plugin::statsd::interval
 
-collectd-swap::
+[discrete]
+== collectd::plugin::swap
 * collectd::plugin::swap::reportbydevice
 * collectd::plugin::swap::reportbytes
 * collectd::plugin::swap::valuesabsolute
@@ -313,44 +853,76 @@ collectd-swap::
 * collectd::plugin::swap::reportio
 * collectd::plugin::swap::interval
 
-collectd-syslog::
+[discrete]
+== collectd::plugin::sysevent
+
+[discrete]
+== collectd::plugin::syslog
+
 * collectd::plugin::syslog::log_level
 * collectd::plugin::syslog::notify_level
 * collectd::plugin::syslog::interval
 
-collectd-table::
+[discrete]
+== collectd::plugin::table
+
 * collectd::plugin::table::tables
 * collectd::plugin::table::interval
 
-collectd-tail::
+[discrete]
+== collectd::plugin::tail
+
 * collectd::plugin::tail::files
 * collectd::plugin::tail::interval
 
-collectd-tail_csv::
+[discrete]
+== collectd::plugin::tail_csv
 * collectd::plugin::tail_csv::metrics
 * collectd::plugin::tail_csv::files
 
-collectd-tcpconns::
+[discrete]
+== collectd::plugin::target_notification
+
+[discrete]
+== collectd::plugin::target_replace
+
+[discrete]
+== collectd::plugin::target_scale
+
+[discrete]
+== collectd::plugin::target_set
+
+[discrete]
+== collectd::plugin::target_v5upgrade
+
+[discrete]
+== collectd::plugin::tcpconns
+
 * collectd::plugin::tcpconns::localports
 * collectd::plugin::tcpconns::remoteports
 * collectd::plugin::tcpconns::listening
 * collectd::plugin::tcpconns::allportssummary
 * collectd::plugin::tcpconns::interval
 
-*collectd-ted*
+[discrete]
+== collectd::plugin::ted
 
-collectd-thermal::
+[discrete]
+== collectd::plugin::thermal
+
 * collectd::plugin::thermal::devices
 * collectd::plugin::thermal::ignoreselected
 * collectd::plugin::thermal::interval
 
-collectd-threshold::
+[discrete]
+== collectd::plugin::threshold
 * collectd::plugin::threshold::types
 * collectd::plugin::threshold::plugins
 * collectd::plugin::threshold::hosts
 * collectd::plugin::threshold::interval
 
-collectd-turbostat::
+[discrete]
+== collectd::plugin::turbostat
 * collectd::plugin::turbostat::core_c_states
 * collectd::plugin::turbostat::package_c_states
 * collectd::plugin::turbostat::system_management_interrupt
@@ -359,53 +931,177 @@ collectd-turbostat::
 * collectd::plugin::turbostat::running_average_power_limit
 * collectd::plugin::turbostat::logical_core_names
 
-*collectd-unixsock*
+[discrete]
+== collectd::plugin::unixsock
 
-collectd-uptime::
+[discrete]
+== collectd::plugin::uptime
+
 * collectd::plugin::uptime::interval
 
-collectd-users::
+[discrete]
+== collectd::plugin::users
 * collectd::plugin::users::interval
 
-collectd-uuid::
+[discrete]
+== collectd::plugin::uuid
 * collectd::plugin::uuid::uuid_file
 * collectd::plugin::uuid::interval
 
-collectd-virt::
-* collectd::plugin::virt::connection
-* collectd::plugin::virt::refresh_interval
-* collectd::plugin::virt::domain
-* collectd::plugin::virt::block_device
-* collectd::plugin::virt::interface_device
-* collectd::plugin::virt::ignore_selected
-* collectd::plugin::virt::hostname_format
-* collectd::plugin::virt::interface_format
-* collectd::plugin::virt::extra_stats
-* collectd::plugin::virt::interval
+[discrete]
+== collectd::plugin::virt
 
-collectd-vmem::
+Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
+
+.virt options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|connection |String
+
+|refresh_interval |Hash
+
+|domain |String
+
+|block_device |String
+
+|interface_device |String
+
+|ignore_selected |Boolean
+
+|plugin_instance_format |String
+
+|hostname_format |String
+
+|interface_format |String
+
+|extra_stats |String
+
+|===
+
+.Example configuration
+
+----
+ExtraConfig:
+    collectd::plugin::virt::plugin_instance_format: name
+----
+
+.Additional resources
+
+For more information about configuring the `virt` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_virt[virt].
+
+[discrete]
+== collectd::plugin::vmem
+
 * collectd::plugin::vmem::verbose
 * collectd::plugin::vmem::interval
 
-*collectd-vserver*
+[discrete]
+== collectd::plugin::vserver
 
-*collectd-wireless*
+[discrete]
+== collectd::plugin::wireless
 
-collectd-write_graphite::
+[discrete]
+== collectd::plugin::write_graphite
+
 * collectd::plugin::write_graphite::carbons
 * collectd::plugin::write_graphite::carbon_defaults
 * collectd::plugin::write_graphite::globals
 
-collectd-write_kafka::
-* collectd::plugin::write_kafka::kafka_host
-* collectd::plugin::write_kafka::kafka_port
-* collectd::plugin::write_kafka::kafka_hosts
-* collectd::plugin::write_kafka::topics
+[discrete]
+== collectd::plugin::write_http
 
-collectd-write_log::
+Use the `write_http` output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the `PUTVAL` command.
+
+.write_http options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|ensure
+|Enum['present', 'absent']
+
+|nodes
+|Hash[String, Hash[String, Scalar]]
+
+|urls
+|Hash[String, Hash[String, Scalar]]
+
+|manage_package
+|Boolean
+
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+      - write_http
+    ExtraConfig:
+        collectd::plugin::write_http::nodes:
+            collectd:
+                url: “http://collectd.tld.org/collectd”
+                metrics: true
+                header: “X-Custom-Header: custom_value"
+----
+
+.Additional resources
+
+* For more information about configuring the `write_http` plugin, see https://collectd.org/wiki/index.php/Plugin:Write_HTTP[write_http].
+
+[discrete]
+== collectd::plugin::write_kafka
+
+Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `write_kafka` plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:
+
+.write_kafka options
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|kafka_hosts |Array[String]
+
+|kafka_port |Integer
+
+|topics |Hash
+
+|properties |Hash
+
+|meta |Hash
+
+|===
+
+.Example configuration:
+
+----
+parameter_defaults:
+    CollectdExtraPlugins:
+       - write_kafka
+    ExtraConfig:
+      collectd::plugin::write_kafka::kafka_hosts:
+        - nodeA
+        - nodeB
+      collectd::plugin::write_kafka::topics:
+        some_events:
+          format: JSON
+
+----
+
+.Additional resources:
+
+For more information about how to configure the `write_kafka` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka[write_kafka].
+
+[discrete]
+== collectd::plugin::write_log
+
 * collectd::plugin::write_log::format
 
-collectd-zfs_arc::
+[discrete]
+== collectd::plugin::zfs_arc
+
 * None
 
 
