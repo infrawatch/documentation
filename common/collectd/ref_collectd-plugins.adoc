@@ -25,29 +25,27 @@
 // readers and search engines find information quickly.
 //[appendix]
 //[[appe-stf-collectd-plugins]]
-= collectd plug-ins
+= collectd plugins
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-Red Hat is currently updating the plug-in information in this guide for this release.
+Red Hat is currently updating the plugin information in this guide for this release.
 endif::[]
 
-You can configure multiple collectd plug-ins to suit your {OpenStack} {OpenStackVersion} environment.
-
+You can configure multiple collectd plugins to suit your {OpenStack} {OpenStackVersion} environment.
 //The following list of headers shows the available heat template `ExtraConfig` options that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
-
-You can reference Options tables of available parameters for specific plug-ins, such as in the following example:
+Reference the options tables of available parameters for specific plugins, such as in the following example:
 ----
 ExtraConfig:
   collectd::plugin::example_plugin::<parameter>: <value>
 ----
 
-You can reference the metrics table information of specific plug-ins for Prometheus or Grafana queries.
+Reference the metrics tables of specific plugins for Prometheus or Grafana queries.
 
 [discrete]
 == collectd::plugin::aggregation
 
-You can aggregate several values into one with the `aggregation` plug-in. Use the aggregation functions such as `sum`, `average`, `min`, and `max` to calculate metrics, for example average and total CPU statistics.
+You can aggregate several values into one with the `aggregation` plugin. Use the aggregation functions such as `sum`, `average`, `min`, and `max` to calculate metrics, for example average and total CPU statistics.
 
 * collectd::plugin::aggregation::aggregators
 * collectd::plugin::aggregation::interval
@@ -59,9 +57,7 @@ You can aggregate several values into one with the `aggregation` plug-in. Use th
 [discrete]
 == collectd::plugin::amqp1
 
-Use the `amqp1` plug-in to write values to an amqp1 message bus, for example, {MessageBus}.
-
-.Options
+Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {MessageBus}.
 
 .amqp1 options
 [cols="50%,50%"]
@@ -115,7 +111,7 @@ Use the `amqp1` plug-in to write values to an amqp1 message bus, for example, {M
 [discrete]
 == collectd::plugin::apache
 
-Use the `apache` plug-in to collect Apache data.
+Use the `apache` plugin to collect Apache data.
 
 .apache options
 [cols="50%,50%"]
@@ -144,12 +140,12 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `apache` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_apache[apache].
+For more information about configuring the `apache` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_apache[apache].
 
 [discrete]
 == collectd::plugin::battery
 
-Use the `battery` plug-in to report the remaining capacity, power, or voltage of laptop batteries.
+Use the `battery` plugin to report the remaining capacity, power, or voltage of laptop batteries.
 
 .battery options
 [cols="50%,50%"]
@@ -168,18 +164,18 @@ Use the `battery` plug-in to report the remaining capacity, power, or voltage of
 
 .Additional resources
 
-For more information about configuring the `battery` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[battery].
+For more information about configuring the `battery` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[battery].
 
 
 [discrete]
 == collectd::plugin::bind
 
-Use the `bind` plug-in to retrieve encoded statistics about queries and responses from a DNS server. The plug-in submits the values to collectd.
+Use the `bind` plugin to retrieve encoded statistics about queries and responses from a DNS server. The plugin submits the values to collectd.
 
 [discrete]
 ==  collectd::plugin::ceph
 
-Use the `ceph` plug-in to gather data from ceph daemons.
+Use the `ceph` plugin to gather data from ceph daemons.
 
 .ceph options
 [cols="50%,50%"]
@@ -213,18 +209,18 @@ parameter_defaults:
 If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
 
 [NOTE]
-When you deploy collectd, the `ceph` plug-in is added to the ceph nodes. Do not add the `ceph` plug-in on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure. 
+When you deploy collectd, the `ceph` plugin is added to the ceph nodes. Do not add the `ceph` plugin on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure.
 
 .Additional resources
 
-For more information about configuring the `ceph` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[ceph].
+For more information about configuring the `ceph` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[ceph].
 
 
 
 [discrete]
 == collectd::plugins::cgroups
 
-Use the `cgroups` plug-in to collect information for processes in a cgroup.
+Use the `cgroups` plugin to collect information for processes in a cgroup.
 
 .cgroups options
 [cols="50%,50%"]
@@ -243,7 +239,7 @@ Use the `cgroups` plug-in to collect information for processes in a cgroup.
 
 .Additional resources
 
-For more information about configuring the `cgroups` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups[cgroups].
+For more information about configuring the `cgroups` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups[cgroups].
 
 [discrete]
 == collectd::plugin::chrony
@@ -263,9 +259,9 @@ For more information about configuring the `cgroups` plug-in, see https://collec
 [discrete]
 == collectd::plugin::cpu
 
-Use the `cpu` plug-in to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
+Use the `cpu` plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
 
-The `cpu` plug-in collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
+The `cpu` plugin collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
 To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
 
@@ -348,7 +344,7 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `cpu` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu[cpu plug-in].
+For more information about configuring the `cpu` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu[cpu plugin].
 
 [discrete]
 == collectd::plugin::cpufreq
@@ -379,7 +375,7 @@ For more information about configuring the `cpu` plug-in, see https://collectd.o
 [discrete]
 == collectd::plugin::df
 
-Use the `df` plug-in to collect disk space usage information for file systems.
+Use the `df` plugin to collect disk space usage information for file systems.
 
 .df metrics
 [cols="20%,30%,50%"]
@@ -437,12 +433,12 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `df` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df[df plug-in].
+For more information about configuring the `df` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df[df plugin].
 
 [discrete]
 == collectd::plugin::disk
 
-Use the `disk` plug-in to collect performance statistics of hard-disks and, if supported, partitions.
+Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions.
 
 * collectd::plugin::disk::disks
 * collectd::plugin::disk::ignoreselected
@@ -543,7 +539,7 @@ Use the `disk` plug-in to collect performance statistics of hard-disks and, if s
 [discrete]
 == collectd::plugin::load
 
-Use the `load` plug-in to collect the system load and to get overview on  system use.
+Use the `load` plugin to collect the system load and to get overview on  system use.
 
 * collectd::plugin::load::report_relative
 * collectd::plugin::load::interval
@@ -583,7 +579,7 @@ Use the `load` plug-in to collect the system load and to get overview on  system
 [discrete]
 == collectd::plugin::mcelog
 
-Use the `mcelog` plug-in to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
+Use the `mcelog` plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
 
 .mcelog options
 [cols="50%,50%"]
@@ -604,7 +600,7 @@ parameter_defaults:
 ----
 
 .Additional resources
-* For more information about configuring the `mcelog` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_mcelog[mcelog].
+* For more information about configuring the `mcelog` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_mcelog[mcelog].
 
 [discrete]
 == collectd::plugin::md
@@ -694,7 +690,7 @@ collectd-multimeter
 [discrete]
 == collectd::plugin::ovs_stats
 
-Use the `ovs_stats` plug-in to collect statistics of OVS-connected interfaces. The `ovs_stats` plug-in uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
+Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. The `ovs_stats` plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
 
 .ovs_stats options
 [cols="50%,50%"]
@@ -727,12 +723,12 @@ The following example shows how to enable the ovs_stats plugin. If you deploy yo
 
 .Additional resources
 
-* For more information about configuring the `ovs_stats` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats[ovs_stats].
+* For more information about configuring the `ovs_stats` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats[ovs_stats].
 
 [discrete]
 == collectd::plugin::pcie_errors
 
-Use the `pcie_errors` plug-in to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.
+Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.
 
 .pcie_errors options
 [cols="50%,50%"]
@@ -758,7 +754,7 @@ parameter_defaults:
 
 .Additional resources
 
-* For more information about configuring the `pcie_errors` plug-in, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors upstream].
+* For more information about configuring the `pcie_errors` plugin, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors upstream].
 
 [discrete]
 == collectd::plugin::ping
@@ -815,7 +811,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::snmp_agent
 
-Use the `snmp_agent` plug-in as an SNMP subagent to map collectd metrics to relevant OIDs. The snmp agent also requires a running snmpd service.
+Use the `snmp_agent` plugin as an SNMP subagent to map collectd metrics to relevant OIDs. The snmp agent also requires a running snmpd service.
 
 .Example configuration:
 
@@ -955,7 +951,7 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 [discrete]
 == collectd::plugin::virt
 
-Use the `virt` plug-in to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
+Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
 
 .virt options
 [cols="50%,50%"]
@@ -993,7 +989,7 @@ ExtraConfig:
 
 .Additional resources
 
-For more information about configuring the `virt` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_virt[virt].
+For more information about configuring the `virt` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_virt[virt].
 
 [discrete]
 == collectd::plugin::vmem
@@ -1017,7 +1013,7 @@ For more information about configuring the `virt` plug-in, see https://collectd.
 [discrete]
 == collectd::plugin::write_http
 
-Use the `write_http` output plug-in to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the `PUTVAL` command.
+Use the `write_http` output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the `PUTVAL` command.
 
 .write_http options
 [cols="50%,50%"]
@@ -1054,12 +1050,12 @@ parameter_defaults:
 
 .Additional resources
 
-* For more information about configuring the `write_http` plug-in, see https://collectd.org/wiki/index.php/Plugin:Write_HTTP[write_http].
+* For more information about configuring the `write_http` plugin, see https://collectd.org/wiki/index.php/Plugin:Write_HTTP[write_http].
 
 [discrete]
 == collectd::plugin::write_kafka
 
-Use the `write_kafka` plug-in to send values to a Kafka topic. Configure the `write_kafka` plug-in with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:
+Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `write_kafka` plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:
 
 .write_kafka options
 [cols="50%,50%"]
@@ -1096,7 +1092,7 @@ parameter_defaults:
 
 .Additional resources:
 
-For more information about how to configure the `write_kafka` plug-in, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka[write_kafka].
+For more information about how to configure the `write_kafka` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka[write_kafka].
 
 [discrete]
 == collectd::plugin::write_log
