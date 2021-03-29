@@ -1,5 +1,5 @@
-:TargetVersion: 1.2
-:ProductVersion: 1.2
+:TargetVersion: 1.3
+:ProductVersion: 1.3
 :context: assembly
 :containerbin: podman
 
@@ -28,7 +28,7 @@ ifeval::["{build}" == "upstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
-:SupportedOpenShiftVersion: 4.5
+:SupportedOpenShiftVersion: 4.6
 endif::[]
 
 ifeval::["{build}" == "downstream"]
@@ -43,5 +43,5 @@ ifeval::["{build}" == "downstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
-:SupportedOpenShiftVersion: 4.5
+:SupportedOpenShiftVersion: 4.6
 endif::[]
