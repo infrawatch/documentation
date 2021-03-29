@@ -492,7 +492,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></li>
 </ul>
 </li>
-<li><a href="#appe-stf-collectd-plugins">Appendix A: collectd plug-ins</a></li>
+<li><a href="#collectd-plugins_assembly">collectd plugins</a></li>
 </ul>
 </div>
 </div>
@@ -4039,15 +4039,25 @@ The address of the route must be resolvable and configuration is environment spe
 </div>
 </div>
 <div class="sect1">
-<h2 id="appe-stf-collectd-plugins">Appendix A: collectd plug-ins</h2>
+<h2 id="collectd-plugins_assembly">collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section contains a complete list of collectd plug-ins and configurations for OpenStack Train.</p>
+<p>You can configure multiple collectd plugins to suit your OpenStack Train environment.
+Reference the options tables of available parameters for specific plugins, such as in the following example:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-aggregation</dt>
-<dd>
+<div class="listingblock">
+<div class="content">
+<pre>ExtraConfig:
+  collectd::plugin::example_plugin::&lt;parameter&gt;: &lt;value&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reference the metrics tables of specific plugins for Prometheus or Grafana queries.</p>
+</div>
+<h3 id="_collectdpluginaggregation" class="discrete">collectd::plugin::aggregation</h3>
+<div class="paragraph">
+<p>You can aggregate several values into one with the <code>aggregation</code> plugin. Use the aggregation functions such as <code>sum</code>, <code>average</code>, <code>min</code>, and <code>max</code> to calculate metrics, for example average and total CPU statistics.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -4058,132 +4068,426 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-</dl>
+<h3 id="_collectdpluginampq" class="discrete">collectd::plugin::ampq</h3>
+<h3 id="_collectdpluginamqp1" class="discrete">collectd::plugin::amqp1</h3>
+<div class="paragraph">
+<p>Use the <code>amqp1</code> plugin to write values to an amqp1 message bus, for example, Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. amqp1 options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage_package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">transport</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">retry_delay</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">send_queue_limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>  Parameter_defaults:
+    CollectdExtraPlugins:
+      - amqp1
+    ExtraConfig:
+      collectd::plugin::amqp1::send_queue_limit: 50</pre>
+</div>
+</div>
+<h3 id="_collectdpluginapache" class="discrete">collectd::plugin::apache</h3>
+<div class="paragraph">
+<p>Use the <code>apache</code> plugin to collect Apache data.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. apache options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage-package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package_install_options</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::apache:
+          localhost:
+              url: "http://10.0.0.111/status?auto"</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>collectd-amqp1</strong></p>
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>apache</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_apache">apache</a>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-apache</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::apache::instances (ex.: {<em>localhost</em> &#8658; {<em>url</em> &#8658; <em><a href="http://localhost/mod_status?auto" class="bare">http://localhost/mod_status?auto</a></em>}})</p>
-</li>
-<li>
-<p>collectd::plugin::apache::interval</p>
-</li>
-</ul>
+<h3 id="_collectdpluginbattery" class="discrete">collectd::plugin::battery</h3>
+<div class="paragraph">
+<p>Use the <code>battery</code> plugin to report the remaining capacity, power, or voltage of laptop batteries.</p>
 </div>
-</dd>
-</dl>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. battery options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_percentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">report_degraded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query_state_fs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>battery</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph">battery</a>.</p>
+</div>
+<h3 id="_collectdpluginbind" class="discrete">collectd::plugin::bind</h3>
+<div class="paragraph">
+<p>Use the <code>bind</code> plugin to retrieve encoded statistics about queries and responses from a DNS server. The plugin submits the values to collectd.</p>
+</div>
+<h3 id="_collectdpluginceph" class="discrete">collectd::plugin::ceph</h3>
+<div class="paragraph">
+<p>Use the <code>ceph</code> plugin to gather data from ceph daemons.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. ceph options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daemons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">longrunavglatency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">convertspecialmetrictypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage_package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::ceph::daemons:
+           - ceph-osd.0
+           - ceph-osd.1
+           - ceph-osd.2
+           - ceph-osd.3
+           - ceph-osd.4</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When you deploy collectd, the <code>ceph</code> plugin is added to the ceph nodes. Do not add the <code>ceph</code> plugin on ceph nodes to <code>CollectdExtraPlugins</code>, because this results in a deployment failure.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><strong>collectd-apcups</strong></p>
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>ceph</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph">ceph</a>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-battery</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::battery::values_percentage</p>
-</li>
-<li>
-<p>collectd::plugin::battery::report_degraded</p>
-</li>
-<li>
-<p>collectd::plugin::battery::query_state_fs</p>
-</li>
-<li>
-<p>collectd::plugin::battery::interval</p>
-</li>
-</ul>
+<h3 id="_collectdpluginscgroups" class="discrete">collectd::plugins::cgroups</h3>
+<div class="paragraph">
+<p>Use the <code>cgroups</code> plugin to collect information for processes in a cgroup.</p>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ceph</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ceph::daemons</p>
-</li>
-<li>
-<p>collectd::plugin::ceph::longrunavglatency</p>
-</li>
-<li>
-<p>collectd::plugin::ceph::convertspecialmetrictypes</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. cgroups options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignore_selected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cgroups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>cgroups</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups">cgroups</a>.</p>
 </div>
-</dd>
-<dt class="hdlist1">collectd-cgroups</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::cgroups::ignore_selected</p>
-</li>
-<li>
-<p>collectd::plugin::cgroups::interval</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-conntrack</dt>
-<dd>
+<h3 id="_collectdpluginchrony" class="discrete">collectd::plugin::chrony</h3>
+<h3 id="_collectdpluginconnectivity" class="discrete">collectd::plugin::connectivity</h3>
+<h3 id="_collectdpluginconntrack" class="discrete">collectd::plugin::conntrack</h3>
 <div class="ulist">
 <ul>
 <li>
 <p>None</p>
+<h3 id="_collectdplugincontextswitch" class="discrete">collectd::plugin::contextswitch</h3>
 </li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">collectd-contextswitch</dt>
-<dd>
-<div class="ulist">
-<ul>
 <li>
 <p>collectd::plugin::contextswitch::interval</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-cpu</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::cpu::reportbystate</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::reportbycpu</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::valuespercentage</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::reportnumcpu</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::reportgueststate</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::subtractgueststate</p>
-</li>
-<li>
-<p>collectd::plugin::cpu::interval</p>
-</li>
-</ul>
+<h3 id="_collectdplugincpu" class="discrete">collectd::plugin::cpu</h3>
+<div class="paragraph">
+<p>Use the <code>cpu</code> plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.</p>
 </div>
-</dd>
-<dt class="hdlist1">collectd-cpufreq</dt>
-<dd>
+<div class="paragraph">
+<p>The <code>cpu</code> plugin collects <code>_jiffies_</code> , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
+</div>
+<div class="paragraph">
+<p>To report a percentage value, set the Boolean parameters <code>reportbycpu</code> and <code>reportbystate</code> to <code>true</code>, and then set the Boolean parameter <code>valuespercentage</code> to true.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. cpu metrics</caption>
+<colgroup>
+<col style="width: 20%;"/>
+<col style="width: 30%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">idle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of idle time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>idle</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interrupt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU blocked by interrupts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>interrupt</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of time running low priority processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>nice</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">softirq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of cycles spent in servicing interrupt requests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>waitirq</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">steal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The percentage of time a virtual CPU waits for a real CPU while the hypervisor is servicing another virtual processor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>steal</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of time spent on system level (kernel)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>system</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jiffies used by user processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>user</em>}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wait</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU waiting on outstanding I/O request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>wait</em>}</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. cpu options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbystate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbycpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportnumcpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportgueststate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subtractgueststate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+      - cpu
+    ExtraConfig:
+        collectd::plugin::cpu::reportbystate: true</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>cpu</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu">cpu plugin</a>.</p>
+</div>
+<h3 id="_collectdplugincpufreq" class="discrete">collectd::plugin::cpufreq</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4191,16 +4495,8 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-cpusleep</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-csv</dt>
-<dd>
+<h3 id="_collectdplugincpusleep" class="discrete">collectd::plugin::cpusleep</h3>
+<h3 id="_collectdplugincsv" class="discrete">collectd::plugin::csv</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4214,46 +4510,115 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-df</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::df::devices</p>
-</li>
-<li>
-<p>collectd::plugin::df::fstypes</p>
-</li>
-<li>
-<p>collectd::plugin::df::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::df::mountpoints</p>
-</li>
-<li>
-<p>collectd::plugin::df::reportbydevice</p>
-</li>
-<li>
-<p>collectd::plugin::df::reportinodes</p>
-</li>
-<li>
-<p>collectd::plugin::df::reportreserved</p>
-</li>
-<li>
-<p>collectd::plugin::df::valuesabsolute</p>
-</li>
-<li>
-<p>collectd::plugin::df::valuespercentage</p>
-</li>
-<li>
-<p>collectd::plugin::df::interval</p>
-</li>
-</ul>
+<h3 id="_collectdplugincurl_json" class="discrete">collectd::plugin::curl_json</h3>
+<h3 id="_collectdplugincurl" class="discrete">collectd::plugin::curl</h3>
+<h3 id="_collectdplugincurl_xml" class="discrete">collectd::plugin::curl_xml</h3>
+<h3 id="_collectdplugindbi" class="discrete">collectd::plugin::dbi</h3>
+<h3 id="_collectdplugindf" class="discrete">collectd::plugin::df</h3>
+<div class="paragraph">
+<p>Use the <code>df</code> plugin to collect disk space usage information for file systems.</p>
 </div>
-</dd>
-<dt class="hdlist1">collectd-disk</dt>
-<dd>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. df metrics</caption>
+<colgroup>
+<col style="width: 20%;"/>
+<col style="width: 30%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of free disk space</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="free"}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reserved</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of reserved disk space</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="reserved"}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">used</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of used disk space</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="used"}</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. df options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">devices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fstypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mountpoints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbydevice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportinodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportreserved</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuesabsolute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+      - df
+    ExtraConfig:
+        collectd::plugin::df::FStype: "ext4"</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>df</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df">df plugin</a>.</p>
+</div>
+<h3 id="_collectdplugindisk" class="discrete">collectd::plugin::disk</h3>
+<div class="paragraph">
+<p>Use the <code>disk</code> plugin to collect performance statistics of hard-disks and, if supported, partitions.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -4270,9 +4635,9 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-entropy</dt>
-<dd>
+<h3 id="_collectdplugindns" class="discrete">collectd::plugin::dns</h3>
+<h3 id="_collectdplugindpdk_telemetry" class="discrete">collectd::plugin::dpdk_telemetry</h3>
+<h3 id="_collectdpluginentropy" class="discrete">collectd::plugin::entropy</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4280,9 +4645,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ethstat</dt>
-<dd>
+<h3 id="_collectdpluginethstat" class="discrete">collectd::plugin::ethstat</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4299,9 +4662,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-exec</dt>
-<dd>
+<h3 id="_collectdpluginexec" class="discrete">collectd::plugin::exec</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4318,9 +4679,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-fhcount</dt>
-<dd>
+<h3 id="_collectdpluginfhcount" class="discrete">collectd::plugin::fhcount</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4334,9 +4693,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-filecount</dt>
-<dd>
+<h3 id="_collectdpluginfilecount" class="discrete">collectd::plugin::filecount</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4347,9 +4704,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-fscache</dt>
-<dd>
+<h3 id="_collectdpluginfscache" class="discrete">collectd::plugin::fscache</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4357,9 +4712,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-hddtemp</dt>
-<dd>
+<h3 id="_collectd_hddtemp" class="discrete">collectd-hddtemp</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4373,9 +4726,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-hugepages</dt>
-<dd>
+<h3 id="_collectd_hugepages" class="discrete">collectd-hugepages</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4398,16 +4749,9 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-intel_rdt</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-interface</dt>
-<dd>
+<h3 id="_collectdpluginintel_pmu" class="discrete">collectd::plugin::intel_pmu</h3>
+<h3 id="_collectdpluginintel_rdt" class="discrete">collectd::plugin::intel_rdt</h3>
+<h3 id="_collectdplugininterface" class="discrete">collectd::plugin::interface</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4424,9 +4768,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ipc</dt>
-<dd>
+<h3 id="_collectdpluginipc" class="discrete">collectd::plugin::ipc</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4434,9 +4776,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ipmi</dt>
-<dd>
+<h3 id="_collectdpluginipmi" class="discrete">collectd::plugin::ipmi</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4459,9 +4799,8 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-irq</dt>
-<dd>
+<h3 id="_collectdpluginiptables" class="discrete">collectd::plugin::iptables</h3>
+<h3 id="_collectdpluginirq" class="discrete">collectd::plugin::irq</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4475,9 +4814,10 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-load</dt>
-<dd>
+<h3 id="_collectdpluginload" class="discrete">collectd::plugin::load</h3>
+<div class="paragraph">
+<p>Use the <code>load</code> plugin to collect the system load and to get overview on  system use.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -4488,9 +4828,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-logfile</dt>
-<dd>
+<h3 id="_collectdpluginlogfile" class="discrete">collectd::plugin::logfile</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4510,22 +4848,60 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
+<h3 id="_collectdpluginlog_logstash" class="discrete">collectd::plugin::log_logstash</h3>
+<h3 id="_collectdpluginmadwifi" class="discrete">collectd::plugin::madwifi</h3>
+<h3 id="_collectdpluginmatch_empty_counter" class="discrete">collectd::plugin::match_empty_counter</h3>
+<h3 id="_collectdpluginmatch_hashed" class="discrete">collectd::plugin::match_hashed</h3>
+<h3 id="_collectdpluginmatch_regex" class="discrete">collectd::plugin::match_regex</h3>
+<h3 id="_collectdpluginmatch_timediff" class="discrete">collectd::plugin::match_timediff</h3>
+<h3 id="_collectdpluginmatch_value" class="discrete">collectd::plugin::match_value</h3>
+<h3 id="_collectdpluginmbmon" class="discrete">collectd::plugin::mbmon</h3>
+<h3 id="_collectdpluginmcelog" class="discrete">collectd::plugin::mcelog</h3>
 <div class="paragraph">
-<p><strong>collectd-madwifi</strong></p>
+<p>Use the <code>mcelog</code> plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and ensure that logging capabilities are enabled.</p>
 </div>
-<div class="paragraph">
-<p><strong>collectd-mbmon</strong></p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. mcelog options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mcelogfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash { mcelogclientsocket[string], persistentnotification[boolean] }</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins: mcelog
+    CollectdEnableMcelog: true</pre>
 </div>
-<div class="paragraph">
-<p><strong>collectd-md</strong></p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-memcached</dt>
-<dd>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about configuring the <code>mcelog</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_mcelog">mcelog</a>.</p>
+</li>
+</ul>
+</div>
+<h3 id="_collectdpluginmd" class="discrete">collectd::plugin::md</h3>
+<h3 id="_collectdpluginmemcachec" class="discrete">collectd::plugin::memcachec</h3>
+<h3 id="_collectdpluginmemcached" class="discrete">collectd::plugin::memcached</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4536,9 +4912,7 @@ The address of the route must be resolvable and configuration is environment spe
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-memory</dt>
-<dd>
+<h3 id="_collectdpluginmemory" class="discrete">collectd::plugin::memory</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4553,16 +4927,8 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-multimeter</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-mysql</dt>
-<dd>
+<h3 id="_collectdpluginmultimeter" class="discrete">collectd::plugin::multimeter</h3>
+<h3 id="_collectdpluginmysql" class="discrete">collectd::plugin::mysql</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4570,9 +4936,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-netlink</dt>
-<dd>
+<h3 id="_collectdpluginnetlink" class="discrete">collectd::plugin::netlink</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4598,9 +4962,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-network</dt>
-<dd>
+<h3 id="_collectdpluginnetwork" class="discrete">collectd::plugin::network</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4626,9 +4988,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-nfs</dt>
-<dd>
+<h3 id="_collectdpluginnfs" class="discrete">collectd::plugin::nfs</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4636,9 +4996,8 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ntpd</dt>
-<dd>
+<h3 id="_collectdpluginnotify_nagios" class="discrete">collectd::plugin::notify_nagios</h3>
+<h3 id="_collectdpluginntpd" class="discrete">collectd::plugin::ntpd</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4658,9 +5017,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-numa</dt>
-<dd>
+<h3 id="_collectdpluginnuma" class="discrete">collectd::plugin::numa</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4668,16 +5025,9 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-olsrd</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-openvpn</dt>
-<dd>
+<h3 id="_collectdpluginolsrd" class="discrete">collectd::plugin::olsrd</h3>
+<h3 id="_collectdpluginopenldap" class="discrete">collectd::plugin::openldap</h3>
+<h3 id="_collectdpluginopenvpn" class="discrete">collectd::plugin::openvpn</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4700,53 +5050,114 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ovs_events</dt>
-<dd>
+<h3 id="_collectdpluginovs_stats" class="discrete">collectd::plugin::ovs_stats</h3>
+<div class="paragraph">
+<p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. ovs_stats options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bridges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">socket</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<div class="title">Example configuration</div>
+<p>The following example shows how to enable the ovs_stats plugin. If you deploy your overcloud with OVS, you do not need to enable the <code>ovs_stats</code> plugin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    parameter_defaults:
+        CollectdExtraPlugins:
+          - ovs_stats
+        ExtraConfig:
+          collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'</pre>
+</div>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::ovs_events::address</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::dispatch</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::send_notification</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::$port</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_events::socket</p>
+<p>For more information about configuring the <code>ovs_stats</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats">ovs_stats</a>.</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ovs_stats</dt>
-<dd>
+<h3 id="_collectdpluginpcie_errors" class="discrete">collectd::plugin::pcie_errors</h3>
+<div class="paragraph">
+<p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. pcie_errors options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum (sysfs, proc)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportmasked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistent_notifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+       - pcie_errors</pre>
+</div>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::ovs_stats::address</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::bridges</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::port</p>
-</li>
-<li>
-<p>collectd::plugin::ovs_stats::socket</p>
+<p>For more information about configuring the <code>pcie_errors</code> plugin, see <a href="https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors">pcie_errors upstream</a>.</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-ping</dt>
-<dd>
+<h3 id="_collectdpluginping" class="discrete">collectd::plugin::ping</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4775,9 +5186,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-powerdns</dt>
-<dd>
+<h3 id="_collectdpluginpowerdns" class="discrete">collectd::plugin::powerdns</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4797,9 +5206,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-processes</dt>
-<dd>
+<h3 id="_collectdpluginprocesses" class="discrete">collectd::plugin::processes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4822,9 +5229,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-protocols</dt>
-<dd>
+<h3 id="_collectdpluginprotocols" class="discrete">collectd::plugin::protocols</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4835,19 +5240,10 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-python</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>collectd-serial</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-smart</dt>
-<dd>
+<h3 id="_collectdpluginpython" class="discrete">collectd::plugin::python</h3>
+<h3 id="_collectdpluginsensors" class="discrete">collectd::plugin::sensors</h3>
+<h3 id="_collectdpluginserial" class="discrete">collectd::plugin::serial</h3>
+<h3 id="_collectdpluginsmart" class="discrete">collectd::plugin::smart</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4861,16 +5257,27 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
+<h3 id="_collectdpluginsnmp" class="discrete">collectd::plugin::snmp</h3>
+<h3 id="_collectdpluginsnmp_agent" class="discrete">collectd::plugin::snmp_agent</h3>
+<div class="paragraph">
+<p>Use the <code>snmp_agent</code> plugin as an SNMP subagent to map collectd metrics to relevant OIDs. The snmp agent also requires a running snmpd service.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+        snmp_agent
+resource_registry:
+    OS::TripleO::Services::Snmp: /usr/share/openstack-tripleo-heat-
+templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>collectd-snmp_agent</strong></p>
+<div class="title">Additional resources:</div>
+<p>For more information about how to configure <code>snmp_agent</code>, see  <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_snmp_agent">snmp_agent</a>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-statsd</dt>
-<dd>
+<h3 id="_collectdpluginstatsd" class="discrete">collectd::plugin::statsd</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4914,9 +5321,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-swap</dt>
-<dd>
+<h3 id="_collectdpluginswap" class="discrete">collectd::plugin::swap</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4939,9 +5344,8 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-syslog</dt>
-<dd>
+<h3 id="_collectdpluginsysevent" class="discrete">collectd::plugin::sysevent</h3>
+<h3 id="_collectdpluginsyslog" class="discrete">collectd::plugin::syslog</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4955,9 +5359,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-table</dt>
-<dd>
+<h3 id="_collectdplugintable" class="discrete">collectd::plugin::table</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4968,9 +5370,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-tail</dt>
-<dd>
+<h3 id="_collectdplugintail" class="discrete">collectd::plugin::tail</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4981,9 +5381,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-tail_csv</dt>
-<dd>
+<h3 id="_collectdplugintail_csv" class="discrete">collectd::plugin::tail_csv</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4994,9 +5392,12 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-tcpconns</dt>
-<dd>
+<h3 id="_collectdplugintarget_notification" class="discrete">collectd::plugin::target_notification</h3>
+<h3 id="_collectdplugintarget_replace" class="discrete">collectd::plugin::target_replace</h3>
+<h3 id="_collectdplugintarget_scale" class="discrete">collectd::plugin::target_scale</h3>
+<h3 id="_collectdplugintarget_set" class="discrete">collectd::plugin::target_set</h3>
+<h3 id="_collectdplugintarget_v5upgrade" class="discrete">collectd::plugin::target_v5upgrade</h3>
+<h3 id="_collectdplugintcpconns" class="discrete">collectd::plugin::tcpconns</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5016,16 +5417,8 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-ted</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-thermal</dt>
-<dd>
+<h3 id="_collectdpluginted" class="discrete">collectd::plugin::ted</h3>
+<h3 id="_collectdpluginthermal" class="discrete">collectd::plugin::thermal</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5039,9 +5432,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-threshold</dt>
-<dd>
+<h3 id="_collectdpluginthreshold" class="discrete">collectd::plugin::threshold</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5058,9 +5449,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-turbostat</dt>
-<dd>
+<h3 id="_collectdpluginturbostat" class="discrete">collectd::plugin::turbostat</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5086,16 +5475,8 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-unixsock</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-uptime</dt>
-<dd>
+<h3 id="_collectdpluginunixsock" class="discrete">collectd::plugin::unixsock</h3>
+<h3 id="_collectdpluginuptime" class="discrete">collectd::plugin::uptime</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5103,9 +5484,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-users</dt>
-<dd>
+<h3 id="_collectdpluginusers" class="discrete">collectd::plugin::users</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5113,9 +5492,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-uuid</dt>
-<dd>
+<h3 id="_collectdpluginuuid" class="discrete">collectd::plugin::uuid</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5126,46 +5503,77 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-virt</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::virt::connection</p>
-</li>
-<li>
-<p>collectd::plugin::virt::refresh_interval</p>
-</li>
-<li>
-<p>collectd::plugin::virt::domain</p>
-</li>
-<li>
-<p>collectd::plugin::virt::block_device</p>
-</li>
-<li>
-<p>collectd::plugin::virt::interface_device</p>
-</li>
-<li>
-<p>collectd::plugin::virt::ignore_selected</p>
-</li>
-<li>
-<p>collectd::plugin::virt::hostname_format</p>
-</li>
-<li>
-<p>collectd::plugin::virt::interface_format</p>
-</li>
-<li>
-<p>collectd::plugin::virt::extra_stats</p>
-</li>
-<li>
-<p>collectd::plugin::virt::interval</p>
-</li>
-</ul>
+<h3 id="_collectdpluginvirt" class="discrete">collectd::plugin::virt</h3>
+<div class="paragraph">
+<p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
-</dd>
-<dt class="hdlist1">collectd-vmem</dt>
-<dd>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. virt options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">connection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">refresh_interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">block_device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interface_device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignore_selected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plugin_instance_format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hostname_format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interface_format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extra_stats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>ExtraConfig:
+    collectd::plugin::virt::plugin_instance_format: name</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>virt</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_virt">virt</a>.</p>
+</div>
+<h3 id="_collectdpluginvmem" class="discrete">collectd::plugin::vmem</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5176,19 +5584,9 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p><strong>collectd-vserver</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>collectd-wireless</strong></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">collectd-write_graphite</dt>
-<dd>
+<h3 id="_collectdpluginvserver" class="discrete">collectd::plugin::vserver</h3>
+<h3 id="_collectdpluginwireless" class="discrete">collectd::plugin::wireless</h3>
+<h3 id="_collectdpluginwrite_graphite" class="discrete">collectd::plugin::write_graphite</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5202,28 +5600,122 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-write_kafka</dt>
-<dd>
+<h3 id="_collectdpluginwrite_http" class="discrete">collectd::plugin::write_http</h3>
+<div class="paragraph">
+<p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. write_http options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ensure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum[<em>present</em>, <em>absent</em>]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash[String, Hash[String, Scalar]]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">urls</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash[String, Hash[String, Scalar]]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage_package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+      - write_http
+    ExtraConfig:
+        collectd::plugin::write_http::nodes:
+            collectd:
+                url: “http://collectd.tld.org/collectd”
+                metrics: true
+                header: “X-Custom-Header: custom_value"</pre>
+</div>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::write_kafka::kafka_host</p>
-</li>
-<li>
-<p>collectd::plugin::write_kafka::kafka_port</p>
-</li>
-<li>
-<p>collectd::plugin::write_kafka::kafka_hosts</p>
-</li>
-<li>
-<p>collectd::plugin::write_kafka::topics</p>
+<p>For more information about configuring the <code>write_http</code> plugin, see <a href="https://collectd.org/wiki/index.php/Plugin:Write_HTTP">write_http</a>.</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-write_log</dt>
-<dd>
+<h3 id="_collectdpluginwrite_kafka" class="discrete">collectd::plugin::write_kafka</h3>
+<div class="paragraph">
+<p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. write_kafka options</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kafka_hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array[String]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kafka_port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">topics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">properties</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre>parameter_defaults:
+    CollectdExtraPlugins:
+       - write_kafka
+    ExtraConfig:
+      collectd::plugin::write_kafka::kafka_hosts:
+        - nodeA
+        - nodeB
+      collectd::plugin::write_kafka::topics:
+        some_events:
+          format: JSON</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources:</div>
+<p>For more information about how to configure the <code>write_kafka</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka">write_kafka</a>.</p>
+</div>
+<h3 id="_collectdpluginwrite_log" class="discrete">collectd::plugin::write_log</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5231,9 +5723,7 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1">collectd-zfs_arc</dt>
-<dd>
+<h3 id="_collectdpluginzfs_arc" class="discrete">collectd::plugin::zfs_arc</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5241,15 +5731,12 @@ collectd-multimeter</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-16 23:18:52 UTC
+Last updated 2021-03-29 10:07:57 UTC
 </div>
 </div>
 </body>
