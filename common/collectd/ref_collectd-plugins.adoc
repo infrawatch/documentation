@@ -149,7 +149,7 @@ For more information about configuring the `apache` plug-in, see https://collect
 [discrete]
 == collectd::plugin::battery
 
-Use the `battery` plug-in to report the remaining capacity, power, and voltage of laptop batteries.
+Use the `battery` plug-in to report the remaining capacity, power, or voltage of laptop batteries.
 
 .battery options
 [cols="50%,50%"]
