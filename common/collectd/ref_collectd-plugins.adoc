@@ -297,7 +297,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 |collectd_cpu_total{...,type_instance='steal'}
 
 |system
-|Amount spent on system level (kernel)
+|Amount of time spent on system level (kernel)
 |collectd_cpu_total{...,type_instance='system'}
 
 |user
