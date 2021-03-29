@@ -265,7 +265,7 @@ For more information about configuring the `cgroups` plug-in, see https://collec
 
 Use the `cpu` plug-in to monitor the amount of time spent by the CPU in various states, for example, executing user code, executing system code, waiting for IO-operations, and being idle.
 
-The `cpu` plug-in does not collect percentages. It collects _jiffies_. A jiffy is not an absolute time interval unit and depends on the clock frequency of your hardware platform.
+The `cpu` plug-in collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
 To get a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then you can set the Boolean parameter `valuespercentage` to true.
 
