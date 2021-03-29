@@ -213,7 +213,7 @@ parameter_defaults:
 If the OSDs do not exist on all nodes, you must still ensure that you list the OSDs.
 
 [NOTE]
-When you deploy collectd, the `ceph` plug-in is automatically added to ceph nodes. Adding the `ceph` plug-in on ceph nodes to `CollectdExtraPlugins` results in a deployment failure.
+When you deploy collectd, the `ceph` plug-in is added to the ceph nodes. Do not add the `ceph` plug-in on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure. 
 
 .Additional resources
 
