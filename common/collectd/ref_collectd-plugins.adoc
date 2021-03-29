@@ -42,7 +42,7 @@ ExtraConfig:
   collectd::plugin::example_plugin::<parameter>: <value>
 ----
 
-Some documented plug-ins have a table of metrics. You can use the information in the metrics tables to run queries from Grafana or Prometheus.
+You can reference the metrics table information of specific plug-ins for Prometheus or Grafana queries.
 
 [discrete]
 == collectd::plugin::aggregation
