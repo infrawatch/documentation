@@ -583,7 +583,7 @@ Use the `load` plug-in to collect the system load and to get overview on  system
 [discrete]
 == collectd::plugin::mcelog
 
-Use the `mcelog` plug-in to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run on the platform in daemon mode and ensure that logging capabilities are enabled.
+Use the `mcelog` plug-in to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
 
 .mcelog options
 [cols="50%,50%"]
@@ -694,7 +694,7 @@ collectd-multimeter
 [discrete]
 == collectd::plugin::ovs_stats
 
-Use the `ovs_stats` plug-in to collect statistics of OVS connected interfaces. This plug-in uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
+Use the `ovs_stats` plug-in to collect statistics of OVS-connected interfaces. The `ovs_stats` plug-in uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
 
 .ovs_stats options
 [cols="50%,50%"]
