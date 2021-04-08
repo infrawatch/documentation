@@ -241,27 +241,58 @@ Use the `cgroups` plugin to collect information for processes in a cgroup.
 
 For more information about configuring the `cgroups` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups[cgroups].
 
-[discrete]
-== collectd::plugin::chrony
+// To do: Add this to OSP 17 when it's available.
+//== collectd::plugin::chrony
 
 [discrete]
 == collectd::plugin::connectivity
+Use the connectivity plugin to monitor the state of network interfaces. 
+[NOTE]
+If no interfaces are listed, then the default is for all interfaces to be monitored.
+
+.connectivity parameters
+[cols="50%,50%"]
+|===
+|Parameter  |Type
+
+|interfaces
+|Array
+
+.Example configuration
+
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::connectivity::interfaces:
+        - eth0
+        - eth1
+----
+
+.Additional resources
+
+For more information about configuring the `connectivity` plugin, see https://collectd.org/wiki/index.php/Plugin:connectivity[connectivity].
+
 
 [discrete]
 == collectd::plugin::conntrack
 
-* None
+Use the `conntrack` plugin to track the number of entries in the Linux connection-tracking table. There are no parameters for this plugin.
+
 [discrete]
 == collectd::plugin::contextswitch
 
-* collectd::plugin::contextswitch::interval
+Use the `ContextSwitch` plugin to collect the number of context switches handled by the system.
+
+.Additional resources
+
+For more information about configuring the `contextswitch` plugin, see https://collectd.org/wiki/index.php/Plugin:ContextSwitch[contextswitch].
 
 [discrete]
 == collectd::plugin::cpu
 
 Use the `cpu` plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
 
-The `cpu` plugin collects `_jiffies_` , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
+The `cpu` plugin collects `_jiffies_`, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
 To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
 
