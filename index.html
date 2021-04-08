@@ -4043,7 +4043,7 @@ The address of the route must be resolvable and configuration is environment spe
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can configure multiple collectd plugins to suit your OpenStack Train environment.
-Reference the options tables of available parameters for specific plugins, such as in the following example:</p>
+Reference the tables of available parameters for specific plugins, such as in the following example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4074,7 +4074,7 @@ Reference the options tables of available parameters for specific plugins, such 
 <p>Use the <code>amqp1</code> plugin to write values to an amqp1 message bus, for example, Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. amqp1 options</caption>
+<caption class="title">Table 3. amqp1 parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4147,7 +4147,7 @@ Reference the options tables of available parameters for specific plugins, such 
 <p>Use the <code>apache</code> plugin to collect Apache data.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. apache options</caption>
+<caption class="title">Table 4. apache parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4196,7 +4196,7 @@ Reference the options tables of available parameters for specific plugins, such 
 <p>Use the <code>battery</code> plugin to report the remaining capacity, power, or voltage of laptop batteries.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. battery options</caption>
+<caption class="title">Table 5. battery parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4239,7 +4239,7 @@ Reference the options tables of available parameters for specific plugins, such 
 <p>Use the <code>ceph</code> plugin to gather data from ceph daemons.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. ceph options</caption>
+<caption class="title">Table 6. ceph parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4319,7 +4319,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 <p>Use the <code>cgroups</code> plugin to collect information for processes in a cgroup.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. cgroups options</caption>
+<caption class="title">Table 7. cgroups parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4349,32 +4349,79 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 <div class="title">Additional resources</div>
 <p>For more information about configuring the <code>cgroups</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups">cgroups</a>.</p>
 </div>
-<h3 id="_collectdpluginchrony" class="discrete">collectd::plugin::chrony</h3>
 <h3 id="_collectdpluginconnectivity" class="discrete">collectd::plugin::connectivity</h3>
+<div class="paragraph">
+<p>Use the connectivity plugin to monitor the state of network interfaces.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no interfaces are listed, all interfaces are monitored by default.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. connectivity parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interfaces</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::connectivity::interfaces:
+        - eth0
+        - eth1</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>connectivity</code> plugin, see <a href="https://collectd.org/wiki/index.php/Plugin:connectivity">connectivity</a>.</p>
+</div>
 <h3 id="_collectdpluginconntrack" class="discrete">collectd::plugin::conntrack</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
+<div class="paragraph">
+<p>Use the <code>conntrack</code> plugin to track the number of entries in the Linux connection-tracking table. There are no parameters for this plugin.</p>
+</div>
 <h3 id="_collectdplugincontextswitch" class="discrete">collectd::plugin::contextswitch</h3>
-</li>
-<li>
-<p>collectd::plugin::contextswitch::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>ContextSwitch</code> plugin to collect the number of context switches handled by the system.</p>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>contextswitch</code> plugin, see <a href="https://collectd.org/wiki/index.php/Plugin:ContextSwitch">contextswitch</a>.</p>
 </div>
 <h3 id="_collectdplugincpu" class="discrete">collectd::plugin::cpu</h3>
 <div class="paragraph">
 <p>Use the <code>cpu</code> plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.</p>
 </div>
 <div class="paragraph">
-<p>The <code>cpu</code> plugin collects <code>_jiffies_</code> , not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
+<p>The <code>cpu</code> plugin collects <code>_jiffies_</code>, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
 </div>
 <div class="paragraph">
 <p>To report a percentage value, set the Boolean parameters <code>reportbycpu</code> and <code>reportbystate</code> to <code>true</code>, and then set the Boolean parameter <code>valuespercentage</code> to true.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. cpu metrics</caption>
+<caption class="title">Table 9. cpu metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -4431,7 +4478,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. cpu options</caption>
+<caption class="title">Table 10. cpu parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4519,7 +4566,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 <p>Use the <code>df</code> plugin to collect disk space usage information for file systems.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. df metrics</caption>
+<caption class="title">Table 11. df metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -4551,7 +4598,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. df options</caption>
+<caption class="title">Table 12. df parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4861,7 +4908,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 <p>Use the <code>mcelog</code> plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and ensure that logging capabilities are enabled.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. mcelog options</caption>
+<caption class="title">Table 13. mcelog parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5055,7 +5102,7 @@ collectd-multimeter</p>
 <p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. ovs_stats options</caption>
+<caption class="title">Table 14. ovs_stats parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5111,7 +5158,7 @@ collectd-multimeter</p>
 <p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. pcie_errors options</caption>
+<caption class="title">Table 15. pcie_errors parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5508,7 +5555,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. virt options</caption>
+<caption class="title">Table 16. virt parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5605,7 +5652,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. write_http options</caption>
+<caption class="title">Table 17. write_http parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5659,10 +5706,10 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <h3 id="_collectdpluginwrite_kafka" class="discrete">collectd::plugin::write_kafka</h3>
 <div class="paragraph">
-<p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:</p>
+<p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. write_kafka options</caption>
+<caption class="title">Table 18. write_kafka parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5736,7 +5783,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-29 16:15:30 UTC
+Last updated 2021-04-08 14:53:40 UTC
 </div>
 </div>
 </body>
