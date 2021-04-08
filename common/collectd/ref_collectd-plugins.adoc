@@ -33,8 +33,8 @@ Red Hat is currently updating the plugin information in this guide for this rele
 endif::[]
 
 You can configure multiple collectd plugins to suit your {OpenStack} {OpenStackVersion} environment.
-//The following list of headers shows the available heat template `ExtraConfig` options that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
-Reference the options tables of available parameters for specific plugins, such as in the following example:
+//The following list of headers shows the available heat template `ExtraConfig` parameters that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
+Reference the tables of available parameters for specific plugins, such as in the following example:
 ----
 ExtraConfig:
   collectd::plugin::example_plugin::<parameter>: <value>
@@ -59,7 +59,7 @@ You can aggregate several values into one with the `aggregation` plugin. Use the
 
 Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {MessageBus}.
 
-.amqp1 options
+.amqp1 parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -113,7 +113,7 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 
 Use the `apache` plugin to collect Apache data.
 
-.apache options
+.apache parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -147,7 +147,7 @@ For more information about configuring the `apache` plugin, see https://collectd
 
 Use the `battery` plugin to report the remaining capacity, power, or voltage of laptop batteries.
 
-.battery options
+.battery parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -177,7 +177,7 @@ Use the `bind` plugin to retrieve encoded statistics about queries and responses
 
 Use the `ceph` plugin to gather data from ceph daemons.
 
-.ceph options
+.ceph parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -222,7 +222,7 @@ For more information about configuring the `ceph` plugin, see https://collectd.o
 
 Use the `cgroups` plugin to collect information for processes in a cgroup.
 
-.cgroups options
+.cgroups parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -246,9 +246,10 @@ For more information about configuring the `cgroups` plugin, see https://collect
 
 [discrete]
 == collectd::plugin::connectivity
-Use the connectivity plugin to monitor the state of network interfaces. 
+Use the connectivity plugin to monitor the state of network interfaces.
+
 [NOTE]
-If no interfaces are listed, then the default is for all interfaces to be monitored.
+If no interfaces are listed, all interfaces are monitored by default.
 
 .connectivity parameters
 [cols="50%,50%"]
@@ -257,6 +258,7 @@ If no interfaces are listed, then the default is for all interfaces to be monito
 
 |interfaces
 |Array
+|===
 
 .Example configuration
 
@@ -336,7 +338,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 |collectd_cpu_total{...,type_instance='wait'}
 |===
 
-.cpu options
+.cpu parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -427,7 +429,7 @@ Use the `df` plugin to collect disk space usage information for file systems.
 |===
 
 
-.df options
+.df parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -612,7 +614,7 @@ Use the `load` plugin to collect the system load and to get overview on  system 
 
 Use the `mcelog` plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
 
-.mcelog options
+.mcelog parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -723,7 +725,7 @@ collectd-multimeter
 
 Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. The `ovs_stats` plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.
 
-.ovs_stats options
+.ovs_stats parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -761,7 +763,7 @@ The following example shows how to enable the ovs_stats plugin. If you deploy yo
 
 Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.
 
-.pcie_errors options
+.pcie_errors parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -984,7 +986,7 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 
 Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
 
-.virt options
+.virt parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -1046,7 +1048,7 @@ For more information about configuring the `virt` plugin, see https://collectd.o
 
 Use the `write_http` output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the `PUTVAL` command.
 
-.write_http options
+.write_http parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
@@ -1086,9 +1088,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::write_kafka
 
-Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `write_kafka` plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic options inside the topic block:
+Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `write_kafka` plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:
 
-.write_kafka options
+.write_kafka parameters
 [cols="50%,50%"]
 |===
 |Parameter  |Type
