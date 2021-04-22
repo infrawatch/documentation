@@ -113,7 +113,7 @@ spec:
             subscriptionAddress: anycast/ceilometer/event.sample
 ----
 
-Each item of the `clouds` parameter represents a cloud instance. The cloud instances are made up of 3 top-level parameters: `name`, `metrics`, and `events`. The metrics and events parameters represent the corresponding backend for storage of that data type. The `collectors` parameter then specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The collectorType specifies data collected by either collectd or Ceilometer. The subscriptionAddress parameter provides the {MessageBus} address that a Smart Gateway instance should subscribe to.
+Each item of the `clouds` parameter represents a cloud instance. The cloud instances are made up of 3 top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding backend for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd or Ceilometer. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway should subscribe.
 
 An optional parameter `debugEnabled` of either `true` or `false` values can be used within the `collectors` parameter to enable additional console debugging in the running Smart Gateway pod.
 
