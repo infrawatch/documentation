@@ -26,4 +26,4 @@
 = Support for {Project}
 
 [role="_abstract"]
-Red Hat supports the two most recent versions of {Project} ({ProjectShort}). Earlier versions are not supported. For more information, see the https://access.redhat.com/articles/5662081[{Project} Matrix].
+Red Hat supports the two most recent versions of {Project} ({ProjectShort}). Earlier versions are not supported. For more information, see the https://access.redhat.com/articles/5662081[{Project} Supported Version Matrix].
