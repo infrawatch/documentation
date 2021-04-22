@@ -45,6 +45,14 @@ The collection components that are required on the clients are lightweight. The 
 
 {ProjectShort} provides access to monitoring functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration.
 
-include::../modules/con_architecture.adoc[leveloffset=+1]
+ifeval::["{build}" == "downstream"]
+include::../modules/con_support-for-stf.adoc[leveloffset=+1]
+endif::[]
+include::../modules/con_stf-architecture.adoc[leveloffset=+1]
 
-include::../modules/con_installation-size.adoc[leveloffset=+1]
+include::../modules/con_installation-size-of-ocp.adoc[leveloffset=+1]
+
+
+//reset the context
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
