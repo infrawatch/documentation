@@ -165,6 +165,7 @@ parameter_defaults:
         cloud1-telemetry:     # <4>
             format: JSON
             presettle: true
+    CollectdEnableSensubility: true
     CollectdSensubilityTransport: amqp1
     CollectdSensubilityResultsChannel: collectd/cloud1-notify # <5>
 
