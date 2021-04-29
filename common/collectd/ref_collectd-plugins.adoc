@@ -287,7 +287,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 .connectivity parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter .|Type
 
 |interfaces
 |Array
@@ -509,7 +509,7 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 .disk parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type
+|Parameter .| Type
 
 |disks | Array
 |ignoreselected | Boolean
@@ -521,10 +521,10 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 .disk metrics
 [cols="20%,30%,50%"]
 |===
-|Name  |Description 
+|Name  |Description
 
 | merged
-| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations. 
+| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
 
 | time
 | The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
@@ -608,7 +608,7 @@ Use the hugepages plugin to collect hugepages information. This plugin is enable
 .hugepages parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type | Defaults
+|Parameter .| Type | Defaults
 
 |report_per_node_hp |  Boolean | true
 |report_root_hp |  Boolean | true
@@ -643,10 +643,10 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 .interface parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type | Default
+|Parameter .| Type | Default
 
 |interfaces | Array | []
-|ignoreselected | Boolean | false 
+|ignoreselected | Boolean | false
 |reportinactive | Boolean | true
 
 |===
@@ -655,10 +655,10 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 ----
 parameter_defaults:
     ExtraConfig:
-        collectd::plugin::interface::interfaces: 
+        collectd::plugin::interface::interfaces:
            - lo
         collectd::plugin::interface::ignoreselected: true
- ----
+----
 
 .Additional resources
 
@@ -734,7 +734,7 @@ Use the `mcelog` plugin to send notifications and statistics relevant to Machine
 .mcelog parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter .|Type
 
 |Mcelogfile |String
 
