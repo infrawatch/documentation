@@ -21,6 +21,39 @@
 // reused multiple times in a guide.
 //:context: appendix
 //
+//PLUGIN TEMPLATE
+////
+[discrete]
+== collectd::plugin::plugin-name
+
+Description
+
+.plugin parameters
+[cols="50%,50%"]
+|===
+|Parameter  | Type
+
+|disks | Array
+|ignoreselected | Boolean
+|udevnameattr | String
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::disk::disk: "sda"
+        collectd::plugin::disk::ignoreselected: false
+----
+
+.Additional resources
+
+* For more information about configuring the `apache` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_apache[apache].
+
+////
+//END OF TEMPLATE
+
 // In the title, include nouns that are used in the body text. This helps
 // readers and search engines find information quickly.
 //[appendix]
@@ -471,12 +504,54 @@ For more information about configuring the `df` plugin, see https://collectd.org
 [discrete]
 == collectd::plugin::disk
 
-Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions.
+Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.
 
-* collectd::plugin::disk::disks
-* collectd::plugin::disk::ignoreselected
-* collectd::plugin::disk::udevnameattr
-* collectd::plugin::disk::interval
+.disk parameters
+[cols="50%,50%"]
+|===
+|Parameter  | Type
+
+|disks | Array
+|ignoreselected | Boolean
+|udevnameattr | String
+
+|===
+
+
+.disk metrics
+[cols="20%,30%,50%"]
+|===
+|Name  |Description 
+
+| merged
+| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations. 
+
+| time
+| The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
+
+| io_time
+| Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.
+
+| weighted_io_time
+| Measure of both I/O completion time and the backlog that might be accumulating.
+
+| pending_operations
+| Shows queue size of pending I/O operations.
+
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::disk::disk: "sda"
+        collectd::plugin::disk::ignoreselected: false
+----
+
+.Additional resources
+
+For more information about configuring the `disk` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk[disk plugin].
 
 [discrete]
 == collectd::plugin::dns
@@ -526,13 +601,33 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 * collectd::plugin::hddtemp::interval
 
 [discrete]
-== collectd-hugepages
-* collectd::plugin::hugepages::report_per_node_hp
-* collectd::plugin::hugepages::report_root_hp
-* collectd::plugin::hugepages::values_pages
-* collectd::plugin::hugepages::values_bytes
-* collectd::plugin::hugepages::values_percentage
-* collectd::plugin::hugepages::interval
+== collectd::plugin::hugepages
+
+Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.
+
+.hugepages parameters
+[cols="50%,50%"]
+|===
+|Parameter  | Type | Defaults
+
+|report_per_node_hp |  Boolean | true
+|report_root_hp |  Boolean | true
+|values_pages |  Boolean | true
+|values_bytes |  Boolean | false
+|values_percentage  |  Boolean | false
+|===
+
+.Example configuration
+
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::hugepages::values_percentage: true
+----
+
+.Additional resources
+
+* For more information about configuring the `hugepages` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_hugepages[hugepages].
 
 [discrete]
 == collectd::plugin::intel_pmu
@@ -542,10 +637,32 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 
 [discrete]
 == collectd::plugin::interface
-* collectd::plugin::interface::interfaces
-* collectd::plugin::interface::ignoreselected
-* collectd::plugin::interface::reportinactive
-* Collectd::plugin::interface::interval
+
+The `interface` plugin is enabled by default. Use this plugin to measure interface traffic in octets, packets per second, and error rate per second.  of interfaces. 
+
+.interface parameters
+[cols="50%,50%"]
+|===
+|Parameter  | Type | Default
+
+|interfaces | Array | []
+|ignoreselected | Boolean | false 
+|reportinactive | Boolean | true
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::interface::interfaces: 
+           - lo
+        collectd::plugin::interface::ignoreselected: true
+ ----
+
+.Additional resources
+
+* For more information about configuring the `interfaces` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_interfaces[interfaces].
 
 [discrete]
 == collectd::plugin::ipc
@@ -653,7 +770,6 @@ parameter_defaults:
 * collectd::plugin::memory::valuesabsolute
 * collectd::plugin::memory::valuespercentage
 * collectd::plugin::memory::interval
-collectd-multimeter
 
 [discrete]
 == collectd::plugin::multimeter
