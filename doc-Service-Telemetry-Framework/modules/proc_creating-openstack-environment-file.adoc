@@ -185,7 +185,6 @@ parameter_defaults:
           verifyHostname: false
           sslProfile: sslProfile
 
-    CollectdEnableSensubility: true  # <7>
 ----
 endif::include_when_16[]
 <1> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
