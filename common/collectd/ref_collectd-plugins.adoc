@@ -31,7 +31,7 @@ Description
 .plugin parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type
+|Parameter | Type
 
 |disks | Array
 |ignoreselected | Boolean
@@ -95,7 +95,7 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 .amqp1 parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |manage_package
 |Boolean
@@ -149,7 +149,7 @@ Use the `apache` plugin to collect Apache data.
 .apache parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |instances |Hash
 
@@ -183,7 +183,7 @@ Use the `battery` plugin to report the remaining capacity, power, or voltage of 
 .battery parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |values_percentage |Boolean
 
@@ -213,7 +213,7 @@ Use the `ceph` plugin to gather data from ceph daemons.
 .ceph parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |daemons |Array
 
@@ -258,7 +258,7 @@ Use the `cgroups` plugin to collect information for processes in a cgroup.
 .cgroups parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |ignore_selected
 |Boolean
@@ -287,7 +287,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 .connectivity parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |interfaces
 |Array
@@ -374,7 +374,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 .cpu parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |reportbystate
 |Boolean
@@ -465,7 +465,7 @@ Use the `df` plugin to collect disk space usage information for file systems.
 .df parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |devices |Array
 
@@ -509,7 +509,7 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 .disk parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type
+|Parameter | Type
 
 |disks | Array
 |ignoreselected | Boolean
@@ -521,10 +521,10 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 .disk metrics
 [cols="20%,30%,50%"]
 |===
-|Name  |Description 
+|Name  |Description
 
 | merged
-| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations. 
+| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
 
 | time
 | The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
@@ -608,7 +608,7 @@ Use the hugepages plugin to collect hugepages information. This plugin is enable
 .hugepages parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type | Defaults
+|Parameter | Type | Defaults
 
 |report_per_node_hp |  Boolean | true
 |report_root_hp |  Boolean | true
@@ -643,10 +643,10 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 .interface parameters
 [cols="50%,50%"]
 |===
-|Parameter  | Type | Default
+|Parameter | Type | Default
 
 |interfaces | Array | []
-|ignoreselected | Boolean | false 
+|ignoreselected | Boolean | false
 |reportinactive | Boolean | true
 
 |===
@@ -655,10 +655,10 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 ----
 parameter_defaults:
     ExtraConfig:
-        collectd::plugin::interface::interfaces: 
+        collectd::plugin::interface::interfaces:
            - lo
         collectd::plugin::interface::ignoreselected: true
- ----
+----
 
 .Additional resources
 
@@ -734,7 +734,7 @@ Use the `mcelog` plugin to send notifications and statistics relevant to Machine
 .mcelog parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |Mcelogfile |String
 
@@ -844,7 +844,7 @@ Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. Th
 .ovs_stats parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |address
 |String
@@ -882,7 +882,7 @@ Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced 
 .pcie_errors parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |source |Enum (sysfs, proc)
 
@@ -1105,7 +1105,7 @@ Use the `virt` plugin to collect CPU, disk, network load, and other metrics thro
 .virt parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |connection |String
 
@@ -1167,7 +1167,7 @@ Use the `write_http` output plugin to submit values to an HTTP server by using P
 .write_http parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |ensure
 |Enum['present', 'absent']
@@ -1209,7 +1209,7 @@ Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `wri
 .write_kafka parameters
 [cols="50%,50%"]
 |===
-|Parameter  |Type
+|Parameter |Type
 
 |kafka_hosts |Array[String]
 
