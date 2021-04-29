@@ -638,7 +638,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::interface
 
-The `interface` plugin is enabled by default. Use this plugin to measure interface traffic in octets, packets per second, and error rate per second.  of interfaces. 
+Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default. 
 
 .interface parameters
 [cols="50%,50%"]
