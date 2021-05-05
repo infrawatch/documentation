@@ -27,7 +27,7 @@
 = Monitoring the resource usage of {OpenStack} services
 
 [role="_abstract"]
-Monitor the resource usage of the {OpenStack} services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the `collectd-libpod-stats` plug-in to gather CPU and memory usage metrics for every container running in the overcloud.
+Monitor the resource usage of the {OpenStack} services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the `collectd-libpod-stats` plugin to gather CPU and memory usage metrics for every container running in the overcloud.
 
 .Prerequisites
 
@@ -42,7 +42,6 @@ Monitor the resource usage of the {OpenStack} services, such as the APIs and oth
 +
 ----
   CollectdEnableLibpodstats: true
-  CollectdEnableSensubility: true
 ----
 
 . Continue with the overcloud deployment procedure.
