@@ -3852,7 +3852,7 @@ spec:
 <div class="sect2">
 <h3 id="monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</h3>
 <div class="paragraph _abstract">
-<p>Monitor the resource usage of the OpenStack services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the <code>collectd-libpod-stats</code> plug-in to gather CPU and memory usage metrics for every container running in the overcloud.</p>
+<p>Monitor the resource usage of the OpenStack services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the <code>collectd-libpod-stats</code> plugin to gather CPU and memory usage metrics for every container running in the overcloud.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -3875,8 +3875,7 @@ spec:
 <p>Add the following configuration to <code>parameter_defaults</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>  CollectdEnableLibpodstats: true
-  CollectdEnableSensubility: true</pre>
+<pre>  CollectdEnableLibpodstats: true</pre>
 </div>
 </div>
 </li>
@@ -3892,7 +3891,7 @@ spec:
 <p>Container health assesses the status of each of the OpenStack service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most OpenStack services implement a health check that logs issues and returns a binary status. For the OpenStack APIs, the health checks query the root endpoint and determine the health based on the response time.</p>
 </div>
 <div class="paragraph">
-<p>To monitor healthchecks in STF, you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol. The STF architecture considers healthcheck results to be events and are stored in ElasticSearch.</p>
+<p>To monitor healthchecks in Service&#160;Telemetry&#160;Framework (STF), you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol. The STF architecture considers healthcheck results to be events and they are stored in ElasticSearch.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -3912,7 +3911,8 @@ spec:
 <p>Open the <code>stf-connectors.yaml</code> and edit the <code>collectd-sensubility</code> parameter:</p>
 <div class="listingblock">
 <div class="content">
-<pre>CollectdSensubilityTransport: amqp1</pre>
+<pre>CollectdEnableSensubility: true
+CollectdSensubilityTransport: amqp1</pre>
 </div>
 </div>
 </li>
@@ -5789,7 +5789,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-29 19:54:47 UTC
+Last updated 2021-05-05 20:54:06 UTC
 </div>
 </div>
 </body>
