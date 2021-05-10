@@ -212,7 +212,7 @@ endif::include_when_16[]
 (undercloud) [stack@undercloud-0 ~]$
 ----
 
-. Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` file in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
+. Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
 +
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
