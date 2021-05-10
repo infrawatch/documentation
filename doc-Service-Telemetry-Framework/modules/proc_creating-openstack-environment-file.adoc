@@ -218,8 +218,8 @@ endif::include_when_16[]
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
 --templates /usr/share/openstack-tripleo-heat-templates \
 ...
--e /home/stack/custom_templates/stf-connectors.yaml \
 -e /home/stack/custom_templates/hostnames.yaml \
+-e /home/stack/custom_templates/stf-connectors.yaml \
 ...
 ----
 
