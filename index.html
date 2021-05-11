@@ -482,7 +482,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP Traps</a></li>
 <li><a href="#high-availability_assembly-advanced-features">High availability</a></li>
 <li><a href="#dashboards_assembly-advanced-features">Dashboards</a></li>
-<li><a href="#configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</a></li>
+<li><a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a></li>
 <li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></li>
 <li><a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a></li>
 <li><a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a></li>
@@ -1901,7 +1901,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</a>.</p>
+<p>The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
 </div>
 <div class="paragraph">
 <p>Additionally, setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.</p>
@@ -2182,7 +2182,7 @@ Router Addresses
 <p><a href="#dashboards_assembly-advanced-features">Dashboards</a></p>
 </li>
 <li>
-<p><a href="#configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</a></p>
+<p><a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a></p>
 </li>
 <li>
 <p><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></p>
@@ -3345,11 +3345,12 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</h3>
+<h3 id="configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</h3>
 <div class="paragraph _abstract">
-<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF):</p>
+<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Plan the AMQP address prefixes that you want to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</a>.</p>
@@ -3358,13 +3359,16 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 <p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_assembly-advanced-features">Deploying Smart Gateways</a>.</p>
 </li>
 <li>
+<p>Configure each cloud with a unique domain name. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</a>.</p>
+</li>
+<li>
 <p>Configure each cloud to send its metrics and events to STF on the correct address. For more information, see <a href="#creating-openstack-environment-file_assembly-advanced-features">Creating the OpenStack environment file</a>.</p>
 </li>
 </ol>
 </div>
 <div id="osp-stf-multiple-clouds" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An exmaple of two OpenStack clouds connecting to STF"/>
+<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OpenStack clouds connecting to STF"/>
 </div>
 <div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
 </div>
@@ -3450,9 +3454,16 @@ The weighted I/O time series includes the backlog that might be accumulating. Fo
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Prerequisites</div>
-<p>You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</a>. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+<ul>
+<li>
+<p>You have determined your cloud naming scheme. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</a>.</p>
+</li>
+<li>
+<p>You have created your list of clouds objects.  For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+</li>
+</ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3529,7 +3540,7 @@ default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0   
 <div class="sect3">
 <h4 id="deleting-the-default-smart-gateways_assembly-advanced-features">Deleting the default Smart Gateways</h4>
 <div class="paragraph _abstract">
-<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. You can enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter by setting <code>cloudsRemoveOnMissing: true</code> in the <code>ServiceTelemetry</code> manifest.</p>
+<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. To enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter, you must set the <code>cloudsRemoveOnMissing</code> parameter to <code>true</code> in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -3538,7 +3549,7 @@ default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0   
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If you do not want any Smart Gateways deployed, define an empty clouds object using the <code>clouds: {}</code> parameter.
+If you do not want to deploy any Smart Gateways, define an empty clouds object by using the <code>clouds: {}</code> parameter.
 </td>
 </tr>
 </table>
@@ -3584,9 +3595,38 @@ spec:
 <p>Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get smartgateways</code></pre>
+<pre>$ oc get smartgateways</pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</h4>
+<div class="paragraph _abstract">
+<p>To ensure that AMQ router connections from OpenStack to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a new environment file, for example, <code>hostnames.yaml</code>.</p>
+</li>
+<li>
+<p>Set the <code>CloudDomain</code> parameter in the environment file, as shown in the following example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>       parameter_defaults:
+              CloudDomain: newyork-west-04
+              CephStorageHostnameFormat: 'ceph-%index%'
+              ObjectStorageHostnameFormat: 'swift-%index%'
+              ComputeHostnameFormat: 'compute-%index%'</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add this environment file to your deployment. For more information, see <a href="#creating-openstack-environment-file_assembly-advanced-features">Creating the OpenStack environment file</a> and <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters">Core overcloud parameters</a> in the <em>Overcloud Parameters</em> guide.</p>
 </li>
 </ol>
 </div>
@@ -3621,6 +3661,14 @@ Remove
 </td>
 </tr>
 </table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have created a unique domain name environment file. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</a>.</p>
+</li>
+</ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3737,14 +3785,15 @@ parameter_defaults:
 </div>
 </li>
 <li>
-<p>Include the <code>stf-connectors.yaml</code> file in the <code>overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
+<p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
+<pre>(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
 --templates /usr/share/openstack-tripleo-heat-templates \
 ...
+-e /home/stack/custom_templates/hostnames.yaml \
 -e /home/stack/custom_templates/stf-connectors.yaml \
-...</code></pre>
+...</pre>
 </div>
 </div>
 </li>
@@ -3930,7 +3979,7 @@ CollectdSensubilityTransport: amqp1</pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about multiple cloud addresses, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Multiple cloud configuration</a>.</p>
+<p>For more information about multiple cloud addresses, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
 </li>
 </ul>
 </div>
@@ -5789,7 +5838,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-05 20:54:06 UTC
+Last updated 2021-05-11 13:16:04 UTC
 </div>
 </div>
 </body>
