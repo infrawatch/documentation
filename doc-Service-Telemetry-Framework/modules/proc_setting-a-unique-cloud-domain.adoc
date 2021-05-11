@@ -24,7 +24,7 @@
 = Setting a unique cloud domain
 
 [role="_abstract"]
-To ensure that AMQ router connections from {OpenStack} to {ProjectName} ({ProjectShort}) are unique and do not conflict, configure the `CloudDomain` parameter.
+To ensure that AMQ router connections from {OpenStack} to {Project} ({ProjectShort}) are unique and do not conflict, configure the `CloudDomain` parameter.
 
 .Procedure
 
