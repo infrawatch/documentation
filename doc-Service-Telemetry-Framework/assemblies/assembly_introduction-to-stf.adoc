@@ -29,7 +29,7 @@ ifeval::["{build}" == "downstream"]
 endif::[]
 
 [role="_abstract"]
-{Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:
+{Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes for storage, viewing on dashboards, and alerting. The monitoring data can be either of two types:
 
 Metric:: a numeric measurement of an application or system
 Event:: irregular and discrete occurrences that happen in a system
@@ -41,9 +41,14 @@ The collection components that are required on the clients are lightweight. The 
 ifeval::["{build}" == "downstream"]
 include::../modules/con_support-for-stf.adoc[leveloffset=+1]
 endif::[]
+
 include::../modules/con_stf-architecture.adoc[leveloffset=+1]
 
 include::../modules/con_installation-size-of-ocp.adoc[leveloffset=+1]
+
+ifeval::["{build}" == "upstream"]
+include::../modules/con_development-environment-resource-requirements.adoc[leveloffset=+2]
+endif::[]
 
 
 //reset the context
