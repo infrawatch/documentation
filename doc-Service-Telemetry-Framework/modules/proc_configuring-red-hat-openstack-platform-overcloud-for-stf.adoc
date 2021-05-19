@@ -137,6 +137,10 @@ parameter_defaults:
         verifyHostname: false
     MetricsQdrSSLProfiles:
     -   name: sslProfile
+        caCertFileContent: |
+          ----BEGIN CERTIFICATE----
+          <snip>
+          ----END CERTIFICATE----
     ExtraConfig:
         collectd::plugin::cpu::reportbycpu: true
         collectd::plugin::cpu::reportbystate: true

@@ -1,0 +1,67 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_getting-ca-certificate-from-stf-for-overcloud-configuration.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="getting-ca-certificate-from-stf-for-overcloud-configuration_{context}"]
+= Getting CA certificate from {Project} for overcloud configuration
+
+[role="_abstract"]
+To successfuly connect your {OpenStack} overcloud to {Project} you will first need to get CA certificate of {MessageBus} running on {Project} side.
+
+[[retrieving-the-server-side-ca-certificate-for-qdr]]
+== Retrieving the server side CA certificate for {MessageBus}
+
+To get a list of available certificates on {Project} side run the following command:
+
+[source,bash,options="nowrap",subs="verbatim"]
+----
+$ oc get secrets
+----
+
+There should be an item named *default-interconnect-selfsigned*. To get it's content, use following command:
+
+[source,bash,options="nowrap",subs="verbatim"]
+----
+$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d
+----
+
+
+[[using-ca-certificate-content-in-red-hat-openstack-platform-configuration]]
+== Using CA certificate content in {OpenStack} configuration
+
+The resulting value has to be used in {OpenStack} configuration the following way:
+
+[source,yaml]
+----
+  MetricsQdrConnectors:
+  - host: default-interconnect-5671-service-telemetry.apps.infra.watch
+    port: 443
+    role: edge
+    sslProfile: sslProfile
+    verifyHostname: false
+
+  MetricsQdrSSLProfiles:
+    name: sslProfile
+    caCertFileContent: |
+      ----BEGIN CERTIFICATE----
+      <snip>
+      ----END CERTIFICATE----
+----
