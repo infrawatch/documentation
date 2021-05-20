@@ -28,14 +28,13 @@ Grafana is not included in the default {Project} ({ProjectShort}) deployment so 
 
 .Prerequisites
 
-Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhubio-community-catalog-source[].
+Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
-[source,bash]
 ----
 $ oc project service-telemetry
 ----
@@ -75,7 +74,6 @@ grafana-operator.v3.2.0             Grafana Operator                            
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` to `true`.
 +
-[source,bash]
 ----
 $ oc edit stf default
 ----
