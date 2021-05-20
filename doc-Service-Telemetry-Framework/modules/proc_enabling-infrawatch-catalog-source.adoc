@@ -1,0 +1,76 @@
+// Module included in the following assemblies:
+//
+// assembly-installing-the-core-components-of-stf
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_enabling-infrawatch-catalog-source.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+//upstream only
+
+//this is an upstream only module
+[id="enabling-infrawatch-catalog-source_{context}"]
+= Enabling InfraWatch Catalog Source
+
+[role="_abstract"]
+Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source.
+
+.Procedure
+
+. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
++
+[source,bash]
+----
+$ oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: infrawatch-operators
+  namespace: openshift-marketplace
+spec:
+  displayName: InfraWatch Operators
+  image: quay.io/infrawatch-operators/infrawatch-catalog:latest
+  publisher: InfraWatch
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+EOF
+----
+
+. Validate the creation of your CatalogSource:
++
+[source,options="nowrap",subs="+quotes"]
+----
+$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
+----
+
+
+
+. Validate that the Operators are available from the catalog:
++
+
+[source,options="nowrap",subs="+quotes"]
+----
+$ oc get packagemanifests | grep InfraWatch
+
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s
+----

@@ -1,0 +1,47 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_enabling-the-operatorhub-io-community-catalog-source.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="enabling-the-operatorhub-io-community-catalog-source_{context}"]
+= Enabling the OperatorHub.io Community Catalog Source
+
+[role="_abstract"]
+Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:
+
+.Procedure
+
+* Enter the following command:
++
+[source,bash]
+----
+$ oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operator-framework/upstream-community-operators:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF
+----
