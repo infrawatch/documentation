@@ -4136,7 +4136,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4209,7 +4209,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4258,7 +4258,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4301,7 +4301,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4381,7 +4381,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4428,7 +4428,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4540,7 +4540,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4660,7 +4660,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -4719,23 +4719,79 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugindisk" class="discrete">collectd::plugin::disk</h3>
 <div class="paragraph">
-<p>Use the <code>disk</code> plugin to collect performance statistics of hard-disks and, if supported, partitions.</p>
+<p>Use the <code>disk</code> plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::disk::disks</p>
-</li>
-<li>
-<p>collectd::plugin::disk::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::disk::udevnameattr</p>
-</li>
-<li>
-<p>collectd::plugin::disk::interval</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. disk parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">udevnameattr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. disk metrics</caption>
+<colgroup>
+<col style="width: 20%;"/>
+<col style="width: 30%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">merged</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io_time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">weighted_io_time</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Measure of both I/O completion time and the backlog that might be accumulating.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pending_operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows queue size of pending I/O operations.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::disk::disk: "sda"
+        collectd::plugin::disk::ignoreselected: false</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>disk</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk">disk plugin</a>.</p>
 </div>
 <h3 id="_collectdplugindns" class="discrete">collectd::plugin::dns</h3>
 <h3 id="_collectdplugindpdk_telemetry" class="discrete">collectd::plugin::dpdk_telemetry</h3>
@@ -4828,45 +4884,129 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectd_hugepages" class="discrete">collectd-hugepages</h3>
+<h3 id="_collectdpluginhugepages" class="discrete">collectd::plugin::hugepages</h3>
+<div class="paragraph">
+<p>Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. hugepages parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">report_per_node_hp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">report_root_hp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_pages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_percentage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::hugepages::values_percentage: true</pre>
+</div>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::hugepages::report_per_node_hp</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::report_root_hp</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_pages</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_bytes</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::values_percentage</p>
-</li>
-<li>
-<p>collectd::plugin::hugepages::interval</p>
+<p>For more information about configuring the <code>hugepages</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_hugepages">hugepages</a>.</p>
 </li>
 </ul>
 </div>
 <h3 id="_collectdpluginintel_pmu" class="discrete">collectd::plugin::intel_pmu</h3>
 <h3 id="_collectdpluginintel_rdt" class="discrete">collectd::plugin::intel_rdt</h3>
 <h3 id="_collectdplugininterface" class="discrete">collectd::plugin::interface</h3>
+<div class="paragraph">
+<p>Use the <code>interface</code> plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. interface parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interfaces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportinactive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration</div>
+<div class="content">
+<pre>parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::interface::interfaces:
+           - lo
+        collectd::plugin::interface::ignoreselected: true</pre>
+</div>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::interface::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::interface::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::interface::reportinactive</p>
-</li>
-<li>
-<p>Collectd::plugin::interface::interval</p>
+<p>For more information about configuring the <code>interfaces</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_interfaces">interfaces</a>.</p>
 </li>
 </ul>
 </div>
@@ -4963,14 +5103,14 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>mcelog</code> plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and ensure that logging capabilities are enabled.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. mcelog parameters</caption>
+<caption class="title">Table 17. mcelog parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5024,8 +5164,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>collectd::plugin::memory::valuespercentage</p>
 </li>
 <li>
-<p>collectd::plugin::memory::interval
-collectd-multimeter</p>
+<p>collectd::plugin::memory::interval</p>
 </li>
 </ul>
 </div>
@@ -5157,14 +5296,14 @@ collectd-multimeter</p>
 <p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. ovs_stats parameters</caption>
+<caption class="title">Table 18. ovs_stats parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5213,14 +5352,14 @@ collectd-multimeter</p>
 <p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. pcie_errors parameters</caption>
+<caption class="title">Table 19. pcie_errors parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5610,14 +5749,14 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. virt parameters</caption>
+<caption class="title">Table 20. virt parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5707,14 +5846,14 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. write_http parameters</caption>
+<caption class="title">Table 21. write_http parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5764,14 +5903,14 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. write_kafka parameters</caption>
+<caption class="title">Table 22. write_kafka parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter  </th>
+<th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
@@ -5838,7 +5977,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-11 13:16:04 UTC
+Last updated 2021-05-20 09:35:23 UTC
 </div>
 </div>
 </body>
