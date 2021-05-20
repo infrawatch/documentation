@@ -47,7 +47,7 @@ $ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | 
 [[using-ca-certificate-content-in-red-hat-openstack-platform-configuration]]
 == Using CA certificate content in {OpenStack} configuration
 
-The resulting value has to be used in {OpenStack} configuration the following way:
+Add the content from the `default-interconnect-selfsigned` Secret to the {OpenStack} configuration in `stf-connectors.yaml` to the `caCertFileContent` parameter within `MetricsQdrSSLProfiles`:
 
 [source,yaml]
 ----
