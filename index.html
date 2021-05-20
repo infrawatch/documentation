@@ -4724,8 +4724,8 @@ If no interfaces are listed, all interfaces are monitored by default.
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 13. disk parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 30%;"/>
+<col style="width: 70%;"/>
 </colgroup>
 <thead>
 <tr>
@@ -4751,30 +4751,33 @@ If no interfaces are listed, all interfaces are monitored by default.
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 14. disk metrics</caption>
 <colgroup>
-<col style="width: 20%;"/>
 <col style="width: 30%;"/>
-<col style="width: 50%;"/>
+<col style="width: 70%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">merged</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">merged</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">io_time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">weighted_io_time</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">weighted_io_time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Measure of both I/O completion time and the backlog that might be accumulating.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">pending_operations</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Shows queue size of pending I/O operations.</p></td>
 </tr>
@@ -5977,7 +5980,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-20 12:35:06 UTC
+Last updated 2021-05-20 12:55:28 UTC
 </div>
 </div>
 </body>
