@@ -523,20 +523,11 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 |===
 |Name  |Description
 
-| merged
-| The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
-
-| time
-| The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
-
-| io_time
-| Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.
-
-| weighted_io_time
-| Measure of both I/O completion time and the backlog that might be accumulating.
-
-| pending_operations
-| Shows queue size of pending I/O operations.
+| merged | The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
+| time | The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
+| io_time | Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.
+| weighted_io_time | Measure of both I/O completion time and the backlog that might be accumulating.
+| pending_operations | Shows queue size of pending I/O operations.
 
 |===
 
