@@ -498,7 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) receives monitoring data from OpenStack or third-party nodes for storage, dashboarding, and alerting. The monitoring data can be either of two types:</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) receives monitoring data from OpenStack or third-party nodes for storage, viewing on dashboards, and alerting. The monitoring data can be either of two types:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -657,8 +657,8 @@ For more information about STF performance and scaling, see <a href="https://acc
 <p>The size of your OKD environment depends on the infrastructure you select. For more information about minimum resources requirements when installing OKD on baremetal, see <a href="https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
-<h4 id="development-environment-resource-requirement_assembly-introduction-to-stf">Development environment resource requirements</h4>
-<div class="paragraph">
+<h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
+<div class="paragraph _abstract">
 <p>You can create an all-in-one development environment for STF locally by using <a href="https://code-ready.github.io/crc/">CodeReady Containers</a>. The installation process of CodeReady Containers (CRC) is available at <a href="https://code-ready.github.io/crc/#installation_gsg" class="bare">https://code-ready.github.io/crc/#installation_gsg</a>.</p>
 </div>
 <div class="paragraph">
@@ -917,40 +917,41 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="ulist">
 <ul>
 <li>
-<p>Deploy STF and store events with ElasticSearch. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch">Deploying STF to the OKD environment with ElasticSearch</a>.</p>
+<p>Deploy STF and store events with ElasticSearch. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
 </li>
 <li>
-<p>Deploy STF without ElasticSearch and disable events support. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
+<p>Deploy STF without ElasticSearch and disable events support. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a>.</p>
 </li>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="deploying-stf-to-the-openshift-environment-with-elasticsearch">Deploying STF to the OKD environment with ElasticSearch</h4>
-<div class="paragraph">
-<p>Complete the following tasks:</p>
+<h4 id="deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</h4>
+<div class="paragraph _abstract">
+<p>To deploy STF and store events with ElasticSearch, complete the following tasks:</p>
 </div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p><a href="#creating-a-namespace">Creating a namespace</a>.</p>
+<p><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a>.</p>
 </li>
 <li>
-<p><a href="#creating-an-operatorgroup">Creating an OperatorGroup</a>.</p>
+<p><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+<p><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</a>.</p>
+<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a>.</p>
 </li>
 <li>
-<p><a href="#subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
+<p><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
 </li>
 <li>
-<p><a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
+<p><a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
 </li>
 <li>
-<p><a href="#subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</a>.</p>
+<p><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a>.</p>
 </li>
 <li>
 <p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</a>.</p>
@@ -959,26 +960,27 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="sect3">
-<h4 id="deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</h4>
-<div class="paragraph">
-<p>Complete the following tasks:</p>
+<h4 id="deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</h4>
+<div class="paragraph _abstract">
+<p>To deploy STF without ElasticSearch and disable events support, complete the following tasks:</p>
 </div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p><a href="#creating-a-namespace">Creating a namespace</a>.</p>
+<p><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a>.</p>
 </li>
 <li>
-<p><a href="#creating-an-operatorgroup">Creating an OperatorGroup</a>.</p>
+<p><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</a>.</p>
+<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a>.</p>
 </li>
 <li>
-<p><a href="#subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
+<p><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
 </li>
 <li>
-<p><a href="#subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</a>.</p>
+<p><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a>.</p>
 </li>
 <li>
 <p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</a>.</p>
@@ -987,7 +989,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="sect3">
-<h4 id="creating-a-namespace">Creating a namespace</h4>
+<h4 id="creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</h4>
 <div class="paragraph">
 <p>Create a namespace to hold the STF components. The <code>service-telemetry</code> namespace is used throughout the documentation:</p>
 </div>
@@ -998,7 +1000,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>Enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc new-project service-telemetry</code></pre>
+<pre>$ oc new-project service-telemetry</pre>
 </div>
 </div>
 </li>
@@ -1006,8 +1008,8 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="sect3">
-<h4 id="creating-an-operatorgroup">Creating an OperatorGroup</h4>
-<div class="paragraph">
+<h4 id="creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</h4>
+<div class="paragraph _abstract">
 <p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods.</p>
 </div>
 <div class="ulist">
@@ -1038,8 +1040,8 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</h4>
-<div class="paragraph">
+<h4 id="enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</h4>
+<div class="paragraph _abstract">
 <p>Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:</p>
 </div>
 <div class="ulist">
@@ -1068,8 +1070,8 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="enabling-the-infrawatch-catalog-source">Enabling InfraWatch Catalog Source</h4>
-<div class="paragraph">
+<h4 id="enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</h4>
+<div class="paragraph _abstract">
 <p>Before you deploy STF on OpenShift, you must enable the catalog source.</p>
 </div>
 <div class="olist arabic">
@@ -1077,9 +1079,6 @@ EOF</code></pre>
 <ol class="arabic">
 <li>
 <p>Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
@@ -1099,13 +1098,12 @@ spec:
 EOF</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p>To validate the creation of your CatalogSource, use the <code>oc get catalogsources</code> command:</p>
+<p>Validate the creation of your CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+<pre class="highlight nowrap"><code>$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
 NAME                   DISPLAY                TYPE   PUBLISHER    AGE
 infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></pre>
@@ -1113,10 +1111,10 @@ infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></
 </div>
 </li>
 <li>
-<p>To validate that the Operators are available from the catalog, use the <code>oc get packagemanifest</code> command:</p>
+<p>Validate that the Operators are available from the catalog:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
+<pre class="highlight nowrap"><code>$ oc get packagemanifests | grep InfraWatch
 
 service-telemetry-operator                    InfraWatch Operators       7m20s
 smart-gateway-operator                        InfraWatch Operators       7m20s</code></pre>
@@ -1127,8 +1125,8 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 </div>
 </div>
 <div class="sect3">
-<h4 id="subscribing-to-the-amq-certificate-manager-operator">Subscribing to the AMQ Certificate Manager Operator</h4>
-<div class="paragraph">
+<h4 id="subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</h4>
+<div class="paragraph _abstract">
 <p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
 </div>
 <div class="admonitionblock note">
@@ -1222,13 +1220,13 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>For OKD versions 4.5 and OCP 4.6, to validate your <code>ClusterServiceVersion</code>, use the <code>oc get csv</code> command:</p>
+<p>For OKD versions 4.5 and OKD 4.6, validate your <code>ClusterServiceVersion</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get --namespace openshift-operators csv
+<pre class="nowrap">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
+amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1239,15 +1237,15 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 </div>
 </div>
 <div class="sect3">
-<h4 id="subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
-<div class="paragraph">
+<h4 id="subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
+<div class="paragraph _abstract">
 <p>Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Apply the following manifest to your OKD environment to enable the Elastic Cloud on Kubernetes Operator:</p>
+<p>To enable the Elastic Cloud on Kubernetes Operator, apply the following manifest to your OKD environment:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
@@ -1267,10 +1265,10 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>succeeded</code>, enter the <code>oc get csv</code> command:</p>
+<p>Verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>succeeded</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv
+<pre class="highlight nowrap"><code>$ oc get csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
 elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1                Succeeded</code></pre>
@@ -1281,8 +1279,8 @@ elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1
 </div>
 </div>
 <div class="sect3">
-<h4 id="subscribing-to-the-service-telemetry-operator">Subscribing to the Service Telemetry Operator</h4>
-<div class="paragraph">
+<h4 id="subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</h4>
+<div class="paragraph _abstract">
 <p>You must subscribe to the Service Telemetry Operator, which manages the STF instances.</p>
 </div>
 <div class="olist arabic">
@@ -1413,10 +1411,10 @@ spec:
 <div class="sect4">
 <h5 id="_enabling_elasticsearch_as_a_storage_backend_for_events">Enabling ElasticSearch as a storage backend for events</h5>
 <div class="paragraph">
-<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-elastic-cloud-on-kubernetes-operator">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
+<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
 </div>
 <div class="paragraph">
-<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch">Deploying STF to the OKD environment without ElasticSearch</a>.</p>
+<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a>.</p>
 </div>
 </div>
 </div>
@@ -2865,7 +2863,7 @@ spec:
 </div>
 <div class="paragraph">
 <div class="title">Prerequisites</div>
-<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhubio-community-catalog-source">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2877,7 +2875,7 @@ spec:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre>$ oc project service-telemetry</pre>
 </div>
 </div>
 </li>
@@ -2920,7 +2918,7 @@ grafana-operator.v3.2.0             Grafana Operator                            
 <p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> to <code>true</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+<pre>$ oc edit stf default</pre>
 </div>
 </div>
 <div class="listingblock">
@@ -6081,7 +6079,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-20 14:15:34 UTC
+Last updated 2021-05-20 15:12:21 UTC
 </div>
 </div>
 </body>
