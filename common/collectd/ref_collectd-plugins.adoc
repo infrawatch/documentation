@@ -410,7 +410,7 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `cpu` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu[cpu plugin].
+For more information about configuring the `cpu` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu[cpu].
 
 [discrete]
 == collectd::plugin::cpufreq
@@ -499,7 +499,7 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `df` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df[df plugin].
+For more information about configuring the `df` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_df[df].
 
 [discrete]
 == collectd::plugin::disk
@@ -542,7 +542,7 @@ parameter_defaults:
 
 .Additional resources
 
-For more information about configuring the `disk` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk[disk plugin].
+For more information about configuring the `disk` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk[disk].
 
 [discrete]
 == collectd::plugin::dns
@@ -620,8 +620,9 @@ parameter_defaults:
 
 * For more information about configuring the `hugepages` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_hugepages[hugepages].
 
-[discrete]
-== collectd::plugin::intel_pmu
+//[discrete]
+//== collectd::plugin::intel_pmu
+// needs ALOT of work before it can be used
 
 [discrete]
 == collectd::plugin::intel_rdt
@@ -680,10 +681,28 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::load
 
-Use the `load` plugin to collect the system load and to get overview on  system use.
+Use the `load` plugin to collect the system load and to get overview on system use. This plugin is enabled by default.
 
-* collectd::plugin::load::report_relative
-* collectd::plugin::load::interval
+.plugin parameters
+[cols="50%,50%"]
+|===
+|Parameter | Type
+
+|report_relative | Boolean
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::load::report_relative: false        
+----
+
+.Additional resources
+
+* For more information about configuring the `load` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_load[load].
+
 
 [discrete]
 == collectd::plugin::logfile
@@ -758,9 +777,29 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::memory
 
-* collectd::plugin::memory::valuesabsolute
-* collectd::plugin::memory::valuespercentage
-* collectd::plugin::memory::interval
+The `memory` plugin provides information about the memory of the system.  This plugin is enabled by default.
+
+.memory parameters
+[cols="50%,50%"]
+|===
+|Parameter | Type
+
+|valuesabsolute | Boolean
+|valuespercentage | Boolean
+
+|===
+
+.Example configuration
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::memory::valuesabsolute: true
+        collectd::plugin::memory::valuespercentage: false
+----
+
+.Additional resources
+
+* For more information about configuring the `memory` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_memory[memory].
 
 [discrete]
 == collectd::plugin::multimeter
@@ -852,7 +891,7 @@ Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. Th
 
 
 .Example configuration
-The following example shows how to enable the ovs_stats plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
+The following example shows how to enable the `ovs_stats` plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
 ----
     parameter_defaults:
         CollectdExtraPlugins:
@@ -894,7 +933,7 @@ parameter_defaults:
 
 .Additional resources
 
-* For more information about configuring the `pcie_errors` plugin, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors upstream].
+* For more information about configuring the `pcie_errors` plugin, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors].
 
 [discrete]
 == collectd::plugin::ping
@@ -923,6 +962,36 @@ parameter_defaults:
 * collectd::plugin::processes::collect_file_descriptor
 * collectd::plugin::processes::collect_memory_maps
 * collectd::plugin::powerdns::interval
+
+
+
+[discrete]
+== collectd::plugin::processes
+
+The `processes` plugin provides information about processes of the system. This plugin is enabled by default.
+
+.plugin parameters
+[cols="50%,50%"]
+|===
+|Parameter | Type
+
+|processes | Array
+|process_matches | Array 
+|collect_context_switch | Boolean
+|collect_file_descriptor | Boolean
+|collect_memory_maps | Boolean
+
+|===
+
+//.Example configuration
+
+
+.Additional resources
+
+* For more information about configuring the `processes` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_processes[processes].
+
+
+
 
 [discrete]
 == collectd::plugin::protocols
