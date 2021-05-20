@@ -36,7 +36,7 @@ To get a list of available certificates in {Project} run the following command:
 $ oc get secrets
 ----
 
-There should be an item named *default-interconnect-selfsigned*. To get it's content, use following command:
+Retrieve and note the content of the `default-interconnect-selfsigned` Secret:
 
 [source,bash,options="nowrap",subs="verbatim"]
 ----
