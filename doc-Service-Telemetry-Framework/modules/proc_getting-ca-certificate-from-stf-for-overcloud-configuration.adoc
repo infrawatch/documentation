@@ -24,7 +24,7 @@
 = Getting CA certificate from {Project} for overcloud configuration
 
 [role="_abstract"]
-To connect your {OpenStack} overcloud to {Project} you need to obtain the CA certificate of {MessageBus} running within {Project}.
+To connect your {OpenStack} overcloud to {Project}, you need to obtain the CA certificate of {MessageBus} that runs within {Project}.
 
 [[retrieving-the-server-side-ca-certificate-for-qdr]]
 == Retrieving the server side CA certificate for {MessageBus}
