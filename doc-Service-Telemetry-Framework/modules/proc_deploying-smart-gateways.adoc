@@ -38,7 +38,9 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 
 .Prerequisites
 
-You have determined your naming scheme and have created your list of clouds objects. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_assembly-advanced-features[]. For more information about creating the content for the `clouds` parameter, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+* You have determined your cloud naming scheme. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_assembly-advanced-features[].
+
+* You have created your list of clouds objects.  For more information about creating the content for the `clouds` parameter, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 

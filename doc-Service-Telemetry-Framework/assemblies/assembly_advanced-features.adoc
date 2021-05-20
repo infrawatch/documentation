@@ -60,6 +60,7 @@ include::../modules/con_configuring-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+2]
 include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+2]
 include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+2]
+include::../modules/proc_setting-a-unique-cloud-domain.adoc[leveloffset=+2]
 include::../modules/proc_creating-openstack-environment-file.adoc[leveloffset=+2]
 include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+2]
 

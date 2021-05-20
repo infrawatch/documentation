@@ -1,0 +1,43 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_setting-a-unique-cloud-domain.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="setting-a-unique-cloud-domain_{context}"]
+= Setting a unique cloud domain
+
+[role="_abstract"]
+To ensure that AMQ router connections from {OpenStack} to {Project} ({ProjectShort}) are unique and do not conflict, configure the `CloudDomain` parameter.
+
+.Procedure
+
+. Create a new environment file, for example, `hostnames.yaml`.
+
+. Set the `CloudDomain` parameter in the environment file, as shown in the following example:
++
+----
+
+       parameter_defaults:
+              CloudDomain: newyork-west-04
+              CephStorageHostnameFormat: 'ceph-%index%'
+              ObjectStorageHostnameFormat: 'swift-%index%'
+              ComputeHostnameFormat: 'compute-%index%'
+----
+. Add this environment file to your deployment. For more information, see xref:creating-openstack-environment-file_assembly-advanced-features[] and https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters[Core overcloud parameters] in the _Overcloud Parameters_ guide.
