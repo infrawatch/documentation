@@ -507,7 +507,7 @@ For more information about configuring the `df` plugin, see https://collectd.org
 Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.
 
 .disk parameters
-[cols="50%,50%"]
+[cols="30%,70%"]
 |===
 |Parameter | Type
 
@@ -519,7 +519,7 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 
 
 .disk metrics
-[cols="20%,30%,50%"]
+[cols="30%,70%"]
 |===
 |Name  |Description
 
