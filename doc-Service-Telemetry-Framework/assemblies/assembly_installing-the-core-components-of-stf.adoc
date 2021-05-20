@@ -42,6 +42,23 @@ endif::[]
 
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+
+//two workflow modules - with and without ElasticSearch
+include::../modules/proc_deploying-stf-to-the-openshift-environment-with-elasticsearch.adoc[leveloffset=+2]
+include::../modules/proc_deploying-stf-to-the-openshift-environment-without-elasticsearch.adoc[leveloffset=+2]
+
+include::../modules/proc_creating-a-namespace.adoc[leveloffset=+2]
+include::../modules/proc_creating-an-operatorgroup.adoc[leveloffset=+2]
+include::../modules/proc_enabling-the-operatorhub-io-community-catalog-source.adoc[leveloffset=+2]
+//upstream module only
+ifeval::["{build}" == "upstream"]
+include::../modules/proc_enabling-infrawatch-catalog-source.adoc[leveloffset=+2]
+endif::[]
+include::../modules/proc_subscribing-to-the-amq-certificate-manager-operator.adoc[leveloffset=+2]
+include::../modules/proc_subscribing-to-the-elastic-cloud-on-kubernetes-operator.adoc[leveloffset=+2]
+include::../modules/proc_subscribing-to-the-service-telemetry-operator.adoc[leveloffset=+2]
+
+
 include::../modules/con_overview-of-the-servicetelemetry-object.adoc[leveloffset=+1]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
