@@ -17,7 +17,7 @@ ifeval::[{vernum} < 16.0]
 endif::[]
 
 ifeval::[{vernum} >= 17.0]
-:include_when_17
+:include_when_17:
 endif::[]
 
 ifeval::["{build}" == "upstream"]
