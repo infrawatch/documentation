@@ -1,0 +1,34 @@
+[id="ansible-based-deployment_{context}"]
+= Tech Preview: Ansible based deployment
+
+include::../common/tech_preview.adoc[leveloffset=+1]
+
+[role="_abstract"]
+As of wallaby/OSP17.0, you are able to preview the use of ansible instead of puppet for deploying STF components. The key advantages are:
+
+* Consolidation of config under a single service-specific THT variable (MetricsQdrVars and CollectdVars)
+* The ability to switch QDR modes from mesh-mode to edge-only and back (NEEDS RE-TESTING!)
+* Fewer technologies used in the deployment stack (less to debug!)
+
+To use the ansible based deployment, substitute the word "ansible" in place of "puppet" in the resource_registry section of your stf-connectors.yaml file.
+[source,yaml,options="nowrap"]
+----
+    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-ansible.yaml
+    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-ansible.yaml
+----
+
+To set configuration, the new service-specific THT variables are prefered, for example:
+[source,yaml,options="nowrap"]
+----
+parameter_defaults:
+  MetricsQdrVars:
+    tripleo_metrics_qdr_deployment_mode: edge-only
+  CollectdVars:
+    tripleo_collectd_amqp_host: stf.mycluster.example.com
+----
+
+The full list of supported configuration parameters can be found in the deployment files referenced above.
+https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/qdr-container-ansible.yaml#L172
+
+https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/collectd-container-ansible.yaml#L307
+
