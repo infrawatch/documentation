@@ -24,31 +24,26 @@
 = Getting CA certificate from {Project} for overcloud configuration
 
 [role="_abstract"]
-To connect your {OpenStack} overcloud to {Project}, you need to obtain the CA certificate of {MessageBus} that runs within {Project}.
+To connect your {OpenStack} overcloud to {Project} ({ProjectShort}), retrieve the CA certificate of {MessageBus} that runs within {Project} and use the certificate in the {OpenStack} configuration.
 
-[[retrieving-the-server-side-ca-certificate-for-qdr]]
-== Retrieving the server side CA certificate for {MessageBus}
+.Procedure
 
-To get a list of available certificates in {Project} run the following command:
-
+. View a list of available certificates in {Project}:
++
 [source,bash,options="nowrap",subs="verbatim"]
 ----
 $ oc get secrets
 ----
 
-Retrieve and note the content of the `default-interconnect-selfsigned` Secret:
-
+. Retrieve and note the content of the `default-interconnect-selfsigned` Secret:
++
 [source,bash,options="nowrap",subs="verbatim"]
 ----
 $ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d
 ----
 
-
-[[using-ca-certificate-content-in-red-hat-openstack-platform-configuration]]
-== Using CA certificate content in {OpenStack} configuration
-
-Add the content from the `default-interconnect-selfsigned` Secret to the {OpenStack} configuration in `stf-connectors.yaml` to the `caCertFileContent` parameter within `MetricsQdrSSLProfiles`:
-
+. Add the content from the `default-interconnect-selfsigned` Secret to the {OpenStack} configuration in the `stf-connectors.yaml` file. Insert the content to the `caCertFileContent` parameter within `MetricsQdrSSLProfiles`:
++
 [source,yaml]
 ----
   MetricsQdrConnectors:
