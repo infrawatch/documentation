@@ -17,7 +17,7 @@ To use the ansible-based deployment, substitute the word "ansible" in place of "
     OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-ansible.yaml
 ----
 
-To set configuration, the new service-specific THT variables are prefered, for example:
+To set the configuration, use the new service-specific THT variables, as shown in the following example:
 [source,yaml,options="nowrap"]
 ----
 parameter_defaults:
