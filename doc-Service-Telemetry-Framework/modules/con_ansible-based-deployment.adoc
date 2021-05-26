@@ -10,7 +10,7 @@ As of wallaby/OSP17.0, you can preview the use of ansible instead of puppet for 
 * The ability to switch QDR modes from mesh-mode to edge-only and back
 * Fewer technologies used in the deployment stack
 
-To use the ansible based deployment, substitute the word "ansible" in place of "puppet" in the resource_registry section of your stf-connectors.yaml file.
+To use the ansible-based deployment, substitute the word "ansible" in place of "puppet" in the resource_registry section of your `stf-connectors.yaml` file:
 [source,yaml,options="nowrap"]
 ----
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-ansible.yaml
