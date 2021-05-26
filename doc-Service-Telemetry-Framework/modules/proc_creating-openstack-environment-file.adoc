@@ -107,7 +107,10 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-
+          caCertFileContent: |
+            ----BEGIN CERTIFICATE----
+            <snip>
+            ----END CERTIFICATE----
     MetricsQdrConnectors:
         - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <5>
           port: 443
@@ -181,7 +184,12 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-
+ifdef::include_when_13[]
+          caCertFileContent: |
+            ----BEGIN CERTIFICATE----
+            <snip>
+            ----END CERTIFICATE----
+endif::include_when_13[]
     MetricsQdrConnectors:
         - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <6>
           port: 443
@@ -205,7 +213,6 @@ endif::include_when_16[]
 
 . Source the authentication file:
 +
-[source,bash]
 ----
 [stack@undercloud-0 ~]$ source stackrc
 

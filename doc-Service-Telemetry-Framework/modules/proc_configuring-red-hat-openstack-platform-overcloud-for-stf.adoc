@@ -136,7 +136,13 @@ parameter_defaults:
         sslProfile: sslProfile
         verifyHostname: false
     MetricsQdrSSLProfiles:
+ifdef::include_when_13[]
     -   name: sslProfile
+        caCertFileContent: |
+          ----BEGIN CERTIFICATE----
+          <snip>
+          ----END CERTIFICATE----
+endif::include_when_13[]
     ExtraConfig:
         collectd::plugin::cpu::reportbycpu: true
         collectd::plugin::cpu::reportbystate: true
