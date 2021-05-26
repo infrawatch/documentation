@@ -1,5 +1,5 @@
 [id="ansible-based-deployment_{context}"]
-= Tech Preview: Ansible based deployment
+=  Ansible-based deployment of {Project}
 
 include::../common/tech_preview.adoc[leveloffset=+1]
 
