@@ -2,8 +2,7 @@
 
 [role="_abstract"]
 
-To send metrics to {Project} ({ProjectShort}} and gnocchi simultaneously, you must include another configuration file to your deployment. 
-mentioned above.
+To send metrics to {Project} ({ProjectShort}} and gnocchi simultaneously, you must include an environment file to your deployment to enable an additional publisher.
 
 .Prerequisites
 
