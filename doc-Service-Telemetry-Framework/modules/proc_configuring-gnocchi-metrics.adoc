@@ -46,7 +46,7 @@ $ openstack overcloud deploy <other-arguments>
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml \
-  --environment-file /home/stack/publish-to-gnocchi.yaml
+  --environment-file /home/stack/gnocchi-connectors.yaml
 ----
 
 . Verification: To verify that the configuration was successful, verify the content
