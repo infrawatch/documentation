@@ -3,7 +3,6 @@
 [role="_abstract"]
 
 To send metrics to {Project} ({ProjectShort}} and gnocchi simultaneously, you must include another configuration file to your deployment. 
-following templates have to be added in addition to the templates
 mentioned above.
 
 .Prerequisites
