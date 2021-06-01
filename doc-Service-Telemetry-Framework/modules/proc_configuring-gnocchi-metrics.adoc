@@ -52,7 +52,7 @@ openstack overcloud deploy <other arguments>
 ----
 
 After the deployment successfully finished, to verify the configuration was successful, verify the content
-of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a controller
+of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller
 node:
 
 [source,yaml]
