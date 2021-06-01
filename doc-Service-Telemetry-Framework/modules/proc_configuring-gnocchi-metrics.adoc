@@ -36,7 +36,7 @@ parameter_defaults:
     PipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
 ----
 
-. Add the environment file `publish-to-gnocchi.yaml` to the deployment command. Replace <other-argruments> with files that are applicable to your environment:
+. Add the environment file `gnocchi-connectors.yaml` to the deployment command. Replace <other-argruments> with files that are applicable to your environment:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
