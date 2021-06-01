@@ -8,7 +8,7 @@ mentioned above.
 
 .Prerequisites
 
-An OpenStack environment file was created, see xref:configuring-the-stf-connection-for-the-overcloud[].
+* You have created a file that contains the connection configuration of the AMQ Interconnect for the overcloud to the {ProjectShort} deployment. For more information, see xref:configuring-the-stf-connection-for-the-overcloud[].
 
 .Procedure
 
