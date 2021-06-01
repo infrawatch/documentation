@@ -51,7 +51,7 @@ openstack overcloud deploy <other arguments>
   --environment-file /home/stack/publish-to-gnocchi.yaml
 ----
 
-After the deployment successfully finished, to verify the configuration was successful, verify the content
+. Verification: To verify that the configuration was successful, verify the content
 of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller
 node:
 
