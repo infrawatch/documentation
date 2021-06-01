@@ -10,7 +10,7 @@ To send metrics to {Project} ({ProjectShort}} and gnocchi simultaneously, you mu
 
 .Procedure
 
-. Create a configuration file named `publish-to-gnocchi.yaml` in the
+. Create an environment file named `gnocchi-connectors.yaml` in the
 `/home/stack` directory.
 +
 [source,yaml]
