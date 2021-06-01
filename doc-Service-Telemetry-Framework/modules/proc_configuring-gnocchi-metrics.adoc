@@ -39,7 +39,7 @@ parameter_defaults:
 ----
 
 The template should be added to the overcloud deploy command.
-
++
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 openstack overcloud deploy <other arguments>
