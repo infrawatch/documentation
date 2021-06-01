@@ -38,7 +38,7 @@ parameter_defaults:
     PipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
 ----
 
-The template should be added to the overcloud deploy command.
+. Add the environment file `publish-to-gnocchi.yaml` to the deployment command:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
