@@ -69,4 +69,3 @@ sinks:
           - notifier://172.17.1.35:5666/?driver=amqp&topic=metering
 ----
 Important here is that publishers contain both notifier and gnocchi
-sections.
