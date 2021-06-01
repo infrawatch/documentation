@@ -68,4 +68,5 @@ sinks:
           - gnocchi://?filter_project=service&archive_policy=high
           - notifier://172.17.1.35:5666/?driver=amqp&topic=metering
 ----
-Important here is that publishers contain both notifier and gnocchi
++
+Ensure that the `publishers` section of the file contains information for both notifier and gnocchi.
