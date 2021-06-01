@@ -14,7 +14,7 @@ mentioned above.
 
 . Create a configuration file named `publish-to-gnocchi.yaml` in the
 `/home/stack` directory.
-
++
 [source,yaml]
 ----
 resource_registry:
