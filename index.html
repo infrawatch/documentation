@@ -473,6 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a></li>
+<li><a href="#_sending_metrics_to_gnocchi_and_to_stf">Sending metrics to Gnocchi and to STF</a></li>
 </ul>
 </li>
 <li><a href="#assembly-advanced-features_assembly">Advanced features</a>
@@ -1985,6 +1986,90 @@ If your STF installation differs from the documentation, ensure that you retriev
 </li>
 </ol>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sending_metrics_to_gnocchi_and_to_stf">Sending metrics to Gnocchi and to STF</h3>
+<div class="paragraph _abstract">
+<p>To send metrics to Service&#160;Telemetry&#160;Framework (STF} and gnocchi simultaneously, you must include an environment file to your deployment to enable an additional publisher.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have created a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to STF. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud">Configuring the STF connection for the overcloud</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create an environment file named <code>gnocchi-connectors.yaml</code> in the
+<code>/home/stack</code> directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">resource_registry:
+    OS::TripleO::Services::GnocchiApi: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-api-container-puppet.yaml
+    OS::TripleO::Services::GnocchiMetricd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-metricd-container-puppet.yaml
+    OS::TripleO::Services::GnocchiStatsd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-statsd-container-puppet.yaml
+    OS::TripleO::Services::AodhApi: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-api-container-puppet.yaml
+    OS::TripleO::Services::AodhEvaluator: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-evaluator-container-puppet.yaml
+    OS::TripleO::Services::AodhNotifier: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-notifier-container-puppet.yaml
+    OS::TripleO::Services::AodhListener: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-listener-container-puppet.yaml
+    OS::TripleO::Services::PankoApi: /usr/share/openstack-tripleo-heat-templates/deployment/deprecated/panko/panko-api-container-puppet.yaml
+
+parameter_defaults:
+    CeilometerEnableGnocchi: true
+    CeilometerEnablePanko: false
+    GnocchiArchivePolicy: 'high'
+    GnocchiBackend: 'rbd'
+    GnocchiRbdPoolName: 'metrics'
+
+    EventPipelinePublishers: ['gnocchi://?filter_project=service&amp;archive_policy=high']
+    PipelinePublishers: ['gnocchi://?filter_project=service&amp;archive_policy=high']</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the environment file <code>gnocchi-connectors.yaml</code> to the deployment command. Replace &lt;other-argruments&gt; with files that are applicable to your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ openstack overcloud deploy &lt;other-arguments&gt;
+  --templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file &lt;...other-environment-files...&gt; \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml \
+  --environment-file /home/stack/gnocchi-connectors.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verification: To verify that the configuration was successful, verify the content
+of the file <code>/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml</code> on a Controller
+node:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">sources:
+    - name: meter_source
+      meters:
+          - "*"
+      sinks:
+          - meter_sink
+sinks:
+    - name: meter_sink
+      publishers:
+          - gnocchi://?filter_project=service&amp;archive_policy=high
+          - notifier://172.17.1.35:5666/?driver=amqp&amp;topic=metering</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>+
+Ensure that the <code>publishers</code> section of the file contains information for both notifier and gnocchi.</p>
 </div>
 <div class="sect3">
 <h4 id="validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</h4>
@@ -6078,7 +6163,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-26 14:36:16 UTC
+Last updated 2021-06-03 15:09:39 UTC
 </div>
 </div>
 </body>
