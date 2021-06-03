@@ -44,7 +44,7 @@ spec: {}
 EOF
 ----
 +
-To override a default value, you need to define only the parameter that you want to override. In this example, you enable Elasticsearch by setting `enabled` to `true`:
+To override a default value, you need to define only the parameter that you want to override. In this example, you enable ElasticSearch by setting `enabled` to `true`:
 +
 [source,yaml]
 ----
