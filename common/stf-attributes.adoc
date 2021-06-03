@@ -33,6 +33,7 @@ ifeval::["{build}" == "upstream"]
 :ProjectShort: STF
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
 :SupportedOpenShiftVersion: 4.6
+:NextSupportedOpenShiftVersion: 4.7
 endif::[]
 
 ifeval::["{build}" == "downstream"]
@@ -48,4 +49,5 @@ ifeval::["{build}" == "downstream"]
 :ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
 :SupportedOpenShiftVersion: 4.6
+:NextSupportedOpenShiftVersion: 4.7
 endif::[]

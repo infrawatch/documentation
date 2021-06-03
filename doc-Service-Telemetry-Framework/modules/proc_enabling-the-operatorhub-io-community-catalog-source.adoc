@@ -24,7 +24,10 @@
 = Enabling the OperatorHub.io Community Catalog Source
 
 [role="_abstract"]
-Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source:
+Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source.
+
+[NOTE]
+All operators installed from this Catalog source are not supported by Red Hat. 
 
 .Procedure
 
