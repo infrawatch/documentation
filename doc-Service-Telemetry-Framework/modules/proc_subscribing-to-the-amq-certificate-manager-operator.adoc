@@ -27,11 +27,11 @@
 You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 [NOTE]
-If you are using {OpenShift} ({OpenShiftShort}) 4.5, go directly to step 3.
+The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
 
 .Procedure
 
-. If you are using {OpenShiftShort} 4.6, enable the Red Hat STF Operators CatalogSource:
+. Enable the Red Hat STF Operators CatalogSource:
 +
 [source,bash]
 ----
@@ -52,7 +52,7 @@ spec:
 EOF
 ----
 
-. If you are using {OpenShiftShort} 4.6, Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators-stf` CatalogSource:
+. Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators-stf` CatalogSource:
 
 +
 [source,bash]
@@ -73,30 +73,7 @@ spec:
 EOF
 ----
 
-. If you are using {OpenShiftShort} 4.5, subscribe to the AMQ Certificate Manager Operator, create the subscription, and validate the AMQ Certificate Manager:
-+
-[NOTE]
-The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
-
-+
-[source,bash]
-----
-$ oc apply -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: amq7-cert-manager
-  namespace: openshift-operators
-spec:
-  channel: alpha
-  installPlanApproval: Automatic
-  name: amq7-cert-manager
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-EOF
-----
-
-. For {OpenShiftShort} versions 4.5 and {OpenShiftShort} 4.6, validate your `ClusterServiceVersion`:
+. Validate your `ClusterServiceVersion`:
 +
 [options="nowrap",subs="+quotes"]
 ----

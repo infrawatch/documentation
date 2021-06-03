@@ -30,7 +30,7 @@ Create a `ServiceTelemetry` object in {OpenShiftShort} to result in the creation
 
 .Procedure
 
-. To create a `ServiceTelemetry` object that results in a default {ProjectShort} deployment, create a `ServiceTelemetry` object with an empty `spec` object:
+. To create a `ServiceTelemetry` object that results in an {ProjectShort} deployment that uses the default values, create a `ServiceTelemetry` object with an empty `spec` parameter.
 +
 [source,bash]
 ----
@@ -44,7 +44,25 @@ spec: {}
 EOF
 ----
 +
-Creating a default `ServiceTelemetry` object results in a {ProjectShort} deployment with the following defaults:
+To override a default value, you need to define only the parameter that you want to override. In this example, you enable ElasticSearch by setting `enabled` to `true`:
++
+[source,yaml]
+----
+$ oc apply -f - <<EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
+EOF
+----
++
+Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following defaults. To override these defaults, add the configuration to the spec parameter:
 +
 [source,yaml]
 ----
@@ -107,24 +125,6 @@ spec:
             subscriptionAddress: collectd/notify
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/event.sample
-----
-
-. Optional: To create a `ServiceTelemetry` object that results in collection and storage of events for the default cloud, enable the ElasticSearch backend:
-+
-[source,yaml]
-----
-$ oc apply -f - <<EOF
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-EOF
 ----
 
 . To view the {ProjectShort} deployment logs in the Service Telemetry Operator, use the `oc logs` command:

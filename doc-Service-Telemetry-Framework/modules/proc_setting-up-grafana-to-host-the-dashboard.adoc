@@ -172,25 +172,23 @@ The `HOST/PORT` value is the Grafana route address.
 . To view the dashboard, click *Dashboards* and *Manage*.
 
 
-[id="viewing-and-editing-queries"]
-= Viewing and editing queries
+[id="proc-retrieving-and-setting-grafana-credentials"]
+= Retrieving and setting Grafana login credentials
 
 .Procedure
 
-. Log in to {OpenShift}. To view and edit queries, log in as the `admin` user.
+. Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
 [source,bash]
 ----
 $ oc project service-telemetry
 ----
-
-. To retrieve the default username and password, describe the Grafana object using the `oc describe` command:
+. To retrieve the default username and password, describe the Grafana object:
 +
 [source,bash]
 ----
 $ oc describe grafana default
 ----
-+
-[TIP]
-To set the admin username and password through the `ServiceTelemetry` object, use the `graphing.grafana.adminUser` and `graphing.grafana.adminPassword` parameters.
+
+.  To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the `graphing.grafana.adminUser` and `graphing.grafana.adminPassword` parameters.

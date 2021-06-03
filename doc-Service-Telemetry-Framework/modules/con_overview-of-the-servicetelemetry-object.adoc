@@ -39,10 +39,7 @@ Each of these top-level configuration parameters provides various controls for a
 
 [IMPORTANT]
 ====
-Versions of Service Telemetry Operator prior to v1.1.0 used a flat API (`servicetelemetry.infra.watch/v1alpha1`) interface for creating the `ServiceTelemetry` object.
-In Service Telemetry Operator v1.1.0, there is a dictionary-based API interface (`servicetelemetry.infra.watch/v1beta1`) to allow for better control of {ProjectShort} deployments, including managing multi-cluster deployments natively, and allowing the management of additional storage backends in the future. Ensure that any previously created `ServiceTelemetry` objects are updated to the new interface.
-
-Support for `servicetelemetry.infra.watch/v1alpha1` will be removed in {ProjectShort} 1.3.
+Support for `servicetelemetry.infra.watch/v1alpha1` was removed from {ProjectShort} 1.3.
 ====
 
 

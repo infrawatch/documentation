@@ -55,6 +55,12 @@ include::../modules/con_dashboards.adoc[leveloffset=+1]
 include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffset=+2]
 include::../modules/ref_the-grafana-infrastructure-dashboard.adoc[leveloffset=+2]
 
+//Monitoring the resource usage of Openstack services
+include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
+
+//Monitoring container health
+include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
+
 //Connecting multiple clouds
 include::../modules/con_configuring-multiple-clouds.adoc[leveloffset=+1]
 include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+2]
@@ -68,11 +74,7 @@ include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[levelof
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
 
-//Monitoring the resource usage of Openstack services
-include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
 
-//Monitoring container health
-include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
 
 //Exposing services as routes
 include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]
