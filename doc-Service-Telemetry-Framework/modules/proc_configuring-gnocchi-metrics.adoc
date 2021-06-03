@@ -2,7 +2,7 @@
 
 [role="_abstract"]
 
-To send metrics to {Project} ({ProjectShort}} and gnocchi simultaneously, you must include an environment file to your deployment to enable an additional publisher.
+To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.
 
 .Prerequisites
 
@@ -68,4 +68,4 @@ sinks:
           - notifier://172.17.1.35:5666/?driver=amqp&topic=metering
 ----
 +
-Ensure that the `publishers` section of the file contains information for both notifier and gnocchi.
+Ensure that the `publishers` section of the file contains information for both notifier and Gnocchi.
