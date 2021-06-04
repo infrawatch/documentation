@@ -155,7 +155,7 @@ $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/dep
 grafanadashboard.integreatly.org/rhos-cloud-dashboard created
 ----
 [WARNING]
-Some panels in the cloud dashboard require the following configuration in the stf-connectors.yaml:
+Some panels in the cloud dashboard require specific values be configured for the collectd virt plugin hostname_format parameter in the stf-connectors.yaml. If not configured some panels in the dashboard will be affected.
 [source,yaml]
 ---
 parameter_defaults:
