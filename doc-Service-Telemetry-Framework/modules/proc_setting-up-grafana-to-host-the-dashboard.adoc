@@ -162,7 +162,6 @@ parameter_defaults:
     ExtraConfig:
         collectd::plugin::virt::hostname_format: name uuid hostname
 ---
-If not added, no data will show in affected panels. 
 
 . Verify that the dashboards installed correctly:
 +
