@@ -115,7 +115,7 @@ NAME                    AGE
 default-datasources     20h
 ----
 
-. Verify the grafana route exists:
+. Verify the Grafana route exists:
 +
 [source,bash]
 ----
