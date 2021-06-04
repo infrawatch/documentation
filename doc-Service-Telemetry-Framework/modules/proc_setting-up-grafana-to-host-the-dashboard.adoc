@@ -123,8 +123,8 @@ $ oc get route grafana-route
 ----
 +
 ----
-NAME            HOST/PORT                                                                   PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.ocp46stf.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge          None
+NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
 ----
 
 [id="importing-dashboards_{context}"]
