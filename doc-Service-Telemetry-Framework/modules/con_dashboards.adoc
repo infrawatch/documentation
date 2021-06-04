@@ -29,3 +29,11 @@
 Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node.
 
 For more information about configuring collectd, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
+
+There are two dashboards available for monitoring a cloud:
+
+1. Infrastructure dashboard
+The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
+
+2. Cloud view dashboard
+The cloud view dashboard provides panels for monitoring service resource usage, api stats and cloud events. API health monitoring and service monitoring must be enabled to provide the data for this dashboard. Instructions for enabling both options can be found in the `Monitoring the resource usage of OpenStack services` and `Monitoring container health and API status` sections.
