@@ -103,7 +103,7 @@ NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
 
-. Verify the grafana datasources installed correctly:
+. Verify the Grafana data sources installed correctly:
 +
 [source,bash]
 ----
