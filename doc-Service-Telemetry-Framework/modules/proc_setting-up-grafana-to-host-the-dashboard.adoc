@@ -163,7 +163,7 @@ parameter_defaults:
         collectd::plugin::virt::hostname_format: name uuid hostname
 ---
 
-. Verify that the dashboards installed correctly:
+. Verify that the dashboards are available:
 +
 [source,bash]
 ----
