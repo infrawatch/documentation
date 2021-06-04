@@ -185,7 +185,7 @@ $ oc get route grafana-route -ojsonpath='{.spec.host}'
 +
 [source,bash,options="nowrap"]
 ----
-grafana-route-service-telemetry.apps.ocp46stf.lab.upshift.rdu2.redhat.com
+grafana-route-service-telemetry.apps.infra.watch
 ----
 +
 
