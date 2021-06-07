@@ -30,7 +30,7 @@ Use third-party application Grafana to visualize system-level metrics gathered b
 
 For more information about configuring collectd, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
-There are two dashboards available for monitoring a cloud:
+You can use two dashboards to monitor a cloud:
 
 1. Infrastructure dashboard
 The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
