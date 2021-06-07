@@ -189,7 +189,7 @@ grafana-route-service-telemetry.apps.infra.watch
 ----
 +
 
-. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the value retrieved in the previous step.
+. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the value that you retrieved in the previous step.
 
 . To view the dashboard, click *Dashboards* and *Manage*.
 
