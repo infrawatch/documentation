@@ -33,7 +33,7 @@ For more information about configuring collectd, see xref:configuring-red-hat-op
 You can use two dashboards to monitor a cloud:
 
 1. Infrastructure dashboard
-The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
+Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
 2. Cloud view dashboard
-The cloud view dashboard provides panels for monitoring service resource usage, api stats and cloud events. API health monitoring and service monitoring must be enabled to provide the data for this dashboard. Instructions for enabling both options can be found in the `Monitoring the resource usage of OpenStack services` and `Monitoring container health and API status` sections.
+Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard. To enable both options, see `Monitoring the resource usage of OpenStack services` and `Monitoring container health and API status` sections.
