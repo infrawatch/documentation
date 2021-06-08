@@ -2905,6 +2905,31 @@ spec:
 <div class="paragraph">
 <p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
+<div class="paragraph">
+<p>You can use two dashboards to monitor a cloud:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Infrastructure dashboard
+Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
+</li>
+<li>
+<p>Cloud view dashboard
+Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To enable API health monitoring, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.</p>
+</li>
+<li>
+<p>To enable service monitoring, see <a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
@@ -3107,278 +3132,6 @@ dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.red
 <p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
 </li>
 </ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="the-grafana-infrastructure-dashboard_assembly-advanced-features">The Grafana infrastructure dashboard</h4>
-<div class="paragraph _abstract">
-<p>The infrastructure dashboard shows metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
-</div>
-<div class="sect4">
-<h5 id="_top_panels">Top panels</h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Title</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current Global Alerts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current alerts fired by Prometheus</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Recent Global Alerts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Recently fired alerts in 5m time steps</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status Panel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Node status: up, down, unavailable</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Uptime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">s/m/h/d/M/Y</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total operational time of node</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CPU Cores</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">cores</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of cores</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total memory</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Size</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total storage size</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of processes listed by type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Load Average</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Load average represents the average number of running and uninterruptible processes residing in the kernel execution queue.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect4">
-<h5 id="_networking_panels">Networking panels</h5>
-<div class="paragraph">
-<p>Panels that display the network interfaces of the node.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Panel</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Ingress Errors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">errors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total errors with incoming data</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Egress Errors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">errors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total errors with outgoing data</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Ingress Error Rates</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">errors/s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Rate of incoming data errors</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces egress Error Rates</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">errors/s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Rate of outgoing data errors</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Packets Ingress
-pps
-Incoming packets per second</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Packets Egress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outgoing packets per second</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Data Ingress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Incoming data rates</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Data Egress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outgoing data rates</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Drop Rate Ingress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Incoming packets drop rate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Physical Interfaces Drop Rate Egress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pps</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect4">
-<h5 id="_cpu_panels">CPU panels</h5>
-<div class="paragraph">
-<p>Panels that display CPU usage of the node.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current CPU Usage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instantaneous usage at the time of the last query.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate CPU Usage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average non-idle CPU activity of all cores on a node.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Aggr. CPU Usage by Type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shows time spent for each type of thread averaged across all cores.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect4">
-<h5 id="_memory_panels">Memory panels</h5>
-<div class="paragraph">
-<p>Panels that display memory usage on the node.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Memory Used</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of memory being used at time of last query.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Huge Pages Used</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hugepages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of hugepages being used.</p>
-<p class="tableblock">Memory</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect4">
-<h5 id="_diskfile_system">Disk/file system</h5>
-<div class="paragraph">
-<p>Panels that display space used on disk.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;"/>
-<col style="width: 25%;"/>
-<col style="width: 25%;"/>
-<col style="width: 25%;"/>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Panel</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Unit</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Notes</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Space Usage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk use at time of last query.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inode Usage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total inode use at time of last query.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate Disk Space Usage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total disk space used and reserved.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Because this query relies on the <code>df</code> plugin, temporary file systems that do not necessarily use disk space are included in the results. The query tries to filter out most of these, but it might not be exhaustive.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Traffic</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bytes/s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shows rates for both reading and writing.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Disk Load</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Approximate percentage of total disk bandwidth being used.
-The weighted I/O time series includes the backlog that might be accumulating. For more information, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operations/s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ops/s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operations done per second</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average I/O Operation Time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">seconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Average time each I/O operation took to complete. This average is not accurate, see the collectd <a href="https://collectd.org/wiki/index.php/Plugin:Disk">disk plugin docs</a>.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -6118,7 +5871,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-03 16:42:06 UTC
+Last updated 2021-06-08 09:20:28 UTC
 </div>
 </div>
 </body>
