@@ -72,7 +72,7 @@ grafana-operator.v3.2.0             Grafana Operator                            
 ...
 ----
 
-. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` to `true`.
+. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`.
 +
 ----
 $ oc edit stf default
@@ -87,6 +87,8 @@ spec:
   ...
   graphing:
     enabled: true
+    grafana:
+      ingressEnabled: true
 ----
 
 . Verify that the Grafana instance deployed:
@@ -101,8 +103,29 @@ NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
 
+. Verify that the Grafana data sources installed correctly:
++
+[source,bash]
+----
+$ oc get grafanadatasources
+----
++
+----
+NAME                    AGE
+default-datasources     20h
+----
 
-
+. Verify the Grafana route exists:
++
+[source,bash]
+----
+$ oc get route grafana-route
+----
++
+----
+NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
+----
 
 [id="importing-dashboards_{context}"]
 = Importing dashboards
@@ -111,7 +134,7 @@ The Grafana Operator can import and manage dashboards by creating `GrafanaDashbo
 
 .Procedure
 
-. Import a dashboard:
+. Import the infrastructure dashboard:
 +
 [source,bash,options="nowrap"]
 ----
@@ -121,8 +144,28 @@ $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/dep
 ----
 grafanadashboard.integreatly.org/rhos-dashboard created
 ----
+. Import the cloud dashboard:
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml
+----
++
+----
+grafanadashboard.integreatly.org/rhos-cloud-dashboard created
+----
+[WARNING]
+====
+Some panels in the cloud dashboard require that you set the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname` in the stf-connectors.yaml. If you do not configure this parameter, affected dashboards remain empty.
+[source,yaml]
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::virt::hostname_format: name uuid hostname
+----
+====
 
-. Verify that the resources installed correctly:
+. Verify that the dashboards are available:
 +
 [source,bash]
 ----
@@ -130,44 +173,25 @@ $ oc get grafanadashboards
 ----
 +
 ----
-NAME             AGE
-rhos-dashboard   7d21h
-----
-+
-[source,bash]
-----
-$ oc get grafanadatasources
-----
-+
-----
-NAME                    AGE
-default-ds-prometheus   20h
-----
-
-. Expose the grafana service as a route:
-+
-[source,bash,options="nowrap"]
-----
-$ oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000
+NAME                   AGE
+rhos-dashboard         7d21h
+rhos-cloud-dashboard   7d21h
 ----
 
 . Retrieve the Grafana route address:
-
 +
 [source,bash]
 ----
-$ oc get route dashboards
+$ oc get route grafana-route -ojsonpath='{.spec.host}' 
 ----
 +
 [source,bash,options="nowrap"]
 ----
-NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
-dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None
+grafana-route-service-telemetry.apps.infra.watch
 ----
 +
-The `HOST/PORT` value is the Grafana route address.
 
-. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the `HOST/PORT` value that you retrieved in the previous step.
+. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the value that you retrieved in the previous step.
 
 . To view the dashboard, click *Dashboards* and *Manage*.
 
