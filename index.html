@@ -2989,7 +2989,7 @@ grafana-operator.v3.2.0             Grafana Operator                            
 </div>
 </li>
 <li>
-<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> to <code>true</code>.</p>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc edit stf default</pre>
@@ -3003,7 +3003,9 @@ kind: ServiceTelemetry
 spec:
   ...
   graphing:
-    enabled: true</code></pre>
+    enabled: true
+    grafana:
+      ingressEnabled: true</code></pre>
 </div>
 </div>
 </li>
@@ -3021,6 +3023,34 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 </div>
 </div>
 </li>
+<li>
+<p>Verify that the Grafana data sources installed correctly:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadatasources</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                    AGE
+default-datasources     20h</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Grafana route exists:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route grafana-route</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</pre>
+</div>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -3033,7 +3063,7 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Import a dashboard:</p>
+<p>Import the infrastructure dashboard:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml</code></pre>
@@ -3046,7 +3076,38 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 </div>
 </li>
 <li>
-<p>Verify that the resources installed correctly:</p>
+<p>Import the cloud dashboard:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>grafanadashboard.integreatly.org/rhos-cloud-dashboard created</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Some panels in the cloud dashboard require that you set the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the stf-connectors.yaml. If you do not configure this parameter, affected dashboards remain empty.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::virt::hostname_format: name uuid hostname</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify that the dashboards are available:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadashboards</code></pre>
@@ -3054,27 +3115,9 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>NAME             AGE
-rhos-dashboard   7d21h</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadatasources</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>NAME                    AGE
-default-ds-prometheus   20h</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Expose the grafana service as a route:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc create route edge dashboards --service=grafana-service --insecure-policy="Redirect" --port=3000</code></pre>
+<pre>NAME                   AGE
+rhos-dashboard         7d21h
+rhos-cloud-dashboard   7d21h</pre>
 </div>
 </div>
 </li>
@@ -3082,21 +3125,17 @@ default-ds-prometheus   20h</pre>
 <p>Retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route dashboards</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route grafana-route -ojsonpath='{.spec.host}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME         HOST/PORT                                                                    PATH   SERVICES          PORT   TERMINATION     WILDCARD
-dashboards   dashboards-service-telemetry.apps.stfcloudops1.lab.upshift.rdu2.redhat.com          grafana-service   3000   edge/Redirect   None</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The <code>HOST/PORT</code> value is the Grafana route address.</p>
 </div>
 </li>
 <li>
-<p>Navigate to <a href="https://&lt;GRAFANA-ROUTE-ADDRESS&gt" class="bare">https://&lt;GRAFANA-ROUTE-ADDRESS&gt</a>; in a web browser. Replace &lt;GRAFANA-ROUTE-ADDRESS&gt; with the <code>HOST/PORT</code> value that you retrieved in the previous step.</p>
+<p>Navigate to <a href="https://&lt;GRAFANA-ROUTE-ADDRESS&gt" class="bare">https://&lt;GRAFANA-ROUTE-ADDRESS&gt</a>; in a web browser. Replace &lt;GRAFANA-ROUTE-ADDRESS&gt; with the value that you retrieved in the previous step.</p>
 </li>
 <li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
@@ -5871,7 +5910,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-08 09:20:28 UTC
+Last updated 2021-06-08 14:09:05 UTC
 </div>
 </div>
 </body>
