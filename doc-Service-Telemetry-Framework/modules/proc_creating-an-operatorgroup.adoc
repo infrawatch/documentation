@@ -28,11 +28,11 @@ Create an OperatorGroup in the namespace so that you can schedule the Operator p
 
 .Procedure
 
-* Enter the following command:
+* Create the STF OperatorGroup:
 +
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:

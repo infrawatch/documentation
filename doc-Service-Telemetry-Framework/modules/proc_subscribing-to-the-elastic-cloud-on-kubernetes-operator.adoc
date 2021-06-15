@@ -28,11 +28,11 @@ Before you install the Service Telemetry Operator and if you plan to store event
 
 .Procedure
 
-. To enable the Elastic Cloud on Kubernetes Operator, apply the following manifest to your {OpenShiftShort} environment:
+. To enable the Elastic Cloud on Kubernetes Operator, create the following manifest in your {OpenShiftShort} environment:
 +
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -53,6 +53,7 @@ EOF
 ----
 $ oc get csv
 
-NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-elastic-cloud-eck.v1.2.1   Elastic Cloud on Kubernetes                     1.2.1                Succeeded
+NAME                       DISPLAY                        VERSION   REPLACES                   PHASE
+...
+elastic-cloud-eck.v1.6.0   Elasticsearch (ECK) Operator   1.6.0     elastic-cloud-eck.v1.5.0   Succeeded
 ----
