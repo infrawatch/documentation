@@ -28,19 +28,19 @@ You must subscribe to the Service Telemetry Operator, which manages the {Project
 
 .Procedure
 
-. To create the Service Telemetry Operator subscription, enter the `oc apply -f` command:
+. To create the Service Telemetry Operator subscription, enter the `oc create -f` command:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.2
+  channel: stable-1.3
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: infrawatch-operators
@@ -51,14 +51,14 @@ endif::[]
 ifeval::["{build}" == "downstream"]
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.2
+  channel: stable-1.3
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: redhat-operators

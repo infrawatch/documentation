@@ -35,7 +35,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the `na
 +
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -57,7 +57,7 @@ EOF
 +
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:

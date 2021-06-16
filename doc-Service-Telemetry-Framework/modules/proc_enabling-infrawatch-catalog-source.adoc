@@ -35,7 +35,7 @@ Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog sou
 +
 [source,bash]
 ----
-$ oc apply -f - <<EOF
+$ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:

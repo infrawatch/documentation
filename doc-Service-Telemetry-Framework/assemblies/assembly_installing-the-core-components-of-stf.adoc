@@ -25,15 +25,17 @@ You can use Operators to load the various application components and objects. Ea
 
 .Prerequisites
 
-* {OpenShift} ({OpenShiftShort}) version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
+* {OpenShift} ({OpenShiftShort}) version {SupportedOpenShiftVersion}
+// TODO: add back to previous line when NextSupportedOpenShiftVersion has been tested 
+// or {NextSupportedOpenShiftVersion} is running.
 * You have prepared your {OpenShift} ({OpenShiftShort}) environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
 
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
-
-//For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
+{Project} ({ProjectShort}) is compatible with {OpenShift} version {SupportedOpenShiftVersion}.
+// TODO: add back to previous line when OCP 4.7 has been tested and is supported
+// and {NextSupportedOpenShiftVersion}.
 endif::[]
 
 .Additional resources
