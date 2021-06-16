@@ -47,7 +47,7 @@ spec:
 EOF
 ----
 
-. Verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `succeeded`:
+. Verify that the `ClusterServiceVersion` for ElasticSearch Cloud on Kubernetes `Succeeded`:
 +
 [source,options="nowrap",subs="+quotes"]
 ----
