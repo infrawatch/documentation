@@ -77,19 +77,13 @@ spec:
       storage:
         strategy: persistent
         persistent:
-          storageSelector: {}
           pvcStorageRequest: 20G
+          storageSelector: {}
+        receivers:
+          snmpTraps:
+            enabled: false
+            target: 192.168.24.254
   backends:
-    metrics:
-      prometheus:
-        enabled: true
-        scrapeInterval: 10s
-        storage:
-          strategy: persistent
-          retention: 24h
-          persistent:
-            storageSelector: {}
-            pvcStorageRequest: 20G
     events:
       elasticsearch:
         enabled: false
@@ -97,47 +91,64 @@ spec:
           strategy: persistent
           persistent:
             pvcStorageRequest: 20Gi
+            storageSelector: {}
+    metrics:
+      prometheus:
+        enabled: true
+        scrapeInterval: 10s
+        storage:
+          strategy: persistent
+          persistent:
+            pvcStorageRequest: 20G
+            storageSelector: {}
+          retention: 24h
   graphing:
     enabled: false
     grafana:
-      ingressEnabled: false
       adminPassword: secret
       adminUser: root
       disableSignoutMenu: false
+      ingressEnabled: false
+  highAvailability:
+    enabled: false
   transports:
     qdr:
       enabled: true
       web:
         enabled: false
-  highAvailability:
-    enabled: false
   clouds:
     - name: cloud1
       metrics:
         collectors:
           - collectorType: collectd
             subscriptionAddress: collectd/telemetry
+            debugEnabled: false
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
+            debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
             subscriptionAddress: collectd/notify
+            debugEnabled: false
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/event.sample
+            debugEnabled: false
 ----
 
 . To view the {ProjectShort} deployment logs in the Service Telemetry Operator, use the `oc logs` command:
 +
 [source,bash]
 ----
-$ oc logs --selector name=service-telemetry-operator -c ansible
+$ oc logs --selector name=service-telemetry-operator
 ----
 +
 [options="nowrap", subs="+quotes"]
 ----
+--------------------------- Ansible Task Status Event StdOut  -----------------
+
 PLAY RECAP *********************************************************************
-localhost                  : ok=55   changed=0    unreachable=0    failed=0    skipped=16   rescued=0    ignored=0
+localhost                  : ok=54   changed=0    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0
 ----
 
 . View the pods and the status of each pod to determine that all workloads are operating nominally:
@@ -150,14 +161,14 @@ NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification
 $ oc get pods
 
 NAME                                                      READY   STATUS    RESTARTS   AGE
-alertmanager-default-0                                    2/2     Running   0          38s
-default-cloud1-ceil-meter-smartgateway-58d8876857-lbf9d   1/1     Running   0          159m
-default-cloud1-coll-meter-smartgateway-8645d64f5f-rxfpb   2/2     Running   0          159m
-default-interconnect-79d9994b5-xnfvv                      1/1     Running   0          167m
-elastic-operator-746f86c956-jkvcq                         1/1     Running   0          6h23m
-interconnect-operator-5b474bdddc-sztsj                    1/1     Running   0          6h19m
-prometheus-default-0                                      3/3     Running   1          5m39s
-prometheus-operator-7dfb478c8b-bfd4j                      1/1     Running   0          6h19m
-service-telemetry-operator-656fc8ccb6-4w8x4               2/2     Running   0          98m
-smart-gateway-operator-7f49676d5d-nqzmp                   2/2     Running   0          6h21m
+alertmanager-default-0                                    2/2     Running   0          17m
+default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
+default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
+default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
+elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
+interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
+prometheus-default-0                                      2/2     Running   1          17m
+prometheus-operator-6458b74d86-wbdqp                      1/1     Running   0          51m
+service-telemetry-operator-864646787c-hd9pm               1/1     Running   0          51m
+smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0          51m
 ----
