@@ -260,7 +260,7 @@ Deploy or update the overcloud with the required environment files to result in 
 +
 * the `enable-stf.yaml` environment file to ensure defaults are set up correctly
 * the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
-* the `collectd-write-qdr.yaml` file that ensures that collectd telemetry and events are sent to {ProjectShort}
+* the `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
 * the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry and events are sent to {ProjectShort}
 * the `qdr-edge-only.yaml` file that ensures the message bus is enabled and connected to {ProjectShort} message bus routers
 +
