@@ -122,6 +122,7 @@ default-datasources     20h
 $ oc get route grafana-route
 ----
 +
+[source,bash,options="nowrap"]
 ----
 NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
