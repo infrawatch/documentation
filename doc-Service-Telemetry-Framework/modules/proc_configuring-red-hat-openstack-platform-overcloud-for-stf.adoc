@@ -29,7 +29,7 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 To configure the {OpenStack} overcloud, complete the following tasks:
 
 . xref:retrieving-the-qdr-route-address[]
-. xref:configuring-the-enable-stf-for-the-overcloud[]
+. xref:creating-the-base-configuration-for-stf[]
 . xref:configuring-the-stf-connection-for-the-overcloud[]
 . xref:deploying-the-overcloud[]
 . xref:validating-clientside-installation_assembly-completing-the-stf-configuration[]
