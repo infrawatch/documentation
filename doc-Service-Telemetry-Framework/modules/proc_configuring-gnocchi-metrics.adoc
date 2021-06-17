@@ -13,7 +13,7 @@ To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you mu
 . Create an environment file named `gnocchi-connectors.yaml` in the
 `/home/stack` directory.
 +
-[source,yaml]
+[source,yaml,options="nowrap",subs="none"]
 ----
 resource_registry:
     OS::TripleO::Services::GnocchiApi: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-api-container-puppet.yaml
@@ -40,20 +40,20 @@ parameter_defaults:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-$ openstack overcloud deploy <other-arguments>
-  --templates /usr/share/openstack-tripleo-heat-templates \
+openstack overcloud deploy <other arguments>
+--templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file <...other-environment-files...> \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml \
   --environment-file /home/stack/gnocchi-connectors.yaml
 ----
 
-. Verification: To verify that the configuration was successful, verify the content
-of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller
-node:
-
-[source,yaml]
+. To verify that the configuration was successful, verify the content of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller node. Ensure that the `publishers` section of the file contains information for both notifier and Gnocchi.
++
+[source,yaml,options="nowrap",subs="+quotes"]
 ----
 sources:
     - name: meter_source
@@ -67,5 +67,3 @@ sinks:
           - gnocchi://?filter_project=service&archive_policy=high
           - notifier://172.17.1.35:5666/?driver=amqp&topic=metering
 ----
-+
-Ensure that the `publishers` section of the file contains information for both notifier and Gnocchi.

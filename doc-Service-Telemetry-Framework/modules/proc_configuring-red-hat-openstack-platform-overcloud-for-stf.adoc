@@ -29,7 +29,9 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 To configure the {OpenStack} overcloud, complete the following tasks:
 
 . xref:retrieving-the-qdr-route-address[]
+. xref:configuring-the-enable-stf-for-the-overcloud[]
 . xref:configuring-the-stf-connection-for-the-overcloud[]
+. xref:deploying-the-overcloud[]
 . xref:validating-clientside-installation_assembly-completing-the-stf-configuration[]
 
 ifdef::include_when_16_1[]
@@ -59,10 +61,145 @@ default-interconnect-5671-service-telemetry.apps.infra.watch
 [NOTE]
 If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address.
 
+[[configuring-the-enable-stf-for-the-overcloud]]
+== Creating the base configuration for {ProjectShort}
+
+To configure the base parameters to provide a compatible data collection and transport for {ProjectShort}, you must create a file that defines the default data collection values.
+
+.Procedure
+
+. Log in to the {OpenStack} undercloud as the `stack` user.
+
+. Create a configuration file called `enable-stf.yaml` in the `/home/stack` directory.
++
+ifdef::include_when_13[]
+[source,yaml,options="nowrap",subs="+quotes"]
+----
+parameter_defaults:
+    # only send to STF, not other publishers
+    EventPipelinePublishers: []
+    PipelinePublishers: []
+
+    # manage the polling and pipeline configuration files for Ceilometer agents
+    ManagePolling: true
+    ManagePipeline: true
+
+    # enable Ceilometer metrics and events
+    CeilometerQdrPublishMetrics: true
+    CeilometerQdrPublishEvents: true
+
+    # set collectd overrides for higher telemetry resolution and extra plugins
+    # to load
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+    CollectdExtraPlugins:
+    - vmem
+
+    ExtraConfig:
+        ceilometer::agent::polling::polling_interval: 30
+        ceilometer::agent::polling::polling_meters:
+        - cpu
+        - disk.*
+        - ip.*
+        - image.*
+        - memory
+        - memory.*
+        - network.*
+        - perf.*
+        - port
+        - port.*
+        - switch
+        - switch.*
+        - storage.*
+        - volume.*
+
+        # to avoid filling the memory buffers if disconnected from the message bus
+        collectd::plugin::amqp1::send_queue_limit: 50
+
+        # receive extra information about virtual memory
+        collectd::plugin::vmem::verbose: true
+
+        # provide the human-friendly name of the virtual instance
+        collectd::plugin::virt::plugin_instance_format: metadata
+----
+endif::include_when_13[]
+ifdef::include_when_16[]
+[source,yaml,options="nowrap",subs="+quotes"]
+----
+parameter_defaults:
+    # only send to STF, not other publishers
+    EventPipelinePublishers: []
+    PipelinePublishers: []
+
+    # manage the polling and pipeline configuration files for Ceilometer agents
+    ManagePolling: true
+    ManagePipeline: true
+
+    # required to set valid parameter due to typo in ceilometer-write-qdr.yaml 
+    # and will be resolved in a future release
+    CeilometerQdrPublishMetrics: true
+
+    # enable collection of API status
+    CollectdEnableSensubility: true
+    CollectdSensubilityTransport: amqp1
+
+    # enable collection of containerized service metrics
+    CollectdEnableLibpodstats: true
+
+    # set collectd overrides for higher telemetry resolution and extra plugins
+    # to load
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+    CollectdExtraPlugins:
+    - vmem
+
+    ExtraConfig:
+        ceilometer::agent::polling::polling_interval: 30
+        ceilometer::agent::polling::polling_meters:
+        - cpu
+        - disk.*
+        - ip.*
+        - image.*
+        - memory
+        - memory.*
+        - network.*
+        - perf.*
+        - port
+        - port.*
+        - switch
+        - switch.*
+        - storage.*
+        - volume.*
+
+        # to avoid filling the memory buffers if disconnected from the message bus
+        collectd::plugin::amqp1::send_queue_limit: 50
+
+        # receive extra information about virtual memory
+        collectd::plugin::vmem::verbose: true
+
+        # provide name and uuid in addition to hostname for better correlation
+        # to ceilometer data
+        collectd::plugin::virt::hostname_format: "name uuid hostname"
+
+        # provide the human-friendly name of the virtual instance
+        collectd::plugin::virt::plugin_instance_format: metadata
+
+        # set memcached collectd plugin to report its metrics by hostname
+        # rather than host IP, ensuring metrics in the dashboard remain uniform
+        collectd::plugin::memcached::instances:
+          local:
+            host: "%{hiera('fqdn_canonical')}"
+            port: 11211
+----
+endif::include_when_16[]
+
+
 [[configuring-the-stf-connection-for-the-overcloud]]
 == Configuring the {ProjectShort} connection for the overcloud
 
-To configure the {ProjectShort} connection, you must create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment. Enable the collection of events and storage of the events in {ProjectShort} and deploy the overcloud.
+To configure the {ProjectShort} connection, you must create a file that contains the connection configuration of the {MessageBus} for the overcloud to the {ProjectShort} deployment. Enable the collection of events and storage of the events in {ProjectShort} and deploy the overcloud. The configuration is set up for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see xref:configuring-multiple-clouds_assembly-advanced-features[].
 
 .Procedure
 
@@ -74,117 +211,59 @@ To configure the {ProjectShort} connection, you must create a file that contains
 ====
 The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see xref:configuring-multiple-clouds_assembly-advanced-features[].
 
-Additionally, setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in `ExtraConfig` might overwhelm the legacy components. If you configure a longer polling interval, you must also modify {ProjectShort} to avoid stale metrics, resulting in what appears to be missing data in Prometheus.
-
-If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object `backends.metrics.prometheus.scrapeInterval` parameter from the default value of `10s` to double the polling interval of the data collectors. For example, if `CollectdAmqpInterval` and `ceilometer::agent::polling::polling_interval` are adjusted to `30` then set the `backends.metrics.prometheus.scrapeInterval` to a value of `60s`.
+Additionally, setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no metric or event data passing to {OpenStack} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds as specified in `ExtraConfig` might overwhelm the legacy components.
 ====
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment.
-* Add the `CeilometerQdrPublishMetrics: true` parameter to enable collection and transport of Ceilometer metrics to {ProjectShort}.
-* Add the `CeilometerQdrPublishEvents: true` parameter to enable collection and transport of Ceilometer events to {ProjectShort}.
-* Add the `EventPiplinePublishers: []` and `PipelinePublishers: []` to avoid writing data to Gnocchi and Panko.
-* Add the `ManagePolling: true` and `ManagePipeline: true` parameters to allow full control of Ceilometer polling and pipeline configuration.
-* Add the `ExtraConfig` parameter `ceilometer::agent::polling::polling_interval` to set the polling interval of Ceilometer to be compatible with the default {ProjectShort} scrape interval.
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address[]:
 +
 ifdef::include_when_13[]
-[source,yaml]
+[source,yaml,options="nowrap",subs="+quotes"]
 ----
 parameter_defaults:
-    EventPipelinePublishers: []
-    PipelinePublishers: []
-    CeilometerEnablePanko: false
-    CeilometerQdrPublishEvents: true
-    CeilometerQdrPublishMetrics: true
-    ManagePipeline: true
-    ManagePolling: true
-    CollectdAmqpInstances:
-        notify:
-            format: JSON
-            notify: true
-            presettle: false
-        telemetry:
-            format: JSON
-            presettle: false
-    CollectdAmqpInterval: 5
-    CollectdConnectionType: amqp1
-    CollectdDefaultPlugins:
-    - cpu
-    - df
-    - disk
-    - hugepages
-    - interface
-    - load
-    - memory
-    - processes
-    - unixsock
-    - uptime
-    - connectivity
-    - intel_rdt
-    - ipmi
-    - procevent
-    CollectdDefaultPollingInterval: 5
-    MetricsQdrAddresses:
-    -   distribution: multicast
-        prefix: collectd
-    -   distribution: multicast
-        prefix: anycast/ceilometer
     MetricsQdrConnectors:
-    -   host: default-interconnect-5671-service-telemetry.apps.infra.watch
-        port: 443
-        role: edge
-        sslProfile: sslProfile
-        verifyHostname: false
+    - host: default-interconnect-5671-service-telemetry.apps.stf.cloudops.psi.redhat.com
+      port: 443
+      role: edge
+      sslProfile: sslProfile
+      verifyHostname: false
+
     MetricsQdrSSLProfiles:
-ifdef::include_when_13[]
     -   name: sslProfile
         caCertFileContent: |
           ----BEGIN CERTIFICATE----
           <snip>
           ----END CERTIFICATE----
-endif::include_when_13[]
-    ExtraConfig:
-        collectd::plugin::cpu::reportbycpu: true
-        collectd::plugin::cpu::reportbystate: true
-        collectd::plugin::cpu::reportnumcpu: false
-        collectd::plugin::cpu::valuespercentage: true
-        collectd::plugin::df::ignoreselected: true
-        collectd::plugin::df::reportbydevice: true
-        collectd::plugin::df::fstypes: ['xfs']
-        collectd::plugin::load::reportrelative: true
-        collectd::plugin::virt::connection: "qemu:///system"
-        collectd::plugin::virt::extra_stats: "cpu_util disk disk_err pcpu job_stats_background perf vcpupin"
-        collectd::plugin::virt::hostname_format: "hostname"
-        ceilometer::agent::polling::polling_interval: 5
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
-[source,yaml]
+[source,yaml,options="nowrap",subs="+quotes"]
 ----
 parameter_defaults:
-    EventPipelinePublishers: []
-    PipelinePublishers: []
-    CeilometerQdrPublishEvents: true
-    CeilometerQdrPublishMetrics: true
     MetricsQdrConnectors:
     - host: default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
       role: edge
       sslProfile: sslProfile
       verifyHostname: false
-    ExtraConfig:
-      ceilometer::agent::polling::polling_interval: 5
 ----
 endif::include_when_16[]
 
-. Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup collectd and {MessageBus}:
+[[deploying-the-overcloud]]
+== Deploying the overcloud
+
+Deploy or update the overcloud with the required environment files to result in data being collected and transmitted to {ProjectShort}.
+
+.Procedure
+
+. Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup data collection and {MessageBus}:
 +
-* the `stf-connectors.yaml` environment file
-ifdef::include_when_16[* the `enable-stf.yaml` file that ensures that the environment is being used during the overcloud deployment]
-ifdef::include_when_13[* the `collectd-write-qdr.yaml` file that ensures that collectd telemetry is sent to {ProjectShort}]
-* the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry is sent to {ProjectShort}
+* the `enable-stf.yaml` environment file to ensure defaults are set up correctly
+* the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
+* the `collectd-write-qdr.yaml` file that ensures that collectd telemetry and events are sent to {ProjectShort}
+* the `ceilometer-write-qdr.yaml` file that ensures that Ceilometer telemetry and events are sent to {ProjectShort}
+* the `qdr-edge-only.yaml` file that ensures the message bus is enabled and connected to {ProjectShort} message bus routers
 +
-ifdef::include_when_13[]
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 openstack overcloud deploy <other arguments>
@@ -193,19 +272,8 @@ openstack overcloud deploy <other arguments>
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
-endif::include_when_13[]
-ifdef::include_when_16[]
-[source,bash,options="nowrap",subs="+quotes"]
-----
-openstack overcloud deploy <other arguments>
-  --templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <...other-environment-files...> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml
-----
-endif::include_when_16[]
 
 . Deploy the {OpenStack} overcloud.
