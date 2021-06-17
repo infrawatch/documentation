@@ -61,7 +61,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch
 [NOTE]
 If your {ProjectShort} installation differs from the documentation, ensure that you retrieve the correct {MessageBus} route address.
 
-[[configuring-the-enable-stf-for-the-overcloud]]
+[[creating-the-base-configuration-for-stf]]
 == Creating the base configuration for {ProjectShort}
 
 To configure the base parameters to provide a compatible data collection and transport for {ProjectShort}, you must create a file that defines the default data collection values.
