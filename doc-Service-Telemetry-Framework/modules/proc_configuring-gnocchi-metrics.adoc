@@ -40,7 +40,7 @@ parameter_defaults:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-openstack overcloud deploy <other arguments>
+$ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file <...other-environment-files...> \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
