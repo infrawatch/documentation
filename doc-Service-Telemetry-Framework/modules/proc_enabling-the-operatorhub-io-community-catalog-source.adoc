@@ -40,7 +40,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   sourceType: grpc
-  image: quay.io/operator-framework/upstream-community-operators:latest
+  image: quay.io/operatorhubio/catalog:latest
   displayName: OperatorHub.io Operators
   publisher: OperatorHub.io
 EOF
