@@ -266,7 +266,7 @@ Deploy or update the overcloud with the required environment files to result in 
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-openstack overcloud deploy <other arguments>
+$ openstack overcloud deploy <other arguments>
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file <...other-environment-files...> \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
