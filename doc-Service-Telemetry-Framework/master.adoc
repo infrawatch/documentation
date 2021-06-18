@@ -1,6 +1,9 @@
 = Service Telemetry Framework 1.3
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
+:source-highlighter: highlightjs
+:highlightjs-languages: yaml,bash
+:highlightjs-theme: monokai
 :vernum: 16.1
 :toc: left
 :icons: font
