@@ -24,15 +24,16 @@
 = Configuring multiple clouds
 
 [role="_abstract"]
-You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}).
-
-.Procedure
-
-. Plan the AMQP address prefixes that you want to use for each cloud. For more information, see xref:planning-amqp-address-prefixes_assembly-advanced-features[].
-. Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see xref:deploying-smart-gateways_assembly-advanced-features[].
-. Configure each cloud with a unique domain name. For more information, see xref:setting-a-unique-cloud-domain_assembly-advanced-features[].
-. Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see xref:creating-openstack-environment-file_assembly-advanced-features[].
+You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}). When configuring multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the {ProjectShort} deployment, Smart Gateway instances listen on these topics in order to save information to the common data store. Ability to differentiate data from each of the deployed overcloud instances is done by filtering the metadata added by each of the Smart Gateway instances.
 
 [[osp-stf-multiple-clouds]]
 .Two {OpenStack} clouds connect to {ProjectShort}
 image::OpenStack_STF_Overview_37_0919_topology.png[An example of two {OpenStack} clouds connecting to {ProjectShort}]
+
+To configure the {OpenStack} overcloud for a multiple cloud scenario, complete the following tasks:
+
+. Plan the AMQP address prefixes that you want to use for each cloud. For more information, see xref:planning-amqp-address-prefixes_assembly-completing-the-stf-configuration[].
+. Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[].
+. Configure each cloud with a unique domain name. For more information, see xref:setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration[].
+. Create the base configuration for {ProjectShort}. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
+. Configure each cloud to send its metrics and events to {ProjectShort} on the correct address. For more information, see xref:creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration[].

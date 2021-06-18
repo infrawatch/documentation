@@ -28,6 +28,9 @@ To configure the {OpenStack} overcloud, you must configure the data collection a
 
 To configure the {OpenStack} overcloud, complete the following tasks:
 
+ifdef::include_when_13[]
+. xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[]
+endif::include_when_13[]
 . xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[]
 . xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[]
 . xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[]

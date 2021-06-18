@@ -28,6 +28,8 @@ Container health assesses the status of each of the {OpenStack} service containe
 
 To monitor healthchecks in {Project} ({ProjectShort}), you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol. The {ProjectShort} architecture considers healthcheck results to be events and they are stored in ElasticSearch.
 
+Container health monitoring is enabled by default in `enable-stf.yaml`. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
+
 .Prerequisites
 
 * You have created the `stf-connectors.yaml` file in your templates directory. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
@@ -36,19 +38,16 @@ To monitor healthchecks in {Project} ({ProjectShort}), you must enable and confi
 
 .Procedure
 
-. Open the `stf-connectors.yaml` and edit the `collectd-sensubility` parameter:
+To disable the monitoring of container health status disable `CollectdEnableSensubility`.
+
+. Open the `stf-connectors.yaml` and add the `CollectdEnableSensubility` parameter to override the setting in `enable-stf.yaml`:
 +
 [source,yaml]
 ----
-CollectdEnableSensubility: true
-CollectdSensubilityTransport: amqp1
+CollectdEnableSensubility: false
 ----
-. If your environment has multiple clouds, configure the `collectd-sensubility` events channel with the new collectd events address. Edit the `stf-connectors.yaml` file:
-+
-[source,yaml]
-----
-CollectdSensubilityResultsChannel: collectd/cloudprefix-notify
-----
+
+. Continue with the overcloud deployment procedure. For more information, see xref:deploying-the-overcloud_assembly-completing-the-stf-configuration[].
 
 .Additional resources
 

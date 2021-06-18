@@ -20,24 +20,43 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-completing-the-stf-configuration
 
 [role="_abstract"]
-To collect metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} overcloud to enable data collection and transport.
+For collection of metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} overcloud to enable data collection and transport.
+
+{ProjectShort} can support both single and multiple clouds, with the default configuration in {OpenStack} and {ProjectShort} set up for a single cloud installation. For a single {OpenStack} overcloud deployment with default configuration, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
+
+To plan your {OpenStack} installation and configuration {ProjectShort} for multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
+
+As part of an {OpenStack} overcloud deployment some additional configuration may be required for your environment.
 
 To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
+To send metrics to both Gnocchi and {ProjectShort}, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[].
 
+// Basic overcloud deployment using default parameters
+include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
+ifdef::include_when_13[]
+include::../modules/proc_getting-ca-certificate-from-stf-for-overcloud-configuration.adoc[leveloffset=+2]
+endif::include_when_13[]
+include::../modules/proc_retrieving-the-qdr-route-address.adoc[leveloffset=+2]
+include::../modules/proc_creating-the-base-configuration-for-stf.adoc[leveloffset=+2]
+include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[leveloffset=+2]
+include::../modules/proc_deploying-the-overcloud.adoc[leveloffset=+2]
+include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
+
+//Sending metrics to Gnocchi and to STF
+include::../modules/proc_sending-metrics-to-gnocchi-and-to-stf.adoc[leveloffset=+1]
+
+// Gather information for deployment in non-standard network topologies in the OSP overcloud
 include::../modules/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
 
-ifdef::include_when_13[]
-include::../modules/proc_getting-ca-certificate-from-stf-for-overcloud-configuration.adoc[leveloffset=+1]
-endif::include_when_13[]
-
-include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-include::../modules/proc_retrieving-the-qdr-route-address.adoc[leveloffset=+1]
-include::../modules/proc_creating-the-base-configuration-for-stf.adoc[leveloffset=+1]
-include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[leveloffset=+1]
-include::../modules/proc_deploying-the-overcloud.adoc[leveloffset=+1]
-include::../modules/proc_sending-metrics-to-gnocchi-and-to-stf.adoc[leveloffset=+1]
-include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
+//Connecting multiple clouds
+include::../modules/con_configuring-multiple-clouds.adoc[leveloffset=+1]
+include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+2]
+include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+2]
+include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+2]
+include::../modules/proc_setting-a-unique-cloud-domain.adoc[leveloffset=+2]
+include::../modules/proc_creating-openstack-environment-file-for-multiple-clouds.adoc[leveloffset=+2]
+include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+2]
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]
