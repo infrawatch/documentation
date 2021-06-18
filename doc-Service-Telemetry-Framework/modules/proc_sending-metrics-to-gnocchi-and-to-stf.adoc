@@ -7,7 +7,7 @@ To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you mu
 
 .Prerequisites
 
-* You have created a file that contains the connection configuration of the {MessageBus} for the overcloud to {ProjectShort}. For more information, see xref:configuring-the-stf-connection-for-the-overcloud[].
+* You have created a file that contains the connection configuration of the {MessageBus} for the overcloud to {ProjectShort}. For more information, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[].
 
 .Procedure
 
@@ -43,7 +43,7 @@ parameter_defaults:
 ----
 $ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <...other-environment-files...> \
+  --environment-file _<...other_environment_files...>_ \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
