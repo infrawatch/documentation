@@ -436,6 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/monokai.min.css"/>
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
@@ -473,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a></li>
-<li><a href="#_sending_metrics_to_gnocchi_and_to_stf">Sending metrics to Gnocchi and to STF</a></li>
+<li><a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a></li>
 </ul>
 </li>
 <li><a href="#assembly-advanced-features_assembly">Advanced features</a>
@@ -683,7 +684,7 @@ For more information about STF performance and scaling, see <a href="https://acc
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -696,7 +697,7 @@ For more information about STF performance and scaling, see <a href="https://acc
 <p>Enter the <code>crc delete</code> command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">crc delete</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc delete</code></pre>
 </div>
 </div>
 </li>
@@ -704,7 +705,7 @@ For more information about STF performance and scaling, see <a href="https://acc
 <p>Run the <code>crc start</code> command to create your environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
 </div>
 </div>
 </li>
@@ -836,7 +837,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1020,7 +1021,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>Create the STF OperatorGroup:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -1052,7 +1053,7 @@ EOF</code></pre>
 <p>Enable the OperatorHub.io CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1082,7 +1083,7 @@ EOF</code></pre>
 <p>Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1104,7 +1105,7 @@ EOF</code></pre>
 <p>Validate the creation of your CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
 NAME                   DISPLAY                TYPE   PUBLISHER    AGE
 infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></pre>
@@ -1115,7 +1116,7 @@ infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></
 <p>Validate that the Operators are available from the catalog:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc get packagemanifests | grep InfraWatch
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get packagemanifests | grep InfraWatch
 
 service-telemetry-operator                    InfraWatch Operators       7m20s
 smart-gateway-operator                        InfraWatch Operators       7m20s</code></pre>
@@ -1149,7 +1150,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the <co
 <p>Enable the Red Hat STF Operators CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
@@ -1171,7 +1172,7 @@ EOF</code></pre>
 <p>Subscribe to the AMQ Certificate Manager Operator via the <code>redhat-operators-stf</code> CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1217,7 +1218,7 @@ amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0
 <p>To enable the Elastic Cloud on Kubernetes Operator, create the following manifest in your OKD environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1237,7 +1238,7 @@ EOF</code></pre>
 <p>Verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>Succeeded</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get csv
 
 NAME                       DISPLAY                        VERSION   REPLACES                   PHASE
 ...
@@ -1260,7 +1261,7 @@ elastic-cloud-eck.v1.6.0   Elasticsearch (ECK) Operator   1.6.0     elastic-clou
 <p>To create the Service Telemetry Operator subscription, enter the <code>oc create -f</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1280,7 +1281,7 @@ EOF</code></pre>
 <p>To validate the Service Telemetry Operator and the dependent operators, enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv --namespace service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
 NAME                                         DISPLAY                                         VERSION          REPLACES                            PHASE
 amq7-cert-manager.v1.0.0                     Red Hat Integration - AMQ Certificate Manager   1.0.0                                                Succeeded
@@ -1357,7 +1358,7 @@ smart-gateway-operator.v3.0.1622734308       Smart Gateway Operator             
 <p>To enable Prometheus as a storage backend for metrics, configure the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: default
@@ -1396,7 +1397,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: stf-default
@@ -1462,7 +1463,7 @@ spec:
 <p>To create a <code>ServiceTelemetry</code> object that results in an STF deployment that uses the default values, create a <code>ServiceTelemetry</code> object with an empty <code>spec</code> parameter.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -1477,7 +1478,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
@@ -1496,7 +1497,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: default
@@ -1571,7 +1572,7 @@ spec:
 <p>To view the STF deployment logs in the Service Telemetry Operator, use the <code>oc logs</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc logs --selector name=service-telemetry-operator</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc logs --selector name=service-telemetry-operator</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1599,7 +1600,7 @@ If you set <code>backends.events.elasticsearch.enabled: true</code>, the notific
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get pods
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
 
 NAME                                                      READY   STATUS    RESTARTS   AGE
 alertmanager-default-0                                    2/2     Running   0          17m
@@ -1648,7 +1649,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <p>Run the <code>oc delete</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -1656,7 +1657,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <p>Verify that the resources have been deleted from the namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get all
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get all
 No resources found.</code></pre>
 </div>
 </div>
@@ -1676,7 +1677,7 @@ No resources found.</code></pre>
 <p>Delete the CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
 catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 </div>
@@ -1685,7 +1686,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 <p>Verify that the STF PackageManifests are removed from the platform. If successful, the following command returns no result:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get packagemanifests | grep InfraWatch</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get packagemanifests | grep InfraWatch</code></pre>
 </div>
 </div>
 </li>
@@ -1693,7 +1694,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 <p>If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
 catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre>
 </div>
 </div>
@@ -1727,7 +1728,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">  CephStorageExtraConfig:
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">  CephStorageExtraConfig:
       tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
       tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
       tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
@@ -1761,7 +1762,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">ComputeLeaf0ExtraConfig:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
 </div>
@@ -1771,7 +1772,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">ComputeLeaf1ExtraConfig:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
 </div>
@@ -1781,7 +1782,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">CephStorageLeaf0ExtraConfig:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
 </div>
@@ -1804,7 +1805,13 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <p><a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></p>
 </li>
 <li>
+<p><a href="#creating-the-base-configuration-for-stf">Creating the base configuration for STF</a></p>
+</li>
+<li>
 <p><a href="#configuring-the-stf-connection-for-the-overcloud">Configuring the STF connection for the overcloud</a></p>
+</li>
+<li>
+<p><a href="#deploying-the-overcloud">Deploying the overcloud</a></p>
 </li>
 <li>
 <p><a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a></p>
@@ -1834,7 +1841,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
 default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
@@ -1855,9 +1862,112 @@ If your STF installation differs from the documentation, ensure that you retriev
 </div>
 </div>
 <div class="sect3">
+<h4 id="creating-the-base-configuration-for-stf">Creating the base configuration for STF</h4>
+<div class="paragraph">
+<p>To configure the base parameters to provide a compatible data collection and transport for STF, you must create a file that defines the default data collection values.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Create a configuration file called <code>enable-stf.yaml</code> in the <code>/home/stack</code> directory.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components, and should be increased to a larger value such as <code>300</code>. Increasing the value to a longer polling interval will result in less telemetry resolution in STF.</p>
+</div>
+<div class="paragraph">
+<p>To enable collection of telemetry with STF and Gnocchi, see <a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    # only send to STF, not other publishers
+    EventPipelinePublishers: []
+    PipelinePublishers: []
+
+    # manage the polling and pipeline configuration files for Ceilometer agents
+    ManagePolling: true
+    ManagePipeline: true
+
+    # required to set valid parameter due to typo in ceilometer-write-qdr.yaml
+    # and will be resolved in a future release
+    CeilometerQdrPublishMetrics: true
+
+    # enable collection of API status
+    CollectdEnableSensubility: true
+    CollectdSensubilityTransport: amqp1
+
+    # enable collection of containerized service metrics
+    CollectdEnableLibpodstats: true
+
+    # set collectd overrides for higher telemetry resolution and extra plugins
+    # to load
+    CollectdConnectionType: amqp1
+    CollectdAmqpInterval: 5
+    CollectdDefaultPollingInterval: 5
+    CollectdExtraPlugins:
+    - vmem
+
+    ExtraConfig:
+        ceilometer::agent::polling::polling_interval: 30
+        ceilometer::agent::polling::polling_meters:
+        - cpu
+        - disk.*
+        - ip.*
+        - image.*
+        - memory
+        - memory.*
+        - network.*
+        - perf.*
+        - port
+        - port.*
+        - switch
+        - switch.*
+        - storage.*
+        - volume.*
+
+        # to avoid filling the memory buffers if disconnected from the message bus
+        collectd::plugin::amqp1::send_queue_limit: 50
+
+        # receive extra information about virtual memory
+        collectd::plugin::vmem::verbose: true
+
+        # provide name and uuid in addition to hostname for better correlation
+        # to ceilometer data
+        collectd::plugin::virt::hostname_format: "name uuid hostname"
+
+        # provide the human-friendly name of the virtual instance
+        collectd::plugin::virt::plugin_instance_format: metadata
+
+        # set memcached collectd plugin to report its metrics by hostname
+        # rather than host IP, ensuring metrics in the dashboard remain uniform
+        collectd::plugin::memcached::instances:
+          local:
+            host: "%{hiera(<em>fqdn_canonical</em>)}"
+            port: 11211</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="configuring-the-stf-connection-for-the-overcloud">Configuring the STF connection for the overcloud</h4>
 <div class="paragraph">
-<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud.</p>
+<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The configuration is set up for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1867,88 +1977,66 @@ If your STF installation differs from the documentation, ensure that you retriev
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Service Telemetry Operator simplifies the deployment of all data ingestion and data storage components for single cloud deployments. To share the data storage domain with multiple clouds, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no metric or event data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 5 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components. If you configure a longer polling interval, you must also modify STF to avoid stale metrics, resulting in what appears to be missing data in Prometheus.</p>
-</div>
-<div class="paragraph">
-<p>If an adjustment needs to be made to the polling interval, then modify the ServiceTelemetry object <code>backends.metrics.prometheus.scrapeInterval</code> parameter from the default value of <code>10s</code> to double the polling interval of the data collectors. For example, if <code>CollectdAmqpInterval</code> and <code>ceilometer::agent::polling::polling_interval</code> are adjusted to <code>30</code> then set the <code>backends.metrics.prometheus.scrapeInterval</code> to a value of <code>60s</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Add the <code>CeilometerQdrPublishMetrics: true</code> parameter to enable collection and transport of Ceilometer metrics to STF.</p>
-</li>
-<li>
-<p>Add the <code>CeilometerQdrPublishEvents: true</code> parameter to enable collection and transport of Ceilometer events to STF.</p>
-</li>
-<li>
-<p>Add the <code>EventPiplinePublishers: []</code> and <code>PipelinePublishers: []</code> to avoid writing data to Gnocchi and Panko.</p>
-</li>
-<li>
-<p>Add the <code>ManagePolling: true</code> and <code>ManagePipeline: true</code> parameters to allow full control of Ceilometer polling and pipeline configuration.</p>
-</li>
-<li>
-<p>Add the <code>ExtraConfig</code> parameter <code>ceilometer::agent::polling::polling_interval</code> to set the polling interval of Ceilometer to be compatible with the default STF scrape interval.</p>
-</li>
-<li>
 <p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
-    EventPipelinePublishers: []
-    PipelinePublishers: []
-    CeilometerQdrPublishEvents: true
-    CeilometerQdrPublishMetrics: true
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     MetricsQdrConnectors:
     - host: default-interconnect-5671-service-telemetry.apps.infra.watch
       port: 443
       role: edge
       sslProfile: sslProfile
-      verifyHostname: false
-    ExtraConfig:
-      ceilometer::agent::polling::polling_interval: 5</code></pre>
+      verifyHostname: false</code></pre>
 </div>
 </div>
 </li>
 </ul>
 </div>
 </li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deploying-the-overcloud">Deploying the overcloud</h4>
+<div class="paragraph">
+<p>Deploy or update the overcloud with the required environment files to result in data being collected and transmitted to STF.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
 <li>
-<p>Add the following files to your OpenStack TripleO deployment to setup collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<p>Add the following files to your OpenStack TripleO deployment to setup data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>the <code>stf-connectors.yaml</code> environment file</p>
+<p>the <code>collectd-write-qdr.yaml</code> file to ensure that collectd telemetry and events are sent to STF</p>
 </li>
 <li>
-<p>the <code>enable-stf.yaml</code> file that ensures that the environment is being used during the overcloud deployment</p>
+<p>the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF</p>
 </li>
 <li>
-<p>the <code>ceilometer-write-qdr.yaml</code> file that ensures that Ceilometer telemetry is sent to STF</p>
+<p>the <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers</p>
+</li>
+<li>
+<p>the <code>enable-stf.yaml</code> environment file to ensure defaults are set up correctly</p>
+</li>
+<li>
+<p>the <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">openstack overcloud deploy &lt;other arguments&gt;
-  --templates /usr/share/openstack-tripleo-heat-templates \
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ openstack overcloud deploy &lt;other arguments&gt;
+--templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file &lt;...other-environment-files...&gt; \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml</code></pre>
 </div>
 </div>
@@ -1964,7 +2052,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sending_metrics_to_gnocchi_and_to_stf">Sending metrics to Gnocchi and to STF</h3>
+<h3 id="sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</h3>
 <div class="paragraph _abstract">
 <p>To send metrics to Service&#160;Telemetry&#160;Framework (STF} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.</p>
 </div>
@@ -1984,7 +2072,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <code>/home/stack</code> directory.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">resource_registry:
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
     OS::TripleO::Services::GnocchiApi: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-api-container-puppet.yaml
     OS::TripleO::Services::GnocchiMetricd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-metricd-container-puppet.yaml
     OS::TripleO::Services::GnocchiStatsd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-statsd-container-puppet.yaml
@@ -2001,8 +2089,8 @@ parameter_defaults:
     GnocchiBackend: 'rbd'
     GnocchiRbdPoolName: 'metrics'
 
-    EventPipelinePublishers: ['gnocchi://?filter_project=service&amp;archive_policy=high']
-    PipelinePublishers: ['gnocchi://?filter_project=service&amp;archive_policy=high']</code></pre>
+    EventPipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
+    PipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']</code></pre>
 </div>
 </div>
 </li>
@@ -2010,26 +2098,23 @@ parameter_defaults:
 <p>Add the environment file <code>gnocchi-connectors.yaml</code> to the deployment command. Replace &lt;other-argruments&gt; with files that are applicable to your environment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ openstack overcloud deploy &lt;other-arguments&gt;
-  --templates /usr/share/openstack-tripleo-heat-templates \
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
+--templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file &lt;...other-environment-files...&gt; \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/enable-stf.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml \
   --environment-file /home/stack/gnocchi-connectors.yaml</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Verification: To verify that the configuration was successful, verify the content
-of the file <code>/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml</code> on a Controller
-node:</p>
-</li>
-</ol>
-</div>
+<p>To verify that the configuration was successful, verify the content of the file <code>/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml</code> on a Controller node. Ensure that the <code>publishers</code> section of the file contains information for both notifier and Gnocchi.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">sources:
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">sources:
     - name: meter_source
       meters:
           - "*"
@@ -2042,9 +2127,8 @@ sinks:
           - notifier://172.17.1.35:5666/?driver=amqp&amp;topic=metering</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>+
-Ensure that the <code>publishers</code> section of the file contains information for both notifier and Gnocchi.</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
 <h4 id="validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</h4>
@@ -2073,7 +2157,7 @@ Some telemetry data is only available when OpenStack has active workloads.
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
 
 running</code></pre>
 </div>
@@ -2083,7 +2167,7 @@ running</code></pre>
 <p>Return the internal network address on which Apache&#160;Qpid&#160;Dispatch&#160;Router is running, for example, <code>172.17.1.44</code> listening on port <code>5666</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
 listener {
     host: 172.17.1.44
@@ -2098,7 +2182,7 @@ listener {
 <p>Return a list of connections to the local Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
@@ -2136,7 +2220,7 @@ Connections
 <p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
   type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel     mod  delay  rate
   ===========================================================================================================================================================
@@ -2158,7 +2242,7 @@ Router Links
 <p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pods -l application=default-interconnect
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -l application=default-interconnect
 
 NAME                                    READY   STATUS    RESTARTS   AGE
 default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code></pre>
@@ -2169,7 +2253,7 @@ default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code
 <p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
 default-interconnect-7458fd4d69-bgzfb
@@ -2195,7 +2279,7 @@ Connections
 <p>To view the number of messages delivered by the network, use each address with the <code>oc exec</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
 default-interconnect-7458fd4d69-bgzfb
@@ -2361,7 +2445,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2369,7 +2453,7 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit servicetelemetry default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit servicetelemetry default</code></pre>
 </div>
 </div>
 </li>
@@ -2389,7 +2473,7 @@ The trailing pipe (<code>|</code>) after entering the manifest override paramete
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">$ oc edit stf default
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc edit stf default
 
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
@@ -2479,7 +2563,7 @@ status:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2487,7 +2571,7 @@ status:
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -2511,7 +2595,7 @@ EOF</code></pre>
 <p>To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2519,7 +2603,7 @@ EOF</code></pre>
 <p>Run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}</code></pre>
 </div>
 </div>
@@ -2528,7 +2612,7 @@ EOF</code></pre>
 <p>To verify that the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
 </div>
 </div>
 </li>
@@ -2536,7 +2620,7 @@ EOF</code></pre>
 <p>Clean up the environment by deleting the <code>curl</code> pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete pod curl
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete pod curl
 
 pod "curl" deleted</code></pre>
 </div>
@@ -2561,7 +2645,7 @@ pod "curl" deleted</code></pre>
 <p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit prometheusrules prometheus-alarm-rules</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit prometheusrules prometheus-alarm-rules</code></pre>
 </div>
 </div>
 </li>
@@ -2592,7 +2676,7 @@ pod "curl" deleted</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">alertmanager.yaml: |-
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertmanager.yaml: |-
   global:
     resolve_timeout: 5m
   route:
@@ -2618,7 +2702,7 @@ pod "curl" deleted</code></pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2626,7 +2710,7 @@ pod "curl" deleted</code></pre>
 <p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
@@ -2646,7 +2730,7 @@ This step loads the default template that is already managed by Service Telemetr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: default
@@ -2682,7 +2766,7 @@ spec:
 <p>Verify that the configuration was applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
 
 global:
   resolve_timeout: 10m
@@ -2701,7 +2785,7 @@ receivers:
 <p>To verify the configuration has been loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
 </div>
 </div>
 </li>
@@ -2709,7 +2793,7 @@ receivers:
 <p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents and review the supplied configuration matches the configuration loaded into Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
 {"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</code></pre>
 </div>
@@ -2719,7 +2803,7 @@ receivers:
 <p>Verify that the <code>configYAML</code> field contains the expected changes. Exit from the pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
 </div>
 </div>
 </li>
@@ -2727,7 +2811,7 @@ receivers:
 <p>To clean up the environment, delete the <code>curl</code> pod:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc delete pod curl
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete pod curl
 
 pod "curl" deleted</code></pre>
 </div>
@@ -2768,7 +2852,7 @@ pod "curl" deleted</code></pre>
 <p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
@@ -2776,7 +2860,7 @@ pod "curl" deleted</code></pre>
 <p>Set the <code>alerting.alertmanager.receivers.snmpTraps</code> parameters:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
 spec:
@@ -2863,7 +2947,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2871,7 +2955,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Use the oc command to edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
@@ -2879,7 +2963,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <p>Add <code>highAvailability.enabled: true</code> to the <code>spec</code> section:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
 spec:
@@ -2948,7 +3032,7 @@ Use the cloud view dashboard to view panels for monitoring service resource usag
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc project service-telemetry</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -2956,7 +3040,7 @@ Use the cloud view dashboard to view panels for monitoring service resource usag
 <p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -2976,12 +3060,9 @@ EOF</code></pre>
 <p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is <code>Succeeded</code>, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc get csv</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
+
+NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...</code></pre>
 </div>
@@ -2991,12 +3072,9 @@ grafana-operator.v3.2.0             Grafana Operator                            
 <p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit stf default</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
+
+apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
 spec:
@@ -3012,13 +3090,10 @@ spec:
 <p>Verify that the Grafana instance deployed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get pod -l app=grafana</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l app=grafana
+
+NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
 </div>
 </div>
 </li>
@@ -3026,13 +3101,10 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</pre>
 <p>Verify that the Grafana data sources installed correctly:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadatasources</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>NAME                    AGE
-default-datasources     20h</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadatasources
+
+NAME                    AGE
+default-datasources     20h</code></pre>
 </div>
 </div>
 </li>
@@ -3040,13 +3112,10 @@ default-datasources     20h</pre>
 <p>Verify the Grafana route exists:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route grafana-route</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route
+
+NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
 </div>
 </div>
 </li>
@@ -3065,12 +3134,9 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 <p>Import the infrastructure dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>grafanadashboard.integreatly.org/rhos-dashboard created</pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml
+
+grafanadashboard.integreatly.org/rhos-dashboard created</code></pre>
 </div>
 </div>
 </li>
@@ -3078,12 +3144,9 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 <p>Import the cloud dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>grafanadashboard.integreatly.org/rhos-cloud-dashboard created</pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml
+
+grafanadashboard.integreatly.org/rhos-cloud-dashboard created</code></pre>
 </div>
 </div>
 </li>
@@ -3096,7 +3159,7 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     ExtraConfig:
         collectd::plugin::virt::hostname_format: name uuid hostname</code></pre>
 </div>
@@ -3109,14 +3172,11 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 <p>Verify that the dashboards are available:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get grafanadashboards</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>NAME                   AGE
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards
+
+NAME                   AGE
 rhos-dashboard         7d21h
-rhos-cloud-dashboard   7d21h</pre>
+rhos-cloud-dashboard   7d21h</code></pre>
 </div>
 </div>
 </li>
@@ -3124,12 +3184,9 @@ rhos-cloud-dashboard   7d21h</pre>
 <p>Retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route grafana-route -ojsonpath='{.spec.host}'</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">grafana-route-service-telemetry.apps.infra.watch</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route -ojsonpath='{.spec.host}'
+
+grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
 </li>
@@ -3154,7 +3211,7 @@ rhos-cloud-dashboard   7d21h</pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -3162,7 +3219,7 @@ rhos-cloud-dashboard   7d21h</pre>
 <p>To retrieve the default username and password, describe the Grafana object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc describe grafana default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe grafana default</code></pre>
 </div>
 </div>
 </li>
@@ -3199,7 +3256,7 @@ rhos-cloud-dashboard   7d21h</pre>
 <p>Add the following configuration to <code>parameter_defaults</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>  CollectdEnableLibpodstats: true</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CollectdEnableLibpodstats: true</code></pre>
 </div>
 </div>
 </li>
@@ -3235,8 +3292,8 @@ rhos-cloud-dashboard   7d21h</pre>
 <p>Open the <code>stf-connectors.yaml</code> and edit the <code>collectd-sensubility</code> parameter:</p>
 <div class="listingblock">
 <div class="content">
-<pre>CollectdEnableSensubility: true
-CollectdSensubilityTransport: amqp1</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdEnableSensubility: true
+CollectdSensubilityTransport: amqp1</code></pre>
 </div>
 </div>
 </li>
@@ -3244,7 +3301,7 @@ CollectdSensubilityTransport: amqp1</pre>
 <p>If your environment has multiple clouds, configure the <code>collectd-sensubility</code> events channel with the new collectd events address. Edit the <code>stf-connectors.yaml</code> file:</p>
 <div class="listingblock">
 <div class="content">
-<pre>CollectdSensubilityResultsChannel: collectd/cloudprefix-notify</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdSensubilityResultsChannel: collectd/cloudprefix-notify</code></pre>
 </div>
 </div>
 </li>
@@ -3390,7 +3447,7 @@ CollectdSensubilityTransport: amqp1</pre>
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc project service-telemetry</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -3398,12 +3455,12 @@ CollectdSensubilityTransport: amqp1</pre>
 <p>Edit the <code>default</code> ServiceTelemetry object and add a <code>clouds</code> parameter with your configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc edit stf default</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   ...
@@ -3425,7 +3482,7 @@ spec:
         subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
   - name: cloud2
     events:
-      ...</pre>
+      ...</code></pre>
 </div>
 </div>
 </li>
@@ -3436,16 +3493,16 @@ spec:
 <p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get po -l app=smart-gateway</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=smart-gateway</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>NAME                                                      READY   STATUS    RESTARTS   AGE
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
 default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
 default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
-default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</pre>
+default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</code></pre>
 </div>
 </div>
 </li>
@@ -3491,7 +3548,7 @@ The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you 
 <p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   ...
@@ -3499,7 +3556,7 @@ spec:
   ...
   cloudsRemoveOnMissing: true
   clouds:
-    ...</pre>
+    ...</code></pre>
 </div>
 </div>
 </li>
@@ -3510,7 +3567,7 @@ spec:
 <p>Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get smartgateways</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get smartgateways</code></pre>
 </div>
 </div>
 </li>
@@ -3532,11 +3589,11 @@ spec:
 <p>Set the <code>CloudDomain</code> parameter in the environment file, as shown in the following example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>       parameter_defaults:
-              CloudDomain: newyork-west-04
-              CephStorageHostnameFormat: 'ceph-%index%'
-              ObjectStorageHostnameFormat: 'swift-%index%'
-              ComputeHostnameFormat: 'compute-%index%'</pre>
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    CloudDomain: newyork-west-04
+    CephStorageHostnameFormat: 'ceph-%index%'
+    ObjectStorageHostnameFormat: 'swift-%index%'
+    ComputeHostnameFormat: 'compute-%index%'</code></pre>
 </div>
 </div>
 </li>
@@ -3563,25 +3620,14 @@ If you enabled container health and API status monitoring, you must also modify 
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Remove
-<code>enable-stf.yaml</code> and
-<code>ceilometer-write-qdr.yaml</code> environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
-</td>
-</tr>
-</table>
-</div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
 <p>You have created a unique domain name environment file. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</a>.</p>
+</li>
+<li>
+<p>You have created the <code>enabled-stf.yaml</code> to set environment defaults for STF.</p>
 </li>
 </ul>
 </div>
@@ -3593,7 +3639,7 @@ Remove
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">resource_registry:
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
     OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
     OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-puppet.yaml
     OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-central-container-puppet.yaml
@@ -3764,7 +3810,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -3772,7 +3818,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>Edit the ServiceTelemetry object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
 </div>
 </div>
 </li>
@@ -3780,7 +3826,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>Add the <code>...storage.strategy: ephemeral</code> parameter to the <code>spec</code> section of the relevant component:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: infra.watch/v1beta1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: stf-default
@@ -3833,7 +3879,7 @@ spec:
 <p>Change to the <code>service-telemetry</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc project service-telemetry</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -3841,12 +3887,12 @@ spec:
 <p>List the available services in the <code>service-telemetry</code> project:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get services</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get services</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
 alertmanager-operated                    ClusterIP   None             &lt;none&gt;        9093/TCP,9094/TCP,9094/UDP                      93m
 default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   &lt;none&gt;        8081/TCP                                        93m
 default-cloud1-coll-meter-smartgateway   ClusterIP   172.30.133.180   &lt;none&gt;        8081/TCP                                        93m
@@ -3865,7 +3911,7 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   &lt;none&g
 <p>Expose the <code>prometheus-operated</code> service as an edge route and redirect insecure traffic to the secure endpoint of port <code>9090</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -3878,7 +3924,7 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   &lt;none&g
 <p>To verify and find the exposed external DNS for the route, use the <code>oc get route</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ oc get route metrics-store -ogo-template='{{.spec.host}}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get route metrics-store -ogo-template='{{.spec.host}}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -5909,8 +5955,17 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-17 12:44:34 UTC
+Last updated 2021-06-18 12:08:57 UTC
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/languages/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/languages/bash.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>
