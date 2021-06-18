@@ -1,3 +1,4 @@
+[id="sending-metrics-to-gnocchi-and-to-stf_{context}"]
 = Sending metrics to Gnocchi and to {ProjectShort}
 
 [role="_abstract"]
