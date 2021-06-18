@@ -32,12 +32,12 @@ To ensure that AMQ router connections from {OpenStack} to {Project} ({ProjectSho
 
 . Set the `CloudDomain` parameter in the environment file, as shown in the following example:
 +
+[source,yaml,options="nowrap"]
 ----
-
-       parameter_defaults:
-              CloudDomain: newyork-west-04
-              CephStorageHostnameFormat: 'ceph-%index%'
-              ObjectStorageHostnameFormat: 'swift-%index%'
-              ComputeHostnameFormat: 'compute-%index%'
+parameter_defaults:
+    CloudDomain: newyork-west-04
+    CephStorageHostnameFormat: 'ceph-%index%'
+    ObjectStorageHostnameFormat: 'swift-%index%'
+    ComputeHostnameFormat: 'compute-%index%'
 ----
 . Add this environment file to your deployment. For more information, see xref:creating-openstack-environment-file_assembly-advanced-features[] and https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters[Core overcloud parameters] in the _Overcloud Parameters_ guide.

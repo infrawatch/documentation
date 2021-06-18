@@ -32,11 +32,11 @@ WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you en
 
 .Procedure
 
-
 . Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
 . Edit the ServiceTelemetry object and add the `cloudsRemoveOnMissing` parameter:
 +
+[source,yaml]
 ----
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
@@ -53,6 +53,7 @@ spec:
 
 . Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:
 +
+[source,bash]
 ----
 $ oc get smartgateways
 ----

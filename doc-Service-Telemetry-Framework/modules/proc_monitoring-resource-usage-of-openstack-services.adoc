@@ -40,6 +40,7 @@ Monitor the resource usage of the {OpenStack} services, such as the APIs and oth
 
 . Add the following configuration to `parameter_defaults`:
 +
+[source,yaml]
 ----
   CollectdEnableLibpodstats: true
 ----
