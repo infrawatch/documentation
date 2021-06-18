@@ -32,7 +32,11 @@ include::../modules/proc_getting-ca-certificate-from-stf-for-overcloud-configura
 endif::include_when_13[]
 
 include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-include::../modules/proc_configuring-gnocchi-metrics.adoc[leveloffset=+1]
+include::../modules/proc_retrieving-the-qdr-route-address.adoc[leveloffset=+1]
+include::../modules/proc_creating-the-base-configuration-for-stf.adoc[leveloffset=+1]
+include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[leveloffset=+1]
+include::../modules/proc_deploying-the-overcloud.adoc[leveloffset=+1]
+include::../modules/proc_sending-metrics-to-gnocchi-and-to-stf.adoc[leveloffset=+1]
 include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
 
 //reset the context
