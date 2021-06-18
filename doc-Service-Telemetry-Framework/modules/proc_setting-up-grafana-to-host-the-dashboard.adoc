@@ -35,13 +35,14 @@ Enable OperatorHub.io catalog source for the Grafana Operator. For more informat
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 $ oc project service-telemetry
 ----
 
 . Deploy the Grafana operator:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -63,10 +64,7 @@ EOF
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 $ oc get csv
-----
-+
-[source,bash,options="nowrap"]
-----
+
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
 grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
 ...
@@ -74,12 +72,10 @@ grafana-operator.v3.2.0             Grafana Operator                            
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`.
 +
+[source,bash]
 ----
 $ oc edit stf default
-----
-+
-[source,yaml]
-----
+
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 ...
@@ -96,9 +92,7 @@ spec:
 [source,bash]
 ----
 $ oc get pod -l app=grafana
-----
-+
-----
+
 NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 ----
@@ -108,21 +102,17 @@ grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
 [source,bash]
 ----
 $ oc get grafanadatasources
-----
-+
-----
+
 NAME                    AGE
 default-datasources     20h
 ----
 
 . Verify the Grafana route exists:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc get route grafana-route
-----
-+
-----
+
 NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
 ----
@@ -139,9 +129,7 @@ The Grafana Operator can import and manage dashboards by creating `GrafanaDashbo
 [source,bash,options="nowrap"]
 ----
 $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml
-----
-+
-----
+
 grafanadashboard.integreatly.org/rhos-dashboard created
 ----
 . Import the cloud dashboard:
@@ -149,9 +137,7 @@ grafanadashboard.integreatly.org/rhos-dashboard created
 [source,bash,options="nowrap"]
 ----
 $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml
-----
-+
-----
+
 grafanadashboard.integreatly.org/rhos-cloud-dashboard created
 ----
 [WARNING]
@@ -170,9 +156,7 @@ parameter_defaults:
 [source,bash]
 ----
 $ oc get grafanadashboards
-----
-+
-----
+
 NAME                   AGE
 rhos-dashboard         7d21h
 rhos-cloud-dashboard   7d21h
@@ -180,16 +164,12 @@ rhos-cloud-dashboard   7d21h
 
 . Retrieve the Grafana route address:
 +
-[source,bash]
-----
-$ oc get route grafana-route -ojsonpath='{.spec.host}' 
-----
-+
 [source,bash,options="nowrap"]
 ----
+$ oc get route grafana-route -ojsonpath='{.spec.host}' 
+
 grafana-route-service-telemetry.apps.infra.watch
 ----
-+
 
 . Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the value that you retrieved in the previous step.
 
@@ -215,4 +195,4 @@ $ oc project service-telemetry
 $ oc describe grafana default
 ----
 
-.  To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the `graphing.grafana.adminUser` and `graphing.grafana.adminPassword` parameters.
+. To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the `graphing.grafana.adminUser` and `graphing.grafana.adminPassword` parameters.

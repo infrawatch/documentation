@@ -45,10 +45,10 @@ $(IMAGES_TS): $(IMAGES)
 	touch $(IMAGES_TS)
 
 $(DEST_HTML): $(SOURCES)
-	asciidoctor --failure-level WARN -a build=$(BUILD) -b xhtml5 -d book -o $@ $<
+	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -b xhtml5 -d book -o $@ $<
 
 $(DEST_HTML_13): $(SOURCES)
-	asciidoctor --failure-level WARN -a build=$(BUILD) -a vernum=13 -b xhtml5 -d book -o $@ $<
+	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=13 -b xhtml5 -d book -o $@ $<
 
 $(DEST_PDF): $(SOURCES) $(IMAGES)
 	asciidoctor-pdf -a build=$(BUILD) -d book -o $@ $<

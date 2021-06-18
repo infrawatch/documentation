@@ -47,16 +47,19 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
+[source,bash]
 ----
 $ oc project service-telemetry
 ----
 
 . Edit the `default` ServiceTelemetry object and add a `clouds` parameter with your configuration:
 +
+[source,bash]
 ----
 $ oc edit stf default
 ----
 +
+[source,yaml,options="nowrap"]
 ----
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
@@ -87,10 +90,12 @@ spec:
 
 . Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
+[source,bash]
 ----
 $ oc get po -l app=smart-gateway
 ----
 +
+[source,bash]
 ----
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h

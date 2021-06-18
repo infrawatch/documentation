@@ -29,17 +29,10 @@ To label traffic according to the cloud of origin, you must create a configurati
 [NOTE]
 If you enabled container health and API status monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
 
-
-[WARNING]
-Remove
-ifdef::include_when_16[]
-`enable-stf.yaml` and
-endif::include_when_16[]
-`ceilometer-write-qdr.yaml` environment file references from your overcloud deployment. This configuration is redundant and results in duplicate information being sent from each cloud node.
-
 .Prerequisites
 
 * You have created a unique domain name environment file. For more information, see xref:setting-a-unique-cloud-domain_assembly-advanced-features[].
+* You have created the `enabled-stf.yaml` to set environment defaults for {ProjectShort}.
 
 .Procedure
 
@@ -204,8 +197,10 @@ endif::include_when_16[]
 <3> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
 <4> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 <5> Define the topic for collectd-sensubility events. This should be the exact string format of `collectd/cloud1-notify`
+ifdef::include_when_16[]
 <6> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
 <7> Enable monitoring of health and API status.
+endif::include_when_16[]
 +
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
