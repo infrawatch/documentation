@@ -76,7 +76,6 @@ $ oc get route grafana-route -ojsonpath='{.spec.host}'
 grafana-route-service-telemetry.apps.infra.watch
 ----
 
-. Navigate to https://<GRAFANA-ROUTE-ADDRESS> in a web browser. Replace <GRAFANA-ROUTE-ADDRESS> with the value that you retrieved in the previous step.
+. Navigate to https://_<grafana_route_address>_ in a web browser. Replace _<grafana_route_address>_ with the value that you retrieved in the previous step.
 
 . To view the dashboard, click *Dashboards* and *Manage*.
-
