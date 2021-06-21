@@ -1,0 +1,77 @@
+// This assembly is included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This assembly can be included from other assemblies using the following
+// include statement:
+// include::<path>/assembly_upgrading-service-telemetry-framework-to-version-1-2.adoc[leveloffset=+1]
+
+// The following line is necessary to allow assemblies be included in other
+// assemblies. It restores the `context` variable to its previous state.
+:parent-context-of-upgrading-service-telemetry-framework-to-version-1-2: {context}
+
+// The file name and the ID are based on the assembly title.
+// For example:
+// * file name: assembly_my-assembly-a.adoc
+// * ID: [id='assembly_my-assembly-a_{context}']
+// * Title: = My assembly A
+//
+// The ID is used as an anchor for linking to the module.
+// Avoid changing it after the module has been published
+// to ensure existing links are not broken.
+//
+// In order for  the assembly to be reusable in other assemblies in a guide,
+// include {context} in the ID: [id='a-collection-of-modules_{context}'].
+//
+// If the assembly covers a task, start the title with a verb in the gerund
+// form, such as Creating or Configuring.
+[id='assembly-upgrading-service-telemetry-framework-to-version-1-2_{context}']
+= Upgrading Service Telemetry Framework to version 1.2
+
+[role="_abstract"]
+To migrate from {Project} ({ProjectShort}) v1.1 to {ProjectShort} v1.2, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} ({OpenShiftShort}) v4.5 environment.
+
+.Prerequisites
+
+* When you upgrade the {OpenShiftShort} environment from v4.5 to v4.6, ensure that you add the AMQ Certificate Manager Operator from the `redhat-operators-stf` CatalogSource. For more information, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/service_telemetry_framework_1.2/assembly-installing-the-core-components-of-stf_assembly#subscribing-to-the-amq-certificate-manager-operator[Subscribing to the AMQ Certificate Manager Operator].
+* **Ensure that you backup data prior to any upgrade of the environment.** Upgrading {ProjectShort} v1.1 to v1.2 results in a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects will not have any effect while the Operators are being replaced.
+
+To upgrade from {ProjectShort} v1.1 to v1.2, complete the following procedures:
+
+.Procedure
+
+. Remove the {ProjectShort} 1.1 Operators.
+. Remove the {ProjectShort} 1.1 CatalogSource.
+. Subscribe to the Service Telemetry Operator.
+
+//. xref:removing-service-telemetry-framework-1-1-operators_assembly-upgrading-service-telemetry-framework-to-version-1-2[].
+
+//<<removing-service-telemetry-framework-1-1-operators_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
+//. <<removing-the-stf-v1-1-catalogsource_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
+//. <<subscribing-to-the-service-telemetry-operator_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
+
+include::../modules/proc_removing-service-telemetry-framework-1-1-operators.adoc[leveloffset=+1]
+include::../modules/proc_removing-the-service-telemetry-framework-v1-1-catalogsource.adoc[leveloffset=+1]
+include::../modules/proc_subscribing-to-the-service-telemetry-operator.adoc[leveloffset=+1]
+
+When the new Operators start, they reconcile the existing `ServiceTelemetry` and `SmartGateway` objects, resulting in the restart of Smart Gateway containers.
+
+* To check the state of the Smart Gateway containers, use the `oc get pods` command:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+oc get pods
+
+NAME                                                      READY   STATUS        RESTARTS   AGE
+...
+default-cloud1-ceil-meter-smartgateway-5849c4cdb5-xgl42   1/1     Running       0          35s
+default-cloud1-coll-meter-smartgateway-749674f75c-k7pm7   2/2     Terminating   0          56m
+default-cloud1-coll-meter-smartgateway-868476456b-ksh9b   2/2     Running       0          26s
+...
+----
+
+
+
+// The following line is necessary to allow assemblies be included in other
+// assemblies. It restores the `context` variable to its previous state.
+:context: {parent-context-of-upgrading-service-telemetry-framework-to-version-1-2}

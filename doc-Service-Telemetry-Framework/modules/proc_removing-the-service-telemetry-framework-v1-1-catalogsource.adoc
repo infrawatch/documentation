@@ -1,0 +1,38 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-the-service-telemetry-framework-v1-1-catalogsource.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="removing-the-service-telemetry-framework-v1-1-catalogsource_{context}"]
+= Removing the Service Telemetry Framework v1.1 CatalogSource
+
+[role="_abstract"]
+Remove the {ProjectShort} v1.1 CatalogSource. {ProjectShort} v1.2 is shipped in the default-enabled redhat-operators CatalogSource.
+
+.Procedure
+
+* Delete the redhat-operators-stf CatalogSource:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete catalogsource -nopenshift-marketplace redhat-operators-stf
+
+catalogsource.operators.coreos.com "redhat-operators-stf" deleted
+----

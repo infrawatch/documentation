@@ -1,0 +1,79 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_upgrading-service-telemetry-framework-to-version-1-2.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="removing-service-telemetry-framework-1-1-operators_{context}"]
+= Removing {Project} 1.1 Operators
+
+[role="_abstract"]
+Remove the Operators from {ProjectShort} v1.1, Smart Gateway Operator, and Service Telemetry Operator.
+
+.Procedure
+
+. Retrieve the `Subscription` name of the Smart Gateway Operator:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get sub smart-gateway-operator-stable-redhat-operators-stf-openshift-marketplace | grep smart-gateway
+
+smart-gateway-operator-stable-redhat-operators-stf-openshift-marketplace   smart-gateway-operator   redhat-operators-stf   stable
+----
+. Delete the Smart Gateway Operator subscription:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete sub smart-gateway-operator-stable-redhat-operators-stf-openshift-marketplace
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-redhat-operators-stf-openshift-marketplace" deleted
+----
+. Delete the Service Telemetry Operator subscription:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete sub service-telemetry-operator
+
+subscription.operators.coreos.com "service-telemetry-operator" deleted
+----
+. Get the Smart Gateway Operator and Service Telemetry Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get csv -o name | grep -E 'service-telemetry|smart-gateway'
+
+clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.1.3
+clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.1.3
+----
+. Delete the Service Telemetry Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.1.3
+
+clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.1.3" deleted
+----
+. Delete the Smart Gateway Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.1.3
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v2.1.3" deleted
+----
