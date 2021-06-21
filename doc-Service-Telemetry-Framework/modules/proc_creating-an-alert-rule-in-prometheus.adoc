@@ -55,9 +55,10 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status < 1 # To change the rule, edit the value of the expr parameter.
+          expr: collectd_qpid_router_status < 1 # <1>
 EOF
 ----
+<1> To change the rule, edit the value of the expr parameter.
 
 . To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
 +

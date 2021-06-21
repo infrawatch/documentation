@@ -36,13 +36,13 @@ Monitor the resource usage of the {OpenStack} services, such as the APIs and oth
 
 .Procedure
 
-. Open the `stf-connectors.yaml` file.
+To disable the monitoring of container resource usage disable `CollectdEnableLibpodstats`.
 
-. Add the following configuration to `parameter_defaults`:
+. Open the `stf-connectors.yaml` file and add the `CollectdEnableLibpodstats` parameter to override the setting in `enable-stf.yaml`
 +
 [source,yaml]
 ----
-  CollectdEnableLibpodstats: true
+  CollectdEnableLibpodstats: false
 ----
 
-. Continue with the overcloud deployment procedure.
+. Continue with the overcloud deployment procedure. For more information, see xref:deploying-the-overcloud_assembly-completing-the-stf-configuration[].

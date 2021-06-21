@@ -38,7 +38,7 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 
 .Prerequisites
 
-* You have determined your cloud naming scheme. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_assembly-advanced-features[].
+* You have determined your cloud naming scheme. For more information about determining your naming scheme, see xref:planning-amqp-address-prefixes_assembly-completing-the-stf-configuration[].
 
 * You have created your list of clouds objects. For more information about creating the content for the `clouds` parameter, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
@@ -53,6 +53,11 @@ $ oc project service-telemetry
 ----
 
 . Edit the `default` ServiceTelemetry object and add a `clouds` parameter with your configuration:
++
+[WARNING]
+====
+Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the `ServiceTelemetry` name `default` and the `clouds.name` does not exceed 19 characters. Topic addresses have no character limitation and can be different than the `clouds.name` value.
+====
 +
 [source,bash]
 ----

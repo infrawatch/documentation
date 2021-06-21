@@ -29,6 +29,7 @@ Create a namespace to hold the {ProjectShort} components. The `service-telemetry
 
 * Enter the following command:
 +
+[source,bash]
 ----
 $ oc new-project service-telemetry
 ----

@@ -27,7 +27,6 @@ The following optional features can provide additional functionality to the {Pro
 * xref:configuring-snmp-traps_assembly-advanced-features[]
 * xref:high-availability_assembly-advanced-features[]
 * xref:dashboards_assembly-advanced-features[]
-* xref:configuring-multiple-clouds_assembly-advanced-features[]
 * xref:ephemeral-storage_assembly-advanced-features[]
 * xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[]
 * xref:creating-a-route-in-ocp_assembly-advanced-features[]
@@ -50,6 +49,8 @@ include::../modules/proc_configuring-snmp-traps.adoc[leveloffset=+1]
 include::../modules/con_high-availability.adoc[leveloffset=+1]
 include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
 
+ifdef::include_when_16[]
+//TODO: Add dashboards back when we have working code for OSP13
 //Dashboards
 include::../modules/con_dashboards.adoc[leveloffset=+1]
 include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffset=+2]
@@ -59,21 +60,11 @@ include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[le
 
 //Monitoring container health
 include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
-
-//Connecting multiple clouds
-include::../modules/con_configuring-multiple-clouds.adoc[leveloffset=+1]
-include::../modules/proc_planning-amqp-address-prefixes.adoc[leveloffset=+2]
-include::../modules/proc_deploying-smart-gateways.adoc[leveloffset=+2]
-include::../modules/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+2]
-include::../modules/proc_setting-a-unique-cloud-domain.adoc[leveloffset=+2]
-include::../modules/proc_creating-openstack-environment-file.adoc[leveloffset=+2]
-include::../modules/proc_querying-metrics-data-from-multiple-clouds.adoc[leveloffset=+2]
+endif::include_when_16[]
 
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
-
-
 
 //Exposing services as routes
 include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]

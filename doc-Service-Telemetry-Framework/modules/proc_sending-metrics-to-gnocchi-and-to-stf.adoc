@@ -11,8 +11,7 @@ To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you mu
 
 .Procedure
 
-. Create an environment file named `gnocchi-connectors.yaml` in the
-`/home/stack` directory.
+. Create an environment file named `gnocchi-connectors.yaml` in the `/home/stack` directory.
 +
 [source,yaml,options="nowrap",subs="none"]
 ----
@@ -24,7 +23,6 @@ resource_registry:
     OS::TripleO::Services::AodhEvaluator: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-evaluator-container-puppet.yaml
     OS::TripleO::Services::AodhNotifier: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-notifier-container-puppet.yaml
     OS::TripleO::Services::AodhListener: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-listener-container-puppet.yaml
-    OS::TripleO::Services::PankoApi: /usr/share/openstack-tripleo-heat-templates/deployment/deprecated/panko/panko-api-container-puppet.yaml
 
 parameter_defaults:
     CeilometerEnableGnocchi: true
@@ -33,11 +31,11 @@ parameter_defaults:
     GnocchiBackend: 'rbd'
     GnocchiRbdPoolName: 'metrics'
 
-    EventPipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
-    PipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
+    EventPipelinePublishers: ['gnocchi://?filter_project=service']
+    PipelinePublishers: ['gnocchi://?filter_project=service']
 ----
 
-. Add the environment file `gnocchi-connectors.yaml` to the deployment command. Replace <other-argruments> with files that are applicable to your environment:
+. Add the environment file `gnocchi-connectors.yaml` to the deployment command. Replace _<other_arguments>_ with files that are applicable to your environment.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
@@ -65,6 +63,6 @@ sources:
 sinks:
     - name: meter_sink
       publishers:
-          - gnocchi://?filter_project=service&archive_policy=high
+          - gnocchi://?filter_project=service
           - notifier://172.17.1.35:5666/?driver=amqp&topic=metering
 ----

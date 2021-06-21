@@ -1,0 +1,138 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_creating-openstack-environment-file-for-multiple-clouds.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="creating-openstack-environment-file-for-multiple-clouds_{context}"]
+= Creating the OpenStack environment file for multiple clouds
+
+[role="_abstract"]
+To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme.
+
+[NOTE]
+If you enabled container health and API status monitoring, you must also modify the `CollectdSensubilityResultsChannel` parameter. For more information, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
+
+.Prerequisites
+
+ifdef::include_when_13[]
+* You have retrieved the CA certificate from the {MessageBus} deployed by {ProjectShort}. For more information, see xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
+endif::include_when_13[]
+* You have retrieved the {MessageBus} route address. For more information, see xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
+* You have created the base configuration for {ProjectShort}. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
+* You have created a unique domain name environment file. For more information, see xref:setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration[].
+* You have created the `enable-stf.yaml` to set environment defaults for {ProjectShort}. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
+
+.Procedure
+
+. Log in to the {OpenStack} undercloud as the `stack` user.
+
+. Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
+
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect to the {MessageBus} on the overcloud deployment. Configure the `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig`, `CollectdAmqpInstances`, and `CollectdSensubilityResultsChannel` topic values to match the AMQP address that you want for this cloud deployment.
++
+ifdef::include_when_13[]
+* Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
++
+endif::include_when_13[]
+.stf-connectors.yaml
+[source,yaml,options="nowrap"]
+----
+parameter_defaults:
+    MetricsQdrConnectors:
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <1>
+          port: 443
+          role: edge
+          verifyHostname: false
+          sslProfile: sslProfile
+
+    MetricsQdrSSLProfiles:
+        - name: sslProfile
+ifdef::include_when_13[]
+          caCertFileContent: |
+            ----BEGIN CERTIFICATE----
+            <snip>
+            ----END CERTIFICATE----
+endif::include_when_13[]
+
+    CeilometerQdrEventsConfig:
+        driver: amqp
+        topic: cloud1-event   # <2>
+
+    CeilometerQdrMetricsConfig:
+        driver: amqp
+        topic: cloud1-metering   # <3>
+
+    CollectdAmqpInstances:
+        cloud1-notify:        # <4>
+            notify: true
+            format: JSON
+            presettle: false
+        cloud1-telemetry:     # <5>
+            format: JSON
+            presettle: true
+
+ifdef::include_when_16[]
+    CollectdSensubilityResultsChannel: collectd/cloud1-notify # <6>
+endif::include_when_16[]
+----
+<1> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
+<2> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
+<3> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
+<4> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
+<5> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
+ifdef::include_when_16[]
+<6> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `collectd/cloud1-notify`
+endif::include_when_16[]
++
+. Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
+
+. Source the authentication file:
++
+[source,bash]
+----
+[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$
+----
+
+. Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file _<...other_environment_files...>_ \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/hostnames.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml
+----
+
+. Deploy the {OpenStack} overcloud.
+
+ifdef::include_when_17[]
+include::con_ansible-based-deployment.adoc[leveloffset=+1]
+endif::include_when_17[]
+
+.Additional resources
+
+* For information about validating the deployment, see xref:validating-clientside-installation_assembly-completing-the-stf-configuration[].

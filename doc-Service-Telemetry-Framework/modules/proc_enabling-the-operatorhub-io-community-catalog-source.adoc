@@ -24,7 +24,7 @@
 = Enabling the OperatorHub.io Community Catalog Source
 
 [role="_abstract"]
-Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source.
+Before you install data storage and visualization operators, you must have access to the resources on the OperatorHub.io Community Catalog Source.
 
 ifeval::["{build}" == "downstream"]
 [NOTE]

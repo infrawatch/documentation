@@ -29,6 +29,17 @@ Deploy or update the overcloud with the required environment files to result in 
 
 .Procedure
 
+. Log in to the {OpenStack} undercloud as the `stack` user.
+
+. Source the authentication file:
++
+[source,bash]
+----
+[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$
+----
+
 . Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup data collection and {MessageBus}:
 +
 * the `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
@@ -39,7 +50,7 @@ Deploy or update the overcloud with the required environment files to result in 
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
-$ openstack overcloud deploy <other arguments>
+(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file _<...other_environment_files...>_ \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
