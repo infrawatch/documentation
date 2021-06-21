@@ -37,7 +37,7 @@ You can use two dashboards to monitor a cloud:
 * Infrastructure dashboard
 Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
-* Cloud view dashboard
+Cloud view dashboard::
 Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.
 ** For more information about API health monitoring, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
 ** For more information about service monitoring, see xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[].
