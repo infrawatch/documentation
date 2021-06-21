@@ -26,7 +26,7 @@ For collection of metrics, events, or both, and to send them to the {Project} ({
 
 To plan your {OpenStack} installation and configuration {ProjectShort} for multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
-As part of an {OpenStack} overcloud deployment some additional configuration may be required for your environment.
+As part of an {OpenStack} overcloud deployment, you might need to configure additional features in your environment:
 
 To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
