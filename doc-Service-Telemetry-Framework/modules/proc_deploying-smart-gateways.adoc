@@ -56,7 +56,7 @@ $ oc project service-telemetry
 +
 [WARNING]
 ====
-Long cloud names can cause the maximum pod name of 63 characters to be exceeded. The combination of the `ServiceTelemetry` name (i.e. `default`) and the `clouds.name` should not exceed 19 characters. Topic addresses have no such limitation and can be different than the `clouds.name` value.
+Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the `ServiceTelemetry` name `default` and the `clouds.name` does not exceed 19 characters. Topic addresses have no character limitation and can be different than the `clouds.name` value.
 ====
 +
 [source,bash]
