@@ -28,7 +28,7 @@ To plan your {OpenStack} installation and configuration {ProjectShort} for multi
 
 As part of an {OpenStack} overcloud deployment, you might need to configure additional features in your environment:
 
-To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
+* To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
 To send metrics to both Gnocchi and {ProjectShort}, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[].
 
