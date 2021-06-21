@@ -34,7 +34,7 @@ ifdef::include_when_16[]
 //TODO: can re-work this once we have OSP13 dashboard(s) to show. Can't use container health checks or monitoring in OSP13.
 You can use two dashboards to monitor a cloud:
 
-* Infrastructure dashboard
+Infrastructure dashboard::
 Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
 Cloud view dashboard::
