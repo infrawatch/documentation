@@ -451,12 +451,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</a>
 <ul class="sectlevel2">
 <li><a href="#stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</a></li>
-<li><a href="#installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</a></li>
+<li><a href="#installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</a>
+<ul class="sectlevel3">
+<li><a href="#development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a></li>
+<li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>
+<ul class="sectlevel3">
+<li><a href="#ephemeral-storage_assembly-preparing-your-ocp-environment-for-stf">Ephemeral storage</a></li>
+</ul>
+</li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
 <li><a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period</a></li>
 <li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
@@ -464,34 +472,98 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</a></li>
-<li><a href="#overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</a></li>
+<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>
+<ul class="sectlevel3">
+<li><a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a></li>
+<li><a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a></li>
+<li><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a></li>
+<li><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a></li>
+<li><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a></li>
+<li><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a></li>
+<li><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a></li>
+<li><a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a></li>
+<li><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a></li>
+</ul>
+</li>
+<li><a href="#overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</a>
+<ul class="sectlevel3">
+<li><a href="#backends_assembly-installing-the-core-components-of-stf">backends</a></li>
+<li><a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a></li>
+<li><a href="#alerting_assembly-installing-the-core-components-of-stf">alerting</a></li>
+<li><a href="#graphing_assembly-installing-the-core-components-of-stf">graphing</a></li>
+<li><a href="#highAvailability_assembly-installing-the-core-components-of-stf">highAvailability</a></li>
+<li><a href="#transports_assembly-installing-the-core-components-of-stf">transports</a></li>
+</ul>
+</li>
 <li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</a></li>
-<li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing STF from the OKD environment</a></li>
+<li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing STF from the OKD environment</a>
+<ul class="sectlevel3">
+<li><a href="#deleting-the-namespace">Deleting the namespace</a></li>
+<li><a href="#removing-the-catalogsource">Removing the CatalogSource</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#assembly-completing-the-stf-configuration_assembly">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a></li>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
+<ul class="sectlevel3">
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 <li><a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a></li>
 <li><a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a></li>
 <li><a href="#deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</a></li>
+<li><a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a></li>
+</ul>
+</li>
 <li><a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a></li>
+<li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
+<li><a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>
+<ul class="sectlevel3">
+<li><a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a></li>
+<li><a href="#deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</a></li>
+<li><a href="#deleting-the-default-smart-gateways_assembly-completing-the-stf-configuration">Deleting the default Smart Gateways</a></li>
+<li><a href="#setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</a></li>
+<li><a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a></li>
+<li><a href="#querying-metrics-data-from-multiple-clouds_assembly-completing-the-stf-configuration">Querying metrics data from multiple clouds</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#assembly-advanced-features_assembly">Advanced features</a>
 <ul class="sectlevel2">
-<li><a href="#manifest-overrides_assembly-advanced-features">Customizing the deployment</a></li>
-<li><a href="#alerts_assembly-advanced-features">Alerts</a></li>
+<li><a href="#manifest-overrides_assembly-advanced-features">Customizing the deployment</a>
+<ul class="sectlevel3">
+<li><a href="#manifest-override-parameters_assembly-advanced-features">Manifest override parameters</a></li>
+<li><a href="#overriding-a-managed-manifest_assembly-advanced-features">Overriding a managed manifest</a></li>
+</ul>
+</li>
+<li><a href="#alerts_assembly-advanced-features">Alerts</a>
+<ul class="sectlevel3">
+<li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
+<li><a href="#configuring-custom-alerts_assembly-advanced-features">Configuring custom alerts</a></li>
+<li><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</a></li>
+</ul>
+</li>
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP Traps</a></li>
-<li><a href="#high-availability_assembly-advanced-features">High availability</a></li>
-<li><a href="#dashboards_assembly-advanced-features">Dashboards</a></li>
+<li><a href="#high-availability_assembly-advanced-features">High availability</a>
+<ul class="sectlevel3">
+<li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
+</ul>
+</li>
+<li><a href="#dashboards_assembly-advanced-features">Dashboards</a>
+<ul class="sectlevel3">
+<li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
+<li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
+<li><a href="#proc-retrieving-and-setting-grafana-credentials">Retrieving and setting Grafana login credentials</a></li>
+</ul>
+</li>
 <li><a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a></li>
 <li><a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a></li>
-<li><a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a></li>
-<li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></li>
+<li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a>
+<ul class="sectlevel3">
+<li><a href="#configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></li>
+</ul>
+</li>
 <li><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></li>
 </ul>
 </li>
@@ -1006,7 +1078,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>Enter the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-project service-telemetry</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc new-project service-telemetry</code></pre>
 </div>
 </div>
 </li>
@@ -1048,7 +1120,7 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</h4>
 <div class="paragraph _abstract">
-<p>Before you install ElasticSearch, you must have access to the resources on the OperatorHub.io Community Catalog Source.</p>
+<p>Before you install data storage and visualization operators, you must have access to the resources on the OperatorHub.io Community Catalog Source.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
@@ -1197,10 +1269,10 @@ EOF</code></pre>
 <p>Validate your <code>ClusterServiceVersion</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get --namespace openshift-operators csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</pre>
+amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1346,7 +1418,7 @@ smart-gateway-operator.v3.0.1622734308       Smart Gateway Operator             
 </table>
 </div>
 <div class="sect3">
-<h4 id="_backends">backends</h4>
+<h4 id="backends_assembly-installing-the-core-components-of-stf">backends</h4>
 <div class="paragraph">
 <p>Use the <code>backends</code> parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the <code>clouds</code> parameter. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
 </div>
@@ -1384,7 +1456,29 @@ spec:
 <p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
 </div>
 <div class="paragraph">
-<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a>.</p>
+<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To enable ElasticSearch as a storage backend for events, configure the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true</code></pre>
+</div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1717,83 +1811,26 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <h2 id="assembly-completing-the-stf-configuration_assembly">Completing the Service&#160;Telemetry&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport.</p>
+<p>For collection of metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport.</p>
 </div>
 <div class="paragraph">
+<p>STF can support both single and multiple clouds, with the default configuration in OpenStack and STF set up for a single cloud installation. For a single OpenStack overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+</div>
+<div class="paragraph">
+<p>To plan your OpenStack installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
+</div>
+<div class="paragraph">
+<p>As part of an OpenStack overcloud deployment, you might need to configure additional features in your environment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a>.</p>
-</div>
-<div class="sect2">
-<h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
-<div class="paragraph _abstract">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
-</div>
-<div class="paragraph">
-<p>If you use STF with OpenStack Train  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">  CephStorageExtraConfig:
-      tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
-      tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
-      tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses  Block and Object storage roles.</p>
-</div>
-<div class="paragraph">
-<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an OpenStack deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OpenStack  environment files.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
 </li>
 <li>
-<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
-<code>internal_api_subnet</code>
-is the value defined in the <code>name_lower</code> parameter of your network definition
-(with <code>_subnet</code> appended to the name for Leaf 0)
-, and is the network to which the
-<code>ComputeLeaf0</code>
-leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
-<div class="paragraph">
-<p>For the
-<code>ComputeLeaf0</code>
-leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the Apache&#160;Qpid&#160;Dispatch&#160;Router listener address parameter.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code> where <code>N</code> represents a unique identifier for the leaf.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This example configuration is on a CephStorage leaf role:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
-</div>
-</div>
+<p>To send metrics to both Gnocchi and STF, see <a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a>.</p>
 </li>
-</ol>
-</div>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
@@ -1830,9 +1867,8 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h3>
+<div class="sect3">
+<h4 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
 <div class="paragraph _abstract">
 <p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address in the STF connection file.</p>
 </div>
@@ -1866,8 +1902,8 @@ If your STF installation differs from the documentation, ensure that you retriev
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</h3>
+<div class="sect3">
+<h4 id="creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</h4>
 <div class="paragraph _abstract">
 <p>To configure the base parameters to provide a compatible data collection and transport for STF, you must create a file that defines the default data collection values.</p>
 </div>
@@ -1969,10 +2005,10 @@ If your STF installation differs from the documentation, ensure that you retriev
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</h3>
+<div class="sect3">
+<h4 id="configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</h4>
 <div class="paragraph _abstract">
-<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The configuration is set up for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
+<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The configuration is set up for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -1996,7 +2032,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="ulist">
 <ul>
 <li>
-<p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address">[retrieving-the-qdr-route-address]</a>:</p>
+<p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
@@ -2005,7 +2041,10 @@ If your STF installation differs from the documentation, ensure that you retriev
       port: 443
       role: edge
       sslProfile: sslProfile
-      verifyHostname: false</code></pre>
+      verifyHostname: false
+
+    MetricsQdrSSLProfiles:
+    -   name: sslProfile</code></pre>
 </div>
 </div>
 </li>
@@ -2015,14 +2054,27 @@ If your STF installation differs from the documentation, ensure that you retriev
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</h3>
+<div class="sect3">
+<h4 id="deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</h4>
 <div class="paragraph _abstract">
 <p>Deploy or update the overcloud with the required environment files to result in data being collected and transmitted to STF.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
+<li>
+<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Source the authentication file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$</code></pre>
+</div>
+</div>
+</li>
 <li>
 <p>Add the following files to your OpenStack TripleO deployment to setup data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="ulist">
@@ -2043,7 +2095,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <p>the <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ openstack overcloud deploy &lt;other arguments&gt;
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file <em>&lt;...other_environment_files...&gt;</em> \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
@@ -2062,85 +2114,6 @@ If your STF installation differs from the documentation, ensure that you retriev
 </li>
 </ol>
 </div>
-</div>
-<div class="sect2">
-<h3 id="sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</h3>
-<div class="paragraph _abstract">
-<p>To send metrics to Service&#160;Telemetry&#160;Framework (STF} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>You have created a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to STF. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>.</p>
-</li>
-</ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Create an environment file named <code>gnocchi-connectors.yaml</code> in the
-<code>/home/stack</code> directory.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
-    OS::TripleO::Services::GnocchiApi: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-api-container-puppet.yaml
-    OS::TripleO::Services::GnocchiMetricd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-metricd-container-puppet.yaml
-    OS::TripleO::Services::GnocchiStatsd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-statsd-container-puppet.yaml
-    OS::TripleO::Services::AodhApi: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-api-container-puppet.yaml
-    OS::TripleO::Services::AodhEvaluator: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-evaluator-container-puppet.yaml
-    OS::TripleO::Services::AodhNotifier: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-notifier-container-puppet.yaml
-    OS::TripleO::Services::AodhListener: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-listener-container-puppet.yaml
-    OS::TripleO::Services::PankoApi: /usr/share/openstack-tripleo-heat-templates/deployment/deprecated/panko/panko-api-container-puppet.yaml
-
-parameter_defaults:
-    CeilometerEnableGnocchi: true
-    CeilometerEnablePanko: false
-    GnocchiArchivePolicy: 'high'
-    GnocchiBackend: 'rbd'
-    GnocchiRbdPoolName: 'metrics'
-
-    EventPipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']
-    PipelinePublishers: ['gnocchi://?filter_project=service&archive_policy=high']</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add the environment file <code>gnocchi-connectors.yaml</code> to the deployment command. Replace &lt;other-argruments&gt; with files that are applicable to your environment:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml \
-  --environment-file /home/stack/gnocchi-connectors.yaml</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To verify that the configuration was successful, verify the content of the file <code>/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml</code> on a Controller node. Ensure that the <code>publishers</code> section of the file contains information for both notifier and Gnocchi.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">sources:
-    - name: meter_source
-      meters:
-          - "*"
-      sinks:
-          - meter_sink
-sinks:
-    - name: meter_sink
-      publishers:
-          - gnocchi://?filter_project=service&amp;archive_policy=high
-          - notifier://172.17.1.35:5666/?driver=amqp&amp;topic=metering</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 <div class="sect3">
 <h4 id="validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</h4>
@@ -2310,6 +2283,624 @@ Router Addresses
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</h3>
+<div class="paragraph _abstract">
+<p>To send metrics to Service&#160;Telemetry&#160;Framework (STF} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have created a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to STF. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create an environment file named <code>gnocchi-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
+    OS::TripleO::Services::GnocchiApi: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-api-container-puppet.yaml
+    OS::TripleO::Services::GnocchiMetricd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-metricd-container-puppet.yaml
+    OS::TripleO::Services::GnocchiStatsd: /usr/share/openstack-tripleo-heat-templates/deployment/gnocchi/gnocchi-statsd-container-puppet.yaml
+    OS::TripleO::Services::AodhApi: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-api-container-puppet.yaml
+    OS::TripleO::Services::AodhEvaluator: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-evaluator-container-puppet.yaml
+    OS::TripleO::Services::AodhNotifier: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-notifier-container-puppet.yaml
+    OS::TripleO::Services::AodhListener: /usr/share/openstack-tripleo-heat-templates/deployment/aodh/aodh-listener-container-puppet.yaml
+
+parameter_defaults:
+    CeilometerEnableGnocchi: true
+    CeilometerEnablePanko: false
+    GnocchiArchivePolicy: 'high'
+    GnocchiBackend: 'rbd'
+    GnocchiRbdPoolName: 'metrics'
+
+    EventPipelinePublishers: ['gnocchi://?filter_project=service']
+    PipelinePublishers: ['gnocchi://?filter_project=service']</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the environment file <code>gnocchi-connectors.yaml</code> to the deployment command. Replace <em>&lt;other_arguments&gt;</em> with files that are applicable to your environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml \
+  --environment-file /home/stack/gnocchi-connectors.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To verify that the configuration was successful, verify the content of the file <code>/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml</code> on a Controller node. Ensure that the <code>publishers</code> section of the file contains information for both notifier and Gnocchi.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">sources:
+    - name: meter_source
+      meters:
+          - "*"
+      sinks:
+          - meter_sink
+sinks:
+    - name: meter_sink
+      publishers:
+          - gnocchi://?filter_project=service
+          - notifier://172.17.1.35:5666/?driver=amqp&amp;topic=metering</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
+<div class="paragraph _abstract">
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
+</div>
+<div class="paragraph">
+<p>If you use STF with OpenStack Train  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">  CephStorageExtraConfig:
+      tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
+      tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
+      tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses  Block and Object storage roles.</p>
+</div>
+<div class="paragraph">
+<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an OpenStack deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OpenStack  environment files.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
+</li>
+<li>
+<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
+<code>internal_api_subnet</code>
+is the value defined in the <code>name_lower</code> parameter of your network definition
+(with <code>_subnet</code> appended to the name for Leaf 0)
+, and is the network to which the
+<code>ComputeLeaf0</code>
+leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
+<div class="paragraph">
+<p>For the
+<code>ComputeLeaf0</code>
+leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the Apache&#160;Qpid&#160;Dispatch&#160;Router listener address parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code> where <code>N</code> represents a unique identifier for the leaf.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example configuration is on a CephStorage leaf role:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</h3>
+<div class="paragraph _abstract">
+<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF). When configuring multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the STF deployment, Smart Gateway instances listen on these topics in order to save information to the common data store. Data that is stored by the Smart Gateway in the data storage domain is filtered by using the metadata created by each of the Smart Gateways.</p>
+</div>
+<div id="osp-stf-multiple-clouds" class="imageblock">
+<div class="content">
+<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OpenStack clouds connecting to STF"/>
+</div>
+<div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
+</div>
+<div class="paragraph">
+<p>To configure the OpenStack overcloud for a multiple cloud scenario, complete the following tasks:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Plan the AMQP address prefixes that you want to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a>.</p>
+</li>
+<li>
+<p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</a>.</p>
+</li>
+<li>
+<p>Configure each cloud with a unique domain name. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</a>.</p>
+</li>
+<li>
+<p>Create the base configuration for STF. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
+</li>
+<li>
+<p>Configure each cloud to send its metrics and events to STF on the correct address. For more information, see <a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</h4>
+<div class="paragraph _abstract">
+<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>collectd/cloud1-telemetry</code></p>
+</li>
+<li>
+<p><code>collectd/cloud1-notify</code></p>
+</li>
+<li>
+<p><code>anycast/ceilometer/cloud1-metering.sample</code></p>
+</li>
+<li>
+<p><code>anycast/ceilometer/cloud1-event.sample</code></p>
+</li>
+<li>
+<p><code>collectd/cloud2-telemetry</code></p>
+</li>
+<li>
+<p><code>collectd/cloud2-notify</code></p>
+</li>
+<li>
+<p><code>anycast/ceilometer/cloud2-metering.sample</code></p>
+</li>
+<li>
+<p><code>anycast/ceilometer/cloud2-event.sample</code></p>
+</li>
+<li>
+<p><code>collectd/us-east-1-telemetry</code></p>
+</li>
+<li>
+<p><code>collectd/us-west-3-telemetry</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</h4>
+<div class="paragraph _abstract">
+<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
+</div>
+<div class="paragraph">
+<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under <code>cloud1</code> with the following subscription addresses:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 33.3334%;"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>collector</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>type</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>default subscription address</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/telemetry</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/notify</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/metering.sample</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/event.sample</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have determined your cloud naming scheme. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a>.</p>
+</li>
+<li>
+<p>You have created your list of clouds objects. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the <code>default</code> ServiceTelemetry object and add a <code>clouds</code> parameter with your configuration:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the <code>ServiceTelemetry</code> name <code>default</code> and the <code>clouds.name</code> does not exceed 19 characters. Topic addresses have no character limitation and can be different than the <code>clouds.name</code> value.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  ...
+spec:
+  ...
+  clouds:
+  - name: cloud1
+    events:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-notify
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+    metrics:
+      collectors:
+      - collectorType: collectd
+        subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: ceilometer
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+  - name: cloud2
+    events:
+      ...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save the ServiceTelemetry object.</p>
+</li>
+<li>
+<p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=smart-gateway</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
+default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
+default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
+default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-the-default-smart-gateways_assembly-completing-the-stf-configuration">Deleting the default Smart Gateways</h4>
+<div class="paragraph _abstract">
+<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. To enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter, you must set the <code>cloudsRemoveOnMissing</code> parameter to <code>true</code> in the <code>ServiceTelemetry</code> manifest.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you do not want to deploy any Smart Gateways, define an empty clouds object by using the <code>clouds: {}</code> parameter.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+</li>
+<li>
+<p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  ...
+spec:
+  ...
+  cloudsRemoveOnMissing: true
+  clouds:
+    ...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save the modifications.</p>
+</li>
+<li>
+<p>Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get smartgateways</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</h4>
+<div class="paragraph _abstract">
+<p>To ensure that AMQ router connections from OpenStack to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a new environment file, for example, <code>hostnames.yaml</code>.</p>
+</li>
+<li>
+<p>Set the <code>CloudDomain</code> parameter in the environment file, as shown in the following example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    CloudDomain: newyork-west-04
+    CephStorageHostnameFormat: 'ceph-%index%'
+    ObjectStorageHostnameFormat: 'swift-%index%'
+    ComputeHostnameFormat: 'compute-%index%'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add this environment file to your deployment. For more information, see <a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a> and <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters">Core overcloud parameters</a> in the <em>Overcloud Parameters</em> guide.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</h4>
+<div class="paragraph _abstract">
+<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you enabled container health and API status monitoring, you must also modify the <code>CollectdSensubilityResultsChannel</code> parameter. For more information, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have retrieved the Apache&#160;Qpid&#160;Dispatch&#160;Router route address. For more information, see <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>You have created the base configuration for STF. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
+</li>
+<li>
+<p>You have created a unique domain name environment file. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</a>.</p>
+</li>
+<li>
+<p>You have created the <code>enable-stf.yaml</code> to set environment defaults for STF. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
+</li>
+<li>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code>, <code>CollectdAmqpInstances</code>, and <code>CollectdSensubilityResultsChannel</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
+<div class="listingblock">
+<div class="title">stf-connectors.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    MetricsQdrConnectors:
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="1"></i><b>(1)</b>
+          port: 443
+          role: edge
+          verifyHostname: false
+          sslProfile: sslProfile
+
+    MetricsQdrSSLProfiles:
+        - name: sslProfile
+
+    CeilometerQdrEventsConfig:
+        driver: amqp
+        topic: cloud1-event   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    CeilometerQdrMetricsConfig:
+        driver: amqp
+        topic: cloud1-metering   <i class="conum" data-value="3"></i><b>(3)</b>
+
+    CollectdAmqpInstances:
+        cloud1-notify:        <i class="conum" data-value="4"></i><b>(4)</b>
+            notify: true
+            format: JSON
+            presettle: false
+        cloud1-telemetry:     <i class="conum" data-value="5"></i><b>(5)</b>
+            format: JSON
+            presettle: true
+
+    CollectdSensubilityResultsChannel: collectd/cloud1-notify <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Define the topic for collectd-sensubility events. Ensure that this value is the exact string format <code>collectd/cloud1-notify</code></td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.bridge.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
+</li>
+<li>
+<p>Source the authentication file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
+  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+  --environment-file /home/stack/hostnames.yaml \
+  --environment-file /home/stack/enable-stf.yaml \
+  --environment-file /home/stack/stf-connectors.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Deploy the OpenStack overcloud.</p>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For information about validating the deployment, see <a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="querying-metrics-data-from-multiple-clouds_assembly-completing-the-stf-configuration">Querying metrics data from multiple clouds</h4>
+<div class="paragraph _abstract">
+<p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
+</div>
+<div class="paragraph">
+<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter-smartgateway"}</code>.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2334,9 +2925,6 @@ Router Addresses
 </li>
 <li>
 <p><a href="#dashboards_assembly-advanced-features">Dashboards</a></p>
-</li>
-<li>
-<p><a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a></p>
 </li>
 <li>
 <p><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></p>
@@ -2598,9 +3186,17 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Metric Listener down
-          expr: collectd_qpid_router_status &lt; 1 # To change the rule, edit the value of the expr parameter.
+          expr: collectd_qpid_router_status &lt; 1 <i class="conum" data-value="1"></i><b>(1)</b>
 EOF</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>To change the rule, edit the value of the expr parameter.</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -3258,22 +3854,22 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </li>
 </ul>
 </div>
-<div class="olist arabic">
+<div class="paragraph">
 <div class="title">Procedure</div>
+<p>To disable the monitoring of container resource usage disable <code>CollectdEnableLibpodstats</code>.</p>
+</div>
+<div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open the <code>stf-connectors.yaml</code> file.</p>
-</li>
-<li>
-<p>Add the following configuration to <code>parameter_defaults</code>:</p>
+<p>Open the <code>stf-connectors.yaml</code> file and add the <code>CollectdEnableLibpodstats</code> parameter to override the setting in <code>enable-stf.yaml</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CollectdEnableLibpodstats: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CollectdEnableLibpodstats: false</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Continue with the overcloud deployment procedure.</p>
+<p>Continue with the overcloud deployment procedure. For more information, see <a href="#deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</a>.</p>
 </li>
 </ol>
 </div>
@@ -3286,6 +3882,9 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <div class="paragraph">
 <p>To monitor healthchecks in Service&#160;Telemetry&#160;Framework (STF), you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol. The STF architecture considers healthcheck results to be events and they are stored in ElasticSearch.</p>
 </div>
+<div class="paragraph">
+<p>Container health monitoring is enabled by default in <code>enable-stf.yaml</code>. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
+</div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
@@ -3297,25 +3896,22 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </li>
 </ul>
 </div>
-<div class="olist arabic">
+<div class="paragraph">
 <div class="title">Procedure</div>
+<p>To disable the monitoring of container health status disable <code>CollectdEnableSensubility</code>.</p>
+</div>
+<div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open the <code>stf-connectors.yaml</code> and edit the <code>collectd-sensubility</code> parameter:</p>
+<p>Open the <code>stf-connectors.yaml</code> and add the <code>CollectdEnableSensubility</code> parameter to override the setting in <code>enable-stf.yaml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdEnableSensubility: true
-CollectdSensubilityTransport: amqp1</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdEnableSensubility: false</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>If your environment has multiple clouds, configure the <code>collectd-sensubility</code> events channel with the new collectd events address. Edit the <code>stf-connectors.yaml</code> file:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdSensubilityResultsChannel: collectd/cloudprefix-notify</code></pre>
-</div>
-</div>
+<p>Continue with the overcloud deployment procedure. For more information, see <a href="#deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</a>.</p>
 </li>
 </ol>
 </div>
@@ -3323,471 +3919,9 @@ CollectdSensubilityTransport: amqp1</code></pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about multiple cloud addresses, see <a href="#configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</a>.</p>
+<p>For more information about multiple cloud addresses, see <a href="#configuring-multiple-clouds_assembly-advanced-features">[configuring-multiple-clouds_assembly-advanced-features]</a>.</p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configuring-multiple-clouds_assembly-advanced-features">Configuring multiple clouds</h3>
-<div class="paragraph _abstract">
-<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF).</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Plan the AMQP address prefixes that you want to use for each cloud. For more information, see <a href="#planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</a>.</p>
-</li>
-<li>
-<p>Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see <a href="#deploying-smart-gateways_assembly-advanced-features">Deploying Smart Gateways</a>.</p>
-</li>
-<li>
-<p>Configure each cloud with a unique domain name. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</a>.</p>
-</li>
-<li>
-<p>Configure each cloud to send its metrics and events to STF on the correct address. For more information, see <a href="#creating-openstack-environment-file_assembly-advanced-features">Creating the OpenStack environment file</a>.</p>
-</li>
-</ol>
-</div>
-<div id="osp-stf-multiple-clouds" class="imageblock">
-<div class="content">
-<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OpenStack clouds connecting to STF"/>
-</div>
-<div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
-</div>
-<div class="sect3">
-<h4 id="planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</h4>
-<div class="paragraph _abstract">
-<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>collectd/cloud1-telemetry</code></p>
-</li>
-<li>
-<p><code>collectd/cloud1-notify</code></p>
-</li>
-<li>
-<p><code>anycast/ceilometer/cloud1-metering.sample</code></p>
-</li>
-<li>
-<p><code>anycast/ceilometer/cloud1-event.sample</code></p>
-</li>
-<li>
-<p><code>collectd/cloud2-telemetry</code></p>
-</li>
-<li>
-<p><code>collectd/cloud2-notify</code></p>
-</li>
-<li>
-<p><code>anycast/ceilometer/cloud2-metering.sample</code></p>
-</li>
-<li>
-<p><code>anycast/ceilometer/cloud2-event.sample</code></p>
-</li>
-<li>
-<p><code>collectd/us-east-1-telemetry</code></p>
-</li>
-<li>
-<p><code>collectd/us-west-3-telemetry</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deploying-smart-gateways_assembly-advanced-features">Deploying Smart Gateways</h4>
-<div class="paragraph _abstract">
-<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
-</div>
-<div class="paragraph">
-<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under <code>cloud1</code> with the following subscription addresses:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>collector</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>type</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>default subscription address</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/telemetry</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd/notify</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/metering.sample</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anycast/ceilometer/event.sample</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>You have determined your cloud naming scheme. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_assembly-advanced-features">Planning AMQP address prefixes</a>.</p>
-</li>
-<li>
-<p>You have created your list of clouds objects. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
-</li>
-</ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Edit the <code>default</code> ServiceTelemetry object and add a <code>clouds</code> parameter with your configuration:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  ...
-spec:
-  ...
-  clouds:
-  - name: cloud1
-    events:
-      collectors:
-      - collectorType: collectd
-        subscriptionAddress: collectd/cloud1-notify
-      - collectorType: ceilometer
-        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
-    metrics:
-      collectors:
-      - collectorType: collectd
-        subscriptionAddress: collectd/cloud1-telemetry
-      - collectorType: ceilometer
-        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
-  - name: cloud2
-    events:
-      ...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Save the ServiceTelemetry object.</p>
-</li>
-<li>
-<p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=smart-gateway</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
-default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
-default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
-default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
-default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deleting-the-default-smart-gateways_assembly-advanced-features">Deleting the default Smart Gateways</h4>
-<div class="paragraph _abstract">
-<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. To enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter, you must set the <code>cloudsRemoveOnMissing</code> parameter to <code>true</code> in the <code>ServiceTelemetry</code> manifest.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-If you do not want to deploy any Smart Gateways, define an empty clouds object by using the <code>clouds: {}</code> parameter.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
-</li>
-<li>
-<p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  ...
-spec:
-  ...
-  cloudsRemoveOnMissing: true
-  clouds:
-    ...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Save the modifications.</p>
-</li>
-<li>
-<p>Verify that the Operator deleted the Smart Gateways. This can take several minutes while the Operators reconcile the changes:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get smartgateways</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</h4>
-<div class="paragraph _abstract">
-<p>To ensure that AMQ router connections from OpenStack to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Create a new environment file, for example, <code>hostnames.yaml</code>.</p>
-</li>
-<li>
-<p>Set the <code>CloudDomain</code> parameter in the environment file, as shown in the following example:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
-    CloudDomain: newyork-west-04
-    CephStorageHostnameFormat: 'ceph-%index%'
-    ObjectStorageHostnameFormat: 'swift-%index%'
-    ComputeHostnameFormat: 'compute-%index%'</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add this environment file to your deployment. For more information, see <a href="#creating-openstack-environment-file_assembly-advanced-features">Creating the OpenStack environment file</a> and <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters">Core overcloud parameters</a> in the <em>Overcloud Parameters</em> guide.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="creating-openstack-environment-file_assembly-advanced-features">Creating the OpenStack environment file</h4>
-<div class="paragraph _abstract">
-<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you enabled container health and API status monitoring, you must also modify the <code>CollectdSensubilityResultsChannel</code> parameter. For more information, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>You have created a unique domain name environment file. For more information, see <a href="#setting-a-unique-cloud-domain_assembly-advanced-features">Setting a unique cloud domain</a>.</p>
-</li>
-<li>
-<p>You have created the <code>enabled-stf.yaml</code> to set environment defaults for STF.</p>
-</li>
-</ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Create the <code>stf-connectors.yaml</code> file and modify it to match the AMQP address that you want for this cloud deployment:</p>
-<div class="listingblock">
-<div class="title">stf-connectors.yaml</div>
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
-    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
-    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-puppet.yaml
-    OS::TripleO::Services::CeilometerAgentCentral: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-central-container-puppet.yaml
-    OS::TripleO::Services::CeilometerAgentNotification: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-notification-container-puppet.yaml
-    OS::TripleO::Services::CeilometerAgentIpmi: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-ipmi-container-puppet.yaml
-    OS::TripleO::Services::ComputeCeilometerAgent: /usr/share/openstack-tripleo-heat-templates/deployment/ceilometer/ceilometer-agent-compute-container-puppet.yaml
-    OS::TripleO::Services::Redis: /usr/share/openstack-tripleo-heat-templates/deployment/database/redis-pacemaker-puppet.yaml
-
-parameter_defaults:
-    EnableSTF: true
-
-    EventPipelinePublishers: []
-    PipelinePublishers: []
-    CeilometerEnablePanko: false
-    CeilometerQdrPublishEvents: true
-    CeilometerQdrEventsConfig:
-        driver: amqp
-        topic: cloud1-event   <i class="conum" data-value="1"></i><b>(1)</b>
-    CeilometerQdrMetricsConfig:
-        driver: amqp
-        topic: cloud1-metering   <i class="conum" data-value="2"></i><b>(2)</b>
-
-
-    CollectdConnectionType: amqp1
-    CollectdAmqpInterval: 5
-    CollectdDefaultPollingInterval: 5
-
-    CollectdAmqpInstances:
-        cloud1-notify:        <i class="conum" data-value="3"></i><b>(3)</b>
-            notify: true
-            format: JSON
-            presettle: false
-        cloud1-telemetry:     <i class="conum" data-value="4"></i><b>(4)</b>
-            format: JSON
-            presettle: true
-    CollectdEnableSensubility: true <i class="conum" data-value="7"></i><b>(7)</b>
-    CollectdSensubilityTransport: amqp1
-    CollectdSensubilityResultsChannel: collectd/cloud1-notify <i class="conum" data-value="5"></i><b>(5)</b>
-
-    MetricsQdrAddresses:
-        - prefix: collectd
-          distribution: multicast
-        - prefix: anycast/ceilometer
-          distribution: multicast
-
-    MetricsQdrSSLProfiles:
-        - name: sslProfile
-    MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="6"></i><b>(6)</b>
-          port: 443
-          role: edge
-          verifyHostname: false
-          sslProfile: sslProfile</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Define the topic for collectd-sensubility events. This should be the exact string format of <code>collectd/cloud1-notify</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Adjust the <code>MetricsQdrConnectors</code> host to the address of the STF route.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Enable monitoring of health and API status.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
-</li>
-<li>
-<p>Save the file in a directory for custom environment files, for example <code>/home/stack/custom_templates/</code>.</p>
-</li>
-<li>
-<p>Source the authentication file:</p>
-<div class="listingblock">
-<div class="content">
-<pre>[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
-<div class="listingblock">
-<div class="content">
-<pre>(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy \
---templates /usr/share/openstack-tripleo-heat-templates \
-...
--e /home/stack/custom_templates/hostnames.yaml \
--e /home/stack/custom_templates/stf-connectors.yaml \
-...</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For information about validating the deployment, see <a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="querying-metrics-data-from-multiple-clouds_assembly-advanced-features">Querying metrics data from multiple clouds</h4>
-<div class="paragraph _abstract">
-<p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
-</div>
-<div class="paragraph">
-<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter-smartgateway"}</code>.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -5967,7 +6101,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-19 13:16:38 UTC
+Last updated 2021-06-21 14:16:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
