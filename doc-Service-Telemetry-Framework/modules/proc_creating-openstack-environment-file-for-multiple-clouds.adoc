@@ -32,7 +32,7 @@ If you enabled container health and API status monitoring, you must also modify 
 .Prerequisites
 
 ifdef::include_when_13[]
-* Retrieve the CA certificate from the {MessageBus} deployed by {ProjectShort}. For more information, see xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
+* You have retrieved the CA certificate from the {MessageBus} deployed by {ProjectShort}. For more information, see xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
 endif::include_when_13[]
 * Retrieve the {MessageBus} route address. For more information, see xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 * Created the base configuration for {ProjectShort}. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
