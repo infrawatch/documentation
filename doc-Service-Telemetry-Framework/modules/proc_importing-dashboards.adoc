@@ -1,0 +1,82 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_importing-dashboards.adoc[leveloffset=+2]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="importing-dashboards_{context}"]
+= Importing dashboards
+
+[role="_abstract"]
+The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
+
+.Procedure
+
+. Import the infrastructure dashboard:
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml
+
+grafanadashboard.integreatly.org/rhos-dashboard created
+----
+. Import the cloud dashboard:
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml
+
+grafanadashboard.integreatly.org/rhos-cloud-dashboard created
+----
++
+[WARNING]
+====
+Some panels in the cloud dashboard require that you set the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname` in the stf-connectors.yaml file. If you do not configure this parameter, affected dashboards remain empty.
+[source,yaml]
+----
+parameter_defaults:
+    ExtraConfig:
+        collectd::plugin::virt::hostname_format: name uuid hostname
+----
+====
+
+. Verify that the dashboards are available:
++
+[source,bash]
+----
+$ oc get grafanadashboards
+
+NAME                   AGE
+rhos-dashboard         7d21h
+rhos-cloud-dashboard   7d21h
+----
+
+. Retrieve the Grafana route address:
++
+[source,bash,options="nowrap"]
+----
+$ oc get route grafana-route -ojsonpath='{.spec.host}' 
+
+grafana-route-service-telemetry.apps.infra.watch
+----
+
+. Navigate to https://_<grafana_route_address>_ in a web browser. Replace _<grafana_route_address>_ with the value that you retrieved in the previous step.
+
+. To view the dashboard, click *Dashboards* and *Manage*.
