@@ -2,31 +2,21 @@
 //
 // <List assemblies here, each on a new line>
 
-// This assembly can be included from other assemblies using the following
-// include statement:
-// include::<path>/assembly_upgrading-service-telemetry-framework-to-version-1-2.adoc[leveloffset=+1]
+////
+Retains the context of the parent assembly if this assembly is nested within another assembly.
+For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
+See also the complementary step on the last line of this file.
+////
 
-// The following line is necessary to allow assemblies be included in other
-// assemblies. It restores the `context` variable to its previous state.
-:parent-context-of-upgrading-service-telemetry-framework-to-version-1-2: {context}
+ifdef::context[:parent-context: {context}]
 
-// The file name and the ID are based on the assembly title.
-// For example:
-// * file name: assembly_my-assembly-a.adoc
-// * ID: [id='assembly_my-assembly-a_{context}']
-// * Title: = My assembly A
-//
-// The ID is used as an anchor for linking to the module.
-// Avoid changing it after the module has been published
-// to ensure existing links are not broken.
-//
-// In order for  the assembly to be reusable in other assemblies in a guide,
-// include {context} in the ID: [id='a-collection-of-modules_{context}'].
-//
-// If the assembly covers a task, start the title with a verb in the gerund
-// form, such as Creating or Configuring.
-[id='assembly-upgrading-service-telemetry-framework-to-version-1-2_{context}']
+[id="assembly-upgrading-service-telemetry-framework-to-version-1-2_{context}"]
 = Upgrading Service Telemetry Framework to version 1.2
+
+// The `context` attribute enables module reuse. Every module's ID
+// includes {context}, which ensures that the module has a unique ID even if
+// it is reused multiple times in a guide.
+:context: assembly-upgrading-service-telemetry-framework-to-version-1-2
 
 [role="_abstract"]
 To migrate from {Project} ({ProjectShort}) v1.1 to {ProjectShort} v1.2, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} ({OpenShiftShort}) v4.5 environment.
@@ -40,15 +30,10 @@ To upgrade from {ProjectShort} v1.1 to v1.2, complete the following procedures:
 
 .Procedure
 
-. Remove the {ProjectShort} 1.1 Operators.
-. Remove the {ProjectShort} 1.1 CatalogSource.
-. Subscribe to the Service Telemetry Operator.
+. xref:removing-service-telemetry-framework-1-1-operators_assembly-upgrading-service-telemetry-framework-to-version-1-2[Remove the {ProjectShort} 1.1 Operators].
+. xref:removing-the-service-telemetry-framework-v1-1-catalogsource_assembly-upgrading-service-telemetry-framework-to-version-1-2[Remove the {ProjectShort} 1.1 CatalogSource].
+. xref:subscribing-to-the-service-telemetry-operator_assembly-upgrading-service-telemetry-framework-to-version-1-2[Subscribe to the Service Telemetry Operator].
 
-//. xref:removing-service-telemetry-framework-1-1-operators_assembly-upgrading-service-telemetry-framework-to-version-1-2[].
-
-//<<removing-service-telemetry-framework-1-1-operators_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
-//. <<removing-the-stf-v1-1-catalogsource_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
-//. <<subscribing-to-the-service-telemetry-operator_assembly-upgrading-service-telemetry-framework-to-version-1-2>>.
 
 include::../modules/proc_removing-service-telemetry-framework-1-1-operators.adoc[leveloffset=+1]
 include::../modules/proc_removing-the-service-telemetry-framework-v1-1-catalogsource.adoc[leveloffset=+1]
@@ -70,8 +55,8 @@ default-cloud1-coll-meter-smartgateway-868476456b-ksh9b   2/2     Running       
 ...
 ----
 
-
-
 // The following line is necessary to allow assemblies be included in other
 // assemblies. It restores the `context` variable to its previous state.
-:context: {parent-context-of-upgrading-service-telemetry-framework-to-version-1-2}
+//:context: {parent-context-of-upgrading-service-telemetry-framework-to-version-1-2}
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
