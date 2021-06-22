@@ -554,7 +554,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
 <li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
-<li><a href="#proc-retrieving-and-setting-grafana-credentials">Retrieving and setting Grafana login credentials</a></li>
+<li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
 <li><a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a></li>
@@ -3599,27 +3599,27 @@ spec:
 <div class="paragraph">
 <p>You can use two dashboards to monitor a cloud:</p>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Infrastructure dashboard</dt>
+<dd>
+<p>Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
+</dd>
+<dt class="hdlist1">Cloud view dashboard</dt>
+<dd>
+<p>Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Infrastructure dashboard
-Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
+<p>For more information about API health monitoring, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.</p>
 </li>
 <li>
-<p>Cloud view dashboard
-Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>To enable API health monitoring, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.</p>
-</li>
-<li>
-<p>To enable service monitoring, see <a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a>.</p>
+<p>For more information about service monitoring, see <a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a>.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
+</dd>
+</dl>
 </div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
@@ -3732,7 +3732,7 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 <div class="sect3">
 <h4 id="importing-dashboards_assembly-advanced-features">Importing dashboards</h4>
-<div class="paragraph">
+<div class="paragraph _abstract">
 <p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
 </div>
 <div class="olist arabic">
@@ -3757,13 +3757,15 @@ grafanadashboard.integreatly.org/rhos-dashboard created</code></pre>
 grafanadashboard.integreatly.org/rhos-cloud-dashboard created</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Some panels in the cloud dashboard require that you set the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the stf-connectors.yaml. If you do not configure this parameter, affected dashboards remain empty.</p>
+<p>Some panels in the cloud dashboard require that you set the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the stf-connectors.yaml file. If you do not configure this parameter, affected dashboards remain empty.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3772,10 +3774,11 @@ grafanadashboard.integreatly.org/rhos-cloud-dashboard created</code></pre>
         collectd::plugin::virt::hostname_format: name uuid hostname</code></pre>
 </div>
 </div>
+</td>
+</tr>
+</table>
 </div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Verify that the dashboards are available:</p>
 <div class="listingblock">
@@ -3799,7 +3802,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </li>
 <li>
-<p>Navigate to <a href="https://&lt;GRAFANA-ROUTE-ADDRESS&gt" class="bare">https://&lt;GRAFANA-ROUTE-ADDRESS&gt</a>; in a web browser. Replace &lt;GRAFANA-ROUTE-ADDRESS&gt; with the value that you retrieved in the previous step.</p>
+<p>Navigate to https://<em>&lt;grafana_route_address&gt;</em> in a web browser. Replace <em>&lt;grafana_route_address&gt;</em> with the value that you retrieved in the previous step.</p>
 </li>
 <li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
@@ -3808,7 +3811,10 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proc-retrieving-and-setting-grafana-credentials">Retrieving and setting Grafana login credentials</h4>
+<h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
+<div class="paragraph _abstract">
+<p>STF sets default login credentials when Grafana is enabled. The credentials can be overridden in the <code>ServiceTelemetry</code> object.</p>
+</div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
@@ -6101,7 +6107,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-21 14:16:31 UTC
+Last updated 2021-06-22 00:12:04 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
