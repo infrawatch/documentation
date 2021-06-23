@@ -51,4 +51,4 @@ CollectdEnableSensubility: false
 
 .Additional resources
 
-* For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_assembly-advanced-features[].
+* For more information about multiple cloud addresses, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
