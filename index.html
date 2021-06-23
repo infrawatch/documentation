@@ -508,6 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
+<li><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></li>
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 <li><a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a></li>
 <li><a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a></li>
@@ -553,12 +554,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#dashboards_assembly-advanced-features">Dashboards</a>
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
-<li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
 <li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
-<li><a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a></li>
-<li><a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a></li>
 <li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></li>
@@ -1843,6 +1841,9 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></p>
+</li>
+<li>
 <p><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></p>
 </li>
 <li>
@@ -1859,13 +1860,32 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </li>
 </ol>
 </div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
+<div class="sect3">
+<h4 id="getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</h4>
+<div class="paragraph _abstract">
+<p>To connect your OpenStack overcloud to Service&#160;Telemetry&#160;Framework (STF), retrieve the CA certificate of Apache&#160;Qpid&#160;Dispatch&#160;Router that runs within Service&#160;Telemetry&#160;Framework and use the certificate in the OpenStack configuration.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
 <li>
-<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/monitoring_tools_configuration_guide/index#amqp1">The amqp1 plug-in</a> in the <em>Monitoring Tools Configuration</em> guide.</p>
+<p>View a list of available certificates in Service&#160;Telemetry&#160;Framework:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secrets</code></pre>
+</div>
+</div>
 </li>
-</ul>
+<li>
+<p>Retrieve and note the content of the <code>default-interconnect-selfsigned</code> Secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
@@ -1932,9 +1952,6 @@ If your STF installation differs from the documentation, ensure that you retriev
 </tr>
 </table>
 </div>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
@@ -1946,16 +1963,9 @@ If your STF installation differs from the documentation, ensure that you retriev
     ManagePolling: true
     ManagePipeline: true
 
-    # required to set valid parameter due to typo in ceilometer-write-qdr.yaml
-    # and will be resolved in a future release
+    # enable Ceilometer metrics and events
     CeilometerQdrPublishMetrics: true
-
-    # enable collection of API status
-    CollectdEnableSensubility: true
-    CollectdSensubilityTransport: amqp1
-
-    # enable collection of containerized service metrics
-    CollectdEnableLibpodstats: true
+    CeilometerQdrPublishEvents: true
 
     # set collectd overrides for higher telemetry resolution and extra plugins
     # to load
@@ -1989,20 +1999,12 @@ If your STF installation differs from the documentation, ensure that you retriev
         # receive extra information about virtual memory
         collectd::plugin::vmem::verbose: true
 
-        # provide name and uuid in addition to hostname for better correlation
-        # to ceilometer data
-        collectd::plugin::virt::hostname_format: "name uuid hostname"
-
         # provide the human-friendly name of the virtual instance
-        collectd::plugin::virt::plugin_instance_format: metadata
-
-        # set memcached collectd plugin to report its metrics by hostname
-        # rather than host IP, ensuring metrics in the dashboard remain uniform
-        collectd::plugin::memcached::instances:
-          local:
-            host: "%{hiera(<em>fqdn_canonical</em>)}"
-            port: 11211</code></pre>
+        collectd::plugin::virt::plugin_instance_format: metadata</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -2013,6 +2015,9 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
+<li>
+<p>Retrieve the CA certificate from the Apache&#160;Qpid&#160;Dispatch&#160;Router deployed by STF. For more information, see <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
+</li>
 <li>
 <p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address. For more information, see <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
@@ -2033,6 +2038,9 @@ If your STF installation differs from the documentation, ensure that you retriev
 <ul>
 <li>
 <p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
@@ -2044,7 +2052,11 @@ If your STF installation differs from the documentation, ensure that you retriev
       verifyHostname: false
 
     MetricsQdrSSLProfiles:
-    -   name: sslProfile</code></pre>
+    -   name: sslProfile
+        caCertFileContent: |
+          ----BEGIN CERTIFICATE----
+          &lt;snip&gt;
+          ----END CERTIFICATE----</code></pre>
 </div>
 </div>
 </li>
@@ -2142,7 +2154,7 @@ Some telemetry data is only available when OpenStack has active workloads.
 <p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker container inspect --format '{{.State.Status}}' metrics_qdr
 
 running</code></pre>
 </div>
@@ -2152,7 +2164,7 @@ running</code></pre>
 <p>Return the internal network address on which Apache&#160;Qpid&#160;Dispatch&#160;Router is running, for example, <code>172.17.1.44</code> listening on port <code>5666</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker exec -it metrics_qdr cat /etc/qpid-dispatch/qdrouterd.conf
 
 listener {
     host: 172.17.1.44
@@ -2167,7 +2179,7 @@ listener {
 <p>Return a list of connections to the local Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
   id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
@@ -2205,7 +2217,7 @@ Connections
 <p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
 Router Links
   type      dir  conn id  id    peer  class   addr                  phs  cap  pri  undel  unsett  deliv    presett  psdrop  acc  rej  rel     mod  delay  rate
   ===========================================================================================================================================================
@@ -2364,7 +2376,7 @@ sinks:
 <div class="sect2">
 <h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
 <div class="paragraph _abstract">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 <div class="paragraph">
 <p>If you use STF with OpenStack Train  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
@@ -2388,36 +2400,25 @@ Because a spine-leaf configuration can result in different networks being assign
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
+<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
 </li>
 <li>
 <p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
-<code>internal_api_subnet</code>
+<code>internal_api0</code>
 is the value defined in the <code>name_lower</code> parameter of your network definition
-(with <code>_subnet</code> appended to the name for Leaf 0)
 , and is the network to which the
-<code>ComputeLeaf0</code>
+<code>Compute0</code>
 leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
 <div class="paragraph">
 <p>For the
-<code>ComputeLeaf0</code>
+<code>Compute0</code>
 leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the Apache&#160;Qpid&#160;Dispatch&#160;Router listener address parameter.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code> where <code>N</code> represents a unique identifier for the leaf.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Compute0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2425,9 +2426,9 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorage0ExtraConfig:
+›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
+›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"</code></pre>
 </div>
 </div>
 </li>
@@ -2745,21 +2746,12 @@ spec:
 <div class="paragraph _abstract">
 <p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you enabled container health and API status monitoring, you must also modify the <code>CollectdSensubilityResultsChannel</code> parameter. For more information, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.
-</td>
-</tr>
-</table>
-</div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
+<li>
+<p>You have retrieved the CA certificate from the Apache&#160;Qpid&#160;Dispatch&#160;Router deployed by STF. For more information, see <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
+</li>
 <li>
 <p>You have retrieved the Apache&#160;Qpid&#160;Dispatch&#160;Router route address. For more information, see <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
@@ -2785,6 +2777,10 @@ If you enabled container health and API status monitoring, you must also modify 
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code>, <code>CollectdAmqpInstances</code>, and <code>CollectdSensubilityResultsChannel</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -2798,6 +2794,10 @@ If you enabled container health and API status monitoring, you must also modify 
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
+          caCertFileContent: |
+            ----BEGIN CERTIFICATE----
+            &lt;snip&gt;
+            ----END CERTIFICATE----
 
     CeilometerQdrEventsConfig:
         driver: amqp
@@ -2814,9 +2814,7 @@ If you enabled container health and API status monitoring, you must also modify 
             presettle: false
         cloud1-telemetry:     <i class="conum" data-value="5"></i><b>(5)</b>
             format: JSON
-            presettle: true
-
-    CollectdSensubilityResultsChannel: collectd/cloud1-notify <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+            presettle: true</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -2841,11 +2839,10 @@ If you enabled container health and API status monitoring, you must also modify 
 <td><i class="conum" data-value="5"></i><b>5</b></td>
 <td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
 </tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Define the topic for collectd-sensubility events. Ensure that this value is the exact string format <code>collectd/cloud1-notify</code></td>
-</tr>
 </table>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -2928,9 +2925,6 @@ If you enabled container health and API status monitoring, you must also modify 
 </li>
 <li>
 <p><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></p>
-</li>
-<li>
-<p><a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a></p>
 </li>
 <li>
 <p><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></p>
@@ -3596,31 +3590,6 @@ spec:
 <div class="paragraph">
 <p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
-<div class="paragraph">
-<p>You can use two dashboards to monitor a cloud:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Infrastructure dashboard</dt>
-<dd>
-<p>Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.</p>
-</dd>
-<dt class="hdlist1">Cloud view dashboard</dt>
-<dd>
-<p>Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For more information about API health monitoring, see <a href="#monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</a>.</p>
-</li>
-<li>
-<p>For more information about service monitoring, see <a href="#monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</a>.</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
@@ -3731,86 +3700,6 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 </div>
 <div class="sect3">
-<h4 id="importing-dashboards_assembly-advanced-features">Importing dashboards</h4>
-<div class="paragraph _abstract">
-<p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Import the infrastructure dashboard:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-dashboard.yaml
-
-grafanadashboard.integreatly.org/rhos-dashboard created</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Import the cloud dashboard:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/rhos-cloud-dashboard.yaml
-
-grafanadashboard.integreatly.org/rhos-cloud-dashboard created</code></pre>
-</div>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Some panels in the cloud dashboard require that you set the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the stf-connectors.yaml file. If you do not configure this parameter, affected dashboards remain empty.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::virt::hostname_format: name uuid hostname</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Verify that the dashboards are available:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards
-
-NAME                   AGE
-rhos-dashboard         7d21h
-rhos-cloud-dashboard   7d21h</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Retrieve the Grafana route address:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route -ojsonpath='{.spec.host}'
-
-grafana-route-service-telemetry.apps.infra.watch</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Navigate to https://<em>&lt;grafana_route_address&gt;</em> in a web browser. Replace <em>&lt;grafana_route_address&gt;</em> with the value that you retrieved in the previous step.</p>
-</li>
-<li>
-<p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
 <h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
 <div class="paragraph _abstract">
 <p>STF sets default login credentials when Grafana is enabled. The credentials can be overridden in the <code>ServiceTelemetry</code> object.</p>
@@ -3842,92 +3731,6 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="monitoring-resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource usage of OpenStack services</h3>
-<div class="paragraph _abstract">
-<p>Monitor the resource usage of the OpenStack services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services running out of compute power. Enable the <code>collectd-libpod-stats</code> plugin to gather CPU and memory usage metrics for every container running in the overcloud.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>You have created the <code>stf-connectors.yaml</code> file. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
-</li>
-<li>
-<p>You are using the most current version of OpenStack: Train.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Procedure</div>
-<p>To disable the monitoring of container resource usage disable <code>CollectdEnableLibpodstats</code>.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the <code>stf-connectors.yaml</code> file and add the <code>CollectdEnableLibpodstats</code> parameter to override the setting in <code>enable-stf.yaml</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CollectdEnableLibpodstats: false</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Continue with the overcloud deployment procedure. For more information, see <a href="#deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="monitoring-container-health-and-api-status_assembly-advanced-features">Monitoring container health and API status</h3>
-<div class="paragraph _abstract">
-<p>Container health assesses the status of each of the OpenStack service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most OpenStack services implement a health check that logs issues and returns a binary status. For the OpenStack APIs, the health checks query the root endpoint and determine the health based on the response time.</p>
-</div>
-<div class="paragraph">
-<p>To monitor healthchecks in Service&#160;Telemetry&#160;Framework (STF), you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol. The STF architecture considers healthcheck results to be events and they are stored in ElasticSearch.</p>
-</div>
-<div class="paragraph">
-<p>Container health monitoring is enabled by default in <code>enable-stf.yaml</code>. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>You have created the <code>stf-connectors.yaml</code> file in your templates directory. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
-</li>
-<li>
-<p>You are using the most current version of OpenStack Train.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Procedure</div>
-<p>To disable the monitoring of container health status disable <code>CollectdEnableSensubility</code>.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the <code>stf-connectors.yaml</code> and add the <code>CollectdEnableSensubility</code> parameter to override the setting in <code>enable-stf.yaml</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CollectdEnableSensubility: false</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Continue with the overcloud deployment procedure. For more information, see <a href="#deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</a>.</p>
-</li>
-</ol>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For more information about multiple cloud addresses, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
@@ -6107,7 +5910,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-23 12:38:03 UTC
+Last updated 2021-06-23 16:17:08 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
