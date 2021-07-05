@@ -1,0 +1,159 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_upgrading-service-telemetry-framework-to-version-1-3.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="removing-service-telemetry-framework-1-2-operators_{context}"]
+= Removing {Project} 1.2 Operators
+
+[role="_abstract"]
+Remove the Operators from {ProjectShort} v1.2, Smart Gateway Operator, and Service Telemetry Operator.
+
+[NOTE]
+Due to changes in the API interface, it is necessary to temporarily remove the `clouds` parameters, resulting in all Smart Gateways being removed until after the upgrade and inability to deliver metrics and events during the upgrade.
+
+.Procedure
+
+. Retrieve the current `ServiceTelemetry` object and note the contents. Pay particular attention to the `clouds` parameter as we'll be removing it prior to Operator upgrades.
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get stf default -oyaml
+----
+
+. Modify the ServiceTelemetry object to clear the `clouds` parameter and set it to an empty list. Also set `cloudsRemoveOnMissing` to `true` to remove all Smart Gateways.
++
+WARNING: This will stop all monitoring functions until after the upgrade is completed and the `clouds` object is redefined. If you're using the default clouds configuration it will not be defined in your ServiceTelemetry object.
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc patch stf default --patch $'spec:\n  clouds: []\n  cloudsRemoveOnMissing: true' --type=merge
+----
+
+. Watch the Smart Gateway pods until they are fully terminated and removed.
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get pods --selector app=smart-gateway --watch
+
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-meter-smartgateway-58cc854f4-hgk92    1/1     Running   0          2m42s
+default-cloud1-coll-meter-smartgateway-6c76f9786d-crn9b   2/2     Running   0          2m55s
+default-cloud1-coll-meter-smartgateway-6c76f9786d-crn9b   2/2     Terminating   0          3m12s
+default-cloud1-ceil-meter-smartgateway-58cc854f4-hgk92    1/1     Terminating   0          3m
+...
+
+----
+. Retrieve the `Subscription` name of the Smart Gateway Operator:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get sub smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace
+
+NAME                                                                       PACKAGE                  SOURCE             CHANNEL
+smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace   smart-gateway-operator   redhat-operators   stable-1.2
+----
+. Delete the Smart Gateway Operator subscription:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete sub smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace" deleted
+----
+
+. Get the Smart Gateway Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get csv -o name | grep -E 'smart-gateway'
+
+clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.2.1623675667
+----
+
+. Delete the Smart Gateway Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.2.1623675667
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v2.2.1623675667" deleted
+----
+
+. Delete the SmartGateway Custom Resource Definition:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete crd smartgateways.smartgateway.infra.watch
+
+customresourcedefinition.apiextensions.k8s.io "smartgateways.smartgateway.infra.watch" deleted
+----
+
+. Patch the Service Telemetry Operator Subscription to use the stable-1.3 channel:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc patch sub service-telemetry-operator --patch $'spec:\n  channel: stable-1.3' --type=merge
+
+subscription.operators.coreos.com/service-telemetry-operator patched
+----
+
+. Watch the output of `oc get csv` until the Smart Gateway Operator is installed and Service Telemetry Operator is `Pending` for version 1.2 and 1.3:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get csv
+
+NAME                                         DISPLAY                                         VERSION          REPLACES                                     PHASE
+amq7-cert-manager.v1.0.0                     Red Hat Integration - AMQ Certificate Manager   1.0.0                                                         Succeeded
+amq7-interconnect-operator.v1.2.4            Red Hat Integration - AMQ Interconnect          1.2.4            amq7-interconnect-operator.v1.2.3            Succeeded
+elastic-cloud-eck.v1.6.0                     Elasticsearch (ECK) Operator                    1.6.0            elastic-cloud-eck.v1.5.0                     Succeeded
+prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                    Succeeded
+service-telemetry-operator.v1.2.1623675667   Service Telemetry Operator                      1.2.1623675667                                                Pending
+service-telemetry-operator.v1.3.1622734200   Service Telemetry Operator                      1.3.1622734200   service-telemetry-operator.v1.2.1623675667   Pending
+smart-gateway-operator.v3.0.1622734308       Smart Gateway Operator                          3.0.1622734308                                                Succeeded
+----
+
+. Delete the Service Telemetry Operator v1.2 ClusterServiceVersion:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc delete csv service-telemetry-operator.v1.2.1623675667
+
+clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.2.1623675667" deleted
+----
+
+. Edit the ServiceTelemetry object and insert the contents of your previously noted `clouds` parameter. If the clouds parameter was not previously defined because you were using the default Smart Gateway instances, remove the `clouds: []` parameter.
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc edit stf default
+----
+
+. Validate that the Smart Gateways have been restored:
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+$ oc get pods --selector app=smart-gateway
+
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-meter-smartgateway-6484b98b68-sl7mb   2/2     Running   0          5m56s
+default-cloud1-coll-meter-smartgateway-799f687658-nfzr6   2/2     Running   0          6m6s
+----
