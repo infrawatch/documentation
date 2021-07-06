@@ -27,7 +27,7 @@
 Remove the Operators from {ProjectShort} v1.2, Smart Gateway Operator, and Service Telemetry Operator.
 
 [NOTE]
-Due to changes in the API interface, it is necessary to temporarily remove the `clouds` parameters, resulting in all Smart Gateways being removed until after the upgrade and inability to deliver metrics and events during the upgrade.
+Due to changes in the API interface, you must temporarily remove the `clouds` parameters. This results in the removal of all Smart Gateways until after the upgrade and the inability to deliver metrics and events during the upgrade.
 
 .Procedure
 
