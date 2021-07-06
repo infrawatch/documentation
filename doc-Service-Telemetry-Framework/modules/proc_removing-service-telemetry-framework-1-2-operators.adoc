@@ -79,7 +79,7 @@ $ oc delete sub smart-gateway-operator-stable-1.2-redhat-operators-openshift-mar
 subscription.operators.coreos.com "smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace" deleted
 ----
 
-. Get the Smart Gateway Operator ClusterServiceVersion:
+. Retrieve the Smart Gateway Operator ClusterServiceVersion:
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
