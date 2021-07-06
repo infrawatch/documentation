@@ -40,7 +40,7 @@ $ oc get stf default -oyaml
 
 . Modify the ServiceTelemetry object to clear the `clouds` parameter and set it to an empty list. Set `cloudsRemoveOnMissing` to `true` to remove all Smart Gateways.
 +
-WARNING: This will stop all monitoring functions until after the upgrade is completed and the `clouds` object is redefined. If you're using the default clouds configuration it will not be defined in your ServiceTelemetry object.
+WARNING: This command stops all monitoring functions until after the upgrade is completed and the `clouds` object is redefined. If you use the default clouds configuration, it is not defined in your ServiceTelemetry object.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
