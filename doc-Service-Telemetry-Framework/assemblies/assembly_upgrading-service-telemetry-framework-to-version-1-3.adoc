@@ -24,7 +24,7 @@ To migrate from {Project} ({ProjectShort}) v1.2 to {ProjectShort} v1.3, you must
 .Prerequisites
 
 * You have upgraded your {OpenShiftShort} environment to v4.6. {ProjectShort} v1.3 does not run on {OpenShiftShort} v4.5 and lower. {ProjectShort} v1.2 does not run on {OpenShiftShort} v4.7 and higher.
-*  You have backed up your data prior to any upgrade of the environment. Upgrading {ProjectShort} v1.2 to v1.3 results in a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
+* You have backed up your data prior to any upgrade of the environment. Upgrading {ProjectShort} v1.2 to v1.3 results in a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
 
 To upgrade from {ProjectShort} v1.2 to v1.3, complete the following procedures:
 
