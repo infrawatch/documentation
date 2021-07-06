@@ -38,7 +38,7 @@ Due to changes in the API interface, you must temporarily remove the `clouds` pa
 $ oc get stf default -oyaml
 ----
 
-. Modify the ServiceTelemetry object to clear the `clouds` parameter and set it to an empty list. Also set `cloudsRemoveOnMissing` to `true` to remove all Smart Gateways.
+. Modify the ServiceTelemetry object to clear the `clouds` parameter and set it to an empty list. Set `cloudsRemoveOnMissing` to `true` to remove all Smart Gateways.
 +
 WARNING: This will stop all monitoring functions until after the upgrade is completed and the `clouds` object is redefined. If you're using the default clouds configuration it will not be defined in your ServiceTelemetry object.
 +
