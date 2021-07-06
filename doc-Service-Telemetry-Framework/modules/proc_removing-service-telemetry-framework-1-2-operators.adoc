@@ -140,7 +140,7 @@ $ oc delete csv service-telemetry-operator.v1.2.1623675667
 clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.2.1623675667" deleted
 ----
 
-. Edit the ServiceTelemetry object and insert the contents of your previously noted `clouds` parameter. If the clouds parameter was not previously defined because you were using the default Smart Gateway instances, remove the `clouds: []` parameter.
+. Edit the ServiceTelemetry object and insert the contents of your previously noted `clouds` parameter. If the `clouds` parameter was not previously defined because you used the default Smart Gateway instances, remove the `clouds: []` parameter.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
