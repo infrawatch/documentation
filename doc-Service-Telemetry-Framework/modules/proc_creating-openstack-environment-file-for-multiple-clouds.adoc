@@ -91,7 +91,7 @@ endif::include_when_13[]
             presettle: true
 
 ifdef::include_when_16[]
-    CollectdSensubilityResultsChannel: sensubility/cloud1-metrics # <6>
+    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <6>
 endif::include_when_16[]
 ----
 <1> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
