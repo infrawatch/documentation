@@ -100,7 +100,7 @@ endif::include_when_16[]
 <4> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
 <5> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 ifdef::include_when_16[]
-<6> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-metrics`
+<6> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
 endif::include_when_16[]
 +
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
