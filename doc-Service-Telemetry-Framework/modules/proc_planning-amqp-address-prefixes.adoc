@@ -24,7 +24,26 @@
 = Planning AMQP address prefixes
 
 [role="_abstract"]
-By default, {OpenStack} nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`, where {ProjectShort} Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
+
+ifdef::include_when_16[]
+By default, {OpenStack} nodes get data through three data collectors; collectd, Ceilometer and Sensubility. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`, where {ProjectShort} Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
+
+* `collectd/cloud1-telemetry`
+* `collectd/cloud1-notify`
+* `sensubility/cloud1-telemetry`
+* `anycast/ceilometer/cloud1-metering.sample`
+* `anycast/ceilometer/cloud1-event.sample`
+* `collectd/cloud2-telemetry`
+* `collectd/cloud2-notify`
+* `sensubility/cloud2-telemetry`
+* `anycast/ceilometer/cloud2-metering.sample`
+* `anycast/ceilometer/cloud2-event.sample`
+* `collectd/us-east-1-telemetry`
+* `collectd/us-west-3-telemetry`
+endif::include_when_16[]
+
+ifdef::include_when_13[]
+By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, collectd/telemetry, where STF Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
 
 * `collectd/cloud1-telemetry`
 * `collectd/cloud1-notify`
@@ -36,3 +55,4 @@ By default, {OpenStack} nodes get data through two data collectors; collectd and
 * `anycast/ceilometer/cloud2-event.sample`
 * `collectd/us-east-1-telemetry`
 * `collectd/us-west-3-telemetry`
+endif::include_when_13[]

@@ -24,7 +24,7 @@
 = Deploying Smart Gateways
 
 [role="_abstract"]
-You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the `clouds` parameter in the `ServiceTelemetry` manifest.
+You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, one for Ceilometer events and one for collectd-sensubility metrics. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the `clouds` parameter in the `ServiceTelemetry` manifest.
 
 When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under `cloud1` with the following subscription addresses:
 
@@ -32,6 +32,9 @@ When you deploy {ProjectShort} for the first time, Smart Gateway manifests are c
 | **collector** | **type** | **default subscription address**
 | collectd | metrics | collectd/telemetry
 | collectd | events | collectd/notify
+ifdef::include_when_16[]
+| collectd-sensubility | metrics | sensubility/telemetry
+endif::include_when_16[]
 | Ceilometer | metrics | anycast/ceilometer/metering.sample
 | Ceilometer | events | anycast/ceilometer/event.sample
 |===
@@ -84,6 +87,10 @@ spec:
       collectors:
       - collectorType: collectd
         subscriptionAddress: collectd/cloud1-telemetry
+ifdef::include_when_16[]
+      - collectorType: sensubility
+        subscriptionAddress: sensubility/cloud1-telemetry
+endif::include_when_16[]
       - collectorType: ceilometer
         subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
   - name: cloud2
@@ -107,4 +114,7 @@ default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0   
 default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
 default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
 default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h
+ifdef::include_when_16[]
+default-cloud1-sens-meter-smartgateway-8h4tc445a2-mm683   2/2     Running   0          13h
+endif::include_when_16[]
 ----
