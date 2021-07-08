@@ -26,7 +26,7 @@
 [role="_abstract"]
 
 ifdef::include_when_16[]
-By default, {OpenStack} nodes get data through three data collectors; collectd, Ceilometer. The collectd-sensubility plugin requires a unique address as if it was a separate collector. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`, where {ProjectShort} Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
+By default, {OpenStack} nodes get data through two data collectors; collectd and Ceilometer. The collectd-sensubility plugin requires a unique address as if it was a separate collector. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`, where {ProjectShort} Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:
 
 * `collectd/cloud1-telemetry`
 * `collectd/cloud1-notify`
