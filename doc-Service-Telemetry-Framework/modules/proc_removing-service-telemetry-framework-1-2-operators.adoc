@@ -31,7 +31,7 @@ Due to changes in the API interface, you must temporarily remove the `clouds` pa
 
 .Procedure
 
-. Retrieve the current `ServiceTelemetry` object and note the contents. Pay particular attention to the `clouds` parameter as we'll be removing it prior to Operator upgrades.
+. Retrieve the current `ServiceTelemetry` object and note the contents, in particular the `clouds` parameter because you must remove this parameter before you upgrade the Operators.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
