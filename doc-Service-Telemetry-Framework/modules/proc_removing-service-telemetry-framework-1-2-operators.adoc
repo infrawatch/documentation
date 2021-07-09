@@ -47,7 +47,7 @@ WARNING: This command stops all monitoring functions until after the upgrade is 
 $ oc patch stf default --patch $'spec:\n  clouds: []\n  cloudsRemoveOnMissing: true' --type=merge
 ----
 
-. Watch the Smart Gateway pods until they are fully terminated and removed.
+. Monitor the Smart Gateway pods until they are fully terminated and removed.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
