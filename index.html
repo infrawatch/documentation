@@ -1946,9 +1946,9 @@ If your STF installation differs from the documentation, ensure that you retriev
     ManagePolling: true
     ManagePipeline: true
 
-    # required to set valid parameter due to typo in ceilometer-write-qdr.yaml
-    # and will be resolved in a future release
+    # enable Ceilometer metrics and events
     CeilometerQdrPublishMetrics: true
+    CeilometerQdrPublishEvents: true
 
     # enable collection of API status
     CollectdEnableSensubility: true
@@ -6144,7 +6144,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-12 14:16:31 UTC
+Last updated 2021-07-12 20:21:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
