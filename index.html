@@ -1953,6 +1953,7 @@ If your STF installation differs from the documentation, ensure that you retriev
     # enable collection of API status
     CollectdEnableSensubility: true
     CollectdSensubilityTransport: amqp1
+    CollectdSensubilityResultsChannel: sensubility/telemetry
 
     # enable collection of containerized service metrics
     CollectdEnableLibpodstats: true
@@ -2477,7 +2478,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <div class="sect3">
 <h4 id="planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</h4>
 <div class="paragraph _abstract">
-<p>By default, OpenStack nodes get data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, <code>collectd/telemetry</code>, where STF Smart Gateways listen on those addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Prefix a cloud identifier to the second part of the address. The following list shows some example addresses and identifiers:</p>
+<p>By default, OpenStack nodes receive data through two data collectors; collectd and Ceilometer. The collectd-sensubility plugin requires a unique address. These components send telemetry data or notifications to the respective AMQP addresses, for example, <code>collectd/telemetry</code>. STF Smart Gateways listen on those AMQP addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2486,6 +2487,9 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </li>
 <li>
 <p><code>collectd/cloud1-notify</code></p>
+</li>
+<li>
+<p><code>sensubility/cloud1-telemetry</code></p>
 </li>
 <li>
 <p><code>anycast/ceilometer/cloud1-metering.sample</code></p>
@@ -2498,6 +2502,9 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </li>
 <li>
 <p><code>collectd/cloud2-notify</code></p>
+</li>
+<li>
+<p><code>sensubility/cloud2-telemetry</code></p>
 </li>
 <li>
 <p><code>anycast/ceilometer/cloud2-metering.sample</code></p>
@@ -2517,7 +2524,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <div class="sect3">
 <h4 id="deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</h4>
 <div class="paragraph _abstract">
-<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. Smart Gateways are defined via the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
+<p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, one for Ceilometer events, and one for collectd-sensubility metrics. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. To define Smart Gateways, configure the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
 <div class="paragraph">
 <p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under <code>cloud1</code> with the following subscription addresses:</p>
@@ -2543,6 +2550,11 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">events</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectd/notify</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd-sensubility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sensubility/telemetry</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
@@ -2622,6 +2634,8 @@ spec:
       collectors:
       - collectorType: collectd
         subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: sensubility
+        subscriptionAddress: sensubility/cloud1-telemetry
       - collectorType: ceilometer
         subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
   - name: cloud2
@@ -2643,10 +2657,11 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
-default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   1/1     Running   0          13h
-default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   1/1     Running   0          13h
-default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   1/1     Running   0          13h
-default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h</code></pre>
+default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   2/2     Running   0          13h
+default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   2/2     Running   0          13h
+default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   2/2     Running   0          13h
+default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h
+default-cloud1-sens-meter-smartgateway-8h4tc445a2-mm683   2/2     Running   0          13h</code></pre>
 </div>
 </div>
 </li>
@@ -3911,10 +3926,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <p>Container health assesses the status of each of the OpenStack service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most OpenStack services implement a health check that logs issues and returns a binary status. For the OpenStack APIs, the health checks query the root endpoint and determine the health based on the response time.</p>
 </div>
 <div class="paragraph">
-<p>To monitor healthchecks in Service&#160;Telemetry&#160;Framework (STF), you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol. The STF architecture considers healthcheck results to be events and they are stored in ElasticSearch.</p>
-</div>
-<div class="paragraph">
-<p>Container health monitoring is enabled by default in <code>enable-stf.yaml</code>. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
+<p>To monitor healthchecks in Service&#160;Telemetry&#160;Framework (STF), you must enable and configure the <code>collectd-sensubility</code> plugin to work with the <code>amqp1</code> protocol and configure the the amqp1 address. Container health monitoring is enabled by default in <code>enable-stf.yaml</code>. For more information, see <a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -6132,7 +6144,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-12 13:10:17 UTC
+Last updated 2021-07-12 14:16:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
