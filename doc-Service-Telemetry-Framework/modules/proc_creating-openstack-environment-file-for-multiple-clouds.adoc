@@ -120,7 +120,8 @@ endif::include_when_16[]
 
 . Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
 +
-WARNING: Use of `collectd-write-qdr.yaml` with a custom `CollectdAmqpInstances` parameter will result in both the custom and default topics being published to. In a multi-cloud environment the `stf-connectors.yaml` directly loads the collectd service via the `resource_registry` parameter.
+[WARNING]
+If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstances` parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the `resource_registry` parameter in the `stf-connectors.yaml` file loads the collectd service.
 +
 [source,bash,options="nowrap",subs="+quotes"]
 ----
