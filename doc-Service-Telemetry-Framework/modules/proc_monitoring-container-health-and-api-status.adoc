@@ -26,9 +26,7 @@
 [role="_abstract"]
 Container health assesses the status of each of the {OpenStack} service containers by periodically running a health check script using the OCI (Open Container Initiative) standard. Most {OpenStack} services implement a health check that logs issues and returns a binary status. For the {OpenStack} APIs, the health checks query the root endpoint and determine the health based on the response time.
 
-To monitor healthchecks in {Project} ({ProjectShort}), you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol. The {ProjectShort} architecture considers healthcheck results to be events and they are stored in ElasticSearch.
-
-Container health monitoring is enabled by default in `enable-stf.yaml`. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
+To monitor healthchecks in {Project} ({ProjectShort}), you must enable and configure the `collectd-sensubility` plugin to work with the `amqp1` protocol and configure the the amqp1 address. Container health monitoring is enabled by default in `enable-stf.yaml`. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[].
 
 .Prerequisites
 
