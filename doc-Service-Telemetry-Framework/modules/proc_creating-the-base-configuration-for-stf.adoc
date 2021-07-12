@@ -135,6 +135,7 @@ parameter_defaults:
     # enable collection of API status
     CollectdEnableSensubility: true
     CollectdSensubilityTransport: amqp1
+    CollectdSensubilityResultsChannel: sensubility/telemetry
 
     # enable collection of containerized service metrics
     CollectdEnableLibpodstats: true
