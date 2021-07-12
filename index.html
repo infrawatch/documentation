@@ -1965,6 +1965,13 @@ If your STF installation differs from the documentation, ensure that you retriev
     CollectdExtraPlugins:
     - vmem
 
+    # set standard prefixes for where metrics and events are published to QDR
+    MetricsQdrAddresses:
+    - prefix: <em>collectd</em>
+      distribution: multicast
+    - prefix: <em>anycast/ceilometer</em>
+      distribution: multicast
+
     ExtraConfig:
         ceilometer::agent::polling::polling_interval: 30
         ceilometer::agent::polling::polling_meters:
@@ -2788,9 +2795,12 @@ If you enabled container health and API status monitoring, you must also modify 
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">resource_registry:
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml    <i class="conum" data-value="1"></i><b>(1)</b>
+
+parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="1"></i><b>(1)</b>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   <i class="conum" data-value="2"></i><b>(2)</b>
           port: 443
           role: edge
           verifyHostname: false
@@ -2801,48 +2811,52 @@ If you enabled container health and API status monitoring, you must also modify 
 
     CeilometerQdrEventsConfig:
         driver: amqp
-        topic: cloud1-event   <i class="conum" data-value="2"></i><b>(2)</b>
+        topic: cloud1-event   <i class="conum" data-value="3"></i><b>(3)</b>
 
     CeilometerQdrMetricsConfig:
         driver: amqp
-        topic: cloud1-metering   <i class="conum" data-value="3"></i><b>(3)</b>
+        topic: cloud1-metering   <i class="conum" data-value="4"></i><b>(4)</b>
 
     CollectdAmqpInstances:
-        cloud1-notify:        <i class="conum" data-value="4"></i><b>(4)</b>
+        cloud1-notify:        <i class="conum" data-value="5"></i><b>(5)</b>
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     <i class="conum" data-value="5"></i><b>(5)</b>
+        cloud1-telemetry:     <i class="conum" data-value="6"></i><b>(6)</b>
             format: JSON
             presettle: true
 
-    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</td>
+<td>Directly load the collectd service because you are not including the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
+<td>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</td>
+<td>Define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
+<td>Define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
+<td>Define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>Define the topic for collectd-sensubility events. Ensure that this value is the exact string format <code>sensubility/cloud1-telemetry</code></td>
 </tr>
 </table>
@@ -2863,13 +2877,24 @@ If you enabled container health and API status monitoring, you must also modify 
 </li>
 <li>
 <p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>CollectdAmqpInstances</code> parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the <code>resource_registry</code> parameter in the <code>stf-connectors.yaml</code> file loads the collectd service.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file <em>&lt;...other_environment_files...&gt;</em> \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
   --environment-file /home/stack/hostnames.yaml \
   --environment-file /home/stack/enable-stf.yaml \
@@ -2897,7 +2922,7 @@ If you enabled container health and API status monitoring, you must also modify 
 <p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
 </div>
 <div class="paragraph">
-<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter-smartgateway"}</code>.</p>
+<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter"}</code>.</p>
 </div>
 </div>
 </div>
@@ -6107,7 +6132,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-07 20:55:17 UTC
+Last updated 2021-07-12 13:10:17 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
