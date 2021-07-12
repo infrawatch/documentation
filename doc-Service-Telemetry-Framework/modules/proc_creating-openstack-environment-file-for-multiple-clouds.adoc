@@ -57,7 +57,7 @@ endif::include_when_13[]
 [source,yaml,options="nowrap"]
 ----
 resource_registry:
-  OS::TripleO::Services::Collectd: /usr/share/openstack-triple-heat-templates/deployment/metrics/collectd-container-puppet.yaml    # <1>
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml    # <1>
 
 parameter_defaults:
     MetricsQdrConnectors:
