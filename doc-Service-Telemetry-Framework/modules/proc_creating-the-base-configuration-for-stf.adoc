@@ -56,13 +56,19 @@ parameter_defaults:
     CeilometerQdrPublishMetrics: true
     CeilometerQdrPublishEvents: true
 
-    # set collectd overrides for higher telemetry resolution and extra plugins
-    # to load
+    # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 5
     CollectdDefaultPollingInterval: 5
     CollectdExtraPlugins:
     - vmem
+
+    # set standard prefixes for where metrics and events are published to QDR
+    MetricsQdrAddresses:
+    - prefix: 'collectd'
+      distribution: multicast
+    - prefix: 'anycast/ceilometer'
+      distribution: multicast
 
     ExtraConfig:
         ceilometer::agent::polling::polling_interval: 30
@@ -141,6 +147,13 @@ parameter_defaults:
     CollectdDefaultPollingInterval: 5
     CollectdExtraPlugins:
     - vmem
+
+    # set standard prefixes for where metrics and events are published to QDR
+    MetricsQdrAddresses:
+    - prefix: 'collectd'
+      distribution: multicast
+    - prefix: 'anycast/ceilometer'
+      distribution: multicast
 
     ExtraConfig:
         ceilometer::agent::polling::polling_interval: 30

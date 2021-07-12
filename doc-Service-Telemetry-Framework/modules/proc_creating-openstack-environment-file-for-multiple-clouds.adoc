@@ -56,9 +56,12 @@ endif::include_when_13[]
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
 ----
+resource_registry:
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml    # <1>
+
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <1>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <2>
           port: 443
           role: edge
           verifyHostname: false
@@ -75,32 +78,33 @@ endif::include_when_13[]
 
     CeilometerQdrEventsConfig:
         driver: amqp
-        topic: cloud1-event   # <2>
+        topic: cloud1-event   # <3>
 
     CeilometerQdrMetricsConfig:
         driver: amqp
-        topic: cloud1-metering   # <3>
+        topic: cloud1-metering   # <4>
 
     CollectdAmqpInstances:
-        cloud1-notify:        # <4>
+        cloud1-notify:        # <5>
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     # <5>
+        cloud1-telemetry:     # <6>
             format: JSON
             presettle: true
 
 ifdef::include_when_16[]
-    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <6>
+    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <7>
 endif::include_when_16[]
 ----
-<1> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
-<2> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
-<3> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
-<4> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
-<5> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
+<1> Directly load the collectd service because you are not including the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
+<2> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
+<3> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
+<4> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
+<5> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
+<6> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 ifdef::include_when_16[]
-<6> Define the topic for collectd-sensubility metrics. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
+<7> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
 endif::include_when_16[]
 +
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
@@ -116,13 +120,15 @@ endif::include_when_16[]
 
 . Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
 +
+[WARNING]
+If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstances` parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the `resource_registry` parameter in the `stf-connectors.yaml` file loads the collectd service.
++
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file _<...other_environment_files...>_ \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
   --environment-file /home/stack/hostnames.yaml \
   --environment-file /home/stack/enable-stf.yaml \
