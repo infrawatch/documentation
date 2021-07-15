@@ -33,7 +33,7 @@ Due to changes in the API interface, you must temporarily remove the `clouds` pa
 
 . Retrieve the current `ServiceTelemetry` object and note the contents, in particular the `clouds` parameter because you must remove this parameter before you upgrade the Operators.
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get stf default -oyaml
 ----
@@ -49,7 +49,7 @@ $ oc patch stf default --patch $'spec:\n  clouds: []\n  cloudsRemoveOnMissing: t
 
 . Monitor the Smart Gateway pods until they are fully terminated and removed.
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get pods --selector app=smart-gateway --watch
 
@@ -63,7 +63,7 @@ default-cloud1-ceil-meter-smartgateway-58cc854f4-hgk92    1/1     Terminating   
 ----
 . Retrieve the `Subscription` name of the Smart Gateway Operator:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get sub smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace
 
@@ -72,7 +72,7 @@ smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace   smart
 ----
 . Delete the Smart Gateway Operator subscription:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc delete sub smart-gateway-operator-stable-1.2-redhat-operators-openshift-marketplace
 
@@ -81,7 +81,7 @@ subscription.operators.coreos.com "smart-gateway-operator-stable-1.2-redhat-oper
 
 . Retrieve the Smart Gateway Operator ClusterServiceVersion:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv -o name | grep -E 'smart-gateway'
 
@@ -90,7 +90,7 @@ clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.2.162367566
 
 . Delete the Smart Gateway Operator ClusterServiceVersion:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc delete clusterserviceversion.operators.coreos.com/smart-gateway-operator.v2.2.1623675667
 
@@ -99,7 +99,7 @@ clusterserviceversion.operators.coreos.com "smart-gateway-operator.v2.2.16236756
 
 . Delete the SmartGateway Custom Resource Definition:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc delete crd smartgateways.smartgateway.infra.watch
 
@@ -117,7 +117,7 @@ subscription.operators.coreos.com/service-telemetry-operator patched
 
 . Monitor the output of the `oc get csv` command until the Smart Gateway Operator is installed and Service Telemetry Operator is `Pending` for version 1.2 and 1.3:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv
 
@@ -133,7 +133,7 @@ smart-gateway-operator.v3.0.1622734308       Smart Gateway Operator             
 
 . Delete the Service Telemetry Operator v1.2 ClusterServiceVersion:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc delete csv service-telemetry-operator.v1.2.1623675667
 
@@ -142,14 +142,14 @@ clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.2.1623
 
 . Edit the ServiceTelemetry object and insert the contents of your previously noted `clouds` parameter. If the `clouds` parameter was not previously defined because you used the default Smart Gateway instances, remove the `clouds: []` parameter.
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc edit stf default
 ----
 
 . Validate that the Smart Gateways have been restored:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get pods --selector app=smart-gateway
 
