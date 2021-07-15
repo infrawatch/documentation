@@ -168,9 +168,9 @@ parameter_defaults:
         cloud1-telemetry:     # <4>
             format: JSON
             presettle: true
-    CollectdEnableSensubility: true # <7>
+    CollectdEnableSensubility: true # <6>
     CollectdSensubilityTransport: amqp1
-    CollectdSensubilityResultsChannel: collectd/cloud1-notify # <5>
+    CollectdSensubilityResultsChannel: collectd/cloud1-notify # <7>
 
     MetricsQdrAddresses:
         - prefix: collectd
@@ -180,14 +180,9 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-ifdef::include_when_13[]
-          caCertFileContent: |
-            ----BEGIN CERTIFICATE----
-            <snip>
-            ----END CERTIFICATE----
-endif::include_when_13[]
+
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <6>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <5>
           port: 443
           role: edge
           verifyHostname: false
@@ -199,9 +194,11 @@ endif::include_when_16[]
 <2> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
 <3> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
 <4> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
-<5> Define the topic for collectd-sensubility events. This should be the exact string format of `collectd/cloud1-notify`
-<6> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
-<7> Enable monitoring of health and API status.
+<5> Adjust the `MetricsQdrConnectors` host to the address of the {ProjectShort} route.
+ifdef::include_when_16[]
+<6> Enable monitoring of health and API status.
+<7> Define the topic for collectd-sensubility events. This should be the exact string format of `collectd/cloud1-notify`
+endif::include_when_16[]
 +
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
