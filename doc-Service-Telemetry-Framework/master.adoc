@@ -28,5 +28,8 @@ include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+
 //advanced features
 include::assemblies/assembly_advanced-features.adoc[leveloffset=+1]
 
+// upgrading to 1.3
+include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-3.adoc[leveloffset=+1]
+
 //collectd plugins
 include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]
