@@ -143,7 +143,7 @@ spec:
 $ oc logs --selector name=service-telemetry-operator
 ----
 +
-[options="nowrap", subs="+quotes"]
+[options="nowrap"]
 ----
 --------------------------- Ansible Task Status Event StdOut  -----------------
 
@@ -156,7 +156,7 @@ localhost                  : ok=54   changed=0    unreachable=0    failed=0    s
 NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways reports `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get pods
 

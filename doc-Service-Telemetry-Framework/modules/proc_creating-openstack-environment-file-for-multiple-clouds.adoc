@@ -123,6 +123,8 @@ endif::include_when_16[]
 [WARNING]
 If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstances` parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the `resource_registry` parameter in the `stf-connectors.yaml` file loads the collectd service.
 +
+// valid use of +quotes subs for rendering emphasis
++
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
