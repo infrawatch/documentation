@@ -41,7 +41,7 @@ When the new Operators start, they reconcile the existing `ServiceTelemetry` and
 
 * To check the state of the Smart Gateway containers, use the `oc get pods` command:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 oc get pods
 
