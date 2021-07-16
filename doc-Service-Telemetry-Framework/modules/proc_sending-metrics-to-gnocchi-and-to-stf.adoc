@@ -37,7 +37,7 @@ parameter_defaults:
 
 . Add the environment file `gnocchi-connectors.yaml` to the deployment command. Replace _<other_arguments>_ with files that are applicable to your environment.
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
@@ -52,7 +52,7 @@ $ openstack overcloud deploy _<other_arguments>_
 
 . To verify that the configuration was successful, verify the content of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller node. Ensure that the `publishers` section of the file contains information for both notifier and Gnocchi.
 +
-[source,yaml,options="nowrap",subs="+quotes"]
+[source,yaml,options="nowrap"]
 ----
 sources:
     - name: meter_source
