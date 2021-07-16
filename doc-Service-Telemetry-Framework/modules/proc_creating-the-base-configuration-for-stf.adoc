@@ -41,7 +41,7 @@ To enable collection of telemetry with {ProjectShort} and Gnocchi, see xref:send
 ====
 +
 ifdef::include_when_13[]
-[source,yaml,options="nowrap",subs="+quotes"]
+[source,yaml,options="nowrap"]
 ----
 parameter_defaults:
     # only send to STF, not other publishers
@@ -117,7 +117,7 @@ parameter_defaults:
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
-[source,yaml,options="nowrap",subs="+quotes"]
+[source,yaml,options="nowrap"]
 ----
 parameter_defaults:
     # only send to STF, not other publishers

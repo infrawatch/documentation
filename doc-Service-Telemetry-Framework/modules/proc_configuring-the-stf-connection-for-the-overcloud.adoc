@@ -46,7 +46,7 @@ ifdef::include_when_13[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
 endif::include_when_13[]
 +
-[source,yaml,options="nowrap",subs="+quotes"]
+[source,yaml,options="nowrap"]
 ----
 parameter_defaults:
     MetricsQdrConnectors:
