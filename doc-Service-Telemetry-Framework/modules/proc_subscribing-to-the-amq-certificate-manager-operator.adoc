@@ -75,7 +75,7 @@ EOF
 
 . Validate your `ClusterServiceVersion`:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get --namespace openshift-operators csv
 

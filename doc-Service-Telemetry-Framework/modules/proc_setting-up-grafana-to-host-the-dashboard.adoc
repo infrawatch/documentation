@@ -61,7 +61,7 @@ EOF
 
 . To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is `Succeeded`, the operator launched successfully:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv
 

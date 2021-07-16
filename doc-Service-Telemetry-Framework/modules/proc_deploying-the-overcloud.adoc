@@ -48,6 +48,8 @@ Deploy or update the overcloud with the required environment files to result in 
 * the `enable-stf.yaml` environment file to ensure defaults are set up correctly
 * the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
 +
+// this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
++
 [source,bash,options="nowrap",subs="+quotes"]
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_

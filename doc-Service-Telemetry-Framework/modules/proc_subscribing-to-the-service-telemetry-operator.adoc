@@ -70,7 +70,7 @@ endif::[]
 
 . To validate the Service Telemetry Operator and the dependent operators, enter the following command:
 +
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv --namespace service-telemetry
 
