@@ -94,14 +94,11 @@ parameter_defaults:
         # receive extra information about virtual memory
         collectd::plugin::vmem::verbose: true
 
-        # provide the human-friendly name of the virtual instance
-        collectd::plugin::virt::plugin_instance_format: metadata
-
         # set memcached collectd plugin to report its metrics by hostname
         # rather than host IP, ensuring metrics in the dashboard remain uniform
         collectd::plugin::memcached::instances:
           local:
-            host: "%{hiera(fqdn_canonical)}"
+            host: "%{hiera('fqdn_canonical')}"
             port: 11211
 
         # align defaults across OSP versions
