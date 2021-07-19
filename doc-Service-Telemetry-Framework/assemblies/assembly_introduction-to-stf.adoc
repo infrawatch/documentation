@@ -23,9 +23,7 @@ ifdef::context[:parent-context: {context}]
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion}
-// TODO: add back to previous line when next version is supported
-// and {NextSupportedOpenShiftVersion}.
+{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
 
 //For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
 endif::[]
