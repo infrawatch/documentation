@@ -25,17 +25,13 @@ You can use Operators to load the various application components and objects. Ea
 
 .Prerequisites
 
-* {OpenShift} ({OpenShiftShort}) version {SupportedOpenShiftVersion}
-// TODO: add back to previous line when NextSupportedOpenShiftVersion has been tested 
-// or {NextSupportedOpenShiftVersion} is running.
+* {OpenShift} ({OpenShiftShort}) version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
 * You have prepared your {OpenShift} ({OpenShiftShort}) environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
 
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} version {SupportedOpenShiftVersion}.
-// TODO: add back to previous line when OCP 4.7 has been tested and is supported
-// and {NextSupportedOpenShiftVersion}.
+{Project} ({ProjectShort}) is compatible with {OpenShift} version {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
 endif::[]
 
 .Additional resources
