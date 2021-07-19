@@ -47,7 +47,12 @@ endif::include_when_13[]
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 
+ifdef::include_when_13[]
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect to the {MessageBus} on the overcloud deployment. Configure the `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig`, and `CollectdAmqpInstances` topic values to match the AMQP address that you want for this cloud deployment.
+endif::include_when_13[]
+ifdef::include_when_16[]
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect to the {MessageBus} on the overcloud deployment. Configure the `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig`, `CollectdAmqpInstances`, and `CollectdSensubilityResultsChannel` topic values to match the AMQP address that you want for this cloud deployment.
+endif::include_when_16[]
 +
 ifdef::include_when_13[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
