@@ -1,0 +1,55 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_adding-container-images-to-the-undercloud.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="adding-container-images-to-the-undercloud_{context}"]
+= Adding {OpenStack} container images to the undercloud
+
+[role="_abstract"]
+If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images.
+
+.Prerequisites
+
+
+.Procedure
+
+. Create a new environment file, for example, `container-images.yaml`, and insert the following container images and paths:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+parameter_defaults:
+    DockerCollectdConfigImage: <image-registry-path>/rhosp{vernum}/openstack-collectd:latest
+  	DockerCollectdImage: <image-registry-path>/rhosp{vernum}/openstack-collectd:latest
+  	DockerMetricsQdrConfigImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
+  	DockerMetricsQdrImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
+----
++
+Replace `<image-registry-path>` with the path to the image registry.
+
+. To deploy collectd and QDR to your overcloud, include the ``/usr/share/local-container-images/container-images.yaml` environment file so {OpenStack} director can prepare the images. The following snippet is an example of how to include this environment file:
++
+[options="nowrap",role="white-space-pre"]
+----
+$ openstack overcloud container image prepare \
+  ...
+  -e /usr/share/local-container-images/container-images.yaml \
+  ...
+----
