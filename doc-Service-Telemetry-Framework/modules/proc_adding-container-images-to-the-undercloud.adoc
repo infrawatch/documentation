@@ -26,7 +26,6 @@
 [role="_abstract"]
 If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images.
 
-.Prerequisites
 
 
 .Procedure
