@@ -26,6 +26,8 @@
 [role="_abstract"]
 If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images.
 
+
+
 .Procedure
 
 . Create a new environment file, for example, `container-images.yaml`, and insert the following container images and paths:
@@ -41,7 +43,7 @@ parameter_defaults:
 +
 Replace `<image-registry-path>` with the path to the image registry.
 
-. To deploy collectd and QDR to your overcloud, include the `/usr/share/local-container-images/container-images.yaml` environment file so {OpenStack} director can prepare the images. The following snippet is an example of how to include this environment file:
+. To deploy collectd and {MessageBus} to your overcloud, include the `/usr/share/local-container-images/container-images.yaml` environment file so {OpenStack} {OpenStackInstaller} can prepare the images. The following snippet is an example of how to include this environment file:
 +
 [options="nowrap",role="white-space-pre"]
 ----
