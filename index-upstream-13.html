@@ -520,6 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a></li>
 <li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
+<li><a href="#adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration">Adding OpenStack container images to the undercloud</a></li>
 <li><a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>
 <ul class="sectlevel3">
 <li><a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a></li>
@@ -1830,6 +1831,9 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <li>
 <p>To send metrics to both Gnocchi and STF, see <a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">Sending metrics to Gnocchi and to STF</a>.</p>
 </li>
+<li>
+<p>If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see <a href="#adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration">Adding OpenStack container images to the undercloud</a>.</p>
+</li>
 </ul>
 </div>
 <div class="sect2">
@@ -2452,6 +2456,43 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephStorage0ExtraConfig:
 ›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
 ›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration">Adding OpenStack container images to the undercloud</h3>
+<div class="paragraph _abstract">
+<p>If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a new environment file, for example, <code>container-images.yaml</code>, and insert the following container images and paths:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    DockerCollectdConfigImage: &lt;image-registry-path&gt;/rhosp{vernum}/openstack-collectd:latest
+  	DockerCollectdImage: &lt;image-registry-path&gt;/rhosp{vernum}/openstack-collectd:latest
+  	DockerMetricsQdrConfigImage: &lt;image-registry-path&gt;/rhosp{vernum}/openstack-qdrouterd:latest
+  	DockerMetricsQdrImage: &lt;image-registry-path&gt;/rhosp{vernum}/openstack-qdrouterd:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Replace <code>&lt;image-registry-path&gt;</code> with the path to the image registry.</p>
+</div>
+</li>
+<li>
+<p>To deploy collectd and Apache&#160;Qpid&#160;Dispatch&#160;Router to your overcloud, include the <code>/usr/share/local-container-images/container-images.yaml</code> environment file so OpenStack TripleO can prepare the images. The following snippet is an example of how to include this environment file:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="nowrap">$ openstack overcloud container image prepare \
+  ...
+  -e /usr/share/local-container-images/container-images.yaml \
+  ...</pre>
 </div>
 </div>
 </li>
@@ -5954,7 +5995,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-16 10:52:04 UTC
+Last updated 2021-08-16 21:25:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
