@@ -14,9 +14,9 @@ If you synchronized container images to a local registry, you must create an env
 ----
 parameter_defaults:
     DockerCollectdConfigImage: <image-registry-path>/rhosp{vernum}/openstack-collectd:latest
-  	DockerCollectdImage: <image-registry-path>/rhosp{vernum}/openstack-collectd:latest
-  	DockerMetricsQdrConfigImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
-  	DockerMetricsQdrImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
+    DockerCollectdImage: <image-registry-path>/rhosp{vernum}/openstack-collectd:latest
+    DockerMetricsQdrConfigImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
+    DockerMetricsQdrImage: <image-registry-path>/rhosp{vernum}/openstack-qdrouterd:latest
 ----
 +
 Replace `<image-registry-path>` with the path to the image registry.
