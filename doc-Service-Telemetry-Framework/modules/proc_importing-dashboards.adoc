@@ -27,7 +27,8 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
-<<<<<<<<<<< Warning
+.Prerequisites
+
 The dashboards require features only available in Grafana versions 8.1.0+.
 
 Check the Grafana version:
@@ -43,7 +44,6 @@ $ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/graf
 ```
 
 This will restart the Grafana deployment.
-<<<<<<<<<<< End Warning
 
 .Procedure
 
