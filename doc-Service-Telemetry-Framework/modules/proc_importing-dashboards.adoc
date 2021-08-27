@@ -27,6 +27,24 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
+<<<<<<<<<<< Warning
+The dashboards require features only available in Grafana versions 8.1.0+.
+
+Check the Grafana version:
+```
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+
+docker.io/grafana/grafana:7.3.10
+```
+
+If the running image is old, update it:
+```
+$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
+```
+
+This will restart the Grafana deployment.
+<<<<<<<<<<< End Warning
+
 .Procedure
 
 . Import the infrastructure dashboard:
@@ -45,7 +63,7 @@ $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/dep
 
 grafanadashboard.integreatly.org/rhos-cloud-dashboard-1.3 created
 ----
-. Import the cloud events dashboard:
+. Import the cloud events dashboard
 +
 [source,bash,options="nowrap"]
 ----
