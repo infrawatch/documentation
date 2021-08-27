@@ -1,0 +1,25 @@
+
+[id="updating-the-grafana-version_{context}"]
+= Updating the Grafana version
+
+The dashboards in {Project} ({ProjectShort}) require features that are only available in Grafana versions 8.1.0+.
+
+.Procedure
+
+. Check the Grafana version:
++
+[source,bash]
+----
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+
+docker.io/grafana/grafana:7.3.10
+----
+
+. If the running image is older than 8.1.0, update it:
++
+[source,bash]
+----
+$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
+----
++
+The Grafana deployment restarts.

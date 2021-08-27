@@ -44,6 +44,7 @@ include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffs
 ifdef::include_when_16[]
 //TODO: Add dashboards back when we have working code for OSP13
 include::../modules/proc_importing-dashboards.adoc[leveloffset=+2]
+include::../modules/proc_updating-the-grafana-version.adoc[leveloffset=+3]
 endif::include_when_16[]
 include::../modules/proc_retrieving-and-setting-grafana-login-credentials.adoc[leveloffset=+2]
 
