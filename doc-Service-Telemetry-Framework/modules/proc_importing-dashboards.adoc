@@ -47,7 +47,23 @@ If the running image is old, update it:
 $ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
 ----
 
-This will restart the Grafana deployment.
+It will take a moment to destroy the old Grafana and spin up a new instance.
+
+Verify a new Grafana pod is created and in the running state:
+----
+$ oc get pod -l "app=grafana"
+
+NAME                                 READY     STATUS    RESTARTS   AGE
+grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s
+----
+
+Verify that the new instance is running the updated image:
+----
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+
+docker.io/grafana/grafana:8.1.0
+----
+
 
 .Procedure
 
