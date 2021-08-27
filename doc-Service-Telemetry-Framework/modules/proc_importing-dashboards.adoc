@@ -32,16 +32,20 @@ The Grafana Operator can import and manage dashboards by creating `GrafanaDashbo
 The dashboards require features only available in Grafana versions 8.1.0+.
 
 Check the Grafana version:
-```
++
+[source,bash]
+----
 $ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
 
 docker.io/grafana/grafana:7.3.10
-```
+----
 
 If the running image is old, update it:
-```
++
+[source,bash]
+----
 $ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
-```
+----
 
 This will restart the Grafana deployment.
 
