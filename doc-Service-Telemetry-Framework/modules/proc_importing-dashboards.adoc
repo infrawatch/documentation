@@ -29,7 +29,7 @@ The Grafana Operator can import and manage dashboards by creating `GrafanaDashbo
 
 .Prerequisites
 
-The dashboards require features only available in Grafana versions 8.1.0+.
+The dashboards require features only available in Grafana versions 8.1.0 or later.
 
 Check the Grafana version:
 +
