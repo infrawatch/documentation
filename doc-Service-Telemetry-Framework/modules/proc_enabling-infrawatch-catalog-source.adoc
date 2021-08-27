@@ -43,7 +43,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   displayName: InfraWatch Operators
-  image: quay.io/infrawatch-operators/infrawatch-catalog:latest
+  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
   publisher: InfraWatch
   sourceType: grpc
   updateStrategy:
