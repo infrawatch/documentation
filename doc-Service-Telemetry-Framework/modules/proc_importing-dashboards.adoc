@@ -40,7 +40,7 @@ $ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
 docker.io/grafana/grafana:7.3.10
 ----
 
-If the running image is old, update it:
+If the running image is older than 8.1.0, update it by patching the Grafana object:
 +
 [source,bash]
 ----
