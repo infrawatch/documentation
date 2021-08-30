@@ -27,10 +27,6 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
-.Prerequisites
-
-* You have Grafana version 8.1.0+. For more information, see <<updating-the-grafana-version_assembly-advanced-features>>.
-
 .Procedure
 
 . Import the infrastructure dashboard:
