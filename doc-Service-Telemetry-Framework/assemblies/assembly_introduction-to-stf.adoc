@@ -29,12 +29,12 @@ ifeval::["{build}" == "downstream"]
 endif::[]
 
 [role="_abstract"]
-{Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes. You can use {ProjectShort} {ProjectShort} to monitor functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration.The monitoring data can be either of two types:
+{Project} ({ProjectShort}) receives monitoring data from {OpenStack} or third-party nodes. You can use {ProjectShort} to monitor functions such as alert generation, visualization through dashboards, and single source of truth telemetry analysis to support orchestration. The monitoring data can be either of two types:
 
 Metric:: a numeric measurement of an application or system
 Event:: irregular and discrete occurrences that happen in a system
 
-The data collection components on the client side are lightweight. The multicast message bus, which is shared by all clients and the deployment, provides fast and reliable data transport. Other modular components that receive and store data are deployed in containers on {OpenShiftShort}.
+The data collection components on the client side are lightweight. The multicast message bus, which is shared by all clients and the deployment, provides fast and reliable data transport. Other modular components that receive and store data are deployed in containers on {OpenShift}.
 
 ifeval::["{build}" == "downstream"]
 include::../modules/con_support-for-stf.adoc[leveloffset=+1]
