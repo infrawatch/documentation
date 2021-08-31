@@ -27,6 +27,8 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
+WARNING: The dashboards are currently only compatible with a single cloud. If you use the dashboards when multiple clouds have been configured or if you change the address on the overcloud to which that metrics are sent, this can result in errors when you run the queries against Prometheus, such as `found duplicate series` errors.
+
 .Procedure
 
 . Import the infrastructure dashboard:
