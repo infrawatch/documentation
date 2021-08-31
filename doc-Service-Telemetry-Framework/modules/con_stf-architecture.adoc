@@ -13,9 +13,9 @@
 
 [[table-stf-components]]
 .{ProjectShort} components
-[cols="15,70,15"]
+[cols="65,15,20"]
 |===
-|Component |Client  |Server ({OpenShiftShort})
+|Component |Client  |Server ({OpenShift})
 
 |An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
 |yes
@@ -61,7 +61,7 @@ If you plan to collect and store events, collectd or Ceilometer delivers event d
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} {ProductVersion} ({ProjectShort})
-* {OpenShift} {SupportedOpenShiftVersion} ({OpenShiftShort}) or {NextSupportedOpenShiftVersion}
+* {OpenShift} {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion}
 * Infrastructure platform
 
 [[osp-stf-server-side-monitoring]]
@@ -70,9 +70,9 @@ image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring inf
 
 
 [NOTE]
-Do not install {OpenShiftShort} on the same infrastructure that you want to monitor.
+Do not install {OpenShift} on the same infrastructure that you want to monitor.
 
 .Additional resources
 
-* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShiftShort} product documentation].
-* You can install {OpenShiftShort} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
+* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShift} product documentation].
+* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
