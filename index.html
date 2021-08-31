@@ -3780,6 +3780,18 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 <div class="paragraph _abstract">
 <p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The dashboards are currently only compatible with a single cloud. If you use the dashboards when multiple clouds have been configured or if you change the address on the overcloud to which that metrics are sent, this can result in errors when you run the queries against Prometheus, such as <code>found duplicate series</code> errors.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
@@ -6159,7 +6171,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-27 07:46:00 UTC
+Last updated 2021-08-31 15:36:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
