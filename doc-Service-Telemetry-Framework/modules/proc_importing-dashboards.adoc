@@ -27,44 +27,6 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
 
-.Prerequisites
-
-The dashboards require features only available in Grafana versions 8.1.0 or later.
-
-Check the Grafana version:
-+
-[source,bash]
-----
-$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-
-docker.io/grafana/grafana:7.3.10
-----
-
-If the running image is older than 8.1.0, update it by patching the Grafana object:
-+
-[source,bash]
-----
-$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
-----
-
-It will take a moment to destroy the old Grafana and spin up a new instance.
-
-Verify a new Grafana pod is created and in the running state:
-----
-$ oc get pod -l "app=grafana"
-
-NAME                                 READY     STATUS    RESTARTS   AGE
-grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s
-----
-
-Verify that the new instance is running the updated image:
-----
-$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-
-docker.io/grafana/grafana:8.1.0
-----
-
-
 .Procedure
 
 . Import the infrastructure dashboard:
@@ -118,7 +80,7 @@ rhos-cloud-dashboard   7d21h
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get route grafana-route -ojsonpath='{.spec.host}' 
+$ oc get route grafana-route -ojsonpath='{.spec.host}'
 
 grafana-route-service-telemetry.apps.infra.watch
 ----
