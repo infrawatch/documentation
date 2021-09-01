@@ -40,7 +40,7 @@ The monitoring data can be either of two types:
 Metric:: a numeric measurement of an application or system
 Event:: irregular and discrete occurrences that happen in a system
 
-The data collection components on the client side are lightweight. The multicast message bus, which is shared by all clients and the deployment, provides fast and reliable data transport. Other modular components that receive and store data are deployed in containers on {OpenShift}.
+The multicast message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data are deployed in containers on {OpenShift}.
 
 ifeval::["{build}" == "downstream"]
 include::../modules/con_support-for-stf.adoc[leveloffset=+1]
