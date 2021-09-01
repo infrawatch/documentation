@@ -117,20 +117,5 @@ NAME            HOST/PORT                                          PATH   SERVIC
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
 ----
 
-. The dashboards in {ProjectShort} require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:
-+
-[source,bash]
-----
-$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
 
-docker.io/grafana/grafana:7.3.10
-----
 
-. If the running image is older than 8.1.0, update it:
-+
-[source,bash]
-----
-$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
-----
-+
-The Grafana deployment restarts.
