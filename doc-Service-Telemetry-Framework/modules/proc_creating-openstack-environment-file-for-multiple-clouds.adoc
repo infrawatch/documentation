@@ -97,7 +97,7 @@ endif::include_when_13[]
             presettle: false
         cloud1-telemetry:     # <6>
             format: JSON
-            presettle: true
+            presettle: false
 
 ifdef::include_when_16[]
     CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <7>
