@@ -59,7 +59,7 @@ spec:
 EOF
 ----
 
-. To verify that the operator launched successfully, run the `oc get csv` command. If the value of the PHASE column is `Succeeded`, the operator launched successfully:
+. To verify that the operator launched successfully, run the `oc get csv` command. In the command output, if the value of the `PHASE` column is `Succeeded`, the operator launched successfully:
 +
 [source,bash,options="nowrap"]
 ----
@@ -107,7 +107,7 @@ NAME                    AGE
 default-datasources     20h
 ----
 
-. Verify the Grafana route exists:
+. Verify that the Grafana route exists:
 +
 [source,bash,options="nowrap"]
 ----
@@ -126,11 +126,28 @@ $ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
 docker.io/grafana/grafana:7.3.10
 ----
 
-. If the running image is older than 8.1.0, update it:
+. If the running image is older than 8.1.0, patch the Grafana object to update the image:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
 ----
 +
 The Grafana deployment restarts.
+
+. Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
++
+[source,bash,options="nowrap"]
+----
+$ oc get pod -l "app=grafana"
+NAME                                 READY     STATUS    RESTARTS   AGE
+grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s
+----
+
+. Verify that the new instance is running the updated image:
++
+[source,bash,options="nowrap"]
+----
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+docker.io/grafana/grafana:8.1.0
+----
