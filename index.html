@@ -3722,7 +3722,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. If the value of the PHASE column is <code>Succeeded</code>, the operator launched successfully:</p>
+<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
@@ -3774,13 +3774,53 @@ default-datasources     20h</code></pre>
 </div>
 </li>
 <li>
-<p>Verify the Grafana route exists:</p>
+<p>Verify that the Grafana route exists:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route
 
 NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The dashboards in STF require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+
+docker.io/grafana/grafana:7.3.10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If the running image is older than 8.1.0, patch the Grafana object to update the image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Grafana deployment restarts.</p>
+</div>
+</li>
+<li>
+<p>Verify that a new Grafana pod exists and has a <code>STATUS</code> value of <code>Running</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana"
+NAME                                 READY     STATUS    RESTARTS   AGE
+grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the new instance is running the updated image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+docker.io/grafana/grafana:8.1.0</code></pre>
 </div>
 </div>
 </li>
@@ -3843,16 +3883,7 @@ grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created</code></pre>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Some panels in the cloud dashboard require that you set the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the stf-connectors.yaml file. If you do not configure this parameter, affected dashboards remain empty.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::virt::hostname_format: name uuid hostname</code></pre>
-</div>
-</div>
+For some panels in the cloud dashboard, you must set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the <code>stf-connectors.yaml</code> file. If you do not configure this parameter, affected dashboards remain empty. For more information about the <code>virt</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html-single/service_telemetry_framework_1.2/index#collectd-plugins_assembly">collectd plugins</a>.
 </td>
 </tr>
 </table>
@@ -3881,7 +3912,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </li>
 <li>
-<p>Navigate to https://<em>&lt;grafana_route_address&gt;</em> in a web browser. Replace <em>&lt;grafana_route_address&gt;</em> with the value that you retrieved in the previous step.</p>
+<p>In a web browser, navigate to https://<em>&lt;grafana_route_address&gt;</em>. Replace <em>&lt;grafana_route_address&gt;</em> with the value that you retrieved in the previous step.</p>
 </li>
 <li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
@@ -6183,7 +6214,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-02 14:49:04 UTC
+Last updated 2021-09-07 14:57:13 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
