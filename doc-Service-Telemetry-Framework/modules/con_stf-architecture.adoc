@@ -13,36 +13,35 @@
 
 [[table-stf-components]]
 .{ProjectShort} components
-[cols="15,70,15"]
+[cols="65,15,20"]
 |===
-|Client |Component |Server ({OpenShiftShort})
+|Component |Client  |Server ({OpenShift})
 
-|yes
 |An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
 |yes
+|yes
 
-|no
 |Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
+|no
 |yes
 
-|no
 |Prometheus as time-series data storage
+|no
 |yes
 
-|no
 |ElasticSearch as events data storage
+|no
 |yes
 
-|yes
 |collectd to collect infrastructure metrics and events
+|yes
 |no
 
-|yes
 |Ceilometer to collect {OpenStack} metrics and events
+|yes
 |no
 
 |===
-
 
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
@@ -55,14 +54,14 @@ The {Project} data collection components, collectd and Ceilometer, and the trans
 
 endif::[]
 
-For metrics, on the client side, collectd provides infrastructure metrics (without project data), and Ceilometer provides {OpenStack} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
+For metrics, on the client side, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStack} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
 If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the {MessageBus} transport, delivering the data through the message bus. Another Smart Gateway writes the data to the ElasticSearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} {ProductVersion} ({ProjectShort})
-* {OpenShift} {SupportedOpenShiftVersion} ({OpenShiftShort}) or {NextSupportedOpenShiftVersion}
+* {OpenShift} {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion}
 * Infrastructure platform
 
 [[osp-stf-server-side-monitoring]]
@@ -71,10 +70,9 @@ image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring inf
 
 
 [NOTE]
-Do not install {OpenShiftShort} on the same infrastructure that you want to monitor.
+Do not install {OpenShift} on the same infrastructure that you want to monitor.
 
 .Additional resources
 
-* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShiftShort} product documentation].
-* You can install {OpenShiftShort} on cloud platforms or on bare metal.
-For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
+* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShift} product documentation].
+* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
