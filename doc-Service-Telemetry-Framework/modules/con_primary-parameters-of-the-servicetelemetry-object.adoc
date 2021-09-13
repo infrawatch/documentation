@@ -127,7 +127,6 @@ Use the `alerting` parameter to control creation of an Alertmanager instance and
 
 Use the `graphing` parameter to control the creation of a Grafana instance. By default, `graphing` is disabled. For more information, see xref:dashboards_assembly-advanced-features[].
 
-
 [id="highAvailability_{context}"]
 == highAvailability
 
@@ -136,4 +135,4 @@ Use the `highAvailability` parameter to control the instantiation of multiple co
 [id="transports_{context}"]
 == transports
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that {MessageBus} is enabled for correct operation of {ProjectShort}. By default, the `qdr` transport is enabled.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that {MessageBus} is enabled for proper operation of {ProjectShort}. By default, the `qdr` transport is enabled.
