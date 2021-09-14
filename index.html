@@ -487,17 +487,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a></li>
 </ul>
 </li>
-<li><a href="#overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</a>
+<li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</a>
 <ul class="sectlevel3">
-<li><a href="#backends_assembly-installing-the-core-components-of-stf">backends</a></li>
-<li><a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a></li>
-<li><a href="#alerting_assembly-installing-the-core-components-of-stf">alerting</a></li>
-<li><a href="#graphing_assembly-installing-the-core-components-of-stf">graphing</a></li>
-<li><a href="#highAvailability_assembly-installing-the-core-components-of-stf">highAvailability</a></li>
-<li><a href="#transports_assembly-installing-the-core-components-of-stf">transports</a></li>
+<li><a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a></li>
 </ul>
 </li>
-<li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</a></li>
 <li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing STF from the OKD environment</a>
 <ul class="sectlevel3">
 <li><a href="#deleting-the-namespace">Deleting the namespace</a></li>
@@ -1388,185 +1382,9 @@ smart-gateway-operator.v3.0.1622734308       Smart Gateway Operator             
 </div>
 </div>
 <div class="sect2">
-<h3 id="overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</h3>
-<div class="paragraph _abstract">
-<p>To deploy the Service&#160;Telemetry&#160;Framework, you must create an instance of <code>ServiceTelemetry</code> in OKD. The <code>ServiceTelemetry</code> object is made up of the following major configuration parameters:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>alerting</code></p>
-</li>
-<li>
-<p><code>backends</code></p>
-</li>
-<li>
-<p><code>clouds</code></p>
-</li>
-<li>
-<p><code>graphing</code></p>
-</li>
-<li>
-<p><code>highAvailability</code></p>
-</li>
-<li>
-<p><code>transports</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Each of these top-level configuration parameters provides various controls for a Service&#160;Telemetry&#160;Framework deployment.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Support for <code>servicetelemetry.infra.watch/v1alpha1</code> was removed from STF 1.3.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="backends_assembly-installing-the-core-components-of-stf">backends</h4>
-<div class="paragraph">
-<p>Use the <code>backends</code> parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the <code>clouds</code> parameter. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
-</div>
-<div class="paragraph">
-<p>Currently, you can use Prometheus as the metrics backend, and ElasticSearch as the events backend.</p>
-</div>
-<div class="sect4">
-<h5 id="_enabling_prometheus_as_a_storage_backend_for_metrics">Enabling Prometheus as a storage backend for metrics</h5>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>To enable Prometheus as a storage backend for metrics, configure the <code>ServiceTelemetry</code> object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    metrics:
-      prometheus:
-        enabled: true</code></pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_enabling_elasticsearch_as_a_storage_backend_for_events">Enabling ElasticSearch as a storage backend for events</h5>
-<div class="paragraph">
-<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
-</div>
-<div class="paragraph">
-<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
-</div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>To enable ElasticSearch as a storage backend for events, configure the <code>ServiceTelemetry</code> object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true</code></pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="clouds_assembly-installing-the-core-components-of-stf">clouds</h4>
-<div class="paragraph">
-<p>Use the <code>clouds</code> parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can create a list of cloud objects to control which Smart Gateways are created for each cloud defined. Each cloud is made up of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
-</div>
-<div class="paragraph">
-<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud instance:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: stf-default
-  namespace: service-telemetry
-spec:
-  clouds:
-    - name: cloud1
-      metrics:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
-      events:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/notify
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Each item of the <code>clouds</code> parameter represents a cloud instance. The cloud instances are made up of 3 top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding backend for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd or Ceilometer. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway should subscribe.</p>
-</div>
-<div class="paragraph">
-<p>You can use the optional Boolean parameter <code>debugEnabled</code> within the <code>collectors</code> parameter to enable additional console debugging in the running Smart Gateway pod.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="alerting_assembly-installing-the-core-components-of-stf">alerting</h4>
-<div class="paragraph">
-<p>Use the <code>alerting</code> parameter to control creation of an <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> instance and the configuration of the storage backend. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="graphing_assembly-installing-the-core-components-of-stf">graphing</h4>
-<div class="paragraph">
-<p>Use the <code>graphing</code> parameter to control the creation of a <a href="https://grafana.com/docs/grafana/latest/getting-started/#what-is-grafana/">Grafana</a> instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_assembly-advanced-features">Dashboards</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="highAvailability_assembly-installing-the-core-components-of-stf">highAvailability</h4>
-<div class="paragraph">
-<p>Use The <code>highAvailability</code> parameter to control the instantiation of multiple copies of STF components to reduce recovery time of components that fail or are rescheduled. By default, <code>highAvailability</code> is disabled. For more information, see <a href="#high-availability_assembly-advanced-features">High availability</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="transports_assembly-installing-the-core-components-of-stf">transports</h4>
-<div class="paragraph">
-<p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. Ensure that it is enabled for proper operation of STF. By default, the <code>qdr</code> transport is enabled.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OKD</h3>
 <div class="paragraph _abstract">
-<p>Create a <code>ServiceTelemetry</code> object in OKD to result in the creation of supporting components for a Service&#160;Telemetry&#160;Framework deployment. For more information, see <a href="#overview-of-the-servicetelemetry-object">Overview of the ServiceTelemetry object</a>.</p>
+<p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the creation of supporting components for a Service&#160;Telemetry&#160;Framework deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1729,6 +1547,182 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 </div>
 </li>
 </ol>
+</div>
+<div class="sect3">
+<h4 id="primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</h4>
+<div class="paragraph _abstract">
+<p>To deploy STF, you must create an instance of <code>ServiceTelemetry</code> in OpenShift. The <code>ServiceTelemetry</code> object is made up of the following major configuration parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>alerting</code></p>
+</li>
+<li>
+<p><code>backends</code></p>
+</li>
+<li>
+<p><code>clouds</code></p>
+</li>
+<li>
+<p><code>graphing</code></p>
+</li>
+<li>
+<p><code>highAvailability</code></p>
+</li>
+<li>
+<p><code>transports</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of these top-level configuration parameters provides various controls for a STF deployment.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Support for <code>servicetelemetry.infra.watch/v1alpha1</code> was removed from STF 1.3.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="backends_assembly-installing-the-core-components-of-stf">backends</h5>
+<div class="paragraph">
+<p>Use the <code>backends</code> parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the <code>clouds</code> parameter. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+</div>
+<div class="paragraph">
+<p>Currently, you can use Prometheus as the metrics backend and ElasticSearch as the events backend.</p>
+</div>
+<div class="sect5">
+<h6 id="_enabling_prometheus_as_a_storage_backend_for_metrics">Enabling Prometheus as a storage backend for metrics</h6>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To enable Prometheus as a storage backend for metrics, configure the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    metrics:
+      prometheus:
+        enabled: true</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_enabling_elasticsearch_as_a_storage_backend_for_events">Enabling ElasticSearch as a storage backend for events</h6>
+<div class="paragraph">
+<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
+</div>
+<div class="paragraph">
+<p>By default, ElasticSearch storage of events is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>To enable ElasticSearch as a storage backend for events, configure the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="clouds_assembly-installing-the-core-components-of-stf">clouds</h5>
+<div class="paragraph">
+<p>Use the <code>clouds</code> parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
+</div>
+<div class="paragraph">
+<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  clouds:
+    - name: cloud1
+      metrics:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/telemetry
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/metering.sample
+      events:
+        collectors:
+          - collectorType: collectd
+            subscriptionAddress: collectd/notify
+          - collectorType: ceilometer
+            subscriptionAddress: anycast/ceilometer/event.sample</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each item of the <code>clouds</code> parameter represents a cloud instance. The cloud instances are made up of three top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding backend for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd or Ceilometer. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway should subscribe.</p>
+</div>
+<div class="paragraph">
+<p>You can use the optional Boolean parameter <code>debugEnabled</code> within the <code>collectors</code> parameter to enable additional console debugging in the running Smart Gateway pod.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="alerting_assembly-installing-the-core-components-of-stf">alerting</h5>
+<div class="paragraph">
+<p>Use the <code>alerting</code> parameter to control creation of an Alertmanager instance and the configuration of the storage backend. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="graphing_assembly-installing-the-core-components-of-stf">graphing</h5>
+<div class="paragraph">
+<p>Use the <code>graphing</code> parameter to control the creation of a Grafana instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_assembly-advanced-features">Dashboards</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="highAvailability_assembly-installing-the-core-components-of-stf">highAvailability</h5>
+<div class="paragraph">
+<p>Use the <code>highAvailability</code> parameter to control the instantiation of multiple copies of STF components to reduce recovery time of components that fail or are rescheduled. By default, <code>highAvailability</code> is disabled. For more information, see <a href="#high-availability_assembly-advanced-features">High availability</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="transports_assembly-installing-the-core-components-of-stf">transports</h5>
+<div class="paragraph">
+<p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. Ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router is enabled for correct operation of STF. By default, the <code>qdr</code> transport is enabled.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -6214,7 +6208,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-07 14:57:13 UTC
+Last updated 2021-09-14 10:39:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
