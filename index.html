@@ -803,7 +803,7 @@ Do not install OpenShift on the same infrastructure that you want to monitor.
 <h2 id="assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>As you prepare your OKD environment for STF, you must plan for persistent storage, adequate resources, and event storage:</p>
+<p>As you prepare your OpenShift environment for Service&#160;Telemetry&#160;Framework (STF), you must plan for persistent storage, adequate resources, and event storage:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -885,13 +885,16 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>The default retention time for metrics stored in STF is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust STF for additional metrics retention time, set a new value in <code>backends.metrics.prometheus.storage.retention</code>, for example, <code>7d</code> for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.</p>
 </div>
 <div class="paragraph">
-<p>For long-term storage, use systems designed for long-term data retention, for example, <a href="https://thanos.io/">Thanos</a>.</p>
+<p>For long-term storage, use systems designed for long-term data retention, for example, Thanos.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
 <li>
 <p>For recommendations about Prometheus data storage and estimating storage space, see <a href="https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects" class="bare">https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects</a></p>
+</li>
+<li>
+<p>For more information about Thanos, see <a href="https://thanos.io/" class="bare">https://thanos.io/</a></p>
 </li>
 </ul>
 </div>
@@ -6208,7 +6211,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-14 10:39:48 UTC
+Last updated 2021-09-15 13:18:46 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
