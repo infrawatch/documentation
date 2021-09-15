@@ -28,8 +28,9 @@
 [role="_abstract"]
 The default retention time for metrics stored in {ProjectShort} is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust {ProjectShort} for additional metrics retention time, set a new value in `backends.metrics.prometheus.storage.retention`, for example, `7d` for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.
 
-For long-term storage, use systems designed for long-term data retention, for example, https://thanos.io/[Thanos].
+For long-term storage, use systems designed for long-term data retention, for example, Thanos.
 
 .Additional resources
 
 * For recommendations about Prometheus data storage and estimating storage space, see https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects
+* For more information about Thanos, see https://thanos.io/
