@@ -1225,7 +1225,7 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The AMQ Certificate Manager is installed globally for all namespaces, so the <code>namespace</code> value provided is <code>openshift-operators</code>. You might not see your <code>amq7-cert-manager.v1.0.0</code> ClusterServiceVersion in the <code>service-telemetry</code> namespace for a few minutes until the processing executes against the namespace.
+The AMQ Certificate Manager is installed globally for all namespaces, so the <code>namespace</code> value provided is <code>openshift-operators</code>. You might not see your <code>amq7-cert-manager.v1.0.1</code> ClusterServiceVersion in the <code>service-telemetry</code> namespace for a few minutes until the processing executes against the namespace.
 </td>
 </tr>
 </table>
@@ -1234,29 +1234,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the <co
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Enable the Red Hat STF Operators CatalogSource:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: redhat-operators-stf
-  namespace: openshift-marketplace
-spec:
-  displayName: Red Hat STF Operators
-  image: quay.io/redhat-operators-stf/stf-catalog:stable
-  publisher: Red Hat
-  sourceType: grpc
-  updateStrategy:
-    registryPoll:
-      interval: 30m
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Subscribe to the AMQ Certificate Manager Operator via the <code>redhat-operators-stf</code> CatalogSource:</p>
+<p>Subscribe to the AMQ Certificate Manager Operator via the <code>redhat-operators</code> CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
@@ -1266,12 +1244,11 @@ metadata:
   name: amq7-cert-manager-operator
   namespace: openshift-operators
 spec:
-  channel: alpha
+  channel: 1.x
   installPlanApproval: Automatic
   name: amq7-cert-manager-operator
-  source: redhat-operators-stf
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
-  targetNamespaces: global
 EOF</code></pre>
 </div>
 </div>
@@ -1283,11 +1260,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded</code></pre>
+amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure that amq7-cert-manager.v1.0.0 has a phase <code>Succeeded</code>.</p>
+<p>Ensure that amq7-cert-manager.v1.0.1 has a phase <code>Succeeded</code>.</p>
 </div>
 </li>
 </ol>
@@ -6211,7 +6188,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-16 18:13:20 UTC
+Last updated 2021-09-16 20:28:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
