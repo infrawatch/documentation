@@ -115,7 +115,6 @@ spec:
 
 Each item of the `clouds` parameter represents a cloud instance. The cloud instances are made up of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding backend for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd or Ceilometer. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway should subscribe.
 
-You can use the optional Boolean parameter `debugEnabled` within the `collectors` parameter to enable additional console debugging in the running Smart Gateway pod.
 
 [id="alerting_{context}"]
 == alerting
