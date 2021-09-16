@@ -27,32 +27,11 @@
 You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 [NOTE]
-The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.0` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
+The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.1` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
 
 .Procedure
 
-. Enable the Red Hat STF Operators CatalogSource:
-+
-[source,bash]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: redhat-operators-stf
-  namespace: openshift-marketplace
-spec:
-  displayName: Red Hat STF Operators
-  image: quay.io/redhat-operators-stf/stf-catalog:stable
-  publisher: Red Hat
-  sourceType: grpc
-  updateStrategy:
-    registryPoll:
-      interval: 30m
-EOF
-----
-
-. Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators-stf` CatalogSource:
+. Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators` CatalogSource:
 
 +
 [source,bash]
@@ -64,12 +43,11 @@ metadata:
   name: amq7-cert-manager-operator
   namespace: openshift-operators
 spec:
-  channel: alpha
+  channel: 1.x
   installPlanApproval: Automatic
   name: amq7-cert-manager-operator
-  source: redhat-operators-stf
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
-  targetNamespaces: global
 EOF
 ----
 
@@ -80,7 +58,7 @@ EOF
 $ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.0   Red Hat Integration - AMQ Certificate Manager   1.0.0                Succeeded
+amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
 ----
 +
-Ensure that amq7-cert-manager.v1.0.0 has a phase `Succeeded`.
+Ensure that amq7-cert-manager.v1.0.1 has a phase `Succeeded`.
