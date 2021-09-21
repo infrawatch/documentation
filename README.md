@@ -1,7 +1,7 @@
 # stf-documentation
 
 This is upstream source code of [Service Telemetry
-Framework](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/service_assurance_framework/index)
+Framework](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/service_telemetry_framework_1.3/index)
 documentation. All content in this repository uses
 [AsciiDoctor](https://asciidoctor.org/) syntax and aims to follow [Guidelines
 for Red Hat Documentation](https://redhat-documentation.github.io/). This is a
