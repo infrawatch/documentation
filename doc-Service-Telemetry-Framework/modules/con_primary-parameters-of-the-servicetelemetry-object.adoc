@@ -47,7 +47,7 @@ Support for `servicetelemetry.infra.watch/v1alpha1` was removed from {ProjectSho
 
 Use the `backends` parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics backend and ElasticSearch as the events backend.
+Currently, you can use Prometheus as the metrics storage backend and ElasticSearch as the events storage backend.
 
 [discrete]
 === Enabling Prometheus as a storage backend for metrics
