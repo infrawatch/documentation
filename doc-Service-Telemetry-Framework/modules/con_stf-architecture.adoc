@@ -15,7 +15,7 @@
 .{ProjectShort} components
 [cols="65,15,20"]
 |===
-|Component |Client  |Server ({OpenShift})
+|Component |Client ({OpenStack})  |Server ({OpenShift})
 
 |An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
 |yes
@@ -43,6 +43,9 @@
 
 |===
 
+[IMPORTANT]
+To ensure that the monitoring platform can report operational problems with your cloud, do not install {ProjectShort} on the same infrastructure that you are monitoring.
+
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
 image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework architecture overview]
@@ -50,7 +53,7 @@ image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework archi
 ifeval::["{build}" == "downstream"]
 
 [NOTE]
-The {Project} data collection components, collectd and Ceilometer, and the transport components, {MessageBus} and Smart Gateway, are fully supported. The data storage components, Prometheus and ElasticSearch, including the Operator artifacts, and visualization component Grafana are community-supported, and are not officially supported.
+The {ProjectShort} data collection components, collectd and Ceilometer, and the transport components, {MessageBus} and Smart Gateway, are fully supported. The data storage components, Prometheus and ElasticSearch, including the Operator artifacts, and visualization component Grafana are community-supported, and are not officially supported.
 
 endif::[]
 
@@ -68,9 +71,6 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 .Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
 
-
-[NOTE]
-Do not install {OpenShift} on the same infrastructure that you want to monitor.
 
 .Additional resources
 
