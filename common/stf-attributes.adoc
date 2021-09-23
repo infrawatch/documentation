@@ -16,6 +16,10 @@ ifeval::[{vernum} < 16.0]
 :include_when_13:
 endif::[]
 
+ifeval::[{vernum} >= 17.0]
+:include_when_17:
+endif::[]
+
 ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift
 :OpenShiftShort: OKD
@@ -29,6 +33,7 @@ ifeval::["{build}" == "upstream"]
 :ProjectShort: STF
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
 :SupportedOpenShiftVersion: 4.5
+:NextSupportedOpenShiftVersion: 4.6
 endif::[]
 
 ifeval::["{build}" == "downstream"]
@@ -43,5 +48,6 @@ ifeval::["{build}" == "downstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
-:SupportedOpenShiftVersion: 4.5
+:SupportedOpenShiftVersion: 4.6
+:NextSupportedOpenShiftVersion: 4.7
 endif::[]
