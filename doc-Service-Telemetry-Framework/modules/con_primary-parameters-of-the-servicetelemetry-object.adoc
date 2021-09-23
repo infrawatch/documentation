@@ -26,7 +26,7 @@
 = Primary parameters of the ServiceTelemetry object
 
 [role="_abstract"]
-To deploy {ProjectShort}, you must create an instance of `ServiceTelemetry` in {OpenShift}. The `ServiceTelemetry` object is made up of the following major configuration parameters:
+The `ServiceTelemetry` object is made up of the following major configuration parameters:
 
 * `alerting`
 * `backends`
@@ -49,7 +49,7 @@ Use the `backends` parameter to control which storage backends are available for
 
 Currently, you can use Prometheus as the metrics backend and ElasticSearch as the events backend.
 
-
+[discrete]
 === Enabling Prometheus as a storage backend for metrics
 
 .Procedure
@@ -70,11 +70,12 @@ spec:
         enabled: true
 ----
 
+[discrete]
 === Enabling ElasticSearch as a storage backend for events
 
 To enable events support in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
 
-By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
+By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 
@@ -131,6 +132,12 @@ Each item of the `clouds` parameter represents a cloud instance. The cloud insta
 
 You can use the optional Boolean parameter `debugEnabled` within the `collectors` parameter to enable additional console debugging in the running Smart Gateway pod.
 
+.Additional resources
+
+* For more information about deleting default Smart Gateways, see xref:deleting-the-default-smart-gateways_assembly-completing-the-stf-configuration[].
+
+* For more information about how to configure multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
+
 [id="alerting_{context}"]
 == alerting
 
@@ -149,4 +156,4 @@ Use the `highAvailability` parameter to control the instantiation of multiple co
 [id="transports_{context}"]
 == transports
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that {MessageBus} is enabled for correct operation of {ProjectShort}. By default, the `qdr` transport is enabled.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. By default, the `qdr` transport is enabled.

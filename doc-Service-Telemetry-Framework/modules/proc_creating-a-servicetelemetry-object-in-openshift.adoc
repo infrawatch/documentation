@@ -23,14 +23,14 @@
 
 
 [id="creating-a-servicetelemetry-object-in-openshift_{context}"]
-= Creating a ServiceTelemetry object in {OpenShiftShort}
+= Creating a ServiceTelemetry object in {OpenShift}
 
 [role="_abstract"]
-Create a `ServiceTelemetry` object in {OpenShift} to result in the creation of supporting components for a {Project} deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
+Create a `ServiceTelemetry` object in {OpenShift} to result in the creation of supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
 
 .Procedure
 
-. To create a `ServiceTelemetry` object that results in an {ProjectShort} deployment that uses the default values, create a `ServiceTelemetry` object with an empty `spec` parameter.
+. To create a `ServiceTelemetry` object that results in an {ProjectShort} deployment that uses the default values, create a `ServiceTelemetry` object with an empty `spec` parameter:
 +
 [source,bash]
 ----
@@ -44,7 +44,7 @@ spec: {}
 EOF
 ----
 +
-To override a default value, you need to define only the parameter that you want to override. In this example, you enable ElasticSearch by setting `enabled` to `true`:
+To override a default value, define only the parameter that you want to override. In this example, enable ElasticSearch by setting `enabled` to `true`:
 +
 [source,yaml]
 ----
@@ -62,7 +62,7 @@ spec:
 EOF
 ----
 +
-Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following defaults. To override these defaults, add the configuration to the spec parameter:
+Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following default settings. To override these defaults, add the configuration to the spec parameter:
 +
 [source,yaml]
 ----
@@ -152,9 +152,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=54   changed=0    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0
 ----
 
-. View the pods and the status of each pod to determine that all workloads are operating nominally:
+. Verification: View the pods and the status of each pod to determine that all workloads are operating nominally:
 +
-NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways reports `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
+NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 
 +
 [source,bash,options="nowrap"]
