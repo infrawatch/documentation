@@ -48,6 +48,6 @@ ifeval::["{build}" == "downstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
-:SupportedOpenShiftVersion: 4.6
-:NextSupportedOpenShiftVersion: 4.7
+:SupportedOpenShiftVersion: 4.5
+:NextSupportedOpenShiftVersion: 4.6
 endif::[]
