@@ -15,7 +15,7 @@
 .{ProjectShort} components
 [cols="65,15,20"]
 |===
-|Component |Client  |Server ({OpenShift})
+|Component |Client ({OpenStack})  |Server ({OpenShift})
 
 |An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
 |yes
@@ -43,6 +43,9 @@
 
 |===
 
+[IMPORTANT]
+To ensure that the monitoring platform can report operational problems with your cloud, do not install {ProjectShort} on the same infrastructure that you are monitoring.
+
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
 image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework architecture overview]
@@ -50,13 +53,13 @@ image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework archi
 ifeval::["{build}" == "downstream"]
 
 [NOTE]
-The {Project} data collection components, collectd and Ceilometer, and the transport components, {MessageBus} and Smart Gateway, are fully supported. The data storage components, Prometheus and ElasticSearch, including the Operator artifacts, and visualization component Grafana are community-supported, and are not officially supported.
+The {ProjectShort} data collection components, collectd and Ceilometer, and the transport components, {MessageBus} and Smart Gateway, are fully supported. The data storage components, Prometheus and ElasticSearch, including the Operator artifacts, and visualization component Grafana are community-supported, and are not officially supported.
 
 endif::[]
 
 For metrics, on the client side, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStack} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd or Ceilometer delivers event data to the server side by using the {MessageBus} transport, delivering the data through the message bus. Another Smart Gateway writes the data to the ElasticSearch datastore.
+If you plan to collect and store events, collectd and Ceilometer delivers event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the ElasticSearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
@@ -68,9 +71,6 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 .Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
 
-
-[NOTE]
-Do not install {OpenShift} on the same infrastructure that you want to monitor.
 
 .Additional resources
 
