@@ -158,7 +158,8 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=55   changed=0    unreachable=0    failed=0    skipped=16   rescued=0    ignored=0
 ----
 
-. Verification: View the pods and the status of each pod to determine that all workloads are operating nominally:
+.Verification
+* To determine that all workloads are operating nominally, view the pods and the status of each pod:
 +
 NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 
