@@ -26,7 +26,7 @@
 = Primary parameters of the ServiceTelemetry object
 
 [role="_abstract"]
-To deploy {ProjectShort}, you must create an instance of `ServiceTelemetry` in {OpenShift}. The `ServiceTelemetry` object is made up of the following major configuration parameters:
+The `ServiceTelemetry` object is made up of the following major configuration parameters:
 
 * `alerting`
 * `backends`
@@ -50,9 +50,9 @@ Support for `servicetelemetry.infra.watch/v1alpha1` will be removed in {ProjectS
 
 Use the `backends` parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics backend and ElasticSearch as the events backend.
+Currently, you can use Prometheus as the metrics storage backend and ElasticSearch as the events storage backend.
 
-
+[discrete]
 === Enabling Prometheus as a storage backend for metrics
 
 .Procedure
@@ -73,12 +73,30 @@ spec:
         enabled: true
 ----
 
-
+[discrete]
 === Enabling ElasticSearch as a storage backend for events
 
 To enable events support in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
 
-By default, ElasticSearch storage of events is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf[].
+By default, storage of events into ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
+
+.Procedure
+
+* To enable ElasticSearch as a storage backend for events, configure the `ServiceTelemetry` object:
++
+[source,yaml]
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
+----
 
 [id="clouds_{context}"]
 == clouds
@@ -116,6 +134,12 @@ spec:
 Each item of the `clouds` parameter represents a cloud instance. The cloud instances are made up of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding backend for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd or Ceilometer. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway should subscribe.
 
 
+.Additional resources
+
+* For more information about deleting default Smart Gateways, see xref:deleting-the-default-smart-gateways_assembly-completing-the-stf-configuration[].
+
+* For more information about how to configure multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
+
 [id="alerting_{context}"]
 == alerting
 
@@ -134,4 +158,4 @@ Use the `highAvailability` parameter to control the instantiation of multiple co
 [id="transports_{context}"]
 == transports
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. Ensure that {MessageBus} is enabled for proper operation of {ProjectShort}. By default, the `qdr` transport is enabled.
+Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. By default, the `qdr` transport is enabled.
