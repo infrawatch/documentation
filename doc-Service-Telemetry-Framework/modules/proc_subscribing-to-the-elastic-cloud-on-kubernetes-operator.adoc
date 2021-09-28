@@ -55,6 +55,6 @@ $ oc get csv
 
 NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
 ...
-elasticsearch-eck-operator-certified.v1.7.1   Elasticsearch (ECK) Operator   1.7.1     elasticsearch-eck-operator-certified.v1.6.0  Succeeded
+elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
 ...
 ----
