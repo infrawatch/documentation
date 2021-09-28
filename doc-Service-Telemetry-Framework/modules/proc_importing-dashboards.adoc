@@ -60,7 +60,7 @@ grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created
 ----
 $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/memcached-dashboard.yaml
 
-grafanadashboard.integreatly.org/memcached/dashboard-1.3 created
+grafanadashboard.integreatly.org/memcached-dashboard-1.3 created
 ----
 +
 [WARNING]
