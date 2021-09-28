@@ -126,6 +126,9 @@ spec:
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
             debugEnabled: false
+          - collectorType: sensubility
+            subscriptionAddress: sensubility/telemetry
+            debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
@@ -166,6 +169,7 @@ NAME                                                      READY   STATUS    REST
 alertmanager-default-0                                    2/2     Running   0          17m
 default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
 default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
+default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
 default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
 elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
 interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
