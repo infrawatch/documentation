@@ -1468,6 +1468,9 @@ spec:
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
             debugEnabled: false
+          - collectorType: sensubility
+            subscriptionAddress: sensubility/telemetry
+            debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
@@ -1522,6 +1525,7 @@ NAME                                                      READY   STATUS    REST
 alertmanager-default-0                                    2/2     Running   0          17m
 default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
 default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
+default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
 default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
 elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
 interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
@@ -1645,10 +1649,10 @@ spec:
 <p>Use the <code>clouds</code> parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
 </div>
 <div class="paragraph">
-<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors and the message bus subscription address. Available collectors are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
+<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors, the message bus subscription address, and whether debugging is enabled. Available collectors for metrics are <code>collectd</code>, <code>ceilometer</code>, and <code>sensubility</code>. Available collectors for events are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
 </div>
 <div class="paragraph">
-<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for both collectd and Ceilometer data collectors for a particular cloud instance:</p>
+<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1666,6 +1670,9 @@ spec:
             subscriptionAddress: collectd/telemetry
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
+          - collectorType: sensubility
+            subscriptionAddress: sensubility/telemetry
+            debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
@@ -6219,7 +6226,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-28 20:18:47 UTC
+Last updated 2021-09-29 13:01:12 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
