@@ -55,6 +55,22 @@ $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/dep
 
 grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created
 ----
+. Import the virutal machine dashboard:
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/virtual-machine-view.yaml
+
+grafanadashboard.integreatly.org/virtual-machine-view-1.3 configured
+----
+. Import the memcached dashboard:
++
+[source,bash,options="nowrap"]
+----
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/memcached-dashboard.yaml
+
+grafanadashboard.integreatly.org/memcached-dashboard-1.3 created
+----
 +
 [WARNING]
 For some panels in the cloud dashboard, you must set the value of the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname` in the `stf-connectors.yaml` file. If you do not configure this parameter, affected dashboards remain empty. For more information about the `virt` plugin, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/service_telemetry_framework_1.2/index#collectd-plugins_assembly[collectd plugins].
