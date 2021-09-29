@@ -66,7 +66,8 @@ EOF
 $ oc get csv
 
 NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-grafana-operator.v3.2.0             Grafana Operator                                3.2.0                                         Succeeded
+grafana-operator.v3.10.3            Grafana Operator                                3.10.3    grafana-operator.v3.10.2            Succeeded
+
 ...
 ----
 
