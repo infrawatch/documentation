@@ -102,7 +102,7 @@ Use the `clouds` parameter to control which Smart Gateway objects are deployed, 
 
 You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type is made up of a list of collectors, the message bus subscription address, and whether debugging is enabled. Available collectors for metrics are `collectd`, `ceilometer`, and `sensubility`. Available collectors for events are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
 
-The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, providing subscriptions and data storage of metrics and events for collectd, Ceilometer and Sensubility data collectors for a particular cloud instance:
+The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, providing subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:
 
 [source,yaml]
 ----
