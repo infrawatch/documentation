@@ -133,7 +133,7 @@ docker.io/grafana/grafana:7.3.10
 $ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'
 ----
 +
-Service Telemetry Operator will then update the Grafana manifest, resulting in the Grafana deployment restarting.
+Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.
 
 . Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
 +
