@@ -127,14 +127,14 @@ $ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
 docker.io/grafana/grafana:7.3.10
 ----
 
-. If the running image is older than 8.1.0, patch the Grafana object to update the image:
+. If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'
+$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'
 ----
 +
-The Grafana deployment restarts.
+Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.
 
 . Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
 +
