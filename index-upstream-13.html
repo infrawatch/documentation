@@ -2570,7 +2570,10 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the <code>ServiceTelemetry</code> name <code>default</code> and the <code>clouds.name</code> does not exceed 19 characters. Topic addresses have no character limitation and can be different than the <code>clouds.name</code> value.</p>
+<p>Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the <code>ServiceTelemetry</code> name <code>default</code> and the <code>clouds.name</code> does not exceed 19 characters. Cloud names cannot have any special characters in them, such as <code>-</code>. Limit cloud names to alphanumeric (a-z, 0-9) only.</p>
+</div>
+<div class="paragraph">
+<p>Topic addresses have no character limitation and can be different than the <code>clouds.name</code> value.</p>
 </div>
 </td>
 </tr>
@@ -3713,14 +3716,14 @@ docker.io/grafana/grafana:7.3.10</code></pre>
 </div>
 </li>
 <li>
-<p>If the running image is older than 8.1.0, patch the Grafana object to update the image:</p>
+<p>If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch grafana/default --type merge -p '{"spec":{"baseImage":"docker.io/grafana/grafana:8.1.0"}}'</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The Grafana deployment restarts.</p>
+<p>Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.</p>
 </div>
 </li>
 <li>
@@ -5956,7 +5959,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-29 21:22:23 UTC
+Last updated 2021-10-07 16:46:19 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
