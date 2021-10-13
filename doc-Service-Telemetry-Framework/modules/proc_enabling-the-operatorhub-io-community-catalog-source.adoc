@@ -50,3 +50,23 @@ spec:
   publisher: OperatorHub.io
 EOF
 ----
+
+* Validate your `CatalogSource`:
++
+[source,bash]
+----
+$ oc get catalogsource -nopenshift-marketplace operatorhubio-operators
+
+NAME                      DISPLAY                    TYPE   PUBLISHER        AGE
+operatorhubio-operators   OperatorHub.io Operators   grpc   OperatorHub.io   2m21s
+----
+
+* Verify that the `operatorhubio-operators` pod is running:
++
+[source,bash]
+----
+$ oc get pods -nopenshift-marketplace --selector olm.catalogSource=operatorhubio-operators
+
+NAME                            READY   STATUS    RESTARTS   AGE
+operatorhubio-operators-2cmm4   1/1     Running   0          3m12s
+----
