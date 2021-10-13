@@ -61,7 +61,7 @@ NAME                      DISPLAY                    TYPE   PUBLISHER        AGE
 operatorhubio-operators   OperatorHub.io Operators   grpc   OperatorHub.io   2m21s
 ----
 
-* Verify the `operatorhubio-operators` pod is running:
+* Verify that the `operatorhubio-operators` pod is running:
 +
 [source,bash]
 ----
