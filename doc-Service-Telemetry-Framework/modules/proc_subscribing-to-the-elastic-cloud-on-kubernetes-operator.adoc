@@ -51,10 +51,8 @@ EOF
 +
 [source,options="nowrap"]
 ----
-$ oc get csv
+$ oc get csv --selector operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
-...
-elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
-...
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator   1.8.0     elasticsearch-eck-operator-certified.v1.7.1   Succeeded
 ----
