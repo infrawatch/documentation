@@ -1155,6 +1155,28 @@ EOF</code></pre>
 </div>
 </div>
 </li>
+<li>
+<p>Validate your <code>CatalogSource</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get catalogsource -nopenshift-marketplace operatorhubio-operators
+
+NAME                      DISPLAY                    TYPE   PUBLISHER        AGE
+operatorhubio-operators   OperatorHub.io Operators   grpc   OperatorHub.io   2m21s</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the <code>operatorhubio-operators</code> pod is running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -nopenshift-marketplace --selector olm.catalogSource=operatorhubio-operators
+
+NAME                            READY   STATUS    RESTARTS   AGE
+operatorhubio-operators-2cmm4   1/1     Running   0          3m12s</code></pre>
+</div>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1302,12 +1324,10 @@ EOF</code></pre>
 <p>Verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>Succeeded</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get csv --selector operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
-...
-elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
-...</code></pre>
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator   1.8.0     elasticsearch-eck-operator-certified.v1.7.1   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1348,9 +1368,9 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
-NAME                                         DISPLAY                                         VERSION          REPLACES                            PHASE
+NAME                                          DISPLAY                                         VERSION          REPLACES                                      PHASE
 amq7-cert-manager.v1.0.1                      Red Hat Integration - AMQ Certificate Manager   1.0.1                                                          Succeeded
-amq7-interconnect-operator.v1.10.1            Red Hat Integration - AMQ Interconnect          1.10.1           amq7-interconnect-operator.v1.2.4             Succeeded
+amq7-interconnect-operator.v1.10.2            Red Hat Integration - AMQ Interconnect          1.10.2                                                         Succeeded
 elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
 prometheusoperator.0.47.0                     Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                     Succeeded
 service-telemetry-operator.v1.4.1632856033    Service Telemetry Operator                      1.4.1632856033                                                 Succeeded
@@ -1414,10 +1434,8 @@ metadata:
   name: default
 spec:
   alerting:
-    enabled: true
     alertmanager:
       storage:
-        strategy: persistent
         persistent:
           pvcStorageRequest: 20G
           storageSelector: {}
@@ -1425,25 +1443,27 @@ spec:
           snmpTraps:
             enabled: false
             target: 192.168.24.254
+        strategy: persistent
+    enabled: true
   backends:
     events:
       elasticsearch:
         enabled: false
         storage:
-          strategy: persistent
           persistent:
             pvcStorageRequest: 20Gi
             storageSelector: {}
+          strategy: persistent
     metrics:
       prometheus:
         enabled: true
         scrapeInterval: 10s
         storage:
-          strategy: persistent
           persistent:
             pvcStorageRequest: 20G
             storageSelector: {}
           retention: 24h
+          strategy: persistent
   graphing:
     enabled: false
     grafana:
@@ -1451,6 +1471,7 @@ spec:
       adminUser: root
       disableSignoutMenu: false
       ingressEnabled: false
+      baseImage: docker.io/grafana/grafana:8.1.2
   highAvailability:
     enabled: false
   transports:
@@ -1494,7 +1515,7 @@ spec:
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">--------------------------- Ansible Task Status Event StdOut  -----------------
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=54   changed=0    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0</code></pre>
+localhost                  : ok=57   changed=0    unreachable=0    failed=0    skipped=20   rescued=0    ignored=0</code></pre>
 </div>
 </div>
 </li>
@@ -3722,11 +3743,10 @@ EOF</code></pre>
 <p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
-NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-grafana-operator.v3.10.3            Grafana Operator                                3.10.3    grafana-operator.v3.10.2            Succeeded
-...</code></pre>
+NAME                       DISPLAY            VERSION   REPLACES                   PHASE
+grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -6220,7 +6240,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-13 13:45:18 UTC
+Last updated 2021-10-13 22:55:38 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
