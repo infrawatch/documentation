@@ -63,12 +63,10 @@ EOF
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get csv
+$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
-NAME                                DISPLAY                                         VERSION   REPLACES                            PHASE
-grafana-operator.v3.10.3            Grafana Operator                                3.10.3    grafana-operator.v3.10.2            Succeeded
-
-...
+NAME                       DISPLAY            VERSION   REPLACES                   PHASE
+grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded
 ----
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`.

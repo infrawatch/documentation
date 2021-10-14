@@ -72,10 +72,8 @@ metadata:
   name: default
 spec:
   alerting:
-    enabled: true
     alertmanager:
       storage:
-        strategy: persistent
         persistent:
           pvcStorageRequest: 20G
           storageSelector: {}
@@ -83,25 +81,27 @@ spec:
           snmpTraps:
             enabled: false
             target: 192.168.24.254
+        strategy: persistent
+    enabled: true
   backends:
     events:
       elasticsearch:
         enabled: false
         storage:
-          strategy: persistent
           persistent:
             pvcStorageRequest: 20Gi
             storageSelector: {}
+          strategy: persistent
     metrics:
       prometheus:
         enabled: true
         scrapeInterval: 10s
         storage:
-          strategy: persistent
           persistent:
             pvcStorageRequest: 20G
             storageSelector: {}
           retention: 24h
+          strategy: persistent
   graphing:
     enabled: false
     grafana:
@@ -109,6 +109,7 @@ spec:
       adminUser: root
       disableSignoutMenu: false
       ingressEnabled: false
+      baseImage: docker.io/grafana/grafana:8.1.2
   highAvailability:
     enabled: false
   transports:
@@ -152,7 +153,7 @@ $ oc logs --selector name=service-telemetry-operator
 --------------------------- Ansible Task Status Event StdOut  -----------------
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=54   changed=0    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0
+localhost                  : ok=57   changed=0    unreachable=0    failed=0    skipped=20   rescued=0    ignored=0
 ----
 
 .Verification
