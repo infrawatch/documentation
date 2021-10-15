@@ -1,13 +1,3 @@
-// This assembly is included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-////
-Retains the context of the parent assembly if this assembly is nested within another assembly.
-For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
-See also the complementary step on the last line of this file.
-////
-
 ifdef::context[:parent-context: {context}]
 
 [id="assembly-introduction-to-stf_{context}"]
@@ -21,15 +11,8 @@ ifdef::context[:parent-context: {context}]
 // The following block is rendered only if the `internal` variable is set.
 // The table shows various metadata useful when editing this file.
 
-ifeval::["{build}" == "downstream"]
-[IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
-
-//For more information about migrating, see https://access.redhat.com/articles/5477371[Migrating Service Telemetry Framework v1.0 from OperatorSource to CatalogSource].
-endif::[]
-
 [role="_abstract"]
-{Project} ({ProjectShort}) collects monitoring data from {OpenStack} or third party nodes. With {ProjectShort}, you can perform the following tasks:
+{Project} ({ProjectShort}) collects monitoring data from {OpenStack} ({OpenStackShort}) or third-party nodes. With {ProjectShort}, you can perform the following tasks:
 
 * Store or archive the monitoring data for historical information
 * View the monitoring data graphically on the dashboard
@@ -41,6 +24,11 @@ Metric:: a numeric measurement of an application or system
 Event:: irregular and discrete occurrences that happen in a system
 
 The multicast message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data are deployed in containers on {OpenShift}.
+
+ifeval::["{build}" == "downstream"]
+[IMPORTANT]
+{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
+endif::[]
 
 ifeval::["{build}" == "downstream"]
 include::../modules/con_support-for-stf.adoc[leveloffset=+1]

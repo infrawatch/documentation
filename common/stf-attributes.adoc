@@ -24,6 +24,7 @@ ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift
 :OpenShiftShort: OKD
 :OpenStack: OpenStack
+:OpenStackShort: OSP
 :OpenStackVersion: Train
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: TripleO
@@ -40,7 +41,8 @@ ifeval::["{build}" == "downstream"]
 :OpenShift: Red{nbsp}Hat{nbsp}OpenShift{nbsp}Container{nbsp}Platform
 :OpenShiftShort: OCP
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
-:OpenStackVersion: 16.1
+:OpenStackShort: RHOSP
+:OpenStackVersion: 16.2
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
