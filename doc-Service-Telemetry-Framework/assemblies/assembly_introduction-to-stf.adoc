@@ -27,7 +27,7 @@ The multicast message bus provides fast, reliable data transport and is shared b
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
+{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
 endif::[]
 
 ifeval::["{build}" == "downstream"]
