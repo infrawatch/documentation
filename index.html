@@ -572,7 +572,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack or third party nodes. With STF, you can perform the following tasks:</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack (OSP) or third-party nodes. With STF, you can perform the following tasks:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -608,10 +608,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses the components described in the following table:</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses the client and server components described in the following table:</p>
 </div>
 <table id="table-stf-components" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. STF components</caption>
+<caption class="title">Table 1. Client and server components of STF</caption>
 <colgroup>
 <col style="width: 65%;"/>
 <col style="width: 15%;"/>
@@ -676,7 +676,7 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
 <div class="paragraph">
-<p>For metrics, on the client side, collectd provides infrastructure metrics without project data, and Ceilometer provides OpenStack platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
+<p>For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides OpenStack (OSP) platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
 </div>
 <div class="paragraph">
 <p>If you plan to collect and store events, collectd and Ceilometer delivers event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the ElasticSearch datastore.</p>
@@ -687,7 +687,7 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="ulist">
 <ul>
 <li>
-<p>Service&#160;Telemetry&#160;Framework 1.3 (STF)</p>
+<p>Service&#160;Telemetry&#160;Framework 1.3</p>
 </li>
 <li>
 <p>OpenShift 4.6 or 4.7</p>
@@ -723,6 +723,9 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="ulist">
 <ul>
 <li>
+<p>The infrastructure you select.</p>
+</li>
+<li>
 <p>The number of nodes you want to monitor.</p>
 </li>
 <li>
@@ -737,10 +740,10 @@ To ensure that the monitoring platform can report operational problems with your
 </ul>
 </div>
 <div class="paragraph">
-<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment. Ensure that you install monitoring for OpenStack on a platform separate from your OpenStack environment. You can install OpenShift on baremetal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.6/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.6 Documentation</a>.</p>
+<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment. Ensure that you install monitoring for OpenStack (OSP) on a platform separate from your {OSP} environment. You can install OpenShift on baremetal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.6/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.6 Documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The size of your OpenShift environment depends on the infrastructure you select. For more information about minimum resources requirements when installing OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -6240,7 +6243,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-13 22:55:38 UTC
+Last updated 2021-10-15 15:20:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
