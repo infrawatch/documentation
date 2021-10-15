@@ -1,38 +1,15 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_sizing-your-installation.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
 [id="installation-size-of-ocp_{context}"]
 = Installation size of {OpenShift}
 
 [role="_abstract"]
 The size of your {OpenShift} installation depends on the following factors:
 
+* The infrastructure you select.
 * The number of nodes you want to monitor.
 * The number of metrics you want to collect.
 * The resolution of metrics.
 * The length of time that you want to store the data.
 
-Installation of {Project} ({ProjectShort}) depends on the existing {OpenShift} environment. Ensure that you install monitoring for {OpenStack} on a platform separate from your {OpenStack} environment. You can install {OpenShift} on baremetal or other supported cloud platforms. For more information about installing {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {SupportedOpenShiftVersion} Documentation].
+Installation of {Project} ({ProjectShort}) depends on the existing {OpenShift} environment. Ensure that you install monitoring for {OpenStack} ({OpenStackShort}) on a platform separate from your {{OpenStackShort}} environment. You can install {OpenShift} on baremetal or other supported cloud platforms. For more information about installing {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {SupportedOpenShiftVersion} Documentation].
 
-The size of your {OpenShift} environment depends on the infrastructure you select. For more information about minimum resources requirements when installing {OpenShift} on baremetal, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal[Minimum resource requirements] in the _Installing a cluster on bare metal_ guide. For installation requirements of the various public and private cloud platforms which you can install, see the corresponding installation documentation for your cloud platform of choice.
+For more information about minimum resources requirements when you install {OpenShift} on baremetal, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal[Minimum resource requirements] in the _Installing a cluster on bare metal_ guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.
