@@ -9,35 +9,53 @@
 = {Project} architecture
 
 [role="_abstract"]
-{Project} ({ProjectShort}) uses the client and server components described in the following table:
+{Project} ({ProjectShort}) uses a client-server architecture, in which {OpenStack} ({OpenStackShort}) is the client and Red Hat OpenShift Container Platform is the server.
+
+{ProjectShort} consists of the following components:
+
+
+* Data collection
+** collectd: Collects infrastructure metrics and events.
+** Ceilometer: Collects {OpenStackShort} metrics and events.
+* Transport
+** AMQ Interconnect: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
+** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to ElasticSearch or Prometheus.
+* Data storage
+** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.
+** ElasticSearch: Events data storage that stores {ProjectShort} events received from the Smart Gateway.
+* Observation
+** Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.
+** Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.
+
+The following table describes the application of the client and server components:
 
 [[table-stf-components]]
 .Client and server components of {ProjectShort}
 [cols="65,15,20"]
 |===
-|Component |Client ({OpenStack})  |Server ({OpenShift})
+|Component |Client  |Server
 
-|An AMQP 1.x compatible messaging bus to shuttle the metrics to {ProjectShort} for storage in Prometheus
+|An AMQP 1.x compatible messaging bus
 |yes
 |yes
 
-|Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus
+|Smart Gateway
 |no
 |yes
 
-|Prometheus as time-series data storage
+|Prometheus
 |no
 |yes
 
-|ElasticSearch as events data storage
+|ElasticSearch
 |no
 |yes
 
-|collectd to collect infrastructure metrics and events
+|collectd
 |yes
 |no
 
-|Ceilometer to collect {OpenStack} metrics and events
+|Ceilometer
 |yes
 |no
 
@@ -52,7 +70,7 @@ image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework archi
 
 On the client side, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStack} ({OpenStackShort}) platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd and Ceilometer delivers event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the ElasticSearch datastore.
+If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the ElasticSearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
