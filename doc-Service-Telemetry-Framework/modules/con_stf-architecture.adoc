@@ -81,9 +81,3 @@ Server-side {ProjectShort} monitoring infrastructure consists of the following l
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
 image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
-
-
-.Additional resources
-
-* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{SupportedOpenShiftVersion}/[{OpenShift} product documentation].
-* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
