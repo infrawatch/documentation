@@ -12,18 +12,18 @@ ifdef::context[:parent-context: {context}]
 // The table shows various metadata useful when editing this file.
 
 [role="_abstract"]
-{Project} ({ProjectShort}) collects monitoring data from {OpenStack} ({OpenStackShort}) or third-party nodes. With {ProjectShort}, you can perform the following tasks:
+{Project} ({ProjectShort}) collects monitoring data from {OpenStack} ({OpenStackShort}) or third-party nodes. You can use {ProjectShort} to perform the following tasks:
 
-* Store or archive the monitoring data for historical information
-* View the monitoring data graphically on the dashboard
-* Use the monitoring data to trigger alerts or warnings
+* Store or archive the monitoring data for historical information.
+* View the monitoring data graphically on the dashboard.
+* Use the monitoring data to trigger alerts or warnings.
 
-The monitoring data can be either of two types:
+The monitoring data can be either metric or event:
 
-Metric:: a numeric measurement of an application or system
-Event:: irregular and discrete occurrences that happen in a system
+Metric:: A numeric measurement of an application or system.
+Event:: Irregular and discrete occurrences that happen in a system.
 
-The multicast message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data are deployed in containers on {OpenShift}.
+The message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data, for example, Prometheus and ElasticSearch,  are deployed in containers on {OpenShift}.
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
