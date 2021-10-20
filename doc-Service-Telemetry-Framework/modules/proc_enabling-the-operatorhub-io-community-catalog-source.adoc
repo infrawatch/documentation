@@ -1,25 +1,4 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
 
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_enabling-the-operatorhub-io-community-catalog-source.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="enabling-the-operatorhub-io-community-catalog-source_{context}"]
 = Enabling the OperatorHub.io Community Catalog Source
 
@@ -28,7 +7,7 @@ Before you install data storage and visualization operators, you must have acces
 
 ifeval::["{build}" == "downstream"]
 [NOTE]
-All operators installed from this CatalogSource are not supported by Red Hat.
+Only the core Operators and workloads are supported by Red Hat, including AMQ Interconnect, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
 endif::[]
 
 .Procedure

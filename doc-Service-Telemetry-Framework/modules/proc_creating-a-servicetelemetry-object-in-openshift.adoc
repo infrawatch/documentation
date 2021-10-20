@@ -1,27 +1,3 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
-
-
 [id="creating-a-servicetelemetry-object-in-openshift_{context}"]
 = Creating a ServiceTelemetry object in {OpenShift}
 
@@ -140,7 +116,7 @@ spec:
             debugEnabled: false
 ----
 
-. To view the {ProjectShort} deployment logs in the Service Telemetry Operator, use the `oc logs` command:
+. View the {ProjectShort} deployment logs in the Service Telemetry Operator:
 +
 [source,bash]
 ----
@@ -157,9 +133,9 @@ localhost                  : ok=57   changed=0    unreachable=0    failed=0    s
 ----
 
 .Verification
-* To determine that all workloads are operating nominally, view the pods and the status of each pod:
+* To determine that all workloads are operating correctly, view the pods and the status of each pod:
 +
-NOTE: If you set `backends.events.elasticsearch.enabled: true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
+NOTE: If you set the  `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 
 +
 [source,bash,options="nowrap"]

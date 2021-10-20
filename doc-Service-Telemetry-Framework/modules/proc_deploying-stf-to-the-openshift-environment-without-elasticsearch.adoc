@@ -3,15 +3,15 @@
 = Deploying STF to the Openshift environment without ElasticSearch
 
 [role="_abstract"]
-To deploy {ProjectShort} without ElasticSearch and disable events support, complete the following tasks:
+To deploy {ProjectShort} without ElasticSearch and disable events support, complete the following procedures:
 
 .Procedure
 
-. xref:creating-a-namespace_assembly-installing-the-core-components-of-stf[].
-. xref:creating-an-operatorgroup_assembly-installing-the-core-components-of-stf[].
+. xref:creating-a-namespace_assembly-installing-the-core-components-of-stf[Creating a namespace].
+. xref:creating-an-operatorgroup_assembly-installing-the-core-components-of-stf[Creating an OperatorGroup].
 ifeval::["{build}" == "upstream"]
-. xref:enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf[].
+. xref:enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf[Enabling the infrawatch-catalog source].
 endif::[]
-. xref:subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf[].
-. xref:subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf[].
-. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
+. xref:subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf[Subscribing to the AMQ Certificate Manager Operator].
+. xref:subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf[Subscribing to the Service Telemetry Operator].
+. xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[Creating a ServiceTelemetry object in {OpenShift}].
