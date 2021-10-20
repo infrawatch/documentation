@@ -6,22 +6,23 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-installing-the-core-components-of-stf
 
 [role="_abstract"]
-You can use Operators to load the various application components and objects. Each of the following {ProjectShort} core components are managed by Operators:
+You can use Operators to load the various application components and objects. Each of the following {Project} ({ProjectShort}) core components are managed by Operators:
 
 * Prometheus and AlertManager
 * ElasticSearch
 * Smart Gateway
 * {MessageBus}
+* Grafana
 
 .Prerequisites
 
-* {OpenShift} ({OpenShiftShort}) version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
-* You have prepared your {OpenShift} ({OpenShiftShort}) environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShiftShort} environment.
+* {OpenShift} version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
+* You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment.
 
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} version {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
+{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
 endif::[]
 
 .Additional resources
