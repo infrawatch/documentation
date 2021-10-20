@@ -7,11 +7,15 @@
 
 
 [id="deploying-stf-to-the-openshift-environment_{context}"]
-= Deploying {ProjectShort} to the {OpenShiftShort} environment
+= Deploying {Project} to the {OpenShift} environment
 
 [role="_abstract"]
-You can deploy {ProjectShort} to the {OpenShiftShort} environment in one of two ways:
+You can deploy {Project} ({ProjectShort}) to the {OpenShift} environment in one of two ways:
 
 
-* Deploy {ProjectShort} and store events with ElasticSearch. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
-* Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf[].
+* xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[Deploy {ProjectShort} and store events with ElasticSearch].
+
+* xref:deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf[Deploy {ProjectShort} without ElasticSearch and disable events support].
+
+
+//* Deploy {ProjectShort} without ElasticSearch and disable events support. For more information, see xref:deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf[].
