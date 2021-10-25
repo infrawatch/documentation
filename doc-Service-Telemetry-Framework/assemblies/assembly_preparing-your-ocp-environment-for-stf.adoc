@@ -10,7 +10,6 @@ To prepare your {OpenShift} environment for {Project} ({ProjectShort}), you must
 
 * Ensure that persistent storage is available in your {OpenShift} cluster for a production grade deployment. For more information, see <<persistent-volumes_assembly-preparing-your-ocp-environment-for-stf>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation_assembly-preparing-your-ocp-environment-for-stf>>.
-//* To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <<deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf>>.
 
 ifeval::["{build}" == "upstream"]
 * {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf>>.
