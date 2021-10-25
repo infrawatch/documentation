@@ -1,0 +1,52 @@
+
+[id="editing-the-metrics-retention-time-period-in-service-telemetry-framework_{context}"]
+= Editing the metrics retention time period in Service Telemetry Framework
+
+[role="_abstract"]
+You can adjust {Project} ({ProjectShort}) for additional metrics retention time.
+
+.Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the service-telemetry namespace:
++
+----
+$ oc project service-telemetry
+----
+
+. Edit the ServiceTelemetry object:
++
+----
+$ oc edit stf default
+----
+
+. Add `retention: 7d`  to the storage section of backends.metrics.prometheus.storage to increase the retention period to seven days:
++
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  ...
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        storage:
+          strategy: persistent
+          retention: 7d
+    ...
+----
++
+[NOTE]
+If you set a long retention period, retrieving data from heavily populated Prometheus systems can result in queries returning results slowly.
+
+. Save your changes and close the object.
+
+
+.Additional resources
+
+* For more information about the metrics retention time, see xref:metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf[].

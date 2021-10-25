@@ -7,7 +7,7 @@
 [role="_abstract"]
 To enable the scheduling of pods within the {OpenShift} infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a `Pending` state because they cannot be scheduled.
 
-The amount of resources that you require to run {ProjectShort} depends on your environment and the number of nodes and clouds that you want to monitor.
+The amount of resources that you require to run {Project} ({ProjectShort}) depends on your environment and the number of nodes and clouds that you want to monitor.
 
 .Additional resources
 

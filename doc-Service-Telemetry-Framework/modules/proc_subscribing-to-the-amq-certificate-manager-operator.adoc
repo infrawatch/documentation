@@ -1,37 +1,16 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_subscribing-to-the-amq-certificate-manager-operator.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="subscribing-to-the-amq-certificate-manager-operator_{context}"]
 = Subscribing to the AMQ Certificate Manager Operator
 
 [role="_abstract"]
-You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
+You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs with cluster scope. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 [NOTE]
-The AMQ Certificate Manager is installed globally for all namespaces, so the `namespace` value provided is `openshift-operators`. You might not see your `amq7-cert-manager.v1.0.1` ClusterServiceVersion in the `service-telemetry` namespace for a few minutes until the processing executes against the namespace.
+The AMQ Certificate Manager deploys to the `openshift-operators` namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the `service-telemetry` namespace.
+
 
 .Procedure
 
-. Subscribe to the AMQ Certificate Manager Operator via the `redhat-operators` CatalogSource:
+. Subscribe to the AMQ Certificate Manager Operator by using the `redhat-operators` CatalogSource:
 
 +
 [source,bash]
@@ -61,4 +40,4 @@ NAME                       DISPLAY                                         VERSI
 amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
 ----
 +
-Ensure that amq7-cert-manager.v1.0.1 has a phase `Succeeded`.
+Ensure that amq7-cert-manager.v1.0.1 displays a phase of `Succeeded`.
