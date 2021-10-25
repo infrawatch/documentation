@@ -45,3 +45,8 @@ spec:
 If you set a long retention period, retrieving data from heavily populated Prometheus systems can result in queries returning results slowly.
 
 . Save your changes and close the object.
+
+
+.Additional resources
+
+* For more information about the metrics retention time, see xref:metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf[].

@@ -8,6 +8,6 @@ For long-term storage, use systems designed for long-term data retention, for ex
 
 .Additional resources
 
-* To adjust {ProjectShort} for additional metrics retention time, see
+* To adjust {ProjectShort} for additional metrics retention time, see xref:editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features[].
 * For recommendations about Prometheus data storage and estimating storage space, see https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects
 * For more information about Thanos, see https://thanos.io/
