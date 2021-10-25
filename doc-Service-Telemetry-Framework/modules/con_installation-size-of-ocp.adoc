@@ -4,9 +4,9 @@
 [role="_abstract"]
 The size of your {OpenShift} installation depends on the following factors:
 
-* The infrastructure you select.
-* The number of nodes you want to monitor.
-* The number of metrics you want to collect.
+* The infrastructure that you select.
+* The number of nodes that you want to monitor.
+* The number of metrics that you want to collect.
 * The resolution of metrics.
 * The length of time that you want to store the data.
 

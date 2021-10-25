@@ -6,7 +6,7 @@ You must subscribe to the Service Telemetry Operator, which manages the {Project
 
 .Procedure
 
-. Create the Service Telemetry Operator subscription to manage the STF instances:
+. Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
 ifeval::["{build}" == "upstream"]
 [source,bash]
