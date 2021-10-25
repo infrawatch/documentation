@@ -3,7 +3,7 @@
 = Enabling the OperatorHub.io Community Catalog Source
 
 [role="_abstract"]
-Red Hat supports the core Operators and workloads, including AMQ Interconnect, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
+Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators.
 
 ifeval::["{build}" == "downstream"]
 [NOTE]
