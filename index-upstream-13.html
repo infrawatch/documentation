@@ -468,16 +468,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
-<li><a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period</a></li>
+<li><a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a></li>
 <li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
 </ul>
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>
+<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
 <ul class="sectlevel3">
-<li><a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a></li>
-<li><a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a></li>
 <li><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a></li>
 <li><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a></li>
 <li><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a></li>
@@ -492,7 +490,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a></li>
 </ul>
 </li>
-<li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing STF from the OKD environment</a>
+<li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deleting-the-namespace">Deleting the namespace</a></li>
 <li><a href="#removing-the-catalogsource">Removing the CatalogSource</a></li>
@@ -526,14 +524,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#assembly-advanced-features_assembly">Advanced features</a>
+<li><a href="#assembly-advanced-features_assembly">Advanced features of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#manifest-overrides_assembly-advanced-features">Customizing the deployment</a>
+<li><a href="#dashboards_assembly-advanced-features">Dashboards</a>
 <ul class="sectlevel3">
-<li><a href="#manifest-override-parameters_assembly-advanced-features">Manifest override parameters</a></li>
-<li><a href="#overriding-a-managed-manifest_assembly-advanced-features">Overriding a managed manifest</a></li>
+<li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
+<li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
+<li><a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a></li>
 <li><a href="#alerts_assembly-advanced-features">Alerts</a>
 <ul class="sectlevel3">
 <li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
@@ -545,12 +544,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
-</ul>
-</li>
-<li><a href="#dashboards_assembly-advanced-features">Dashboards</a>
-<ul class="sectlevel3">
-<li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
-<li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
 <li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a>
@@ -570,43 +563,119 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack (OSP) or third-party nodes. With STF, you can perform the following tasks:</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack (OSP) or third-party nodes. You can use STF to perform the following tasks:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Store or archive the monitoring data for historical information</p>
+<p>Store or archive the monitoring data for historical information.</p>
 </li>
 <li>
-<p>View the monitoring data graphically on the dashboard</p>
+<p>View the monitoring data graphically on the dashboard.</p>
 </li>
 <li>
-<p>Use the monitoring data to trigger alerts or warnings</p>
+<p>Use the monitoring data to trigger alerts or warnings.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The monitoring data can be either of two types:</p>
+<p>The monitoring data can be either metric or event:</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Metric</dt>
 <dd>
-<p>a numeric measurement of an application or system</p>
+<p>A numeric measurement of an application or system.</p>
 </dd>
 <dt class="hdlist1">Event</dt>
 <dd>
-<p>irregular and discrete occurrences that happen in a system</p>
+<p>Irregular and discrete occurrences that happen in a system.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>The multicast message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data are deployed in containers on OpenShift.</p>
+<p>The components of STF use a message bus for data transport. Other modular components that receive and store data are deployed as containers on OpenShift.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.7/">OpenShift product documentation</a>.</p>
+</li>
+<li>
+<p>You can install OpenShift on cloud platforms or on bare metal. For more information about STF performance and scaling, see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
+</li>
+<li>
+<p>You can install OpenShift on bare metal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.7/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.7 Documentation</a>.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses the client and server components described in the following table:</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses a client-server architecture, in which OpenStack (OSP) is the client and OpenShift is the server.</p>
+</div>
+<div class="paragraph">
+<p>STF consists of the following components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Data collection</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collectd: Collects infrastructure metrics and events.</p>
+</li>
+<li>
+<p>Ceilometer: Collects OSP metrics and events.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Transport</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache&#160;Qpid&#160;Dispatch&#160;Router: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to STF for storage.</p>
+</li>
+<li>
+<p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to ElasticSearch or Prometheus.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Data storage</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Prometheus: Time-series data storage that stores STF metrics received from the Smart Gateway.</p>
+</li>
+<li>
+<p>ElasticSearch: Events data storage that stores STF events received from the Smart Gateway.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Observation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.</p>
+</li>
+<li>
+<p>Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following table describes the application of the client and server components:</p>
 </div>
 <table id="table-stf-components" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Client and server components of STF</caption>
@@ -618,38 +687,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Component</th>
-<th class="tableblock halign-left valign-top">Client (OpenStack)</th>
-<th class="tableblock halign-left valign-top">Server (OpenShift)</th>
+<th class="tableblock halign-left valign-top">Client</th>
+<th class="tableblock halign-left valign-top">Server</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An AMQP 1.x compatible messaging bus to shuttle the metrics to STF for storage in Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An AMQP 1.x compatible messaging bus</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Smart Gateway to pick metrics and events from the AMQP 1.x bus and to deliver events to ElasticSearch or to provide metrics to Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Smart Gateway</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus as time-series data storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ElasticSearch as events data storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ElasticSearch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd to collect infrastructure metrics and events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer to collect OpenStack metrics and events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ceilometer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 </tr>
@@ -674,10 +743,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
 <div class="paragraph">
-<p>For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides OpenStack (OSP) platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
+<p>For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides OSP platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
 </div>
 <div class="paragraph">
-<p>If you plan to collect and store events, collectd and Ceilometer delivers event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the ElasticSearch datastore.</p>
+<p>If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the ElasticSearch datastore.</p>
 </div>
 <div class="paragraph">
 <p>Server-side STF monitoring infrastructure consists of the following layers:</p>
@@ -701,17 +770,6 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 <div class="title">Figure 2. Server-side STF monitoring infrastructure</div>
 </div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/">OpenShift product documentation</a>.</p>
-</li>
-<li>
-<p>You can install OpenShift on cloud platforms or on bare metal. For more information about STF performance and scaling, see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</h3>
@@ -721,13 +779,13 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="ulist">
 <ul>
 <li>
-<p>The infrastructure you select.</p>
+<p>The infrastructure that you select.</p>
 </li>
 <li>
-<p>The number of nodes you want to monitor.</p>
+<p>The number of nodes that you want to monitor.</p>
 </li>
 <li>
-<p>The number of metrics you want to collect.</p>
+<p>The number of metrics that you want to collect.</p>
 </li>
 <li>
 <p>The resolution of metrics.</p>
@@ -738,7 +796,7 @@ To ensure that the monitoring platform can report operational problems with your
 </ul>
 </div>
 <div class="paragraph">
-<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment. Ensure that you install monitoring for OpenStack (OSP) on a platform separate from your {OSP} environment. You can install OpenShift on baremetal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.6/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.6 Documentation</a>.</p>
+<p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on the existing OpenShift environment.</p>
 </div>
 <div class="paragraph">
 <p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
@@ -804,18 +862,15 @@ To ensure that the monitoring platform can report operational problems with your
 <h2 id="assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>As you prepare your OpenShift environment for Service&#160;Telemetry&#160;Framework (STF), you must plan for persistent storage, adequate resources, and event storage:</p>
+<p>To prepare your OpenShift environment for Service&#160;Telemetry&#160;Framework (STF), you must plan for persistent storage, adequate resources, and event storage:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure that persistent storage is available in your OpenShift cluster to permit a production grade deployment. For more information, see <a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>.</p>
+<p>Ensure that persistent storage is available in your OpenShift cluster for a production grade deployment. For more information, see <a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>.</p>
 </li>
 <li>
 <p>Ensure that enough resources are available to run the Operators and the application containers. For more information, see <a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a>.</p>
-</li>
-<li>
-<p>To install ElasticSearch, you must use a community catalog source. If you do not want to use a community catalog or if you do not want to store events, see <a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
 </li>
 <li>
 <p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a>.</p>
@@ -825,10 +880,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="sect2">
 <h3 id="persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</h3>
 <div class="paragraph _abstract">
-<p>STF uses persistent storage in OpenShift to instantiate the volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to instantiate volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.</p>
 </div>
 <div class="paragraph">
-<p>When persistent storage is enabled through the Service Telemetry Operator, the Persistent Volume Claims requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OpenShift default configured <code>storageClass</code>.</p>
+<p>When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OpenShift default configured <code>storageClass</code>.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
@@ -866,7 +921,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>To enable the scheduling of pods within the OpenShift infrastructure, you need resources for the components that are running. If you do not allocate enough resources, pods remain in a <code>Pending</code> state because they cannot be scheduled.</p>
 </div>
 <div class="paragraph">
-<p>The amount of resources that you require to run STF depends on your environment and the number of nodes and clouds that you want to monitor.</p>
+<p>The amount of resources that you require to run Service&#160;Telemetry&#160;Framework (STF) depends on your environment and the number of nodes and clouds that you want to monitor.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
@@ -881,9 +936,9 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 </div>
 </div>
 <div class="sect2">
-<h3 id="metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period</h3>
+<h3 id="metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>The default retention time for metrics stored in STF is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust STF for additional metrics retention time, set a new value in <code>backends.metrics.prometheus.storage.retention</code>, for example, <code>7d</code> for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.</p>
+<p>The default retention time for metrics stored in Service&#160;Telemetry&#160;Framework (STF) is 24 hours, which provides enough data for trends to develop for the purposes of alerting.</p>
 </div>
 <div class="paragraph">
 <p>For long-term storage, use systems designed for long-term data retention, for example, Thanos.</p>
@@ -891,6 +946,9 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
+<li>
+<p>To adjust STF for additional metrics retention time, see <a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a>.</p>
+</li>
 <li>
 <p>For recommendations about Prometheus data storage and estimating storage space, see <a href="https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects" class="bare">https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects</a></p>
 </li>
@@ -962,10 +1020,16 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <h2 id="assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>You can use Operators to load the various application components and objects. Each of the following STF core components are managed by Operators:</p>
+<p>You can use Operators to load the Service&#160;Telemetry&#160;Framework (STF) components and objects. Operators manage each of the following STF core and community components:</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>Apache&#160;Qpid&#160;Dispatch&#160;Router</p>
+</li>
+<li>
+<p>Smart Gateway</p>
+</li>
 <li>
 <p>Prometheus and AlertManager</p>
 </li>
@@ -973,10 +1037,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>ElasticSearch</p>
 </li>
 <li>
-<p>Smart Gateway</p>
-</li>
-<li>
-<p>Apache&#160;Qpid&#160;Dispatch&#160;Router</p>
+<p>Grafana</p>
 </li>
 </ul>
 </div>
@@ -984,10 +1045,10 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>OpenShift (OKD) version 4.6 or 4.7 is running.</p>
+<p>An OpenShift version inclusive of 4.6 through 4.7 is running.</p>
 </li>
 <li>
-<p>You have prepared your OpenShift (OKD) environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OKD environment.</p>
+<p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
 </li>
 </ul>
 </div>
@@ -1000,24 +1061,9 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </ul>
 </div>
 <div class="sect2">
-<h3 id="deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</h3>
+<h3 id="deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</h3>
 <div class="paragraph _abstract">
-<p>You can deploy STF to the OKD environment in one of two ways:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Deploy STF and store events with ElasticSearch. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
-</li>
-<li>
-<p>Deploy STF without ElasticSearch and disable events support. For more information, see <a href="#deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</a>.</p>
-</li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</h4>
-<div class="paragraph _abstract">
-<p>To deploy STF and store events with ElasticSearch, complete the following tasks:</p>
+<p>To deploy STF to collect, store, and monitor events, complete the following procedures:</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1032,7 +1078,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </li>
 <li>
-<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a>.</p>
+<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the infrawatch catalog source</a>.</p>
 </li>
 <li>
 <p><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
@@ -1044,50 +1090,20 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a>.</p>
 </li>
 <li>
-<p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>.</p>
+<p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in Red Hat OpenShift Container Platform</a>.</p>
 </li>
 </ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deploying-stf-to-the-openshift-environment-without-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the Openshift environment without ElasticSearch</h4>
-<div class="paragraph _abstract">
-<p>To deploy STF without ElasticSearch and disable events support, complete the following tasks:</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a>.</p>
-</li>
-<li>
-<p><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a>.</p>
-</li>
-<li>
-<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a>.</p>
-</li>
-<li>
-<p><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
-</li>
-<li>
-<p><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a>.</p>
-</li>
-<li>
-<p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>.</p>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect3">
 <h4 id="creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</h4>
 <div class="paragraph">
-<p>Create a namespace to hold the STF components. The <code>service-telemetry</code> namespace is used throughout the documentation:</p>
+<p>Create a namespace for the Service&#160;Telemetry&#160;Framework (STF) components. The <code>service-telemetry</code> namespace is used throughout the documentation but alternative names are supported in STF:</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
 <ul>
 <li>
-<p>Enter the following command:</p>
+<p>Create the namespace:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc new-project service-telemetry</code></pre>
@@ -1132,7 +1148,7 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</h4>
 <div class="paragraph _abstract">
-<p>Before you install data storage and visualization operators, you must have access to the resources on the OperatorHub.io Community Catalog Source.</p>
+<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
@@ -1239,7 +1255,7 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <div class="sect3">
 <h4 id="subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</h4>
 <div class="paragraph _abstract">
-<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
+<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs with cluster scope. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1248,7 +1264,7 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The AMQ Certificate Manager is installed globally for all namespaces, so the <code>namespace</code> value provided is <code>openshift-operators</code>. You might not see your <code>amq7-cert-manager.v1.0.1</code> ClusterServiceVersion in the <code>service-telemetry</code> namespace for a few minutes until the processing executes against the namespace.
+The AMQ Certificate Manager deploys to the <code>openshift-operators</code> namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the <code>service-telemetry</code> namespace.
 </td>
 </tr>
 </table>
@@ -1257,7 +1273,7 @@ The AMQ Certificate Manager is installed globally for all namespaces, so the <co
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Subscribe to the AMQ Certificate Manager Operator via the <code>redhat-operators</code> CatalogSource:</p>
+<p>Subscribe to the AMQ Certificate Manager Operator by using the <code>redhat-operators</code> CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
@@ -1287,7 +1303,7 @@ amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure that amq7-cert-manager.v1.0.1 has a phase <code>Succeeded</code>.</p>
+<p>Ensure that amq7-cert-manager.v1.0.1 displays a phase of <code>Succeeded</code>.</p>
 </div>
 </li>
 </ol>
@@ -1296,7 +1312,7 @@ amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1
 <div class="sect3">
 <h4 id="subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
 <div class="paragraph _abstract">
-<p>Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
+<p>If you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1344,7 +1360,7 @@ elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator   1.8
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>To create the Service Telemetry Operator subscription, enter the <code>oc create -f</code> command:</p>
+<p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
@@ -1364,7 +1380,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To validate the Service Telemetry Operator and the dependent operators, enter the following command:</p>
+<p>Validate the Service Telemetry Operator and the dependent operators:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
@@ -1406,7 +1422,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To override a default value, define only the parameter that you want to override. In this example, enable ElasticSearch by setting <code>enabled</code> to <code>true</code>:</p>
+<p>To override a default value, define the parameter that you want to override. In this example, enable ElasticSearch by setting <code>enabled</code> to <code>true</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1425,7 +1441,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Creating a <code>ServiceTelemetry</code> object with an empty <code>spec</code> parameter results in an STF deployment with the following default settings. To override these defaults, add the configuration to the spec parameter:</p>
+<p>Creating a <code>ServiceTelemetry</code> object with an empty <code>spec</code> parameter results in an STF deployment with the following default settings:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1503,9 +1519,12 @@ spec:
             debugEnabled: false</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>To override these defaults, add the configuration to the <code>spec</code> parameter.</p>
+</div>
 </li>
 <li>
-<p>To view the STF deployment logs in the Service Telemetry Operator, use the <code>oc logs</code> command:</p>
+<p>View the STF deployment logs in the Service Telemetry Operator:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc logs --selector name=service-telemetry-operator</code></pre>
@@ -1526,7 +1545,7 @@ localhost                  : ok=57   changed=0    unreachable=0    failed=0    s
 <div class="title">Verification</div>
 <ul>
 <li>
-<p>To determine that all workloads are operating nominally, view the pods and the status of each pod:</p>
+<p>To determine that all workloads are operating correctly, view the pods and the status of each pod:</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1534,7 +1553,7 @@ localhost                  : ok=57   changed=0    unreachable=0    failed=0    s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you set <code>backends.events.elasticsearch.enabled: true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before ElasticSearch starts.
+If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <code>true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before ElasticSearch starts.
 </td>
 </tr>
 </table>
@@ -1563,7 +1582,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <div class="sect3">
 <h4 id="primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</h4>
 <div class="paragraph _abstract">
-<p>The <code>ServiceTelemetry</code> object is made up of the following major configuration parameters:</p>
+<p>The <code>ServiceTelemetry</code> object comprises the following primary configuration parameters:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1588,7 +1607,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 </ul>
 </div>
 <div class="paragraph">
-<p>Each of these top-level configuration parameters provides various controls for a STF deployment.</p>
+<p>You can configure each of these configuration parameters to provide different features in an STF deployment.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -1605,19 +1624,22 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 </table>
 </div>
 <div class="sect4">
-<h5 id="backends_assembly-installing-the-core-components-of-stf">backends</h5>
+<h5 id="backends_assembly-installing-the-core-components-of-stf">The backends parameter</h5>
 <div class="paragraph">
-<p>Use the <code>backends</code> parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the <code>clouds</code> parameter. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+<p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
 <div class="paragraph">
-<p>Currently, you can use Prometheus as the metrics storage backend and ElasticSearch as the events storage backend.</p>
+<p>Currently, you can use Prometheus as the metrics storage back end and ElasticSearch as the events storage back end.</p>
 </div>
-<h6 id="_enabling_prometheus_as_a_storage_backend_for_metrics" class="discrete">Enabling Prometheus as a storage backend for metrics</h6>
+<h6 id="_enabling_prometheus_as_a_storage_back_end_for_metrics" class="discrete">Enabling Prometheus as a storage back end for metrics</h6>
+<div class="paragraph">
+<p>To enable Prometheus as a storage back end for metrics, you must configure the <code>ServiceTelemetry</code> object.</p>
+</div>
 <div class="ulist">
 <div class="title">Procedure</div>
 <ul>
 <li>
-<p>To enable Prometheus as a storage backend for metrics, configure the <code>ServiceTelemetry</code> object:</p>
+<p>Configure the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1635,18 +1657,15 @@ spec:
 </li>
 </ul>
 </div>
-<h6 id="_enabling_elasticsearch_as_a_storage_backend_for_events" class="discrete">Enabling ElasticSearch as a storage backend for events</h6>
+<h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling ElasticSearch as a storage back end for events</h6>
 <div class="paragraph">
-<p>To enable events support in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
-</div>
-<div class="paragraph">
-<p>By default, storage of events on ElasticSearch is disabled. For more information, see <a href="#deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf">Deploying STF to the OpenShift environment with ElasticSearch</a>.</p>
+<p>To enable support for events in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
 <ul>
 <li>
-<p>To enable ElasticSearch as a storage backend for events, configure the <code>ServiceTelemetry</code> object:</p>
+<p>Configure the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1664,17 +1683,15 @@ spec:
 </li>
 </ul>
 </div>
-</div>
-<div class="sect4">
-<h5 id="clouds_assembly-installing-the-core-components-of-stf">clouds</h5>
+<h5 id="clouds_assembly-installing-the-core-components-of-stf" class="discrete">The clouds parameter</h5>
 <div class="paragraph">
-<p>Use the <code>clouds</code> parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
+<p>Use the <code>clouds</code> parameter to define which Smart Gateway objects deploy, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting back end is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
 </div>
 <div class="paragraph">
-<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type is made up of a list of collectors, the message bus subscription address, and whether debugging is enabled. Available collectors for metrics are <code>collectd</code>, <code>ceilometer</code>, and <code>sensubility</code>. Available collectors for events are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
+<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors for metrics are <code>collectd</code>, <code>ceilometer</code>, and <code>sensubility</code>. Available collectors for events are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
 </div>
 <div class="paragraph">
-<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, providing subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:</p>
+<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, which provides subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1704,7 +1721,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Each item of the <code>clouds</code> parameter represents a cloud instance. The cloud instances are made up of three top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding backend for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd or Ceilometer. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway should subscribe.</p>
+<p>Each item of the <code>clouds</code> parameter represents a cloud instance. A cloud instance consists of three top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding back end for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd, Ceilometer, or Sensubility. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway subscribes.</p>
 </div>
 <div class="paragraph">
 <p>You can use the optional Boolean parameter <code>debugEnabled</code> within the <code>collectors</code> parameter to enable additional console debugging in the running Smart Gateway pod.</p>
@@ -1720,27 +1737,19 @@ spec:
 </li>
 </ul>
 </div>
-</div>
-<div class="sect4">
-<h5 id="alerting_assembly-installing-the-core-components-of-stf">alerting</h5>
+<h5 id="alerting_assembly-installing-the-core-components-of-stf" class="discrete">The alerting parameter</h5>
 <div class="paragraph">
-<p>Use the <code>alerting</code> parameter to control creation of an Alertmanager instance and the configuration of the storage backend. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
+<p>Use the <code>alerting</code> parameter to control creation of an Alertmanager instance and the configuration of the storage back end. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="graphing_assembly-installing-the-core-components-of-stf">graphing</h5>
+<h5 id="graphing_assembly-installing-the-core-components-of-stf" class="discrete">The graphing parameter</h5>
 <div class="paragraph">
 <p>Use the <code>graphing</code> parameter to control the creation of a Grafana instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_assembly-advanced-features">Dashboards</a>.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="highAvailability_assembly-installing-the-core-components-of-stf">highAvailability</h5>
+<h5 id="highAvailability_assembly-installing-the-core-components-of-stf" class="discrete">The highAvailability parameter</h5>
 <div class="paragraph">
 <p>Use the <code>highAvailability</code> parameter to control the instantiation of multiple copies of STF components to reduce recovery time of components that fail or are rescheduled. By default, <code>highAvailability</code> is disabled. For more information, see <a href="#high-availability_assembly-advanced-features">High availability</a>.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="transports_assembly-installing-the-core-components-of-stf">transports</h5>
+<h5 id="transports_assembly-installing-the-core-components-of-stf" class="discrete">The transports parameter</h5>
 <div class="paragraph">
 <p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. By default, the <code>qdr</code> transport is enabled.</p>
 </div>
@@ -1748,27 +1757,25 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing STF from the OKD environment</h3>
+<h3 id="removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</h3>
 <div class="paragraph _abstract">
-<p>Remove STF from an OKD environment if you no longer require the STF functionality.</p>
-</div>
-<div class="paragraph">
-<p>Complete the following tasks:</p>
+<p>Remove Service&#160;Telemetry&#160;Framework (STF) from an OpenShift environment if you no longer require the STF functionality.</p>
 </div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p><a href="#deleting-the-namespace">Deleting the namespace</a>.</p>
 </li>
 <li>
-<p><a href="#removing-the-catalogsource">Removing the CatalogSource</a>.</p>
+<p><a href="#removing-the-catalogsource">Removing the catalog source</a>.</p>
 </li>
 </ol>
 </div>
 <div class="sect3">
 <h4 id="deleting-the-namespace">Deleting the namespace</h4>
 <div class="paragraph">
-<p>To remove the operational resources for STF from OKD, delete the namespace.</p>
+<p>To remove the operational resources for STF from OpenShift, delete the namespace.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1796,7 +1803,7 @@ No resources found.</code></pre>
 <div class="sect3">
 <h4 id="removing-the-catalogsource">Removing the CatalogSource</h4>
 <div class="paragraph">
-<p>If you do not expect to install Service&#160;Telemetry&#160;Framework again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to STF are removed from the Operator Lifecycle Manager catalog.</p>
+<p>If you do not expect to install Service&#160;Telemetry&#160;Framework (STF) again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to STF are automatically removed from the Operator Lifecycle Manager catalog.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1831,7 +1838,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
-<p>For more information about the OperatorHub.io Community Catalog Source, see <a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying STF to the OKD environment</a>.</p>
+<p>For more information about the OperatorHub.io Community Catalog Source, see <a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>.</p>
 </div>
 </div>
 </div>
@@ -2566,7 +2573,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <p>You have determined your cloud naming scheme. For more information about determining your naming scheme, see <a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a>.</p>
 </li>
 <li>
-<p>You have created your list of clouds objects. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+<p>You have created your list of clouds objects. For more information about creating the content for the <code>clouds</code> parameter, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </li>
 </ul>
 </div>
@@ -2692,7 +2699,7 @@ The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you 
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds</a>.</p>
+<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </li>
 <li>
 <p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
@@ -2934,30 +2941,30 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-advanced-features_assembly">Advanced features</h2>
+<h2 id="assembly-advanced-features_assembly">Advanced features of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>The following optional features can provide additional functionality to the Service&#160;Telemetry&#160;Framework (STF):</p>
+<p>You can use the following optional features to provide additional functionality to the Service&#160;Telemetry&#160;Framework (STF):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#manifest-overrides_assembly-advanced-features">Customizing the deployment</a></p>
+<p><a href="#dashboards_assembly-advanced-features">Configuring dashboards</a></p>
 </li>
 <li>
-<p><a href="#alerts_assembly-advanced-features">Alerts</a></p>
+<p><a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period</a></p>
 </li>
 <li>
-<p><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP Traps</a></p>
+<p><a href="#alerts_assembly-advanced-features">Configuring alerts</a></p>
 </li>
 <li>
-<p><a href="#high-availability_assembly-advanced-features">High availability</a></p>
+<p><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></p>
 </li>
 <li>
-<p><a href="#dashboards_assembly-advanced-features">Dashboards</a></p>
+<p><a href="#high-availability_assembly-advanced-features">Configuring high availability</a></p>
 </li>
 <li>
-<p><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a></p>
+<p><a href="#ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></p>
 </li>
 <li>
 <p><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></p>
@@ -2965,102 +2972,21 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </ul>
 </div>
 <div class="sect2">
-<h3 id="manifest-overrides_assembly-advanced-features">Customizing the deployment</h3>
+<h3 id="dashboards_assembly-advanced-features">Dashboards</h3>
 <div class="paragraph _abstract">
-<p>The Service Telemetry Operator watches for a <code>ServiceTelemetry</code> manifest to load into OpenShift (OKD). The Operator then creates other objects in memory, which results in the dependent Operators creating the workloads they are responsible for managing.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>When you override the manifest, you must provide the entire manifest contents, including object names or namespaces. There is no dynamic parameter substitution when you override a manifest.</p>
+<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>Use manifest overrides only as a last resort short circuit.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To override a manifest successfully with Service&#160;Telemetry&#160;Framework (STF), deploy a default environment using the core options only. For more information about the core options, see <a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>. When you deploy STF, use the <code>oc get</code> command to retrieve the default deployed manifest. When you use a manifest that was originally generated by Service Telemetry Operator, the manifest is compatible with the other objects that are managed by the Operators.</p>
-</div>
-<div class="paragraph">
-<p>For example, when the <code>backends.metrics.prometheus.enabled: true</code> parameter is configured in the <code>ServiceTelemetry</code> manifest, the Service Telemetry Operator requests components for metrics retrieval and storage using the default manifests. In some cases, you might want to override the default manifest. For more information, see <a href="#manifest-override-parameters_assembly-advanced-features">Manifest override parameters</a>.</p>
+<p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="manifest-override-parameters_assembly-advanced-features">Manifest override parameters</h4>
+<h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
-<p>This table describes the available parameters that you can use to override a manifest, along with the corresponding retrieval commands.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local STF deployment.</p>
 </div>
-<table id="table-manifest-override-parameters" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Manifest override parameters</caption>
-<colgroup>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3333%;"/>
-<col style="width: 33.3334%;"/>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Override parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Retrieval command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Alertmanager</code> object creation. The Prometheus Operator watches for <code>Alertmanager</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get alertmanager default -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerConfigManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Secret</code> that contains the Alertmanager configuration. The Prometheus Operator uses a secret named <code>alertmanager-{{ alertmanager-name }}</code>, for example, <code>default</code>, to provide the <code>alertmanager.yaml</code> configuration to Alertmanager.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get secret alertmanager-default -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>elasticsearchManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>ElasticSearch</code> object creation. The Elastic Cloud on Kuberneters Operator watches for <code>ElasticSearch</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get elasticsearch elasticsearch -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>interconnectManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Interconnect</code> object creation. The AMQ Interconnect Operator watches for <code>Interconnect</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get interconnect default-interconnect -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>Prometheus</code> object creation. The Prometheus Operator watches for <code>Prometheus</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get prometheus default -oyaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>servicemonitorManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the <code>ServiceMonitor</code> object creation. The Prometheus Operator watches for <code>ServiceMonitor</code> objects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get servicemonitor default -oyaml</code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="overriding-a-managed-manifest_assembly-advanced-features">Overriding a managed manifest</h4>
-<div class="paragraph _abstract">
-<p>Edit the <code>ServiceTelemetry</code> object and provide a parameter and manifest. For a list of available manifest override parameters, see <a href="#manifest-overrides_assembly-advanced-features">Customizing the deployment</a>. The default <code>ServiceTelemetry</code> object is <code>default</code>. Use <code>oc get servicetelemetry</code> to list the available STF deployments.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-The <code>oc edit</code> command loads the default system editor. To override the default editor, pass or set the environment variable <code>EDITOR</code> to the preferred editor. For example, <code>EDITOR=nano oc edit servicetelemetry default</code>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<div class="title">Prerequisites</div>
+<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3077,15 +3003,212 @@ The <code>oc edit</code> command loads the default system editor. To override th
 </div>
 </li>
 <li>
-<p>Load the <code>ServiceTelemetry</code> object into an editor:</p>
+<p>Deploy the Grafana operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit servicetelemetry default</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: grafana-operator
+  namespace: service-telemetry
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: grafana-operator
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To modify the <code>ServiceTelemetry</code> object, provide a manifest override parameter and the contents of the manifest to write to OKD instead of the defaults provided by STF.</p>
+<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the operator launched successfully:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
+
+NAME                       DISPLAY            VERSION   REPLACES                   PHASE
+grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
+
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  graphing:
+    enabled: true
+    grafana:
+      ingressEnabled: true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Grafana instance deployed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l app=grafana
+
+NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Grafana data sources installed correctly:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadatasources
+
+NAME                    AGE
+default-datasources     20h</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Grafana route exists:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route
+
+NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The dashboards in STF require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+
+docker.io/grafana/grafana:7.3.10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.</p>
+</div>
+</li>
+<li>
+<p>Verify that a new Grafana pod exists and has a <code>STATUS</code> value of <code>Running</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana"
+NAME                                 READY     STATUS    RESTARTS   AGE
+grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the new instance is running the updated image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+docker.io/grafana/grafana:8.1.0</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
+<div class="paragraph _abstract">
+<p>STF sets default login credentials when Grafana is enabled. The credentials can be overridden in the <code>ServiceTelemetry</code> object.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To retrieve the default username and password, describe the Grafana object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe grafana default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</h3>
+<div class="paragraph _abstract">
+<p>You can adjust Service&#160;Telemetry&#160;Framework (STF) for additional metrics retention time.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the service-telemetry namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc project service-telemetry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the ServiceTelemetry object:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc edit stf default</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add <code>retention: 7d</code>  to the storage section of backends.metrics.prometheus.storage to increase the retention period to seven days:</p>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: stf-default
+  namespace: service-telemetry
+spec:
+  ...
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        storage:
+          strategy: persistent
+          retention: 7d
+    ...</pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3093,61 +3216,24 @@ The <code>oc edit</code> command loads the default system editor. To override th
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The trailing pipe (<code>|</code>) after entering the manifest override parameter indicates that the value provided is multi-line.
+If you set a long retention period, retrieving data from heavily populated Prometheus systems can result in queries returning results slowly.
 </td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc edit stf default
-
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  ...
-spec:
-  alertmanagerConfigManifest: | <i class="conum" data-value="1"></i><b>(1)</b>
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: 'alertmanager-default'
-      namespace: 'service-telemetry'
-    type: Opaque
-    stringData:
-      alertmanager.yaml: |-
-        global:
-          resolve_timeout: 10m
-        route:
-          group_by: ['job']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 12h
-          receiver: 'null'
-        receivers:
-        - name: 'null' <i class="conum" data-value="2"></i><b>(2)</b>
-status:
-  ...</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Manifest override parameter is defined in the <code>spec</code> of the <code>ServiceTelemetry</code> object.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>End of the manifest override content.</td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Save and close.</p>
+<p>Save your changes and close the object.</p>
 </li>
 </ol>
 </div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about the metrics retention time, see <a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -3616,196 +3702,6 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="dashboards_assembly-advanced-features">Dashboards</h3>
-<div class="paragraph _abstract">
-<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node.</p>
-</div>
-<div class="paragraph">
-<p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
-<div class="paragraph _abstract">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local STF deployment.</p>
-</div>
-<div class="paragraph">
-<div class="title">Prerequisites</div>
-<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Deploy the Grafana operator:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: grafana-operator
-  namespace: service-telemetry
-spec:
-  channel: alpha
-  installPlanApproval: Automatic
-  name: grafana-operator
-  source: operatorhubio-operators
-  sourceNamespace: openshift-marketplace
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the operator launched successfully:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
-
-NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
-
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-...
-spec:
-  ...
-  graphing:
-    enabled: true
-    grafana:
-      ingressEnabled: true</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the Grafana instance deployed:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l app=grafana
-
-NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the Grafana data sources installed correctly:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadatasources
-
-NAME                    AGE
-default-datasources     20h</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the Grafana route exists:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route
-
-NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>The dashboards in STF require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-
-docker.io/grafana/grafana:7.3.10</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.</p>
-</div>
-</li>
-<li>
-<p>Verify that a new Grafana pod exists and has a <code>STATUS</code> value of <code>Running</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana"
-NAME                                 READY     STATUS    RESTARTS   AGE
-grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the new instance is running the updated image:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-docker.io/grafana/grafana:8.1.0</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
-<div class="paragraph _abstract">
-<p>STF sets default login credentials when Grafana is enabled. The credentials can be overridden in the <code>ServiceTelemetry</code> object.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To retrieve the default username and password, describe the Grafana object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe grafana default</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="ephemeral-storage_assembly-advanced-features">Ephemeral storage</h3>
 <div class="paragraph _abstract">
 <p>You can use ephemeral storage to run Service&#160;Telemetry&#160;Framework (STF) without persistently storing data in your OpenShift cluster.</p>
@@ -4030,7 +3926,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 <p>Use the <code>amqp1</code> plugin to write values to an amqp1 message bus, for example, Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. amqp1 parameters</caption>
+<caption class="title">Table 2. amqp1 parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4103,7 +3999,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 <p>Use the <code>apache</code> plugin to collect Apache data.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. apache parameters</caption>
+<caption class="title">Table 3. apache parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4152,7 +4048,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 <p>Use the <code>battery</code> plugin to report the remaining capacity, power, or voltage of laptop batteries.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. battery parameters</caption>
+<caption class="title">Table 4. battery parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4195,7 +4091,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 <p>Use the <code>ceph</code> plugin to gather data from ceph daemons.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. ceph parameters</caption>
+<caption class="title">Table 5. ceph parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4275,7 +4171,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the ceph node
 <p>Use the <code>cgroups</code> plugin to collect information for processes in a cgroup.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. cgroups parameters</caption>
+<caption class="title">Table 6. cgroups parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4322,7 +4218,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. connectivity parameters</caption>
+<caption class="title">Table 7. connectivity parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4377,7 +4273,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>To report a percentage value, set the Boolean parameters <code>reportbycpu</code> and <code>reportbystate</code> to <code>true</code>, and then set the Boolean parameter <code>valuespercentage</code> to true.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. cpu metrics</caption>
+<caption class="title">Table 8. cpu metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -4434,7 +4330,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. cpu parameters</caption>
+<caption class="title">Table 9. cpu parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4522,7 +4418,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>df</code> plugin to collect disk space usage information for file systems.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. df metrics</caption>
+<caption class="title">Table 10. df metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -4554,7 +4450,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. df parameters</caption>
+<caption class="title">Table 11. df parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4623,7 +4519,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>disk</code> plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. disk parameters</caption>
+<caption class="title">Table 12. disk parameters</caption>
 <colgroup>
 <col style="width: 30%;"/>
 <col style="width: 70%;"/>
@@ -4650,7 +4546,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. disk metrics</caption>
+<caption class="title">Table 13. disk metrics</caption>
 <colgroup>
 <col style="width: 30%;"/>
 <col style="width: 70%;"/>
@@ -4793,7 +4689,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. hugepages parameters</caption>
+<caption class="title">Table 14. hugepages parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4861,7 +4757,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>interface</code> plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. interface parameters</caption>
+<caption class="title">Table 15. interface parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4964,7 +4860,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>load</code> plugin to collect the system load and to get overview on system use. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. plugin parameters</caption>
+<caption class="title">Table 16. plugin parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5031,7 +4927,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>mcelog</code> plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and ensure that logging capabilities are enabled.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. mcelog parameters</caption>
+<caption class="title">Table 17. mcelog parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5087,7 +4983,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>The <code>memory</code> plugin provides information about the memory of the system.  This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. memory parameters</caption>
+<caption class="title">Table 18. memory parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5254,7 +5150,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. ovs_stats parameters</caption>
+<caption class="title">Table 19. ovs_stats parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5310,7 +5206,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. pcie_errors parameters</caption>
+<caption class="title">Table 20. pcie_errors parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5433,7 +5329,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>The <code>processes</code> plugin provides information about processes of the system. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. plugin parameters</caption>
+<caption class="title">Table 21. plugin parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5754,7 +5650,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. virt parameters</caption>
+<caption class="title">Table 22. virt parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5851,7 +5747,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. write_http parameters</caption>
+<caption class="title">Table 23. write_http parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5908,7 +5804,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. write_kafka parameters</caption>
+<caption class="title">Table 24. write_kafka parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5982,7 +5878,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-15 19:54:25 UTC
+Last updated 2021-10-25 19:24:20 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
