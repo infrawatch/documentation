@@ -9,7 +9,7 @@
 = {Project} architecture
 
 [role="_abstract"]
-{Project} ({ProjectShort}) uses a client-server architecture, in which {OpenStack} ({OpenStackShort}) is the client and Red Hat OpenShift Container Platform is the server.
+{Project} ({ProjectShort}) uses a client-server architecture, in which {OpenStack} ({OpenStackShort}) is the client and {OpenShift} is the server.
 
 {ProjectShort} consists of the following components:
 
@@ -18,7 +18,7 @@
 ** collectd: Collects infrastructure metrics and events.
 ** Ceilometer: Collects {OpenStackShort} metrics and events.
 * Transport
-** AMQ Interconnect: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
+** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
 ** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to ElasticSearch or Prometheus.
 * Data storage
 ** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.

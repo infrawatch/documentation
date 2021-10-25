@@ -1,5 +1,5 @@
 [id="metrics-retention-time-period_{context}"]
-= Metrics retention time period in Service Telemetry Framework
+= Metrics retention time period in {Project}
 
 [role="_abstract"]
 The default retention time for metrics stored in {Project} ({ProjectShort}) is 24 hours, which provides enough data for trends to develop for the purposes of alerting.
