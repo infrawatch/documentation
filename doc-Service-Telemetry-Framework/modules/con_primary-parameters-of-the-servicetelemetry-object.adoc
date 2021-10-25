@@ -1,32 +1,8 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
 [id="primary-parameters-of-the-servicetelemetry-object"]
 = Primary parameters of the ServiceTelemetry object
 
 [role="_abstract"]
-The `ServiceTelemetry` object is made up of the following major configuration parameters:
+The `ServiceTelemetry` object comprises the following primary configuration parameters:
 
 * `alerting`
 * `backends`
@@ -35,7 +11,8 @@ The `ServiceTelemetry` object is made up of the following major configuration pa
 * `highAvailability`
 * `transports`
 
-Each of these top-level configuration parameters provides various controls for a {ProjectShort} deployment.
+
+You can configure each of these configuration parameters to provide different features in an {ProjectShort} deployment.
 
 [IMPORTANT]
 ====
@@ -43,18 +20,20 @@ Support for `servicetelemetry.infra.watch/v1alpha1` was removed from {ProjectSho
 ====
 
 [id="backends_{context}"]
-== backends
+== The backends parameter
 
-Use the `backends` parameter to control which storage backends are available for storage of metrics and events, and to control the enablement of Smart Gateways, as defined by the `clouds` parameter. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+Use the `backends` parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics storage backend and ElasticSearch as the events storage backend.
+Currently, you can use Prometheus as the metrics storage back end and ElasticSearch as the events storage back end.
 
 [discrete]
-=== Enabling Prometheus as a storage backend for metrics
+=== Enabling Prometheus as a storage back end for metrics
+
+To enable Prometheus as a storage back end for metrics, you must configure the `ServiceTelemetry` object.
 
 .Procedure
 
-* To enable Prometheus as a storage backend for metrics, configure the `ServiceTelemetry` object:
+* Configure the `ServiceTelemetry` object:
 +
 [source,yaml]
 ----
@@ -71,15 +50,15 @@ spec:
 ----
 
 [discrete]
-=== Enabling ElasticSearch as a storage backend for events
+=== Enabling ElasticSearch as a storage back end for events
 
-To enable events support in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
+To enable support for events in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
 
-By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
+//By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 
-* To enable ElasticSearch as a storage backend for events, configure the `ServiceTelemetry` object:
+* Configure the `ServiceTelemetry` object:
 +
 [source,yaml]
 ----
@@ -96,13 +75,14 @@ spec:
 ----
 
 [id="clouds_{context}"]
-== clouds
+[discrete]
+== The clouds parameter
 
-Use the `clouds` parameter to control which Smart Gateway objects are deployed, thereby providing the interface for multiple monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting backend is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
+Use the `clouds` parameter to define which Smart Gateway objects deploy, thereby providing the interface for multiple monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting back end is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
 
-You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type is made up of a list of collectors, the message bus subscription address, and whether debugging is enabled. Available collectors for metrics are `collectd`, `ceilometer`, and `sensubility`. Available collectors for events are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
+You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors for metrics are `collectd`, `ceilometer`, and `sensubility`. Available collectors for events are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
 
-The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, providing subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:
+The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, which provides subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:
 
 [source,yaml]
 ----
@@ -131,7 +111,7 @@ spec:
             subscriptionAddress: anycast/ceilometer/event.sample
 ----
 
-Each item of the `clouds` parameter represents a cloud instance. The cloud instances are made up of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding backend for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd or Ceilometer. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway should subscribe.
+Each item of the `clouds` parameter represents a cloud instance. A cloud instance consists of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding back end for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd, Ceilometer, or Sensubility. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway subscribes.
 
 You can use the optional Boolean parameter `debugEnabled` within the `collectors` parameter to enable additional console debugging in the running Smart Gateway pod.
 
@@ -142,21 +122,25 @@ You can use the optional Boolean parameter `debugEnabled` within the `collectors
 * For more information about how to configure multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
 [id="alerting_{context}"]
-== alerting
+[discrete]
+== The alerting parameter
 
-Use the `alerting` parameter to control creation of an Alertmanager instance and the configuration of the storage backend. By default, `alerting` is enabled. For more information, see xref:alerts_assembly-advanced-features[].
+Use the `alerting` parameter to control creation of an Alertmanager instance and the configuration of the storage back end. By default, `alerting` is enabled. For more information, see xref:alerts_assembly-advanced-features[].
 
 [id="graphing_{context}"]
-== graphing
+[discrete]
+== The graphing parameter
 
 Use the `graphing` parameter to control the creation of a Grafana instance. By default, `graphing` is disabled. For more information, see xref:dashboards_assembly-advanced-features[].
 
 [id="highAvailability_{context}"]
-== highAvailability
+[discrete]
+== The highAvailability parameter
 
 Use the `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_assembly-advanced-features[].
 
 [id="transports_{context}"]
-== transports
+[discrete]
+== The transports parameter
 
 Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. By default, the `qdr` transport is enabled.

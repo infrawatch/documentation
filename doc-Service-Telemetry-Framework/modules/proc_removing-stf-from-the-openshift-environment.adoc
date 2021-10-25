@@ -21,20 +21,20 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="removing-stf-from-the-openshift-environment_{context}"]
-= Removing {ProjectShort} from the {OpenShiftShort} environment
+= Removing {Project} from the {OpenShift} environment
 
 [role="_abstract"]
-Remove {ProjectShort} from an {OpenShiftShort} environment if you no longer require the {ProjectShort} functionality.
+Remove {Project} ({ProjectShort}) from an {OpenShift} environment if you no longer require the {ProjectShort} functionality.
 
-Complete the following tasks:
+.Procedure
 
-. xref:deleting-the-namespace[].
-. xref:removing-the-catalogsource[].
+. xref:deleting-the-namespace[Deleting the namespace].
+. xref:removing-the-catalogsource[Removing the catalog source].
 
 [id="deleting-the-namespace"]
 == Deleting the namespace
 
-To remove the operational resources for {ProjectShort} from {OpenShiftShort}, delete the namespace.
+To remove the operational resources for {ProjectShort} from {OpenShift}, delete the namespace.
 
 .Procedure
 
@@ -56,7 +56,7 @@ No resources found.
 [id="removing-the-catalogsource"]
 == Removing the CatalogSource
 
-If you do not expect to install {Project} again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are removed from the Operator Lifecycle Manager catalog.
+If you do not expect to install {Project} ({ProjectShort}) again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are automatically removed from the Operator Lifecycle Manager catalog.
 
 .Procedure
 

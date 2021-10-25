@@ -1,36 +1,13 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_metrics-retention-time-period.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
 [id="metrics-retention-time-period_{context}"]
-= Metrics retention time period
+= Metrics retention time period in {Project}
 
 [role="_abstract"]
-The default retention time for metrics stored in {ProjectShort} is 24 hours, which provides enough data to allow for trends to develop for the purposes of alerting. To adjust {ProjectShort} for additional metrics retention time, set a new value in `backends.metrics.prometheus.storage.retention`, for example, `7d` for seven days. If you use long retention periods, returning data from heavily populated Prometheus systems can result in queries returning slowly.
+The default retention time for metrics stored in {Project} ({ProjectShort}) is 24 hours, which provides enough data for trends to develop for the purposes of alerting.
 
 For long-term storage, use systems designed for long-term data retention, for example, Thanos.
 
 .Additional resources
 
+* To adjust {ProjectShort} for additional metrics retention time, see xref:editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features[].
 * For recommendations about Prometheus data storage and estimating storage space, see https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects
 * For more information about Thanos, see https://thanos.io/

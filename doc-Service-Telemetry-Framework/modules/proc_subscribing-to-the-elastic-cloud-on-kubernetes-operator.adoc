@@ -24,7 +24,7 @@
 = Subscribing to the Elastic Cloud on Kubernetes Operator
 
 [role="_abstract"]
-Before you install the Service Telemetry Operator and if you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.
+If you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.
 
 .Procedure
 
