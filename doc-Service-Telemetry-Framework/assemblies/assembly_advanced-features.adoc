@@ -1,5 +1,5 @@
 [id="assembly-advanced-features_{context}"]
-= Advanced features
+= Advanced features of {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
@@ -7,23 +7,28 @@
 :context: assembly-advanced-features
 
 [role="_abstract"]
-The following optional features can provide additional functionality to the {Project} ({ProjectShort}):
+You can use the following optional features to provide additional functionality to the {Project} ({ProjectShort}):
 
-* xref:manifest-overrides_assembly-advanced-features[]
-* xref:alerts_assembly-advanced-features[]
-* xref:configuring-snmp-traps_assembly-advanced-features[]
-* xref:high-availability_assembly-advanced-features[]
-* xref:dashboards_assembly-advanced-features[]
-* xref:ephemeral-storage_assembly-advanced-features[]
+//* xref:manifest-overrides_assembly-advanced-features[]
+* xref:alerts_assembly-advanced-features[Configuring alerts]
+* xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
+* xref:high-availability_assembly-advanced-features[Configuring high availability]
+* xref:dashboards_assembly-advanced-features[Configuring dashboards]
+* xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
+* xref:editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features[Editing the metrics retention time period]
 ifdef::include_when_16[]
-* xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[]
+* xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
 endif::include_when_16[]
-* xref:creating-a-route-in-ocp_assembly-advanced-features[]
+* xref:creating-a-route-in-ocp_assembly-advanced-features[Creating a route in {OpenShift}]
+
+
 
 // Customizing the deployment (manifest overrides)
-include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
-include::../modules/ref_manifest-override-parameters.adoc[leveloffset=+2]
-include::../modules/proc_overriding-a-managed-manifest.adoc[leveloffset=+2]
+//include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
+//include::../modules/ref_manifest-override-//parameters.adoc[leveloffset=+2]
+//include::../modules/proc_overriding-a-managed-manifest.adoc[leveloffset=+2]
+
+
 
 //Alerts
 include::../modules/con_alerts.adoc[leveloffset=+1]
@@ -59,6 +64,9 @@ endif::include_when_16[]
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
+
+//Editing the metrics retention time period
+include::../modules/proc_editing-the-metrics-retention-time-period-in-service-telemetry-framework.adoc[leveloffset=+1]
 
 //Exposing services as routes
 include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]

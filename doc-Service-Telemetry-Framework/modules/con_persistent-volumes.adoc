@@ -4,7 +4,7 @@
 [role="_abstract"]
 {Project} ({ProjectShort}) uses persistent storage in {OpenShift} to instantiate volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.
 
-When persistent storage is enabled through the Service Telemetry Operator, the Persistent Volume Claims requested in an {ProjectShort} deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the {OpenShift} default configured `storageClass`.
+When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims requested in an {ProjectShort} deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the {OpenShift} default configured `storageClass`.
 
 .Additional resources
 * For more information about configuring persistent storage for {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/storage/understanding-persistent-storage.html[Understanding persistent storage.]

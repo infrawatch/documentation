@@ -54,7 +54,7 @@ spec:
 
 To enable support for events in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
 
-By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
+//By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 
