@@ -20,7 +20,7 @@ spec: {}
 EOF
 ----
 +
-To override a default value, define only the parameter that you want to override. In this example, enable ElasticSearch by setting `enabled` to `true`:
+To override a default value, define the parameter that you want to override. In this example, enable ElasticSearch by setting `enabled` to `true`:
 +
 [source,yaml]
 ----
@@ -38,7 +38,7 @@ spec:
 EOF
 ----
 +
-Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following default settings. To override these defaults, add the configuration to the spec parameter:
+Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following default settings:
 +
 [source,yaml]
 ----
@@ -115,6 +115,8 @@ spec:
             subscriptionAddress: anycast/ceilometer/event.sample
             debugEnabled: false
 ----
++
+To override these defaults, add the configuration to the `spec` parameter.
 
 . View the {ProjectShort} deployment logs in the Service Telemetry Operator:
 +

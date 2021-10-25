@@ -23,7 +23,7 @@ The monitoring data can be either metric or event:
 Metric:: A numeric measurement of an application or system.
 Event:: Irregular and discrete occurrences that happen in a system.
 
-The message bus provides fast, reliable data transport and is shared by all the clients in the deployment. Other modular components that receive and store data, for example, Prometheus and ElasticSearch,  are deployed in containers on {OpenShift}.
+The components of STF use a message bus for reliable data transport. Other modular components that receive and store data are deployed in containers on {OpenShift}.
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]

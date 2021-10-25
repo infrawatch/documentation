@@ -3,11 +3,11 @@
 = Enabling the OperatorHub.io Community Catalog Source
 
 [role="_abstract"]
-Before you install data storage and visualization operators, you must have access to the resources on the OperatorHub.io Community Catalog Source.
+To access the resources you need to install data storage and visualization Operators, enable the OperatorHub.io Community Catalog Source.
 
 ifeval::["{build}" == "downstream"]
 [NOTE]
-Only the core Operators and workloads are supported by Red Hat, including AMQ Interconnect, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
+Red Hat supports the core Operators and workloads, including AMQ Interconnect, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
 endif::[]
 
 .Procedure

@@ -2,7 +2,7 @@
 = Subscribing to the AMQ Certificate Manager Operator
 
 [role="_abstract"]
-You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs globally-scoped. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
+You must subscribe to the AMQ Certificate Manager Operator before you deploy the other {ProjectShort} components because the AMQ Certificate Manager Operator runs with global scope. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
 [NOTE]
 The AMQ Certificate Manager deploys to the `openshift-operators` namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the `service-telemetry` namespace.
