@@ -21,7 +21,7 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. Add `retention: 7d` to the storage section of backends.metrics.prometheus:
+. Add `retention: 7d`  to the storage section of backends.metrics.prometheus.storage to increase the retention period to seven days:
 +
 ----
 apiVersion: infra.watch/v1beta1
