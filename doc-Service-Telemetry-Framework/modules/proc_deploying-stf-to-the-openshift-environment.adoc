@@ -132,7 +132,7 @@ amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1
 Ensure that amq7-cert-manager.v1.0.1 displays a phase of Succeeded.
 ----
 
-. If you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator. To enable the Elastic Cloud on Kubernetes Operator, create the following manifest in your {OpenShift} environment:
+. If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
 +
 [options="nowrap",role="white-space-pre"]
 ----
