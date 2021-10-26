@@ -2,7 +2,7 @@
 = Creating a ServiceTelemetry object in {OpenShift}
 
 [role="_abstract"]
-Create a `ServiceTelemetry` object in {OpenShift} to result the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
+Create a `ServiceTelemetry` object in {OpenShift} to result in the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
 
 .Procedure
 
