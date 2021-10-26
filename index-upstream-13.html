@@ -474,17 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
-<ul class="sectlevel3">
-<li><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a></li>
-<li><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a></li>
-<li><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a></li>
-<li><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</a></li>
-<li><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a></li>
-<li><a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a></li>
-<li><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a></li>
-</ul>
-</li>
+<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a></li>
 <li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>
 <ul class="sectlevel3">
 <li><a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a></li>
@@ -1063,69 +1053,24 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="sect2">
 <h3 id="deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</h3>
 <div class="paragraph _abstract">
-<p>To deploy STF to collect, store, and monitor events, complete the following procedures:</p>
+<p>Deploy Service&#160;Telemetry&#160;Framework (STF) to collect, store, and monitor events:</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p><a href="#creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</a>.</p>
-</li>
-<li>
-<p><a href="#creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</a>.</p>
-</li>
-<li>
-<p><a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
-</li>
-<li>
-<p><a href="#enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the infrawatch catalog source</a>.</p>
-</li>
-<li>
-<p><a href="#subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</a>.</p>
-</li>
-<li>
-<p><a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
-</li>
-<li>
-<p><a href="#subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</a>.</p>
-</li>
-<li>
-<p><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in Red Hat OpenShift Container Platform</a>.</p>
-</li>
-</ol>
-</div>
-<div class="sect3">
-<h4 id="creating-a-namespace_assembly-installing-the-core-components-of-stf">Creating a namespace</h4>
-<div class="paragraph">
-<p>Create a namespace for the Service&#160;Telemetry&#160;Framework (STF) components. The <code>service-telemetry</code> namespace is used throughout the documentation but alternative names are supported in STF:</p>
-</div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>Create the namespace:</p>
-<div class="listingblock">
+<p>Create a namespace to contain the STF components, for example, <code>service-telemetry</code>:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc new-project service-telemetry</code></pre>
+<pre class="nowrap">$ oc new-project service-telemetry</pre>
 </div>
 </div>
 </li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="creating-an-operatorgroup_assembly-installing-the-core-components-of-stf">Creating an OperatorGroup</h4>
-<div class="paragraph _abstract">
-<p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods.</p>
-</div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
 <li>
-<p>Create the STF OperatorGroup:</p>
-<div class="listingblock">
+<p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="nowrap">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -1134,79 +1079,15 @@ metadata:
 spec:
   targetNamespaces:
   - service-telemetry
-EOF</code></pre>
+EOF</pre>
 </div>
-</div>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<div class="title">Additional resources</div>
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.6/operators/understanding_olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</h4>
-<div class="paragraph _abstract">
-<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators.</p>
-</div>
-<div class="ulist">
-<div class="title">Procedure</div>
-<ul>
-<li>
-<p>Enable the OperatorHub.io CatalogSource:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
-spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
-EOF</code></pre>
-</div>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.7/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </li>
 <li>
-<p>Validate your <code>CatalogSource</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get catalogsource -nopenshift-marketplace operatorhubio-operators
-
-NAME                      DISPLAY                    TYPE   PUBLISHER        AGE
-operatorhubio-operators   OperatorHub.io Operators   grpc   OperatorHub.io   2m21s</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the <code>operatorhubio-operators</code> pod is running:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -nopenshift-marketplace --selector olm.catalogSource=operatorhubio-operators
-
-NAME                            READY   STATUS    RESTARTS   AGE
-operatorhubio-operators-2cmm4   1/1     Running   0          3m12s</code></pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="enabling-infrawatch-catalog-source_assembly-installing-the-core-components-of-stf">Enabling InfraWatch Catalog Source</h4>
-<div class="paragraph _abstract">
-<p>Before you deploy STF on OpenShift, you must enable the catalog source.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
+<p>Before you deploy STF on OpenShift, you must enable the catalog source. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
@@ -1249,13 +1130,23 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 </div>
 </div>
 </li>
-</ol>
+<li>
+<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="nowrap">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operatorhubio/catalog:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF</pre>
 </div>
-</div>
-<div class="sect3">
-<h4 id="subscribing-to-the-amq-certificate-manager-operator_assembly-installing-the-core-components-of-stf">Subscribing to the AMQ Certificate Manager Operator</h4>
-<div class="paragraph _abstract">
-<p>You must subscribe to the AMQ Certificate Manager Operator before you deploy the other STF components because the AMQ Certificate Manager Operator runs with cluster scope. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1264,19 +1155,17 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The AMQ Certificate Manager deploys to the <code>openshift-operators</code> namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the <code>service-telemetry</code> namespace.
+Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
 </td>
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
+</li>
 <li>
-<p>Subscribe to the AMQ Certificate Manager Operator by using the <code>redhat-operators</code> CatalogSource:</p>
-<div class="listingblock">
+<p>Subscribe to the AMQ Certificate Manager Operator by using the redhat-operators CatalogSource:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="nowrap">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1288,40 +1177,39 @@ spec:
   name: amq7-cert-manager-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-EOF</code></pre>
+EOF</pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The AMQ Certificate Manager deploys to the <code>openshift-operators</code> namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the <code>service-telemetry</code> namespace. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
-<p>Validate your <code>ClusterServiceVersion</code>:</p>
-<div class="listingblock">
+<p>Validate your ClusterServiceVersion:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace openshift-operators csv
+<pre class="nowrap">$ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded</code></pre>
+amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
+Ensure that amq7-cert-manager.v1.0.1 displays a phase of Succeeded.</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Ensure that amq7-cert-manager.v1.0.1 displays a phase of <code>Succeeded</code>.</p>
 </div>
 </li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</h4>
-<div class="paragraph _abstract">
-<p>If you plan to store events in ElasticSearch, you must enable the Elastic Cloud Kubernetes Operator.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
 <li>
-<p>To enable the Elastic Cloud on Kubernetes Operator, create the following manifest in your OpenShift environment:</p>
-<div class="listingblock">
+<p>If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your OpenShift environment:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="nowrap">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -1333,70 +1221,59 @@ spec:
   name: elasticsearch-eck-operator-certified
   source: certified-operators
   sourceNamespace: openshift-marketplace
-EOF</code></pre>
+EOF</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Verify that the <code>ClusterServiceVersion</code> for ElasticSearch Cloud on Kubernetes <code>Succeeded</code>:</p>
-<div class="listingblock">
+<p>Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes <code>Succeeded</code>:</p>
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">$ oc get csv --selector operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
+<pre class="nowrap">$ oc get csv
 
-NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
-elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator   1.8.0     elasticsearch-eck-operator-certified.v1.7.1   Succeeded</code></pre>
+NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
+...
+elasticsearch-eck-operator-certified.v1.7.1   Elasticsearch (ECK) Operator   1.7.1     elasticsearch-eck-operator-certified.v1.6.0  Succeeded
+...</pre>
 </div>
 </div>
 </li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="subscribing-to-the-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Service Telemetry Operator</h4>
-<div class="paragraph _abstract">
-<p>You must subscribe to the Service Telemetry Operator, which manages the STF instances.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
 <li>
 <p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
-<div class="listingblock">
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="nowrap">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: unstable
+  channel: stable-1.3
   installPlanApproval: Automatic
   name: service-telemetry-operator
-  source: infrawatch-operators
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
-EOF</code></pre>
+EOF</pre>
 </div>
 </div>
 </li>
 <li>
 <p>Validate the Service Telemetry Operator and the dependent operators:</p>
-<div class="listingblock">
+<div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
+<pre class="nowrap">$ oc get csv --namespace service-telemetry
 
-NAME                                          DISPLAY                                         VERSION          REPLACES                                      PHASE
 amq7-cert-manager.v1.0.1                      Red Hat Integration - AMQ Certificate Manager   1.0.1                                                          Succeeded
-amq7-interconnect-operator.v1.10.2            Red Hat Integration - AMQ Interconnect          1.10.2                                                         Succeeded
+amq7-interconnect-operator.v1.10.1            Red Hat Integration - AMQ Interconnect          1.10.1           amq7-interconnect-operator.v1.2.4             Succeeded
 elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
 prometheusoperator.0.47.0                     Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                     Succeeded
-service-telemetry-operator.v1.4.1632856033    Service Telemetry Operator                      1.4.1632856033                                                 Succeeded
-smart-gateway-operator.v4.0.1632856027        Smart Gateway Operator                          4.0.1632856027                                                 Succeeded</code></pre>
+service-telemetry-operator.v1.3.1632925572    Service Telemetry Operator                      1.3.1632925572                                                 Succeeded
+smart-gateway-operator.v3.0.1632925565        Smart Gateway Operator                          3.0.1632925565                                                 Succeeded</pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1659,7 +1536,7 @@ spec:
 </div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling ElasticSearch as a storage back end for events</h6>
 <div class="paragraph">
-<p>To enable support for events in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">Subscribing to the Elastic Cloud on Kubernetes Operator</a>.</p>
+<p>To enable support for events in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">[subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf]</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
@@ -2986,7 +2863,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 <div class="paragraph">
 <div class="title">Prerequisites</div>
-<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">Enabling the OperatorHub.io Community Catalog Source</a>.</p>
+<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">[enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf]</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -5878,7 +5755,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-25 19:24:20 UTC
+Last updated 2021-10-26 13:04:50 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
