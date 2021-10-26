@@ -7,7 +7,7 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-completing-the-stf-configuration
 
 [role="_abstract"]
-For collection of metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} ({OpenStackShort}) overcloud to enable data collection and transport.
+To collect metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} ({OpenStackShort}) overcloud to enable data collection and transport.
 
 {ProjectShort} can support both single and multiple clouds. The default configuration in {OpenStackShort} and {ProjectShort} set up for a single cloud installation.
 

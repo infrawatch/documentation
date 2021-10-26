@@ -37,12 +37,10 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
     -   name: sslProfile
-----
 ifdef::include_when_13[]
-----
         caCertFileContent: |
           ----BEGIN CERTIFICATE----
           <snip>
           ----END CERTIFICATE----
-----
 endif::include_when_13[]
+----
