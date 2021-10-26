@@ -8,7 +8,7 @@ Deploy {Project} ({ProjectShort}) to collect, store, and monitor events:
 
 .Procedure
 
-. Create a namespace to contain the {ProjectShort} components, for example,`service-telemetry`:
+. Create a namespace to contain the {ProjectShort} components, for example, `service-telemetry`:
 +
 [options="nowrap",role="white-space-pre"]
 ----
