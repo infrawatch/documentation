@@ -1,35 +1,12 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_deploying-the-overcloud.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
-
 [id="deploying-the-overcloud_{context}"]
 = Deploying the overcloud
 
 [role="_abstract"]
-Deploy or update the overcloud with the required environment files to result in data being collected and transmitted to {ProjectShort}.
+Deploy or update the overcloud with the required environment files so that data is collected and transmitted to {Project} ({ProjectShort}).
 
 .Procedure
 
-. Log in to the {OpenStack} undercloud as the `stack` user.
+. Log in to the {OpenStack} ({OpenStackShort}) undercloud as the `stack` user.
 
 . Source the authentication file:
 +
@@ -40,13 +17,13 @@ Deploy or update the overcloud with the required environment files to result in 
 (undercloud) [stack@undercloud-0 ~]$
 ----
 
-. Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup data collection and {MessageBus}:
+. Add the following files to your {OpenStackShort} {OpenStackInstaller} deployment to configure data collection and {MessageBus}:
 +
-* the `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
-* the `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}
-* the `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
-* the `enable-stf.yaml` environment file to ensure defaults are set up correctly
-* the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
+* The `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
+* The `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}
+* The `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
+* The `enable-stf.yaml` environment file to ensure defaults are configured correctly
+* The `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
 +
 // this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
 +
@@ -62,4 +39,4 @@ Deploy or update the overcloud with the required environment files to result in 
   --environment-file /home/stack/stf-connectors.yaml
 ----
 
-. Deploy the {OpenStack} overcloud.
+. Deploy the {OpenStackShort} overcloud.

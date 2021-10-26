@@ -1,36 +1,14 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_configuring-multiple-clouds.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="configuring-multiple-clouds_{context}"]
 = Configuring multiple clouds
 
 [role="_abstract"]
-You can configure multiple {OpenStack} clouds to target a single instance of {Project} ({ProjectShort}). When configuring multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the {ProjectShort} deployment, Smart Gateway instances listen on these topics in order to save information to the common data store. Data that is stored by the Smart Gateway in the data storage domain is filtered by using the metadata created by each of the Smart Gateways.
+You can configure multiple {OpenStack} ({OpenStackShort}) clouds to target a single instance of {Project} ({ProjectShort}). When you configure multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the {ProjectShort} deployment, Smart Gateway instances listen on these topics to save information to the common data store. Data that is stored by the Smart Gateway in the data storage domain is filtered by using the metadata that each of Smart Gateways creates.
 
 [[osp-stf-multiple-clouds]]
-.Two {OpenStack} clouds connect to {ProjectShort}
-image::OpenStack_STF_Overview_37_0919_topology.png[An example of two {OpenStack} clouds connecting to {ProjectShort}]
+.Two {OpenStackShort} clouds connect to {ProjectShort}
+image::OpenStack_STF_Overview_37_0919_topology.png[An example of two {OpenStackShort} clouds connecting to {ProjectShort}]
 
-To configure the {OpenStack} overcloud for a multiple cloud scenario, complete the following tasks:
+To configure the {OpenStackShort} overcloud for a multiple cloud scenario, complete the following tasks:
 
 . Plan the AMQP address prefixes that you want to use for each cloud. For more information, see xref:planning-amqp-address-prefixes_assembly-completing-the-stf-configuration[].
 . Deploy metrics and events consumer Smart Gateways for each cloud to listen on the corresponding address prefixes. For more information, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[].
