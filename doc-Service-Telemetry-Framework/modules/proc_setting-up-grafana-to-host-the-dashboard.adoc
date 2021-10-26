@@ -26,10 +26,6 @@
 [role="_abstract"]
 Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local {ProjectShort} deployment.
 
-.Prerequisites
-
-Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see xref:enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf[].
-
 .Procedure
 
 . Log in to {OpenShift}.
