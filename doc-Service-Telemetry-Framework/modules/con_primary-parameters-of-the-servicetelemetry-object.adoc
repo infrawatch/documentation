@@ -52,9 +52,7 @@ spec:
 [discrete]
 === Enabling ElasticSearch as a storage back end for events
 
-To enable support for events in {ProjectShort}, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see xref:subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf[].
-
-//By default, storage of events on ElasticSearch is disabled. For more information, see xref:deploying-stf-to-the-openshift-environment-with-elasticsearch_assembly-installing-the-core-components-of-stf[].
+To enable ElasticSearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
 
 .Procedure
 
