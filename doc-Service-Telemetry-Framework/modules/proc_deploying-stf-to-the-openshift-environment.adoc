@@ -2,7 +2,7 @@
 = Deploying {Project} to the {OpenShift} environment
 
 [role="_abstract"]
-Deploy ({Project}){ProjectShort} to collect, store, and monitor events:
+Deploy {Project} ({ProjectShort}) to collect, store, and monitor events:
 
 
 
