@@ -1536,7 +1536,7 @@ spec:
 </div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling ElasticSearch as a storage back end for events</h6>
 <div class="paragraph">
-<p>To enable support for events in STF, you must enable the Elastic Cloud for Kubernetes Operator. For more information, see <a href="#subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf">[subscribing-to-the-elastic-cloud-on-kubernetes-operator_assembly-installing-the-core-components-of-stf]</a>.</p>
+<p>To enable ElasticSearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
@@ -2860,10 +2860,6 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
 <p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local STF deployment.</p>
-</div>
-<div class="paragraph">
-<div class="title">Prerequisites</div>
-<p>Enable OperatorHub.io catalog source for the Grafana Operator. For more information, see <a href="#enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf">[enabling-the-operatorhub-io-community-catalog-source_assembly-installing-the-core-components-of-stf]</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -5755,7 +5751,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-26 13:04:50 UTC
+Last updated 2021-10-27 19:42:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
