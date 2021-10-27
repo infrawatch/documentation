@@ -1,32 +1,9 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
 
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_high-availability.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
 [id="high-availability_{context}"]
 = High availability
 
 [role="_abstract"]
-High availability is the ability of {Project} ({ProjectShort}) to rapidly recover from failures in its component services. Although {OpenShift} ({OpenShiftShort}) restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, reducing recovery time to approximately 2 seconds. To protect against failure of an {OpenShiftShort} node, deploy {ProjectShort} to an {OpenShiftShort} cluster with three or more nodes.
+High availability is the ability of {Project} ({ProjectShort}) to rapidly recover from failures in its component services. Although {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, which reduces recovery time to approximately 2 seconds. To protect against failure of an {OpenShift} node, deploy {ProjectShort} to an {OpenShift} cluster with three or more nodes.
 
 [WARNING]
 {ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.

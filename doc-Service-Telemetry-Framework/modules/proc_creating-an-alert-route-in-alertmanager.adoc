@@ -2,7 +2,7 @@
 = Creating an alert route in Alertmanager
 
 [role="_abstract"]
-Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. {Project} ({ProjectShort}) by default deploys a basic configuration that results in no receivers:
+Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
 
 [source,yaml]
 ----
@@ -21,8 +21,6 @@ alertmanager.yaml: |-
 
 To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
-//For more information, see xref:configuring-manifest-overrides_assembly-advanced-features[].
-
 .Procedure
 
 . Log in to {OpenShift}.
@@ -40,10 +38,10 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. Add new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
+. Add the new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
 +
 [NOTE]
-This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value `global.resolve_timeout` from `5m` to `10m`.
+This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value of the parameter `global.resolve_timeout` from `5m` to `10m`.
 
 +
 [source,yaml,options="nowrap"]
@@ -104,7 +102,7 @@ receivers:
 $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
-. Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and verify that the supplied configuration matches the configuration in Alertmanager:
+. Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
 [source,bash,options="nowrap"]
 ----
