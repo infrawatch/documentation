@@ -35,12 +35,12 @@ You can add custom alerts to the `PrometheusRule` object that you created in xre
 $ oc edit prometheusrules prometheus-alarm-rules
 ----
 
-. Edit the PrometheusRules manifest.
+. Edit the `PrometheusRules` manifest.
 
-. Save and close.
+. Save and close the manifest.
 
 .Additional resources
 
-* For more information about configuring alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
+* For more information about how to configure alerting rules, see https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/.
 
 * For more information about PrometheusRules objects, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
