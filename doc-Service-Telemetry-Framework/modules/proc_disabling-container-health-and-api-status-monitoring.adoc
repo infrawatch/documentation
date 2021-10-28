@@ -3,7 +3,7 @@
 
 [role="_abstract"]
 
-To disable container health and API status monitoring, you must set the `CollectdEnableSensubility` parameter to `false`.
+To disable {OpenStackShort} containerized service health and API status monitoring, you must set the `CollectdEnableSensubility` parameter to `false`.
 
 .Prerequisites
 
