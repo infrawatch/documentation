@@ -8,4 +8,4 @@ Monitoring of {OpenStackShort} container health and API status is enabled by def
 
 .Additional resources
 
-* To disable container health and API status monitoring, see xref:disabling-container-health-and-api-status-monitoring_assembly-advanced-features[].
+* To disable {OpenStackShort} container health and API status monitoring, see xref:disabling-container-health-and-api-status-monitoring_assembly-advanced-features[].
