@@ -10,13 +10,13 @@ Deploy {Project} ({ProjectShort}) to collect, store, and monitor events:
 
 . Create a namespace to contain the {ProjectShort} components, for example, `service-telemetry`:
 +
-[options="nowrap",role="white-space-pre"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc new-project service-telemetry
 ----
 . Create an OperatorGroup in the namespace so that you can schedule the Operator pods:
 +
-[options="nowrap",role="white-space-pre"]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -32,13 +32,11 @@ EOF
 +
 For more information, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm/olm-understanding-operatorgroups.html[OperatorGroups].
 
-
-
 ifeval::["{build}" == "upstream"]
 
 . Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
 +
-[source,bash]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -59,7 +57,7 @@ EOF
 
 . Validate the creation of your CatalogSource:
 +
-[source,options="nowrap"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
@@ -69,7 +67,7 @@ infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
 
 . Validate that the Operators are available from the catalog:
 +
-[source,options="nowrap"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
@@ -80,7 +78,10 @@ endif::[]
 
 . Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:
 +
-[options="nowrap",role="white-space-pre"]
+[NOTE]
+Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
++
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -95,13 +96,13 @@ spec:
   publisher: OperatorHub.io
 EOF
 ----
-+
-[NOTE]
-Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
 
 . Subscribe to the AMQ Certificate Manager Operator by using the redhat-operators CatalogSource:
 +
-[options="nowrap",role="white-space-pre"]
+[NOTE]
+The AMQ Certificate Manager deploys to the `openshift-operators` namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the `service-telemetry` namespace. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
++
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -117,24 +118,20 @@ spec:
   sourceNamespace: openshift-marketplace
 EOF
 ----
-+
-[NOTE]
-The AMQ Certificate Manager deploys to the `openshift-operators` namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the `service-telemetry` namespace. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
 
-. Validate your ClusterServiceVersion:
+. Validate your ClusterServiceVersion. Ensure that amq7-cert-manager.v1.0.1 displays a phase of `Succeeded`:
 +
-[options="nowrap",role="white-space-pre"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
 amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
-Ensure that amq7-cert-manager.v1.0.1 displays a phase of Succeeded.
 ----
 
 . If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
 +
-[options="nowrap",role="white-space-pre"]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -153,7 +150,7 @@ EOF
 
 . Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes `Succeeded`:
 +
-[options="nowrap",role="white-space-pre"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get csv
 
@@ -165,7 +162,7 @@ elasticsearch-eck-operator-certified.v1.7.1   Elasticsearch (ECK) Operator   1.7
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
-[options="nowrap",role="white-space-pre"]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -184,7 +181,7 @@ EOF
 
 . Validate the Service Telemetry Operator and the dependent operators:
 +
-[options="nowrap",role="white-space-pre"]
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get csv --namespace service-telemetry
 

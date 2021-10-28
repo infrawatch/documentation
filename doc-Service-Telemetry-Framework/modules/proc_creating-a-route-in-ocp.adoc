@@ -20,13 +20,9 @@ $ oc project service-telemetry
 
 . List the available services in the `service-telemetry` project:
 +
-[source,bash]
-----
-$ oc get services
-----
-+
 [source,bash,options="nowrap"]
 ----
+$ oc get services
 NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
 alertmanager-operated                    ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      93m
 default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   <none>        8081/TCP                                        93m
@@ -45,9 +41,6 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>    
 [source,bash,options="nowrap"]
 ----
 $ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090
-----
-+
-----
 route.route.openshift.io/metrics-store created
 ----
 
@@ -56,9 +49,6 @@ route.route.openshift.io/metrics-store created
 [source,bash]
 ----
 $ oc get route metrics-store -ogo-template='{{.spec.host}}'
-----
-+
-----
 metrics-store-service-telemetry.apps.infra.watch
 ----
 

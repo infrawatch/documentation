@@ -54,7 +54,7 @@ EOF
 
 . Validate the creation of your CatalogSource:
 +
-[source,options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
@@ -67,7 +67,7 @@ infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
 . Validate that the Operators are available from the catalog:
 +
 
-[source,options="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc get packagemanifests | grep InfraWatch
 
