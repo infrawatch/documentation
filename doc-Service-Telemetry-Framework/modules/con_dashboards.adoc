@@ -16,5 +16,5 @@ Use the infrastructure dashboard to view metrics for a single node at a time. Se
 Cloud view dashboard::
 Use the cloud view dashboard to view panels to monitor service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard. API health monitoring is enabled by default in the {ProjectShort} base configuration. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration
 ** For more information about API health monitoring, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
-** For more information about service monitoring, see xref:resource-usage-of-openstack-services_assembly-advanced-features[].
+** For more information about {OpenStackShort} service monitoring, see xref:resource-usage-of-openstack-services_assembly-advanced-features[].
 endif::include_when_16[]
