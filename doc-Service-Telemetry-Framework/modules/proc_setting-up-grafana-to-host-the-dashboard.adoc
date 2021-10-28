@@ -1,30 +1,8 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_setting-up-the-dashboard-to-host-grafana.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="setting-up-grafana-to-host-the-dashboard_{context}"]
-= Setting up Grafana to host the dashboard
+= Configuring Grafana to host the dashboard
 
 [role="_abstract"]
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local {ProjectShort} deployment.
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
 
 .Procedure
 
@@ -55,7 +33,7 @@ spec:
 EOF
 ----
 
-. To verify that the operator launched successfully, run the `oc get csv` command. In the command output, if the value of the `PHASE` column is `Succeeded`, the operator launched successfully:
+. Verify that the Operator launched successfully. In the command output, if the value of the `PHASE` column is `Succeeded`, the Operator launched successfully:
 +
 [source,bash,options="nowrap"]
 ----
@@ -65,7 +43,7 @@ NAME                       DISPLAY            VERSION   REPLACES                
 grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded
 ----
 
-. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`.
+. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`:
 +
 [source,bash]
 ----
@@ -112,7 +90,7 @@ NAME            HOST/PORT                                          PATH   SERVIC
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
 ----
 
-. The dashboards in {ProjectShort} require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:
+. The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:
 +
 [source,bash]
 ----
@@ -128,7 +106,7 @@ docker.io/grafana/grafana:7.3.10
 $ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'
 ----
 +
-Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.
+Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment.
 
 . Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
 +

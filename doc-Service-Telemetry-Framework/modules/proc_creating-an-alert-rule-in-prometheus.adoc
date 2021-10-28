@@ -1,25 +1,3 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_creating-an-alert-rule-in-prometheus.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="creating-an-alert-rule-in-prometheus_{context}"]
 = Creating an alert rule in Prometheus
 
@@ -60,14 +38,14 @@ EOF
 ----
 <1> To change the rule, edit the value of the expr parameter.
 
-. To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to `curl`:
+. To verify that the Operator loaded the rules  into Prometheus, create a pod with access to `curl`:
 +
 [source,bash]
 ----
 $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
-. Run `curl` to access the `prometheus-operated` service to return the rules loaded into memory:
+. Run the `curl` command to access the `prometheus-operated` service to return the rules loaded into memory:
 +
 [source,bash,options="nowrap"]
 ----
@@ -75,7 +53,7 @@ $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
 ----
 
-. To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit from the pod:
+. To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit the pod:
 +
 [source,bash]
 ----
@@ -93,4 +71,4 @@ pod "curl" deleted
 
 .Additional resources
 
-For more information on alerting, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+* For more information on alerting, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md

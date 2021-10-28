@@ -1,30 +1,8 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_creating-an-alert-route-in-alertmanager.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
 [role="_abstract"]
-Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an {OpenShift} ({OpenShiftShort}) secret. {ProjectShort} by default deploys a basic configuration that results in no receivers:
+Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
 
 [source,yaml]
 ----
@@ -41,9 +19,7 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfigManifest` parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
-
-//For more information, see xref:configuring-manifest-overrides_assembly-advanced-features[].
+To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
 .Procedure
 
@@ -55,17 +31,17 @@ To deploy a custom Alertmanager route with {ProjectShort}, an `alertmanagerConfi
 $ oc project service-telemetry
 ----
 
-. Edit the `ServiceTelemetry` object for your {ProjectShort} deployment
+. Edit the `ServiceTelemetry` object for your {ProjectShort} deployment:
 +
 [source,bash]
 ----
 $ oc edit stf default
 ----
 
-. Add a new parameter, `alertmanagerConfigManifest`, and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
+. Add the new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
 +
 [NOTE]
-This step loads the default template that is already managed by Service Telemetry Operator. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value `global.resolve_timeout` from `5m` to `10m`.
+This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value of the parameter `global.resolve_timeout` from `5m` to `10m`.
 
 +
 [source,yaml,options="nowrap"]
@@ -101,7 +77,7 @@ spec:
         - name: 'null'
 ----
 
-. Verify that the configuration was applied to the secret:
+. Verify that the configuration is applied to the secret:
 +
 [source,bash,options="nowrap"]
 ----
@@ -119,14 +95,14 @@ receivers:
 - name: 'null'
 ----
 
-. To verify the configuration has been loaded into Alertmanager, create a pod with access to `curl`:
+. To verify the configuration is loaded into Alertmanager, create a pod with access to `curl`:
 +
 [source,bash]
 ----
 $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 ----
 
-. Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents and review the supplied configuration matches the configuration loaded into Alertmanager:
+. Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
 [source,bash,options="nowrap"]
 ----
@@ -135,7 +111,9 @@ $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 {"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}
 ----
 
-. Verify that the `configYAML` field contains the expected changes. Exit from the pod:
+. Verify that the `configYAML` field contains the changes you expect.
+
+. Exit the pod:
 +
 [source,bash]
 ----
