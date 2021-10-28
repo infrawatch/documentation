@@ -1,0 +1,9 @@
+[id="resource-usage-of-openstack-services_{context}"]
+= Resource usage of {OpenStack} services
+
+[role="_abstract"]
+You can monitor the resource usage of the {OpenStack} ({OpenStackShort}) services, such as the APIs and other infrastructure processes, to identify bottlenecks in the overcloud by showing services that run out of compute power. Resource usage monitoring is enabled by default.
+
+.Additional resources
+
+* To disable resource usage monitoring, see xref:disabling-resource-usage-monitoring-of-openstack-services_assembly-advanced-features[].
