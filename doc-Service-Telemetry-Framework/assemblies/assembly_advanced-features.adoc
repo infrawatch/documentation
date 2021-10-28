@@ -1,31 +1,22 @@
 [id="assembly-advanced-features_{context}"]
-= Advanced features of {Project}
+= Using operational features of {Project}
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: assembly-advanced-features
 
 [role="_abstract"]
-You can use the following optional features to provide additional functionality to the {Project} ({ProjectShort}):
+You can use the following operational features to provide additional functionality to the {Project} ({ProjectShort}):
 
 * xref:dashboards_assembly-advanced-features[Configuring dashboards]
-* xref:editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features[Editing the metrics retention time period]
+* xref:metrics-retention-time-period_assembly-advanced-features[Configuring the metrics retention time period]
 * xref:alerts_assembly-advanced-features[Configuring alerts]
 * xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
 * xref:high-availability_assembly-advanced-features[Configuring high availability]
 * xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
 * xref:creating-a-route-in-ocp_assembly-advanced-features[Creating a route in {OpenShift}]
 ifdef::include_when_16[]
-* xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
+* xref:resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
+* xref:container-health-and-api-status_assembly-advanced-features[Monitoring container health and API status]
 endif::include_when_16[]
-
-
-
-// Customizing the deployment (manifest overrides)
-//include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
-//include::../modules/ref_manifest-override-//parameters.adoc[leveloffset=+2]
-//include::../modules/proc_overriding-a-managed-manifest.adoc[leveloffset=+2]
 
 //Dashboards
 include::../modules/con_dashboards.adoc[leveloffset=+1]
@@ -38,7 +29,8 @@ include::../modules/proc_retrieving-and-setting-grafana-login-credentials.adoc[l
 
 
 //Editing the metrics retention time period
-include::../modules/proc_editing-the-metrics-retention-time-period-in-service-telemetry-framework.adoc[leveloffset=+1]
+include::../modules/con_metrics-retention-time-period.adoc[leveloffset=+1]
+include::../modules/proc_editing-the-metrics-retention-time-period-in-service-telemetry-framework.adoc[leveloffset=+2]
 
 //Alerts
 include::../modules/con_alerts.adoc[leveloffset=+1]
@@ -64,10 +56,13 @@ include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]
 ifdef::include_when_16[]
 //Monitoring and health checks are OSP16+ only
 //Monitoring the resource usage of Openstack services
-include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
+include::../modules/con_resource-usage-of-openstack.adoc[leveloffset=+1]
+include::../modules/proc_disabling-resource-usage-monitoring-of-openstack-services.adoc[leveloffset=+2]
 
 //Monitoring container health
-include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
+
+include::../modules/con_container-health-and-api-status.adoc[leveloffset=+1]
+include::../modules/proc_disabling-container-health-and-api-status-monitoring.adoc[leveloffset=+2]
 endif::include_when_16[]
 
 

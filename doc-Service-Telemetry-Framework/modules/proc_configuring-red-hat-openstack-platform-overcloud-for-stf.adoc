@@ -1,32 +1,10 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_configuring-red-hat-openstack-platform-overcloud-for-stf.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
-= Configuring {OpenStack} overcloud for {Project}
+= Deploying {OpenStack} overcloud for {Project}
 
 [role="_abstract"]
-To configure the {OpenStack} overcloud, you must configure the data collection applications and the data transport to {ProjectShort}, and deploy the overcloud.
+As part of the {OpenStack} ({OpenStackShort}) overcloud deployment, you must configure the data collectors and the data transport to {Project} ({ProjectShort}).
 
-To configure the {OpenStack} overcloud, complete the following tasks:
+To configure the {OpenStackShort} overcloud, complete the following tasks:
 
 ifdef::include_when_13[]
 . xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[]

@@ -12,7 +12,7 @@ ifdef::context[:parent-context: {context}]
 
 
 [id="assembly-completing-the-stf-configuration_{context}"]
-= Completing the {Project} configuration
+= Configuring {OpenStack} for {Project}
 
 // The `context` attribute enables module reuse. Every module's ID
 // includes {context}, which ensures that the module has a unique ID even if
