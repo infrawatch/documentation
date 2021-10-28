@@ -10,7 +10,7 @@ To disable the monitoring of {OpenStackShort} containerized service resource usa
 
 .Procedure
 
-. Open the `stf-connectors.yaml` file and add the `CollectdEnableLibpodstats` parameter to override the setting in `enable-stf.yaml`:
+. Open the `stf-connectors.yaml` file and add the `CollectdEnableLibpodstats` parameter to override the setting in `enable-stf.yaml`. Ensure that `stf-connectors.yaml` is called from the `openstack overcloud deploy` command after `enable-stf.yaml`:
 +
 [source,yaml]
 ----
