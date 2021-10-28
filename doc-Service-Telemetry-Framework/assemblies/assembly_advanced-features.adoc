@@ -15,6 +15,7 @@ You can use the following optional features to provide additional functionality 
 * xref:creating-a-route-in-ocp_assembly-advanced-features[Creating a route in {OpenShift}]
 ifdef::include_when_16[]
 * xref:resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
+* xref:container-health-and-api-status_assembly-advanced-features[Monitoring container health and API status]
 endif::include_when_16[]
 
 //Dashboards
@@ -59,7 +60,9 @@ include::../modules/con_resource-usage-of-openstack.adoc[leveloffset=+1]
 include::../modules/proc_disabling-resource-usage-monitoring-of-openstack-services.adoc[leveloffset=+2]
 
 //Monitoring container health
-include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
+
+include::../modules/con_container-health-and-api-status.adoc[leveloffset=+1]
+include::../modules/proc_disabling-container-health-and-api-status-monitoring.adoc[leveloffset=+2]
 endif::include_when_16[]
 
 

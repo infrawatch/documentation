@@ -6,11 +6,11 @@ To disable the monitoring of container resource usage, you must set the `Collect
 .Prerequisites
 
 * You have created the `stf-connectors.yaml` file. For more information, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
-* You are using the most current version of {OpenStackShort} {OpenStackVersion}.
+* You are using the most current version of {OpenStack} ({OpenStackShort}) {OpenStackVersion}.
 
 .Procedure
 
-. Open the `stf-connectors.yaml` file and add the `CollectdEnableLibpodstats` parameter to override the setting in `enable-stf.yaml`
+. Open the `stf-connectors.yaml` file and add the `CollectdEnableLibpodstats` parameter to override the setting in `enable-stf.yaml`:
 +
 [source,yaml]
 ----

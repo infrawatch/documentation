@@ -6,4 +6,4 @@ You can monitor the resource usage of the {OpenStack} ({OpenStackShort}) service
 
 .Additional resources
 
-* To disable resource usage monitoring, see xref:disabling-resource-usage-monitoring-of-openstack-services_assembly-advanced-features[]
+* To disable resource usage monitoring, see xref:disabling-resource-usage-monitoring-of-openstack-services_assembly-advanced-features[].
