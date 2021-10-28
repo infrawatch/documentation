@@ -19,7 +19,7 @@ If you use {ProjectShort} with {OpenStack} ({OpenStackShort}) {OpenStackVersion}
 Similarly, you must specify  `BlockStorageExtraConfig` and `ObjectStorageExtraConfig` parameters if your environment uses Block and Object Storage roles.
 
 To deploy a spine-leaf topology, you must create roles and networks, then assign those networks to the available roles. When you configure data collection and transport for {ProjectShort} for an {OpenstackShort} deployment, the default network for roles is `InternalApi`. For Ceph, Block and Object storage roles, the default network is `Storage`.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the `parameter_defaults` section of the {OpenstackShort} environment files.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the `parameter_defaults` section of the {OpenStackShort} environment files.
 
 
 .Procedure
