@@ -1279,7 +1279,7 @@ smart-gateway-operator.v3.0.1632925565        Smart Gateway Operator            
 <div class="sect2">
 <h3 id="creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</h3>
 <div class="paragraph _abstract">
-<p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the creation of supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a>.</p>
+<p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the Service Telemetry Operator creating the supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1422,7 +1422,7 @@ localhost                  : ok=57   changed=0    unreachable=0    failed=0    s
 <div class="title">Verification</div>
 <ul>
 <li>
-<p>To determine that all workloads are operating correctly, view the pods and the status of each pod:</p>
+<p>To determine that all workloads are operating correctly, view the pods and the status of each pod.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1725,36 +1725,41 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <h2 id="assembly-completing-the-stf-configuration_assembly">Completing the Service&#160;Telemetry&#160;Framework configuration</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>For collection of metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack overcloud to enable data collection and transport.</p>
+<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
 </div>
 <div class="paragraph">
-<p>STF can support both single and multiple clouds, with the default configuration in OpenStack and STF set up for a single cloud installation. For a single OpenStack overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
-</div>
-<div class="paragraph">
-<p>To plan your OpenStack installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
-</div>
-<div class="paragraph">
-<p>As part of an OpenStack overcloud deployment, you might need to configure additional features in your environment:</p>
+<p>STF can support both single and multiple clouds. The default configuration in OSP and STF set up for a single cloud installation.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>To deploy data collection and transport to STF on OpenStack cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a>.</p>
+<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+</li>
+<li>
+<p>To plan your OSP installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
+</li>
+<li>
+<p>As part of an OSP overcloud deployment, you might need to configure additional features in your environment:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To deploy data collection and transport to STF on OSP cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a>.</p>
 </li>
 <li>
 <p>If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see <a href="#adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration">Adding OpenStack container images to the undercloud</a>.</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
 <div class="sect2">
 <h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>To configure the OpenStack overcloud, you must configure the data collection applications and the data transport to STF, and deploy the overcloud.</p>
-</div>
-<div class="paragraph">
-<p>To configure the OpenStack overcloud, complete the following tasks:</p>
+<p>To configure the OpenStack (OSP) overcloud, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF), and deploy the overcloud.</p>
 </div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></p>
@@ -1806,13 +1811,13 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
 <div class="paragraph _abstract">
-<p>When you configure the OpenStack overcloud for STF, you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address in the STF connection file.</p>
+<p>When you configure the OpenStack (OSP) overcloud for Service&#160;Telemetry&#160;Framework (STF), you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address in the STF connection file.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to your OpenShift (OKD) environment.</p>
+<p>Log in to your OpenShift environment.</p>
 </li>
 <li>
 <p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
@@ -1822,18 +1827,6 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If your STF installation differs from the documentation, ensure that you retrieve the correct Apache&#160;Qpid&#160;Dispatch&#160;Router route address.
-</td>
-</tr>
-</table>
-</div>
 </li>
 </ol>
 </div>
@@ -1841,13 +1834,13 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="sect3">
 <h4 id="creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</h4>
 <div class="paragraph _abstract">
-<p>To configure the base parameters to provide a compatible data collection and transport for STF, you must create a file that defines the default data collection values.</p>
+<p>To configure the base parameters to provide a compatible data collection and transport for Service&#160;Telemetry&#160;Framework (STF), you must create a file that defines the default data collection values.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>enable-stf.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -1859,7 +1852,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OpenStack legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds as specified in <code>ExtraConfig</code> might overwhelm the legacy components, and should be increased to a larger value such as <code>300</code>. Increasing the value to a longer polling interval will result in less telemetry resolution in STF.</p>
+<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in <code>ExtraConfig</code>, might overwhelm the legacy components, and you must increase the interval to a larger value, such as <code>300</code>. Increasing the value to a longer polling interval results in less telemetry resolution in STF.</p>
 </div>
 </td>
 </tr>
@@ -1944,7 +1937,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="sect3">
 <h4 id="configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</h4>
 <div class="paragraph _abstract">
-<p>To configure the STF connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The configuration is set up for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
+<p>To configure the Service&#160;Telemetry&#160;Framework (STF) connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The default configuration is for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -1961,7 +1954,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -2003,13 +1996,13 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="sect3">
 <h4 id="deploying-the-overcloud_assembly-completing-the-stf-configuration">Deploying the overcloud</h4>
 <div class="paragraph _abstract">
-<p>Deploy or update the overcloud with the required environment files to result in data being collected and transmitted to STF.</p>
+<p>Deploy or update the overcloud with the required environment files so that data is collected and transmitted to Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Source the authentication file:</p>
@@ -2022,23 +2015,23 @@ If your STF installation differs from the documentation, ensure that you retriev
 </div>
 </li>
 <li>
-<p>Add the following files to your OpenStack TripleO deployment to setup data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<p>Add the following files to your OSP TripleO deployment to configure data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>the <code>collectd-write-qdr.yaml</code> file to ensure that collectd telemetry and events are sent to STF</p>
+<p>The <code>collectd-write-qdr.yaml</code> file to ensure that collectd telemetry and events are sent to STF</p>
 </li>
 <li>
-<p>the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF</p>
+<p>The <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF</p>
 </li>
 <li>
-<p>the <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers</p>
+<p>The <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers</p>
 </li>
 <li>
-<p>the <code>enable-stf.yaml</code> environment file to ensure defaults are set up correctly</p>
+<p>The <code>enable-stf.yaml</code> environment file to ensure defaults are configured correctly</p>
 </li>
 <li>
-<p>the <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
+<p>The <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
@@ -2056,7 +2049,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 </div>
 </li>
 <li>
-<p>Deploy the OpenStack overcloud.</p>
+<p>Deploy the OSP overcloud.</p>
 </li>
 </ol>
 </div>
@@ -2064,7 +2057,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <div class="sect3">
 <h4 id="validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</h4>
 <div class="paragraph _abstract">
-<p>To validate data collection from the STF storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack deployment, connect to the console using SSH.</p>
+<p>To validate data collection from the Service&#160;Telemetry&#160;Framework (STF) storage domain, query the data sources for delivered data. To validate individual nodes in the OpenStack (OSP) deployment, use SSH to connect to the console.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2073,7 +2066,7 @@ If your STF installation differs from the documentation, ensure that you retriev
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Some telemetry data is only available when OpenStack has active workloads.
+Some telemetry data is available only when OSP has active workloads.
 </td>
 </tr>
 </table>
@@ -2085,7 +2078,7 @@ Some telemetry data is only available when OpenStack has active workloads.
 <p>Log in to an overcloud node, for example, controller-0.</p>
 </li>
 <li>
-<p>Ensure that <code>metrics_qdr</code> container is running on the node:</p>
+<p>Ensure that the <code>metrics_qdr</code> container is running on the node:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker container inspect --format '{{.State.Status}}' metrics_qdr
@@ -2148,7 +2141,7 @@ Connections
 </div>
 </li>
 <li>
-<p>To ensure that messages are being delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
+<p>To ensure that messages are delivered, list the links, and view the <code>_edge</code> address in the <code>deliv</code> column for delivery of messages:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo docker exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --links
@@ -2170,7 +2163,7 @@ Router Links
 </div>
 </li>
 <li>
-<p>To list the addresses from OpenStack nodes to STF, connect to OKD to get the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
+<p>To list the addresses from OSP nodes to STF, connect to OpenShift to retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router pod name and list the connections. List the available Apache&#160;Qpid&#160;Dispatch&#160;Router pods:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -l application=default-interconnect
@@ -2181,7 +2174,7 @@ default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code
 </div>
 </li>
 <li>
-<p>Connect to the pod and run the <code>qdstat --connections</code> command to list the known connections:</p>
+<p>Connect to the pod and list the known connections:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
@@ -2203,7 +2196,7 @@ Connections
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, there are three <code>edge</code> connections from the OpenStack nodes with connection <code>id</code> 22, 23, and 24.</p>
+<p>In this example, there are three <code>edge</code> connections from the OSP nodes with connection <code>id</code> 22, 23, and 24.</p>
 </div>
 </li>
 <li>
@@ -2235,7 +2228,7 @@ Router Addresses
 <p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 <div class="paragraph">
-<p>If you use STF with OpenStack Train  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
+<p>If you use STF with OpenStack (OSP) Train  and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2246,11 +2239,11 @@ Router Addresses
 </div>
 </div>
 <div class="paragraph">
-<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses  Block and Object storage roles.</p>
+<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses Block and Object Storage roles.</p>
 </div>
 <div class="paragraph">
-<p>The deployment of a spine-leaf topology involves creating roles and networks, then assigning those networks to the available roles. When you configure data collection and transport for STF for an OpenStack deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OpenStack  environment files.</p>
+<p>To deploy a spine-leaf topology, you must create roles and networks, then assign those networks to the available roles. When you configure data collection and transport for STF for an OSP deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
+Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OSP environment files.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2331,16 +2324,16 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <div class="sect2">
 <h3 id="configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</h3>
 <div class="paragraph _abstract">
-<p>You can configure multiple OpenStack clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF). When configuring multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the STF deployment, Smart Gateway instances listen on these topics in order to save information to the common data store. Data that is stored by the Smart Gateway in the data storage domain is filtered by using the metadata created by each of the Smart Gateways.</p>
+<p>You can configure multiple OpenStack (OSP) clouds to target a single instance of Service&#160;Telemetry&#160;Framework (STF). When you configure multiple clouds, every cloud must send metrics and events on their own unique message bus topic. In the STF deployment, Smart Gateway instances listen on these topics to save information to the common data store. Data that is stored by the Smart Gateway in the data storage domain is filtered by using the metadata that each of Smart Gateways creates.</p>
 </div>
 <div id="osp-stf-multiple-clouds" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OpenStack clouds connecting to STF"/>
+<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OSP clouds connecting to STF"/>
 </div>
-<div class="title">Figure 3. Two OpenStack clouds connect to STF</div>
+<div class="title">Figure 3. Two OSP clouds connect to STF</div>
 </div>
 <div class="paragraph">
-<p>To configure the OpenStack overcloud for a multiple cloud scenario, complete the following tasks:</p>
+<p>To configure the OSP overcloud for a multiple cloud scenario, complete the following tasks:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2407,7 +2400,7 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 <p>You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. To define Smart Gateways, configure the <code>clouds</code> parameter in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
 <div class="paragraph">
-<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under <code>cloud1</code> with the following subscription addresses:</p>
+<p>When you deploy STF for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When you deploy Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined in <code>cloud1</code> with the following subscription addresses:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2478,10 +2471,10 @@ leaf role, specify extra configuration to perform a hiera lookup to determine wh
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the <code>ServiceTelemetry</code> name <code>default</code> and the <code>clouds.name</code> does not exceed 19 characters. Cloud names cannot have any special characters in them, such as <code>-</code>. Limit cloud names to alphanumeric (a-z, 0-9) only.</p>
+<p>Long cloud names might exceed the maximum pod name of 63 characters. Ensure that the combination of the <code>ServiceTelemetry</code> name <code>default</code> and the <code>clouds.name</code> does not exceed 19 characters. Cloud names cannot contain any special characters, such as <code>-</code>. Limit cloud names to alphanumeric (a-z, 0-9).</p>
 </div>
 <div class="paragraph">
-<p>Topic addresses have no character limitation and can be different than the <code>clouds.name</code> value.</p>
+<p>Topic addresses have no character limitation and can be different from the <code>clouds.name</code> value.</p>
 </div>
 </td>
 </tr>
@@ -2527,12 +2520,12 @@ spec:
 <p>Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=smart-gateway</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=smart-gateway</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   2/2     Running   0          13h
 default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   2/2     Running   0          13h
 default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   2/2     Running   0          13h
@@ -2546,7 +2539,7 @@ default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0   
 <div class="sect3">
 <h4 id="deleting-the-default-smart-gateways_assembly-completing-the-stf-configuration">Deleting the default Smart Gateways</h4>
 <div class="paragraph _abstract">
-<p>After you configure STF for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that have been created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. To enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter, you must set the <code>cloudsRemoveOnMissing</code> parameter to <code>true</code> in the <code>ServiceTelemetry</code> manifest.</p>
+<p>After you configure Service&#160;Telemetry&#160;Framework (STF) for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove <code>SmartGateway</code> objects that were created but are no longer listed in the ServiceTelemetry <code>clouds</code> list of objects. To enable the removal of SmartGateway objects that are not defined by the <code>clouds</code> parameter, you must set the <code>cloudsRemoveOnMissing</code> parameter to <code>true</code> in the <code>ServiceTelemetry</code> manifest.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2576,7 +2569,7 @@ The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you 
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Define your <code>clouds</code> parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
+<p>Define your <code>clouds</code> parameter with the list of cloud objects that you want the Service Telemetry Operator to manage. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </li>
 <li>
 <p>Edit the ServiceTelemetry object and add the <code>cloudsRemoveOnMissing</code> parameter:</p>
@@ -2611,7 +2604,7 @@ spec:
 <div class="sect3">
 <h4 id="setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</h4>
 <div class="paragraph _abstract">
-<p>To ensure that AMQ router connections from OpenStack to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
+<p>To ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router router connections from OpenStack (OSP) to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2632,7 +2625,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Add this environment file to your deployment. For more information, see <a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a> and <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/overcloud_parameters/core-overcloud-parameters">Core overcloud parameters</a> in the <em>Overcloud Parameters</em> guide.</p>
+<p>Add the new environment file to your deployment. For more information, see <a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a> and <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/overcloud_parameters/core-overcloud-parameters">Core overcloud parameters</a> in the <em>Overcloud Parameters</em> guide.</p>
 </li>
 </ol>
 </div>
@@ -2765,7 +2758,7 @@ parameter_defaults:
 </div>
 </li>
 <li>
-<p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, along with any other environment files relevant to your environment:</p>
+<p>Include the <code>stf-connectors.yaml</code> file and unique domain name environment file <code>hostnames.yaml</code> in the <code>openstack overcloud deployment</code> command, with any other environment files relevant to your environment:</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -2800,7 +2793,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For information about validating the deployment, see <a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a>.</p>
+<p>For information about how to validate the deployment, see <a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </li>
 </ul>
 </div>
@@ -2808,10 +2801,10 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="sect3">
 <h4 id="querying-metrics-data-from-multiple-clouds_assembly-completing-the-stf-configuration">Querying metrics data from multiple clouds</h4>
 <div class="paragraph _abstract">
-<p>Data stored in Prometheus has a <em>service</em> label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
+<p>Data stored in Prometheus has a <code>service</code> label according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.</p>
 </div>
 <div class="paragraph">
-<p>To query data from a specific cloud, use a Prometheus <code>promql</code> query that matches the associated <em>service</em> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter"}</code>.</p>
+<p>To query data from a specific cloud, use a Prometheus <em>promql</em> query that matches the associated <code>service</code> label; for example: <code>collectd_uptime{service="default-cloud1-coll-meter"}</code>.</p>
 </div>
 </div>
 </div>
@@ -5758,7 +5751,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-28 08:34:30 UTC
+Last updated 2021-10-28 11:34:39 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
