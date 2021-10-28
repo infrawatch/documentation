@@ -37,7 +37,7 @@ spec:
 EOF
 ----
 
-. Verify that the operator launched successfully. In the command output, if the value of the `PHASE` column is `Succeeded`, the operator launched successfully:
+. Verify that the Operator launched successfully. In the command output, if the value of the `PHASE` column is `Succeeded`, the Operator launched successfully:
 +
 [source,bash,options="nowrap"]
 ----
