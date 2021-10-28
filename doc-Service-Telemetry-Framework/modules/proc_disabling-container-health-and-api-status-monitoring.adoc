@@ -13,7 +13,7 @@ To disable {OpenStackShort} containerized service health and API status monitori
 
 .Procedure
 
-. Open the `stf-connectors.yaml` and add the `CollectdEnableSensubility` parameter to override the setting in `enable-stf.yaml`:
+. Open the `stf-connectors.yaml` and add the `CollectdEnableSensubility` parameter to override the setting in `enable-stf.yaml`. Ensure that `stf-connectors.yaml` is called from the `openstack overcloud deploy` command after `enable-stf.yaml`:
 +
 [source,yaml]
 ----
