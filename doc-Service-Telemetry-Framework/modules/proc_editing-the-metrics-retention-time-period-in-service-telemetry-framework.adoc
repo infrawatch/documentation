@@ -49,4 +49,4 @@ If you set a long retention period, retrieving data from heavily populated Prome
 
 .Additional resources
 
-* For more information about the metrics retention time, see xref:metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf[].
+* For more information about the metrics retention time, see xref:metrics-retention-time-period_assembly-advanced-features[].

@@ -1,16 +1,13 @@
 [id="assembly-advanced-features_{context}"]
-= Advanced features of {Project}
+= Using operational features of {Project}
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: assembly-advanced-features
 
 [role="_abstract"]
 You can use the following optional features to provide additional functionality to the {Project} ({ProjectShort}):
 
 * xref:dashboards_assembly-advanced-features[Configuring dashboards]
-* xref:editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features[Editing the metrics retention time period]
+* xref:metrics-retention-time-period_assembly-advanced-features[Configuring the metrics retention time period]
 * xref:alerts_assembly-advanced-features[Configuring alerts]
 * xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
 * xref:high-availability_assembly-advanced-features[Configuring high availability]
@@ -38,7 +35,8 @@ include::../modules/proc_retrieving-and-setting-grafana-login-credentials.adoc[l
 
 
 //Editing the metrics retention time period
-include::../modules/proc_editing-the-metrics-retention-time-period-in-service-telemetry-framework.adoc[leveloffset=+1]
+include::../modules/con_metrics-retention-time-period.adoc[leveloffset=+1]
+include::../modules/proc_editing-the-metrics-retention-time-period-in-service-telemetry-framework.adoc[leveloffset=+2]
 
 //Alerts
 include::../modules/con_alerts.adoc[leveloffset=+1]
