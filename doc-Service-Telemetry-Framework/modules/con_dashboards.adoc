@@ -1,32 +1,8 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/con_dashboards.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: con_my-concept-module-a.adoc
-// * ID: [id='con_my-concept-module-a_{context}']
-// * Title: = My concept module A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-// Do not start the title with a verb. See also _Wording of headings_
-// in _The IBM Style Guide_.
 [id="dashboards_{context}"]
-= Dashboards
+= Dashboards in {Project}
 
 [role="_abstract"]
-Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node.
+Use the third-party application, Grafana, to visualize system-level metrics that collectd and Ceilometer gathers for each individual host node.
 
 For more information about configuring collectd, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
@@ -38,7 +14,7 @@ Infrastructure dashboard::
 Use the infrastructure dashboard to view metrics for a single node at a time. Select a node from the upper left corner of the dashboard.
 
 Cloud view dashboard::
-Use the cloud view dashboard to view panels for monitoring service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard.
+Use the cloud view dashboard to view panels to monitor service resource usage, API stats, and cloud events. You must enable API health monitoring and service monitoring to provide the data for this dashboard. API health monitoring is enabled by default in the {ProjectShort} base configuration. For more information, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration
 ** For more information about API health monitoring, see xref:monitoring-container-health-and-api-status_assembly-advanced-features[].
 ** For more information about service monitoring, see xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[].
 endif::include_when_16[]
