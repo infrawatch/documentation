@@ -3,7 +3,7 @@
 = High availability
 
 [role="_abstract"]
-High availability is the ability of {Project} ({ProjectShort}) to rapidly recover from failures in its component services. Although {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, which reduces recovery time to approximately 2 seconds. To protect against failure of an {OpenShift} node, deploy {ProjectShort} to an {OpenShift} cluster with three or more nodes.
+With high availability, {Project} ({ProjectShort}) can rapidly recover from failures in its component services. Although {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, which reduces recovery time to approximately 2 seconds. To protect against failure of an {OpenShift} node, deploy {ProjectShort} to an {OpenShift} cluster with three or more nodes.
 
 [WARNING]
 {ProjectShort} is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
