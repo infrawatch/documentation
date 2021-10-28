@@ -1,0 +1,11 @@
+[id="container-health-and-api-status_{context}"]
+= {OpenStack} API status and containerized services health
+
+[role="_abstract"]
+You can use the OCI (Open Container Initiative) standard to assess the container health status of each {OpenStack} ({OpenStackShort}) service by periodically running a health check script. Most {OpenStackShort} services implement a health check that logs issues and returns a binary status. For the {OpenStackShort} APIs, the health checks query the root endpoint and determine the health based on the response time.
+
+Monitoring of {OpenStackShort} container health and API status is enabled by default.
+
+.Additional resources
+
+* To disable {OpenStackShort} container health and API status monitoring, see xref:disabling-container-health-and-api-status-monitoring_assembly-advanced-features[].

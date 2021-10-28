@@ -1,26 +1,3 @@
-//:appendix-caption: Appendix
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/ref_collectd-plugins.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: ref_my-reference-a.adoc
-// * ID: [id='ref_my-reference-a_{context}']
-// * Title: = My reference A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-[id='collectd-plugins_{context}']
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//:context: appendix
-//
 //PLUGIN TEMPLATE
 ////
 [discrete]
@@ -54,10 +31,7 @@ parameter_defaults:
 ////
 //END OF TEMPLATE
 
-// In the title, include nouns that are used in the body text. This helps
-// readers and search engines find information quickly.
-//[appendix]
-//[[appe-stf-collectd-plugins]]
+[id='collectd-plugins_{context}']
 = collectd plugins
 
 ifeval::["{build}" == "downstream"]
@@ -65,8 +39,10 @@ ifeval::["{build}" == "downstream"]
 Red Hat is currently updating the plugin information in this guide for this release.
 endif::[]
 
-You can configure multiple collectd plugins to suit your {OpenStack} {OpenStackVersion} environment.
-//The following list of headers shows the available heat template `ExtraConfig` parameters that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the header is in the format of collectd::plugin::example_plugin.
+You can configure multiple collectd plugins depending on your {OpenStack} ({OpenStackShort}) {OpenStackVersion} environment.
+
+The following list of plugins shows the available heat template `ExtraConfig` parameters that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the format of the plugin title is `collectd::plugin::example_plugin`.
+
 Reference the tables of available parameters for specific plugins, such as in the following example:
 ----
 ExtraConfig:
@@ -131,7 +107,7 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 |Integer
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
   Parameter_defaults:
@@ -161,7 +137,7 @@ Use the `apache` plugin to collect Apache data.
 
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     ExtraConfig:
@@ -226,7 +202,7 @@ Use the `ceph` plugin to gather data from ceph daemons.
 |package_name |String
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     ExtraConfig:
@@ -242,7 +218,7 @@ parameter_defaults:
 If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
 
 [NOTE]
-When you deploy collectd, the `ceph` plugin is added to the ceph nodes. Do not add the `ceph` plugin on ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure.
+When you deploy collectd, the `ceph` plugin is added to the Ceph nodes. Do not add the `ceph` plugin on Ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure.
 
 .Additional resources
 
@@ -293,7 +269,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 |Array
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -316,7 +292,7 @@ Use the `conntrack` plugin to track the number of entries in the Linux connectio
 [discrete]
 == collectd::plugin::contextswitch
 
-Use the `ContextSwitch` plugin to collect the number of context switches handled by the system.
+Use the `ContextSwitch` plugin to collect the number of context switches that the system handles.
 
 .Additional resources
 
@@ -325,7 +301,7 @@ For more information about configuring the `contextswitch` plugin, see https://c
 [discrete]
 == collectd::plugin::cpu
 
-Use the `cpu` plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
+Use the `cpu` plugin to monitor the time that the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
 
 The `cpu` plugin collects `_jiffies_`, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
@@ -363,7 +339,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 |collectd_cpu_total{...,type_instance='system'}
 
 |user
-|Jiffies used by user processes
+|Jiffies that user processes use
 |collectd_cpu_total{...,type_instance='user'}
 
 |wait
@@ -398,7 +374,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 |Integer
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -487,7 +463,7 @@ Use the `df` plugin to collect disk space usage information for file systems.
 
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -504,7 +480,7 @@ For more information about configuring the `df` plugin, see https://collectd.org
 [discrete]
 == collectd::plugin::disk
 
-Use the `disk` plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.
+Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.
 
 .disk parameters
 [cols="30%,70%"]
@@ -524,14 +500,14 @@ Use the `disk` plugin to collect performance statistics of hard-disks and, if su
 |Name  |Description
 
 | merged | The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
-| time | The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.
-| io_time | Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.
+| time | The average time an I/O-operation takes to complete. The values might not be fully accurate.
+| io_time | Time spent doing I/Os (ms). You can use this metric as a device load percentage. A value of 1 second matches 100% of load.
 | weighted_io_time | Measure of both I/O completion time and the backlog that might be accumulating.
 | pending_operations | Shows queue size of pending I/O operations.
 
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -597,7 +573,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.
 
 .hugepages parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
 |Parameter | Type | Defaults
 
@@ -608,7 +584,7 @@ Use the hugepages plugin to collect hugepages information. This plugin is enable
 |values_percentage  |  Boolean | false
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -630,7 +606,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::interface
 
-Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default. 
+Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.
 
 .interface parameters
 [cols="50%,50%"]
@@ -643,7 +619,7 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     ExtraConfig:
@@ -681,7 +657,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::load
 
-Use the `load` plugin to collect the system load and to get overview on system use. This plugin is enabled by default.
+Use the `load` plugin to collect the system load and an overview of the system use. This plugin is enabled by default.
 
 .plugin parameters
 [cols="50%,50%"]
@@ -692,11 +668,11 @@ Use the `load` plugin to collect the system load and to get overview on system u
 
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     ExtraConfig:
-        collectd::plugin::load::report_relative: false        
+        collectd::plugin::load::report_relative: false
 ----
 
 .Additional resources
@@ -739,7 +715,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::mcelog
 
-Use the `mcelog` plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and ensure that logging capabilities are enabled.
+Use the `mcelog` plugin to send notifications and statistics that are relevant to Machine Check Exceptions when they occur. Configure `mcelog` to run in daemon mode and enable logging capabilities.
 
 .mcelog parameters
 [cols="50%,50%"]
@@ -752,7 +728,7 @@ Use the `mcelog` plugin to send notifications and statistics relevant to Machine
 
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     CollectdExtraPlugins: mcelog
@@ -789,7 +765,7 @@ The `memory` plugin provides information about the memory of the system.  This p
 
 |===
 
-.Example configuration
+.Example configuration:
 ----
 parameter_defaults:
     ExtraConfig:
@@ -890,7 +866,7 @@ Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. Th
 |===
 
 
-.Example configuration
+.Example configuration:
 The following example shows how to enable the `ovs_stats` plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
 ----
     parameter_defaults:
@@ -923,7 +899,7 @@ Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced 
 |persistent_notifications |Boolean
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:
@@ -956,19 +932,8 @@ parameter_defaults:
 
 [discrete]
 == collectd::plugin::processes
-* collectd::plugin::processes::processes
-* collectd::plugin::processes::process_matches
-* collectd::plugin::processes::collect_context_switch
-* collectd::plugin::processes::collect_file_descriptor
-* collectd::plugin::processes::collect_memory_maps
-* collectd::plugin::powerdns::interval
 
-
-
-[discrete]
-== collectd::plugin::processes
-
-The `processes` plugin provides information about processes of the system. This plugin is enabled by default.
+The `processes` plugin provides information about system processes. This plugin is enabled by default.
 
 .plugin parameters
 [cols="50%,50%"]
@@ -976,7 +941,7 @@ The `processes` plugin provides information about processes of the system. This 
 |Parameter | Type
 
 |processes | Array
-|process_matches | Array 
+|process_matches | Array
 |collect_context_switch | Boolean
 |collect_file_descriptor | Boolean
 |collect_memory_maps | Boolean
@@ -1189,7 +1154,7 @@ Use the `virt` plugin to collect CPU, disk, network load, and other metrics thro
 
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 ExtraConfig:
@@ -1243,7 +1208,7 @@ Use the `write_http` output plugin to submit values to an HTTP server by using P
 
 |===
 
-.Example configuration
+.Example configuration:
 
 ----
 parameter_defaults:

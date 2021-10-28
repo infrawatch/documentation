@@ -1,8 +1,8 @@
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
-= Configuring {OpenStack} overcloud for {Project}
+= Deploying {OpenStack} overcloud for {Project}
 
 [role="_abstract"]
-To configure the {OpenStack} ({OpenStackShort}) overcloud, you must configure the data collectors and the data transport to {Project} ({ProjectShort}), and deploy the overcloud.
+As part of the {OpenStack} ({OpenStackShort}) overcloud deployment, you must configure the data collectors and the data transport to {Project} ({ProjectShort}).
 
 .Procedure
 
