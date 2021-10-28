@@ -10,7 +10,7 @@ To migrate from {Project} ({ProjectShort}) 1.2 to {ProjectShort} 1.3, you must r
 
 .Prerequisites
 
-* You have upgraded your {OpenShift} environment to {SupportedOpenShiftVersion}. {ProjectShort} 1.3 does not run on {OpenShift} 4.5 and lower.{ProjectShort} 1.2 does not run on {OpenShift} {NextSupportedOpenShiftVersion} and higher.
+* You have upgraded your {OpenShift} environment to {SupportedOpenShiftVersion}. {ProjectShort} 1.3 does not run on {OpenShift} 4.5 and lower.{ProjectShort} 1.2 does not run on {OpenShift} 4.7 and higher.
 * You have backed up your data before any upgrade of the environment. When you upgrade {ProjectShort} 1.2 to 1.3, there is a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
 
 To upgrade from {ProjectShort} 1.2 to 1.3, complete the following procedures:
