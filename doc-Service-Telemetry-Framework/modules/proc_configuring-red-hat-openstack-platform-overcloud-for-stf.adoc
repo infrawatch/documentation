@@ -2,7 +2,7 @@
 = Configuring {OpenStack} overcloud for {Project}
 
 [role="_abstract"]
-To configure the {OpenStack} ({OpenStackShort}) overcloud, you must configure the data collection applications and the data transport to {Project} ({ProjectShort}), and deploy the overcloud.
+To configure the {OpenStack} ({OpenStackShort}) overcloud, you must configure the data collectors and the data transport to {Project} ({ProjectShort}), and deploy the overcloud.
 
 .Procedure
 
