@@ -2,6 +2,6 @@
 = Querying metrics data from multiple clouds
 
 [role="_abstract"]
-Data stored in Prometheus has a `service` label attached according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.
+Data stored in Prometheus has a `service` label according to the Smart Gateway it was scraped from. You can use this label to query data from a specific cloud.
 
 To query data from a specific cloud, use a Prometheus _promql_ query that matches the associated `service` label; for example: `collectd_uptime{service="default-cloud1-coll-meter"}`.
