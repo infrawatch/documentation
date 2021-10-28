@@ -1,7 +1,7 @@
 [id="disabling-resource-usage-monitoring-of-openstack-services_{context}"]
 = Disabling resource usage monitoring of {OpenStack} services
 
-To disable the monitoring of container resource usage, you must set the `CollectdEnableLibpodstats` parameter to `false`.
+To disable the monitoring of {OpenStackShort} containerized service resource usage, you must set the `CollectdEnableLibpodstats` parameter to `false`.
 
 .Prerequisites
 
