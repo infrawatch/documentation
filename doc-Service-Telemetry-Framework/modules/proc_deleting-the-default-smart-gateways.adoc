@@ -1,30 +1,8 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_deleting-the-default-smart-gateways.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="deleting-the-default-smart-gateways_{context}"]
 = Deleting the default Smart Gateways
 
 [role="_abstract"]
-After you configure {ProjectShort} for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove `SmartGateway` objects that have been created but are no longer listed in the ServiceTelemetry `clouds` list of objects. To enable the removal of SmartGateway objects that are not defined by the `clouds` parameter, you must set the `cloudsRemoveOnMissing` parameter to `true` in the `ServiceTelemetry` manifest.
+After you configure {Project} ({ProjectShort}) for multiple clouds, you can delete the default Smart Gateways if they are no longer in use. The Service Telemetry Operator can remove `SmartGateway` objects that were created but are no longer listed in the ServiceTelemetry `clouds` list of objects. To enable the removal of SmartGateway objects that are not defined by the `clouds` parameter, you must set the `cloudsRemoveOnMissing` parameter to `true` in the `ServiceTelemetry` manifest.
 
 TIP: If you do not want to deploy any Smart Gateways, define an empty clouds list by using the `clouds: []` parameter.
 
@@ -32,7 +10,7 @@ WARNING: The `cloudsRemoveOnMissing` parameter is disabled by default. If you en
 
 .Procedure
 
-. Define your `clouds` parameter with the list of cloud objects to be managed by the Service Telemetry Operator. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+. Define your `clouds` parameter with the list of cloud objects that you want the Service Telemetry Operator to manage. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
 . Edit the ServiceTelemetry object and add the `cloudsRemoveOnMissing` parameter:
 +

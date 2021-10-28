@@ -21,7 +21,7 @@
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
 [id="creating-openstack-environment-file-for-multiple-clouds_{context}"]
-= Creating the OpenStack environment file for multiple clouds
+= Creating the {OpenStack} environment file for multiple clouds
 
 [role="_abstract"]
 To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an `stf-connectors.yaml` file and adjust the values of `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig` and `CollectdAmqpInstances` to match the AMQP address prefix scheme.
@@ -125,14 +125,16 @@ endif::include_when_16[]
 (undercloud) [stack@undercloud-0 ~]$
 ----
 
-. Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, along with any other environment files relevant to your environment:
+. Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, with any other environment files relevant to your environment:
 +
 [WARNING]
 If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstances` parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the `resource_registry` parameter in the `stf-connectors.yaml` file loads the collectd service.
 +
 // valid use of +quotes subs for rendering emphasis
+
 +
 [source,bash,options="nowrap",subs="+quotes"]
+
 ----
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
@@ -152,4 +154,4 @@ endif::include_when_17[]
 
 .Additional resources
 
-* For information about validating the deployment, see xref:validating-clientside-installation_assembly-completing-the-stf-configuration[].
+* For information about how to validate the deployment, see xref:validating-clientside-installation_assembly-completing-the-stf-configuration[].

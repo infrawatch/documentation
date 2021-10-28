@@ -1,5 +1,5 @@
 [id="sending-metrics-to-gnocchi-and-to-stf_{context}"]
-= Sending metrics to Gnocchi and to {ProjectShort}
+= Sending metrics to Gnocchi and {Project}
 
 [role="_abstract"]
 
@@ -50,7 +50,7 @@ $ openstack overcloud deploy _<other_arguments>_
   --environment-file /home/stack/gnocchi-connectors.yaml
 ----
 
-. To verify that the configuration was successful, verify the content of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller node. Ensure that the `publishers` section of the file contains information for both notifier and Gnocchi.
+. To ensure that the configuration was successful, verify the content of the file `/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/pipeline.yaml` on a Controller node. Ensure that the `publishers` section of the file contains information for both `notifier` and `Gnocchi`.
 +
 [source,yaml,options="nowrap"]
 ----

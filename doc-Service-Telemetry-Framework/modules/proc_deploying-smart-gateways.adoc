@@ -1,25 +1,3 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_deploying-smart-gateways.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="deploying-smart-gateways_{context}"]
 = Deploying Smart Gateways
 
@@ -31,7 +9,7 @@ ifdef::include_when_13[]
 You must deploy a Smart Gateway for each of the data collection types for each cloud; one for collectd metrics, one for collectd events, one for Ceilometer metrics, and one for Ceilometer events. Configure each of the Smart Gateways to listen on the AMQP address that you define for the corresponding cloud. To define Smart Gateways, configure the `clouds` parameter in the `ServiceTelemetry` manifest.
 endif::include_when_13[]
 
-When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When deploying Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined under `cloud1` with the following subscription addresses:
+When you deploy {ProjectShort} for the first time, Smart Gateway manifests are created that define the initial Smart Gateways for a single cloud. When you deploy Smart Gateways for multiple cloud support, you deploy multiple Smart Gateways for each of the data collection types that handle the metrics and the events data for each cloud. The initial Smart Gateways are defined in `cloud1` with the following subscription addresses:
 
 |===
 | **collector** | **type** | **default subscription address**
@@ -64,9 +42,9 @@ $ oc project service-telemetry
 +
 [WARNING]
 ====
-Long cloud names can cause the maximum pod name of 63 characters to be exceeded. Ensure that the combination of the `ServiceTelemetry` name `default` and the `clouds.name` does not exceed 19 characters. Cloud names cannot have any special characters in them, such as `-`. Limit cloud names to alphanumeric (a-z, 0-9) only.
+Long cloud names might exceed the maximum pod name of 63 characters. Ensure that the combination of the `ServiceTelemetry` name `default` and the `clouds.name` does not exceed 19 characters. Cloud names cannot contain any special characters, such as `-`. Limit cloud names to alphanumeric (a-z, 0-9).
 
-Topic addresses have no character limitation and can be different than the `clouds.name` value.
+Topic addresses have no character limitation and can be different from the `clouds.name` value.
 ====
 +
 [source,bash]
@@ -109,19 +87,21 @@ endif::include_when_16[]
 
 . Verify that each Smart Gateway is running. This can take several minutes depending on the number of Smart Gateways:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc get po -l app=smart-gateway
 ----
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   2/2     Running   0          13h
 default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   2/2     Running   0          13h
 default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   2/2     Running   0          13h
 default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h
+
 ifdef::include_when_16[]
+
 default-cloud1-sens-meter-smartgateway-8h4tc445a2-mm683   2/2     Running   0          13h
 endif::include_when_16[]
 ----

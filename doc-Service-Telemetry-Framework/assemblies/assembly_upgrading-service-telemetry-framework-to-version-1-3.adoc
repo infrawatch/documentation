@@ -1,0 +1,59 @@
+// This assembly is included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+////
+Retains the context of the parent assembly if this assembly is nested within another assembly.
+For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
+See also the complementary step on the last line of this file.
+////
+
+ifdef::context[:parent-context: {context}]
+
+[id="assembly-upgrading-service-telemetry-framework-to-version-1-3_{context}"]
+= Upgrading Service Telemetry Framework to version 1.3
+
+// The `context` attribute enables module reuse. Every module's ID
+// includes {context}, which ensures that the module has a unique ID even if
+// it is reused multiple times in a guide.
+:context: assembly-upgrading-service-telemetry-framework-to-version-1-3
+
+[role="_abstract"]
+To migrate from {Project} ({ProjectShort}) v1.2 to {ProjectShort} v1.3, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} ({OpenShiftShort}) environment.
+
+.Prerequisites
+
+* You have upgraded your {OpenShiftShort} environment to v4.6. {ProjectShort} v1.3 does not run on {OpenShiftShort} v4.5 and lower. {ProjectShort} v1.2 does not run on {OpenShiftShort} v4.7 and higher.
+* You have backed up your data prior to any upgrade of the environment. Upgrading {ProjectShort} v1.2 to v1.3 results in a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
+
+To upgrade from {ProjectShort} v1.2 to v1.3, complete the following procedures:
+
+.Procedure
+
+. xref:removing-service-telemetry-framework-1-2-operators_assembly-upgrading-service-telemetry-framework-to-version-1-3[Remove the {ProjectShort} 1.2 Operators].
+. xref:subscribing-to-the-service-telemetry-operator_assembly-upgrading-service-telemetry-framework-to-version-1-3[Subscribe to the Service Telemetry Operator].
+
+
+include::../modules/proc_removing-service-telemetry-framework-1-2-operators.adoc[leveloffset=+1]
+include::../modules/proc_subscribing-to-the-service-telemetry-operator.adoc[leveloffset=+1]
+
+When the new Operators start, they reconcile the existing `ServiceTelemetry` and `SmartGateway` objects, resulting in the restart of Smart Gateway containers.
+
+* To check the state of the Smart Gateway containers, use the `oc get pods` command:
++
+[source,bash,options="nowrap"]
+----
+oc get pods
+
+NAME                                                      READY   STATUS        RESTARTS   AGE
+...
+default-cloud1-ceil-meter-smartgateway-5849c4cdb5-xgl42   1/1     Running       0          35s
+default-cloud1-coll-meter-smartgateway-749674f75c-k7pm7   2/2     Terminating   0          56m
+default-cloud1-coll-meter-smartgateway-868476456b-ksh9b   2/2     Running       0          26s
+...
+----
+
+// The following line is necessary to allow assemblies be included in other
+// assemblies. It restores the `context` variable to its previous state.
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
