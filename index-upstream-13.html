@@ -468,7 +468,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
-<li><a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a></li>
 <li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
 </ul>
 </li>
@@ -488,9 +487,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#assembly-completing-the-stf-configuration_assembly">Completing the Service&#160;Telemetry&#160;Framework configuration</a>
+<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
 <li><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></li>
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
@@ -514,7 +513,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#assembly-advanced-features_assembly">Advanced features of Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#assembly-advanced-features_assembly">Using operational features of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
 <li><a href="#dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
@@ -522,7 +521,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
+<li><a href="#metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>
+<ul class="sectlevel3">
 <li><a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a></li>
+</ul>
+</li>
 <li><a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
 <li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
@@ -921,29 +924,6 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 </li>
 <li>
 <p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</h3>
-<div class="paragraph _abstract">
-<p>The default retention time for metrics stored in Service&#160;Telemetry&#160;Framework (STF) is 24 hours, which provides enough data for trends to develop for the purposes of alerting.</p>
-</div>
-<div class="paragraph">
-<p>For long-term storage, use systems designed for long-term data retention, for example, Thanos.</p>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>To adjust STF for additional metrics retention time, see <a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a>.</p>
-</li>
-<li>
-<p>For recommendations about Prometheus data storage and estimating storage space, see <a href="https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects" class="bare">https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects</a></p>
-</li>
-<li>
-<p>For more information about Thanos, see <a href="https://thanos.io/" class="bare">https://thanos.io/</a></p>
 </li>
 </ul>
 </div>
@@ -1722,7 +1702,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-completing-the-stf-configuration_assembly">Completing the Service&#160;Telemetry&#160;Framework configuration</h2>
+<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
@@ -1733,7 +1713,7 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 <div class="ulist">
 <ul>
 <li>
-<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </li>
 <li>
 <p>To plan your OSP installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
@@ -1754,9 +1734,9 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </ul>
 </div>
 <div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>To configure the OpenStack (OSP) overcloud, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF), and deploy the overcloud.</p>
+<p>As part of the OpenStack (OSP) overcloud deployment, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2811,10 +2791,10 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-advanced-features_assembly">Advanced features of Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="assembly-advanced-features_assembly">Using operational features of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>You can use the following optional features to provide additional functionality to the Service&#160;Telemetry&#160;Framework (STF):</p>
+<p>You can use the following operational features to provide additional functionality to the Service&#160;Telemetry&#160;Framework (STF):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2822,7 +2802,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p><a href="#dashboards_assembly-advanced-features">Configuring dashboards</a></p>
 </li>
 <li>
-<p><a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period</a></p>
+<p><a href="#metrics-retention-time-period_assembly-advanced-features">Configuring the metrics retention time period</a></p>
 </li>
 <li>
 <p><a href="#alerts_assembly-advanced-features">Configuring alerts</a></p>
@@ -2847,7 +2827,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p>Use the third-party application, Grafana, to visualize system-level metrics that collectd and Ceilometer gathers for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
@@ -3028,7 +3008,29 @@ docker.io/grafana/grafana:8.1.0</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</h3>
+<h3 id="metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</h3>
+<div class="paragraph _abstract">
+<p>The default retention time for metrics stored in Service&#160;Telemetry&#160;Framework (STF) is 24 hours, which provides enough data for trends to develop for the purposes of alerting.</p>
+</div>
+<div class="paragraph">
+<p>For long-term storage, use systems designed for long-term data retention, for example, Thanos.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>To adjust STF for additional metrics retention time, see <a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a>.</p>
+</li>
+<li>
+<p>For recommendations about Prometheus data storage and estimating storage space, see <a href="https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects" class="bare">https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects</a></p>
+</li>
+<li>
+<p>For more information about Thanos, see <a href="https://thanos.io/" class="bare">https://thanos.io/</a></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</h4>
 <div class="paragraph _abstract">
 <p>You can adjust Service&#160;Telemetry&#160;Framework (STF) for additional metrics retention time.</p>
 </div>
@@ -3097,9 +3099,10 @@ If you set a long retention period, retrieving data from heavily populated Prome
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about the metrics retention time, see <a href="#metrics-retention-time-period_assembly-preparing-your-ocp-environment-for-stf">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about the metrics retention time, see <a href="#metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3767,8 +3770,13 @@ The address of the route must be resolvable and configuration is environment spe
 <h2 id="collectd-plugins_assembly">collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can configure multiple collectd plugins to suit your OpenStack Train environment.
-Reference the tables of available parameters for specific plugins, such as in the following example:</p>
+<p>You can configure multiple collectd plugins depending on your OpenStack (OSP) Train environment.</p>
+</div>
+<div class="paragraph">
+<p>The following list of plugins shows the available heat template <code>ExtraConfig</code> parameters that you can set to override the defaults. Each section provides the general configuration name for the <code>ExtraConfig</code> option. For example, if there is a collectd plugin called <code>example_plugin</code>, the format of the plugin title is <code>collectd::plugin::example_plugin</code>.</p>
+</div>
+<div class="paragraph">
+<p>Reference the tables of available parameters for specific plugins, such as in the following example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3858,7 +3866,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>  Parameter_defaults:
     CollectdExtraPlugins:
@@ -3903,7 +3911,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -3999,7 +4007,7 @@ Reference the tables of available parameters for specific plugins, such as in th
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4030,7 +4038,7 @@ If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-When you deploy collectd, the <code>ceph</code> plugin is added to the ceph nodes. Do not add the <code>ceph</code> plugin on ceph nodes to <code>CollectdExtraPlugins</code>, because this results in a deployment failure.
+When you deploy collectd, the <code>ceph</code> plugin is added to the Ceph nodes. Do not add the <code>ceph</code> plugin on Ceph nodes to <code>CollectdExtraPlugins</code>, because this results in a deployment failure.
 </td>
 </tr>
 </table>
@@ -4110,7 +4118,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4129,7 +4137,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugincontextswitch" class="discrete">collectd::plugin::contextswitch</h3>
 <div class="paragraph">
-<p>Use the <code>ContextSwitch</code> plugin to collect the number of context switches handled by the system.</p>
+<p>Use the <code>ContextSwitch</code> plugin to collect the number of context switches that the system handles.</p>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
@@ -4137,7 +4145,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugincpu" class="discrete">collectd::plugin::cpu</h3>
 <div class="paragraph">
-<p>Use the <code>cpu</code> plugin to monitor the time the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.</p>
+<p>Use the <code>cpu</code> plugin to monitor the time that the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.</p>
 </div>
 <div class="paragraph">
 <p>The <code>cpu</code> plugin collects <code>_jiffies_</code>, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
@@ -4192,7 +4200,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Jiffies used by user processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jiffies that user processes use</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>user</em>}</p></td>
 </tr>
 <tr>
@@ -4246,7 +4254,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     CollectdExtraPlugins:
@@ -4374,7 +4382,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     CollectdExtraPlugins:
@@ -4389,7 +4397,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugindisk" class="discrete">collectd::plugin::disk</h3>
 <div class="paragraph">
-<p>Use the <code>disk</code> plugin to collect performance statistics of hard-disks and, if supported, partitions. This plugin is enabled by default.</p>
+<p>Use the <code>disk</code> plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. disk parameters</caption>
@@ -4437,11 +4445,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. Since this is a little messy to calculate take the actual values with a grain of salt.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. The values might not be fully accurate.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">io_time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time spent doing I/Os (ms). You can make use of this metric as a device load percentage. A value of 1 second matches 100% of load.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time spent doing I/Os (ms). You can use this metric as a device load percentage. A value of 1 second matches 100% of load.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">weighted_io_time</p></td>
@@ -4454,7 +4462,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4564,52 +4572,47 @@ If no interfaces are listed, all interfaces are monitored by default.
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 14. hugepages parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Defaults</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">report_per_node_hp</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">report_root_hp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">values_pages</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_pages</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">values_bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">values_percentage</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">values_percentage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4665,7 +4668,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4730,7 +4733,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdpluginload" class="discrete">collectd::plugin::load</h3>
 <div class="paragraph">
-<p>Use the <code>load</code> plugin to collect the system load and to get overview on system use. This plugin is enabled by default.</p>
+<p>Use the <code>load</code> plugin to collect the system load and an overview of the system use. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 16. plugin parameters</caption>
@@ -4752,7 +4755,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -4797,7 +4800,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <h3 id="_collectdpluginmbmon" class="discrete">collectd::plugin::mbmon</h3>
 <h3 id="_collectdpluginmcelog" class="discrete">collectd::plugin::mcelog</h3>
 <div class="paragraph">
-<p>Use the <code>mcelog</code> plugin to send notifications and statistics relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and ensure that logging capabilities are enabled.</p>
+<p>Use the <code>mcelog</code> plugin to send notifications and statistics that are relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and enable logging capabilities.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 17. mcelog parameters</caption>
@@ -4823,7 +4826,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     CollectdExtraPlugins: mcelog
@@ -4879,7 +4882,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     ExtraConfig:
@@ -5054,7 +5057,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="paragraph">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <p>The following example shows how to enable the <code>ovs_stats</code> plugin. If you deploy your overcloud with OVS, you do not need to enable the <code>ovs_stats</code> plugin.</p>
 </div>
 <div class="listingblock">
@@ -5110,7 +5113,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     CollectdExtraPlugins:
@@ -5175,31 +5178,8 @@ If no interfaces are listed, all interfaces are monitored by default.
 </ul>
 </div>
 <h3 id="_collectdpluginprocesses" class="discrete">collectd::plugin::processes</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::processes::processes</p>
-</li>
-<li>
-<p>collectd::plugin::processes::process_matches</p>
-</li>
-<li>
-<p>collectd::plugin::processes::collect_context_switch</p>
-</li>
-<li>
-<p>collectd::plugin::processes::collect_file_descriptor</p>
-</li>
-<li>
-<p>collectd::plugin::processes::collect_memory_maps</p>
-</li>
-<li>
-<p>collectd::plugin::powerdns::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginprocesses_2" class="discrete">collectd::plugin::processes</h3>
 <div class="paragraph">
-<p>The <code>processes</code> plugin provides information about processes of the system. This plugin is enabled by default.</p>
+<p>The <code>processes</code> plugin provides information about system processes. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. plugin parameters</caption>
@@ -5578,7 +5558,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>ExtraConfig:
     collectd::plugin::virt::plugin_instance_format: name</pre>
@@ -5651,7 +5631,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">Example configuration</div>
+<div class="title">Example configuration:</div>
 <div class="content">
 <pre>parameter_defaults:
     CollectdExtraPlugins:
@@ -5751,7 +5731,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-28 11:34:39 UTC
+Last updated 2021-10-28 19:41:16 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
