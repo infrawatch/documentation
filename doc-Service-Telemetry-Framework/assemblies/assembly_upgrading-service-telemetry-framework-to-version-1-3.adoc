@@ -1,32 +1,19 @@
-// This assembly is included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-////
-Retains the context of the parent assembly if this assembly is nested within another assembly.
-For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
-See also the complementary step on the last line of this file.
-////
-
 ifdef::context[:parent-context: {context}]
 
 [id="assembly-upgrading-service-telemetry-framework-to-version-1-3_{context}"]
 = Upgrading Service Telemetry Framework to version 1.3
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: assembly-upgrading-service-telemetry-framework-to-version-1-3
 
 [role="_abstract"]
-To migrate from {Project} ({ProjectShort}) v1.2 to {ProjectShort} v1.3, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} ({OpenShiftShort}) environment.
+To migrate from {Project} ({ProjectShort}) 1.2 to {ProjectShort} 1.3, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} environment.
 
 .Prerequisites
 
-* You have upgraded your {OpenShiftShort} environment to v4.6. {ProjectShort} v1.3 does not run on {OpenShiftShort} v4.5 and lower.{ProjectShort} v1.2 does not run on {OpenShiftShort} v4.7 and higher.
-* You have backed up your data prior to any upgrade of the environment. Upgrading {ProjectShort} v1.2 to v1.3 results in a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
+* You have upgraded your {OpenShift} environment to {SupportedOpenShiftVersion}. {ProjectShort} 1.3 does not run on {OpenShift} 4.5 and lower.{ProjectShort} 1.2 does not run on {OpenShift} 4.7 and higher.
+* You have backed up your data before any upgrade of the environment. When you upgrade {ProjectShort} 1.2 to 1.3, there is a brief outage while the Smart Gateways are upgraded. Additionally, changes to the `ServiceTelemetry` and `SmartGateway` objects do not have any effect while the Operators are being replaced.
 
-To upgrade from {ProjectShort} v1.2 to v1.3, complete the following procedures:
+To upgrade from {ProjectShort} 1.2 to 1.3, complete the following procedures:
 
 .Procedure
 
@@ -37,9 +24,9 @@ To upgrade from {ProjectShort} v1.2 to v1.3, complete the following procedures:
 include::../modules/proc_removing-service-telemetry-framework-1-2-operators.adoc[leveloffset=+1]
 include::../modules/proc_subscribing-to-the-service-telemetry-operator.adoc[leveloffset=+1]
 
-When the new Operators start, they reconcile the existing `ServiceTelemetry` and `SmartGateway` objects, resulting in the restart of Smart Gateway containers.
+When the new Operators start, they reconcile the existing `ServiceTelemetry` and `SmartGateway` objects, which restarts the Smart Gateway containers.
 
-* To check the state of the Smart Gateway containers, use the `oc get pods` command:
+* Check the state of the Smart Gateway containers:
 +
 [source,bash,options="nowrap"]
 ----

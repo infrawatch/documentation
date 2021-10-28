@@ -1,33 +1,11 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_upgrading-service-telemetry-framework-to-version-1-3.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
 [id="removing-service-telemetry-framework-1-2-operators_{context}"]
 = Removing {Project} 1.2 Operators
 
 [role="_abstract"]
-Remove the Operators from {ProjectShort} v1.2, Smart Gateway Operator, and Service Telemetry Operator.
+Remove the Operators from {ProjectShort} 1.2, Smart Gateway Operator, and Service Telemetry Operator.
 
-[NOTE]
-You must temporarily remove the `clouds` parameters because of changes in the API interface. This results in the removal of all Smart Gateways until after the upgrade and the inability to deliver metrics and events during the upgrade.
+[WARNING]
+You must temporarily remove the `clouds` parameters because of changes in the API interface. This results in the removal of all Smart Gateways until the upgrade is complete and the inability to deliver metrics and events during the upgrade.
 
 .Procedure
 
@@ -147,7 +125,7 @@ clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.2.1623
 $ oc edit stf default
 ----
 
-. Validate that the Smart Gateways have been restored:
+. Validate that the Smart Gateways are restored:
 +
 [source,bash,options="nowrap"]
 ----
