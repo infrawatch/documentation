@@ -4,7 +4,7 @@
 :context: assembly-advanced-features
 
 [role="_abstract"]
-You can use the following optional features to provide additional functionality to the {Project} ({ProjectShort}):
+You can use the following operational features to provide additional functionality to the {Project} ({ProjectShort}):
 
 * xref:dashboards_assembly-advanced-features[Configuring dashboards]
 * xref:metrics-retention-time-period_assembly-advanced-features[Configuring the metrics retention time period]
