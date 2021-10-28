@@ -14,15 +14,8 @@ You can use the following optional features to provide additional functionality 
 * xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
 * xref:creating-a-route-in-ocp_assembly-advanced-features[Creating a route in {OpenShift}]
 ifdef::include_when_16[]
-* xref:monitoring-resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
+* xref:resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
 endif::include_when_16[]
-
-
-
-// Customizing the deployment (manifest overrides)
-//include::../modules/con_manifest-overrides.adoc[leveloffset=+1]
-//include::../modules/ref_manifest-override-//parameters.adoc[leveloffset=+2]
-//include::../modules/proc_overriding-a-managed-manifest.adoc[leveloffset=+2]
 
 //Dashboards
 include::../modules/con_dashboards.adoc[leveloffset=+1]
@@ -62,7 +55,8 @@ include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]
 ifdef::include_when_16[]
 //Monitoring and health checks are OSP16+ only
 //Monitoring the resource usage of Openstack services
-include::../modules/proc_monitoring-resource-usage-of-openstack-services.adoc[leveloffset=+1]
+include::../modules/con_resource-usage-of-openstack.adoc[leveloffset=+1]
+include::../modules/proc_disabling-resource-usage-monitoring-of-openstack-services.adoc[leveloffset=+2]
 
 //Monitoring container health
 include::../modules/proc_monitoring-container-health-and-api-status.adoc[leveloffset=+1]
