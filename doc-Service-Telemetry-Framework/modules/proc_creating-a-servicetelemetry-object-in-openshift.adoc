@@ -2,7 +2,7 @@
 = Creating a ServiceTelemetry object in {OpenShift}
 
 [role="_abstract"]
-Create a `ServiceTelemetry` object in {OpenShift} to result in the creation of supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
+Create a `ServiceTelemetry` object in {OpenShift} to result in the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object[].
 
 .Procedure
 
@@ -132,7 +132,8 @@ localhost                  : ok=57   changed=0    unreachable=0    failed=0    s
 ----
 
 .Verification
-* To determine that all workloads are operating correctly, view the pods and the status of each pod:
+
+* To determine that all workloads are operating correctly, view the pods and the status of each pod.
 +
 NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
 

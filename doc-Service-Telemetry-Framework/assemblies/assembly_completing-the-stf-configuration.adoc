@@ -1,41 +1,30 @@
-// This assembly is included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-////
-Retains the context of the parent assembly if this assembly is nested within another assembly.
-For more information about nesting assemblies, see: https://redhat-documentation.github.io/modular-docs/#nesting-assemblies
-See also the complementary step on the last line of this file.
-////
-
 ifdef::context[:parent-context: {context}]
 
 
 [id="assembly-completing-the-stf-configuration_{context}"]
 = Configuring {OpenStack} for {Project}
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: assembly-completing-the-stf-configuration
 
 [role="_abstract"]
-For collection of metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} overcloud to enable data collection and transport.
+To collect metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} ({OpenStackShort}) overcloud to enable data collection and transport.
 
-{ProjectShort} can support both single and multiple clouds, with the default configuration in {OpenStack} and {ProjectShort} set up for a single cloud installation. For a single {OpenStack} overcloud deployment with default configuration, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
+{ProjectShort} can support both single and multiple clouds. The default configuration in {OpenStackShort} and {ProjectShort} set up for a single cloud installation.
 
-To plan your {OpenStack} installation and configuration {ProjectShort} for multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
+* For a single {OpenStackShort} overcloud deployment with default configuration, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
-As part of an {OpenStack} overcloud deployment, you might need to configure additional features in your environment:
+* To plan your {OpenStackShort} installation and configuration {ProjectShort} for multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
-* To deploy data collection and transport to {ProjectShort} on {OpenStack} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
+* As part of an {OpenStackShort} overcloud deployment, you might need to configure additional features in your environment:
+
+** To deploy data collection and transport to {ProjectShort} on {OpenStackShort} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
 ifdef::include_when_16[]
-* To send metrics to both Gnocchi and {ProjectShort}, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[].
+** To send metrics to both Gnocchi and {ProjectShort}, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[].
 endif::include_when_16[]
 
 ifdef::include_when_13[]
-* If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see xref:adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration[].
+** If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see xref:adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration[].
 endif::include_when_13[]
 
 // Basic overcloud deployment using default parameters
