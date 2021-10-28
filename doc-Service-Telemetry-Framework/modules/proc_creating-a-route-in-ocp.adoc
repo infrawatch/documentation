@@ -4,7 +4,7 @@
 [role="_abstract"]
 In {OpenShift}, you can expose applications to the external network through a route. For more information, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
-In {Project} ({ProjectShort}), routes are not exposed by default  to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShift} for access.
+In {Project} ({ProjectShort}), routes are not exposed by default to limit the attack surface of {ProjectShort} deployments. To access some services deployed in {ProjectShort}, you must expose the services in {OpenShift} for access.
 
 A common service to expose in {ProjectShort} is Prometheus, as shown in the following example:
 
