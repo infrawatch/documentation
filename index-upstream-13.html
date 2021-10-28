@@ -516,21 +516,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#assembly-advanced-features_assembly">Advanced features of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#dashboards_assembly-advanced-features">Dashboards</a>
+<li><a href="#dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
-<li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</a></li>
+<li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a></li>
 <li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
 <li><a href="#editing-the-metrics-retention-time-period-in-service-telemetry-framework_assembly-advanced-features">Editing the metrics retention time period in Service Telemetry Framework</a></li>
-<li><a href="#alerts_assembly-advanced-features">Alerts</a>
+<li><a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
 <li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
 <li><a href="#configuring-custom-alerts_assembly-advanced-features">Configuring custom alerts</a></li>
 <li><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</a></li>
 </ul>
 </li>
-<li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP Traps</a></li>
+<li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></li>
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
@@ -1616,11 +1616,11 @@ spec:
 </div>
 <h5 id="alerting_assembly-installing-the-core-components-of-stf" class="discrete">The alerting parameter</h5>
 <div class="paragraph">
-<p>Use the <code>alerting</code> parameter to control creation of an Alertmanager instance and the configuration of the storage back end. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
+<p>Use the <code>alerting</code> parameter to control creation of an Alertmanager instance and the configuration of the storage back end. By default, <code>alerting</code> is enabled. For more information, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <h5 id="graphing_assembly-installing-the-core-components-of-stf" class="discrete">The graphing parameter</h5>
 <div class="paragraph">
-<p>Use the <code>graphing</code> parameter to control the creation of a Grafana instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_assembly-advanced-features">Dashboards</a>.</p>
+<p>Use the <code>graphing</code> parameter to control the creation of a Grafana instance. By default, <code>graphing</code> is disabled. For more information, see <a href="#dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <h5 id="highAvailability_assembly-installing-the-core-components-of-stf" class="discrete">The highAvailability parameter</h5>
 <div class="paragraph">
@@ -2849,17 +2849,17 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </ul>
 </div>
 <div class="sect2">
-<h3 id="dashboards_assembly-advanced-features">Dashboards</h3>
+<h3 id="dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>Use third-party application Grafana to visualize system-level metrics gathered by collectd for each individual host node.</p>
+<p>Use the third-party application, Grafana, to visualize system-level metrics that collectd and Ceilometer gathers for each individual host node.</p>
 </div>
 <div class="paragraph">
 <p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Configuring OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Setting up Grafana to host the dashboard</h4>
+<h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. Using the Service Telemetry Operator to deploy Grafana results in a Grafana instance and the  configuration of the default data sources for the local STF deployment.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local STF deployment.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2896,7 +2896,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the operator launched successfully, run the <code>oc get csv</code> command. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the operator launched successfully:</p>
+<p>Verify that the Operator launched successfully. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the Operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
@@ -2907,7 +2907,7 @@ grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2
 </div>
 </li>
 <li>
-<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>.</p>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
@@ -2958,7 +2958,7 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 </li>
 <li>
-<p>The dashboards in STF require features that are only available in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
+<p>The dashboards in STF require features that are available only in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
@@ -2975,7 +2975,7 @@ docker.io/grafana/grafana:7.3.10</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Service Telemetry Operator updates the Grafana manifest, resulting in the Grafana deployment restarting.</p>
+<p>Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment.</p>
 </div>
 </li>
 <li>
@@ -3003,7 +3003,7 @@ docker.io/grafana/grafana:8.1.0</code></pre>
 <div class="sect3">
 <h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
 <div class="paragraph _abstract">
-<p>STF sets default login credentials when Grafana is enabled. The credentials can be overridden in the <code>ServiceTelemetry</code> object.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) sets default login credentials when Grafana is enabled. You can override the credentials in the <code>ServiceTelemetry</code> object.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3110,9 +3110,9 @@ If you set a long retention period, retrieving data from heavily populated Prome
 </div>
 </div>
 <div class="sect2">
-<h3 id="alerts_assembly-advanced-features">Alerts</h3>
+<h3 id="alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications using email, on-call notification systems, or chat platforms.</p>
+<p>You create alert rules in Prometheus and alert routes in Alertmanager. Alert rules in Prometheus servers send alerts to an Alertmanager, which manages the alerts. Alertmanager can silence, inhibit, or aggregate alerts, and send notifications by using email, on-call notification systems, or chat platforms.</p>
 </div>
 <div class="paragraph">
 <p>To create an alert, complete the following tasks:</p>
@@ -3186,7 +3186,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the rules have been loaded into Prometheus by the Operator, create a pod with access to <code>curl</code>:</p>
+<p>To verify that the Operator loaded the rules  into Prometheus, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
@@ -3194,7 +3194,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Run <code>curl</code> to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
+<p>Run the <code>curl</code> command to access the <code>prometheus-operated</code> service to return the rules loaded into memory:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
@@ -3203,7 +3203,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, exit from the pod:</p>
+<p>To verify that the output shows the rules loaded into the <code>PrometheusRule</code> object, for example the output contains the defined <code>./openstack.rules</code>, exit the pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
@@ -3222,9 +3222,13 @@ pod "curl" deleted</code></pre>
 </li>
 </ol>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Additional resources</div>
+<ul>
+<li>
 <p>For more information on alerting, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -3244,10 +3248,10 @@ pod "curl" deleted</code></pre>
 </div>
 </li>
 <li>
-<p>Edit the PrometheusRules manifest.</p>
+<p>Edit the <code>PrometheusRules</code> manifest.</p>
 </li>
 <li>
-<p>Save and close.</p>
+<p>Save and close the manifest.</p>
 </li>
 </ol>
 </div>
@@ -3255,7 +3259,7 @@ pod "curl" deleted</code></pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
+<p>For more information about how to configure alerting rules, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" class="bare">https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/</a>.</p>
 </li>
 <li>
 <p>For more information about PrometheusRules objects, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md" class="bare">https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md</a></p>
@@ -3266,7 +3270,7 @@ pod "curl" deleted</code></pre>
 <div class="sect3">
 <h4 id="creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</h4>
 <div class="paragraph _abstract">
-<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as an OpenShift (OKD) secret. STF by default deploys a basic configuration that results in no receivers:</p>
+<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a OpenShift secret. By default, Service&#160;Telemetry&#160;Framework (STF) deploys a basic configuration that results in no receivers:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3284,7 +3288,7 @@ pod "curl" deleted</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To deploy a custom Alertmanager route with STF, an <code>alertmanagerConfigManifest</code> parameter must be passed to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
+<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3301,7 +3305,7 @@ pod "curl" deleted</code></pre>
 </div>
 </li>
 <li>
-<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment</p>
+<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
@@ -3309,7 +3313,7 @@ pod "curl" deleted</code></pre>
 </div>
 </li>
 <li>
-<p>Add a new parameter, <code>alertmanagerConfigManifest</code>, and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
+<p>Add the new parameter <code>alertmanagerConfigManifest</code> and the <code>Secret</code> object contents to define the <code>alertmanager.yaml</code> configuration for Alertmanager:</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3317,7 +3321,7 @@ pod "curl" deleted</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This step loads the default template that is already managed by Service Telemetry Operator. To verify that the changes are populating correctly, change a value, return the <code>alertmanager-default</code> secret, and verify that the new value is loaded into memory. For example, change the value <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
+This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the <code>alertmanager-default</code> secret, and verify that the new value is loaded into memory. For example, change the value of the parameter <code>global.resolve_timeout</code> from <code>5m</code> to <code>10m</code>.
 </td>
 </tr>
 </table>
@@ -3357,7 +3361,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Verify that the configuration was applied to the secret:</p>
+<p>Verify that the configuration is applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -3376,7 +3380,7 @@ receivers:
 </div>
 </li>
 <li>
-<p>To verify the configuration has been loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
+<p>To verify the configuration is loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty</code></pre>
@@ -3384,7 +3388,7 @@ receivers:
 </div>
 </li>
 <li>
-<p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents and review the supplied configuration matches the configuration loaded into Alertmanager:</p>
+<p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
@@ -3394,7 +3398,10 @@ receivers:
 </div>
 </li>
 <li>
-<p>Verify that the <code>configYAML</code> field contains the expected changes. Exit from the pod:</p>
+<p>Verify that the <code>configYAML</code> field contains the changes you expect.</p>
+</li>
+<li>
+<p>Exit the pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
@@ -3424,12 +3431,12 @@ pod "curl" deleted</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP Traps</h3>
+<h3 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</h3>
 <div class="paragraph _abstract">
-<p>You can integrate Service&#160;Telemetry&#160;Framework (STF) with an existing infrastructure monitoring platform that receives notifications via SNMP traps. To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters.</p>
+<p>You can integrate Service&#160;Telemetry&#160;Framework (STF) with an existing infrastructure monitoring platform that receives notifications through SNMP traps. To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts</a>.</p>
+<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -3477,7 +3484,7 @@ spec:
 <div class="sect2">
 <h3 id="high-availability_assembly-advanced-features">High availability</h3>
 <div class="paragraph _abstract">
-<p>High availability is the ability of Service&#160;Telemetry&#160;Framework (STF) to rapidly recover from failures in its component services. Although OpenShift (OKD) restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of STF components, reducing recovery time to approximately 2 seconds. To protect against failure of an OKD node, deploy STF to an OKD cluster with three or more nodes.</p>
+<p>With high availability, Service&#160;Telemetry&#160;Framework (STF) can rapidly recover from failures in its component services. Although OpenShift restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of STF components, which reduces recovery time to approximately 2 seconds. To protect against failure of an OpenShift node, deploy STF to an OpenShift cluster with three or more nodes.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -3529,7 +3536,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="sect3">
 <h4 id="configuring-high-availability_assembly-advanced-features">Configuring high availability</h4>
 <div class="paragraph _abstract">
-<p>To configure STF for high availability, add <code>highAvailability.enabled: true</code> to the ServiceTelemetry object in OKD. You can this set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
+<p>To configure Service&#160;Telemetry&#160;Framework (STF) for high availability, add <code>highAvailability.enabled: true</code> to the ServiceTelemetry object in OpenShift. You can set this parameter at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3594,7 +3601,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <div class="sect3">
 <h4 id="configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</h4>
 <div class="paragraph _abstract">
-<p>To configure STF components for ephemeral storage, add <code>...storage.strategy: ephemeral</code> to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus backend, set <code>backends.metrics.prometheus.storage.strategy: ephemeral</code>. Components that support configuration of ephemeral storage include <code>alerting.alertmanager</code>, <code>backends.metrics.prometheus</code>, and <code>backends.events.elasticsearch</code>. You can add ephemeral storage configuration at installation time or, if you already deployed STF, complete the following steps:</p>
+<p>To configure STF components for ephemeral storage, add <code>...storage.strategy: ephemeral</code> to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus back end, set <code>backends.metrics.prometheus.storage.strategy: ephemeral</code>. Components that support configuration of ephemeral storage include <code>alerting.alertmanager</code>, <code>backends.metrics.prometheus</code>, and <code>backends.events.elasticsearch</code>. You can add ephemeral storage configuration at installation time or, if you already deployed STF, complete the following steps:</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3657,10 +3664,10 @@ spec:
 <div class="sect2">
 <h3 id="creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, you can expose applications to the external network via a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.6/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, you can expose applications to the external network through a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.7/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), routes are not exposed by default  to limit the attack surface of STF deployments. To access some services deployed in STF, you must expose the services in OKD for access.</p>
+<p>In Service&#160;Telemetry&#160;Framework (STF), routes are not exposed by default to limit the attack surface of STF deployments. To access some services deployed in STF, you must expose the services in OpenShift for access.</p>
 </div>
 <div class="paragraph">
 <p>A common service to expose in STF is Prometheus, as shown in the following example:</p>
@@ -3701,7 +3708,7 @@ smart-gateway-operator-metrics           ClusterIP   172.30.145.199   &lt;none&g
 </div>
 </li>
 <li>
-<p>Take note of the port and service name to expose as a route, for example, service <code>prometheus-operated</code> and port <code>9090</code>.</p>
+<p>Take note of the port and service name that you want to expose as a route, for example, service <code>prometheus-operated</code> and port <code>9090</code>.</p>
 </li>
 <li>
 <p>Expose the <code>prometheus-operated</code> service as an edge route and redirect insecure traffic to the secure endpoint of port <code>9090</code>:</p>
@@ -5751,7 +5758,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-27 19:42:15 UTC
+Last updated 2021-10-28 08:34:30 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
