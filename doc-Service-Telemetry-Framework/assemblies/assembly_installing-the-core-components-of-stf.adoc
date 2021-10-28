@@ -22,7 +22,7 @@ You can use Operators to load the {Project} ({ProjectShort}) components and obje
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through to {NextSupportedOpenShiftVersion}.
+{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
 endif::[]
 
 .Additional resources
