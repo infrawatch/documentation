@@ -1,7 +1,7 @@
 [id="overriding-the-default-grafana-container-image_{context}"]
 = Overriding the default Grafana container image
 
-The dashboards in {Project} ({ProjectShort}) require features that are available only in Grafana version 8.1.0 and later. By default the Service Telemetry Operator will install a compatible version. The base Grafana image can be overridden by specifying the image path to an image registry with `graphing.grafana.baseImage`.
+The dashboards in {Project} ({ProjectShort}) require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. You can override the base Grafana image by specifying the image path to an image registry with `graphing.grafana.baseImage`.
 
 .Procedure
 
