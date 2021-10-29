@@ -1,39 +1,16 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// This module can be included from assemblies using the following include statement:
-// include::<path>/proc_validating-clientside-installation.adoc[leveloffset=+1]
-
-// The file name and the ID are based on the module title. For example:
-// * file name: proc_doing-procedure-a.adoc
-// * ID: [id='proc_doing-procedure-a_{context}']
-// * Title: = Doing procedure A
-//
-// The ID is used as an anchor for linking to the module. Avoid changing
-// it after the module has been published to ensure existing links are not
-// broken.
-//
-// The `context` attribute enables module reuse. Every module's ID includes
-// {context}, which ensures that the module has a unique ID even if it is
-// reused multiple times in a guide.
-//
-// Start the title with a verb, such as Creating or Create. See also
-// _Wording of headings_ in _The IBM Style Guide_.
-
 [id="validating-clientside-installation_{context}"]
 = Validating client-side installation
 
 [role="_abstract"]
-To validate data collection from the {ProjectShort} storage domain, query the data sources for delivered data. To validate individual nodes in the {OpenStack} deployment, connect to the console using SSH.
+To validate data collection from the {Project} ({ProjectShort}) storage domain, query the data sources for delivered data. To validate individual nodes in the {OpenStack} ({OpenStackShort}) deployment, use SSH to connect to the console.
 
-TIP: Some telemetry data is only available when {OpenStack} has active workloads.
+TIP: Some telemetry data is available only when {OpenStackShort} has active workloads.
 
 .Procedure
 
 . Log in to an overcloud node, for example, controller-0.
 
-. Ensure that `metrics_qdr` container is running on the node:
+. Ensure that the `metrics_qdr` container is running on the node:
 +
 [source,bash,options="nowrap",subs="attributes"]
 ----
@@ -80,7 +57,7 @@ There are four connections:
 +
 The outbound {ProjectShort} connection is provided to the `MetricsQdrConnectors` host parameter and is the route for the {ProjectShort} storage domain. The other hosts are internal network addresses of the client connections to this {MessageBus}.
 
-. To ensure that messages are being delivered, list the links, and view the `_edge` address in the `deliv` column for delivery of messages:
+. To ensure that messages are delivered, list the links, and view the `_edge` address in the `deliv` column for delivery of messages:
 +
 [source,bash,options="nowrap", subs="attributes"]
 ----
@@ -101,7 +78,7 @@ Router Links
   endpoint  out  912      1835        local   temp.9Ok2resI9tmt+CT       250  0    0      0       0        0        0       0    0    0       0    0      0
 ----
 
-. To list the addresses from {OpenStack} nodes to {ProjectShort}, connect to {OpenShiftShort} to get the {MessageBus} pod name and list the connections. List the available {MessageBus} pods:
+. To list the addresses from {OpenStackShort} nodes to {ProjectShort}, connect to {OpenShift} to retrieve the {MessageBus} pod name and list the connections. List the available {MessageBus} pods:
 +
 [source,bash]
 ----
