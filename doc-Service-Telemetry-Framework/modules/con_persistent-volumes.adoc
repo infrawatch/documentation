@@ -7,6 +7,6 @@
 When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an {ProjectShort} deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the {OpenShift} default configured `storageClass`.
 
 .Additional resources
-* For more information about configuring persistent storage for {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/storage/understanding-persistent-storage.html[Understanding persistent storage.]
+* For more information about configuring persistent storage for {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/storage/understanding-persistent-storage.html[Understanding persistent storage.]
 
-* For more information about recommended configurable storage technology in {OpenShift}, see https://docs.openshift.com/container-platform/{SupportedOpenShiftVersion}/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage[Recommended configurable storage technology].
+* For more information about recommended configurable storage technology in {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage[Recommended configurable storage technology].

@@ -30,12 +30,12 @@ If your nodes are on a separate network from the default `InternalApi` network, 
 // TODO: remove this after OSP13 z13 since it will no longer be necessary.
 If you use {ProjectShort} with {OpenStack} {OpenStackVersion}  and plan to monitor your Ceph, Block, or Object storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the `CephStorageExtraConfig` parameter to define which network interface to load into the {MessageBus} and collectd configuration files.
 
-[source,yaml,options="nowrap"]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
-  CephStorageExtraConfig:
-      tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
-      tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
-      tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"
+CephStorageExtraConfig:
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
+  tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"
 ----
 
 Similarly, you must specify  `BlockStorageExtraConfig` and `ObjectStorageExtraConfig` parameters if your environment uses  Block and Object storage roles.
@@ -78,46 +78,46 @@ endif::[]
 leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the {MessageBus} listener address parameter.
 +
 ifdef::include_when_13[]
-[source,yaml]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 Compute0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api0')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api0')}"
 ----
 endif::[]
 ifdef::include_when_16[]
-[source,yaml]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 ComputeLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"
 ----
 +
 Additional leaf roles typically replace `_subnet` with `_leafN` where `N` represents a unique identifier for the leaf.
 +
-[source,yaml]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 ComputeLeaf1ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"
 ----
 endif::[]
 +
 This example configuration is on a CephStorage leaf role:
 +
 ifdef::include_when_13[]
-[source,yaml]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 CephStorage0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage0')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage0')}"
 ----
 endif::[]
 ifdef::include_when_16[]
-[source,yaml]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 CephStorageLeaf0ExtraConfig:
-›   tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
-›   tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"
+  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
+  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"
 ----
 endif::[]

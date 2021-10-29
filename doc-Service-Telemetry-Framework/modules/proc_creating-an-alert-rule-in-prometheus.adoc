@@ -16,7 +16,7 @@ $ oc project service-telemetry
 
 . Create a `PrometheusRule` object that contains the alert rule. The Prometheus Operator loads the rule into Prometheus:
 +
-[source,bash,options="nowrap"]
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1
