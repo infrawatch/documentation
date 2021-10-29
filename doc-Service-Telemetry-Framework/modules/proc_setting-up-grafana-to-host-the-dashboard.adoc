@@ -4,7 +4,7 @@
 [role="_abstract"]
 Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
 
-ifdef::include_16_1[The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. For more information about how to override the Grafana container image, see xref:overriding-the-default-grafana-container-image_assembly-advanced-features[].]
+ifdef::include_16[The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. For more information about how to override the Grafana container image, see xref:overriding-the-default-grafana-container-image_assembly-advanced-features[].]
 
 .Procedure
 
