@@ -1,0 +1,38 @@
+[id="overriding-the-default-grafana-container-image_{context}"]
+= Overriding the default Grafana container image
+
+The dashboards in {Project} ({ProjectShort}) require features that are available only in Grafana version 8.1.0 and later. By default the Service Telemetry Operator will install a compatible version. The base Grafana image can be overridden by specifying the image path to an image registry with `graphing.grafana.baseImage`.
+
+.Procedure
+
+. Ensure that you have the correct version of Grafana:
++
+[source,bash,options="nowrap"]
+----
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+docker.io/grafana/grafana:7.3.10
+----
+
+. If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image. Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment:
++
+[source,bash,options="nowrap"]
+----
+$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'
+----
+
+. Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
++
+[source,bash,options="nowrap"]
+----
+$ oc get pod -l "app=grafana"
+NAME                                 READY     STATUS    RESTARTS   AGE
+grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s
+----
+
+. Verify that the new instance is running the updated image:
++
+[source,bash,options="nowrap"]
+----
+$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
+docker.io/grafana/grafana:8.1.0
+----
