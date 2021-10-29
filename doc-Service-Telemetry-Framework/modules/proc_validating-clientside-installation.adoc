@@ -111,7 +111,7 @@ NAME                                    READY   STATUS    RESTARTS   AGE
 default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h
 ----
 
-. Connect to the pod and run the `qdstat --connections` command to list the known connections:
+. Connect to the pod and list the known connections. In this example, there are three `edge` connections from the {OpenStackShort} nodes with connection `id` 22, 23, and 24:
 +
 [source,bash,options="nowrap"]
 ----
@@ -132,8 +132,11 @@ Connections
   24  10.128.0.1:52082   Router.controller-0.redhat.local                               edge    in   TLSv1/SSLv3(DHE-RSA-AES256-GCM-SHA384)  anonymous-user          000:00:00:00  000:22:08:34
   27  127.0.0.1:42202    c2f541c1-4c97-4b37-a189-a396c08fb079                           normal  in   no-security                             no-auth                 000:00:00:00  000:00:00:00
 ----
+<<<<<<< HEAD
 +
 In this example, there are three `edge` connections from the {OpenStack} nodes with connection `id` 22, 23, and 24.
+=======
+>>>>>>> 747bde5... Minor output clean up and consistency (#333)
 
 . To view the number of messages delivered by the network, use each address with the `oc exec` command:
 +

@@ -110,16 +110,10 @@ endif::include_when_16[]
 [source,bash]
 ----
 $ oc get po -l app=smart-gateway
-----
-+
-[source,bash]
-----
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-event-smartgateway-6cfb65478c-g5q82   2/2     Running   0          13h
 default-cloud1-ceil-meter-smartgateway-58f885c76d-xmxwn   2/2     Running   0          13h
 default-cloud1-coll-event-smartgateway-58fbbd4485-rl9bd   2/2     Running   0          13h
 default-cloud1-coll-meter-smartgateway-7c6fc495c4-jn728   2/2     Running   0          13h
-ifdef::include_when_16[]
-default-cloud1-sens-meter-smartgateway-8h4tc445a2-mm683   2/2     Running   0          13h
-endif::include_when_16[]
+ifdef::include_when_16[default-cloud1-sens-meter-smartgateway-8h4tc445a2-mm683   2/2     Running   0          13h]
 ----

@@ -42,11 +42,13 @@ Deploy or update the overcloud with the required environment files to result in 
 
 . Add the following files to your {OpenStack} {OpenStackInstaller} deployment to setup data collection and {MessageBus}:
 +
-* the `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
-* the `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}
-* the `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
-* the `enable-stf.yaml` environment file to ensure defaults are set up correctly
-* the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
+* The `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
+* The `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}
+* The `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
+* The `enable-stf.yaml` environment file to ensure defaults are configured correctly
+* The `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
+
+. Deploy the {OpenStackShort} overcloud:
 +
 // this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
 +
@@ -61,5 +63,3 @@ Deploy or update the overcloud with the required environment files to result in 
   --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
-
-. Deploy the {OpenStack} overcloud.
