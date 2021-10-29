@@ -11,18 +11,24 @@ You can adjust {Project} ({ProjectShort}) for additional metrics retention time.
 
 . Change to the service-telemetry namespace:
 +
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc project service-telemetry
 ----
 
 . Edit the ServiceTelemetry object:
 +
+[source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc edit stf default
 ----
 
 . Add `retention: 7d`  to the storage section of backends.metrics.prometheus.storage to increase the retention period to seven days:
 +
+[NOTE]
+If you set a long retention period, retrieving data from heavily populated Prometheus systems can result in queries returning results slowly.
++
+[source,yaml,options="nowrap",role="white-space-pre"]
 ----
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
@@ -40,12 +46,8 @@ spec:
           retention: 7d
     ...
 ----
-+
-[NOTE]
-If you set a long retention period, retrieving data from heavily populated Prometheus systems can result in queries returning results slowly.
 
 . Save your changes and close the object.
-
 
 .Additional resources
 

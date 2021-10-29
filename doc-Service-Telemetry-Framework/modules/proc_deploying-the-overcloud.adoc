@@ -24,6 +24,8 @@ Deploy or update the overcloud with the required environment files so that data 
 * The `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
 * The `enable-stf.yaml` environment file to ensure defaults are configured correctly
 * The `stf-connectors.yaml` environment file to define the connection to {ProjectShort}
+
+. Deploy the {OpenStackShort} overcloud:
 +
 // this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
 +
@@ -38,5 +40,3 @@ Deploy or update the overcloud with the required environment files so that data 
   --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml
 ----
-
-. Deploy the {OpenStackShort} overcloud.
