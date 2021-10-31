@@ -4,6 +4,8 @@
 [role="_abstract"]
 Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
 
+ifdef::include_16[The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. For more information about how to override the Grafana container image, see xref:overriding-the-default-grafana-container-image_assembly-advanced-features[].]
+
 .Procedure
 
 . Log in to {OpenShift}.
@@ -88,38 +90,4 @@ $ oc get route grafana-route
 
 NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
-----
-
-. The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:
-+
-[source,bash]
-----
-$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-
-docker.io/grafana/grafana:7.3.10
-----
-
-. If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image. Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment:
-+
-[source,bash,options="nowrap"]
-----
-$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'
-----
-+
-
-. Verify that a new Grafana pod exists and has a `STATUS` value of `Running`:
-+
-[source,bash,options="nowrap"]
-----
-$ oc get pod -l "app=grafana"
-NAME                                 READY     STATUS    RESTARTS   AGE
-grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s
-----
-
-. Verify that the new instance is running the updated image:
-+
-[source,bash,options="nowrap"]
-----
-$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-docker.io/grafana/grafana:8.1.0
 ----
