@@ -2917,43 +2917,6 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 </div>
 </li>
-<li>
-<p>The dashboards in STF require features that are available only in Grafana version 8.1.0 and later. Ensure that you have the correct version of Grafana:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-
-docker.io/grafana/grafana:7.3.10</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image. Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that a new Grafana pod exists and has a <code>STATUS</code> value of <code>Running</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana"
-NAME                                 READY     STATUS    RESTARTS   AGE
-grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the new instance is running the updated image:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-docker.io/grafana/grafana:8.1.0</code></pre>
-</div>
-</div>
-</li>
 </ol>
 </div>
 </div>
@@ -5703,7 +5666,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-29 07:35:43 UTC
+Last updated 2021-10-31 22:06:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
