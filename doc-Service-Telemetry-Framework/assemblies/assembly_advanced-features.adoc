@@ -12,7 +12,6 @@ You can use the following operational features to provide additional functionali
 * xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
 * xref:high-availability_assembly-advanced-features[Configuring high availability]
 * xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
-* xref:creating-a-route-in-ocp_assembly-advanced-features[Creating a route in {OpenShift}]
 ifdef::include_when_16[]
 * xref:resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
 * xref:container-health-and-api-status_assembly-advanced-features[Monitoring container health and API status]
@@ -49,10 +48,6 @@ include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
-
-
-//Exposing services as routes
-include::../modules/proc_creating-a-route-in-ocp.adoc[leveloffset=+1]
 
 ifdef::include_when_16[]
 //Monitoring and health checks are OSP16+ only
