@@ -1,5 +1,5 @@
 [id="accessing-uis-for-stf-components_{context}"]
-= Accessing User Interfaces for {ProjectShort} Components
+= Accessing user interfaces for {ProjectShort} components
 
 [role="_abstract"]
 In {OpenShift}, applications are exposed to the external network through a route. For more information about Routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
