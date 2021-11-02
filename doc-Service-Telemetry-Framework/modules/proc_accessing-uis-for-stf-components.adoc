@@ -2,7 +2,7 @@
 = Accessing user interfaces for {ProjectShort} components
 
 [role="_abstract"]
-In {OpenShift}, applications are exposed to the external network through a route. For more information about Routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
+In {OpenShift}, applications are exposed to the external network through a route. For more information about routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
 In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web based interface. These routes are protected by {OpenShift} RBAC and any user with a ClusterRoleBinding allowing them to view {OpenShift} Namespaces can log in. For more information about RBAC, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/authentication/using-rbac.html[Using RBAC to define and apply permissions].
 
