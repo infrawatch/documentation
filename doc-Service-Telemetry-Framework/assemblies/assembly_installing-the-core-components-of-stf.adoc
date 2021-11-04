@@ -29,14 +29,10 @@ endif::[]
 
 * For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
 
-
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
-
-
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
-
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]
