@@ -56,7 +56,7 @@ spec:
 
 Use the additional parameters that are defined in `backends.metrics.prometheus.storage.persistent` to configure persistent storage options for Prometheus, such as storage class and volume size.
 
-Use `storageClass` to define the backend storage class. Service Telemetry Operator will use the default defined storage class for the {OpenShift} cluster if this is not defined.
+Use `storageClass` to define the backend storage class. Service Telemetry Operator uses the default defined storage class for the {OpenShift} cluster if this is not defined.
 
 Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it's possible a volume size larger than requested may be used. By default Service Telemetry Operator requests a volume size of `20G` (20 Gigabytes).
 
