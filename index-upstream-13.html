@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a></li>
 <li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>
 <ul class="sectlevel3">
-<li><a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a></li>
+<li><a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a></li>
 </ul>
 </li>
 <li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>
@@ -873,7 +873,7 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="sect2">
 <h3 id="persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to instantiate volumes dynamically so that Prometheus and ElasticSearch can store metrics and events.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to request persistent volumes so that Prometheus and ElasticSearch can store metrics and events.</p>
 </div>
 <div class="paragraph">
 <p>When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OpenShift default configured <code>storageClass</code>.</p>
@@ -886,6 +886,12 @@ To ensure that the monitoring platform can report operational problems with your
 </li>
 <li>
 <p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+</li>
+<li>
+<p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
+</li>
+<li>
+<p>For more information about configuring persistent storage for ElasticSearch in STF, see <a href="#backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf">Configuring persistent storage for ElasticSearch</a>.</p>
 </li>
 </ul>
 </div>
@@ -1258,7 +1264,7 @@ smart-gateway-operator.v3.0.1632925565        Smart Gateway Operator            
 <div class="sect2">
 <h3 id="creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</h3>
 <div class="paragraph _abstract">
-<p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the Service Telemetry Operator creating the supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</a>.</p>
+<p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the Service Telemetry Operator creating the supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1434,7 +1440,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 </ul>
 </div>
 <div class="sect3">
-<h4 id="primary-parameters-of-the-servicetelemetry-object">Primary parameters of the ServiceTelemetry object</h4>
+<h4 id="primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</h4>
 <div class="paragraph _abstract">
 <p>The <code>ServiceTelemetry</code> object comprises the following primary configuration parameters:</p>
 </div>
@@ -1477,8 +1483,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 </tr>
 </table>
 </div>
-<div class="sect4">
-<h5 id="backends_assembly-installing-the-core-components-of-stf">The backends parameter</h5>
+<h5 id="backends_assembly-installing-the-core-components-of-stf" class="discrete">The backends parameter</h5>
 <div class="paragraph">
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
@@ -1511,6 +1516,55 @@ spec:
 </li>
 </ul>
 </div>
+<h6 id="backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Prometheus</h6>
+<div class="paragraph">
+<p>Use the additional parameters that are defined in <code>backends.metrics.prometheus.storage.persistent</code> to configure persistent storage options for Prometheus, such as storage class and volume size.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>storageClass</code> to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the OpenShift cluster.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20G</code> (20 Gigabytes).</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>List the available storage classes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get storageclasses
+NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+csi-manila-ceph      manila.csi.openstack.org   Delete          Immediate              false                  20h
+standard (default)   kubernetes.io/cinder       Delete          WaitForFirstConsumer   true                   20h
+standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+        storage:
+          strategy: persistent
+          persistent:
+            storageClass: standard-csi
+            pvcStorageRequest: 50G</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling ElasticSearch as a storage back end for events</h6>
 <div class="paragraph">
 <p>To enable ElasticSearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
@@ -1532,6 +1586,55 @@ spec:
     events:
       elasticsearch:
         enabled: true</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for ElasticSearch</h6>
+<div class="paragraph">
+<p>Use the additional parameters defined in <code>backends.events.elasticsearch.storage.persistent</code> to configure persistent storage options for ElasticSearch, such as storage class and volume size.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>storageClass</code> to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the OpenShift cluster.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20Gi</code> (20 Gibibytes).</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>List the available storage classes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get storageclasses
+NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+csi-manila-ceph      manila.csi.openstack.org   Delete          Immediate              false                  20h
+standard (default)   kubernetes.io/cinder       Delete          WaitForFirstConsumer   true                   20h
+standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
+        storage:
+          strategy: persistent
+          persistent:
+            storageClass: standard-csi
+            pvcStorageRequest: 50G</code></pre>
 </div>
 </div>
 </li>
@@ -1606,7 +1709,6 @@ spec:
 <h5 id="transports_assembly-installing-the-core-components-of-stf" class="discrete">The transports parameter</h5>
 <div class="paragraph">
 <p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. By default, the <code>qdr</code> transport is enabled.</p>
-</div>
 </div>
 </div>
 </div>
@@ -5666,7 +5768,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-31 22:06:31 UTC
+Last updated 2021-11-05 14:37:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
