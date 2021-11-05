@@ -54,7 +54,7 @@ spec:
 [discrete]
 === Configuring persistent storage for Prometheus
 
-Use the additional parameters defined in `backends.metrics.prometheus.storage.persistent` to configure persistent storage options for Prometheus, such as storage class and volume size.
+Use the additional parameters that are defined in `backends.metrics.prometheus.storage.persistent` to configure persistent storage options for Prometheus, such as storage class and volume size.
 
 Use `storageClass` to define the backend storage class. Service Telemetry Operator will use the default defined storage class for the {OpenShift} cluster if this is not defined.
 
