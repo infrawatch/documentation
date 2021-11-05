@@ -125,7 +125,7 @@ Use the additional parameters defined in `backends.events.elasticsearch.storage.
 
 Use `storageClass` to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
 
-Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it's possible a volume size larger than requested may be used. By default Service Telemetry Operator requests a volume size of `20Gi` (20 Gigabits).
+Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of `20Gi` (20 Gibibytes).
 
 .Procedure
 
