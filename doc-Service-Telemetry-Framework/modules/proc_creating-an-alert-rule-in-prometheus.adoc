@@ -36,7 +36,7 @@ spec:
           expr: collectd_qpid_router_status < 1 # <1>
 EOF
 ----
-<1> To change the rule, edit the value of the expr parameter.
+<1> To change the rule, edit the value of the `expr` parameter.
 
 . To verify that the Operator loaded the rules  into Prometheus, create a pod with access to `curl`:
 +
