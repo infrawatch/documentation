@@ -8,11 +8,11 @@ To configure {Project} ({ProjectShort}) for high availability, add `highAvailabi
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
 . Use the oc command to edit the ServiceTelemetry object:

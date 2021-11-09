@@ -21,6 +21,8 @@ ifdef::context[:parent-context: {context}]
 [role="_abstract"]
 To migrate from {Project} ({ProjectShort}) v1.2 to {ProjectShort} v1.3, you must replace the `ClusterServiceVersion` and `Subscription` objects in the `service-telemetry` namespace on your {OpenShift} ({OpenShiftShort}) environment.
 
+NOTE: The default namespace in {ProjectShort} v1.3 and earlier used `service-telemetry`, but has changed to `openstack-monitoring` in subsequent releases. {ProjectShort} can be installed to any namespace, and the existing namespace `service-telemetry` has been maintained for the purposes of upgrade documentation.
+
 .Prerequisites
 
 * You have upgraded your {OpenShiftShort} environment to v4.6. {ProjectShort} v1.3 does not run on {OpenShiftShort} v4.5 and lower. {ProjectShort} v1.2 does not run on {OpenShiftShort} v4.7 and higher.

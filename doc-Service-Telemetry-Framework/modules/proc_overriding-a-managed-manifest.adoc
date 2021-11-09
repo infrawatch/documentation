@@ -18,11 +18,11 @@ The `oc edit` command loads the default system editor. To override the default e
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
 . Load the `ServiceTelemetry` object into an editor:
@@ -51,7 +51,7 @@ spec:
     kind: Secret
     metadata:
       name: 'alertmanager-default'
-      namespace: 'service-telemetry'
+      namespace: 'openstack-monitoring'
     type: Opaque
     stringData:
       alertmanager.yaml: |-

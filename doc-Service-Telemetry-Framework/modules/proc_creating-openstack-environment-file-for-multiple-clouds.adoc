@@ -64,7 +64,7 @@ resource_registry:
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <2>
+        - host: stf-default-interconnect-5671-openstack-monitoring.apps.infra.watch   # <2>
           port: 443
           role: edge
           verifyHostname: false

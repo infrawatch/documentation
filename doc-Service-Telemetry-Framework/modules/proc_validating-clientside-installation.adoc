@@ -40,12 +40,12 @@ listener {
 $ sudo {containerbin} exec -it metrics_qdr qdstat --bus=172.17.1.44:5666 --connections
 
 Connections
-  id   host                                                                  container                                                                                                  role    dir  security                            authentication  tenant
-  ============================================================================================================================================================================================================================================================================================
-  1    default-interconnect-5671-service-telemetry.apps.infra.watch:443      default-interconnect-7458fd4d69-bgzfb                                                                      edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
-  12   172.17.1.44:60290                                                     openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
-  16   172.17.1.44:36408                                                     metrics                                                                                                    normal  in   no-security                         anonymous-user
-  899  172.17.1.44:39500                                                     10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
+  id   host                                                                     container                                                                                                  role    dir  security                            authentication  tenant
+  ===============================================================================================================================================================================================================================================================================================
+  1    default-interconnect-5671-openstack-monitoring.apps.infra.watch:443      default-interconnect-7458fd4d69-bgzfb                                                                      edge    out  TLSv1.2(DHE-RSA-AES256-GCM-SHA384)  anonymous-user
+  12   172.17.1.44:60290                                                        openstack.org/om/container/controller-0/ceilometer-agent-notification/25/5c02cee550f143ec9ea030db5cccba14  normal  in   no-security                         no-auth
+  16   172.17.1.44:36408                                                        metrics                                                                                                    normal  in   no-security                         anonymous-user
+  899  172.17.1.44:39500                                                        10a2e99d-1b8a-4329-b48c-4335e5f75c84                                                                       normal  in   no-security                         no-auth
 ----
 +
 There are four connections:

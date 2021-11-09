@@ -9,11 +9,11 @@ ifdef::include_16[The dashboards in {ProjectShort} require features that are ava
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
 . Deploy the Grafana operator:
@@ -25,7 +25,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: grafana-operator
-  namespace: service-telemetry
+  namespace: openstack-monitoring
 spec:
   channel: alpha
   installPlanApproval: Automatic
@@ -39,7 +39,7 @@ EOF
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
+$ oc get csv --selector operators.coreos.com/grafana-operator.openstack-monitoring
 
 NAME                       DISPLAY            VERSION   REPLACES                   PHASE
 grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded
@@ -88,6 +88,6 @@ default-datasources     20h
 ----
 $ oc get route grafana-route
 
-NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
+NAME            HOST/PORT                                             PATH   SERVICES          PORT   TERMINATION   WILDCARD
+grafana-route   grafana-route-openstack-monitoring.apps.infra.watch          grafana-service   3000   edge          None
 ----

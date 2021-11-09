@@ -31,11 +31,11 @@ endif::include_when_16[]
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
 . Edit the `default` ServiceTelemetry object and add a `clouds` parameter with your configuration:

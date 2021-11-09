@@ -11,27 +11,32 @@ A common service to expose in {ProjectShort} is Prometheus, as shown in the foll
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
-. List the available services in the `service-telemetry` project:
+. List the available services in the namespace:
 +
 [source,bash,options="nowrap"]
 ----
 $ oc get services
-NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
-alertmanager-operated                    ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      93m
-default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   <none>        8081/TCP                                        93m
-default-cloud1-coll-meter-smartgateway   ClusterIP   172.30.133.180   <none>        8081/TCP                                        93m
-default-interconnect                     ClusterIP   172.30.3.241     <none>        5672/TCP,8672/TCP,55671/TCP,5671/TCP,5673/TCP   93m
-ibm-auditlogging-operator-metrics        ClusterIP   172.30.216.249   <none>        8383/TCP,8686/TCP                               11h
-prometheus-operated                      ClusterIP   None             <none>        9090/TCP                                        93m
-service-telemetry-operator-metrics       ClusterIP   172.30.11.66     <none>        8383/TCP,8686/TCP                               11h
-smart-gateway-operator-metrics           ClusterIP   172.30.145.199   <none>        8383/TCP,8686/TCP                               11h
+NAME                                               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
+alertmanager-operated                              ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP                      16m
+controller-manager-metrics-service                 ClusterIP   172.30.103.103   <none>        8443/TCP                                        16m
+default-cloud1-ceil-meter                          ClusterIP   172.30.223.139   <none>        8081/TCP                                        15m
+default-cloud1-coll-meter                          ClusterIP   172.30.229.199   <none>        8081/TCP                                        15m
+default-cloud1-sens-meter                          ClusterIP   172.30.39.80     <none>        8081/TCP                                        15m
+default-interconnect                               ClusterIP   172.30.65.91     <none>        5672/TCP,8672/TCP,55671/TCP,5671/TCP,5673/TCP   16m
+default-prometheus-webhook-snmp                    ClusterIP   172.30.230.0     <none>        9099/TCP                                        15m
+elasticsearch-es-default                           ClusterIP   None             <none>        9200/TCP                                        15m
+elasticsearch-es-http                              ClusterIP   172.30.155.241   <none>        9200/TCP                                        15m
+elasticsearch-es-transport                         ClusterIP   None             <none>        9300/TCP                                        15m
+prometheus-operated                                ClusterIP   None             <none>        9090/TCP                                        16m
+service-telemetry-operator-metrics                 ClusterIP   172.30.31.178    <none>        8383/TCP,8686/TCP                               16m
+smart-gateway-operator-metrics                     ClusterIP   172.30.249.39    <none>        8383/TCP,8686/TCP                               17m
 ----
 
 . Take note of the port and service name that you want to expose as a route, for example, service `prometheus-operated` and port `9090`.
@@ -49,11 +54,11 @@ route.route.openshift.io/metrics-store created
 [source,bash]
 ----
 $ oc get route metrics-store -ogo-template='{{.spec.host}}'
-metrics-store-service-telemetry.apps.infra.watch
+metrics-store-openstack-monitoring.apps.infra.watch
 ----
 
 +
-The `prometheus-operated` service is now available at the exposed DNS address, for example, https://metrics-store-service-telemetry.apps.infra.watch
+The `prometheus-operated` service is now available at the exposed DNS address, for example, https://metrics-store-openstack-monitoring.apps.infra.watch
 +
 [NOTE]
 The address of the route must be resolvable and configuration is environment specific.

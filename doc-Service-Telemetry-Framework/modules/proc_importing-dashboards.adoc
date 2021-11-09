@@ -71,7 +71,7 @@ virtual-machine-view-1.3     2m
 ----
 $ oc get route grafana-route -ojsonpath='{.spec.host}'
 
-grafana-route-service-telemetry.apps.infra.watch
+grafana-route-openstack-monitoring.apps.infra.watch
 ----
 
 . In a web browser, navigate to https://_<grafana_route_address>_. Replace _<grafana_route_address>_ with the value that you retrieved in the previous step.

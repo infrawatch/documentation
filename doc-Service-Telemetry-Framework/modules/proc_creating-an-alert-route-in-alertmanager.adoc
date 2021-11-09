@@ -24,11 +24,11 @@ To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `ale
 .Procedure
 
 . Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
+. Change to the `openstack-monitoring` namespace:
 +
 [source,bash]
 ----
-$ oc project service-telemetry
+$ oc project openstack-monitoring
 ----
 
 . Edit the `ServiceTelemetry` object for your {ProjectShort} deployment:
@@ -50,7 +50,7 @@ apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: default
-  namespace: service-telemetry
+  namespace: openstack-monitoring
 spec:
   backends:
     metrics:
@@ -61,7 +61,7 @@ spec:
     kind: Secret
     metadata:
       name: 'alertmanager-default'
-      namespace: 'service-telemetry'
+      namespace: 'openstack-monitoring'
     type: Opaque
     stringData:
       alertmanager.yaml: |-
