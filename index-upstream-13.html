@@ -479,6 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a></li>
 </ul>
 </li>
+<li><a href="#accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</a></li>
 <li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deleting-the-namespace">Deleting the namespace</a></li>
@@ -544,7 +545,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></li>
 </ul>
 </li>
-<li><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></li>
 </ul>
 </li>
 <li><a href="#collectd-plugins_assembly">collectd plugins</a></li>
@@ -1710,6 +1710,44 @@ spec:
 <div class="paragraph">
 <p>Use the <code>transports</code> parameter to control the enablement of the message bus for a STF deployment. The only transport currently supported is Apache&#160;Qpid&#160;Dispatch&#160;Router. By default, the <code>qdr</code> transport is enabled.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</h3>
+<div class="paragraph _abstract">
+<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.8/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+</div>
+<div class="paragraph">
+<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.8/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>List the available web UI routes in the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get routes | grep web
+default-alertmanager-proxy   default-alertmanager-proxy-service-telemetry.apps.infra.watch          default-alertmanager-proxy   web     reencrypt/Redirect   None
+default-prometheus-proxy     default-prometheus-proxy-service-telemetry.apps.infra.watch            default-prometheus-proxy     web     reencrypt/Redirect   None</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In a web browser, navigate to <a href="https://&lt;route_address&gt" class="bare">https://&lt;route_address&gt</a>; to access the web interface for the corresponding service.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -2905,9 +2943,6 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <li>
 <p><a href="#ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></p>
 </li>
-<li>
-<p><a href="#creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</a></p>
-</li>
 </ul>
 </div>
 <div class="sect2">
@@ -3042,10 +3077,10 @@ grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafan
 </div>
 </li>
 <li>
-<p>To retrieve the default username and password, describe the Grafana object:</p>
+<p>Retrieve the default username and password from the STF object:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe grafana default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get stf default -o jsonpath="{.spec.graphing.grafana['adminUser','adminPassword']}"</code></pre>
 </div>
 </div>
 </li>
@@ -3704,101 +3739,6 @@ spec:
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="creating-a-route-in-ocp_assembly-advanced-features">Creating a route in OpenShift</h3>
-<div class="paragraph _abstract">
-<p>In OpenShift, you can expose applications to the external network through a route. For more information, see <a href="https://docs.openshift.com/container-platform/4.8/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
-</div>
-<div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), routes are not exposed by default to limit the attack surface of STF deployments. To access some services deployed in STF, you must expose the services in OpenShift for access.</p>
-</div>
-<div class="paragraph">
-<p>A common service to expose in STF is Prometheus, as shown in the following example:</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>List the available services in the <code>service-telemetry</code> project:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get services
-NAME                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE
-alertmanager-operated                    ClusterIP   None             &lt;none&gt;        9093/TCP,9094/TCP,9094/UDP                      93m
-default-cloud1-ceil-meter-smartgateway   ClusterIP   172.30.114.195   &lt;none&gt;        8081/TCP                                        93m
-default-cloud1-coll-meter-smartgateway   ClusterIP   172.30.133.180   &lt;none&gt;        8081/TCP                                        93m
-default-interconnect                     ClusterIP   172.30.3.241     &lt;none&gt;        5672/TCP,8672/TCP,55671/TCP,5671/TCP,5673/TCP   93m
-ibm-auditlogging-operator-metrics        ClusterIP   172.30.216.249   &lt;none&gt;        8383/TCP,8686/TCP                               11h
-prometheus-operated                      ClusterIP   None             &lt;none&gt;        9090/TCP                                        93m
-service-telemetry-operator-metrics       ClusterIP   172.30.11.66     &lt;none&gt;        8383/TCP,8686/TCP                               11h
-smart-gateway-operator-metrics           ClusterIP   172.30.145.199   &lt;none&gt;        8383/TCP,8686/TCP                               11h</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Take note of the port and service name that you want to expose as a route, for example, service <code>prometheus-operated</code> and port <code>9090</code>.</p>
-</li>
-<li>
-<p>Expose the <code>prometheus-operated</code> service as an edge route and redirect insecure traffic to the secure endpoint of port <code>9090</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc create route edge metrics-store --service=prometheus-operated --insecure-policy="Redirect" --port=9090
-route.route.openshift.io/metrics-store created</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To verify and find the exposed external DNS for the route, use the <code>oc get route</code> command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get route metrics-store -ogo-template='{{.spec.host}}'
-metrics-store-service-telemetry.apps.infra.watch</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>prometheus-operated</code> service is now available at the exposed DNS address, for example, <a href="https://metrics-store-service-telemetry.apps.infra.watch" class="bare">https://metrics-store-service-telemetry.apps.infra.watch</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The address of the route must be resolvable and configuration is environment specific.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For more information about OpenShift networking, see <a href="https://docs.openshift.com/container-platform/4.6/networking/understanding-networking.html">Understanding networking</a></p>
-</li>
-<li>
-<p>For more information about route configuration, see <a href="https://docs.openshift.com/container-platform/4.6/networking/routes/route-configuration.html">Route configuration</a></p>
-</li>
-<li>
-<p>For more information about ingress cluster traffic, see <a href="https://docs.openshift.com/container-platform/4.6/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic overview</a></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -5768,7 +5708,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-08 15:22:13 UTC
+Last updated 2021-11-16 19:47:33 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
