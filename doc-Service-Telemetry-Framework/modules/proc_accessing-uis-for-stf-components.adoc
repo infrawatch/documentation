@@ -1,0 +1,28 @@
+[id="accessing-uis-for-stf-components_{context}"]
+= Accessing user interfaces for {ProjectShort} components
+
+[role="_abstract"]
+In {OpenShift}, applications are exposed to the external network through a route. For more information about routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
+
+In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by {OpenShift} RBAC and any user that has a `ClusterRoleBinding` that enables them to view {OpenShift} Namespaces can log in. For more information about RBAC, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/authentication/using-rbac.html[Using RBAC to define and apply permissions].
+
+.Procedure
+
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. List the available web UI routes in the `service-telemetry` project:
++
+[source,bash,options="nowrap"]
+----
+$ oc get routes | grep web
+default-alertmanager-proxy   default-alertmanager-proxy-service-telemetry.apps.infra.watch          default-alertmanager-proxy   web     reencrypt/Redirect   None
+default-prometheus-proxy     default-prometheus-proxy-service-telemetry.apps.infra.watch            default-prometheus-proxy     web     reencrypt/Redirect   None
+----
+
+. In a web browser, navigate to https://<route_address> to access the web interface for the corresponding service.

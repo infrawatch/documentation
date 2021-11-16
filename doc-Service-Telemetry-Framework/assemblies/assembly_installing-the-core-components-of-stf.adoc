@@ -32,6 +32,7 @@ endif::[]
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
+include::../modules/proc_accessing-uis-for-stf-components.adoc[leveloffset=+1]
 include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
 //reset the context
