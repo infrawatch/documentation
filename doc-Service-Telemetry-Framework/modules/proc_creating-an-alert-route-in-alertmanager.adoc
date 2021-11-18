@@ -21,6 +21,21 @@ alertmanager.yaml: |-
 
 To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
+[NOTE]
+====
+If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the alertmanagerConfigManifest using a base64 encoded configuration. When templating is used inline with the `stringData` method in a Secret, the template will attempt to be rendered by Ansible during the Operator reconcilation phase, resulting in the Operator failing.
+
+For example:
+
+[source,bash]
+----
+$ cat /tmp/my_alertmanager_config.yaml | base64 --wrap=0
+<base64_encoded_output>
+----
+
+Then follow the procedure to create the `alertmanagerConfigManifest` but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTeleemtry` manifest.
+====
+
 .Procedure
 
 . Log in to {OpenShift}.
