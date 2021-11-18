@@ -33,7 +33,7 @@ $ cat /tmp/my_alertmanager_config.yaml | base64 --wrap=0
 <base64_encoded_output>
 ----
 
-Then follow the procedure to create the `alertmanagerConfigManifest` but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTeleemtry` manifest.
+Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
 ====
 
 .Procedure
