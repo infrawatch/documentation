@@ -1,5 +1,6 @@
-[id="creating-an-alert-route-in-alertmanager_{context}"]
-= Creating an alert route in Alertmanager
+
+[id="proc_creating-an-alert-route-with-templating-in-alertmanager_{context}"]
+= Creating an alert route with templating in Alertmanager
 
 [role="_abstract"]
 Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
@@ -19,7 +20,12 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
+If the `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
+
+////
+Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
+////
+====
 
 .Procedure
 
@@ -38,10 +44,12 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. Add the new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
+. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 +
+////
 [NOTE]
 This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value of the parameter `global.resolve_timeout` from `5m` to `10m`.
+////
 
 +
 [source,yaml,options="nowrap"]
@@ -63,8 +71,9 @@ spec:
       name: 'alertmanager-default'
       namespace: 'service-telemetry'
     type: Opaque
-    stringData:
+    Data:
       alertmanager.yaml: |-
+        base64: <base64-encoded-configuration>
         global:
           resolve_timeout: 10m
         route:

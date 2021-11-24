@@ -37,6 +37,7 @@ include::../modules/con_alerts.adoc[leveloffset=+1]
 include::../modules/proc_creating-an-alert-rule-in-prometheus.adoc[leveloffset=+2]
 include::../modules/proc_configuring-custom-alerts.adoc[leveloffset=+2]
 include::../modules/proc_creating-an-alert-route-in-alertmanager.adoc[leveloffset=+2]
+include::../modules/proc_creating-an-alert-route-with-templating-in-alertmanager.adoc[leveloffset=+2]
 
 //SNMP Traps
 include::../modules/proc_configuring-snmp-traps.adoc[leveloffset=+1]
