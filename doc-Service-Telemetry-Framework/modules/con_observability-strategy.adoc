@@ -1,0 +1,5 @@
+[id="observability-strategy_{context}"]
+= Observability Strategy
+
+[role="_abstract"]
+{Project} ({ProjectShort}) does not ship any storage backends or alerting tools, but instead relies on community operators to deploy Prometheus, Alertmanager, and Elasticsearch. By default, {ProjectShort} will install subscriptions to these community operators and create instances of each application configured to work with {ProjectShort}, but you may wish to use your own deployments of these applications (or other compatible applications) instead. Setting the Observability Strategy allows you to control this behavior so that you can use alternative backends instead, in which case you do not need to configure any persistent or ephemeral storage for STF.
