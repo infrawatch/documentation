@@ -126,7 +126,9 @@ EOF
 $ oc get --namespace openshift-operators csv
 
 NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
+...
 amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
+...
 ----
 
 . Subscribe to the AMQ Interconnect Operator by using the redhat-operators CatalogSource:
@@ -154,7 +156,9 @@ spec:
 $ oc get --namespace openshift-operators csv
 
 NAME                               DISPLAY                                 VERSION   REPLACES                           PHASE
+...
 amq7-interconnect-operator.v1.10.3 Red Hat Integration - AMQ Interconnect  1.10.3    amq7-interconnect-operator.v1.10.2 Succeeded
+...
 ----
 
 . If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your {OpenShift} environment:
@@ -182,9 +186,9 @@ EOF
 ----
 $ oc get csv
 
-NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
+NAME                          DISPLAY              VERSION   REPLACES                    PHASE
 ...
-prometheusoperator.0.47.0                     Prometheus Operator            0.47.0    prometheusoperator.0.37.0                    Succeeded
+prometheusoperator.0.47.0     Prometheus Operator  0.47.0    prometheusoperator.0.37.0   Succeeded
 ...
 ----
 
