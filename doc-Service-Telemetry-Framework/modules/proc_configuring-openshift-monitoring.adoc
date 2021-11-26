@@ -2,7 +2,7 @@
 = Configuring Openshift Monitoring to consume metrics from STF
 
 [role="_abstract"]
-It is possible to configure Openshift Monitoring to consume metrics from {ProjectShort} in order to use the existing Prometheus deployment for STF data. This is particularly useful in combination with `observabilityStrategy: none` as an alternative to the community operators. Configuration requires the addition of a label on the namespace where {ProjectShort} is deployed, and ServiceMonitor objects for each Smart Gateway that is to be scraped.
+It is possible to configure Openshift Monitoring to consume metrics from {ProjectShort} in order to use the existing Prometheus deployment for {ProjectShort} data. This is particularly useful in combination with `observabilityStrategy: none` as an alternative to the community operators. Configuration requires the addition of a label on the namespace where {ProjectShort} is deployed, and ServiceMonitor objects for each Smart Gateway that is to be scraped.
 
 .Procedure
 . Edit the namespace object:
