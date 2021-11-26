@@ -129,6 +129,65 @@ NAME                       DISPLAY                                         VERSI
 amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
 ----
 
+. Subscribe to the AMQ Interconnect Operator by using the redhat-operators CatalogSource:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: amq7-interconnect-operator
+  namespace: service-telemetry
+spec:
+  channel: 1.10.x
+  installPlanApproval: Automatic
+  name: amq7-interconnect-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+----
+
+. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.3 displays a phase of `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get --namespace openshift-operators csv
+
+NAME                               DISPLAY                                 VERSION   REPLACES                           PHASE
+amq7-interconnect-operator.v1.10.3 Red Hat Integration - AMQ Interconnect  1.10.3    amq7-interconnect-operator.v1.10.2 Succeeded
+----
+
+. If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your {OpenShift} environment:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: prometheus
+  namespace: service-telemetry
+spec:
+  channel: beta
+  installPlanApproval: Automatic
+  name: prometheus
+  source: operatorhubio-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify that the ClusterServiceVersion for Prometheus `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get csv
+
+NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
+...
+prometheusoperator.0.47.0                     Prometheus Operator            0.47.0    prometheusoperator.0.37.0                    Succeeded
+...
+----
+
 . If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
