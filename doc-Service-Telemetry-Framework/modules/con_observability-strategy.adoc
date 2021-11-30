@@ -1,4 +1,4 @@
-[id="observability-strategy_{context}"]
+[id="observability-strategy-in-service-telemetry-framework_{context}"]
 = Observability Strategy
 
 [role="_abstract"]
