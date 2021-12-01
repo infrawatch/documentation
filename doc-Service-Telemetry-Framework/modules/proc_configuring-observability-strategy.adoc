@@ -5,7 +5,7 @@
 To configure {ProjectShort} to skip the deployment of storage and alerting backends, add `observabilityStrategy: none` in your ServiceTelemetry spec. In this mode, only {MessageBus} routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
 
 [NOTE]
-Currently, only metrics are supported when using `observabilityStrategy: none`, so events Smart Gateways will not be deployed.
+Currently, only metrics are supported when you set `observabilityStrategy` to `none`.  Events Smart Gateways are not deployed.
 
 .Procedure
 . Create a `ServiceTelemetry` object with the property `observabilityStrategy: none` in the `spec` parameter:
