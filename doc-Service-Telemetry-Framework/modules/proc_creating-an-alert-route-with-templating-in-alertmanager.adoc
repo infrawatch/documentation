@@ -25,7 +25,6 @@ If the `alertmanagerConfigManifest` contains a custom template to construct the 
 ////
 Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
 ////
-====
 
 .Procedure
 
