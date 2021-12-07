@@ -2,23 +2,7 @@
 [id="proc_creating-an-alert-route-with-templating-in-alertmanager_{context}"]
 = Creating an alert route with templating in Alertmanager
 
-[role="_abstract"]
-Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
-
-[source,yaml]
-----
-alertmanager.yaml: |-
-  global:
-    resolve_timeout: 5m
-  route:
-    group_by: ['job']
-    group_wait: 30s
-    group_interval: 5m
-    repeat_interval: 12h
-    receiver: 'null'
-  receivers:
-  - name: 'null'
-----
+include::con_alertmanager-route.adoc[]
 
 If the `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
 
