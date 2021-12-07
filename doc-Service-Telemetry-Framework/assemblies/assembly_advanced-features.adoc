@@ -55,7 +55,9 @@ include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
 //Observability strategy
 include::../modules/con_observability-strategy.adoc[leveloffset=+1]
 include::../modules/proc_configuring-observability-strategy.adoc[leveloffset=+2]
+ifeval::["{build}" == "upstream"]
 include::../modules/proc_configuring-openshift-monitoring.adoc[leveloffset=+2]
+endif::[]
 
 ifdef::include_when_16[]
 //Monitoring and health checks are OSP16+ only
