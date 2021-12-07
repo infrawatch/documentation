@@ -42,7 +42,7 @@ EOF
 +
 [source,bash]
 ----
-$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
+$ oc run curl --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run the `curl` command to access the `prometheus-operated` service to return the rules loaded into memory:
