@@ -99,7 +99,7 @@ receivers:
 +
 [source,bash]
 ----
-$ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
+$ oc run curl --image=radial/busyboxplus:curl -i --tty
 ----
 
 . Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
