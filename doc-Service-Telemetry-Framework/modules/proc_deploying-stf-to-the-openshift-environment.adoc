@@ -153,7 +153,7 @@ spec:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc get --namespace openshift-operators csv
+$ oc get csv
 
 NAME                               DISPLAY                                 VERSION   REPLACES                           PHASE
 ...
