@@ -38,7 +38,7 @@ EOF
 ----
 <1> To change the rule, edit the value of the `expr` parameter.
 
-. Validate that the Operator loaded the rules into Prometheus by running `curl` against the default-prometheus-proxy route with basic authentication:
+. To verify that the Operator loaded the rules into Prometheus, run the `curl` command against the default-prometheus-proxy route with basic authentication:
 +
 [source,bash,options="nowrap"]
 ----
