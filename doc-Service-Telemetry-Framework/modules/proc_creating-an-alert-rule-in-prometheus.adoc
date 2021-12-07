@@ -32,41 +32,18 @@ spec:
   groups:
     - name: ./openstack.rules
       rules:
-        - alert: Metric Listener down
-          expr: collectd_qpid_router_status < 1 # <1>
+        - alert: Collectd metrics receive rate is zero
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0 # <1>
 EOF
 ----
 <1> To change the rule, edit the value of the `expr` parameter.
 
-. To verify that the Operator loaded the rules  into Prometheus, create a pod with access to `curl`:
+. Validate that the Operator loaded the rules into Prometheus by running `curl` against the default-prometheus-proxy route with basic authentication:
 +
 [source,bash]
 ----
-$ oc run curl --image=radial/busyboxplus:curl -i --tty
-----
-
-. Run the `curl` command to access the `prometheus-operated` service to return the rules loaded into memory:
-+
-[source,bash,options="nowrap"]
-----
-[ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
-{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
-----
-
-. To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit the pod:
-+
-[source,bash]
-----
-[ root@curl:/ ]$ exit
-----
-
-. Clean up the environment by deleting the `curl` pod:
-+
-[source,bash]
-----
-$ oc delete pod curl
-
-pod "curl" deleted
+$ curl -k --user "internal:$(oc get secret default-prometheus-htpasswd -ogo-template='{{ .data.password }}' | base64 -d)" https://$(oc get route default-prometheus-proxy -ogo-template='{{ .spec.host }}')/api/v1/rules
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"state":"inactive","name":"Collectd metrics receive count is zero","query":"rate(sg_total_collectd_msg_received_count[1m]) == 0","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","evaluationTime":0.00034627,"lastEvaluation":"2021-12-07T17:23:22.160448028Z","type":"alerting"}],"interval":30,"evaluationTime":0.000353787,"lastEvaluation":"2021-12-07T17:23:22.160444017Z"}]}}
 ----
 
 .Additional resources
