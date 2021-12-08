@@ -38,4 +38,6 @@ service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0   
 smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0          47h
 ----
 
-The manifest shown will result in a default deployment of {ProjectShort} suitable for receiving telemetry from a single cloud with all metrics collector types. To configure additional clouds or change the set of supported collectors, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[]
+.Additional resources
+
+For more information about configuring additional clouds or to change the set of supported collectors, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[]
