@@ -79,6 +79,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 ----
 
 . Visit the host in your browser and log in with Openshift credentials
+
 . Verify that the following targets are visible under the `Status -> Targets` tab:
 ** service-telemetry/default-cloud1-ceil-meter/0
 ** service-telemetry/default-cloud1-coll-meter/0
