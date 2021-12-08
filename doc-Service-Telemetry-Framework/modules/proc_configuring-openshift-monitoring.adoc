@@ -89,6 +89,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 ** `sg_total_collectd_metric_decode_count`
 ** `sg_total_ceilometer_metric_decode_count`
 ** `sg_total_sensubility_metric_decode_count`
+
 . There should be one results from each Smart Gateway, like:
 +
 [NOTE]
