@@ -22,10 +22,8 @@ spec:
   observabilityStrategy: none
 EOF
 ----
-
-.Verification
-
-* To determine that all workloads are operating correctly, view the pods and the status of each pod.
++
+. To verify that all workloads are operating correctly, view the pods and the status of each pod.
 +
 [source,bash,options="nowrap"]
 ----
