@@ -4,7 +4,7 @@
 
 include::con_alertmanager-route.adoc[]
 
-If the `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
+If the `alertmanagerConfigManifest` contains a custom template, for example to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
 
 ////
 Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
