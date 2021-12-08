@@ -1,0 +1,43 @@
+[id='configuring-observability-strategy_{context}']
+= Configuring an alternate observability strategy
+
+[role="_abstract"]
+To configure {ProjectShort} to skip the deployment of storage, visualization, and alerting backends, add `observabilityStrategy: none` in your ServiceTelemetry spec. In this mode, only {MessageBus} routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
+
+[NOTE]
+Currently, only metrics are supported when you set `observabilityStrategy` to `none`.  Events Smart Gateways are not deployed.
+
+.Procedure
+. Create a `ServiceTelemetry` object with the property `observabilityStrategy: none` in the `spec` parameter. The manifest shown will result in a default deployment of {ProjectShort} suitable for receiving telemetry from a single cloud with all metrics collector types.
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc apply -f - <<EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  observabilityStrategy: none
+EOF
+----
++
+. To verify that all workloads are operating correctly, view the pods and the status of each pod.
++
+[source,bash,options="nowrap"]
+----
+$ oc get pods
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
+default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
+default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
+interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
+service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
+smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0          47h
+----
+
+.Additional resources
+
+For more information about configuring additional clouds or to change the set of supported collectors, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[]

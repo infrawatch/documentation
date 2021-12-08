@@ -1,0 +1,99 @@
+[id='configuring-openshift-monitoring_{context}']
+= Configuring openshift-monitoring to consume metrics from {ProjectShort}
+
+[role="_abstract"]
+You can configure openshift-monitoring to consume metrics from {ProjectShort} so that you can use the existing Prometheus deployment for {ProjectShort} data. This configuration is useful in combination with `observabilityStrategy: none` as an alternative to the community operators. You must add a label to the namespace where {ProjectShort} is deployed, and create ServiceMonitor objects for each Smart Gateway intended to be scraped.
+
+.Procedure
+. Edit the namespace object:
++
+[source,bash]
+----
+$ oc edit namespace service-telemetry
+----
+
+. Add the `openshift.io/cluster-monitoring: "true"` label under the `metadata` property:
++
+[source,yaml]
+----
+metadata:
+  labels:
+    openshift.io/cluster-monitoring: "true"
+----
+
+. Create a ServiceMonitor object for each Smart Gateway:
++
+[source,bash,options="nowrap"]
+----
+$ for collector_type in ceil coll sens; do oc apply -f <(sed -e "s/<<COLLECTOR_TYPE>>/${collector_type}/g" << EOF
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: smart-gateway
+  name: default-cloud1-<<COLLECTOR_TYPE>>-meter
+  namespace: service-telemetry
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    interval: 10s
+    metricRelabelings:
+    - action: labeldrop
+      regex: pod
+    - action: labeldrop
+      regex: namespace
+    - action: labeldrop
+      regex: instance
+    - action: labeldrop
+      regex: job
+    - action: labeldrop
+      regex: publisher
+    port: prom-https
+    scheme: https
+    tlsConfig:
+      caFile: /etc/prometheus/configmaps/serving-certs-ca-bundle/service-ca.crt
+      serverName: default-cloud1-<<COLLECTOR_TYPE>>-meter.service-telemetry.svc
+  namespaceSelector:
+    matchNames:
+    - service-telemetry
+  selector:
+    matchLabels:
+      app: smart-gateway
+      smart-gateway: default-cloud1-<<COLLECTOR_TYPE>>-meter
+EOF
+); done
+servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
+servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
+servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
+----
+. Verify the successful configuration of openshift-monitoring by checking that Smart Gateway metrics appear in Prometheus.
+. Retrieve the route for the openshift-monitoring prometheus:
++
+[source,bash,options="nowrap"]
+----
+$ oc get route -n openshift-monitoring prometheus-k8s
+NAME             HOST/PORT                                              PATH   SERVICES         PORT   TERMINATION          WILDCARD
+prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          prometheus-k8s   web    reencrypt/Redirect   None
+----
+
+. Visit the host in your browser and log in with Openshift credentials
+
+. Verify that the following targets are visible under the `Status -> Targets` tab:
+** service-telemetry/default-cloud1-ceil-meter/0
+** service-telemetry/default-cloud1-coll-meter/0
+** service-telemetry/default-cloud1-sens-meter/0
+** Any problems with the configuration should be evident on this page
+
+. Issue the following queries on the `Graph` tab:
+** `sg_total_collectd_metric_decode_count`
+** `sg_total_ceilometer_metric_decode_count`
+** `sg_total_sensubility_metric_decode_count`
+
+. There should be one results from each Smart Gateway, like:
++
+[NOTE]
+If the values returned are 0 it means that {ProjectShort} is not receiving those sort of metrics yet, but as long as a result is returned, the configuration of openshift-monitoring is correct.
++
+** `sg_total_collectd_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-coll-meter", source="SG"}`
+** `sg_total_ceilometer_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-ceil-meter", source="SG"}`
+** `sg_total_sensubility_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-sens-meter", source="SG"}`

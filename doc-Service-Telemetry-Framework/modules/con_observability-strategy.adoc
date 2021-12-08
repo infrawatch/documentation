@@ -1,0 +1,5 @@
+[id="observability-strategy-in-service-telemetry-framework_{context}"]
+= Observability Strategy in Service Telemetry Framework
+
+[role="_abstract"]
+{Project} ({ProjectShort}) does not include storage backends and alerting tools. {ProjectShort} uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. By default, {ProjectShort} installs subscriptions to these community operators and creates instances of each application configured to work with {ProjectShort}. You can use your own deployments of these applications or other compatible applications. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for {ProjectShort}.
