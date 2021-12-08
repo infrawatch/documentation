@@ -1,24 +1,14 @@
-[id="creating-an-alert-route-in-alertmanager_{context}"]
-= Creating an alert route in Alertmanager
 
-include::../modules/con_alertmanager-route.adoc[]
+[id="proc_creating-an-alert-route-with-templating-in-alertmanager_{context}"]
+= Creating an alert route with templating in Alertmanager
 
-To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
+include::con_alertmanager-route.adoc[]
 
-[NOTE]
-====
-If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the alertmanagerConfigManifest using a base64 encoded configuration. When templating is used inline with the `stringData` method in a Secret, the template will attempt to be rendered by Ansible during the Operator reconcilation phase, resulting in the Operator failing.
+If the `alertmanagerConfigManifest` contains a custom template, for example to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
 
-For example:
-
-[source,bash]
-----
-$ cat /tmp/my_alertmanager_config.yaml | base64 --wrap=0
-<base64_encoded_output>
-----
-
+////
 Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
-====
+////
 
 .Procedure
 
@@ -37,11 +27,7 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. Add the new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
-+
-[NOTE]
-This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value of the parameter `global.resolve_timeout` from `5m` to `10m`.
-
+. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 +
 [source,yaml,options="nowrap"]
 ----
@@ -62,18 +48,8 @@ spec:
       name: 'alertmanager-default'
       namespace: 'service-telemetry'
     type: Opaque
-    stringData:
-      alertmanager.yaml: |-
-        global:
-          resolve_timeout: 10m
-        route:
-          group_by: ['job']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 12h
-          receiver: 'null'
-        receivers:
-        - name: 'null'
+    data:
+      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==
 ----
 
 . Verify that the configuration is applied to the secret:
@@ -84,14 +60,21 @@ $ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager
 
 global:
   resolve_timeout: 10m
+  slack_api_url: <slack_api_url>
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: >-
+        ...
 route:
   group_by: ['job']
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 12h
-  receiver: 'null'
-receivers:
-- name: 'null'
+  receiver: 'slack'
 ----
 
 . To verify the configuration is loaded into Alertmanager, create a pod with access to `curl`:
