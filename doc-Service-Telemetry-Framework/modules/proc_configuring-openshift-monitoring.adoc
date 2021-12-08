@@ -21,7 +21,7 @@ metadata:
     openshift.io/cluster-monitoring: "true"
 ----
 
-. Create a ServiceMonitor object for each Smart Gateway
+. Create a ServiceMonitor object for each Smart Gateway:
 +
 [source,bash,options="nowrap"]
 ----
