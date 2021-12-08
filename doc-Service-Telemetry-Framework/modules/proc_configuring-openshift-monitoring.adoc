@@ -85,6 +85,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 ** service-telemetry/default-cloud1-coll-meter/0
 ** service-telemetry/default-cloud1-sens-meter/0
 ** Any problems with the configuration should be evident on this page
+
 . Issue the following queries on the `Graph` tab:
 ** `sg_total_collectd_metric_decode_count`
 ** `sg_total_ceilometer_metric_decode_count`
