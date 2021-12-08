@@ -69,7 +69,7 @@ servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
 . Verify the successful configuration of openshift-monitoring by checking that Smart Gateway metrics appear in Prometheus.
 . Retrieve the route for the openshift-monitoring prometheus:
 +
-[source,bash,option="nowrap"]
+[source,bash,options="nowrap"]
 ----
 $ oc get route -n openshift-monitoring prometheus-k8s
 NAME             HOST/PORT                                              PATH   SERVICES         PORT   TERMINATION          WILDCARD
