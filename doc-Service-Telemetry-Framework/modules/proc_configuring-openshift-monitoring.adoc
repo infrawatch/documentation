@@ -1,8 +1,8 @@
 [id='configuring-openshift-monitoring_{context}']
-= Configuring {OpenShift} Monitoring to consume metrics from {ProjectShort}
+= Configuring openshift-monitoring to consume metrics from {ProjectShort}
 
 [role="_abstract"]
-You can configure {OpenShift} monitoring to consume metrics from {ProjectShort} so that you can use the existing Prometheus deployment for {ProjectShort} data. This configuration is useful in combination with `observabilityStrategy: none` as an alternative to the community operators. You must add a label to the namespace where {ProjectShort} is deployed, and create ServiceMonitor objects for each Smart Gateway intended to be scraped.
+You can configure openshift-monitoring to consume metrics from {ProjectShort} so that you can use the existing Prometheus deployment for {ProjectShort} data. This configuration is useful in combination with `observabilityStrategy: none` as an alternative to the community operators. You must add a label to the namespace where {ProjectShort} is deployed, and create ServiceMonitor objects for each Smart Gateway intended to be scraped.
 
 .Procedure
 . Edit the namespace object:
@@ -66,7 +66,7 @@ servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
 servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
 servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
 ----
-. Verify the successful configuration of {OpenShift} Monitoring by checking that Smart Gateway metrics appear in Prometheus.
+. Verify the successful configuration of openshift-monitoring by checking that Smart Gateway metrics appear in Prometheus.
 . Retrieve the route for the openshift-monitoring prometheus:
 +
 [source,bash,option="nowrap"]
