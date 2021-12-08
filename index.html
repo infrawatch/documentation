@@ -462,6 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
+<li><a href="#observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</a></li>
 <li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>
 <ul class="sectlevel3">
 <li><a href="#ephemeral-storage_assembly-preparing-your-ocp-environment-for-stf">Ephemeral storage</a></li>
@@ -480,6 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</a></li>
+<li><a href="#configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</a></li>
 <li><a href="#removing-stf-from-the-openshift-environment_assembly-installing-the-core-components-of-stf">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deleting-the-namespace">Deleting the namespace</a></li>
@@ -544,6 +546,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></li>
+</ul>
+</li>
+<li><a href="#observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</a>
+<ul class="sectlevel3">
+<li><a href="#configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</a></li>
+<li><a href="#configuring-openshift-monitoring_assembly-advanced-features">Configuring openshift-monitoring to consume metrics from STF</a></li>
 </ul>
 </li>
 <li><a href="#resource-usage-of-openstack-services_assembly-advanced-features">Resource usage of OpenStack services</a>
@@ -880,6 +888,12 @@ To ensure that the monitoring platform can report operational problems with your
 <p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a>.</p>
 </li>
 </ul>
+</div>
+<div class="sect2">
+<h3 id="observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</h3>
+<div class="paragraph _abstract">
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. By default, STF installs subscriptions to these community operators and creates instances of each application configured to work with STF. You can use your own deployments of these applications or other compatible applications. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</h3>
@@ -1826,6 +1840,65 @@ default-prometheus-proxy     default-prometheus-proxy-service-telemetry.apps.inf
 <p>In a web browser, navigate to <a href="https://&lt;route_address&gt" class="bare">https://&lt;route_address&gt</a>; to access the web interface for the corresponding service.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</h3>
+<div class="paragraph _abstract">
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> in your ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, only metrics are supported when you set <code>observabilityStrategy</code> to <code>none</code>.  Events Smart Gateways are not deployed.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shown will result in a default deployment of STF suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  observabilityStrategy: none
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To verify that all workloads are operating correctly, view the pods and the status of each pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
+default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
+default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
+interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
+service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
+smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0          47h</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring additional clouds or to change the set of supported collectors, see <a href="#deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -3068,6 +3141,9 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p><a href="#ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></p>
 </li>
 <li>
+<p><a href="#observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</a></p>
+</li>
+<li>
 <p><a href="#resource-usage-of-openstack-services_assembly-advanced-features">Monitoring the resource use of OpenStack services</a></p>
 </li>
 <li>
@@ -4017,6 +4093,226 @@ spec:
 </li>
 <li>
 <p>Save your changes and close the object.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</h3>
+<div class="paragraph _abstract">
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. By default, STF installs subscriptions to these community operators and creates instances of each application configured to work with STF. You can use your own deployments of these applications or other compatible applications. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+</div>
+<div class="sect3">
+<h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
+<div class="paragraph _abstract">
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> in your ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, only metrics are supported when you set <code>observabilityStrategy</code> to <code>none</code>.  Events Smart Gateways are not deployed.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shown will result in a default deployment of STF suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  observabilityStrategy: none
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To verify that all workloads are operating correctly, view the pods and the status of each pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
+NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
+default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
+default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
+interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
+service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
+smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0          47h</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring additional clouds or to change the set of supported collectors, see <a href="#deploying-smart-gateways_assembly-completing-the-stf-configuration">Deploying Smart Gateways</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-openshift-monitoring_assembly-advanced-features">Configuring openshift-monitoring to consume metrics from STF</h4>
+<div class="paragraph _abstract">
+<p>You can configure openshift-monitoring to consume metrics from STF so that you can use the existing Prometheus deployment for STF data. This configuration is useful in combination with <code>observabilityStrategy: none</code> as an alternative to the community operators. You must add a label to the namespace where STF is deployed, and create ServiceMonitor objects for each Smart Gateway intended to be scraped.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Edit the namespace object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit namespace service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>openshift.io/cluster-monitoring: "true"</code> label under the <code>metadata</code> property:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">metadata:
+  labels:
+    openshift.io/cluster-monitoring: "true"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a ServiceMonitor object for each Smart Gateway:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ for collector_type in ceil coll sens; do oc apply -f &lt;(sed -e "s/&lt;&lt;COLLECTOR_TYPE&gt;&gt;/${collector_type}/g" &lt;&lt; EOF
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: smart-gateway
+  name: default-cloud1-&lt;&lt;COLLECTOR_TYPE&gt;&gt;-meter
+  namespace: service-telemetry
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    interval: 10s
+    metricRelabelings:
+    - action: labeldrop
+      regex: pod
+    - action: labeldrop
+      regex: namespace
+    - action: labeldrop
+      regex: instance
+    - action: labeldrop
+      regex: job
+    - action: labeldrop
+      regex: publisher
+    port: prom-https
+    scheme: https
+    tlsConfig:
+      caFile: /etc/prometheus/configmaps/serving-certs-ca-bundle/service-ca.crt
+      serverName: default-cloud1-&lt;&lt;COLLECTOR_TYPE&gt;&gt;-meter.service-telemetry.svc
+  namespaceSelector:
+    matchNames:
+    - service-telemetry
+  selector:
+    matchLabels:
+      app: smart-gateway
+      smart-gateway: default-cloud1-&lt;&lt;COLLECTOR_TYPE&gt;&gt;-meter
+EOF
+); done
+servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
+servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
+servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the successful configuration of openshift-monitoring by checking that Smart Gateway metrics appear in Prometheus.</p>
+</li>
+<li>
+<p>Retrieve the route for the openshift-monitoring prometheus:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route -n openshift-monitoring prometheus-k8s
+NAME             HOST/PORT                                              PATH   SERVICES         PORT   TERMINATION          WILDCARD
+prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          prometheus-k8s   web    reencrypt/Redirect   None</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Visit the host in your browser and log in with Openshift credentials</p>
+</li>
+<li>
+<p>Verify that the following targets are visible under the <code>Status -&gt; Targets</code> tab:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>service-telemetry/default-cloud1-ceil-meter/0</p>
+</li>
+<li>
+<p>service-telemetry/default-cloud1-coll-meter/0</p>
+</li>
+<li>
+<p>service-telemetry/default-cloud1-sens-meter/0</p>
+</li>
+<li>
+<p>Any problems with the configuration should be evident on this page</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Issue the following queries on the <code>Graph</code> tab:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sg_total_collectd_metric_decode_count</code></p>
+</li>
+<li>
+<p><code>sg_total_ceilometer_metric_decode_count</code></p>
+</li>
+<li>
+<p><code>sg_total_sensubility_metric_decode_count</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>There should be one results from each Smart Gateway, like:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the values returned are 0 it means that STF is not receiving those sort of metrics yet, but as long as a result is returned, the configuration of openshift-monitoring is correct.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sg_total_collectd_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-coll-meter", source="SG"}</code></p>
+</li>
+<li>
+<p><code>sg_total_ceilometer_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-ceil-meter", source="SG"}</code></p>
+</li>
+<li>
+<p><code>sg_total_sensubility_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-sens-meter", source="SG"}</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>
@@ -6094,7 +6390,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-07 20:43:09 UTC
+Last updated 2021-12-08 19:37:27 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
