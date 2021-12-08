@@ -2,7 +2,7 @@
 = Configuring an alternate observability strategy
 
 [role="_abstract"]
-To configure {ProjectShort} to skip the deployment of storage and alerting backends, add `observabilityStrategy: none` in your ServiceTelemetry spec. In this mode, only {MessageBus} routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
+To configure {ProjectShort} to skip the deployment of storage, visualization, and alerting backends, add `observabilityStrategy: none` in your ServiceTelemetry spec. In this mode, only {MessageBus} routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
 
 [NOTE]
 Currently, only metrics are supported when you set `observabilityStrategy` to `none`.  Events Smart Gateways are not deployed.
