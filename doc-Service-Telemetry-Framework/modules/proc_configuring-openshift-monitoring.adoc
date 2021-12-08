@@ -69,7 +69,7 @@ servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
 
 .Verification
 
-You can verify the successful configuration of Openshift Monitoring by checking that Smart Gateway metrics appear in prometheus.
+You can verify the successful configuration of {OpenShift} Monitoring by checking that Smart Gateway metrics appear in Prometheus.
 
 . Find the route for the openshift-monitoring prometheus
 +
