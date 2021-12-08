@@ -66,11 +66,9 @@ servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
 servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
 servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
 ----
-
-.Verification
-
-You can verify the successful configuration of {OpenShift} Monitoring by checking that Smart Gateway metrics appear in Prometheus.
-
++
+. Verify the successful configuration of {OpenShift} Monitoring by checking that Smart Gateway metrics appear in Prometheus.
++
 . Find the route for the openshift-monitoring prometheus
 +
 [source,bash]
