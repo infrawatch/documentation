@@ -23,7 +23,7 @@ metadata:
 
 . Create a ServiceMonitor object for each Smart Gateway
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ for collector_type in ceil coll sens; do oc apply -f <(sed -e "s/<<COLLECTOR_TYPE>>/${collector_type}/g" << EOF
 apiVersion: monitoring.coreos.com/v1
