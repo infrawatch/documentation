@@ -90,9 +90,10 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 ** `sg_total_ceilometer_metric_decode_count`
 ** `sg_total_sensubility_metric_decode_count`
 . There should be one results from each Smart Gateway, like:
++
+[NOTE]
+If the values returned are 0 it means that {ProjectShort} is not receiving those sort of metrics yet, but as long as a result is returned, the configuration of Openshift Monitoring is correct.
++
 ** `sg_total_collectd_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-coll-meter", source="SG"}`
 ** `sg_total_ceilometer_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-ceil-meter", source="SG"}`
 ** `sg_total_sensubility_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-sens-meter", source="SG"}`
-
-[NOTE]
-If the values returned are 0 it means that {ProjectShort} is not receiving those sort of metrics yet, but as long as a result is returned, the configuration of Openshift Monitoring is correct.
