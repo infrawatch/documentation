@@ -1,7 +1,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-include::../modules/con_alertmanager-route.adoc[]
+include::../modules/proc_creating-an-alert-route-common-intro.adoc[]
 
 To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
