@@ -78,8 +78,8 @@ endif::[]
 
 . Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:
 +
-[NOTE]
-Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator.
+[WARNING]
+Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of ElasticSearch, Prometheus, Grafana, and their Operators.
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
