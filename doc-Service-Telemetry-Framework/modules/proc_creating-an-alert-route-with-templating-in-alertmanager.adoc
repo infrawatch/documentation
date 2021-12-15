@@ -43,7 +43,7 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated Secret that is managed by the Prometheus Operator:
+. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:
 +
 [source,yaml,options="nowrap"]
 ----
