@@ -534,6 +534,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
 <li><a href="#configuring-custom-alerts_assembly-advanced-features">Configuring custom alerts</a></li>
 <li><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</a></li>
+<li><a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a></li>
 </ul>
 </li>
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></li>
@@ -3347,7 +3348,17 @@ spec:
 <p>Create an alert rule in Prometheus. For more information, see <a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a>.</p>
 </li>
 <li>
-<p>Create an alert route in Alertmanager. For more information, see <a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</a>.</p>
+<p>Create an alert route in Alertmanager. There are two ways in which you can create an alert route:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating a standard alert route in Alertmanager</a>.</p>
+</li>
+<li>
+<p><a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>
@@ -3489,6 +3500,9 @@ EOF</code></pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
+<div class="paragraph">
+<p>If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
+</div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
@@ -3560,7 +3574,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Verify that the configuration is applied to the secret:</p>
+<p>Verify that the configuration has been applied to the secret:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -3587,12 +3601,12 @@ receivers:
 </div>
 </li>
 <li>
-<p>Run <code>curl</code> against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
+<p>Run the <code>curl</code> command against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
 
-{"status":"success","data":{"configYAML":"global:\n  resolve_timeout: 10m\n  http_config: {}\n  smtp_hello: localhost\n  smtp_require_tls: true\n  pagerduty_url: https://events.pagerduty.com/v2/enqueue\n  hipchat_api_url: https://api.hipchat.com/\n  opsgenie_api_url: https://api.opsgenie.com/\n  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/\n  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/\nroute:\n  receiver: \"null\"\n  group_by:\n  - job\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 12h\nreceivers:\n- name: \"null\"\ntemplates: []\n",...}}</code></pre>
+{"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
 </div>
 </li>
@@ -3623,7 +3637,154 @@ pod "curl" deleted</code></pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md">Alerting</a>.</p>
+<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md">Prometheus user guide on alerting</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</h4>
+<div class="paragraph _abstract">
+<p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a OpenShift secret. By default, Service&#160;Telemetry&#160;Framework (STF) deploys a basic configuration that results in no receivers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertmanager.yaml: |-
+  global:
+    resolve_timeout: 5m
+  route:
+    group_by: ['job']
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 12h
+    receiver: 'null'
+  receivers:
+  - name: 'null'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the <code>alertmanagerConfigManifest</code> parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> by using a base64-encoded configuration.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    metrics:
+      prometheus:
+        enabled: true
+  alertmanagerConfigManifest: |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: 'alertmanager-default'
+      namespace: 'service-telemetry'
+    type: Opaque
+    data:
+      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the configuration has been applied to the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
+
+global:
+  resolve_timeout: 10m
+  slack_api_url: &lt;slack_api_url&gt;
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: &gt;-
+        ...
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'slack'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To verify that the configuration loaded into Alertmanager, create a pod with access to the <code>curl</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --image=radial/busyboxplus:curl -i --tty</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the <code>curl</code> command against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+
+{"status":"success","data":{"configYAML":"...",...}}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the <code>configYAML</code> field contains the changes you expect.</p>
+</li>
+<li>
+<p>Exit the pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To clean up the environment, delete the <code>curl</code> pod:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete pod curl
+
+pod "curl" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about the OpenShift secret and the Prometheus operator, see <a href="https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md">Prometheus user guide on alerting</a>.</p>
 </li>
 </ul>
 </div>
@@ -6047,7 +6208,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-15 20:20:39 UTC
+Last updated 2021-12-15 20:41:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
