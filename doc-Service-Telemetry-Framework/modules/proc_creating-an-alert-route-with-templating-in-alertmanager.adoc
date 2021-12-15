@@ -1,5 +1,6 @@
-[id="creating-an-alert-route-in-alertmanager_{context}"]
-= Creating an alert route in Alertmanager
+
+[id="proc_creating-an-alert-route-with-templating-in-alertmanager_{context}"]
+= Creating an alert route with templating in Alertmanager
 
 // The introduction to the files proc_creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
 
@@ -21,13 +22,11 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
-
-If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` using a base64-encoded configuration. For more information, see xref:proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[].
+If the `alertmanagerConfigManifest` parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64-encoded configuration.
 
 .Procedure
 
-// The following steps are duplicated in proc_creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
+// The following steps are duplicated in creating-an-alert-route-in-alertmanager. If you have changes to make, please make the same changes to both files.
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
@@ -44,10 +43,7 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. Add the new parameter `alertmanagerConfigManifest` and the `Secret` object contents to define the `alertmanager.yaml` configuration for Alertmanager:
-+
-[NOTE]
-This step loads the default template that the Service Telemetry Operator manages. To verify that the changes are populating correctly, change a value, return the `alertmanager-default` secret, and verify that the new value is loaded into memory. For example, change the value of the parameter `global.resolve_timeout` from `5m` to `10m`.
+. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:
 +
 [source,yaml,options="nowrap"]
 ----
@@ -68,18 +64,8 @@ spec:
       name: 'alertmanager-default'
       namespace: 'service-telemetry'
     type: Opaque
-    stringData:
-      alertmanager.yaml: |-
-        global:
-          resolve_timeout: 10m
-        route:
-          group_by: ['job']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 12h
-          receiver: 'null'
-        receivers:
-        - name: 'null'
+    data:
+      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==
 ----
 
 . Verify that the configuration has been applied to the secret:
@@ -90,22 +76,30 @@ $ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager
 
 global:
   resolve_timeout: 10m
+  slack_api_url: <slack_api_url>
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: >-
+        ...
 route:
   group_by: ['job']
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 12h
-  receiver: 'null'
-receivers:
-- name: 'null'
+  receiver: 'slack'
 ----
 
-. To verify the configuration is loaded into Alertmanager, create a pod with access to `curl`:
+. To verify that the configuration loaded into Alertmanager, create a pod with access to the `curl` command:
 +
 [source,bash]
 ----
 $ oc run curl --image=radial/busyboxplus:curl -i --tty
 ----
+
 
 . Run the `curl` command against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
