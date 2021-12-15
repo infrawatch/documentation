@@ -6,7 +6,7 @@ $ oc run curl --image=radial/busyboxplus:curl -i --tty
 ----
 
 
-. Run `curl` against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
+. Run the `curl` command against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
 [source,bash,options="nowrap"]
 ----
