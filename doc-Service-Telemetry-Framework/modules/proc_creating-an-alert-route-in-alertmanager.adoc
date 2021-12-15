@@ -27,6 +27,8 @@ If your `alertmanagerConfigManifest` contains a custom template to construct the
 
 .Procedure
 
+// The following steps are duplicated in proc_creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
+
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
 +
