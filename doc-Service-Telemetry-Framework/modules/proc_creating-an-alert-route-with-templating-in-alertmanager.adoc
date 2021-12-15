@@ -2,9 +2,27 @@
 [id="proc_creating-an-alert-route-with-templating-in-alertmanager_{context}"]
 = Creating an alert route with templating in Alertmanager
 
-include::proc_creating-an-alert-route-common-intro.adoc[]
+// The introduction to the files proc_creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
 
-If the `alertmanagerConfigManifest` contains a custom template, for example to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64 encoded configuration.
+[role="_abstract"]
+Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
+
+[source,yaml]
+----
+alertmanager.yaml: |-
+  global:
+    resolve_timeout: 5m
+  route:
+    group_by: ['job']
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 12h
+    receiver: 'null'
+  receivers:
+  - name: 'null'
+----
+
+If the `alertmanagerConfigManifest` parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64-encoded configuration.
 
 ////
 Then follow the procedure to create the alertmanagerConfigManifest but replace `stringData` with `data` and place the base64-encoded configuration after the `alertmanager.conf:` parameter in the `ServiceTelemetry` manifest.
@@ -27,7 +45,7 @@ $ oc project service-telemetry
 $ oc edit stf default
 ----
 
-. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
+. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated Secret that is managed by the Prometheus Operator:
 +
 [source,yaml,options="nowrap"]
 ----
@@ -52,7 +70,7 @@ spec:
       alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==
 ----
 
-. Verify that the configuration is applied to the secret:
+. Verify that the configuration has been applied to the secret:
 +
 [source,bash,options="nowrap"]
 ----
@@ -77,4 +95,41 @@ route:
   receiver: 'slack'
 ----
 
-include::proc_creating-an-alert-route-common-procedure.adoc[]
+. To verify that the configuration loaded into Alertmanager, create a pod with access to the `curl` command:
++
+[source,bash]
+----
+$ oc run curl --image=radial/busyboxplus:curl -i --tty
+----
+
+
+. Run the `curl` command against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
++
+[source,bash,options="nowrap"]
+----
+[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+
+{"status":"success","data":{"configYAML":"...",...}}
+----
+
+. Verify that the `configYAML` field contains the changes you expect.
+
+. Exit the pod:
++
+[source,bash]
+----
+[ root@curl:/ ]$ exit
+----
+
+. To clean up the environment, delete the `curl` pod:
++
+[source,bash]
+----
+$ oc delete pod curl
+
+pod "curl" deleted
+----
+
+.Additional resources
+
+* For more information about the {OpenShift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md[Prometheus user guide on alerting].
