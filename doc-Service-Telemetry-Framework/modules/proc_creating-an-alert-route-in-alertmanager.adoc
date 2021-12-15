@@ -82,7 +82,7 @@ spec:
         - name: 'null'
 ----
 
-. Verify that the configuration has been applied to the Secret:
+. Verify that the configuration has been applied to the secret:
 +
 [source,bash,options="nowrap"]
 ----
