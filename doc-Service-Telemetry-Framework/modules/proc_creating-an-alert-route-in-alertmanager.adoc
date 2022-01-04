@@ -1,7 +1,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating a standard alert route in Alertmanager
 
-// The introduction to the files creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
+// The introduction to the files proc_creating-an-alert-route-with-templating-in-alertmanager and proc_creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
 
 [role="_abstract"]
 Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
@@ -27,7 +27,7 @@ If your `alertmanagerConfigManifest` contains a custom template to construct the
 
 .Procedure
 
-// The following steps are duplicated in creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
+// The following steps are duplicated in proc_creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
