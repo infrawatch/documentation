@@ -98,7 +98,7 @@ route:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=quay.io/infrawatch/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
+$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=quay.io/radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
 
 {"status":"success","data":{"configYAML":"...",...}}
 ----
