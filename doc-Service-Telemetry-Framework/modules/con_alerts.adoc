@@ -33,7 +33,7 @@ To create an alert, complete the following tasks:
 . Create an alert rule in Prometheus. For more information, see xref:creating-an-alert-rule-in-prometheus_assembly-advanced-features[].
 . Create an alert route in Alertmanager. There are two ways in which you can create an alert route:
 ** xref:creating-an-alert-route-in-alertmanager_assembly-advanced-features[Creating a standard alert route in Alertmanager].
-** xref:proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[Creating an alert route with templating in Alertmanager].
+** xref:creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[Creating an alert route with templating in Alertmanager].
 
 
 .Additional resources

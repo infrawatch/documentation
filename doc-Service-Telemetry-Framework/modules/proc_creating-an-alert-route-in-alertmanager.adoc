@@ -1,7 +1,7 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
 = Creating an alert route in Alertmanager
 
-// The introduction to the files proc_creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
+// The introduction to the files creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
 
 [role="_abstract"]
 Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a {OpenShift} secret. By default, {Project} ({ProjectShort}) deploys a basic configuration that results in no receivers:
@@ -23,11 +23,11 @@ alertmanager.yaml: |-
 
 To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
-If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` using a base64-encoded configuration. For more information, see xref:proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[].
+If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` using a base64-encoded configuration. For more information, see xref:creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[].
 
 .Procedure
 
-// The following steps are duplicated in proc_creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
+// The following steps are duplicated in creating-an-alert-route-with-templating-in-alertmanager. If you have changes to make, please make the same changes to both files.
 
 . Log in to {OpenShift}.
 . Change to the `service-telemetry` namespace:
