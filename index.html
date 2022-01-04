@@ -534,8 +534,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#creating-an-alert-rule-in-prometheus_assembly-advanced-features">Creating an alert rule in Prometheus</a></li>
 <li><a href="#configuring-custom-alerts_assembly-advanced-features">Configuring custom alerts</a></li>
-<li><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</a></li>
-<li><a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a></li>
+<li><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating a standard alert route in Alertmanager</a></li>
+<li><a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a></li>
 </ul>
 </li>
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></li>
@@ -3594,7 +3594,7 @@ spec:
 <p><a href="#creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating a standard alert route in Alertmanager</a>.</p>
 </li>
 <li>
-<p><a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
+<p><a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
 </li>
 </ul>
 </div>
@@ -3717,7 +3717,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating an alert route in Alertmanager</h4>
+<h4 id="creating-an-alert-route-in-alertmanager_assembly-advanced-features">Creating a standard alert route in Alertmanager</h4>
 <div class="paragraph _abstract">
 <p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a OpenShift secret. By default, Service&#160;Telemetry&#160;Framework (STF) deploys a basic configuration that results in no receivers:</p>
 </div>
@@ -3740,7 +3740,7 @@ EOF</code></pre>
 <p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
 <div class="paragraph">
-<p>If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
+<p>If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3882,7 +3882,7 @@ pod "curl" deleted</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proc_creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</h4>
+<h4 id="creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</h4>
 <div class="paragraph _abstract">
 <p>Use Alertmanager to deliver alerts to an external system, such as email, IRC, or other notification channel. The Prometheus Operator manages the Alertmanager configuration as a OpenShift secret. By default, Service&#160;Telemetry&#160;Framework (STF) deploys a basic configuration that results in no receivers:</p>
 </div>
@@ -6552,7 +6552,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-15 20:41:31 UTC
+Last updated 2022-01-04 20:39:28 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
