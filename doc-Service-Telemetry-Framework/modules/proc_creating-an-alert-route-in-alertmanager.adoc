@@ -1,5 +1,5 @@
 [id="creating-an-alert-route-in-alertmanager_{context}"]
-= Creating an alert route in Alertmanager
+= Creating a standard alert route in Alertmanager
 
 // The introduction to the files creating-an-alert-route-with-templating-in-alertmanager and creating-an-alert-route-in-alertmanager are identical. If you have changes to make, please make the same changes to both introductions.
 
