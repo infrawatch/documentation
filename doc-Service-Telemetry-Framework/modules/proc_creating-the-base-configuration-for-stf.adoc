@@ -19,6 +19,7 @@ To enable collection of telemetry with {ProjectShort} and Gnocchi, see xref:send
 endif::include_when_16[]
 ====
 +
+.enable-stf.yaml
 ifdef::include_when_13[]
 [source,yaml,options="nowrap"]
 ----
@@ -93,6 +94,7 @@ parameter_defaults:
 ----
 endif::include_when_13[]
 ifdef::include_when_16[]
+.enable-stf.yaml
 [source,yaml,options="nowrap"]
 ----
 parameter_defaults:
