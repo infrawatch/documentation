@@ -1,5 +1,5 @@
-:TargetVersion: 1.3
-:ProductVersion: 1.3
+:TargetVersion: 1.4
+:ProductVersion: 1.4
 :context: assembly
 :containerbin: podman
 

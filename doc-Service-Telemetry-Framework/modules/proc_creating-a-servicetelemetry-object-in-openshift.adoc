@@ -46,17 +46,13 @@ apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
   name: default
+  namespace: service-telemetry
 spec:
   alerting:
     alertmanager:
       storage:
         persistent:
           pvcStorageRequest: 20G
-          storageSelector: {}
-        receivers:
-          snmpTraps:
-            enabled: false
-            target: 192.168.24.254
         strategy: persistent
     enabled: true
   backends:
@@ -66,8 +62,16 @@ spec:
         storage:
           persistent:
             pvcStorageRequest: 20Gi
-            storageSelector: {}
           strategy: persistent
+        version: 7.16.1
+    logs:
+      loki:
+        enabled: false
+        flavor: 1x.extra-small
+        replicationFactor: 1
+        storage:
+          objectStorageSecret: test
+          storageClass: standard
     metrics:
       prometheus:
         enabled: true
@@ -75,45 +79,45 @@ spec:
         storage:
           persistent:
             pvcStorageRequest: 20G
-            storageSelector: {}
           retention: 24h
           strategy: persistent
+  clouds:
+  - events:
+      collectors:
+      - collectorType: collectd
+        debugEnabled: false
+        subscriptionAddress: collectd/cloud1-notify
+      - collectorType: ceilometer
+        debugEnabled: false
+        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+    metrics:
+      collectors:
+      - collectorType: collectd
+        debugEnabled: false
+        subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: ceilometer
+        debugEnabled: false
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+      - collectorType: sensubility
+        debugEnabled: false
+        subscriptionAddress: sensubility/cloud1-telemetry
+    name: cloud1
   graphing:
     enabled: false
     grafana:
       adminPassword: secret
       adminUser: root
+      baseImage: docker.io/grafana/grafana:latest
       disableSignoutMenu: false
       ingressEnabled: false
-      baseImage: docker.io/grafana/grafana:8.1.2
   highAvailability:
     enabled: false
+  observabilityStrategy: use_community
   transports:
     qdr:
       enabled: true
       web:
         enabled: false
-  clouds:
-    - name: cloud1
-      metrics:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
-            debugEnabled: false
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
-            debugEnabled: false
-          - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
-            debugEnabled: false
-      events:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/notify
-            debugEnabled: false
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample
-            debugEnabled: false
 ----
 +
 To override these defaults, add the configuration to the `spec` parameter.
