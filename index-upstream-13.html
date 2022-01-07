@@ -4,9 +4,9 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.16"/>
+<meta name="generator" content="Asciidoctor 2.0.17"/>
 <meta name="author" content="OpenStack Documentation Team"/>
-<title>Service Telemetry Framework 1.3</title>
+<title>Service Telemetry Framework 1.4</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -194,7 +194,8 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
 details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
 details{margin-left:1.25rem}
-details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
 details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
 details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
@@ -236,9 +237,8 @@ pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
 table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
 table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
 table.linenotable td.code{padding-left:.75em}
-table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
-pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
-pre.pygments .lineno::before{content:"";margin-right:-.125em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
 .quoteblock{margin:0 1em 1.25em 1.5em;display:table}
 .quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
 .quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
@@ -275,7 +275,7 @@ table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-c
 table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
 table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
 table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
-table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
 th.halign-left,td.halign-left{text-align:left}
 th.halign-right,td.halign-right{text-align:right}
 th.halign-center,td.halign-center{text-align:center}
@@ -291,10 +291,11 @@ ol{margin-left:1.75em}
 ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
-ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
 ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
 ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
 ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
 ul.checklist>li>p:first-child{margin-left:-1em}
 ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
 ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
@@ -337,8 +338,6 @@ sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
 #footnotes .footnote:last-of-type{margin-bottom:0}
 #content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
-.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
-.gist .file-data>table td.line-data{width:99%}
 div.unbreakable{page-break-inside:avoid}
 .big{font-size:larger}
 .small{font-size:smaller}
@@ -442,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Service Telemetry Framework 1.3</h1>
+<h1>Service Telemetry Framework 1.4</h1>
 <div class="details">
 <span id="author" class="author">OpenStack Documentation Team</span><br/>
 <span id="email" class="email"><a href="mailto:rhos-docs@redhat.com">rhos-docs@redhat.com</a></span><br/>
@@ -450,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</a>
+<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.4</a>
 <ul class="sectlevel2">
 <li><a href="#stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</a></li>
 <li><a href="#installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</a>
@@ -562,7 +561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.3</h2>
+<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.4</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack (OSP) or third-party nodes. You can use STF to perform the following tasks:</p>
@@ -756,7 +755,7 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="ulist">
 <ul>
 <li>
-<p>Service&#160;Telemetry&#160;Framework 1.3</p>
+<p>Service&#160;Telemetry&#160;Framework 1.4</p>
 </li>
 <li>
 <p>OpenShift 4.6 through 4.8</p>
@@ -1195,15 +1194,13 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-cert-manager.v1.0.1 displays a phase of <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that amq7-cert-manager.v1.0.3 displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace openshift-operators csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-operators --selector operators.coreos.com/amq7-cert-manager-operator.openshift-operators
 
-NAME                       DISPLAY                                         VERSION   REPLACES   PHASE
-...
-amq7-cert-manager.v1.0.1   Red Hat Integration - AMQ Certificate Manager   1.0.1                Succeeded
-...</code></pre>
+NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
+amq7-cert-manager.v1.0.3   Red Hat Integration - AMQ Certificate Manager   1.0.3     amq7-cert-manager.v1.0.2   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1222,20 +1219,19 @@ spec:
   installPlanApproval: Automatic
   name: amq7-interconnect-operator
   source: redhat-operators
-  sourceNamespace: openshift-marketplace</code></pre>
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.3 displays a phase of <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.4 displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
-NAME                               DISPLAY                                 VERSION   REPLACES                           PHASE
-...
-amq7-interconnect-operator.v1.10.3 Red Hat Integration - AMQ Interconnect  1.10.3    amq7-interconnect-operator.v1.10.2 Succeeded
-...</code></pre>
+NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.4   Red Hat Integration - AMQ Interconnect   1.10.4    amq7-interconnect-operator.v1.10.3   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1263,12 +1259,10 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Prometheus <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
 
-NAME                          DISPLAY              VERSION   REPLACES                    PHASE
-...
-prometheusoperator.0.47.0     Prometheus Operator  0.47.0    prometheusoperator.0.37.0   Succeeded
-...</code></pre>
+NAME                        DISPLAY               VERSION   REPLACES                    PHASE
+prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0.37.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1296,12 +1290,10 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                          DISPLAY                        VERSION   REPLACES                                     PHASE
-...
-elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator   1.8.0     elasticsearch-eck-operator-certified.v1.7.1  Succeeded
-...</code></pre>
+NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
+elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator   1.9.1                Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1316,7 +1308,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.3
+  channel: stable-1.4
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: redhat-operators
@@ -1331,12 +1323,13 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
-amq7-cert-manager.v1.0.1                      Red Hat Integration - AMQ Certificate Manager   1.0.1                                                          Succeeded
-amq7-interconnect-operator.v1.10.1            Red Hat Integration - AMQ Interconnect          1.10.1           amq7-interconnect-operator.v1.2.4             Succeeded
-elasticsearch-eck-operator-certified.v1.8.0   Elasticsearch (ECK) Operator                    1.8.0            elasticsearch-eck-operator-certified.v1.7.1   Succeeded
-prometheusoperator.0.47.0                     Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                     Succeeded
-service-telemetry-operator.v1.3.1632925572    Service Telemetry Operator                      1.3.1632925572                                                 Succeeded
-smart-gateway-operator.v3.0.1632925565        Smart Gateway Operator                          3.0.1632925565                                                 Succeeded</code></pre>
+NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
+amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3          amq7-cert-manager.v1.0.2             Succeeded
+amq7-interconnect-operator.v1.10.4           Red Hat Integration - AMQ Interconnect          1.10.4         amq7-interconnect-operator.v1.10.3   Succeeded
+elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                               Succeeded
+prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
+service-telemetry-operator.v1.4.1641489191   Service Telemetry Operator                      1.4.1641489191                                      Succeeded
+smart-gateway-operator.v4.0.1641489202       Smart Gateway Operator                          4.0.1641489202                                      Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1393,17 +1386,13 @@ EOF</code></pre>
 kind: ServiceTelemetry
 metadata:
   name: default
+  namespace: service-telemetry
 spec:
   alerting:
     alertmanager:
       storage:
         persistent:
           pvcStorageRequest: 20G
-          storageSelector: {}
-        receivers:
-          snmpTraps:
-            enabled: false
-            target: 192.168.24.254
         strategy: persistent
     enabled: true
   backends:
@@ -1413,8 +1402,16 @@ spec:
         storage:
           persistent:
             pvcStorageRequest: 20Gi
-            storageSelector: {}
           strategy: persistent
+        version: 7.16.1
+    logs:
+      loki:
+        enabled: false
+        flavor: 1x.extra-small
+        replicationFactor: 1
+        storage:
+          objectStorageSecret: test
+          storageClass: standard
     metrics:
       prometheus:
         enabled: true
@@ -1422,45 +1419,45 @@ spec:
         storage:
           persistent:
             pvcStorageRequest: 20G
-            storageSelector: {}
           retention: 24h
           strategy: persistent
+  clouds:
+  - events:
+      collectors:
+      - collectorType: collectd
+        debugEnabled: false
+        subscriptionAddress: collectd/cloud1-notify
+      - collectorType: ceilometer
+        debugEnabled: false
+        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+    metrics:
+      collectors:
+      - collectorType: collectd
+        debugEnabled: false
+        subscriptionAddress: collectd/cloud1-telemetry
+      - collectorType: ceilometer
+        debugEnabled: false
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+      - collectorType: sensubility
+        debugEnabled: false
+        subscriptionAddress: sensubility/cloud1-telemetry
+    name: cloud1
   graphing:
     enabled: false
     grafana:
       adminPassword: secret
       adminUser: root
+      baseImage: docker.io/grafana/grafana:latest
       disableSignoutMenu: false
       ingressEnabled: false
-      baseImage: docker.io/grafana/grafana:8.1.2
   highAvailability:
     enabled: false
+  observabilityStrategy: use_community
   transports:
     qdr:
       enabled: true
       web:
-        enabled: false
-  clouds:
-    - name: cloud1
-      metrics:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
-            debugEnabled: false
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
-            debugEnabled: false
-          - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
-            debugEnabled: false
-      events:
-        collectors:
-          - collectorType: collectd
-            subscriptionAddress: collectd/notify
-            debugEnabled: false
-          - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample
-            debugEnabled: false</code></pre>
+        enabled: false</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3500,8 +3497,17 @@ EOF</code></pre>
 <div class="paragraph">
 <p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
-<div class="paragraph">
-<p>If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -6208,7 +6214,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-04 20:39:28 UTC
+Last updated 2022-01-07 16:32:43 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
