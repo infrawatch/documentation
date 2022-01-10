@@ -101,30 +101,17 @@ receivers:
 - name: 'null'
 ----
 
-. To verify the configuration is loaded into Alertmanager, create a pod with access to `curl`:
-+
-[source,bash]
-----
-$ oc run curl --image=radial/busyboxplus:curl -i --tty
-----
 
-. Run the `curl` command against the `alertmanager-operated` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
+. Run the `curl` command against the `alertmanager-proxy` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
 [source,bash,options="nowrap"]
 ----
-[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
 
 {"status":"success","data":{"configYAML":"...",...}}
 ----
 
 . Verify that the `configYAML` field contains the changes you expect.
-
-. Exit the pod:
-+
-[source,bash]
-----
-[ root@curl:/ ]$ exit
-----
 
 . To clean up the environment, delete the `curl` pod:
 +
