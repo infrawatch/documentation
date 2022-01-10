@@ -3599,18 +3599,10 @@ receivers:
 </div>
 </li>
 <li>
-<p>To verify the configuration is loaded into Alertmanager, create a pod with access to <code>curl</code>:</p>
+<p>Run the <code>curl</code> command against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --image=radial/busyboxplus:curl -i --tty</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the <code>curl</code> command against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
 
 {"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
@@ -3618,14 +3610,6 @@ receivers:
 </li>
 <li>
 <p>Verify that the <code>configYAML</code> field contains the changes you expect.</p>
-</li>
-<li>
-<p>Exit the pod:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
-</div>
-</div>
 </li>
 <li>
 <p>To clean up the environment, delete the <code>curl</code> pod:</p>
@@ -3746,18 +3730,10 @@ route:
 </div>
 </li>
 <li>
-<p>To verify that the configuration loaded into Alertmanager, create a pod with access to the <code>curl</code> command:</p>
+<p>Run the <code>curl</code> command against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc run curl --image=radial/busyboxplus:curl -i --tty</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the <code>curl</code> command against the <code>alertmanager-operated</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ curl alertmanager-operated:9093/api/v1/status
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
 
 {"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
@@ -3765,14 +3741,6 @@ route:
 </li>
 <li>
 <p>Verify that the <code>configYAML</code> field contains the changes you expect.</p>
-</li>
-<li>
-<p>Exit the pod:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[ root@curl:/ ]$ exit</code></pre>
-</div>
-</div>
 </li>
 <li>
 <p>To clean up the environment, delete the <code>curl</code> pod:</p>
@@ -6214,7 +6182,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-07 16:32:43 UTC
+Last updated 2022-01-10 17:30:56 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
