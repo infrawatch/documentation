@@ -3,7 +3,10 @@
 
 [role="_abstract"]
 
-To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.
+To send metrics to {Project} ({ProjectShort}) and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.
+
+[WARNING]
+If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in `ExtraConfig`, might overwhelm the legacy components, and you must increase the interval to a larger value, such as `300`. Increasing the value to a longer polling interval results in less telemetry resolution in {ProjectShort}.
 
 .Prerequisites
 
