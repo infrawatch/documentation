@@ -12,7 +12,7 @@ To configure the base parameters to provide a compatible data collection and tra
 +
 [IMPORTANT]
 ====
-Setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no event or metric data passing to {OpenStackShort} legacy telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in `ExtraConfig`, might overwhelm the legacy components, and you must increase the interval to a larger value, such as `300`. Increasing the value to a longer polling interval results in less telemetry resolution in {ProjectShort}.
+Setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no event or metric data passing to {OpenStackShort} telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components, and you must increase the interval to a larger value, such as `300`. Increasing the value to a longer polling interval results in less telemetry resolution in {ProjectShort}.
 
 ifdef::include_when_16[]
 To enable collection of telemetry with {ProjectShort} and Gnocchi, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[]
