@@ -18,7 +18,7 @@ endif::include_when_13[]
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 
-. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. The topic addresses for Sensubility, Ceilometer, and collectd are configured here to match the defaults in {ProjectShort}. For more information about customizing topics and cloud configuration, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
+. In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. You configure the topic addresses for Sensubility, Ceilometer, and collectd in this file to match the defaults in {ProjectShort}. For more information about customizing topics and cloud configuration, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 
