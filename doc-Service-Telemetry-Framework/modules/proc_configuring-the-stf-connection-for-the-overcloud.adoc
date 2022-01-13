@@ -73,7 +73,7 @@ endif::include_when_16[]
 <1> Directly load the collectd service because you are not including the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
 <2> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 <3> Define the topic for Ceilometer events. The format of this value is `anycast/ceilometer/cloud1-event.sample`.
-<4> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
+<4> Define the topic for Ceilometer metrics. The format of this value is`anycast/ceilometer/cloud1-metering.sample`.
 <5> Define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
 <6> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 ifdef::include_when_16[]
