@@ -3,7 +3,10 @@
 
 [role="_abstract"]
 
-To send metrics to {Project} ({ProjectShort}} and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.
+To send metrics to {Project} ({ProjectShort}) and Gnocchi simultaneously, you must include an environment file in your deployment to enable an additional publisher.
+
+[WARNING]
+If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components, and you must increase the interval to a larger value, such as `300`. Increasing the value to a longer polling interval results in less telemetry resolution in {ProjectShort}.
 
 .Prerequisites
 
@@ -37,7 +40,7 @@ parameter_defaults:
 
 . Add the environment file `gnocchi-connectors.yaml` to the deployment command. Replace _<other_arguments>_ with files that are applicable to your environment.
 +
-[source,bash,options="nowrap"]
+[source,bash,options="nowrap",subs="+quotes"]
 ----
 $ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \

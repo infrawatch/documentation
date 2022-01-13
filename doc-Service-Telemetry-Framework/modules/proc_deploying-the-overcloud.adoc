@@ -19,7 +19,6 @@ Deploy or update the overcloud with the required environment files so that data 
 
 . Add the following files to your {OpenStackShort} {OpenStackInstaller} deployment to configure data collection and {MessageBus}:
 +
-* The `collectd-write-qdr.yaml` file to ensure that collectd telemetry and events are sent to {ProjectShort}
 * The `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}
 * The `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers
 * The `enable-stf.yaml` environment file to ensure defaults are configured correctly
@@ -35,7 +34,6 @@ Deploy or update the overcloud with the required environment files so that data 
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file _<...other_environment_files...>_ \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/collectd-write-qdr.yaml \
   --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
   --environment-file /home/stack/enable-stf.yaml \
   --environment-file /home/stack/stf-connectors.yaml

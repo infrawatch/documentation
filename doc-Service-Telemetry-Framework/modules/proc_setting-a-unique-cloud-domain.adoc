@@ -10,6 +10,7 @@ To ensure that {MessageBus} router connections from {OpenStack} ({OpenStackShort
 
 . Set the `CloudDomain` parameter in the environment file, as shown in the following example:
 +
+.hostnames.yaml
 [source,yaml,options="nowrap"]
 ----
 parameter_defaults:

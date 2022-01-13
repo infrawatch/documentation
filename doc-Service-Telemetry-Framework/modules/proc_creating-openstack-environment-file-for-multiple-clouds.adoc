@@ -56,6 +56,8 @@ ifdef::include_when_13[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
 +
 endif::include_when_13[]
+// The following configuration should match the contents in modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc. If you have changes to make, please make the same changes to both files.
++
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
 ----
