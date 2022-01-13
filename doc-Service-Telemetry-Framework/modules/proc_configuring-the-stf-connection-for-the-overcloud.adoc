@@ -77,5 +77,5 @@ endif::include_when_16[]
 <5> Define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
 <6> Define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
 ifdef::include_when_16[]
-<7> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
+<7> Define the topic for collectd-sensubility events. The value is the exact string `sensubility/cloud1-telemetry`.
 endif::include_when_16[]
