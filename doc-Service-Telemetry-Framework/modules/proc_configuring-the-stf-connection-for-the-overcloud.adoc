@@ -75,7 +75,7 @@ endif::include_when_16[]
 <3> Define the topic for Ceilometer events. The format of this value is `anycast/ceilometer/cloud1-event.sample`.
 <4> Define the topic for Ceilometer metrics. The format of this value is`anycast/ceilometer/cloud1-metering.sample`.
 <5> Define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
-<6> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
+<6> Define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
 ifdef::include_when_16[]
 <7> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
 endif::include_when_16[]
