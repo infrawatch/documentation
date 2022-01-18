@@ -1833,7 +1833,7 @@ default-prometheus-proxy     default-prometheus-proxy-service-telemetry.apps.inf
 <div class="sect2">
 <h3 id="configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</h3>
 <div class="paragraph _abstract">
-<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> in your ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1851,7 +1851,7 @@ Currently, only metrics are supported when you set <code>observabilityStrategy</
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shown will result in a default deployment of STF suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
+<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shows results in a default deployment of STF that is suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
@@ -1867,7 +1867,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that all workloads are operating correctly, view the pods and the status of each pod.</p>
+<p>To verify that all workloads are operating correctly, view the pods and the status of each pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
@@ -3130,7 +3130,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p><a href="#ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></p>
 </li>
 <li>
-<p><a href="#observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</a></p>
+<p><a href="#observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Configuring an alternate observability strategy</a></p>
 </li>
 </ul>
 </div>
@@ -4050,7 +4050,7 @@ spec:
 <div class="sect3">
 <h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
 <div class="paragraph _abstract">
-<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> in your ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4068,7 +4068,7 @@ Currently, only metrics are supported when you set <code>observabilityStrategy</
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shown will result in a default deployment of STF suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
+<p>Create a <code>ServiceTelemetry</code> object with the property <code>observabilityStrategy: none</code> in the <code>spec</code> parameter. The manifest shows results in a default deployment of STF that is suitable for receiving telemetry from a single cloud with all metrics collector types.</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
@@ -4084,7 +4084,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>To verify that all workloads are operating correctly, view the pods and the status of each pod.</p>
+<p>To verify that all workloads are operating correctly, view the pods and the status of each pod:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
@@ -4180,7 +4180,7 @@ servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured</code>
 </div>
 </li>
 <li>
-<p>Verify the successful configuration of openshift-monitoring by checking that Smart Gateway metrics appear in Prometheus.</p>
+<p>To verify the successful configuration of openshift-monitoring, ensure that Smart Gateway metrics appear in Prometheus.</p>
 </li>
 <li>
 <p>Retrieve the route for the openshift-monitoring prometheus:</p>
@@ -4193,7 +4193,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 </div>
 </li>
 <li>
-<p>Visit the host in your browser and log in with Openshift credentials</p>
+<p>Visit the host in your browser and log in with OpenShift credentials.</p>
 </li>
 <li>
 <p>Verify that the following targets are visible under the <code>Status -&gt; Targets</code> tab:</p>
@@ -4207,9 +4207,9 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 </li>
 <li>
 <p>service-telemetry/default-cloud1-sens-meter/0</p>
-</li>
-<li>
-<p>Any problems with the configuration should be evident on this page</p>
+<div class="paragraph">
+<p>If there are problems with the configuration, find them on this page.</p>
+</div>
 </li>
 </ul>
 </div>
@@ -4231,7 +4231,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 </div>
 </li>
 <li>
-<p>There should be one results from each Smart Gateway, like:</p>
+<p>There should be one result from each Smart Gateway, as shown in the following example:</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -4239,7 +4239,7 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the values returned are 0 it means that STF is not receiving those sort of metrics yet, but as long as a result is returned, the configuration of openshift-monitoring is correct.
+If the values returned are 0, it means that STF is not receiving that type of metric yet but as long as a result is returned, the configuration of openshift-monitoring is correct.
 </td>
 </tr>
 </table>
@@ -4973,7 +4973,6 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>For more information about configuring the <code>disk</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk">disk</a>.</p>
 </div>
 <h3 id="_collectdplugindns" class="discrete">collectd::plugin::dns</h3>
-<h3 id="_collectdplugindpdk_telemetry" class="discrete">collectd::plugin::dpdk_telemetry</h3>
 <h3 id="_collectdpluginentropy" class="discrete">collectd::plugin::entropy</h3>
 <div class="ulist">
 <ul>
@@ -6229,7 +6228,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-13 14:12:03 UTC
+Last updated 2022-01-18 15:19:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
