@@ -12,7 +12,7 @@ You can use the following operational features to provide additional functionali
 * xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
 * xref:high-availability_assembly-advanced-features[Configuring high availability]
 * xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
-* xref:observability-strategy_assembly-advanced-features[Configuring an alternate observability strategy]
+* xref:observability-strategy-in-service-telemetry-framework_assembly-advanced-features[Configuring an alternate observability strategy]
 
 ifdef::include_when_16[]
 * xref:resource-usage-of-openstack-services_assembly-advanced-features[Monitoring the resource use of OpenStack services]
