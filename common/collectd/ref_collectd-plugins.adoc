@@ -523,8 +523,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 [discrete]
 == collectd::plugin::dns
 
-[discrete]
-== collectd::plugin::dpdk_telemetry
+//dpdk_telemetry plugin is not supported
 
 [discrete]
 == collectd::plugin::entropy
