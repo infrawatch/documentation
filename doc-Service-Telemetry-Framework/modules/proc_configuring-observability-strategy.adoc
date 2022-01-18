@@ -8,7 +8,7 @@ To configure {ProjectShort} to skip the deployment of storage, visualization, an
 Currently, only metrics are supported when you set `observabilityStrategy` to `none`.  Events Smart Gateways are not deployed.
 
 .Procedure
-. Create a `ServiceTelemetry` object with the property `observabilityStrategy: none` in the `spec` parameter. The manifest shown results in a default deployment of {ProjectShort} that is suitable for receiving telemetry from a single cloud with all metrics collector types.
+. Create a `ServiceTelemetry` object with the property `observabilityStrategy: none` in the `spec` parameter. The manifest shows results in a default deployment of {ProjectShort} that is suitable for receiving telemetry from a single cloud with all metrics collector types.
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
