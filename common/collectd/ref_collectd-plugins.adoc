@@ -470,7 +470,7 @@ parameter_defaults:
     CollectdExtraPlugins:
       - df
     ExtraConfig:
-        collectd::plugin::df::FStype: "ext4"
+        collectd::plugin::df::fstypes: ['tmpfs','xfs']
 ----
 
 .Additional resources
