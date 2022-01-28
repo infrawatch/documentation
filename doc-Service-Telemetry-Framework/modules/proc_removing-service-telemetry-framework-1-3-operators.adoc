@@ -78,7 +78,7 @@ service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator         
 smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded
 ----
 
-. Delete the Service Telemetry Operator v1.3 ClusterServiceVersion that was noted in the output of `oc get csv`:
+. Delete the Service Telemetry Operator v1.3 ClusterServiceVersion that you noted in the output of the `oc get csv` command:
 +
 [source,bash,options="nowrap"]
 ----
