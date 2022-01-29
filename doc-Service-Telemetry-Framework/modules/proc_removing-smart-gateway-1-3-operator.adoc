@@ -1,10 +1,19 @@
-[id="removing-service-telemetry-framework-1-3-operators_{context}"]
-= Removing {Project} 1.3 Operators
+[id="removing-smart-gateway-1-3-operator_{context}"]
+= Removing {ProjectShort} 1.3 Smart Gateway Operator
 
 [role="_abstract"]
 Remove the Smart Gateway Operator from {ProjectShort} 1.3.
 
 .Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
 
 . Retrieve the `Subscription` name of the Smart Gateway Operator. Replace `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace. Verify that only one subscription is returned.
 +
@@ -53,6 +62,7 @@ $ oc delete crd smartgateways.smartgateway.infra.watch
 customresourcedefinition.apiextensions.k8s.io "smartgateways.smartgateway.infra.watch" deleted
 ----
 
+////
 . Patch the Service Telemetry Operator Subscription to use the stable-1.4 channel:
 +
 [source,bash,options="nowrap"]
@@ -78,16 +88,6 @@ service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator         
 smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded
 ----
 
-. Delete the Service Telemetry Operator v1.3 ClusterServiceVersion that you noted in the output of the `oc get csv` command:
-+
-[source,bash,options="nowrap"]
-----
-$ oc delete csv $(oc get csv | grep Replacing | awk '{print $1}')
-
-clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.2.1623675667" deleted
-----
-
-
 . Validate that the Smart Gateways are restored:
 +
 [source,bash,options="nowrap"]
@@ -98,3 +98,4 @@ NAME                                                      READY   STATUS    REST
 default-cloud1-ceil-meter-smartgateway-6484b98b68-sl7mb   2/2     Running   0          5m56s
 default-cloud1-coll-meter-smartgateway-799f687658-nfzr6   2/2     Running   0          6m6s
 ----
+////
