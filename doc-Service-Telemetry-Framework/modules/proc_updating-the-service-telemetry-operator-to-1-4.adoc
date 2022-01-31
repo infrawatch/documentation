@@ -61,7 +61,7 @@ service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator         
 smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded
 ----
 
-. Validate that all pods are ready and running. Your environment may differ from that shown.
+. Validate that all pods are ready and running. Your environment might differ from the following example output: 
 +
 [source,bash,options="nowrap"]
 ----
