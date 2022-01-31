@@ -37,7 +37,7 @@ You must change the subscription channel of the Service Telemetry Operator which
 $ oc project service-telemetry
 ----
 
-. Patch the Service Telemetry Operator Subscription to use the stable-1.4 channel. Replace the `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace.
+. Patch the Service Telemetry Operator Subscription to use the stable-1.4 channel. Replace the `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace:
 +
 [source,bash,options="nowrap"]
 ----
