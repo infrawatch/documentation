@@ -46,7 +46,7 @@ $ oc patch $(oc get sub --selector=operators.coreos.com/service-telemetry-operat
 subscription.operators.coreos.com/service-telemetry-operator patched
 ----
 
-. Monitor the output of the `oc get csv` command until the Smart Gateway Operator is installed and Service Telemetry Operator moves through the update phases. The Service Telemetry Operator will have completed the update once it moves to phase `Succeeded`.
+. Monitor the output of the `oc get csv` command until the Smart Gateway Operator is installed and Service Telemetry Operator moves through the update phases. When the phase changes to `Succeeded`, the Service Telemetry Operator has completed the update:
 +
 [source,bash,options="nowrap"]
 ----
