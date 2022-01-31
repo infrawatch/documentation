@@ -15,7 +15,7 @@ Remove the Smart Gateway Operator from {ProjectShort} 1.3.
 $ oc project service-telemetry
 ----
 
-. Retrieve the `Subscription` name of the Smart Gateway Operator. Replace `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace. Verify that only one subscription is returned.
+. Retrieve the `Subscription` name of the Smart Gateway Operator. Replace `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace. Verify that only one subscription is returned:
 +
 [source,bash,options="nowrap"]
 ----
