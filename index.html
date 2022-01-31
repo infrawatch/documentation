@@ -892,7 +892,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. By default, STF installs subscriptions to these community operators and creates instances of each application configured to work with STF. You can use your own deployments of these applications or other compatible applications. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+</div>
+<div class="paragraph">
+<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4301,7 +4304,10 @@ spec:
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. By default, STF installs subscriptions to these community operators and creates instances of each application configured to work with STF. You can use your own deployments of these applications or other compatible applications. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+</div>
+<div class="paragraph">
+<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
 </div>
 <div class="sect3">
 <h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
@@ -6589,7 +6595,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-24 22:08:34 UTC
+Last updated 2022-01-31 14:56:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
