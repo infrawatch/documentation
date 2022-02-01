@@ -53,7 +53,7 @@ $ oc delete csv --selector=operators.coreos.com/smart-gateway-operator.service-t
 clusterserviceversion.operators.coreos.com "smart-gateway-operator.v3.0.1635451893" deleted
 ----
 
-. Delete the SmartGateway Custom Resource Definition:
+. Delete the SmartGateway Custom Resource Definition (CRD). After removal of the CRD no data will flow to {ProjectShort} until the upgrade is completed and the Smart Gateway instances are reinstantiated:
 +
 [source,bash,options="nowrap"]
 ----
