@@ -566,6 +566,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#assembly-upgrading-service-telemetry-framework-to-version-1-4_assembly">Upgrading Service Telemetry Framework to version 1.4</a>
+<ul class="sectlevel2">
+<li><a href="#removing-smart-gateway-1-3-operator_assembly-upgrading-service-telemetry-framework-to-version-1-4">Removing STF 1.3 Smart Gateway Operator</a></li>
+<li><a href="#updating-the-service-telemetry-operator-to-1-4_assembly-upgrading-service-telemetry-framework-to-version-1-4">Updating the Service Telemetry Operator to 1.4</a></li>
+</ul>
+</li>
 <li><a href="#collectd-plugins_assembly">collectd plugins</a></li>
 </ul>
 </div>
@@ -4632,6 +4638,186 @@ If the values returned are 0, it means that STF is not receiving that type of me
 </div>
 </div>
 <div class="sect1">
+<h2 id="assembly-upgrading-service-telemetry-framework-to-version-1-4_assembly">Upgrading Service Telemetry Framework to version 1.4</h2>
+<div class="sectionbody">
+<div class="paragraph _abstract">
+<p>To migrate from Service&#160;Telemetry&#160;Framework (STF) v1.3 to STF v1.4, you must replace the <code>ClusterServiceVersion</code> and <code>Subscription</code> objects in the <code>service-telemetry</code> namespace on your OpenShift environment.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have upgraded your OpenShift environment to v4.8. STF v1.4 does not run on OpenShift versions less than v4.8.</p>
+</li>
+<li>
+<p>You have backed up your data. Upgrading STF v1.3 to v1.4 results in a brief outage while the Smart Gateways and other components are updated. Additionally, changes to the <code>ServiceTelemetry</code> and <code>SmartGateway</code> objects do not have any effect while the Operators are being replaced.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To upgrade from STF v1.3 to v1.4, complete the following procedures:</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p><a href="#removing-smart-gateway-1-3-operator_assembly-upgrading-service-telemetry-framework-to-version-1-4">Remove the STF 1.3 Smart Gateway Operator</a>.</p>
+</li>
+<li>
+<p><a href="#updating-the-service-telemetry-operator-to-1-4_assembly-upgrading-service-telemetry-framework-to-version-1-4">Update the Service Telemetry Operator to 1.4</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="removing-smart-gateway-1-3-operator_assembly-upgrading-service-telemetry-framework-to-version-1-4">Removing STF 1.3 Smart Gateway Operator</h3>
+<div class="paragraph _abstract">
+<p>Remove the Smart Gateway Operator from STF 1.3.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the <code>Subscription</code> name of the Smart Gateway Operator. Replace <code>service-telemetry</code> in the selector with the namespace that hosts your STF instance if it is different from the default namespace. Verify that only one subscription is returned:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+NAME                                                                       PACKAGE                  SOURCE             CHANNEL
+smart-gateway-operator-stable-1.3-redhat-operators-openshift-marketplace   smart-gateway-operator   redhat-operators   stable-1.3</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the Smart Gateway Operator subscription:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-1.3-redhat-operators-openshift-marketplace" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the Smart Gateway Operator ClusterServiceVersion and verify that only one ClusterServiceVersion is returned:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+NAME                                     DISPLAY                  VERSION          REPLACES   PHASE
+smart-gateway-operator.v3.0.1635451893   Smart Gateway Operator   3.0.1635451893              Succeeded</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the Smart Gateway Operator ClusterServiceVersion:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v3.0.1635451893" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the SmartGateway Custom Resource Definition (CRD). After removal of the CRD, no data flows to STF until the upgrade is completed and the Smart Gateway instances are reinstantiated:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete crd smartgateways.smartgateway.infra.watch
+
+customresourcedefinition.apiextensions.k8s.io "smartgateways.smartgateway.infra.watch" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updating-the-service-telemetry-operator-to-1-4_assembly-upgrading-service-telemetry-framework-to-version-1-4">Updating the Service Telemetry Operator to 1.4</h3>
+<div class="paragraph _abstract">
+<p>You must change the subscription channel of the Service Telemetry Operator which manages the STF instances to the <code>stable-1.4</code> channel.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Patch the Service Telemetry Operator Subscription to use the stable-1.4 channel. Replace the <code>service-telemetry</code> in the selector with the namespace that hosts your STF instance if it is different from the default namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch $(oc get sub --selector=operators.coreos.com/service-telemetry-operator.service-telemetry -oname) --patch $'spec:\n  channel: stable-1.4' --type=merge
+
+subscription.operators.coreos.com/service-telemetry-operator patched</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Monitor the output of the <code>oc get csv</code> command until the Smart Gateway Operator is installed and Service Telemetry Operator moves through the update phases. When the phase changes to <code>Succeeded</code>, the Service Telemetry Operator has completed the update:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ watch -n5 oc get csv
+
+NAME                                         DISPLAY                                         VERSION          REPLACES                                     PHASE
+amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3            amq7-cert-manager.v1.0.2                     Succeeded
+amq7-interconnect-operator.v1.10.5           Red Hat Integration - AMQ Interconnect          1.10.5           amq7-interconnect-operator.v1.10.4           Succeeded
+elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                                         Succeeded
+prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                    Succeeded
+service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator                      1.4.1641504218   service-telemetry-operator.v1.3.1635451892   Succeeded
+smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate that all pods are ready and running. Your environment might differ from the following example output:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
+
+NAME                                                      READY   STATUS    RESTARTS   AGE
+alertmanager-default-0                                    3/3     Running   0          162m
+default-cloud1-ceil-event-smartgateway-5599bcfc9d-wp48n   2/2     Running   1          160m
+default-cloud1-ceil-meter-smartgateway-c8fdf579c-955kt    3/3     Running   0          160m
+default-cloud1-coll-event-smartgateway-97b54b7dc-5zz2v    2/2     Running   0          159m
+default-cloud1-coll-meter-smartgateway-774b9988b8-wb5vd   3/3     Running   0          160m
+default-cloud1-sens-meter-smartgateway-b98966fbf-rnqwf    3/3     Running   0          159m
+default-interconnect-675dd97bc4-dcrzk                     1/1     Running   0          171m
+default-snmp-webhook-7854d4889d-wgmgg                     1/1     Running   0          171m
+elastic-operator-c54ff8cc-jcg8d                           1/1     Running   6          3h55m
+elasticsearch-es-default-0                                1/1     Running   0          160m
+interconnect-operator-6bf74c4ffb-hkmbq                    1/1     Running   0          3h54m
+prometheus-default-0                                      3/3     Running   1          160m
+prometheus-operator-fc64987d-f7gx4                        1/1     Running   0          3h54m
+service-telemetry-operator-68d888f767-s5kzh               1/1     Running   0          163m
+smart-gateway-operator-584df7959-llxgl                    1/1     Running   0          163m</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="collectd-plugins_assembly">collectd plugins</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -6595,7 +6781,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-31 14:56:31 UTC
+Last updated 2022-02-02 10:28:14 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
