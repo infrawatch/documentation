@@ -54,8 +54,8 @@ spec:
   groups:
     - name: ./openstack.rules
       rules:
-        - alert: Metric Listener down
-          expr: collectd_qpid_router_status < 1 # To change the rule, edit the value of the expr parameter.
+        - alert: Collectd metrics receive rate is zero
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0 # <1>
 EOF
 ----
 
@@ -71,7 +71,7 @@ $ oc run curl --generator=run-pod/v1 --image=radial/busyboxplus:curl -i --tty
 [source,bash,options="nowrap"]
 ----
 [ root@curl:/ ]$ curl prometheus-operated:9090/api/v1/rules
-{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"name":"Metric Listener down","query":"collectd_qpid_router_status \u003c 1","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","type":"alerting"}],"interval":30}]}}
+{"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"state":"inactive","name":"Collectd metrics receive rate is zero","query":"rate(sg_total_collectd_msg_received_count[1m]) == 0","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","evaluationTime":0.000525886,"lastEvaluation":"2022-02-01T17:42:52.161007803Z","type":"alerting"}],"interval":30,"limit":0,"evaluationTime":0.000541524,"lastEvaluation":"2022-02-01T17:42:52.161000138Z"}]}}
 ----
 
 . To verify that the output shows the rules loaded into the `PrometheusRule` object, for example the output contains the defined `./openstack.rules`, exit from the pod:
