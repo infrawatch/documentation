@@ -24,7 +24,7 @@
 = Updating the Service Telemetry Operator to 1.4
 
 [role="_abstract"]
-You must change the subscription channel of the Service Telemetry Operator which manages the {ProjectShort} instances to `stable-1.4`.
+You must change the subscription channel of the Service Telemetry Operator which manages the {ProjectShort} instances to the `stable-1.4` channel.
 
 .Procedure
 
