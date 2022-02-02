@@ -1,0 +1,63 @@
+[id="removing-smart-gateway-1-3-operator_{context}"]
+= Removing {ProjectShort} 1.3 Smart Gateway Operator
+
+[role="_abstract"]
+Remove the Smart Gateway Operator from {ProjectShort} 1.3.
+
+.Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Retrieve the `Subscription` name of the Smart Gateway Operator. Replace `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace. Verify that only one subscription is returned:
++
+[source,bash,options="nowrap"]
+----
+$ oc get sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+NAME                                                                       PACKAGE                  SOURCE             CHANNEL
+smart-gateway-operator-stable-1.3-redhat-operators-openshift-marketplace   smart-gateway-operator   redhat-operators   stable-1.3
+----
+
+. Delete the Smart Gateway Operator subscription:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-1.3-redhat-operators-openshift-marketplace" deleted
+----
+
+. Retrieve the Smart Gateway Operator ClusterServiceVersion and verify that only one ClusterServiceVersion is returned:
++
+[source,bash,options="nowrap"]
+----
+$ oc get csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+NAME                                     DISPLAY                  VERSION          REPLACES   PHASE
+smart-gateway-operator.v3.0.1635451893   Smart Gateway Operator   3.0.1635451893              Succeeded
+----
+
+. Delete the Smart Gateway Operator ClusterServiceVersion:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v3.0.1635451893" deleted
+----
+
+. Delete the SmartGateway Custom Resource Definition (CRD). After removal of the CRD, no data flows to {ProjectShort} until the upgrade is completed and the Smart Gateway instances are reinstantiated:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete crd smartgateways.smartgateway.infra.watch
+
+customresourcedefinition.apiextensions.k8s.io "smartgateways.smartgateway.infra.watch" deleted
+----

@@ -1,0 +1,86 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_subscribing-to-the-service-telemetry-operator.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="updating-the-service-telemetry-operator-to-1-4_{context}"]
+= Updating the Service Telemetry Operator to 1.4
+
+[role="_abstract"]
+You must change the subscription channel of the Service Telemetry Operator which manages the {ProjectShort} instances to the `stable-1.4` channel.
+
+.Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Patch the Service Telemetry Operator Subscription to use the stable-1.4 channel. Replace the `service-telemetry` in the selector with the namespace that hosts your {ProjectShort} instance if it is different from the default namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc patch $(oc get sub --selector=operators.coreos.com/service-telemetry-operator.service-telemetry -oname) --patch $'spec:\n  channel: stable-1.4' --type=merge
+
+subscription.operators.coreos.com/service-telemetry-operator patched
+----
+
+. Monitor the output of the `oc get csv` command until the Smart Gateway Operator is installed and Service Telemetry Operator moves through the update phases. When the phase changes to `Succeeded`, the Service Telemetry Operator has completed the update:
++
+[source,bash,options="nowrap"]
+----
+$ watch -n5 oc get csv
+
+NAME                                         DISPLAY                                         VERSION          REPLACES                                     PHASE
+amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3            amq7-cert-manager.v1.0.2                     Succeeded
+amq7-interconnect-operator.v1.10.5           Red Hat Integration - AMQ Interconnect          1.10.5           amq7-interconnect-operator.v1.10.4           Succeeded
+elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                                         Succeeded
+prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                    Succeeded
+service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator                      1.4.1641504218   service-telemetry-operator.v1.3.1635451892   Succeeded
+smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded
+----
+
+. Validate that all pods are ready and running. Your environment might differ from the following example output: 
++
+[source,bash,options="nowrap"]
+----
+$ oc get pods
+
+NAME                                                      READY   STATUS    RESTARTS   AGE
+alertmanager-default-0                                    3/3     Running   0          162m
+default-cloud1-ceil-event-smartgateway-5599bcfc9d-wp48n   2/2     Running   1          160m
+default-cloud1-ceil-meter-smartgateway-c8fdf579c-955kt    3/3     Running   0          160m
+default-cloud1-coll-event-smartgateway-97b54b7dc-5zz2v    2/2     Running   0          159m
+default-cloud1-coll-meter-smartgateway-774b9988b8-wb5vd   3/3     Running   0          160m
+default-cloud1-sens-meter-smartgateway-b98966fbf-rnqwf    3/3     Running   0          159m
+default-interconnect-675dd97bc4-dcrzk                     1/1     Running   0          171m
+default-snmp-webhook-7854d4889d-wgmgg                     1/1     Running   0          171m
+elastic-operator-c54ff8cc-jcg8d                           1/1     Running   6          3h55m
+elasticsearch-es-default-0                                1/1     Running   0          160m
+interconnect-operator-6bf74c4ffb-hkmbq                    1/1     Running   0          3h54m
+prometheus-default-0                                      3/3     Running   1          160m
+prometheus-operator-fc64987d-f7gx4                        1/1     Running   0          3h54m
+service-telemetry-operator-68d888f767-s5kzh               1/1     Running   0          163m
+smart-gateway-operator-584df7959-llxgl                    1/1     Running   0          163m
+----
