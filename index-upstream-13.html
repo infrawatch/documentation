@@ -1399,6 +1399,10 @@ metadata:
 spec:
   alerting:
     alertmanager:
+      receivers:
+        snmpTraps:
+          enabled: false
+          target: 192.168.24.254
       storage:
         persistent:
           pvcStorageRequest: 20G
@@ -6420,7 +6424,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-02 10:28:14 UTC
+Last updated 2022-02-09 03:48:10 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
