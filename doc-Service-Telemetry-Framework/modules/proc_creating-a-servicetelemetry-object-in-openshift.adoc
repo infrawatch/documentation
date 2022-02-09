@@ -50,6 +50,10 @@ metadata:
 spec:
   alerting:
     alertmanager:
+      receivers:
+        snmpTraps:
+          enabled: false
+          target: 192.168.24.254
       storage:
         persistent:
           pvcStorageRequest: 20G
