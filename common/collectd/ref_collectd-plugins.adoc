@@ -56,8 +56,103 @@ Reference the metrics tables of specific plugins for Prometheus or Grafana queri
 
 You can aggregate several values into one with the `aggregation` plugin. Use the aggregation functions such as `sum`, `average`, `min`, and `max` to calculate metrics, for example average and total CPU statistics.
 
-* collectd::plugin::aggregation::aggregators
-* collectd::plugin::aggregation::interval
+.aggregation parameters
+[cols="50%,50%"]
+|===
+|Parameter |Type
+
+|host
+|String
+
+|plugin
+|String
+
+|plugininstance
+|Integer
+
+|agg_type
+|String
+
+|typeinstance
+|String
+
+|sethost
+|String
+
+|setplugin
+|String
+
+|setplugininstance
+|Integer
+
+|settypeinstance
+|String
+
+|groupby
+|Array of Strings
+
+|calculatesum
+|Boolean
+
+|calculatenum
+|Boolean
+
+|calculateaverage
+|Boolean
+
+|calculateminimum
+|Boolean
+
+|calculatemaximum
+|Boolean
+
+|calculatestddev
+|Boolean
+|===
+
+.Example configuration:
+
+Deploy three aggregate configurations which results in generation of files:
+. aggregator-calcCpuLoadAvg.conf
+. aggregator-calcCpuLoadMinMax.conf
+. aggregator-calcMemoryTotalMaxAvg.conf
+
+The aggregation configurations make use of the default CPU and Memory plugin configurations. The following aggregations are created:
+. Calculate average CPU load for all CPU cores grouped by host and state.
+. Calculate minimum and maxiumum CPU load groups by host and state.
+. Calculate maximum, average, and total for memory grouped by type.
+
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+    - aggregation
+
+  ExtraConfig:
+    collectd::plugin::aggregation::aggregators:
+      calcCpuLoadAvg:
+        plugin: "cpu"
+        agg_type: "cpu"
+        groupby:
+          - "Host"
+          - "TypeInstance"
+        calculateaverage: True
+      calcCpuLoadMinMax:
+        plugin: "cpu"
+        agg_type: "cpu"
+        groupby:
+          - "Host"
+          - "TypeInstance"
+        calculatemaximum: True
+        calculateminimum: True
+      calcMemoryTotalMaxAvg:
+        plugin: "memory"
+        agg_type: "memory"
+        groupby:
+          - "TypeInstance"
+        calculatemaximum: True
+        calculateaverage: True
+        calculatesum: True
+----
 
 [discrete]
 == collectd::plugin::ampq
