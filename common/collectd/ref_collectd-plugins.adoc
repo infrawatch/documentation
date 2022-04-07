@@ -34,16 +34,13 @@ parameter_defaults:
 [id='collectd-plugins_{context}']
 = collectd plugins
 
-ifeval::["{build}" == "downstream"]
-[IMPORTANT]
-Red Hat is currently updating the plugin information in this guide for this release.
-endif::[]
-
 You can configure multiple collectd plugins depending on your {OpenStack} ({OpenStackShort}) {OpenStackVersion} environment.
 
 The following list of plugins shows the available heat template `ExtraConfig` parameters that you can set to override the defaults. Each section provides the general configuration name for the `ExtraConfig` option. For example, if there is a collectd plugin called `example_plugin`, the format of the plugin title is `collectd::plugin::example_plugin`.
 
 Reference the tables of available parameters for specific plugins, such as in the following example:
+
+[source,yaml]
 ----
 ExtraConfig:
   collectd::plugin::example_plugin::<parameter>: <value>
@@ -124,6 +121,7 @@ The aggregation configurations use the default CPU and Memory plugin configurati
 . Calculate minimum and maxiumum CPU load groups by host and state.
 . Calculate maximum, average, and total for memory grouped by type.
 
+[source,yaml]
 ----
 parameter_defaults:
   CollectdExtraPlugins:
@@ -159,6 +157,58 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::ampq
 
+Use the `amqp` plugins to publish messages to an AMQP0.9 compatible message bus (such as RabbitMQ) for consumption by Graphite. Statically defines the topic of `graphite`.
+
+.amqp parameters
+[cols="50%,50%"]
+|===
+|Parameter |Type
+
+|manage_package
+|Boolean
+
+|amqphost
+|String
+
+|amqpport
+|Integer
+
+|amqpvhost
+|String
+
+|amqpuser
+|String
+
+|amqppass
+|String
+
+|amqpformat
+|String
+
+|amqpstorerates
+|Boolean
+
+|amqpexchange
+|String
+
+|amqppersistent
+|Boolean
+
+|amqproutingkey
+|String
+
+|graphiteprefix
+|String
+
+|escapecharacter
+|String
+
+|graphiteseparateinstances
+|Boolean
+
+|graphitealwaysappendds
+|Boolean
+|===
 
 [discrete]
 == collectd::plugin::amqp1
@@ -177,10 +227,10 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 |String
 
 |host
-|string
+|String
 
 |port
-|integer
+|Integer
 
 |user
 |String
@@ -213,41 +263,83 @@ Increase the value of the `send_queue_limit` parameter if metrics are missing.
 
 .Example configuration:
 
+[source,yaml]
 ----
-  Parameter_defaults:
-    CollectdExtraPlugins:
-      - amqp1
-    ExtraConfig:
-      collectd::plugin::amqp1::send_queue_limit: 5000
+parameter_defaults:
+  CollectdExtraPlugins:
+    - amqp1
+
+  ExtraConfig:
+    collectd::plugin::amqp1::send_queue_limit: 5000
 ----
 
 [discrete]
 == collectd::plugin::apache
 
-Use the `apache` plugin to collect Apache data.
+Use the `apache` plugin to collect Apache data from the mod_status plugin provided by the Apache web server. Each instance provided is connected to per `interval` value specified in seconds. If provided, the `timeout` interval parameter for an instance is specified in milliseconds.
 
 .apache parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|instances |Hash
+|instances
+|Hash
 
-|interval |Integer
+|interval
+|Integer
 
-|manage-package |Boolean
+|manage-package
+|Boolean
 
-|package_install_options |List
-
+|package_install_options
+|List
 |===
 
+.apache instances parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|url
+|HTTP URL
+
+|user
+|String
+
+|password
+|String
+
+|verifypeer
+|Boolean
+
+|verifyhost
+|Boolean
+
+|cacert
+|AbsolutePath
+
+|sslciphers
+|String
+
+|timeout
+|Integer
+|===
+
+
 .Example configuration:
+
+In the provided example, the instance name is `localhost` which connects to the Apache web server at http://10.0.0.111/mod_status?auto. You must append `?auto` to the end of the URL otherwise the status page will be returned as a type incompatible with the plugin.
+
+[source,yaml]
 ----
 parameter_defaults:
     ExtraConfig:
         collectd::plugin::apache:
           localhost:
-              url: "http://10.0.0.111/status?auto"
+              url: "http://10.0.0.111/mod_status?auto"
 ----
 
 
@@ -285,6 +377,98 @@ For more information about configuring the `battery` plugin, see https://collect
 
 Use the `bind` plugin to retrieve encoded statistics about queries and responses from a DNS server. The plugin submits the values to collectd.
 
+.bind parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|url
+|HTTP URL
+
+|memorystats
+|Boolean
+
+|opcodes
+|Boolean
+
+|parsetime
+|Boolean
+
+|qtypes
+|Boolean
+
+|resolverstats
+|Boolean
+
+|serverstats
+|Boolean
+
+|zonemaintstats
+|Boolean
+
+|views
+|Array
+
+|interval
+|Integer
+
+|===
+
+.bind views parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|name
+|String
+
+|qtypes
+|Boolean
+
+|resolverstats
+|Boolean
+
+|cacherrsets
+|Boolean
+
+|zones
+|List of Strings
+
+|===
+
+.Example configuration:
+
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - bind
+
+  ExtraConfig:
+    collectd::plugins::bind:
+      url: http://localhost:8053/
+      memorystats: true
+      opcodes: true
+      parsetime: false
+      qtypes: true
+      resolverstats: true
+      serverstats: true
+      zonemaintstats: true
+      views:
+      - name: internal
+        qtypes: true
+        resolverstats: true
+        cacherrsets: true
+      - name: external
+        qtypes: true
+        resolverstats: true
+        cacherrsets: true
+        zones:
+        - "example.com/IN"
+----
+
 [discrete]
 ==  collectd::plugin::ceph
 
@@ -293,20 +477,24 @@ Use the `ceph` plugin to gather data from ceph daemons.
 .ceph parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|daemons |Array
+|daemons
+|Array
 
-|longrunavglatency |Boolean
+|longrunavglatency
+|Boolean
 
-|convertspecialmetrictypes |Boolean
+|convertspecialmetrictypes
+|Boolean
 
-|manage_package |Boolean
-
-|package_name |String
+|package_name
+|String
 |===
 
 .Example configuration:
+[source,yaml]
 ----
 parameter_defaults:
     ExtraConfig:
@@ -327,7 +515,6 @@ When you deploy collectd, the `ceph` plugin is added to the Ceph nodes. Do not a
 .Additional resources
 
 For more information about configuring the `ceph` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ceph[ceph].
-
 
 
 [discrete]
@@ -354,7 +541,7 @@ Use the `cgroups` plugin to collect information for processes in a cgroup.
 
 For more information about configuring the `cgroups` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cgroups[cgroups].
 
-// To do: Add this to OSP 17 when it's available.
+// TODO: Add this to OSP 17 when it's available.
 //== collectd::plugin::chrony
 
 [discrete]
@@ -375,6 +562,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     ExtraConfig:
@@ -396,7 +584,7 @@ Use the `conntrack` plugin to track the number of entries in the Linux connectio
 [discrete]
 == collectd::plugin::contextswitch
 
-Use the `ContextSwitch` plugin to collect the number of context switches that the system handles.
+Use the `ContextSwitch` plugin to collect the number of context switches that the system handles. The only parameter available is `interval` which is a polling interval defined in seconds.
 
 .Additional resources
 
@@ -407,11 +595,9 @@ For more information about configuring the `contextswitch` plugin, see https://c
 
 Use the `cpu` plugin to monitor the time that the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.
 
-The `cpu` plugin collects `_jiffies_`, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
+The `cpu` plugin collects _jiffies_, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.
 
 To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
-
-
 
 .cpu metrics
 [cols="20%,30%,50%"]
@@ -420,35 +606,35 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 
 |idle
 |Amount of idle time
-|collectd_cpu_total{...,type_instance='idle'}
+|`collectd_cpu_total{...,type_instance='idle'}`
 
 |interrupt
 |CPU blocked by interrupts
-|collectd_cpu_total{...,type_instance='interrupt'}
+|`collectd_cpu_total{...,type_instance='interrupt'}`
 
 |nice
 |Amount of time running low priority processes
-|collectd_cpu_total{...,type_instance='nice'}
+|`collectd_cpu_total{...,type_instance='nice'}`
 
 |softirq
 |Amount of cycles spent in servicing interrupt requests
-|collectd_cpu_total{...,type_instance='waitirq'}
+|`collectd_cpu_total{...,type_instance='waitirq'}`
 
 |steal
 |The percentage of time a virtual CPU waits for a real CPU while the hypervisor is servicing another virtual processor
-|collectd_cpu_total{...,type_instance='steal'}
+|`collectd_cpu_total{...,type_instance='steal'}`
 
 |system
 |Amount of time spent on system level (kernel)
-|collectd_cpu_total{...,type_instance='system'}
+|`collectd_cpu_total{...,type_instance='system'}`
 
 |user
 |Jiffies that user processes use
-|collectd_cpu_total{...,type_instance='user'}
+|`collectd_cpu_total{...,type_instance='user'}`
 
 |wait
 |CPU waiting on outstanding I/O request
-|collectd_cpu_total{...,type_instance='wait'}
+|`collectd_cpu_total{...,type_instance='wait'}`
 |===
 
 .cpu parameters
@@ -480,6 +666,7 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     CollectdExtraPlugins:
@@ -494,29 +681,54 @@ For more information about configuring the `cpu` plugin, see https://collectd.or
 
 [discrete]
 == collectd::plugin::cpufreq
-* None
 
-[discrete]
-== collectd::plugin::cpusleep
+Use the `cpufreq` plugin to collect the current CPU frequency. There are no parameters for this plugin.
 
 [discrete]
 == collectd::plugin::csv
 
-* collectd::plugin::csv::datadir
-* collectd::plugin::csv::storerates
-* collectd::plugin::csv::interval
+The `csv` plugin will write values to a local file in CSV format.
 
+.csv parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|datadir
+|String
+
+|storerates
+|Boolean
+
+|interval
+|Integer
+
+|===
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::curl_json
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::curl
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::curl_xml
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::dbi
+////
 
 [discrete]
 == collectd::plugin::df
@@ -530,45 +742,56 @@ Use the `df` plugin to collect disk space usage information for file systems.
 
 |free
 |Amount of free disk space
-|collectd_df_df_complex{..., type_instance="free"}
+|`collectd_df_df_complex{...,type_instance="free"}`
 
 |reserved
 |Amount of reserved disk space
-|collectd_df_df_complex{..., type_instance="reserved"}
+|`collectd_df_df_complex{...,type_instance="reserved"}`
 
 |used
 |Amount of used disk space
-|collectd_df_df_complex{..., type_instance="used"}
+|`collectd_df_df_complex{...,type_instance="used"}`
 |===
 
 
 .df parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|devices |Array
+|devices
+|Array
 
-|fstypes |Array
+|fstypes
+|Array
 
-|ignoreselected |Boolean
+|ignoreselected
+|Boolean
 
-|mountpoints |Array
+|mountpoints
+|Array
 
-|reportbydevice |Boolean
+|reportbydevice
+|Boolean
 
-|reportinodes |Boolean
+|reportinodes
+|Boolean
 
-|reportreserved |Boolean
+|reportreserved
+|Boolean
 
-|valuesabsolute |Boolean
+|valuesabsolute
+|Boolean
 
-|valuespercentage |Boolean
+|valuespercentage
+|Boolean
 
 |===
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     CollectdExtraPlugins:
@@ -589,11 +812,17 @@ Use the `disk` plugin to collect performance statistics of hard disks and, if su
 .disk parameters
 [cols="30%,70%"]
 |===
-|Parameter | Type
+|Parameter
+|Type
 
-|disks | Array
-|ignoreselected | Boolean
-|udevnameattr | String
+|disks
+|Array
+
+|ignoreselected
+|Boolean
+
+|udevnameattr
+|String
 
 |===
 
@@ -601,18 +830,29 @@ Use the `disk` plugin to collect performance statistics of hard disks and, if su
 .disk metrics
 [cols="30%,70%"]
 |===
-|Name  |Description
+|Name
+|Description
 
-| merged | The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
-| time | The average time an I/O-operation takes to complete. The values might not be fully accurate.
-| io_time | Time spent doing I/Os (ms). You can use this metric as a device load percentage. A value of 1 second matches 100% of load.
-| weighted_io_time | Measure of both I/O completion time and the backlog that might be accumulating.
-| pending_operations | Shows queue size of pending I/O operations.
+|merged
+|The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.
+
+|time
+|The average time an I/O-operation takes to complete. The values might not be fully accurate.
+
+|io_time
+|Time spent doing I/Os (ms). You can use this metric as a device load percentage. A value of 1 second matches 100% of load.
+
+|weighted_io_time
+|Measure of both I/O completion time and the backlog that might be accumulating.
+
+|pending_operations
+|Shows queue size of pending I/O operations.
 
 |===
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     ExtraConfig:
@@ -624,16 +864,23 @@ parameter_defaults:
 
 For more information about configuring the `disk` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk[disk].
 
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::dns
+////
 
 //dpdk_telemetry plugin is not supported
 
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::entropy
-
 * collectd::plugin::entropy::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::ethstat
 
@@ -641,34 +888,50 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 * collectd::plugin::ethstat::maps
 * collectd::plugin::ethstat::mappedonly
 * collectd::plugin::ethstat::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::exec
 * collectd::plugin::exec::commands
 * collectd::plugin::exec::commands_defaults
 * collectd::plugin::exec::globals
 * collectd::plugin::exec::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::fhcount
 * collectd::plugin::fhcount::valuesabsolute
 * collectd::plugin::fhcount::valuespercentage
 * collectd::plugin::fhcount::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::filecount
 * collectd::plugin::filecount::directories
 * collectd::plugin::filecount::interval
+////
 
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::fscache
 * None
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd-hddtemp
 * collectd::plugin::hddtemp::host
 * collectd::plugin::hddtemp::port
 * collectd::plugin::hddtemp::interval
+////
 
 [discrete]
 == collectd::plugin::hugepages
@@ -678,33 +941,57 @@ Use the hugepages plugin to collect hugepages information. This plugin is enable
 .hugepages parameters
 [cols="35%,30%,25%"]
 |===
-|Parameter | Type | Defaults
+|Parameter
+|Type
+|Defaults
 
-|report_per_node_hp |  Boolean | true
-|report_root_hp |  Boolean | true
-|values_pages |  Boolean | true
-|values_bytes |  Boolean | false
-|values_percentage  |  Boolean | false
+|report_per_node_hp
+|Boolean
+|true
+
+|report_root_hp
+|Boolean
+|true
+
+|values_pages
+|Boolean
+|true
+
+|values_bytes
+|Boolean
+|false
+
+|values_percentage
+|Boolean
+|false
+
 |===
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::hugepages::values_percentage: true
+  ExtraConfig:
+    collectd::plugin::hugepages::values_percentage: true
 ----
 
 .Additional resources
 
 * For more information about configuring the `hugepages` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_hugepages[hugepages].
 
-//[discrete]
-//== collectd::plugin::intel_pmu
-// needs ALOT of work before it can be used
+////
+// needs A LOT of work before it can be used
+[discrete]
+== collectd::plugin::intel_pmu
+////
 
+
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::intel_rdt
+////
 
 [discrete]
 == collectd::plugin::interface
@@ -712,33 +999,50 @@ parameter_defaults:
 Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.
 
 .interface parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter | Type | Default
+|Parameter
+|Type
+|Default
 
-|interfaces | Array | []
-|ignoreselected | Boolean | false
-|reportinactive | Boolean | true
+|interfaces
+|Array
+|[]
+
+|ignoreselected
+|Boolean
+|false
+
+|reportinactive
+|Boolean
+|true
 
 |===
 
 .Example configuration:
+[source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::interface::interfaces:
-           - lo
-        collectd::plugin::interface::ignoreselected: true
+  ExtraConfig:
+    collectd::plugin::interface::interfaces:
+      - lo
+    collectd::plugin::interface::ignoreselected: true
 ----
 
 .Additional resources
 
 * For more information about configuring the `interfaces` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_interfaces[interfaces].
 
+////
+// No information available for plugin. Not recommended for use.
 [discrete]
 == collectd::plugin::ipc
 * None
+////
 
+
+////
+// TODO: test if this is valid for any IPMI hardware.
 [discrete]
 == collectd::plugin::ipmi
 * collectd::plugin::ipmi::ignore_selected
@@ -747,15 +1051,22 @@ parameter_defaults:
 * collectd::plugin::ipmi::notify_sensor_not_present
 * collectd::plugin::ipmi::sensors
 * collectd::plugin::ipmi::interval
+////
 
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::iptables
+////
 
+////
+// Not a recommended plugin.
 [discrete]
 == collectd::plugin::irq
 * collectd::plugin::irq::irqs
 * collectd::plugin::irq::ignoreselected
 * collectd::plugin::irq::interval
+////
 
 [discrete]
 == collectd::plugin::load
@@ -765,17 +1076,20 @@ Use the `load` plugin to collect the system load and an overview of the system u
 .plugin parameters
 [cols="50%,50%"]
 |===
-|Parameter | Type
+|Parameter
+|Type
 
-|report_relative | Boolean
+|report_relative
+|Boolean
 
 |===
 
 .Example configuration:
+[source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::load::report_relative: false
+  ExtraConfig:
+    collectd::plugin::load::report_relative: false
 ----
 
 .Additional resources
@@ -783,6 +1097,8 @@ parameter_defaults:
 * For more information about configuring the `load` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_load[load].
 
 
+////
+// Not recommended to be changed beyond defaults.
 [discrete]
 == collectd::plugin::logfile
 * collectd::plugin::logfile::log_level
@@ -790,13 +1106,22 @@ parameter_defaults:
 * collectd::plugin::logfile::log_timestamp
 * collectd::plugin::logfile::print_severity
 * collectd::plugin::logfile::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::log_logstash
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::madwifi
+////
 
+// Not recommended for use.
+////
 [discrete]
 == collectd::plugin::match_empty_counter
 
@@ -811,9 +1136,14 @@ parameter_defaults:
 
 [discrete]
 == collectd::plugin::match_value
+////
 
+////
+// Not recommended for use as dependencies are required to be running on server.
 [discrete]
 == collectd::plugin::mbmon
+////
+
 
 [discrete]
 == collectd::plugin::mcelog
@@ -823,15 +1153,19 @@ Use the `mcelog` plugin to send notifications and statistics that are relevant t
 .mcelog parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|Mcelogfile |String
+|Mcelogfile
+|String
 
-|Memory |Hash { mcelogclientsocket[string], persistentnotification[boolean] }
+|Memory
+|Hash `{ mcelogclientsocket[string], persistentnotification[boolean] }`
 
 |===
 
 .Example configuration:
+[source,yaml]
 ----
 parameter_defaults:
     CollectdExtraPlugins: mcelog
@@ -841,17 +1175,54 @@ parameter_defaults:
 .Additional resources
 * For more information about configuring the `mcelog` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_mcelog[mcelog].
 
+////
+// Not recommended for use in OpenStack.
 [discrete]
 == collectd::plugin::md
+////
 
+////
+// Not recommended for use currently. Requires additional testing and validation.
 [discrete]
 == collectd::plugin::memcachec
+////
 
 [discrete]
 == collectd::plugin::memcached
 
-* collectd::plugin::memcached::instances
-* collectd::plugin::memcached::interval
+Use the `memcached` plugin to retrieve information about memcached cache usage, memory, and other related information.
+
+.memcached parameters
+[cols="50%,50%"]
+|===
+
+|Parameter
+|Type
+
+|instances
+|Hash
+
+|interval
+|Integer
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - memcached
+
+  ExtraConfig:
+    collectd::plugin::memcached::instances:
+      local:
+        host: "%{hiera('fqdn_canonical')}"
+        port: 11211
+----
+
+.Additional resources
+* For more information about configuring the `memcached` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_memcached[memcached].
 
 [discrete]
 == collectd::plugin::memory
@@ -861,33 +1232,46 @@ The `memory` plugin provides information about the memory of the system.  This p
 .memory parameters
 [cols="50%,50%"]
 |===
-|Parameter | Type
+|Parameter
+|Type
 
-|valuesabsolute | Boolean
-|valuespercentage | Boolean
+|valuesabsolute
+|Boolean
+
+|valuespercentage
+|Boolean
 
 |===
 
 .Example configuration:
+[source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::memory::valuesabsolute: true
-        collectd::plugin::memory::valuespercentage: false
+  ExtraConfig:
+    collectd::plugin::memory::valuesabsolute: true
+    collectd::plugin::memory::valuespercentage: false
 ----
 
 .Additional resources
 
 * For more information about configuring the `memory` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_memory[memory].
 
+////
+// This plugin doesn't make sense to use with OpenStack.
 [discrete]
 == collectd::plugin::multimeter
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::mysql
 
 * collectd::plugin::mysql::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::netlink
 * collectd::plugin::netlink::interfaces
@@ -897,7 +1281,10 @@ parameter_defaults:
 * collectd::plugin::netlink::filters
 * collectd::plugin::netlink::ignoreselected
 * collectd::plugin::netlink::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::network
 
@@ -908,33 +1295,89 @@ parameter_defaults:
 * collectd::plugin::network::listeners
 * collectd::plugin::network::servers
 * collectd::plugin::network::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::nfs
 * collectd::plugin::nfs::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::notify_nagios
+////
+
 
 [discrete]
 == collectd::plugin::ntpd
 
-* collectd::plugin::ntpd::host
-* collectd::plugin::ntpd::port
-* collectd::plugin::ntpd::reverselookups
-* collectd::plugin::ntpd::includeunitid
-* collectd::plugin::ntpd::interval
+Use the `ntpd` plugin to query a local NTP server that has been configured to allow access to statistics, and retrieves information about the configured parameters and the time sync status.
 
+.ntpd parameters
+
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|host
+|Hostname
+
+|port
+|Port number (Integer)
+
+|reverselookups
+|Boolean
+
+|includeunitid
+|Boolean
+
+|interval
+|Integer
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - ntpd
+
+  ExtraConfig:
+    collectd::plugin::ntpd::hostname: localhost
+    collectd::plugin::ntpd::port: 123
+    collectd::plugin::ntpd::reverselookups: false
+    collectd::plugin::ntpd::includeunitid: false
+----
+
+.Additional resources
+* For more information about configuring the `ntpd` plugin, see https://collectd.org/wiki/index.php/Plugin:NTPd[ntpd].
+
+////
+// Not recommended for use. Not enough information to document.
 [discrete]
 == collectd::plugin::numa
 * None
+////
 
+////
+// Does not make sense in an OpenStack context.
 [discrete]
 == collectd::plugin::olsrd
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::openldap
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::openvpn
 
@@ -944,6 +1387,7 @@ parameter_defaults:
 * collectd::plugin::openvpn::collectindividualusers
 * collectd::plugin::openvpn::collectusercount
 * collectd::plugin::openvpn::interval
+////
 
 [discrete]
 == collectd::plugin::ovs_stats
@@ -971,6 +1415,7 @@ Use the `ovs_stats` plugin to collect statistics of OVS-connected interfaces. Th
 
 .Example configuration:
 The following example shows how to enable the `ovs_stats` plugin. If you deploy your overcloud with OVS, you do not need to enable the `ovs_stats` plugin.
+[source,yaml]
 ----
     parameter_defaults:
         CollectdExtraPlugins:
@@ -983,6 +1428,8 @@ The following example shows how to enable the `ovs_stats` plugin. If you deploy 
 
 * For more information about configuring the `ovs_stats` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats[ovs_stats].
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::pcie_errors
 
@@ -991,15 +1438,20 @@ Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced 
 .pcie_errors parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|source |Enum (sysfs, proc)
+|source
+|Enum (sysfs, proc)
 
-|access |String
+|access
+|String
 
-|reportmasked |Boolean
+|reportmasked
+|Boolean
 
-|persistent_notifications |Boolean
+|persistent_notifications
+|Boolean
 |===
 
 .Example configuration:
@@ -1007,13 +1459,16 @@ Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced 
 ----
 parameter_defaults:
     CollectdExtraPlugins:
-       - pcie_errors
+    - pcie_errors
 ----
 
 .Additional resources
 
 * For more information about configuring the `pcie_errors` plugin, see https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors[pcie_errors].
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::ping
 * collectd::plugin::ping::hosts
@@ -1024,7 +1479,10 @@ parameter_defaults:
 * collectd::plugin::ping::max_missed
 * collectd::plugin::ping::size
 * collectd::plugin::ping::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::powerdns
 * collectd::plugin::powerdns::interval
@@ -1032,6 +1490,7 @@ parameter_defaults:
 * collectd::plugin::powerdns::recursors
 * collectd::plugin::powerdns::local_socket
 * collectd::plugin::powerdns::interval
+////
 
 [discrete]
 == collectd::plugin::processes
@@ -1041,13 +1500,23 @@ The `processes` plugin provides information about system processes. This plugin 
 .plugin parameters
 [cols="50%,50%"]
 |===
-|Parameter | Type
+|Parameter
+|Type
 
-|processes | Array
-|process_matches | Array
-|collect_context_switch | Boolean
-|collect_file_descriptor | Boolean
-|collect_memory_maps | Boolean
+|processes
+|Array
+
+|process_matches
+|Array
+
+|collect_context_switch
+|Boolean
+
+|collect_file_descriptor
+|Boolean
+
+|collect_memory_maps
+|Boolean
 
 |===
 
@@ -1055,36 +1524,79 @@ The `processes` plugin provides information about system processes. This plugin 
 
 
 .Additional resources
-
 * For more information about configuring the `processes` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_processes[processes].
 
 
-
-
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::protocols
 * collectd::plugin::protocols::ignoreselected
 * collectd::plugin::protocols::values
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::python
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::sensors
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::serial
+////
 
 [discrete]
 == collectd::plugin::smart
 
-* collectd::plugin::smart::disks
-* collectd::plugin::smart::ignoreselected
-* collectd::plugin::smart::interval
+The `smart` plugin collects SMART information from physical disks on the node.
 
+.smart parameters
+
+[cols="50%,50%"]
+|===
+
+|Parameter
+|Type
+
+|disks
+|Array
+
+|ignoreselected
+|Boolean
+
+|interval
+|Integer
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - smart
+----
+
+.Additional information
+* For more information about configuring the `smart` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_smart[smart].
+
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::snmp
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::snmp_agent
 
@@ -1104,7 +1616,10 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml
 .Additional resources:
 
 For more information about how to configure `snmp_agent`, see  https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_snmp_agent[snmp_agent].
+////
 
+////
+// Not recommended for use. Requires additional software.
 [discrete]
 == collectd::plugin::statsd
 * collectd::plugin::statsd::host
@@ -1120,84 +1635,212 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 * collectd::plugin::statsd::timersum
 * collectd::plugin::statsd::timercount
 * collectd::plugin::statsd::interval
+////
 
 [discrete]
 == collectd::plugin::swap
-* collectd::plugin::swap::reportbydevice
-* collectd::plugin::swap::reportbytes
-* collectd::plugin::swap::valuesabsolute
-* collectd::plugin::swap::valuespercentage
-* collectd::plugin::swap::reportio
-* collectd::plugin::swap::interval
 
+The `swap` plugin collects information about the available and used swap space.
+
+.swap parameters
+
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|reportbydevice
+|Boolean
+
+|reportbytes
+|Boolean
+
+|valuesabsolute
+|Boolean
+
+|valuespercentage
+|Boolean
+
+|reportio
+|Boolean
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - swap
+
+  ExtraConfig:
+    collectd::plugin::swap::reportbydevice: false
+    collectd::plugin::swap::reportbytes: true
+    collectd::plugin::swap::valuesabsolute: true
+    collectd::plugin::swap::valuespercentage: false
+    collectd::plugin::swap::reportio: true
+----
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::sysevent
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::syslog
 
 * collectd::plugin::syslog::log_level
 * collectd::plugin::syslog::notify_level
 * collectd::plugin::syslog::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::table
 
 * collectd::plugin::table::tables
 * collectd::plugin::table::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::tail
 
 * collectd::plugin::tail::files
 * collectd::plugin::tail::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::tail_csv
 * collectd::plugin::tail_csv::metrics
 * collectd::plugin::tail_csv::files
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::target_notification
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::target_replace
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::target_scale
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::target_set
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::target_v5upgrade
+////
 
 [discrete]
 == collectd::plugin::tcpconns
 
-* collectd::plugin::tcpconns::localports
-* collectd::plugin::tcpconns::remoteports
-* collectd::plugin::tcpconns::listening
-* collectd::plugin::tcpconns::allportssummary
-* collectd::plugin::tcpconns::interval
+The `tcpconns` plugin collects information about the number of TCP connections inbound or outbound from the configured port. The local port configuration represents the inbound connections to the port. The remote port configuration represents the outbound connections from the port.
 
+.tcpconns parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|localports
+|Port (Array)
+
+|remoteports
+|Port (Array)
+
+|listening
+|Boolean
+
+|allportssummary
+|Boolean
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - tcpconns
+
+  ExtraConfig:
+    collectd::plugin::tcpconns::listening: false
+    collectd::plugin::tcpconns::localports:
+    - 22
+    collectd::plugin::tcpconns::remoteports:
+    - 22
+----
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::ted
+////
 
 [discrete]
 == collectd::plugin::thermal
 
-* collectd::plugin::thermal::devices
-* collectd::plugin::thermal::ignoreselected
-* collectd::plugin::thermal::interval
+The `thermal` plugin reads ACPI thermal zone information.
 
+.thermal parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|devices
+|Array
+
+|ignoreselected
+|Boolean
+
+|interval
+|Integer
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - thermal
+----
+
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::threshold
 * collectd::plugin::threshold::types
 * collectd::plugin::threshold::plugins
 * collectd::plugin::threshold::hosts
 * collectd::plugin::threshold::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::turbostat
 * collectd::plugin::turbostat::core_c_states
@@ -1207,61 +1850,95 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 * collectd::plugin::turbostat::tcc_activation_temp
 * collectd::plugin::turbostat::running_average_power_limit
 * collectd::plugin::turbostat::logical_core_names
+////
 
+////
+// Not recommended to be configured beyond defaults.
 [discrete]
 == collectd::plugin::unixsock
+////
+
 
 [discrete]
 == collectd::plugin::uptime
 
-* collectd::plugin::uptime::interval
+The `uptime` plugin collects information about system uptime. This plugin is enabled by default.
 
+.uptime parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|interval
+|Integer
+|===
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::users
 * collectd::plugin::users::interval
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::uuid
 * collectd::plugin::uuid::uuid_file
 * collectd::plugin::uuid::interval
+////
 
 [discrete]
 == collectd::plugin::virt
 
-Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
+Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host. This plugin is enabled by default on compute hosts.
 
 .virt parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|connection |String
+|connection
+|String
 
-|refresh_interval |Hash
+|refresh_interval
+|Hash
 
-|domain |String
+|domain
+|String
 
-|block_device |String
+|block_device
+|String
 
-|interface_device |String
+|interface_device
+|String
 
-|ignore_selected |Boolean
+|ignore_selected
+|Boolean
 
-|plugin_instance_format |String
+|plugin_instance_format
+|String
 
-|hostname_format |String
+|hostname_format
+|String
 
-|interface_format |String
+|interface_format
+|String
 
-|extra_stats |String
+|extra_stats
+|String
 
 |===
 
 .Example configuration:
 
+[source,yaml]
 ----
 ExtraConfig:
-    collectd::plugin::virt::plugin_instance_format: name
+  collectd::plugin::virt::hostname_format: "name uuid hostname"
+  collectd::plugin::virt::plugin_instance_format: metadata
 ----
 
 .Additional resources
@@ -1271,21 +1948,54 @@ For more information about configuring the `virt` plugin, see https://collectd.o
 [discrete]
 == collectd::plugin::vmem
 
-* collectd::plugin::vmem::verbose
-* collectd::plugin::vmem::interval
+The `vmem` plugin collects information about virtual memory from the kernel subsystem.
 
+.vmem parameters
+[cols="50%,50%"]
+|===
+|Parameter
+|Type
+
+|verbose
+|Boolean
+
+|inverval
+|Integer
+
+|===
+
+.Example configuration:
+[source,yaml]
+----
+parameter_defaults:
+  CollectdExtraPlugins:
+  - vmem
+
+  ExtraConfig:
+    collectd::plugin::vmem::verbose: true
+----
+
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::vserver
+////
 
+////
+// Not recommended for use and unlikley to be applicable to OpenStack deployments.
 [discrete]
 == collectd::plugin::wireless
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::write_graphite
 
 * collectd::plugin::write_graphite::carbons
 * collectd::plugin::write_graphite::carbon_defaults
 * collectd::plugin::write_graphite::globals
+////
 
 [discrete]
 == collectd::plugin::write_http
@@ -1295,7 +2005,8 @@ Use the `write_http` output plugin to submit values to an HTTP server by using P
 .write_http parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
 |ensure
 |Enum['present', 'absent']
@@ -1313,6 +2024,7 @@ Use the `write_http` output plugin to submit values to an HTTP server by using P
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     CollectdExtraPlugins:
@@ -1332,55 +2044,65 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::write_kafka
 
-Use the `write_kafka` plugin to send values to a Kafka topic. Configure the `write_kafka` plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:
+Use the `write_kafka` plugin to send values to a Kafka topic. Configure the
+`write_kafka` plugin with one or more topic blocks. For each topic block, you
+must specify a unique name and one Kafka producer. You can use the following
+per-topic parameters inside the topic block:
 
 .write_kafka parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter
+|Type
 
-|kafka_hosts |Array[String]
+|kafka_hosts
+|Array[String]
 
-|kafka_port |Integer
+|topics
+|Hash
 
-|topics |Hash
+|properties
+|Hash
 
-|properties |Hash
-
-|meta |Hash
+|meta
+|Hash
 
 |===
 
 .Example configuration:
 
+[source,yaml]
 ----
 parameter_defaults:
     CollectdExtraPlugins:
        - write_kafka
     ExtraConfig:
       collectd::plugin::write_kafka::kafka_hosts:
-        - nodeA
-        - nodeB
+        - remote.tld:9092
       collectd::plugin::write_kafka::topics:
-        some_events:
+        mytopic:
           format: JSON
-
 ----
 
 .Additional resources:
 
 For more information about how to configure the `write_kafka` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka[write_kafka].
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::write_log
 
 * collectd::plugin::write_log::format
+////
 
+////
+// Not recommended for use.
 [discrete]
 == collectd::plugin::zfs_arc
 
 * None
-
+////
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
