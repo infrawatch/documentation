@@ -117,7 +117,7 @@ Deploy three aggregate configurations which results in generation of files:
 . aggregator-calcCpuLoadMinMax.conf
 . aggregator-calcMemoryTotalMaxAvg.conf
 
-The aggregation configurations make use of the default CPU and Memory plugin configurations. The following aggregations are created:
+The aggregation configurations use the default CPU and Memory plugin configurations. The following aggregations are created:
 . Calculate average CPU load for all CPU cores grouped by host and state.
 . Calculate minimum and maxiumum CPU load groups by host and state.
 . Calculate maximum, average, and total for memory grouped by type.
