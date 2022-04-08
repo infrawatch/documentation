@@ -4485,15 +4485,130 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <div class="paragraph">
 <p>You can aggregate several values into one with the <code>aggregation</code> plugin. Use the aggregation functions such as <code>sum</code>, <code>average</code>, <code>min</code>, and <code>max</code> to calculate metrics, for example average and total CPU statistics.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::aggregation::aggregators</p>
-</li>
-<li>
-<p>collectd::plugin::aggregation::interval</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. aggregation parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plugin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plugininstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">agg_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">typeinstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sethost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">setplugin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">setplugininstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">settypeinstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupby</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array of Strings</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculatesum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculatenum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculateaverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculateminimum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculatemaximum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">calculatestddev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<div class="title">Example configuration:</div>
+<p>Deploy three aggregate configurations which results in generation of files:
+. aggregator-calcCpuLoadAvg.conf
+. aggregator-calcCpuLoadMinMax.conf
+. aggregator-calcMemoryTotalMaxAvg.conf</p>
+</div>
+<div class="paragraph">
+<p>The aggregation configurations use the default CPU and Memory plugin configurations. The following aggregations are created:
+. Calculate average CPU load for all CPU cores grouped by host and state.
+. Calculate minimum and maxiumum CPU load groups by host and state.
+. Calculate maximum, average, and total for memory grouped by type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>parameter_defaults:
+  CollectdExtraPlugins:
+    - aggregation
+
+  ExtraConfig:
+    collectd::plugin::aggregation::aggregators:
+      calcCpuLoadAvg:
+        plugin: "cpu"
+        agg_type: "cpu"
+        groupby:
+          - "Host"
+          - "TypeInstance"
+        calculateaverage: True
+      calcCpuLoadMinMax:
+        plugin: "cpu"
+        agg_type: "cpu"
+        groupby:
+          - "Host"
+          - "TypeInstance"
+        calculatemaximum: True
+        calculateminimum: True
+      calcMemoryTotalMaxAvg:
+        plugin: "memory"
+        agg_type: "memory"
+        groupby:
+          - "TypeInstance"
+        calculatemaximum: True
+        calculateaverage: True
+        calculatesum: True</pre>
+</div>
 </div>
 <h3 id="_collectdpluginampq" class="discrete">collectd::plugin::ampq</h3>
 <h3 id="_collectdpluginamqp1" class="discrete">collectd::plugin::amqp1</h3>
@@ -4501,7 +4616,7 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <p>Use the <code>amqp1</code> plugin to write values to an amqp1 message bus, for example, Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. amqp1 parameters</caption>
+<caption class="title">Table 3. amqp1 parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4574,7 +4689,7 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <p>Use the <code>apache</code> plugin to collect Apache data.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. apache parameters</caption>
+<caption class="title">Table 4. apache parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4623,7 +4738,7 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <p>Use the <code>battery</code> plugin to report the remaining capacity, power, or voltage of laptop batteries.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. battery parameters</caption>
+<caption class="title">Table 5. battery parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4666,7 +4781,7 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <p>Use the <code>ceph</code> plugin to gather data from ceph daemons.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. ceph parameters</caption>
+<caption class="title">Table 6. ceph parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4746,7 +4861,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the Ceph node
 <p>Use the <code>cgroups</code> plugin to collect information for processes in a cgroup.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. cgroups parameters</caption>
+<caption class="title">Table 7. cgroups parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4793,7 +4908,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. connectivity parameters</caption>
+<caption class="title">Table 8. connectivity parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4848,7 +4963,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>To report a percentage value, set the Boolean parameters <code>reportbycpu</code> and <code>reportbystate</code> to <code>true</code>, and then set the Boolean parameter <code>valuespercentage</code> to true.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. cpu metrics</caption>
+<caption class="title">Table 9. cpu metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -4905,7 +5020,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. cpu parameters</caption>
+<caption class="title">Table 10. cpu parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -4993,7 +5108,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>df</code> plugin to collect disk space usage information for file systems.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. df metrics</caption>
+<caption class="title">Table 11. df metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -5025,7 +5140,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. df parameters</caption>
+<caption class="title">Table 12. df parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5094,7 +5209,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>disk</code> plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. disk parameters</caption>
+<caption class="title">Table 13. disk parameters</caption>
 <colgroup>
 <col style="width: 30%;"/>
 <col style="width: 70%;"/>
@@ -5121,7 +5236,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. disk metrics</caption>
+<caption class="title">Table 14. disk metrics</caption>
 <colgroup>
 <col style="width: 30%;"/>
 <col style="width: 70%;"/>
@@ -5263,7 +5378,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. hugepages parameters</caption>
+<caption class="title">Table 15. hugepages parameters</caption>
 <colgroup>
 <col style="width: 38.8888%;"/>
 <col style="width: 33.3333%;"/>
@@ -5326,7 +5441,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>interface</code> plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. interface parameters</caption>
+<caption class="title">Table 16. interface parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5429,7 +5544,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>load</code> plugin to collect the system load and an overview of the system use. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. plugin parameters</caption>
+<caption class="title">Table 17. plugin parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5496,7 +5611,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>mcelog</code> plugin to send notifications and statistics that are relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and enable logging capabilities.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. mcelog parameters</caption>
+<caption class="title">Table 18. mcelog parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5552,7 +5667,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>The <code>memory</code> plugin provides information about the memory of the system.  This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. memory parameters</caption>
+<caption class="title">Table 19. memory parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5719,7 +5834,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. ovs_stats parameters</caption>
+<caption class="title">Table 20. ovs_stats parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5775,7 +5890,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. pcie_errors parameters</caption>
+<caption class="title">Table 21. pcie_errors parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5875,7 +5990,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>The <code>processes</code> plugin provides information about system processes. This plugin is enabled by default.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. plugin parameters</caption>
+<caption class="title">Table 22. plugin parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6196,7 +6311,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. virt parameters</caption>
+<caption class="title">Table 23. virt parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6293,7 +6408,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. write_http parameters</caption>
+<caption class="title">Table 24. write_http parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6350,7 +6465,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. write_kafka parameters</caption>
+<caption class="title">Table 25. write_kafka parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6424,7 +6539,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-09 03:48:10 UTC
+Last updated 2022-04-08 12:23:58 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
