@@ -204,6 +204,10 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 |Integer
 |===
 
+The `send_queue_limit` parameter is used to limit the length of the queue to store outgoing metrics. If there is no
+AMQP1 connection, the plugin will continue to queue messages to send, which can result in unbounded memory consumption.
+The default value is 0, which disables this feature. If metrics are missing, it may make sense to increase the parameter.
+
 .Example configuration:
 
 ----
@@ -211,7 +215,7 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
     CollectdExtraPlugins:
       - amqp1
     ExtraConfig:
-      collectd::plugin::amqp1::send_queue_limit: 50
+      collectd::plugin::amqp1::send_queue_limit: 5000
 ----
 
 [discrete]
