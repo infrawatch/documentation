@@ -206,7 +206,9 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 
 Use the `send_queue_limit` parameter to limit the length of the outgoing metrics queue. If there is no
 [NOTE] If there is no AMQP1 connection, the plugin continues to queue messages to send, which can result in unbounded memory consumption.
-The default value is 0, which disables this feature. If metrics are missing, it may make sense to increase the parameter.
+The default value is 0, which disables the outgoing metrics queue. 
+
+Increase the value of the `send_queue_limit` parameter if metrics are missing.
 
 .Example configuration:
 
