@@ -204,7 +204,7 @@ Use the `amqp1` plugin to write values to an amqp1 message bus, for example, {Me
 |Integer
 |===
 
-Use the `send_queue_limit` parameter to limit the length of the outgoing metrics queue. If there is no
+Use the `send_queue_limit` parameter to limit the length of the outgoing metrics queue.
 [NOTE] If there is no AMQP1 connection, the plugin continues to queue messages to send, which can result in unbounded memory consumption.
 The default value is 0, which disables the outgoing metrics queue. 
 
