@@ -687,7 +687,7 @@ Use the `cpufreq` plugin to collect the current CPU frequency. There are no para
 [discrete]
 == collectd::plugin::csv
 
-The `csv` plugin writes values to a local file in CSV format.
+Use the `csv` plugin to write values to a local file in CSV format.
 
 .csv parameters
 [cols="50%,50%"]
