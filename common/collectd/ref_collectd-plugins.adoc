@@ -584,7 +584,7 @@ Use the `conntrack` plugin to track the number of entries in the Linux connectio
 [discrete]
 == collectd::plugin::contextswitch
 
-Use the `ContextSwitch` plugin to collect the number of context switches that the system handles. The only parameter available is `interval` which is a polling interval defined in seconds.
+Use the `ContextSwitch` plugin to collect the number of context switches that the system handles. The only parameter available is `interval`, which is a polling interval defined in seconds.
 
 .Additional resources
 
