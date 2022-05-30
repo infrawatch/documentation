@@ -331,7 +331,7 @@ Use the `apache` plugin to collect Apache data from the mod_status plugin provid
 
 .Example configuration:
 
-In the provided example, the instance name is `localhost` which connects to the Apache web server at http://10.0.0.111/mod_status?auto. You must append `?auto` to the end of the URL otherwise the status page will be returned as a type incompatible with the plugin.
+In this example, the instance name is `localhost`, which connects to the Apache web server at http://10.0.0.111/mod_status?auto. You must append `?auto` to the end of the URL to prevent the status page returning as a type that is incompatible with the plugin.
 
 [source,yaml]
 ----
