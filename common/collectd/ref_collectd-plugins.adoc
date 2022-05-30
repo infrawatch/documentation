@@ -276,7 +276,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::apache
 
-Use the `apache` plugin to collect Apache data from the mod_status plugin provided by the Apache web server. Each instance provided is connected to per `interval` value specified in seconds. If provided, the `timeout` interval parameter for an instance is specified in milliseconds.
+Use the `apache` plugin to collect Apache data from the `mod_status` plugin that is provided by the Apache web server. Each instance provided has a per-`interval` value specified in seconds. If you provide the `timeout` interval parameter for an instance, the value is in milliseconds.
 
 .apache parameters
 [cols="50%,50%"]
