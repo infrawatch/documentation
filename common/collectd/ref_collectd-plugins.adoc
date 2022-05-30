@@ -1862,7 +1862,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::uptime
 
-The `uptime` plugin collects information about system uptime. This plugin is enabled by default.
+Use the `uptime` plugin to collect information about system uptime. This plugin is enabled by default.
 
 .uptime parameters
 [cols="50%,50%"]
