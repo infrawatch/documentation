@@ -1948,7 +1948,7 @@ For more information about configuring the `virt` plugin, see https://collectd.o
 [discrete]
 == collectd::plugin::vmem
 
-The `vmem` plugin collects information about virtual memory from the kernel subsystem.
+Use the `vmem` plugin to collect information about virtual memory from the kernel subsystem.
 
 .vmem parameters
 [cols="50%,50%"]
