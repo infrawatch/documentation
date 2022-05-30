@@ -1756,7 +1756,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::tcpconns
 
-The `tcpconns` plugin collects information about the number of TCP connections inbound or outbound from the configured port. The local port configuration represents the inbound connections to the port. The remote port configuration represents the outbound connections from the port.
+Use the `tcpconns` plugin to collect information about the number of TCP connections inbound or outbound from the configured port. The local port configuration represents the inbound connections to the port. The remote port configuration represents the outbound connections from the port.
 
 .tcpconns parameters
 [cols="50%,50%"]
