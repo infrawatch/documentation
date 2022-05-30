@@ -157,7 +157,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::ampq
 
-Use the `amqp` plugins to publish messages to an AMQP0.9 compatible message bus (such as RabbitMQ) for consumption by Graphite. Statically defines the topic of `graphite`.
+Use the `amqp` plugin to publish messages to an AMQP0.9 compatible message bus, for example RabbitMQ, for consumption by Graphite.  This plugin statically defines the topic of `graphite`.
 
 .amqp parameters
 [cols="50%,50%"]
