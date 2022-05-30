@@ -1640,7 +1640,7 @@ For more information about how to configure `snmp_agent`, see  https://collectd.
 [discrete]
 == collectd::plugin::swap
 
-The `swap` plugin collects information about the available and used swap space.
+Use the `swap` plugin to collect information about the available and used swap space.
 
 .swap parameters
 
