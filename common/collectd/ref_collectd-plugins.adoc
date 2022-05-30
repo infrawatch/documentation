@@ -1556,7 +1556,7 @@ The `processes` plugin provides information about system processes. This plugin 
 [discrete]
 == collectd::plugin::smart
 
-The `smart` plugin collects SMART information from physical disks on the node.
+Use the `smart` plugin to collect SMART information from physical disks on the node.
 
 .smart parameters
 
