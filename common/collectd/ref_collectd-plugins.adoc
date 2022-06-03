@@ -154,8 +154,10 @@ parameter_defaults:
         calculatesum: True
 ----
 
+////
+// Not recommended for use.
 [discrete]
-== collectd::plugin::ampq
+== collectd::plugin::amqp
 
 Use the `amqp` plugin to publish messages to an AMQP0.9 compatible message bus, for example RabbitMQ, for consumption by Graphite.  This plugin statically defines the topic of `graphite`.
 
@@ -209,6 +211,8 @@ Use the `amqp` plugin to publish messages to an AMQP0.9 compatible message bus, 
 |graphitealwaysappendds
 |Boolean
 |===
+
+////
 
 [discrete]
 == collectd::plugin::amqp1
@@ -281,8 +285,7 @@ Use the `apache` plugin to collect Apache data from the `mod_status` plugin that
 .apache parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |instances
 |Hash
@@ -300,8 +303,7 @@ Use the `apache` plugin to collect Apache data from the `mod_status` plugin that
 .apache instances parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |url
 |HTTP URL
@@ -380,8 +382,7 @@ Use the `bind` plugin to retrieve encoded statistics about queries and responses
 .bind parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |url
 |HTTP URL
@@ -418,8 +419,7 @@ Use the `bind` plugin to retrieve encoded statistics about queries and responses
 .bind views parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |name
 |String
@@ -477,8 +477,7 @@ Use the `ceph` plugin to gather data from ceph daemons.
 .ceph parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |daemons
 |Array
@@ -692,8 +691,7 @@ Use the `csv` plugin to write values to a local file in CSV format.
 .csv parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |datadir
 |String
@@ -757,8 +755,7 @@ Use the `df` plugin to collect disk space usage information for file systems.
 .df parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |devices
 |Array
@@ -812,8 +809,7 @@ Use the `disk` plugin to collect performance statistics of hard disks and, if su
 .disk parameters
 [cols="30%,70%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |disks
 |Array
@@ -941,9 +937,7 @@ Use the hugepages plugin to collect hugepages information. This plugin is enable
 .hugepages parameters
 [cols="35%,30%,25%"]
 |===
-|Parameter
-|Type
-|Defaults
+|Parameter |Type |Defaults
 
 |report_per_node_hp
 |Boolean
@@ -1001,9 +995,7 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 .interface parameters
 [cols="35%,30%,25%"]
 |===
-|Parameter
-|Type
-|Default
+|Parameter |Type |Default
 
 |interfaces
 |Array
@@ -1076,8 +1068,7 @@ Use the `load` plugin to collect the system load and an overview of the system u
 .plugin parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |report_relative
 |Boolean
@@ -1153,8 +1144,7 @@ Use the `mcelog` plugin to send notifications and statistics that are relevant t
 .mcelog parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |Mcelogfile
 |String
@@ -1196,8 +1186,7 @@ Use the `memcached` plugin to retrieve information about memcached cache usage, 
 [cols="50%,50%"]
 |===
 
-|Parameter
-|Type
+|Parameter |Type
 
 |instances
 |Hash
@@ -1232,8 +1221,7 @@ The `memory` plugin provides information about the memory of the system.  This p
 .memory parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |valuesabsolute
 |Boolean
@@ -1320,8 +1308,7 @@ Use the `ntpd` plugin to query a local NTP server that has been configured to al
 
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |host
 |Hostname
@@ -1438,8 +1425,7 @@ Use the `pcie_errors` plugin to poll PCI config space for baseline and Advanced 
 .pcie_errors parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |source
 |Enum (sysfs, proc)
@@ -1500,8 +1486,7 @@ The `processes` plugin provides information about system processes. This plugin 
 .plugin parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |processes
 |Array
@@ -1563,8 +1548,7 @@ Use the `smart` plugin to collect SMART information from physical disks on the n
 [cols="50%,50%"]
 |===
 
-|Parameter
-|Type
+|Parameter |Type
 
 |disks
 |Array
@@ -1646,8 +1630,7 @@ Use the `swap` plugin to collect information about the available and used swap s
 
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |reportbydevice
 |Boolean
@@ -1761,8 +1744,7 @@ Use the `tcpconns` plugin to collect information about the number of TCP connect
 .tcpconns parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |localports
 |Port (Array)
@@ -1807,8 +1789,7 @@ The `thermal` plugin reads ACPI thermal zone information.
 .thermal parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |devices
 |Array
@@ -1867,8 +1848,7 @@ Use the `uptime` plugin to collect information about system uptime. This plugin 
 .uptime parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |interval
 |Integer
@@ -1897,8 +1877,7 @@ Use the `virt` plugin to collect CPU, disk, network load, and other metrics thro
 .virt parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |connection
 |String
@@ -1953,8 +1932,7 @@ Use the `vmem` plugin to collect information about virtual memory from the kerne
 .vmem parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |verbose
 |Boolean
@@ -2005,8 +1983,7 @@ Use the `write_http` output plugin to submit values to an HTTP server by using P
 .write_http parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |ensure
 |Enum['present', 'absent']
@@ -2052,8 +2029,7 @@ per-topic parameters inside the topic block:
 .write_kafka parameters
 [cols="50%,50%"]
 |===
-|Parameter
-|Type
+|Parameter |Type
 
 |kafka_hosts
 |Array[String]
