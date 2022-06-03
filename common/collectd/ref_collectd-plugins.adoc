@@ -1338,7 +1338,7 @@ parameter_defaults:
   - ntpd
 
   ExtraConfig:
-    collectd::plugin::ntpd::hostname: localhost
+    collectd::plugin::ntpd::host: localhost
     collectd::plugin::ntpd::port: 123
     collectd::plugin::ntpd::reverselookups: false
     collectd::plugin::ntpd::includeunitid: false
