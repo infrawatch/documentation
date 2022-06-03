@@ -601,6 +601,8 @@ The `cpu` plugin collects _jiffies_, not percentage values. The value of a jiffy
 
 To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
 
+This plugin is enabled by default.
+
 .cpu metrics
 [cols="20%,30%,50%"]
 |===
@@ -640,30 +642,37 @@ To report a percentage value, set the Boolean parameters `reportbycpu` and `repo
 |===
 
 .cpu parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter |Type
+|Parameter |Type |Defaults
 
 |reportbystate
 |Boolean
+|true
 
 |valuespercentage
 |Boolean
+|true
 
 |reportbycpu
 |Boolean
+|true
 
 |reportnumcpu
 |Boolean
+|false
 
 |reportgueststate
 |Boolean
+|false
 
 |subtractgueststate
 |Boolean
+|true
 
 |interval
 |Integer
+|120
 |===
 
 .Example configuration:
@@ -734,7 +743,7 @@ Use the `csv` plugin to write values to a local file in CSV format.
 [discrete]
 == collectd::plugin::df
 
-Use the `df` plugin to collect disk space usage information for file systems.
+Use the `df` plugin to collect disk space usage information for file systems. This plugin is enabled by default.
 
 .df metrics
 [cols="20%,30%,50%"]
@@ -756,36 +765,45 @@ Use the `df` plugin to collect disk space usage information for file systems.
 
 
 .df parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter |Type
+|Parameter |Type |Defaults
 
 |devices
 |Array
+|`[]`
 
 |fstypes
 |Array
+|`['xfs']`
 
 |ignoreselected
 |Boolean
+|true
 
 |mountpoints
 |Array
+|`[]`
 
 |reportbydevice
 |Boolean
+|true
 
 |reportinodes
 |Boolean
+|true
 
 |reportreserved
 |Boolean
+|true
 
 |valuesabsolute
 |Boolean
+|true
 
 |valuespercentage
 |Boolean
+|false
 
 |===
 
@@ -794,10 +812,8 @@ Use the `df` plugin to collect disk space usage information for file systems.
 [source,yaml]
 ----
 parameter_defaults:
-    CollectdExtraPlugins:
-      - df
-    ExtraConfig:
-        collectd::plugin::df::fstypes: ['tmpfs','xfs']
+  ExtraConfig:
+    collectd::plugin::df::fstypes: ['tmpfs','xfs']
 ----
 
 .Additional resources
@@ -810,18 +826,21 @@ For more information about configuring the `df` plugin, see https://collectd.org
 Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.
 
 .disk parameters
-[cols="30%,70%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter |Type
+|Parameter |Type |Defaults
 
 |disks
 |Array
+|`[]`
 
 |ignoreselected
 |Boolean
+|false
 
 |udevnameattr
 |String
+|_<undefined>_
 
 |===
 
@@ -829,8 +848,7 @@ Use the `disk` plugin to collect performance statistics of hard disks and, if su
 .disk metrics
 [cols="30%,70%"]
 |===
-|Name
-|Description
+|Name |Description
 
 |merged
 |The number of queued operations that can be merged together, for example, one physical disk access served two or more logical operations.
@@ -854,9 +872,9 @@ Use the `disk` plugin to collect performance statistics of hard disks and, if su
 [source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::disk::disk: "sda"
-        collectd::plugin::disk::ignoreselected: false
+  ExtraConfig:
+    collectd::plugin::disk::disks: ['sda', 'sdb', 'sdc']
+    collectd::plugin::disk::ignoreselected: true
 ----
 
 .Additional resources
@@ -1002,7 +1020,7 @@ Use the `interface` plugin to measure interface traffic in octets, packets per s
 
 |interfaces
 |Array
-|[]
+|`[]`
 
 |ignoreselected
 |Boolean
@@ -1069,12 +1087,13 @@ parameter_defaults:
 Use the `load` plugin to collect the system load and an overview of the system use. This plugin is enabled by default.
 
 .plugin parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter |Type
+|Parameter |Type |Default
 
 |report_relative
 |Boolean
+|true
 
 |===
 
@@ -1188,7 +1207,6 @@ Use the `memcached` plugin to retrieve information about memcached cache usage, 
 .memcached parameters
 [cols="50%,50%"]
 |===
-
 |Parameter |Type
 
 |instances
@@ -1224,13 +1242,15 @@ The `memory` plugin provides information about the memory of the system.  This p
 .memory parameters
 [cols="50%,50%"]
 |===
-|Parameter |Type
+|Parameter |Type |Defaults
 
 |valuesabsolute
 |Boolean
+|true
 
 |valuespercentage
 |Boolean
+|false
 
 |===
 
@@ -1484,27 +1504,32 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::processes
 
-The `processes` plugin provides information about system processes. This plugin is enabled by default.
+The `processes` plugin provides information about system processes. Only general process statistics (the number of processes by state and the process fork rate) are collected when no additional processes have been defined. This plugin is enabled by default.
 
 .plugin parameters
-[cols="50%,50%"]
+[cols="35%,30%,25%"]
 |===
-|Parameter |Type
+|Parameter |Type |Defaults
 
 |processes
 |Array
+|_<undefined>_
 
 |process_matches
 |Array
+|_<undefined>_
 
 |collect_context_switch
 |Boolean
+|_<undefined>_
 
 |collect_file_descriptor
 |Boolean
+|_<undefined>_
 
 |collect_memory_maps
 |Boolean
+|_<undefined>_
 
 |===
 
@@ -1550,7 +1575,6 @@ Use the `smart` plugin to collect SMART information from physical disks on the n
 
 [cols="50%,50%"]
 |===
-
 |Parameter |Type
 
 |disks
