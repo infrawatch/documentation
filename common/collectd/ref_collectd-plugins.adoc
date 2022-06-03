@@ -1942,7 +1942,7 @@ Use the `vmem` plugin to collect information about virtual memory from the kerne
 |verbose
 |Boolean
 
-|inverval
+|interval
 |Integer
 
 |===
