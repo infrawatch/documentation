@@ -338,10 +338,13 @@ In this example, the instance name is `localhost`, which connects to the Apache 
 [source,yaml]
 ----
 parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::apache:
-          localhost:
-              url: "http://10.0.0.111/mod_status?auto"
+  CollectdExtraPlugins:
+  - apache
+
+  ExtraConfig:
+    collectd::plugin::apache::instances:
+      localhost:
+        url: "http://10.0.0.111/mod_status?auto"
 ----
 
 
