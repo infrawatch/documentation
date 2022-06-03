@@ -297,7 +297,7 @@ Use the `apache` plugin to collect Apache data from the `mod_status` plugin that
 |List
 |===
 
-.apache <instance_name> parameters
+.apache instances parameters
 [cols="50%,50%"]
 |===
 |Parameter
