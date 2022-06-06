@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
+// include::<path>/proc_removing-the-amq-cert-manager-operator.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,77 +20,11 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="removing-stf-from-the-openshift-environment_{context}"]
-= Removing {Project} from the {OpenShift} environment
+
+[id="removing-the-amq-cert-manager-operator_{context}"]
+= Removing the AMQ Certificate Manager Operator
 
 [role="_abstract"]
-Remove {Project} ({ProjectShort}) from an {OpenShift} environment if you no longer require the {ProjectShort} functionality.
-
-.Procedure
-
-. xref:deleting-the-namespace[Deleting the namespace].
-. xref:removing-the-catalogsource[Removing the catalog source].
-
-[id="deleting-the-namespace"]
-== Deleting the namespace
-
-To remove the operational resources for {ProjectShort} from {OpenShift}, delete the namespace.
-
-.Procedure
-
-. Run the `oc delete` command:
-+
-[source,bash]
-----
-$ oc delete project service-telemetry
-----
-
-. Verify that the resources have been deleted from the namespace:
-+
-[source,bash]
-----
-$ oc get all
-No resources found.
-----
-
-[id="removing-the-catalogsource"]
-== Removing the CatalogSource
-
-If you do not expect to install {Project} ({ProjectShort}) again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are automatically removed from the Operator Lifecycle Manager catalog.
-
-.Procedure
-
-ifeval::["{build}" == "upstream"]
-. Delete the CatalogSource:
-+
-[source,bash]
-----
-$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
-catalogsource.operators.coreos.com "infrawatch-operators" deleted
-----
-
-. Verify that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
-+
-[source,bash]
-----
-$ oc get packagemanifests | grep InfraWatch
-----
-endif::[]
-
-. If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:
-+
-[source,bash]
-----
-$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
-catalogsource.operators.coreos.com "operatorhubio-operators" deleted
-----
-
-.Additional resources
-For more information about the OperatorHub.io Community Catalog Source, see xref:deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf[].
-
-[id="removing-the-amq-cert-manager-operator"]
-== Removing the AMQ Certificate Manager Operator
-
 If you are not using the AMQ Certificate Manager for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
 
 .Procedure

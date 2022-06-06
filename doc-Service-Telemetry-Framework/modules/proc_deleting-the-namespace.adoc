@@ -1,0 +1,45 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_deleting-the-namespace.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="deleting-the-namespace_{context}"]
+= Deleting the namespace
+
+[role="_abstract"]
+To remove the operational resources for {ProjectShort} from {OpenShift}, delete the namespace.
+
+.Procedure
+
+. Run the `oc delete` command:
++
+[source,bash]
+----
+$ oc delete project service-telemetry
+----
+
+. Verify that the resources have been deleted from the namespace:
++
+[source,bash]
+----
+$ oc get all
+No resources found.
+----
