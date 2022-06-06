@@ -1569,7 +1569,9 @@ The `processes` plugin provides information about system processes. Only general
 [discrete]
 == collectd::plugin::smart
 
-Use the `smart` plugin to collect SMART information from physical disks on the node. Additionally, the parameter `CollectdContainerAdditionalCapAdd` should be specified with the value `CAP_SYS_RAWIO` to allow the `smart` plugin to read SMART telemetry. If this parameter is not specified, you will see the following message in the collectd error logs: `smart plugin: Running collectd as root, but the CAP_SYS_RAWIO capability is missing. The plugin's read function will probably fail. Is your init system dropping capabilities?`.
+Use the `smart` plugin to collect SMART information from physical disks on the node. You must also set the parameter `CollectdContainerAdditionalCapAdd` to `CAP_SYS_RAWIO` to allow the `smart` plugin to read SMART telemetry. If you do not set the `CollectdContainerAdditionalCapAdd` parameter, the following message is written to the collectd error logs: 
+
+`smart plugin: Running collectd as root, but the CAP_SYS_RAWIO capability is missing. The plugin's read function will probably fail. Is your init system dropping capabilities?`.
 
 .smart parameters
 
