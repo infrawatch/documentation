@@ -1,0 +1,58 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-the-catalogsource.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="removing-the-catalogsource_{context}"]
+= Removing the CatalogSource
+
+[role="_abstract"]
+If you do not expect to install {Project} ({ProjectShort}) again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are automatically removed from the Operator Lifecycle Manager catalog.
+
+.Procedure
+
+ifeval::["{build}" == "upstream"]
+. Delete the CatalogSource:
++
+[source,bash]
+----
+$ oc delete --namespace=openshift-marketplace catalogsource infrawatch-operators
+catalogsource.operators.coreos.com "infrawatch-operators" deleted
+----
+
+. Verify that the {ProjectShort} PackageManifests are removed from the platform. If successful, the following command returns no result:
++
+[source,bash]
+----
+$ oc get packagemanifests | grep InfraWatch
+----
+endif::[]
+
+. If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:
++
+[source,bash]
+----
+$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
+catalogsource.operators.coreos.com "operatorhubio-operators" deleted
+----
+
+.Additional resources
+For more information about the OperatorHub.io Community Catalog Source, see xref:deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf[].
