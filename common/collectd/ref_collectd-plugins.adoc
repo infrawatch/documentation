@@ -155,7 +155,7 @@ parameter_defaults:
 ----
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::amqp
 
@@ -717,25 +717,25 @@ Use the `csv` plugin to write values to a local file in CSV format.
 |===
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::curl_json
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::curl
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::curl_xml
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined. Slated for removal upstream. For more information, see https://review.opendev.org/c/openstack/tripleo-common/+/845117/
 [discrete]
 == collectd::plugin::dbi
 ////
@@ -886,7 +886,7 @@ parameter_defaults:
 For more information about configuring the `disk` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk[disk].
 
 ////
-// Not a recommended plugin.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::dns
 ////
@@ -894,14 +894,14 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 //dpdk_telemetry plugin is not supported
 
 ////
-// Not a recommended plugin.
+// Not a recommended plugin. No use cases have been defined.
 [discrete]
 == collectd::plugin::entropy
 * collectd::plugin::entropy::interval
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::ethstat
 
@@ -912,7 +912,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::exec
 * collectd::plugin::exec::commands
@@ -922,7 +922,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::fhcount
 * collectd::plugin::fhcount::valuesabsolute
@@ -931,7 +931,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::filecount
 * collectd::plugin::filecount::directories
@@ -946,7 +946,7 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd-hddtemp
 * collectd::plugin::hddtemp::host
@@ -1055,7 +1055,7 @@ parameter_defaults:
 * For more information about configuring the `interfaces` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_interfaces[interfaces].
 
 ////
-// No information available for plugin. Not recommended for use.
+// Not recommended for use. No information available for plugin. No use cases have been defined.
 [discrete]
 == collectd::plugin::ipc
 * None
@@ -1081,7 +1081,7 @@ parameter_defaults:
 ////
 
 ////
-// Not a recommended plugin.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::irq
 * collectd::plugin::irq::irqs
@@ -1121,7 +1121,7 @@ parameter_defaults:
 
 
 ////
-// Not recommended to be changed beyond defaults.
+// Not a recommended plugin. It is not recommended that use is modified beyond the defaults.
 [discrete]
 == collectd::plugin::logfile
 * collectd::plugin::logfile::log_level
@@ -1132,18 +1132,18 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::log_logstash
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. Use of madwifi in an RHOSP environment is not practical.
 [discrete]
 == collectd::plugin::madwifi
 ////
 
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 ////
 [discrete]
 == collectd::plugin::match_empty_counter
@@ -1162,7 +1162,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use as dependencies are required to be running on server.
+// Not a recommended plugin. Unavailable dependencies are required to be running on server.
 [discrete]
 == collectd::plugin::mbmon
 ////
@@ -1286,7 +1286,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::mysql
 
@@ -1294,7 +1294,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::netlink
 * collectd::plugin::netlink::interfaces
@@ -1307,7 +1307,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::network
 
@@ -1321,14 +1321,14 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::nfs
 * collectd::plugin::nfs::interval
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::notify_nagios
 ////
@@ -1393,13 +1393,13 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::openldap
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined. May not make sense in a RHOSP environment.
 [discrete]
 == collectd::plugin::openvpn
 
@@ -1451,7 +1451,7 @@ The following example shows how to enable the `ovs_stats` plugin. If you deploy 
 * For more information about configuring the `ovs_stats` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_ovs_stats[ovs_stats].
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::pcie_errors
 
@@ -1489,7 +1489,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::ping
 * collectd::plugin::ping::hosts
@@ -1503,7 +1503,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::powerdns
 * collectd::plugin::powerdns::interval
@@ -1555,7 +1555,7 @@ TIP: This plugin is enabled by default.
 
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::protocols
 * collectd::plugin::protocols::ignoreselected
@@ -1563,19 +1563,19 @@ TIP: This plugin is enabled by default.
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined. Needs testing to determine if automation exists to allow for configuration and script uploads.
 [discrete]
 == collectd::plugin::python
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::sensors
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::serial
 ////
@@ -1619,13 +1619,13 @@ parameter_defaults:
 
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::snmp
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::snmp_agent
 
@@ -1710,13 +1710,13 @@ parameter_defaults:
 ----
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::sysevent
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::syslog
 
@@ -1726,7 +1726,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::table
 
@@ -1735,7 +1735,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::tail
 
@@ -1744,7 +1744,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::tail_csv
 * collectd::plugin::tail_csv::metrics
@@ -1752,31 +1752,31 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::target_notification
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::target_replace
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::target_scale
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::target_set
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::target_v5upgrade
 ////
@@ -1821,7 +1821,7 @@ parameter_defaults:
 ----
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::ted
 ////
@@ -1856,7 +1856,7 @@ parameter_defaults:
 
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined. Could be a future target for localized monitoring and alerting.
 [discrete]
 == collectd::plugin::threshold
 * collectd::plugin::threshold::types
@@ -1866,7 +1866,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases defined.
 [discrete]
 == collectd::plugin::turbostat
 * collectd::plugin::turbostat::core_c_states
@@ -1879,7 +1879,7 @@ parameter_defaults:
 ////
 
 ////
-// Not recommended to be configured beyond defaults.
+// Not recommended to be configured beyond defaults. Enabled by default. Managed by TripleO / director: https://github.com/openstack/tripleo-heat-templates/blob/946c36233a02566699a8fa475ec8a56a9bccb81c/deployment/metrics/collectd-container-puppet.yaml#L368-L370
 [discrete]
 == collectd::plugin::unixsock
 ////
@@ -1902,14 +1902,14 @@ TIP: This plugin is enabled by default.
 |===
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::users
 * collectd::plugin::users::interval
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::uuid
 * collectd::plugin::uuid::uuid_file
@@ -2003,19 +2003,19 @@ parameter_defaults:
 ----
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined. Not applicable in a RHOSP environment.
 [discrete]
 == collectd::plugin::vserver
 ////
 
 ////
-// Not recommended for use and unlikley to be applicable to OpenStack deployments.
+// Not recommended for use. No use cases have been defined. Unlikley to be applicable to OpenStack deployments.
 [discrete]
 == collectd::plugin::wireless
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::write_graphite
 
@@ -2114,7 +2114,7 @@ parameter_defaults:
 For more information about how to configure the `write_kafka` plugin, see https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka[write_kafka].
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::write_log
 
@@ -2122,7 +2122,7 @@ For more information about how to configure the `write_kafka` plugin, see https:
 ////
 
 ////
-// Not recommended for use.
+// Not recommended for use. No use cases have been defined.
 [discrete]
 == collectd::plugin::zfs_arc
 
