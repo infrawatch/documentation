@@ -827,6 +827,8 @@ For more information about configuring the `df` plugin, see https://collectd.org
 
 Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions.
 
+NOTE: If no disks are listed, all disks are monitored by default. The example provided shows a method to override the default behavior to monitor all disks other than those listed. By default no parameters are required unless filtering is intended.
+
 TIP: This plugin is enabled by default.
 
 .disk parameters
