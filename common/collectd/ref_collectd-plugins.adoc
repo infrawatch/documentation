@@ -109,17 +109,13 @@ You can aggregate several values into one with the `aggregation` plugin. Use the
 
 .Example configuration:
 
-Deploy three aggregate configurations which results in generation of files:
+Deploy three aggregate configurations to create the following files:
 
-. `aggregator-calcCpuLoadAvg.conf`
-. `aggregator-calcCpuLoadMinMax.conf`
-. `aggregator-calcMemoryTotalMaxAvg.conf`
+. `aggregator-calcCpuLoadAvg.conf`: average CPU load for all CPU cores grouped by host and state
+. `aggregator-calcCpuLoadMinMax.conf`: minimum and maximum CPU load groups by host and state
+. `aggregator-calcMemoryTotalMaxAvg.conf`: maximum, average, and total for memory grouped by type
 
-The aggregation configurations use the default CPU and Memory plugin configurations. The following aggregations are created:
-
-. Calculate average CPU load for all CPU cores grouped by host and state.
-. Calculate minimum and maxiumum CPU load groups by host and state.
-. Calculate maximum, average, and total for memory grouped by type.
+The aggregation configurations use the default CPU and Memory plugin configurations.
 
 [source,yaml]
 ----
@@ -509,10 +505,11 @@ parameter_defaults:
 ----
 
 [NOTE]
+====
 If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
 
-[NOTE]
 When you deploy collectd, the `ceph` plugin is added to the Ceph nodes. Do not add the `ceph` plugin on Ceph nodes to `CollectdExtraPlugins`, because this results in a deployment failure.
+====
 
 .Additional resources
 
@@ -827,7 +824,7 @@ For more information about configuring the `df` plugin, see https://collectd.org
 
 Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions.
 
-NOTE: If no disks are listed, all disks are monitored by default. The example provided shows a method to override the default behavior to monitor all disks other than those listed. By default no parameters are required unless filtering is intended.
+NOTE: All disks are monitored by default. You can use the `ignoreselected` parameter to ignore a list of disks. The example configuration ignores the _sda_, _sdb_, and _sdc_ disks, and will monitor all disks not included in the list.
 
 TIP: This plugin is enabled by default.
 
@@ -1249,7 +1246,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::memory
 
-The `memory` plugin provides information about the memory of the system.
+Use the `memory` plugin to retrieve information about the memory of the system.
 
 TIP: This plugin is enabled by default.
 
@@ -1339,7 +1336,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::ntpd
 
-Use the `ntpd` plugin to query a local NTP server that has been configured to allow access to statistics, and retrieves information about the configured parameters and the time sync status.
+Use the `ntpd` plugin to query a local NTP server that has been configured to allow access to statistics, and retrieve information about the configured parameters and the time sync status.
 
 .ntpd parameters
 
@@ -1518,7 +1515,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::processes
 
-The `processes` plugin provides information about system processes. Only general process statistics (the number of processes by state and the process fork rate) are collected when no additional processes have been defined.
+The `processes` plugin provides information about system processes. If you do not specify process matches, the plugin collects only the number of processes by state and the process fork rate.
+
+To collect more details about specific processes, you can use the `process` parameter to specify a process name or the `process_match` option to specify process names that match a regular expression. The statistics for a `process_match` output are grouped by process name.
 
 TIP: This plugin is enabled by default.
 
@@ -1831,7 +1830,7 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::thermal
 
-The `thermal` plugin reads ACPI thermal zone information.
+Use the `thermal` plugin to retrieve ACPI thermal zone information.
 
 .thermal parameters
 [cols="50%,50%"]
