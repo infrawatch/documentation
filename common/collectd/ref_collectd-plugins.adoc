@@ -601,12 +601,12 @@ The `cpu` plugin collects _jiffies_, not percentage values. The value of a jiffy
 
 To report a percentage value, set the Boolean parameters `reportbycpu` and `reportbystate` to `true`, and then set the Boolean parameter `valuespercentage` to true.
 
-This plugin is enabled by default.
+TIP: This plugin is enabled by default.
 
 .cpu metrics
 [cols="20%,30%,50%"]
 |===
-|Name  |Description | Query
+|Name |Description |Query
 
 |idle
 |Amount of idle time
@@ -743,7 +743,9 @@ Use the `csv` plugin to write values to a local file in CSV format.
 [discrete]
 == collectd::plugin::df
 
-Use the `df` plugin to collect disk space usage information for file systems. This plugin is enabled by default.
+Use the `df` plugin to collect disk space usage information for file systems.
+
+TIP: This plugin is enabled by default.
 
 .df metrics
 [cols="20%,30%,50%"]
@@ -823,7 +825,9 @@ For more information about configuring the `df` plugin, see https://collectd.org
 [discrete]
 == collectd::plugin::disk
 
-Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.
+Use the `disk` plugin to collect performance statistics of hard disks and, if supported, partitions.
+
+TIP: This plugin is enabled by default.
 
 .disk parameters
 [cols="35%,30%,25%"]
@@ -953,7 +957,9 @@ For more information about configuring the `disk` plugin, see https://collectd.o
 [discrete]
 == collectd::plugin::hugepages
 
-Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.
+Use the hugepages plugin to collect hugepages information.
+
+TIP: This plugin is enabled by default.
 
 .hugepages parameters
 [cols="35%,30%,25%"]
@@ -1011,7 +1017,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::interface
 
-Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.
+Use the `interface` plugin to measure interface traffic in octets, packets per second, and error rate per second.
+
+TIP: This plugin is enabled by default.
 
 .interface parameters
 [cols="35%,30%,25%"]
@@ -1084,7 +1092,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::load
 
-Use the `load` plugin to collect the system load and an overview of the system use. This plugin is enabled by default.
+Use the `load` plugin to collect the system load and an overview of the system use.
+
+TIP: This plugin is enabled by default.
 
 .plugin parameters
 [cols="35%,30%,25%"]
@@ -1237,7 +1247,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::memory
 
-The `memory` plugin provides information about the memory of the system.  This plugin is enabled by default.
+The `memory` plugin provides information about the memory of the system.
+
+TIP: This plugin is enabled by default.
 
 .memory parameters
 [cols="50%,50%"]
@@ -1504,7 +1516,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::processes
 
-The `processes` plugin provides information about system processes. Only general process statistics (the number of processes by state and the process fork rate) are collected when no additional processes have been defined. This plugin is enabled by default.
+The `processes` plugin provides information about system processes. Only general process statistics (the number of processes by state and the process fork rate) are collected when no additional processes have been defined.
+
+TIP: This plugin is enabled by default.
 
 .plugin parameters
 [cols="35%,30%,25%"]
@@ -1874,7 +1888,9 @@ parameter_defaults:
 [discrete]
 == collectd::plugin::uptime
 
-Use the `uptime` plugin to collect information about system uptime. This plugin is enabled by default.
+Use the `uptime` plugin to collect information about system uptime.
+
+TIP: This plugin is enabled by default.
 
 .uptime parameters
 [cols="50%,50%"]
@@ -1903,7 +1919,9 @@ Use the `uptime` plugin to collect information about system uptime. This plugin 
 [discrete]
 == collectd::plugin::virt
 
-Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host. This plugin is enabled by default on compute hosts.
+Use the `virt` plugin to collect CPU, disk, network load, and other metrics through the `libvirt` API for virtual machines on the host.
+
+TIP: This plugin is enabled by default on compute hosts.
 
 .virt parameters
 [cols="50%,50%"]
