@@ -4836,8 +4836,8 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>ExtraConfig:
-  collectd::plugin::example_plugin::&lt;parameter&gt;: &lt;value&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ExtraConfig:
+  collectd::plugin::example_plugin::&lt;parameter&gt;: &lt;value&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4928,40 +4928,27 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 </table>
 <div class="paragraph">
 <div class="title">Example configuration:</div>
-<p>Deploy three aggregate configurations which results in generation of files:</p>
+<p>Deploy three aggregate configurations to create the following files:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>aggregator-calcCpuLoadAvg.conf</code></p>
+<p><code>aggregator-calcCpuLoadAvg.conf</code>: average CPU load for all CPU cores grouped by host and state</p>
 </li>
 <li>
-<p><code>aggregator-calcCpuLoadMinMax.conf</code></p>
+<p><code>aggregator-calcCpuLoadMinMax.conf</code>: minimum and maximum CPU load groups by host and state</p>
 </li>
 <li>
-<p><code>aggregator-calcMemoryTotalMaxAvg.conf</code></p>
+<p><code>aggregator-calcMemoryTotalMaxAvg.conf</code>: maximum, average, and total for memory grouped by type</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>The aggregation configurations use the default CPU and Memory plugin configurations. The following aggregations are created:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Calculate average CPU load for all CPU cores grouped by host and state.</p>
-</li>
-<li>
-<p>Calculate minimum and maxiumum CPU load groups by host and state.</p>
-</li>
-<li>
-<p>Calculate maximum, average, and total for memory grouped by type.</p>
-</li>
-</ol>
+<p>The aggregation configurations use the default CPU and Memory plugin configurations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
   CollectdExtraPlugins:
     - aggregation
 
@@ -4989,10 +4976,9 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
           - "TypeInstance"
         calculatemaximum: True
         calculateaverage: True
-        calculatesum: True</pre>
+        calculatesum: True</code></pre>
 </div>
 </div>
-<h3 id="_collectdpluginampq" class="discrete">collectd::plugin::ampq</h3>
 <h3 id="_collectdpluginamqp1" class="discrete">collectd::plugin::amqp1</h3>
 <div class="paragraph">
 <p>Use the <code>amqp1</code> plugin to write values to an amqp1 message bus, for example, Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
@@ -5020,11 +5006,11 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
@@ -5077,16 +5063,17 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>  Parameter_defaults:
-    CollectdExtraPlugins:
-      - amqp1
-    ExtraConfig:
-      collectd::plugin::amqp1::send_queue_limit: 5000</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+    - amqp1
+
+  ExtraConfig:
+    collectd::plugin::amqp1::send_queue_limit: 5000</code></pre>
 </div>
 </div>
 <h3 id="_collectdpluginapache" class="discrete">collectd::plugin::apache</h3>
 <div class="paragraph">
-<p>Use the <code>apache</code> plugin to collect Apache data.</p>
+<p>Use the <code>apache</code> plugin to collect Apache data from the <code>mod_status</code> plugin that is provided by the Apache web server. Each instance provided has a per-<code>interval</code> value specified in seconds. If you provide the <code>timeout</code> interval parameter for an instance, the value is in milliseconds.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. apache parameters</caption>
@@ -5119,14 +5106,67 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 </tr>
 </tbody>
 </table>
-<div class="listingblock">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. apache instances parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verifypeer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verifyhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cacert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AbsolutePath</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sslciphers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
 <div class="title">Example configuration:</div>
+<p>In this example, the instance name is <code>localhost</code>, which connects to the Apache web server at <a href="http://10.0.0.111/mod_status?auto" class="bare">http://10.0.0.111/mod_status?auto</a>. You must append <code>?auto</code> to the end of the URL to prevent the status page returning as a type that is incompatible with the plugin.</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::apache:
-          localhost:
-              url: "http://10.0.0.111/status?auto"</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - apache
+
+  ExtraConfig:
+    collectd::plugin::apache::instances:
+      localhost:
+        url: "http://10.0.0.111/mod_status?auto"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5138,7 +5178,7 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <p>Use the <code>battery</code> plugin to report the remaining capacity, power, or voltage of laptop batteries.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. battery parameters</caption>
+<caption class="title">Table 6. battery parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5176,12 +5216,132 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <div class="paragraph">
 <p>Use the <code>bind</code> plugin to retrieve encoded statistics about queries and responses from a DNS server. The plugin submits the values to collectd.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. bind parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">memorystats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">opcodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">parsetime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resolverstats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverstats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zonemaintstats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">views</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. bind views parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resolverstats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cacherrsets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zones</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Strings</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - bind
+
+  ExtraConfig:
+    collectd::plugins::bind:
+      url: http://localhost:8053/
+      memorystats: true
+      opcodes: true
+      parsetime: false
+      qtypes: true
+      resolverstats: true
+      serverstats: true
+      zonemaintstats: true
+      views:
+      - name: internal
+        qtypes: true
+        resolverstats: true
+        cacherrsets: true
+      - name: external
+        qtypes: true
+        resolverstats: true
+        cacherrsets: true
+        zones:
+        - "example.com/IN"</code></pre>
+</div>
+</div>
 <h3 id="_collectdpluginceph" class="discrete">collectd::plugin::ceph</h3>
 <div class="paragraph">
 <p>Use the <code>ceph</code> plugin to gather data from ceph daemons.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. ceph parameters</caption>
+<caption class="title">Table 9. ceph parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5206,10 +5366,6 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">manage_package</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">package_name</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
@@ -5218,14 +5374,14 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     ExtraConfig:
         collectd::plugin::ceph::daemons:
            - ceph-osd.0
            - ceph-osd.1
            - ceph-osd.2
            - ceph-osd.3
-           - ceph-osd.4</pre>
+           - ceph-osd.4</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -5235,19 +5391,12 @@ If there is no AMQP1 connection, the plugin continues to queue messages to send,
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>If an Object Storage Daemon (OSD) is not on every node, you must list the OSDs.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When you deploy collectd, the <code>ceph</code> plugin is added to the Ceph nodes. Do not add the <code>ceph</code> plugin on Ceph nodes to <code>CollectdExtraPlugins</code>, because this results in a deployment failure.
+<div class="paragraph">
+<p>When you deploy collectd, the <code>ceph</code> plugin is added to the Ceph nodes. Do not add the <code>ceph</code> plugin on Ceph nodes to <code>CollectdExtraPlugins</code>, because this results in a deployment failure.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5261,7 +5410,7 @@ When you deploy collectd, the <code>ceph</code> plugin is added to the Ceph node
 <p>Use the <code>cgroups</code> plugin to collect information for processes in a cgroup.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. cgroups parameters</caption>
+<caption class="title">Table 10. cgroups parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5308,7 +5457,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. connectivity parameters</caption>
+<caption class="title">Table 11. connectivity parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5329,11 +5478,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     ExtraConfig:
         collectd::plugin::connectivity::interfaces:
         - eth0
-        - eth1</pre>
+        - eth1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5346,7 +5495,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugincontextswitch" class="discrete">collectd::plugin::contextswitch</h3>
 <div class="paragraph">
-<p>Use the <code>ContextSwitch</code> plugin to collect the number of context switches that the system handles.</p>
+<p>Use the <code>ContextSwitch</code> plugin to collect the number of context switches that the system handles. The only parameter available is <code>interval</code>, which is a polling interval defined in seconds.</p>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
@@ -5357,13 +5506,25 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>cpu</code> plugin to monitor the time that the CPU spends in various states, for example, idle, executing user code, executing system code, waiting for IO-operations, and other states.</p>
 </div>
 <div class="paragraph">
-<p>The <code>cpu</code> plugin collects <code>_jiffies_</code>, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
+<p>The <code>cpu</code> plugin collects <em>jiffies</em>, not percentage values. The value of a jiffy depends on the clock frequency of your hardware platform, and therefore is not an absolute time interval unit.</p>
 </div>
 <div class="paragraph">
 <p>To report a percentage value, set the Boolean parameters <code>reportbycpu</code> and <code>reportbystate</code> to <code>true</code>, and then set the Boolean parameter <code>valuespercentage</code> to true.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. cpu metrics</caption>
+<caption class="title">Table 12. cpu metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -5380,47 +5541,121 @@ If no interfaces are listed, all interfaces are monitored by default.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">idle</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of idle time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>idle</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='idle'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">interrupt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CPU blocked by interrupts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>interrupt</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='interrupt'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">nice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of time running low priority processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>nice</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='nice'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">softirq</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of cycles spent in servicing interrupt requests</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>waitirq</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='waitirq'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">steal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The percentage of time a virtual CPU waits for a real CPU while the hypervisor is servicing another virtual processor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>steal</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='steal'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">system</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of time spent on system level (kernel)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>system</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='system'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Jiffies that user processes use</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>user</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='user'}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wait</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CPU waiting on outstanding I/O request</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_cpu_total{&#8230;&#8203;,type_instance=<em>wait</em>}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_cpu_total{...,type_instance='wait'}</code></p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. cpu parameters</caption>
+<caption class="title">Table 13. cpu parameters</caption>
+<colgroup>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Defaults</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbystate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbycpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportnumcpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportgueststate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subtractgueststate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+    CollectdExtraPlugins:
+      - cpu
+    ExtraConfig:
+        collectd::plugin::cpu::reportbystate: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more information about configuring the <code>cpu</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu">cpu</a>.</p>
+</div>
+<h3 id="_collectdplugincpufreq" class="discrete">collectd::plugin::cpufreq</h3>
+<div class="paragraph">
+<p>Use the <code>cpufreq</code> plugin to collect the current CPU frequency. There are no parameters for this plugin.</p>
+</div>
+<h3 id="_collectdplugincsv" class="discrete">collectd::plugin::csv</h3>
+<div class="paragraph">
+<p>Use the <code>csv</code> plugin to write values to a local file in CSV format.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. csv parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -5433,27 +5668,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportbystate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">datadir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportbycpu</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportnumcpu</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportgueststate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">subtractgueststate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">storerates</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 </tr>
 <tr>
@@ -5462,53 +5681,24 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tr>
 </tbody>
 </table>
-<div class="listingblock">
-<div class="title">Example configuration:</div>
-<div class="content">
-<pre>parameter_defaults:
-    CollectdExtraPlugins:
-      - cpu
-    ExtraConfig:
-        collectd::plugin::cpu::reportbystate: true</pre>
-</div>
-</div>
-<div class="paragraph">
-<div class="title">Additional resources</div>
-<p>For more information about configuring the <code>cpu</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_cpu">cpu</a>.</p>
-</div>
-<h3 id="_collectdplugincpufreq" class="discrete">collectd::plugin::cpufreq</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdplugincpusleep" class="discrete">collectd::plugin::cpusleep</h3>
-<h3 id="_collectdplugincsv" class="discrete">collectd::plugin::csv</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::csv::datadir</p>
-</li>
-<li>
-<p>collectd::plugin::csv::storerates</p>
-</li>
-<li>
-<p>collectd::plugin::csv::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdplugincurl_json" class="discrete">collectd::plugin::curl_json</h3>
-<h3 id="_collectdplugincurl" class="discrete">collectd::plugin::curl</h3>
-<h3 id="_collectdplugincurl_xml" class="discrete">collectd::plugin::curl_xml</h3>
-<h3 id="_collectdplugindbi" class="discrete">collectd::plugin::dbi</h3>
 <h3 id="_collectdplugindf" class="discrete">collectd::plugin::df</h3>
 <div class="paragraph">
 <p>Use the <code>df</code> plugin to collect disk space usage information for file systems.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. df metrics</caption>
+<caption class="title">Table 15. df metrics</caption>
 <colgroup>
 <col style="width: 20%;"/>
 <col style="width: 30%;"/>
@@ -5525,79 +5715,88 @@ If no interfaces are listed, all interfaces are monitored by default.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">free</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of free disk space</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="free"}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_df_df_complex{...,type_instance="free"}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">reserved</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of reserved disk space</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="reserved"}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_df_df_complex{...,type_instance="reserved"}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">used</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amount of used disk space</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectd_df_df_complex{&#8230;&#8203;, type_instance="used"}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectd_df_df_complex{...,type_instance="used"}</code></p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. df parameters</caption>
+<caption class="title">Table 16. df parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Defaults</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">devices</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fstypes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>['xfs']</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">mountpoints</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">reportbydevice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">reportinodes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">reportreserved</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valuesabsolute</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    CollectdExtraPlugins:
-      - df
-    ExtraConfig:
-        collectd::plugin::df::fstypes: ['tmpfs','xfs']</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::df::fstypes: ['tmpfs','xfs']</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5606,37 +5805,66 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <h3 id="_collectdplugindisk" class="discrete">collectd::plugin::disk</h3>
 <div class="paragraph">
-<p>Use the <code>disk</code> plugin to collect performance statistics of hard disks and, if supported, partitions. This plugin is enabled by default.</p>
+<p>Use the <code>disk</code> plugin to collect performance statistics of hard disks and, if supported, partitions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All disks are monitored by default. You can use the <code>ignoreselected</code> parameter to ignore a list of disks. The example configuration ignores the <em>sda</em>, <em>sdb</em>, and <em>sdc</em> disks, and will monitor all disks not included in the list.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. disk parameters</caption>
+<caption class="title">Table 17. disk parameters</caption>
 <colgroup>
-<col style="width: 30%;"/>
-<col style="width: 70%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Defaults</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">disks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">udevnameattr</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. disk metrics</caption>
+<caption class="title">Table 18. disk metrics</caption>
 <colgroup>
 <col style="width: 30%;"/>
 <col style="width: 70%;"/>
@@ -5650,11 +5878,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">merged</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of operations that can be merged together, already queued operations, for example, one physical disk access served two or more logical operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of queued operations that can be merged together, for example, one physical disk access served two or more logical operations.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. The values might not be fully accurate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The average time an I/O-operation takes to complete. The values might not be accurate.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">io_time</p></td>
@@ -5673,112 +5901,34 @@ If no interfaces are listed, all interfaces are monitored by default.
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::disk::disk: "sda"
-        collectd::plugin::disk::ignoreselected: false</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::disk::disks: ['sda', 'sdb', 'sdc']
+    collectd::plugin::disk::ignoreselected: true</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources</div>
 <p>For more information about configuring the <code>disk</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_disk">disk</a>.</p>
 </div>
-<h3 id="_collectdplugindns" class="discrete">collectd::plugin::dns</h3>
-<h3 id="_collectdpluginentropy" class="discrete">collectd::plugin::entropy</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::entropy::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginethstat" class="discrete">collectd::plugin::ethstat</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ethstat::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::ethstat::maps</p>
-</li>
-<li>
-<p>collectd::plugin::ethstat::mappedonly</p>
-</li>
-<li>
-<p>collectd::plugin::ethstat::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginexec" class="discrete">collectd::plugin::exec</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::exec::commands</p>
-</li>
-<li>
-<p>collectd::plugin::exec::commands_defaults</p>
-</li>
-<li>
-<p>collectd::plugin::exec::globals</p>
-</li>
-<li>
-<p>collectd::plugin::exec::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginfhcount" class="discrete">collectd::plugin::fhcount</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::fhcount::valuesabsolute</p>
-</li>
-<li>
-<p>collectd::plugin::fhcount::valuespercentage</p>
-</li>
-<li>
-<p>collectd::plugin::fhcount::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginfilecount" class="discrete">collectd::plugin::filecount</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::filecount::directories</p>
-</li>
-<li>
-<p>collectd::plugin::filecount::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginfscache" class="discrete">collectd::plugin::fscache</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectd_hddtemp" class="discrete">collectd-hddtemp</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::hddtemp::host</p>
-</li>
-<li>
-<p>collectd::plugin::hddtemp::port</p>
-</li>
-<li>
-<p>collectd::plugin::hddtemp::interval</p>
-</li>
-</ul>
-</div>
 <h3 id="_collectdpluginhugepages" class="discrete">collectd::plugin::hugepages</h3>
 <div class="paragraph">
-<p>Use the hugepages plugin to collect hugepages information. This plugin is enabled by default.</p>
+<p>Use the hugepages plugin to collect hugepages information.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. hugepages parameters</caption>
+<caption class="title">Table 19. hugepages parameters</caption>
 <colgroup>
 <col style="width: 38.8888%;"/>
 <col style="width: 33.3333%;"/>
@@ -5822,9 +5972,9 @@ If no interfaces are listed, all interfaces are monitored by default.
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::hugepages::values_percentage: true</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::hugepages::values_percentage: true</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5835,41 +5985,49 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginintel_rdt" class="discrete">collectd::plugin::intel_rdt</h3>
 <h3 id="_collectdplugininterface" class="discrete">collectd::plugin::interface</h3>
 <div class="paragraph">
-<p>Use the <code>interface</code> plugin to measure interface traffic in octets, packets per second, and error rate per second. This plugin is enabled by default.</p>
+<p>Use the <code>interface</code> plugin to measure interface traffic in octets, packets per second, and error rate per second.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. interface parameters</caption>
+<caption class="title">Table 20. interface parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">interfaces</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportinactive</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportinactive</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
@@ -5878,11 +6036,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::interface::interfaces:
-           - lo
-        collectd::plugin::interface::ignoreselected: true</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::interface::interfaces:
+      - lo
+    collectd::plugin::interface::ignoreselected: true</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5893,81 +6051,50 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginipc" class="discrete">collectd::plugin::ipc</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginipmi" class="discrete">collectd::plugin::ipmi</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ipmi::ignore_selected</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_add</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_remove</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::notify_sensor_not_present</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::sensors</p>
-</li>
-<li>
-<p>collectd::plugin::ipmi::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginiptables" class="discrete">collectd::plugin::iptables</h3>
-<h3 id="_collectdpluginirq" class="discrete">collectd::plugin::irq</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::irq::irqs</p>
-</li>
-<li>
-<p>collectd::plugin::irq::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::irq::interval</p>
-</li>
-</ul>
-</div>
 <h3 id="_collectdpluginload" class="discrete">collectd::plugin::load</h3>
 <div class="paragraph">
-<p>Use the <code>load</code> plugin to collect the system load and an overview of the system use. This plugin is enabled by default.</p>
+<p>Use the <code>load</code> plugin to collect the system load and an overview of the system use.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. plugin parameters</caption>
+<caption class="title">Table 21. plugin parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">report_relative</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::load::report_relative: false</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::load::report_relative: false</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5978,40 +6105,12 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginlogfile" class="discrete">collectd::plugin::logfile</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::logfile::log_level</p>
-</li>
-<li>
-<p>collectd::plugin::logfile::log_file</p>
-</li>
-<li>
-<p>collectd::plugin::logfile::log_timestamp</p>
-</li>
-<li>
-<p>collectd::plugin::logfile::print_severity</p>
-</li>
-<li>
-<p>collectd::plugin::logfile::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginlog_logstash" class="discrete">collectd::plugin::log_logstash</h3>
-<h3 id="_collectdpluginmadwifi" class="discrete">collectd::plugin::madwifi</h3>
-<h3 id="_collectdpluginmatch_empty_counter" class="discrete">collectd::plugin::match_empty_counter</h3>
-<h3 id="_collectdpluginmatch_hashed" class="discrete">collectd::plugin::match_hashed</h3>
-<h3 id="_collectdpluginmatch_regex" class="discrete">collectd::plugin::match_regex</h3>
-<h3 id="_collectdpluginmatch_timediff" class="discrete">collectd::plugin::match_timediff</h3>
-<h3 id="_collectdpluginmatch_value" class="discrete">collectd::plugin::match_value</h3>
-<h3 id="_collectdpluginmbmon" class="discrete">collectd::plugin::mbmon</h3>
 <h3 id="_collectdpluginmcelog" class="discrete">collectd::plugin::mcelog</h3>
 <div class="paragraph">
 <p>Use the <code>mcelog</code> plugin to send notifications and statistics that are relevant to Machine Check Exceptions when they occur. Configure <code>mcelog</code> to run in daemon mode and enable logging capabilities.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. mcelog parameters</caption>
+<caption class="title">Table 22. mcelog parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6029,16 +6128,16 @@ If no interfaces are listed, all interfaces are monitored by default.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hash { mcelogclientsocket[string], persistentnotification[boolean] }</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash <code>{ mcelogclientsocket[string], persistentnotification[boolean] }</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     CollectdExtraPlugins: mcelog
-    CollectdEnableMcelog: true</pre>
+    CollectdEnableMcelog: true</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -6049,25 +6148,12 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginmd" class="discrete">collectd::plugin::md</h3>
-<h3 id="_collectdpluginmemcachec" class="discrete">collectd::plugin::memcachec</h3>
 <h3 id="_collectdpluginmemcached" class="discrete">collectd::plugin::memcached</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::memcached::instances</p>
-</li>
-<li>
-<p>collectd::plugin::memcached::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginmemory" class="discrete">collectd::plugin::memory</h3>
 <div class="paragraph">
-<p>The <code>memory</code> plugin provides information about the memory of the system.  This plugin is enabled by default.</p>
+<p>Use the <code>memcached</code> plugin to retrieve information about memcached cache usage, memory, and other related information.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. memory parameters</caption>
+<caption class="title">Table 23. memcached parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6080,8 +6166,73 @@ If no interfaces are listed, all interfaces are monitored by default.
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - memcached
+
+  ExtraConfig:
+    collectd::plugin::memcached::instances:
+      local:
+        host: "%{hiera('fqdn_canonical')}"
+        port: 11211</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about configuring the <code>memcached</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_memcached">memcached</a>.</p>
+</li>
+</ul>
+</div>
+<h3 id="_collectdpluginmemory" class="discrete">collectd::plugin::memory</h3>
+<div class="paragraph">
+<p>Use the <code>memory</code> plugin to retrieve information about the memory of the system.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 24. memory parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valuesabsolute</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
@@ -6092,10 +6243,10 @@ If no interfaces are listed, all interfaces are monitored by default.
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    ExtraConfig:
-        collectd::plugin::memory::valuesabsolute: true
-        collectd::plugin::memory::valuespercentage: false</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  ExtraConfig:
+    collectd::plugin::memory::valuesabsolute: true
+    collectd::plugin::memory::valuespercentage: false</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -6106,126 +6257,64 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginmultimeter" class="discrete">collectd::plugin::multimeter</h3>
-<h3 id="_collectdpluginmysql" class="discrete">collectd::plugin::mysql</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::mysql::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginnetlink" class="discrete">collectd::plugin::netlink</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::netlink::interfaces</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::verboseinterfaces</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::qdiscs</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::classes</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::filters</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::netlink::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginnetwork" class="discrete">collectd::plugin::network</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::network::timetolive</p>
-</li>
-<li>
-<p>collectd::plugin::network::maxpacketsize</p>
-</li>
-<li>
-<p>collectd::plugin::network::forward</p>
-</li>
-<li>
-<p>collectd::plugin::network::reportstats</p>
-</li>
-<li>
-<p>collectd::plugin::network::listeners</p>
-</li>
-<li>
-<p>collectd::plugin::network::servers</p>
-</li>
-<li>
-<p>collectd::plugin::network::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginnfs" class="discrete">collectd::plugin::nfs</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::nfs::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginnotify_nagios" class="discrete">collectd::plugin::notify_nagios</h3>
 <h3 id="_collectdpluginntpd" class="discrete">collectd::plugin::ntpd</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ntpd::host</p>
-</li>
-<li>
-<p>collectd::plugin::ntpd::port</p>
-</li>
-<li>
-<p>collectd::plugin::ntpd::reverselookups</p>
-</li>
-<li>
-<p>collectd::plugin::ntpd::includeunitid</p>
-</li>
-<li>
-<p>collectd::plugin::ntpd::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>ntpd</code> plugin to query a local NTP server that has been configured to allow access to statistics, and retrieve information about the configured parameters and the time sync status.</p>
 </div>
-<h3 id="_collectdpluginnuma" class="discrete">collectd::plugin::numa</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. ntpd parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port number (Integer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reverselookups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">includeunitid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - ntpd
+
+  ExtraConfig:
+    collectd::plugin::ntpd::host: localhost
+    collectd::plugin::ntpd::port: 123
+    collectd::plugin::ntpd::reverselookups: false
+    collectd::plugin::ntpd::includeunitid: false</code></pre>
 </div>
-<h3 id="_collectdpluginolsrd" class="discrete">collectd::plugin::olsrd</h3>
-<h3 id="_collectdpluginopenldap" class="discrete">collectd::plugin::openldap</h3>
-<h3 id="_collectdpluginopenvpn" class="discrete">collectd::plugin::openvpn</h3>
+</div>
 <div class="ulist">
+<div class="title">Additional resources</div>
 <ul>
 <li>
-<p>collectd::plugin::openvpn::statusfile</p>
-</li>
-<li>
-<p>collectd::plugin::openvpn::improvednamingschema</p>
-</li>
-<li>
-<p>collectd::plugin::openvpn::collectcompression</p>
-</li>
-<li>
-<p>collectd::plugin::openvpn::collectindividualusers</p>
-</li>
-<li>
-<p>collectd::plugin::openvpn::collectusercount</p>
-</li>
-<li>
-<p>collectd::plugin::openvpn::interval</p>
+<p>For more information about configuring the <code>ntpd</code> plugin, see <a href="https://collectd.org/wiki/index.php/Plugin:NTPd">ntpd</a>.</p>
 </li>
 </ul>
 </div>
@@ -6234,7 +6323,7 @@ If no interfaces are listed, all interfaces are monitored by default.
 <p>Use the <code>ovs_stats</code> plugin to collect statistics of OVS-connected interfaces. The <code>ovs_stats</code> plugin uses the OVSDB management protocol (RFC7047) monitor mechanism to get statistics from OVSDB.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. ovs_stats parameters</caption>
+<caption class="title">Table 26. ovs_stats parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6270,11 +6359,11 @@ If no interfaces are listed, all interfaces are monitored by default.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    parameter_defaults:
         CollectdExtraPlugins:
           - ovs_stats
         ExtraConfig:
-          collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'</pre>
+          collectd::plugin::ovs_stats::socket: '/run/openvswitch/db.sock'</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -6285,142 +6374,64 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginpcie_errors" class="discrete">collectd::plugin::pcie_errors</h3>
-<div class="paragraph">
-<p>Use the <code>pcie_errors</code> plugin to poll PCI config space for baseline and Advanced Error Reporting (AER) errors, and to parse syslog for AER events. Errors are reported through notifications.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. pcie_errors parameters</caption>
-<colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum (sysfs, proc)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">reportmasked</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">persistent_notifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-</tr>
-</tbody>
-</table>
-<div class="listingblock">
-<div class="title">Example configuration:</div>
-<div class="content">
-<pre>parameter_defaults:
-    CollectdExtraPlugins:
-       - pcie_errors</pre>
-</div>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For more information about configuring the <code>pcie_errors</code> plugin, see <a href="https://github.com/collectd/collectd/blob/main/src/collectd.conf.pod#plugin-pcie_errors">pcie_errors</a>.</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginping" class="discrete">collectd::plugin::ping</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::ping::hosts</p>
-</li>
-<li>
-<p>collectd::plugin::ping::timeout</p>
-</li>
-<li>
-<p>collectd::plugin::ping::ttl</p>
-</li>
-<li>
-<p>collectd::plugin::ping::source_address</p>
-</li>
-<li>
-<p>collectd::plugin::ping::device</p>
-</li>
-<li>
-<p>collectd::plugin::ping::max_missed</p>
-</li>
-<li>
-<p>collectd::plugin::ping::size</p>
-</li>
-<li>
-<p>collectd::plugin::ping::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginpowerdns" class="discrete">collectd::plugin::powerdns</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::powerdns::interval</p>
-</li>
-<li>
-<p>collectd::plugin::powerdns::servers</p>
-</li>
-<li>
-<p>collectd::plugin::powerdns::recursors</p>
-</li>
-<li>
-<p>collectd::plugin::powerdns::local_socket</p>
-</li>
-<li>
-<p>collectd::plugin::powerdns::interval</p>
-</li>
-</ul>
-</div>
 <h3 id="_collectdpluginprocesses" class="discrete">collectd::plugin::processes</h3>
 <div class="paragraph">
-<p>The <code>processes</code> plugin provides information about system processes. This plugin is enabled by default.</p>
+<p>The <code>processes</code> plugin provides information about system processes. If you do not specify process matches, the plugin collects only the number of processes by state and the process fork rate.</p>
+</div>
+<div class="paragraph">
+<p>To collect more details about specific processes, you can use the <code>process</code> parameter to specify a process name or the <code>process_match</code> option to specify process names that match a regular expression. The statistics for a <code>process_match</code> output are grouped by process name.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. plugin parameters</caption>
+<caption class="title">Table 27. plugin parameters</caption>
 <colgroup>
-<col style="width: 50%;"/>
-<col style="width: 50%;"/>
+<col style="width: 38.8888%;"/>
+<col style="width: 33.3333%;"/>
+<col style="width: 27.7779%;"/>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Defaults</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">processes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">process_matches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collect_context_switch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collect_file_descriptor</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collect_memory_maps</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;undefined&gt;</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -6432,286 +6443,254 @@ If no interfaces are listed, all interfaces are monitored by default.
 </li>
 </ul>
 </div>
-<h3 id="_collectdpluginprotocols" class="discrete">collectd::plugin::protocols</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::protocols::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::protocols::values</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginpython" class="discrete">collectd::plugin::python</h3>
-<h3 id="_collectdpluginsensors" class="discrete">collectd::plugin::sensors</h3>
-<h3 id="_collectdpluginserial" class="discrete">collectd::plugin::serial</h3>
 <h3 id="_collectdpluginsmart" class="discrete">collectd::plugin::smart</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::smart::disks</p>
-</li>
-<li>
-<p>collectd::plugin::smart::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::smart::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginsnmp" class="discrete">collectd::plugin::snmp</h3>
-<h3 id="_collectdpluginsnmp_agent" class="discrete">collectd::plugin::snmp_agent</h3>
 <div class="paragraph">
-<p>Use the <code>snmp_agent</code> plugin as an SNMP subagent to map collectd metrics to relevant OIDs. The snmp agent also requires a running snmpd service.</p>
+<p>Use the <code>smart</code> plugin to collect SMART information from physical disks on the node. You must also set the parameter <code>CollectdContainerAdditionalCapAdd</code> to <code>CAP_SYS_RAWIO</code> to allow the <code>smart</code> plugin to read SMART telemetry. If you do not set the <code>CollectdContainerAdditionalCapAdd</code> parameter, the following message is written to the collectd error logs:</p>
 </div>
+<div class="paragraph">
+<p><code>smart plugin: Running collectd as root, but the CAP_SYS_RAWIO capability is missing. The plugin's read function will probably fail. Is your init system dropping capabilities?</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. smart parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
-    CollectdExtraPlugins:
-        snmp_agent
-resource_registry:
-    OS::TripleO::Services::Snmp: /usr/share/openstack-tripleo-heat-
-templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - smart
+
+  CollectdContainerAdditionalCapAdd: "CAP_SYS_RAWIO"</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<div class="title">Additional resources:</div>
-<p>For more information about how to configure <code>snmp_agent</code>, see  <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_snmp_agent">snmp_agent</a>.</p>
-</div>
-<h3 id="_collectdpluginstatsd" class="discrete">collectd::plugin::statsd</h3>
 <div class="ulist">
+<div class="title">Additional information</div>
 <ul>
 <li>
-<p>collectd::plugin::statsd::host</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::port</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::deletecounters</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::deletetimers</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::deletegauges</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::deletesets</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::countersum</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::timerpercentile</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::timerlower</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::timerupper</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::timersum</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::timercount</p>
-</li>
-<li>
-<p>collectd::plugin::statsd::interval</p>
+<p>For more information about configuring the <code>smart</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_smart">smart</a>.</p>
 </li>
 </ul>
 </div>
 <h3 id="_collectdpluginswap" class="discrete">collectd::plugin::swap</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::swap::reportbydevice</p>
-</li>
-<li>
-<p>collectd::plugin::swap::reportbytes</p>
-</li>
-<li>
-<p>collectd::plugin::swap::valuesabsolute</p>
-</li>
-<li>
-<p>collectd::plugin::swap::valuespercentage</p>
-</li>
-<li>
-<p>collectd::plugin::swap::reportio</p>
-</li>
-<li>
-<p>collectd::plugin::swap::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>swap</code> plugin to collect information about the available and used swap space.</p>
 </div>
-<h3 id="_collectdpluginsysevent" class="discrete">collectd::plugin::sysevent</h3>
-<h3 id="_collectdpluginsyslog" class="discrete">collectd::plugin::syslog</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::syslog::log_level</p>
-</li>
-<li>
-<p>collectd::plugin::syslog::notify_level</p>
-</li>
-<li>
-<p>collectd::plugin::syslog::interval</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 29. swap parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbydevice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportbytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuesabsolute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valuespercentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportio</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - swap
+
+  ExtraConfig:
+    collectd::plugin::swap::reportbydevice: false
+    collectd::plugin::swap::reportbytes: true
+    collectd::plugin::swap::valuesabsolute: true
+    collectd::plugin::swap::valuespercentage: false
+    collectd::plugin::swap::reportio: true</code></pre>
 </div>
-<h3 id="_collectdplugintable" class="discrete">collectd::plugin::table</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::table::tables</p>
-</li>
-<li>
-<p>collectd::plugin::table::interval</p>
-</li>
-</ul>
 </div>
-<h3 id="_collectdplugintail" class="discrete">collectd::plugin::tail</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::tail::files</p>
-</li>
-<li>
-<p>collectd::plugin::tail::interval</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdplugintail_csv" class="discrete">collectd::plugin::tail_csv</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::tail_csv::metrics</p>
-</li>
-<li>
-<p>collectd::plugin::tail_csv::files</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdplugintarget_notification" class="discrete">collectd::plugin::target_notification</h3>
-<h3 id="_collectdplugintarget_replace" class="discrete">collectd::plugin::target_replace</h3>
-<h3 id="_collectdplugintarget_scale" class="discrete">collectd::plugin::target_scale</h3>
-<h3 id="_collectdplugintarget_set" class="discrete">collectd::plugin::target_set</h3>
-<h3 id="_collectdplugintarget_v5upgrade" class="discrete">collectd::plugin::target_v5upgrade</h3>
 <h3 id="_collectdplugintcpconns" class="discrete">collectd::plugin::tcpconns</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::tcpconns::localports</p>
-</li>
-<li>
-<p>collectd::plugin::tcpconns::remoteports</p>
-</li>
-<li>
-<p>collectd::plugin::tcpconns::listening</p>
-</li>
-<li>
-<p>collectd::plugin::tcpconns::allportssummary</p>
-</li>
-<li>
-<p>collectd::plugin::tcpconns::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>tcpconns</code> plugin to collect information about the number of TCP connections inbound or outbound from the configured port. The local port configuration represents the inbound connections to the port. The remote port configuration represents the outbound connections from the port.</p>
 </div>
-<h3 id="_collectdpluginted" class="discrete">collectd::plugin::ted</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 30. tcpconns parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port (Array)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">remoteports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port (Array)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">listening</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allportssummary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - tcpconns
+
+  ExtraConfig:
+    collectd::plugin::tcpconns::listening: false
+    collectd::plugin::tcpconns::localports:
+    - 22
+    collectd::plugin::tcpconns::remoteports:
+    - 22</code></pre>
+</div>
+</div>
 <h3 id="_collectdpluginthermal" class="discrete">collectd::plugin::thermal</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::thermal::devices</p>
-</li>
-<li>
-<p>collectd::plugin::thermal::ignoreselected</p>
-</li>
-<li>
-<p>collectd::plugin::thermal::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>thermal</code> plugin to retrieve ACPI thermal zone information.</p>
 </div>
-<h3 id="_collectdpluginthreshold" class="discrete">collectd::plugin::threshold</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::threshold::types</p>
-</li>
-<li>
-<p>collectd::plugin::threshold::plugins</p>
-</li>
-<li>
-<p>collectd::plugin::threshold::hosts</p>
-</li>
-<li>
-<p>collectd::plugin::threshold::interval</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 31. thermal parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">devices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreselected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - thermal</code></pre>
 </div>
-<h3 id="_collectdpluginturbostat" class="discrete">collectd::plugin::turbostat</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::turbostat::core_c_states</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::package_c_states</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::system_management_interrupt</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::digital_temperature_sensor</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::tcc_activation_temp</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::running_average_power_limit</p>
-</li>
-<li>
-<p>collectd::plugin::turbostat::logical_core_names</p>
-</li>
-</ul>
 </div>
-<h3 id="_collectdpluginunixsock" class="discrete">collectd::plugin::unixsock</h3>
 <h3 id="_collectdpluginuptime" class="discrete">collectd::plugin::uptime</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::uptime::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>uptime</code> plugin to collect information about system uptime.</p>
 </div>
-<h3 id="_collectdpluginusers" class="discrete">collectd::plugin::users</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::users::interval</p>
-</li>
-</ul>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default.
+</td>
+</tr>
+</table>
 </div>
-<h3 id="_collectdpluginuuid" class="discrete">collectd::plugin::uuid</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::uuid::uuid_file</p>
-</li>
-<li>
-<p>collectd::plugin::uuid::interval</p>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 32. uptime parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
 <h3 id="_collectdpluginvirt" class="discrete">collectd::plugin::virt</h3>
 <div class="paragraph">
 <p>Use the <code>virt</code> plugin to collect CPU, disk, network load, and other metrics through the <code>libvirt</code> API for virtual machines on the host.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This plugin is enabled by default on compute hosts.
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. virt parameters</caption>
+<caption class="title">Table 33. virt parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6768,8 +6747,9 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>ExtraConfig:
-    collectd::plugin::virt::plugin_instance_format: name</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ExtraConfig:
+  collectd::plugin::virt::hostname_format: "name uuid hostname"
+  collectd::plugin::virt::plugin_instance_format: metadata</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6777,38 +6757,49 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <p>For more information about configuring the <code>virt</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_virt">virt</a>.</p>
 </div>
 <h3 id="_collectdpluginvmem" class="discrete">collectd::plugin::vmem</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::vmem::verbose</p>
-</li>
-<li>
-<p>collectd::plugin::vmem::interval</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the <code>vmem</code> plugin to collect information about virtual memory from the kernel subsystem.</p>
 </div>
-<h3 id="_collectdpluginvserver" class="discrete">collectd::plugin::vserver</h3>
-<h3 id="_collectdpluginwireless" class="discrete">collectd::plugin::wireless</h3>
-<h3 id="_collectdpluginwrite_graphite" class="discrete">collectd::plugin::write_graphite</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::write_graphite::carbons</p>
-</li>
-<li>
-<p>collectd::plugin::write_graphite::carbon_defaults</p>
-</li>
-<li>
-<p>collectd::plugin::write_graphite::globals</p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 34. vmem parameters</caption>
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Example configuration:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
+  CollectdExtraPlugins:
+  - vmem
+
+  ExtraConfig:
+    collectd::plugin::vmem::verbose: true</code></pre>
+</div>
 </div>
 <h3 id="_collectdpluginwrite_http" class="discrete">collectd::plugin::write_http</h3>
 <div class="paragraph">
 <p>Use the <code>write_http</code> output plugin to submit values to an HTTP server by using POST requests and encoding metrics with JSON, or by using the <code>PUTVAL</code> command.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. write_http parameters</caption>
+<caption class="title">Table 35. write_http parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6841,7 +6832,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     CollectdExtraPlugins:
       - write_http
     ExtraConfig:
@@ -6849,7 +6840,7 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
             collectd:
                 url: “http://collectd.tld.org/collectd”
                 metrics: true
-                header: “X-Custom-Header: custom_value"</pre>
+                header: “X-Custom-Header: custom_value"</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -6862,10 +6853,13 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 </div>
 <h3 id="_collectdpluginwrite_kafka" class="discrete">collectd::plugin::write_kafka</h3>
 <div class="paragraph">
-<p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the <code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you must specify a unique name and one Kafka producer. You can use the following per-topic parameters inside the topic block:</p>
+<p>Use the <code>write_kafka</code> plugin to send values to a Kafka topic. Configure the
+<code>write_kafka</code> plugin with one or more topic blocks. For each topic block, you
+must specify a unique name and one Kafka producer. You can use the following
+per-topic parameters inside the topic block:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. write_kafka parameters</caption>
+<caption class="title">Table 36. write_kafka parameters</caption>
 <colgroup>
 <col style="width: 50%;"/>
 <col style="width: 50%;"/>
@@ -6880,10 +6874,6 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kafka_hosts</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array[String]</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">kafka_port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">topics</p></td>
@@ -6902,44 +6892,27 @@ templates/deployment/snmp/snmp-baremetal-puppet.yaml</pre>
 <div class="listingblock">
 <div class="title">Example configuration:</div>
 <div class="content">
-<pre>parameter_defaults:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     CollectdExtraPlugins:
        - write_kafka
     ExtraConfig:
       collectd::plugin::write_kafka::kafka_hosts:
-        - nodeA
-        - nodeB
+        - remote.tld:9092
       collectd::plugin::write_kafka::topics:
-        some_events:
-          format: JSON</pre>
+        mytopic:
+          format: JSON</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <div class="title">Additional resources:</div>
 <p>For more information about how to configure the <code>write_kafka</code> plugin, see <a href="https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_write_kafka">write_kafka</a>.</p>
 </div>
-<h3 id="_collectdpluginwrite_log" class="discrete">collectd::plugin::write_log</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>collectd::plugin::write_log::format</p>
-</li>
-</ul>
-</div>
-<h3 id="_collectdpluginzfs_arc" class="discrete">collectd::plugin::zfs_arc</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>None</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-27 12:43:41 UTC
+Last updated 2022-06-09 14:12:20 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
