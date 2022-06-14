@@ -141,11 +141,16 @@ orders.certmanager.k8s.io
 [source,bash,options="nowrap"]
 ----
 $ oc delete --namespace=openshift-operators csv amq7-cert-manager.v1.0.6
+----
 
+Example output:
+
+[source,bash,options="nowrap"]
+----
 clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.6" deleted
 ----
 
-. Optionally, delete the CustomResourceDefinitions related to the AMQ Cert Manager Operator:
+. Delete the CustomResourceDefinitions related to the AMQ Cert Manager Operator:
 +
 [source,bash,options="nowrap"]
 ----
