@@ -1,0 +1,106 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-the-amq-cert-manager-operator.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="removing-the-amq-cert-manager-operator_{context}"]
+= Removing the AMQ Certificate Manager Operator
+
+[role="_abstract"]
+If you are not using the AMQ Certificate Manager for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
+
+.Procedure
+
+. Retrieve the version number of your installed ClusterServiceVersion:
++
+[source,bash,options="nowrap"]
+----
+$ oc get --namespace=openshift-operators subscription amq7-cert-manager-operator -oyaml | grep currentCSV
+----
++
+Example output:
++
+[source,bash]
+----
+  currentCSV: amq7-cert-manager.v1.0.6
+----
+
+. Delete the Subscription from the `openshift-operators` namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete --namespace=openshift-operators subscription amq7-cert-manager-operator
+
+subscription.operators.coreos.com "amq7-cert-manager-operator" deleted
+----
+
+. Get the current list of CustomResourceDefinitions provided by the Operator so they can be deleted after removal of the ClusterServiceVersion:
++
+[source,bash,options="nowrap"]
+----
+$ oc get csv -nopenshift-operators amq7-cert-manager.v1.0.6  -oyaml | grep "kind: CustomResourceDefinition" -A2 | grep name | awk '{print $2}'
+----
++
+Example output:
++
+[source,bash]
+----
+certificates.certmanager.k8s.io
+challenges.certmanager.k8s.io
+clusterissuers.certmanager.k8s.io
+issuers.certmanager.k8s.io
+orders.certmanager.k8s.io
+----
+
+. Delete the ClusterServiceVersion from the `openshift-operators` namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete --namespace=openshift-operators csv amq7-cert-manager.v1.0.6
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.6" deleted
+----
+
+. Delete the CustomResourceDefinitions related to the AMQ Cert Manager Operator:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete crd certificates.certmanager.k8s.io challenges.certmanager.k8s.io clusterissuers.certmanager.k8s.io issuers.certmanager.k8s.io orders.certmanager.k8s.io
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+customresourcedefinition.apiextensions.k8s.io "certificates.certmanager.k8s.io" deleted
+customresourcedefinition.apiextensions.k8s.io "challenges.certmanager.k8s.io" deleted
+customresourcedefinition.apiextensions.k8s.io "clusterissuers.certmanager.k8s.io" deleted
+customresourcedefinition.apiextensions.k8s.io "issuers.certmanager.k8s.io" deleted
+customresourcedefinition.apiextensions.k8s.io "orders.certmanager.k8s.io" deleted
+----
+
+.Additional information
+For more information about removing Operators from {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/admin/olm-deleting-operators-from-cluster.html

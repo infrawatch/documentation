@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+
+[id="assembly-removing-stf-from-the-openshift-environment_{context}"]
+= Removing {Project} from the {OpenShift} environment
+
+:context: assembly-removing-stf-from-the-openshift-environment
+
+[role="_abstract"]
+Remove {Project} ({ProjectShort}) from an {OpenShift} environment if you no longer require the {ProjectShort} functionality.
+
+To remove {ProjectShort} from the {OpenShift} environment, you must perform the following tasks:
+
+. Delete the namespace.
+. Remove the catalog source.
+. Remove the AMQ Cert Manager Operator.
+
+include::../modules/proc_deleting-the-namespace.adoc[leveloffset=+1]
+include::../modules/proc_removing-the-catalogsource.adoc[leveloffset=+1]
+include::../modules/proc_removing-the-amq-cert-manager-operator.adoc[leveloffset=+1]
+
+//reset the context
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
