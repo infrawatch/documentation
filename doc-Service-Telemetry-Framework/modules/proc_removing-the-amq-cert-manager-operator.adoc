@@ -61,7 +61,7 @@ $ oc get csv -nopenshift-operators amq7-cert-manager.v1.0.6  -oyaml | grep "kind
 +
 Example output:
 +
-[source,yaml]
+[source,bash]
 ----
 certificates.certmanager.k8s.io
 challenges.certmanager.k8s.io
@@ -76,9 +76,9 @@ orders.certmanager.k8s.io
 ----
 $ oc delete --namespace=openshift-operators csv amq7-cert-manager.v1.0.6
 ----
-
++
 Example output:
-
++
 [source,bash,options="nowrap"]
 ----
 clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.6" deleted
