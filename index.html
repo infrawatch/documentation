@@ -4877,7 +4877,7 @@ subscription.operators.coreos.com "amq7-cert-manager-operator" deleted</code></p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">certificates.certmanager.k8s.io
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">certificates.certmanager.k8s.io
 challenges.certmanager.k8s.io
 clusterissuers.certmanager.k8s.io
 issuers.certmanager.k8s.io
@@ -4892,9 +4892,6 @@ orders.certmanager.k8s.io</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-operators csv amq7-cert-manager.v1.0.6</code></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>Example output:</p>
 </div>
@@ -4903,8 +4900,7 @@ orders.certmanager.k8s.io</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.6" deleted</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Delete the CustomResourceDefinitions related to the AMQ Cert Manager Operator:</p>
 <div class="listingblock">
@@ -7024,7 +7020,7 @@ per-topic parameters inside the topic block:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-16 20:08:22 UTC
+Last updated 2022-06-16 20:30:31 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
