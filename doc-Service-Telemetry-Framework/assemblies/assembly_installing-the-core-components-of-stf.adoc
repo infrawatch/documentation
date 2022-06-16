@@ -11,7 +11,7 @@ You can use Operators to load the {Project} ({ProjectShort}) components and obje
 * {MessageBus}
 * Smart Gateway
 * Prometheus and AlertManager
-* ElasticSearch
+* Elasticsearch
 * Grafana
 
 .Prerequisites
@@ -28,13 +28,13 @@ endif::[]
 .Additional resources
 
 * For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
+* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_assembly[].
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
 include::../modules/proc_accessing-uis-for-stf-components.adoc[leveloffset=+1]
 include::../modules/proc_configuring-observability-strategy.adoc[leveloffset=+1]
-include::../modules/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]
