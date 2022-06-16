@@ -29,7 +29,7 @@ If you are not using the AMQ Certificate Manager for any other applications, del
 
 .Procedure
 
-. Get the current ClusterServiceVersion installed:
+. Retrieve the version number of your installed ClusterServiceVersion:
 +
 [source,bash,options="nowrap"]
 ----
