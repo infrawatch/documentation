@@ -3,7 +3,7 @@
 // <List assemblies here, each on a new line>
 
 // This module can be included from assemblies using the following include statement:
-// include::<path>/proc_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
+// include::<path>/proc_removing-the-catalogsource.adoc[leveloffset=+1]
 
 // The file name and the ID are based on the module title. For example:
 // * file name: proc_doing-procedure-a.adoc
@@ -20,42 +20,11 @@
 //
 // Start the title with a verb, such as Creating or Create. See also
 // _Wording of headings_ in _The IBM Style Guide_.
-[id="removing-stf-from-the-openshift-environment_{context}"]
-= Removing {Project} from the {OpenShift} environment
+
+[id="removing-the-catalogsource_{context}"]
+= Removing the CatalogSource
 
 [role="_abstract"]
-Remove {Project} ({ProjectShort}) from an {OpenShift} environment if you no longer require the {ProjectShort} functionality.
-
-.Procedure
-
-. xref:deleting-the-namespace[Deleting the namespace].
-. xref:removing-the-catalogsource[Removing the catalog source].
-
-[id="deleting-the-namespace"]
-== Deleting the namespace
-
-To remove the operational resources for {ProjectShort} from {OpenShift}, delete the namespace.
-
-.Procedure
-
-. Run the `oc delete` command:
-+
-[source,bash]
-----
-$ oc delete project service-telemetry
-----
-
-. Verify that the resources have been deleted from the namespace:
-+
-[source,bash]
-----
-$ oc get all
-No resources found.
-----
-
-[id="removing-the-catalogsource"]
-== Removing the CatalogSource
-
 If you do not expect to install {Project} ({ProjectShort}) again, delete the CatalogSource. When you remove the CatalogSource, PackageManifests related to {ProjectShort} are automatically removed from the Operator Lifecycle Manager catalog.
 
 .Procedure
