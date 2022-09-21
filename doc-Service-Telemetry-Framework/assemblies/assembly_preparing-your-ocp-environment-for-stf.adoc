@@ -19,6 +19,7 @@ include::../modules/con_observability-strategy.adoc[leveloffset=+1]
 include::../modules/con_persistent-volumes.adoc[leveloffset=+1]
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+2]
 include::../modules/con_resource-allocation.adoc[leveloffset=+1]
+include::../modules/con_network-considerations-for-service-telemetry-framework[leveloffset=+1]
 
 ifeval::["{build}" == "upstream"]
 include::../modules/con_node-tuning-operator.adoc[leveloffset=+1]

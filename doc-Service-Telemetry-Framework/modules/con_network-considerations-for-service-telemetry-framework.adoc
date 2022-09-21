@@ -1,0 +1,6 @@
+:_content-type: PROCEDURE
+
+[id="con-network-considerations-for-service-telemetry-framework_{context}"]
+= Network considerations for Service Telemetry Framework
+
+{Project} ({ProjectShort}) works only in a fully connected network environment. {ProjectShort} does not work in Red Hat OpenShift Container Platform-disconnected environments or network proxy environments.
