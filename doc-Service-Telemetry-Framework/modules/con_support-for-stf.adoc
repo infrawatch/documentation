@@ -1,6 +1,3 @@
-
-:_content-type: PROCEDURE
-
 [id="support-for-project_{context}"]
 = Support for {Project}
 
