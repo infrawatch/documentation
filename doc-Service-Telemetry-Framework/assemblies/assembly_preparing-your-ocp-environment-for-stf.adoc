@@ -12,7 +12,7 @@ To prepare your {OpenShift} environment for {Project} ({ProjectShort}), you must
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation_assembly-preparing-your-ocp-environment-for-stf>>.
 * Ensure that you have a fully connected network environment. For more information, see xref:con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf[].
 ifeval::["{build}" == "upstream"]
-* {ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count` value. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf>>.
+* {ProjectShort} uses Elasticsearch to store events, which requires a larger than normal `vm.max_map_count` value. The `vm.max_map_count` value is set by default in {OpenShift}. For more information about how to edit the value of `vm.max_map_count`, see <<node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf>>.
 endif::[]
 
 include::../modules/con_observability-strategy.adoc[leveloffset=+1]
