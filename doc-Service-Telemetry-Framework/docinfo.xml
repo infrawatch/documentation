@@ -1,11 +1,11 @@
-<title>Service Telemetry Framework 1.3</title>
-<subtitle>Installing and deploying Service Telemetry Framework 1.3</subtitle>
+<title>Service Telemetry Framework 1.4</title>
+<subtitle>Installing and deploying Service Telemetry Framework 1.4</subtitle>
 <productname>Red Hat OpenStack Platform</productname>
-<productnumber>16.1</productnumber>
+<productnumber>17.0</productnumber>
 <pubsnumber>0</pubsnumber>
 <abstract>
   <para>
-      Install the core components and deploy Service Telemetry Framework 1.3.
+      Install the core components and deploy Service Telemetry Framework 1.4
   </para>
 </abstract>
 <xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
