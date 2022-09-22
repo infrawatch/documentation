@@ -19,4 +19,9 @@ parameter_defaults:
     ObjectStorageHostnameFormat: 'swift-%index%'
     ComputeHostnameFormat: 'compute-%index%'
 ----
-. Add the new environment file to your deployment. For more information, see xref:creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration[] and https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/overcloud_parameters/core-overcloud-parameters[Core overcloud parameters] in the _Overcloud Parameters_ guide.
+. Add the new environment file to your deployment.
+
+.Additional resources
+
+* xref:creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration[]
+* https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html-single/overcloud_parameters/index#ref_core-overcloud-parameters_overcloud_parameters[Core Overcloud Parameters] in the _Overcloud Parameters_ guide
