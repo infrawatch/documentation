@@ -1,0 +1,5 @@
+[preface]
+[id="tech_preview_preface"]
+= Technology Preview
+
+This feature is available in this release as a _Technology Preview_, and therefore is not fully supported by Red Hat. It should only be used for testing, and should not be deployed in a production environment. For more information about Technology Preview features, see https://access.redhat.com/support/offerings/production/scope_moredetail[Scope of Coverage Details].

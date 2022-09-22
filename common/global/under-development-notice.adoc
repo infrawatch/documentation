@@ -1,0 +1,11 @@
+[[about-this-guide]]
+== About This Guide
+
+[WARNING]
+========================
+Red Hat is currently reviewing the information and procedures provided in this guide for this release.
+
+This document is based on the Red Hat OpenStack Platform 12 document, available at link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html/logging_monitoring_and_troubleshooting_guide/index[Logging, Monitoring, and Troubleshooting Guide].
+
+If you require assistance for the current Red Hat OpenStack Platform release, please contact Red Hat support.
+========================
