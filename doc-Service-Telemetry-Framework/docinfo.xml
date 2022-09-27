@@ -5,7 +5,7 @@
 <pubsnumber>0</pubsnumber>
 <abstract>
   <para>
-      Install the core components and deploy Service Telemetry Framework 1.4
+      Install the core components and deploy Service Telemetry Framework 1.5
   </para>
 </abstract>
 <xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
