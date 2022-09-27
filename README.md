@@ -33,7 +33,7 @@ make both formats in one command, use `make html pdf`. To build downstream
 version perform `make BUILD=downstream browser`.
 
 Few additional `make` targets are available on the guide level. To build
-HTML version and to view it in a new tab in a browser, enter the following commands:
+a HTML version and to view it in a new tab in a browser, enter the following commands:
 
     cd doc-Service-Telemetry-Framework
     make browser
