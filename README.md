@@ -84,7 +84,7 @@ Variables cannot be used in shell or code examples. To use them, use "attributes
 	----
 
 Hide or show specific blocks, paragraphs, warnings or chapters by using a special
-variable called build. You can set the value of build to either "downstream" or
+variable called `build`. You can set the value of build to either "downstream" or
 "upstream":
 
 	ifeval::["{build}" == "upstream"]
