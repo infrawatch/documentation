@@ -4,6 +4,6 @@
 [role="_abstract"]
 Red Hat supports the two most recent versions of {Project} ({ProjectShort}). Earlier versions are not supported. For more information, see the https://access.redhat.com/articles/5662081[{Project} Supported Version Matrix].
 
-Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of ElasticSearch, Prometheus, Alertmanager, Grafana, and their Operators.
+Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, such as Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
 
 You can only deploy {ProjectShort} in a fully connected network environment. You cannot deploy {ProjectShort} in {OpenShift}-disconnected environments or network proxy environments.
