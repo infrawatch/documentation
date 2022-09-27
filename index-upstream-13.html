@@ -468,6 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
+<li><a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a></li>
 <li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
 </ul>
 </li>
@@ -870,18 +871,21 @@ To ensure that the monitoring platform can report operational problems with your
 <h2 id="assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>To prepare your OpenShift environment for Service&#160;Telemetry&#160;Framework (STF), you must plan for persistent storage, adequate resources, and event storage:</p>
+<p>To prepare your OpenShift environment for Service&#160;Telemetry&#160;Framework (STF), you must plan for persistent storage, adequate resources, event storage, and network considerations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure that persistent storage is available in your OpenShift cluster for a production grade deployment. For more information, see <a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>.</p>
+<p>Ensure that you have persistent storage available in your OpenShift cluster for a production-grade deployment. For more information, see <a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>.</p>
 </li>
 <li>
 <p>Ensure that enough resources are available to run the Operators and the application containers. For more information, see <a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a>.</p>
 </li>
 <li>
-<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a>.</p>
+<p>Ensure that you have a fully connected network environment. For more information, see <a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a>.</p>
+</li>
+<li>
+<p>STF uses Elasticsearch to store events, which requires a larger than normal <code>vm.max_map_count</code> value. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a>.</p>
 </li>
 </ul>
 </div>
@@ -956,6 +960,12 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</h3>
+<div class="paragraph">
+<p>You can only deploy Service&#160;Telemetry&#160;Framework(STF) in a fully connected network environment. You cannot deploy STF in OpenShift-disconnected environments or network proxy environments.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1049,6 +1059,9 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </li>
 <li>
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
+</li>
+<li>
+<p>Your environment is fully connected. STF does not work in a OpenShift-disconnected environments or network proxy environments.</p>
 </li>
 </ul>
 </div>
@@ -6670,7 +6683,7 @@ per-topic parameters inside the topic block:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-22 09:52:36 UTC
+Last updated 2022-09-27 12:16:29 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
