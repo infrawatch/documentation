@@ -1,0 +1,21 @@
+// Module included in the following assemblies:
+//
+//[id="proc_providing-feedback-on-red-hat-documentation_{context}"]
+
+[preface]
+[id="proc_providing-feedback-on-red-hat-documentation"]
+= Providing feedback on Red Hat documentation
+
+[role="_abstract"]
+We appreciate your input on our documentation. Tell us how we can make it better.
+
+.Using the Direct Documentation Feedback (DDF) function
+Use the *Add Feedback* DDF function for direct comments on specific sentences, paragraphs, or code blocks.
+
+. View the documentation in the _Multi-page HTML_ format.
+. Ensure that you see the *Feedback* button in the upper right corner of the document.
+. Highlight the part of text that you want to comment on.
+. Click *Add Feedback*.
+. Complete the *Add Feedback* field with your comments.
+. Optional: Add your email address so that the documentation team can contact you for clarification on your issue.
+. Click *Submit*.

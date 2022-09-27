@@ -1,7 +1,8 @@
 :TargetVersion: 1.4
-:ProductVersion: 1.4
+:ProductVersion: 1.5
 :context: assembly
 :containerbin: podman
+:build: downstream
 
 ifeval::[{vernum} > 16.0]
 :include_when_16_1:
@@ -25,7 +26,7 @@ ifeval::["{build}" == "upstream"]
 :OpenShiftShort: OKD
 :OpenStack: OpenStack
 :OpenStackShort: OSP
-:OpenStackVersion: Train
+:OpenStackVersion: Wallaby
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: TripleO
 :OVirt: oVirt
@@ -42,7 +43,7 @@ ifeval::["{build}" == "downstream"]
 :OpenShiftShort: OCP
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
 :OpenStackShort: RHOSP
-:OpenStackVersion: 16.2
+:OpenStackVersion: 17.0
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
