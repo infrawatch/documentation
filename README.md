@@ -38,7 +38,7 @@ HTML version and to view it in a new tab in a browser, enter the following comma
     cd doc-Service-Telemetry-Framework
     make browser
 
-To build and open PDF version, enter the following command:
+To build and open a PDF version, enter the following command:
 
     make open-pdf
 
