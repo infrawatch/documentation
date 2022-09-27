@@ -40,7 +40,4 @@ include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-
 // removing
 include::assemblies/assembly_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
-//ifeval::["{build}" == "upstream"]
 //collectd plugins
-//include::common/collectd/ref_collectd-plugins.adoc[leveloffset=+1]
-//endif::[]
