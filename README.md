@@ -30,7 +30,7 @@ install it from rubygems:
 Run `make` or `make html`, which builds HTML output. Generating
 PDF output is slow, therefore use the `make pdf` command separately. To
 make both formats in one command, use `make html pdf`. To build a downstream
-version perform `make BUILD=downstream browser`.
+version, run the `make BUILD=downstream browser` command.
 
 Few additional `make` targets are available on the guide level. To build
 a HTML version and to view it in a new tab in a browser, enter the following commands:
