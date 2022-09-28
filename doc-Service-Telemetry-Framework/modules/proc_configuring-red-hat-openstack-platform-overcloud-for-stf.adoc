@@ -6,9 +6,9 @@ As part of the {OpenStack} ({OpenStackShort}) overcloud deployment, you must con
 
 .Procedure
 
-ifdef::include_when_13[]
+ifdef::include_when_13,include_when_17[]
 . xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[]
-endif::include_when_13[]
+endif::include_when_13,include_when_17[]
 . xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[Retrieving the {MessageBus} route address]
 . xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[Creating the base configuration for {ProjectShort}]
 . xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[Configuring the {ProjectShort} connection for the overcloud]
