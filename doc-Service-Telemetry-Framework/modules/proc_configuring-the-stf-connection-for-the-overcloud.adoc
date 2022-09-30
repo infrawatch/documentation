@@ -6,9 +6,9 @@ To configure the {Project} ({ProjectShort}) connection, you must create a file t
 
 .Prerequisites
 
-ifdef::include_when_13[]
+ifdef::include_when_13,include_when_17[]
 * Retrieve the CA certificate from the {MessageBus} deployed by {ProjectShort}. For more information, see xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
-endif::include_when_13[]
+endif::include_when_13,include_when_17[]
 * Retrieve the {MessageBus} route address. For more information, see xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 
 // The following configuration should match the contents in modules/proc_creating-openstack-environment-file-for-multiple-clouds.adoc. If you have changes to make, please make the same changes to both files.
@@ -22,9 +22,9 @@ endif::include_when_13[]
 
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 
-ifdef::include_when_13[]
+ifdef::include_when_13,include_when_17[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
-endif::include_when_13[]
+endif::include_when_13,include_when_17[]
 +
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
@@ -42,12 +42,12 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-ifdef::include_when_13[]
+ifdef::include_when_13,include_when_17[]
           caCertFileContent: |
             ----BEGIN CERTIFICATE----
             <snip>
             ----END CERTIFICATE----
-endif::include_when_13[]
+endif::include_when_13,include_when_17[]
 
     CeilometerQdrEventsConfig:
         driver: amqp
