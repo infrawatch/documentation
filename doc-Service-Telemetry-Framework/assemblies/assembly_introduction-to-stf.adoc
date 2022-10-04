@@ -27,7 +27,12 @@ The components of {ProjectShort} use a message bus for data transport. Other mod
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
+{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion}
+endif::[]
+ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
+{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+endif::[]
 endif::[]
 
 .Additional resources

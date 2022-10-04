@@ -136,7 +136,7 @@ $ oc logs --selector name=service-telemetry-operator
 --------------------------- Ansible Task Status Event StdOut  -----------------
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=57   changed=0    unreachable=0    failed=0    skipped=20   rescued=0    ignored=0
+localhost                  : ok=90   changed=0    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0
 ----
 
 .Verification
