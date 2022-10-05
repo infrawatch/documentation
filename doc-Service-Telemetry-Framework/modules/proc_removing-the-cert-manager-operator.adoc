@@ -1,0 +1,127 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-the-cert-manager-operator.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="removing-the-cert-manager-operator_{context}"]
+= Removing the cert-manager Operator
+
+[role="_abstract"]
+If you are not using the cert-manager Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
+
+.Procedure
+
+. Retrieve the version number of your installed ClusterServiceVersion:
++
+[source,bash,options="nowrap"]
+----
+$ oc get --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator -oyaml | grep currentCSV
+----
++
+Example output:
++
+[source,bash]
+----
+  currentCSV: openshift-cert-manager.v1.7.1
+----
+
+. Delete the Subscription from the `openshift-cert-manager-operator` namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator
+
+subscription.operators.coreos.com "openshift-cert-manager-operator" deleted
+----
+
+. Get the current list of CustomResourceDefinitions provided by the Operator so they can be deleted after removal of the ClusterServiceVersion:
++
+[source,bash,options="nowrap"]
+----
+$ oc get csv -n openshift-cert-manager-operator openshift-cert-manager.v1.7.1 -oyaml | grep "kind: CustomResourceDefinition" -A2 | grep name | awk '{print $2}'
+----
++
+Example output:
++
+[source,bash]
+----
+certificaterequests.cert-manager.io
+certificates.cert-manager.io
+certmanagers.config.openshift.io
+certmanagers.operator.openshift.io
+challenges.acme.cert-manager.io
+clusterissuers.cert-manager.io
+issuers.cert-manager.io
+orders.acme.cert-manager.io
+----
+
+. Delete the ClusterServiceVersion from the `openshift-cert-manager-operator` namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete --namespace=openshift-cert-manager-operator csv openshift-cert-manager.v1.7.1
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+clusterserviceversion.operators.coreos.com "openshift-cert-manager.v1.7.1" deleted
+----
+
+. Delete the CustomResourceDefinitions related to the cert-manager Operator:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete crd certificaterequests.cert-manager.io certificates.cert-manager.io certmanagers.config.openshift.io certmanagers.operator.openshift.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+customresourcedefinition.apiextensions.k8s.io "certificaterequests.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certificates.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certmanagers.config.openshift.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certmanagers.operator.openshift.io" deleted
+customresourcedefinition.apiextensions.k8s.io "challenges.acme.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "clusterissuers.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "issuers.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "orders.acme.cert-manager.io" deleted
+----
+
+. Delete the namespaces owned by the cert-manager Operator:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete project openshift-cert-manager openshift-cert-manager-operator
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+project.project.openshift.io "openshift-cert-manager" deleted
+project.project.openshift.io "openshift-cert-manager-operator" deleted
+----
+
+.Additional information
+For more information about removing Operators from {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/admin/olm-deleting-operators-from-cluster.html
