@@ -29,6 +29,15 @@ If you are not using the cert-manager Operator for any other applications, delet
 
 .Procedure
 
+. Delete the Subscription from the `openshift-cert-manager-operator` namespace:
++
+[source,bash,options="nowrap"]
+----
+$ oc delete --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator
+
+subscription.operators.coreos.com "openshift-cert-manager-operator" deleted
+----
+
 . Retrieve the version number of your installed ClusterServiceVersion:
 +
 [source,bash,options="nowrap"]
@@ -43,13 +52,18 @@ Example output:
   currentCSV: openshift-cert-manager.v1.7.1
 ----
 
-. Delete the Subscription from the `openshift-cert-manager-operator` namespace:
+. Delete the ClusterServiceVersion from the `openshift-cert-manager-operator` namespace:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc delete --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator
-
-subscription.operators.coreos.com "openshift-cert-manager-operator" deleted
+$ oc delete --namespace=openshift-cert-manager-operator csv openshift-cert-manager.v1.7.1
+----
++
+Example output:
++
+[source,bash,options="nowrap"]
+----
+clusterserviceversion.operators.coreos.com "openshift-cert-manager.v1.7.1" deleted
 ----
 
 . Get the current list of CustomResourceDefinitions provided by the Operator so they can be deleted after removal of the ClusterServiceVersion:
@@ -71,20 +85,6 @@ challenges.acme.cert-manager.io
 clusterissuers.cert-manager.io
 issuers.cert-manager.io
 orders.acme.cert-manager.io
-----
-
-. Delete the ClusterServiceVersion from the `openshift-cert-manager-operator` namespace:
-+
-[source,bash,options="nowrap"]
-----
-$ oc delete --namespace=openshift-cert-manager-operator csv openshift-cert-manager.v1.7.1
-----
-+
-Example output:
-+
-[source,bash,options="nowrap"]
-----
-clusterserviceversion.operators.coreos.com "openshift-cert-manager.v1.7.1" deleted
 ----
 
 . Delete the CustomResourceDefinitions related to the cert-manager Operator:

@@ -128,7 +128,7 @@ EOF
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc get csv -n openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
 
 NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
 openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
