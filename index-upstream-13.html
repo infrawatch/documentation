@@ -449,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.4</a>
+<li><a href="#assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.5</a>
 <ul class="sectlevel2">
 <li><a href="#stf-architecture_assembly-introduction-to-stf">Service&#160;Telemetry&#160;Framework architecture</a></li>
 <li><a href="#installation-size-of-ocp_assembly-introduction-to-stf">Installation size of OpenShift</a>
@@ -560,7 +560,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#deleting-the-namespace_assembly-removing-stf-from-the-openshift-environment">Deleting the namespace</a></li>
 <li><a href="#removing-the-catalogsource_assembly-removing-stf-from-the-openshift-environment">Removing the CatalogSource</a></li>
-<li><a href="#removing-the-amq-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the AMQ Certificate Manager Operator</a></li>
+<li><a href="#removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</a></li>
 </ul>
 </li>
 </ul>
@@ -568,7 +568,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.4</h2>
+<h2 id="assembly-introduction-to-stf_assembly">Introduction to Service&#160;Telemetry&#160;Framework 1.5</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>Service&#160;Telemetry&#160;Framework (STF) collects monitoring data from OpenStack (OSP) or third-party nodes. You can use STF to perform the following tasks:</p>
@@ -608,13 +608,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.8/">OpenShift product documentation</a>.</p>
+<p>For more information about how to deploy OpenShift, see the  <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10/">OpenShift product documentation</a>.</p>
 </li>
 <li>
 <p>You can install OpenShift on cloud platforms or on bare metal. For more information about STF performance and scaling, see <a href="https://access.redhat.com/articles/4907241" class="bare">https://access.redhat.com/articles/4907241</a>.</p>
 </li>
 <li>
-<p>You can install OpenShift on bare metal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.8 Documentation</a>.</p>
+<p>You can install OpenShift on bare metal or other supported cloud platforms. For more information about installing OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.10 Documentation</a>.</p>
 </li>
 </ul>
 </div>
@@ -765,7 +765,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Service&#160;Telemetry&#160;Framework 1.5</p>
 </li>
 <li>
-<p>OpenShift 4.7 through 4.8</p>
+<p>OpenShift 4.10</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -807,7 +807,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment.</p>
 </div>
 <div class="paragraph">
-<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.8/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -909,10 +909,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
+<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </li>
 <li>
-<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </li>
 <li>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
@@ -985,7 +985,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </table>
 </div>
 <div class="paragraph">
-<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.8/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
+<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
@@ -996,7 +996,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.8/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1018,7 +1018,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </li>
 <li>
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.8/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
+<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
 </li>
 </ul>
 </div>
@@ -1033,6 +1033,9 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>cert-manager</p>
+</li>
 <li>
 <p>Apache&#160;Qpid&#160;Dispatch&#160;Router</p>
 </li>
@@ -1054,7 +1057,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>An OpenShift version inclusive of 4.7 through 4.8 is running.</p>
+<p>OpenShift version 4.10 is running.</p>
 </li>
 <li>
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
@@ -1068,7 +1071,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.8/operators/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
 <li>
 <p>For more information about how to remove STF from the OpenShift environment, see <a href="#assembly-removing-stf-from-the-openshift-environment_assembly">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>.</p>
@@ -1108,7 +1111,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.8/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </li>
 <li>
@@ -1156,62 +1159,50 @@ smart-gateway-operator                        InfraWatch Operators       7m20s</
 </div>
 </li>
 <li>
-<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of ElasticSearch, Prometheus, Alertmanager, Grafana, and their Operators.
-</td>
-</tr>
-</table>
-</div>
+<p>Create a namespace for the cert-manager Operator:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
+apiVersion: project.openshift.io/v1
+kind: Project
 metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
+  name: openshift-cert-manager-operator
 spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
+  finalizers:
+  - kubernetes
 EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Subscribe to the AMQ Certificate Manager Operator by using the redhat-operators CatalogSource:</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The AMQ Certificate Manager deploys to the <code>openshift-operators</code> namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the <code>service-telemetry</code> namespace. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
-</td>
-</tr>
-</table>
+<p>Create an OperatorGroup for the cert-manager Operator:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF</code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: amq7-cert-manager-operator
-  namespace: openshift-operators
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
 spec:
-  channel: 1.x
+  channel: tech-preview
   installPlanApproval: Automatic
-  name: amq7-cert-manager-operator
+  name: openshift-cert-manager-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
@@ -1219,13 +1210,13 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-cert-manager.v1.0.3 displays a phase of <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-operators --selector operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
 
-NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-amq7-cert-manager.v1.0.3   Red Hat Integration - AMQ Certificate Manager   1.0.3     amq7-cert-manager.v1.0.2   Succeeded</code></pre>
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1250,13 +1241,44 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.4 displays a phase of <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.10 displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
 NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.4   Red Hat Integration - AMQ Interconnect   1.10.4    amq7-interconnect-operator.v1.10.3   Succeeded</code></pre>
+amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operatorhubio/catalog:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF</code></pre>
 </div>
 </div>
 </li>
@@ -1318,7 +1340,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
 NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
-elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator   1.9.1                Succeeded</code></pre>
+elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1333,7 +1355,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.4
+  channel: stable-1.5
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: redhat-operators
@@ -1349,12 +1371,12 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
 NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
-amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3          amq7-cert-manager.v1.0.2             Succeeded
-amq7-interconnect-operator.v1.10.4           Red Hat Integration - AMQ Interconnect          1.10.4         amq7-interconnect-operator.v1.10.3   Succeeded
-elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                               Succeeded
+amq7-interconnect-operator.v1.10.10          Red Hat Integration - AMQ Interconnect          1.10.10        amq7-interconnect-operator.v1.10.4   Succeeded
+elasticsearch-eck-operator-certified.v2.4.0  Elasticsearch (ECK) Operator                    2.4.0          elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
 prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
-service-telemetry-operator.v1.4.1641489191   Service Telemetry Operator                      1.4.1641489191                                      Succeeded
-smart-gateway-operator.v4.0.1641489202       Smart Gateway Operator                          4.0.1641489202                                      Succeeded</code></pre>
+service-telemetry-operator.v1.5.1664298822   Service Telemetry Operator                      1.5.1664298822                                      Succeeded
+smart-gateway-operator.v5.0.1664298817       Smart Gateway Operator                          5.0.1664298817                                      Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1503,7 +1525,7 @@ spec:
 --------------------------- Ansible Task Status Event StdOut  -----------------
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=57   changed=0    unreachable=0    failed=0    skipped=20   rescued=0    ignored=0</code></pre>
+localhost                  : ok=90   changed=0    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0</code></pre>
 </div>
 </div>
 </li>
@@ -1824,10 +1846,10 @@ spec:
 <div class="sect2">
 <h3 id="accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.8/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.10/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.8/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.10/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3127,7 +3149,7 @@ metadata:
   name: grafana-operator
   namespace: service-telemetry
 spec:
-  channel: alpha
+  channel: v4
   installPlanApproval: Automatic
   name: grafana-operator
   source: operatorhubio-operators
@@ -3143,7 +3165,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
 NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v3.10.3   Grafana Operator   3.10.3    grafana-operator.v3.10.2   Succeeded</code></pre>
+grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -4420,7 +4442,7 @@ smart-gateway-operator-584df7959-llxgl                    1/1     Running   0   
 <p>Remove the catalog source.</p>
 </li>
 <li>
-<p>Remove the AMQ Cert Manager Operator.</p>
+<p>Remove the cert-manager Operator.</p>
 </li>
 </ol>
 </div>
@@ -4494,18 +4516,28 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-the-amq-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the AMQ Certificate Manager Operator</h3>
+<h3 id="removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</h3>
 <div class="paragraph _abstract">
-<p>If you are not using the AMQ Certificate Manager for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
+<p>If you are not using the cert-manager Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
+<p>Delete the Subscription from the <code>openshift-cert-manager-operator</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator
+
+subscription.operators.coreos.com "openshift-cert-manager-operator" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Retrieve the version number of your installed ClusterServiceVersion:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace=openshift-operators subscription amq7-cert-manager-operator -oyaml | grep currentCSV</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator -oyaml | grep currentCSV</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4513,17 +4545,23 @@ catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  currentCSV: amq7-cert-manager.v1.0.6</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  currentCSV: openshift-cert-manager.v1.7.1</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Delete the Subscription from the <code>openshift-operators</code> namespace:</p>
+<p>Delete the ClusterServiceVersion from the <code>openshift-cert-manager-operator</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-operators subscription amq7-cert-manager-operator
-
-subscription.operators.coreos.com "amq7-cert-manager-operator" deleted</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-cert-manager-operator csv openshift-cert-manager.v1.7.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">clusterserviceversion.operators.coreos.com "openshift-cert-manager.v1.7.1" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -4531,7 +4569,7 @@ subscription.operators.coreos.com "amq7-cert-manager-operator" deleted</code></p
 <p>Get the current list of CustomResourceDefinitions provided by the Operator so they can be deleted after removal of the ClusterServiceVersion:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv -nopenshift-operators amq7-cert-manager.v1.0.6  -oyaml | grep "kind: CustomResourceDefinition" -A2 | grep name | awk '{print $2}'</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv -n openshift-cert-manager-operator openshift-cert-manager.v1.7.1 -oyaml | grep "kind: CustomResourceDefinition" -A2 | grep name | awk '{print $2}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4539,19 +4577,22 @@ subscription.operators.coreos.com "amq7-cert-manager-operator" deleted</code></p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">certificates.certmanager.k8s.io
-challenges.certmanager.k8s.io
-clusterissuers.certmanager.k8s.io
-issuers.certmanager.k8s.io
-orders.certmanager.k8s.io</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">certificaterequests.cert-manager.io
+certificates.cert-manager.io
+certmanagers.config.openshift.io
+certmanagers.operator.openshift.io
+challenges.acme.cert-manager.io
+clusterissuers.cert-manager.io
+issuers.cert-manager.io
+orders.acme.cert-manager.io</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Delete the ClusterServiceVersion from the <code>openshift-operators</code> namespace:</p>
+<p>Delete the CustomResourceDefinitions related to the cert-manager Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-operators csv amq7-cert-manager.v1.0.6</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete crd certificaterequests.cert-manager.io certificates.cert-manager.io certmanagers.config.openshift.io certmanagers.operator.openshift.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4559,15 +4600,22 @@ orders.certmanager.k8s.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.6" deleted</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">customresourcedefinition.apiextensions.k8s.io "certificaterequests.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certificates.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certmanagers.config.openshift.io" deleted
+customresourcedefinition.apiextensions.k8s.io "certmanagers.operator.openshift.io" deleted
+customresourcedefinition.apiextensions.k8s.io "challenges.acme.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "clusterissuers.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "issuers.cert-manager.io" deleted
+customresourcedefinition.apiextensions.k8s.io "orders.acme.cert-manager.io" deleted</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Delete the CustomResourceDefinitions related to the AMQ Cert Manager Operator:</p>
+<p>Delete the namespaces owned by the cert-manager Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete crd certificates.certmanager.k8s.io challenges.certmanager.k8s.io clusterissuers.certmanager.k8s.io issuers.certmanager.k8s.io orders.certmanager.k8s.io</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete project openshift-cert-manager openshift-cert-manager-operator</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4575,19 +4623,20 @@ orders.certmanager.k8s.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">customresourcedefinition.apiextensions.k8s.io "certificates.certmanager.k8s.io" deleted
-customresourcedefinition.apiextensions.k8s.io "challenges.certmanager.k8s.io" deleted
-customresourcedefinition.apiextensions.k8s.io "clusterissuers.certmanager.k8s.io" deleted
-customresourcedefinition.apiextensions.k8s.io "issuers.certmanager.k8s.io" deleted
-customresourcedefinition.apiextensions.k8s.io "orders.certmanager.k8s.io" deleted</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">project.project.openshift.io "openshift-cert-manager" deleted
+project.project.openshift.io "openshift-cert-manager-operator" deleted</code></pre>
 </div>
 </div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Additional information</div>
-<p>For more information about removing Operators from OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/operators/admin/olm-deleting-operators-from-cluster.html" class="bare">https://docs.openshift.com/container-platform/4.8/operators/admin/olm-deleting-operators-from-cluster.html</a></p>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/4.10/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -4595,7 +4644,7 @@ customresourcedefinition.apiextensions.k8s.io "orders.certmanager.k8s.io" delete
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-30 12:34:47 UTC
+Last updated 2022-10-12 14:45:41 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
