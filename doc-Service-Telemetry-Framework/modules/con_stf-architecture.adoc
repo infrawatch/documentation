@@ -75,7 +75,12 @@ If you plan to collect and store events, collectd and Ceilometer deliver event d
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} {ProductVersion}
+ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
+* {OpenShift} {SupportedOpenShiftVersion}
+endif::[]
+ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
 * {OpenShift} {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}
+endif::[]
 * Infrastructure platform
 
 [[osp-stf-server-side-monitoring]]

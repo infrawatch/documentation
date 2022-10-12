@@ -76,31 +76,36 @@ smart-gateway-operator                        InfraWatch Operators       7m20s
 ----
 endif::[]
 
-. Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:
-+
-[WARNING]
-Red Hat supports the core Operators and workloads, including {MessageBus}, AMQ Certificate Manager, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of ElasticSearch, Prometheus, Alertmanager, Grafana, and their Operators.
+. Create a namespace for the cert-manager Operator:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
+apiVersion: project.openshift.io/v1
+kind: Project
 metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
+  name: openshift-cert-manager-operator
 spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
+  finalizers:
+  - kubernetes
 EOF
 ----
 
-. Subscribe to the AMQ Certificate Manager Operator by using the redhat-operators CatalogSource:
+. Create an OperatorGroup for the cert-manager Operator:
 +
-[NOTE]
-The AMQ Certificate Manager deploys to the `openshift-operators` namespace and is then available to all namespaces across the cluster. As a result, on clusters with a large number of namespaces, it can take several minutes for the Operator to be available in the `service-telemetry` namespace. The AMQ Certificate Manager Operator is not compatible with the dependency management of Operator Lifecycle Manager when you use it with other namespace-scoped operators.
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF
+----
+
+. Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -108,25 +113,25 @@ $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: amq7-cert-manager-operator
-  namespace: openshift-operators
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
 spec:
-  channel: 1.x
+  channel: tech-preview
   installPlanApproval: Automatic
-  name: amq7-cert-manager-operator
+  name: openshift-cert-manager-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
 
-. Validate your ClusterServiceVersion. Ensure that amq7-cert-manager.v1.0.3 displays a phase of `Succeeded`:
+. Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of `Succeeded`:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc get csv --namespace openshift-operators --selector operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
 
-NAME                       DISPLAY                                         VERSION   REPLACES                   PHASE
-amq7-cert-manager.v1.0.3   Red Hat Integration - AMQ Certificate Manager   1.0.3     amq7-cert-manager.v1.0.2   Succeeded
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
 ----
 
 . Subscribe to the AMQ Interconnect Operator by using the redhat-operators CatalogSource:
@@ -148,14 +153,35 @@ spec:
 EOF
 ----
 
-. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.4 displays a phase of `Succeeded`:
+. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.10 displays a phase of `Succeeded`:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
 NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.4   Red Hat Integration - AMQ Interconnect   1.10.4    amq7-interconnect-operator.v1.10.3   Succeeded
+amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded
+----
+
+. Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:
++
+[WARNING]
+Red Hat supports the core Operators and workloads, including {MessageBus}, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-operators
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/operatorhubio/catalog:latest
+  displayName: OperatorHub.io Operators
+  publisher: OperatorHub.io
+EOF
 ----
 
 . If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your {OpenShift} environment:
@@ -213,7 +239,7 @@ EOF
 $ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
 NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
-elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator   1.9.1                Succeeded
+elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded
 ----
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
@@ -227,7 +253,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.4
+  channel: stable-1.5
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: redhat-operators
@@ -242,10 +268,10 @@ EOF
 $ oc get csv --namespace service-telemetry
 
 NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
-amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3          amq7-cert-manager.v1.0.2             Succeeded
-amq7-interconnect-operator.v1.10.4           Red Hat Integration - AMQ Interconnect          1.10.4         amq7-interconnect-operator.v1.10.3   Succeeded
-elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                               Succeeded
+amq7-interconnect-operator.v1.10.10          Red Hat Integration - AMQ Interconnect          1.10.10        amq7-interconnect-operator.v1.10.4   Succeeded
+elasticsearch-eck-operator-certified.v2.4.0  Elasticsearch (ECK) Operator                    2.4.0          elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
 prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
-service-telemetry-operator.v1.4.1641489191   Service Telemetry Operator                      1.4.1641489191                                      Succeeded
-smart-gateway-operator.v4.0.1641489202       Smart Gateway Operator                          4.0.1641489202                                      Succeeded
+service-telemetry-operator.v1.5.1664298822   Service Telemetry Operator                      1.5.1664298822                                      Succeeded
+smart-gateway-operator.v5.0.1664298817       Smart Gateway Operator                          5.0.1664298817                                      Succeeded
 ----

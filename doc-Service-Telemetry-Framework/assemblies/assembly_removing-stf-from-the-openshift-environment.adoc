@@ -12,11 +12,11 @@ To remove {ProjectShort} from the {OpenShift} environment, you must perform the 
 
 . Delete the namespace.
 . Remove the catalog source.
-. Remove the AMQ Cert Manager Operator.
+. Remove the cert-manager Operator.
 
 include::../modules/proc_deleting-the-namespace.adoc[leveloffset=+1]
 include::../modules/proc_removing-the-catalogsource.adoc[leveloffset=+1]
-include::../modules/proc_removing-the-amq-cert-manager-operator.adoc[leveloffset=+1]
+include::../modules/proc_removing-the-cert-manager-operator.adoc[leveloffset=+1]
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]
