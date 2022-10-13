@@ -30,6 +30,8 @@ ifeval::["{build}" == "upstream"]
 [role="_abstract"]
 You can create an all-in-one development environment for {ProjectShort} locally by using https://code-ready.github.io/crc/[CodeReady Containers]. The installation process of CodeReady Containers (CRC) is available at https://code-ready.github.io/crc/#installation_gsg.
 
+Deployment of {OpenShift} {SupportedOpenShiftVersion} is required for {ProjectShort}. The compatible version of CRC is {CodeReadyContainersVersion}, available at https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/{CodeReadyContainersVersion}/
+
 The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[minimum resource requirements] for CRC is not enough by default to run {ProjectShort}. Ensure that your host system has the following resources available:
 
 * 4 physical cores (8 hyperthreaded cores)
