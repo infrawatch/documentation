@@ -38,7 +38,7 @@ The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[m
 
 .Procedure
 
-. After you complete the installation of CRC, you must enable cluster monitoring. Enable cluster monitoring in the CRC environment:
+. After you complete the installation of CRC, you must enable cluster monitoring in the CRC environment:
 +
 [source,bash,options="nowrap"]
 ----
