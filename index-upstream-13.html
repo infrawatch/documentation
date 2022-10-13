@@ -830,22 +830,20 @@ To ensure that the monitoring platform can report operational problems with your
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>After you complete the installation of CRC, use the <code>crc start</code> command to start your environment. The recommended minimum system resources for running STF in CodeReady Containers is 48 GB of memory and 8 virtual CPU cores:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect.</p>
-</div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Enter the <code>crc delete</code> command.</p>
+<p>After you complete the installation of CRC, you must enable cluster monitoring in the CRC environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ crc config set enable-cluster-monitoring true
+Successfully configured enable-cluster-monitoring to true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect. Enter the <code>crc delete</code> command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc delete</code></pre>
@@ -853,7 +851,7 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 </li>
 <li>
-<p>Run the <code>crc start</code> command to create your environment:</p>
+<p>Use the <code>crc start</code> command to start your environment. The recommended minimum system resources for running STF in CRC is 48 GB of memory and 8 virtual CPU cores:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">crc start --memory=49152 --cpus=8</code></pre>
@@ -2493,7 +2491,7 @@ Router Addresses
 <p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 <div class="paragraph">
-<p>If you use STF with OpenStack (OSP) Wallaby  and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
+<p>If you use STF with OpenStack (OSP) Wallaby and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
 </div>
 <div class="listingblock white-space-pre">
 <div class="content">
@@ -4644,7 +4642,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-12 14:45:41 UTC
+Last updated 2022-10-13 15:30:35 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
