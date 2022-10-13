@@ -27,7 +27,6 @@ ifeval::["{build}" == "upstream"]
 [id="development-environment-resource-requirements_{context}"]
 = Development environment resource requirements
 
-
 [role="_abstract"]
 You can create an all-in-one development environment for {ProjectShort} locally by using https://code-ready.github.io/crc/[CodeReady Containers]. The installation process of CodeReady Containers (CRC) is available at https://code-ready.github.io/crc/#installation_gsg.
 
@@ -37,25 +36,24 @@ The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[m
 * 64 GB of memory
 * 80 GB of storage space
 
-After you complete the installation of CRC, use the `crc start` command to start your environment. The recommended minimum system resources for running {ProjectShort} in CodeReady Containers is 48 GB of memory and 8 virtual CPU cores:
-
-[source,bash]
-----
-crc start --memory=49152 --cpus=8
-----
-
-If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect.
-
 .Procedure
 
-. Enter the `crc delete` command.
+. After you complete the installation of CRC, you must enable cluster monitoring in the CRC environment:
++
+[source,bash,options="nowrap"]
+----
+$ crc config set enable-cluster-monitoring true
+Successfully configured enable-cluster-monitoring to true
+----
+
+. If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect. Enter the `crc delete` command:
 +
 [source,bash]
 ----
 crc delete
 ----
 
-. Run the `crc start` command to create your environment:
+. Use the `crc start` command to start your environment. The recommended minimum system resources for running {ProjectShort} in CRC is 48 GB of memory and 8 virtual CPU cores:
 +
 [source,bash]
 ----

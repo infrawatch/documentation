@@ -11,10 +11,10 @@ clean: all-clean
 browser: all-browser
 
 all-html:
-	cd doc-Service-Telemetry-Framework && $(MAKE) html && $(MAKE) html13
+	cd doc-Service-Telemetry-Framework && $(MAKE) html
 
 all-html-downstream:
-	cd doc-Service-Telemetry-Framework && $(MAKE) html BUILD=downstream && $(MAKE) html13 BUILD=downstream
+	cd doc-Service-Telemetry-Framework && $(MAKE) html BUILD=downstream
 
 all-pdf:
 	cd doc-Service-Telemetry-Framework && $(MAKE) pdf
