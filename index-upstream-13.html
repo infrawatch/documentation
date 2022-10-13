@@ -1346,6 +1346,26 @@ elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4
 </div>
 </li>
 <li>
+<p>Create the Smart Gateway Operator subscription to manage the smartgateway instances:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: smart-gateway-operator
+  namespace: service-telemetry
+spec:
+  channel: unstable
+  installPlanApproval: Automatic
+  name: smart-gateway-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
@@ -1356,10 +1376,10 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.5
+  channel: unstable
   installPlanApproval: Automatic
   name: service-telemetry-operator
-  source: redhat-operators
+  source: infrawatch-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -4645,7 +4665,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-13 18:53:50 UTC
+Last updated 2022-10-13 19:19:17 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
