@@ -242,8 +242,48 @@ NAME                                         DISPLAY                        VERS
 elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded
 ----
 
+ifeval::["{build}" == "upstream"]
+. Create the Smart Gateway Operator subscription to manage the smartgateway instances:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: smart-gateway-operator
+  namespace: service-telemetry
+spec:
+  channel: unstable
+  installPlanApproval: Automatic
+  name: smart-gateway-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+endif::[]
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
+ifeval::["{build}" == "upstream"]
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-telemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: unstable
+  installPlanApproval: Automatic
+  name: service-telemetry-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+endif::[]
+ifeval::["{build}" == "downstream"]
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc create -f - <<EOF
@@ -260,6 +300,7 @@ spec:
   sourceNamespace: openshift-marketplace
 EOF
 ----
+endif::[]
 
 . Validate the Service Telemetry Operator and the dependent operators:
 +
