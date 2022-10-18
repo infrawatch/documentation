@@ -1,10 +1,15 @@
 [id="ansible-based-deployment_{context}"]
 =  Ansible-based deployment of {Project}
 
-include::../common/tech_preview.adoc[leveloffset=+1]
+include::../common/global/doc_tech_preview.adoc[leveloffset=+1]
 
 [role="_abstract"]
-As of wallaby/OSP17.0, you can preview the use of Ansible instead of Puppet for deploying {Project} ({ProjectShort}) components. The use of Ansible has the following advantages:
+ifeval::["{build}" == "upstream"]
+As of {OpenStack} Wallaby, you can preview the use of Ansible instead of Puppet for deploying {Project} ({ProjectShort}) components. The use of Ansible has the following advantages:
+endif::[]
+ifeval::["{build}" == "downstream"]
+As of {OpenStack} 17.0, you can preview the use of Ansible instead of Puppet for deploying {Project} ({ProjectShort}) components. The use of Ansible has the following advantages:
+endif::[]
 
 * Consolidation of configuration under a single service-specific THT variable (MetricsQdrVars and CollectdVars)
 * The ability to switch QDR modes from mesh-mode to edge-only and back
