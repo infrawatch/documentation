@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.18"/>
 <meta name="author" content="OpenStack Documentation Team"/>
 <title>Service Telemetry Framework 1.5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -3211,15 +3211,22 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 <div class="sect4">
 <h5 id="ansible-based-deployment_assembly-completing-the-stf-configuration">Ansible-based deployment of Service&#160;Telemetry&#160;Framework</h5>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>This feature is available in this release as a <em>Technology Preview</em>,
-and therefore is not fully supported by Red Hat. It should only be used
-for testing, and should not be deployed in a production environment.
-For more information about Technology Preview features, see
-<a href="https://access.redhat.com/support/offerings/production/scope_moredetail">Scope of Coverage Details</a>.</p>
+<p>The content for this feature is available in this release as a <em>Documentation Preview</em>, and therefore is not fully verified by Red Hat. Use it only for testing, and do not use in a production environment.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph _abstract">
-<p>As of wallaby/OSP17.0, you can preview the use of Ansible instead of Puppet for deploying Service&#160;Telemetry&#160;Framework (STF) components. The use of Ansible has the following advantages:</p>
+<p>As of OpenStack Wallaby, you can preview the use of Ansible instead of Puppet for deploying Service&#160;Telemetry&#160;Framework (STF) components. The use of Ansible has the following advantages:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -5135,7 +5142,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-13 19:19:17 UTC
+Last updated 2022-10-19 13:20:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
@@ -5144,7 +5151,7 @@ Last updated 2022-10-13 19:19:17 UTC
 <script>
 if (!hljs.initHighlighting.called) {
   hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
 }
 </script>
 </body>
