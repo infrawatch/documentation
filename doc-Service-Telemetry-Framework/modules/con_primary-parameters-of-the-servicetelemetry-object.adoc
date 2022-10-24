@@ -25,7 +25,7 @@ Support for `servicetelemetry.infra.watch/v1alpha1` was removed from {ProjectSho
 
 Use the `backends` parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics storage back end and ElasticSearch as the events storage back end.
+Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.
 
 [discrete]
 === Enabling Prometheus as a storage back end for metrics
@@ -95,9 +95,9 @@ spec:
 ----
 
 [discrete]
-=== Enabling ElasticSearch as a storage back end for events
+=== Enabling Elasticsearch as a storage back end for events
 
-To enable ElasticSearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
+To enable Elasticsearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
 
 .Procedure
 
@@ -119,9 +119,9 @@ spec:
 
 [id="backends-configuring-persistent-storage-for-elasticsearch_{context}"]
 [discrete]
-=== Configuring persistent storage for ElasticSearch
+=== Configuring persistent storage for Elasticsearch
 
-Use the additional parameters defined in `backends.events.elasticsearch.storage.persistent` to configure persistent storage options for ElasticSearch, such as storage class and volume size.
+Use the additional parameters defined in `backends.events.elasticsearch.storage.persistent` to configure persistent storage options for Elasticsearch, such as storage class and volume size.
 
 Use `storageClass` to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
 

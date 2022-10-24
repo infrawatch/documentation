@@ -213,7 +213,7 @@ NAME                        DISPLAY               VERSION   REPLACES            
 prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0.37.0   Succeeded
 ----
 
-. If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
+. If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----

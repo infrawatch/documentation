@@ -2,7 +2,7 @@
 = Persistent volumes
 
 [role="_abstract"]
-{Project} ({ProjectShort}) uses persistent storage in {OpenShift} to request persistent volumes so that Prometheus and ElasticSearch can store metrics and events.
+{Project} ({ProjectShort}) uses persistent storage in {OpenShift} to request persistent volumes so that Prometheus and Elasticsearch can store metrics and events.
 
 When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an {ProjectShort} deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the {OpenShift} default configured `storageClass`.
 
@@ -13,4 +13,4 @@ When you enable persistent storage through the Service Telemetry Operator, the P
 
 * For more information about configuring persistent storage for Prometheus in {ProjectShort}, see xref:backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf[].
 
-* For more information about configuring persistent storage for ElasticSearch in {ProjectShort}, see xref:backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf[].
+* For more information about configuring persistent storage for Elasticsearch in {ProjectShort}, see xref:backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf[].

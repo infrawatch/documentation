@@ -10,7 +10,7 @@ With high availability, {Project} ({ProjectShort}) can rapidly recover from fail
 
 Enabling high availability has the following effects:
 
-* Three ElasticSearch pods run instead of the default one.
+* Three Elasticsearch pods run instead of the default one.
 * The following components run two pods instead of the default one:
 ** {MessageBus}
 ** Alertmanager
