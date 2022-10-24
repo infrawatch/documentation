@@ -76,9 +76,9 @@ parameter_defaults:
         - name: sslProfile
 ifdef::include_when_13,include_when_17[]
           caCertFileContent: |
-            ----BEGIN CERTIFICATE----
+            -----BEGIN CERTIFICATE-----
             <snip>
-            ----END CERTIFICATE----
+            -----END CERTIFICATE-----
 endif::include_when_13,include_when_17[]
 
     CeilometerQdrEventsConfig:
