@@ -49,6 +49,6 @@ When scheduling an Elasticsearch pod, there must be a label present that matches
 
 .Additional resources
 
-* For more information about virtual memory usage by Elasticsearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
+* For more information about virtual memory use by Elasticsearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
 * For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator[Custom tuning specification].
