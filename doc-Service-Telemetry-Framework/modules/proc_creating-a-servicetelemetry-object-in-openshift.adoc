@@ -20,7 +20,7 @@ spec: {}
 EOF
 ----
 +
-To override a default value, define the parameter that you want to override. In this example, enable ElasticSearch by setting `enabled` to `true`:
+To override a default value, define the parameter that you want to override. In this example, enable Elasticsearch by setting `enabled` to `true`:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -143,7 +143,7 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 
 * To determine that all workloads are operating correctly, view the pods and the status of each pod.
 +
-NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before ElasticSearch starts.
+NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before Elasticsearch starts.
 
 +
 [source,bash,options="nowrap"]

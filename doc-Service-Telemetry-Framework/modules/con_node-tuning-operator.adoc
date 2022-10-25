@@ -26,29 +26,29 @@
 = Node tuning operator
 
 [role="_abstract"]
-{ProjectShort} uses ElasticSearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
+{ProjectShort} uses Elasticsearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
 
 [TIP]
-If your host platform is a typical {OpenShift} 4 environment, do not make any adjustments. The default node tuning operator is configured to account for ElasticSearch workloads.
+If your host platform is a typical {OpenShift} 4 environment, do not make any adjustments. The default node tuning operator is configured to account for Elasticsearch workloads.
 
 If you want to edit the value of `vm.max_map_count`, you cannot apply node tuning manually using the `sysctl` command because {OpenShift} manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html[Using the Node Tuning Operator].
 
-In an {OpenShiftShort} deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:
+In an {OpenShiftShort} deployment, the default node tuning operator specification provides the required profiles for Elasticsearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:
 
 [source,bash]
 ----
 $ oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator
 ----
 
-The output of the default specification is documented at https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator[Default profiles set on a cluster]. You can manage the assignment of profiles in the `recommend` section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in {ProjectShort}, one of the following profiles is applied:
+The output of the default specification is documented at https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator[Default profiles set on a cluster]. You can manage the assignment of profiles in the `recommend` section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in {ProjectShort}, one of the following profiles is applied:
 
 * `openshift-control-plane-es`
 * `openshift-node-es`
 
-When scheduling an ElasticSearch pod, there must be a label present that matches `tuned.openshift.io/elasticsearch`. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with {ProjectShort}, ensure that you add the `tuned.openshift.io/elasticsearch` label to all scheduled pods.
+When scheduling an Elasticsearch pod, there must be a label present that matches `tuned.openshift.io/elasticsearch`. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for Elasticsearch. If you use a custom-deployed Elasticsearch with {ProjectShort}, ensure that you add the `tuned.openshift.io/elasticsearch` label to all scheduled pods.
 
 .Additional resources
 
-* For more information about virtual memory usage by ElasticSearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
+* For more information about virtual memory use by Elasticsearch, see https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
 * For more information about how the profiles are applied to nodes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator[Custom tuning specification].

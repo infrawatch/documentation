@@ -13,4 +13,4 @@ The amount of resources that you require to run {Project} ({ProjectShort}) depen
 
 * For recommendations about sizing for metrics collection, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
 
-* For information about sizing requirements for ElasticSearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html.
+* For information about sizing requirements for Elasticsearch, see https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html.

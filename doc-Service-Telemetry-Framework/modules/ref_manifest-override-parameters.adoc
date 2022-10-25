@@ -36,7 +36,7 @@ This table describes the available parameters that you can use to override a man
 
 | `alertmanagerConfigManifest` | Override the `Secret` that contains the Alertmanager configuration. The Prometheus Operator uses a secret named `alertmanager-{{ alertmanager-name }}`, for example, `default`, to provide the `alertmanager.yaml` configuration to Alertmanager.  | `oc get secret alertmanager-default -oyaml`
 
-| `elasticsearchManifest` | Override the `ElasticSearch` object creation. The Elastic Cloud on Kuberneters Operator watches for `ElasticSearch` objects. | `oc get elasticsearch elasticsearch -oyaml`
+| `elasticsearchManifest` | Override the `Elasticsearch` object creation. The Elastic Cloud on Kuberneters Operator watches for `Elasticsearch` objects. | `oc get elasticsearch elasticsearch -oyaml`
 
 | `interconnectManifest` | Override the `Interconnect` object creation. The AMQ Interconnect Operator watches for `Interconnect` objects. | `oc get interconnect default-interconnect -oyaml`
 

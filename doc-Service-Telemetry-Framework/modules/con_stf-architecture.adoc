@@ -19,10 +19,10 @@
 ** Ceilometer: Collects {OpenStackShort} metrics and events.
 * Transport
 ** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
-** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to ElasticSearch or Prometheus.
+** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Elasticsearch or Prometheus.
 * Data storage
 ** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.
-** ElasticSearch: Events data storage that stores {ProjectShort} events received from the Smart Gateway.
+** Elasticsearch: Events data storage that stores {ProjectShort} events received from the Smart Gateway.
 * Observation
 ** Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.
 ** Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.
@@ -47,7 +47,7 @@ The following table describes the application of the client and server component
 |no
 |yes
 
-|ElasticSearch
+|Elasticsearch
 |no
 |yes
 
@@ -70,7 +70,7 @@ image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework archi
 
 For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStackShort} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the ElasticSearch datastore.
+If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the Elasticsearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
