@@ -661,7 +661,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Apache&#160;Qpid&#160;Dispatch&#160;Router: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to STF for storage.</p>
 </li>
 <li>
-<p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to ElasticSearch or Prometheus.</p>
+<p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Elasticsearch or Prometheus.</p>
 </li>
 </ul>
 </div>
@@ -674,7 +674,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Prometheus: Time-series data storage that stores STF metrics received from the Smart Gateway.</p>
 </li>
 <li>
-<p>ElasticSearch: Events data storage that stores STF events received from the Smart Gateway.</p>
+<p>Elasticsearch: Events data storage that stores STF events received from the Smart Gateway.</p>
 </li>
 </ul>
 </div>
@@ -728,7 +728,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ElasticSearch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elasticsearch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
@@ -766,7 +766,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides OSP platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
 </div>
 <div class="paragraph">
-<p>If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the ElasticSearch datastore.</p>
+<p>If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the Elasticsearch datastore.</p>
 </div>
 <div class="paragraph">
 <p>Server-side STF monitoring infrastructure consists of the following layers:</p>
@@ -913,7 +913,7 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="sect2">
 <h3 id="persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to request persistent volumes so that Prometheus and ElasticSearch can store metrics and events.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to request persistent volumes so that Prometheus and Elasticsearch can store metrics and events.</p>
 </div>
 <div class="paragraph">
 <p>When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OpenShift default configured <code>storageClass</code>.</p>
@@ -931,7 +931,7 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
 </li>
 <li>
-<p>For more information about configuring persistent storage for ElasticSearch in STF, see <a href="#backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf">Configuring persistent storage for ElasticSearch</a>.</p>
+<p>For more information about configuring persistent storage for Elasticsearch in STF, see <a href="#backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Elasticsearch</a>.</p>
 </li>
 </ul>
 </div>
@@ -969,7 +969,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <p>For recommendations about sizing for metrics collection, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
 </li>
 <li>
-<p>For information about sizing requirements for ElasticSearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
+<p>For information about sizing requirements for Elasticsearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
 </li>
 </ul>
 </div>
@@ -977,13 +977,13 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <div class="sect2">
 <h3 id="con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</h3>
 <div class="paragraph">
-<p>You can only deploy Service&#160;Telemetry&#160;Framework(STF) in a fully connected network environment. You cannot deploy STF in OpenShift-disconnected environments or network proxy environments.</p>
+<p>You can only deploy Service&#160;Telemetry&#160;Framework (STF) in a fully connected network environment. You cannot deploy STF in OpenShift-disconnected environments or network proxy environments.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</h3>
 <div class="paragraph _abstract">
-<p>STF uses ElasticSearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
+<p>STF uses Elasticsearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -992,7 +992,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If your host platform is a typical OpenShift 4 environment, do not make any adjustments. The default node tuning operator is configured to account for ElasticSearch workloads.
+If your host platform is a typical OpenShift 4 environment, do not make any adjustments. The default node tuning operator is configured to account for Elasticsearch workloads.
 </td>
 </tr>
 </table>
@@ -1001,7 +1001,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
-<p>In an OKD deployment, the default node tuning operator specification provides the required profiles for ElasticSearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
+<p>In an OKD deployment, the default node tuning operator specification provides the required profiles for Elasticsearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1009,7 +1009,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling ElasticSearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1022,13 +1022,13 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </ul>
 </div>
 <div class="paragraph">
-<p>When scheduling an ElasticSearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for ElasticSearch. If you use a custom-deployed ElasticSearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
+<p>When scheduling an Elasticsearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for Elasticsearch. If you use a custom-deployed Elasticsearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about virtual memory usage by ElasticSearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
+<p>For more information about virtual memory use by Elasticsearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </li>
 <li>
 <p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
@@ -1327,7 +1327,7 @@ prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0
 </div>
 </li>
 <li>
-<p>If you plan to store events in ElasticSearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your OpenShift environment:</p>
+<p>If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your OpenShift environment:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
@@ -1439,7 +1439,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To override a default value, define the parameter that you want to override. In this example, enable ElasticSearch by setting <code>enabled</code> to <code>true</code>:</p>
+<p>To override a default value, define the parameter that you want to override. In this example, enable Elasticsearch by setting <code>enabled</code> to <code>true</code>:</p>
 </div>
 <div class="listingblock white-space-pre">
 <div class="content">
@@ -1576,7 +1576,7 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <code>true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before ElasticSearch starts.
+If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <code>true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before Elasticsearch starts.
 </td>
 </tr>
 </table>
@@ -1651,7 +1651,7 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
 <div class="paragraph">
-<p>Currently, you can use Prometheus as the metrics storage back end and ElasticSearch as the events storage back end.</p>
+<p>Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.</p>
 </div>
 <h6 id="_enabling_prometheus_as_a_storage_back_end_for_metrics" class="discrete">Enabling Prometheus as a storage back end for metrics</h6>
 <div class="paragraph">
@@ -1728,9 +1728,9 @@ spec:
 </li>
 </ul>
 </div>
-<h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling ElasticSearch as a storage back end for events</h6>
+<h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling Elasticsearch as a storage back end for events</h6>
 <div class="paragraph">
-<p>To enable ElasticSearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
+<p>To enable Elasticsearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
 <div class="ulist">
 <div class="title">Procedure</div>
@@ -1754,9 +1754,9 @@ spec:
 </li>
 </ul>
 </div>
-<h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for ElasticSearch</h6>
+<h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Elasticsearch</h6>
 <div class="paragraph">
-<p>Use the additional parameters defined in <code>backends.events.elasticsearch.storage.persistent</code> to configure persistent storage options for ElasticSearch, such as storage class and volume size.</p>
+<p>Use the additional parameters defined in <code>backends.events.elasticsearch.storage.persistent</code> to configure persistent storage options for Elasticsearch, such as storage class and volume size.</p>
 </div>
 <div class="paragraph">
 <p>Use <code>storageClass</code> to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the OpenShift cluster.</p>
@@ -4255,7 +4255,7 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 <div class="ulist">
 <ul>
 <li>
-<p>Three ElasticSearch pods run instead of the default one.</p>
+<p>Three Elasticsearch pods run instead of the default one.</p>
 </li>
 <li>
 <p>The following components run two pods instead of the default one:</p>
@@ -5142,7 +5142,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-24 13:05:08 UTC
+Last updated 2022-10-25 13:54:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
