@@ -20,21 +20,29 @@ endif::include_when_13,include_when_17[]
 
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect the {MessageBus} on the overcloud to the {ProjectShort} deployment. You configure the topic addresses for Sensubility, Ceilometer, and collectd in this file to match the defaults in {ProjectShort}. For more information about customizing topics and cloud configuration, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
+* The `resource_registry` configuration directly loads the collectd service because you are not including the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
 * Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
-
 ifdef::include_when_13,include_when_17[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
 endif::include_when_13,include_when_17[]
+* Replace the `host` sub-parameter of `MetricsQdrConnectors` with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
+* Set `CeilometerQdrEventsConfig.topic` to define the topic for Ceilometer events. The format of this value is `anycast/ceilometer/cloud1-event.sample`.
+* Set `CeilometerQdrMetricsConfig.topic` to define the topic for Ceilometer metrics. The format of this value is `anycast/ceilometer/cloud1-metering.sample`.
+* Set `CollectdAmqpInstances` to define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
+* Set `CollectdAmqpInstances` to define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
+ifndef::include_when_13[]
+* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The value is the exact string `sensubility/cloud1-telemetry`.
+endif::[]
 +
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
 ----
 resource_registry:
-  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml    # <1>
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <2>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -51,31 +59,22 @@ endif::include_when_13,include_when_17[]
 
     CeilometerQdrEventsConfig:
         driver: amqp
-        topic: cloud1-event   # <3>
+        topic: cloud1-event
 
     CeilometerQdrMetricsConfig:
         driver: amqp
-        topic: cloud1-metering   # <4>
+        topic: cloud1-metering
 
     CollectdAmqpInstances:
-        cloud1-notify:        # <5>
+        cloud1-notify:
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     # <6>
+        cloud1-telemetry:
             format: JSON
             presettle: false
 
-ifdef::include_when_16[]
-    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <7>
-endif::include_when_16[]
+ifndef::include_when_13[]
+    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry
+endif::[]
 ----
-<1> Directly load the collectd service because you are not including the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
-<2> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
-<3> Define the topic for Ceilometer events. The format of this value is `anycast/ceilometer/cloud1-event.sample`.
-<4> Define the topic for Ceilometer metrics. The format of this value is`anycast/ceilometer/cloud1-metering.sample`.
-<5> Define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
-<6> Define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
-ifdef::include_when_16[]
-<7> Define the topic for collectd-sensubility events. The value is the exact string `sensubility/cloud1-telemetry`.
-endif::include_when_16[]
