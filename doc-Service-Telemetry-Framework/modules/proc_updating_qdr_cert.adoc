@@ -1,0 +1,43 @@
+[id="updating-qdr-cert_{context}"]
+= Updating the {MessageBus} CA certificate
+
+[role="_abstract"]
+To update the {MessageBus} certificate, you will need to export it from {Openshift} and copy it to your {Openstack} nodes.
+
+.Procedure
+
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Export the CA certificate to STFCA.pem
++
+[source,bash]
+----
+$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d > STFCA.pem
+----
+
+. Copy STFCA.pem to your {Openstack} undercloud
+. Log into your {Openstack} undercloud
+. Copy the STFCA.pem file to each overcloud node
++
+[source,bash]
+----
+[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
+----
+. Restart the metrics_qdr container on each overcloud node
++
+[source,bash]
+----
+[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+----
+. Edit stf-connectors.yaml file to contain the new caCertFileContent (For more information, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[])
+
+[NOTE]
+====
+You do not need to perform an overcloud deploy after performing the steps above. We edit the stf-connectors.yaml file only to make sure that future deployments will not overwrite the new CA certificate.
+====

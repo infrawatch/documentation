@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+
+[id="assembly-qdr-cert-renewal_{context}"]
+= Renewal of {MessageBus} Certificates
+
+:context: assembly-qdr-cert-renewal
+
+[role="_abstract"]
+Periodically, the CA certificate used to secure the {MessageBus} connection between {OpenStack} and {Project} will expire and need to be replaced. The renewal is handled automatically by the cert-manager component in {Openshift}, but you will need to manually copy the renewed certificate to your {OpenStack} nodes.
+
+include::../modules/proc_checking_qdr_cert_expiry.adoc[leveloffset=+1]
+ifdef::include_when_13,include_when_16[]
+include::../modules/proc_extending_qdr_cert.adoc[leveloffset=+1]
+endif::include_when_13,include_when_16[]
+include::../modules/proc_updating_qdr_cert.adoc[leveloffset=+1]

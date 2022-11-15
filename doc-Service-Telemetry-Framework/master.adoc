@@ -34,6 +34,9 @@ include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+
 //advanced features
 include::assemblies/assembly_advanced-features.adoc[leveloffset=+1]
 
+//certificate renewal
+include::assemblies/assembly_qdr_cert_renewal.adoc[leveloffset=+1]
+
 // upgrading to 1.4
 include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-4.adoc[leveloffset=+1]
 

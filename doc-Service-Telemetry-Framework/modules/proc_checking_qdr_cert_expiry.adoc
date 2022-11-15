@@ -1,0 +1,53 @@
+[id="checking-qdr-cert-expiry_{context}"]
+= Checking for an expired {MessageBus} CA certificate
+
+[role="_abstract"]
+When the CA certificate expires the {MessageBus} connections will remain up, but will be unable to reconnect if they are interrupted. Eventually you will find that some or all of the connections from your {Openstack} ({OpenStackShort}) Routers have failed, showing errors on both sides, and the expiry (or "Not After") field in your CA certificate will be in the past.
+
+.Procedure
+
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Check that some or all Router connections have failed:
++
+[source,bash]
+----
+$ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
+      0       0       0
+----
+
+. Check for this error in the {OpenShift} {MessageBus} logs:
++
+[source,bash]
+----
+$ oc logs -l application=default-interconnect | tail
+[...]
+2022-11-10 20:51:22.863466 +0000 SERVER (info) [C261] Connection from 10.10.10.10:34570 (to 0.0.0.0:5671) failed: amqp:connection:framing-error SSL Failure: error:140940E5:SSL routines:ssl3_read_bytes:ssl handshake failure
+----
+
+. Log into your {OpenStackShort} undercloud
+. Check for this error in the {Openstackshort} {MessageBus} logs of a node where the connection has failed:
++
+[source,bash]
+----
+$ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics_qdr.log
+[...]
+2022-11-10 20:50:44.311646 +0000 SERVER (info) [C137] Connection to default-interconnect-5671-service-telemetry.apps.mycluster.com:443 failed: amqp:connection:framing-error SSL Failure: error:0A000086:SSL routines::certificate verify failed
+----
+
+. Confirm that the CA certificate has expired by examining the file on an {OpenStackShort} node:
++
+[source,bash]
+----
+$ ssh controller-0.ctlplane -- cat /var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem | openssl x509 -text | grep "Not After"
+            Not After : Nov 10 20:31:16 2022 GMT
+
+$ date
+Mon Nov 14 11:10:40 EST 2022
+----
