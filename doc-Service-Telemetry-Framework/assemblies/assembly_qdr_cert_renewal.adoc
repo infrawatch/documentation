@@ -6,7 +6,7 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-qdr-cert-renewal
 
 [role="_abstract"]
-Periodically, the CA certificate used to secure the {MessageBus} connection between {OpenStack} and {Project} will expire and need to be replaced. The renewal is handled automatically by the cert-manager component in {Openshift}, but you will need to manually copy the renewed certificate to your {OpenStack} nodes.
+Periodically, the CA certificate used to secure the {MessageBus} connection between {OpenStack} ({OpenStackShort}) and {Project} ({ProjectShort}) will expire and need to be replaced. The renewal is handled automatically by the cert-manager component in {OpenShift}, but you will need to manually copy the renewed certificate to your {OpenStackShort} nodes.
 
 include::../modules/proc_checking_qdr_cert_expiry.adoc[leveloffset=+1]
 ifdef::include_when_13,include_when_16[]
