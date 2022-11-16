@@ -2,7 +2,7 @@
 = Extending the {MessageBus} CA certificate lifetime
 
 [role="_abstract"]
-By default, the certificates issued by {Project} ({ProjectShort}) will expire every 90 days, but you may want to have a longer lifetime. This procedure is for extending the duration of the CA certificate so that exporting from {ProjectShort} and importing to {Openstack} can be done on a different schedule.
+By default, the certificates issued by {Project} ({ProjectShort}) will expire every 90 days, but you may want to have a longer lifetime. This procedure is for extending the duration of the CA certificate so that exporting from {ProjectShort} and importing to {OpenStack} can be done on a different schedule.
 
 .Procedure
 
@@ -13,16 +13,16 @@ By default, the certificates issued by {Project} ({ProjectShort}) will expire ev
 ----
 $ oc project service-telemetry
 ----
-. Shut down the Service Telemetry Operator so you can take control of the certificate management.
+. Shut down the Service Telemetry Operator so you can take control of the certificate management:
 +
 [source,bash]
 ----
 $ oc scale deploy/service-telemetry-operator --replicas=0
 ----
 
-. Request a new long-lived CA cert by adding a "duration" key to the spec:
+. Request a new long-lived CA certificate by adding a `duration` key to the `Certificate` spec:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc edit certificate default-interconnect-selfsigned
 [...]
@@ -33,7 +33,7 @@ spec:
 certificate.cert-manager.io/default-interconnect-selfsigned edited
 ----
 
-. Delete the existing CA cert to cause it to regenerate with the new duration:
+. Delete the existing CA certificate to trigger the Operator to regenerate with the new duration:
 +
 [source,bash]
 ----
@@ -43,13 +43,13 @@ secret "default-interconnect-selfsigned" deleted
 
 . Verify that the new expiry date appears in the CA certificate:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc get secret default-interconnect-selfsigned -o json |  jq -r .data.\"tls.crt\" | base64 -d  | openssl x509 -in - -text | grep "Not After"
             Not After : Nov  8 21:00:16 2030 GMT
 ----
 
-. Generate a new {Messagebus} endpoint cert so that it will signed by the new CA:
+. Generate a new {MessageBus} endpoint certificate so that it will be signed by the new CA:
 +
 [source,bash]
 ----
@@ -66,5 +66,5 @@ $ oc scale deploy/service-telemetry-operator --replicas=1
 
 [NOTE]
 ====
-The operator will revert the "duration" setting in the certificate object, but the actual certificates will not be affected unless the secrets are deleted
+The operator will revert the `duration` parameter in the certificate object, but the actual certificates will not be affected unless the secrets are deleted.
 ====

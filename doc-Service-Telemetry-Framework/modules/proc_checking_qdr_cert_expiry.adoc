@@ -24,7 +24,7 @@ $ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.ite
 
 . Check for this error in the {OpenShift} {MessageBus} logs:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc logs -l application=default-interconnect | tail
 [...]
@@ -32,9 +32,9 @@ $ oc logs -l application=default-interconnect | tail
 ----
 
 . Log into your {OpenStackShort} undercloud
-. Check for this error in the {Openstackshort} {MessageBus} logs of a node where the connection has failed:
+. Check for this error in the {OpenStackShort} {MessageBus} logs of a node where the connection has failed:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics_qdr.log
 [...]
@@ -43,7 +43,7 @@ $ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics
 
 . Confirm that the CA certificate has expired by examining the file on an {OpenStackShort} node:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ ssh controller-0.ctlplane -- cat /var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem | openssl x509 -text | grep "Not After"
             Not After : Nov 10 20:31:16 2022 GMT
