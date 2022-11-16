@@ -16,7 +16,7 @@ $ oc project service-telemetry
 
 . Check that some or all Router connections have failed:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
       0       0       0
