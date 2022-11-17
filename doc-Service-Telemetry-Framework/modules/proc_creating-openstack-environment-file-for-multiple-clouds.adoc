@@ -62,7 +62,7 @@ endif::include_when_13,include_when_17[]
 * Set the `CollectdAmqpInstances` to define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
 * Set the `CollectdAmqpInstances` to define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
 ifndef::include_when_13[]
-* Set the `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
+* Set the `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. This value is the format of `sensubility/cloud1-telemetry`
 endif::[]
 // The following configuration should match the contents in modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc. If you have changes to make, please make the same changes to both files.
 +
