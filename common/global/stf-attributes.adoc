@@ -20,6 +20,10 @@ ifeval::[{vernum} >= 17.0]
 :include_when_17:
 endif::[]
 
+ifeval::[{ProductVersion} < 1.5]
+:include_before_stf15:
+endif::[]
+
 ifeval::["{build}" == "upstream"]
 :OpenShift: OpenShift
 :OpenShiftShort: OKD

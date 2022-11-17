@@ -9,9 +9,9 @@ ifdef::context[:parent-context: {context}]
 Periodically, you must renew the CA certificate that secures the {MessageBus} connection between {OpenStack} ({OpenStackShort}) and {Project} ({ProjectShort}) when the certificate expires. The renewal is handled automatically by the cert-manager component in {OpenShift}, but you must manually copy the renewed certificate to your {OpenStackShort} nodes.
 
 include::../modules/proc_checking-for-an-expired-amq-interconnect-ca-certificate.adoc[leveloffset=+1]
-ifdef::include_when_13,include_when_16[]
+ifdef::include_before_stf15[]
 include::../modules/proc_extending-the-amq-interconnect-ca-certificate-lifetime.adoc[leveloffset=+1]
-endif::include_when_13,include_when_16[]
+endif::include_before_stf15[]
 include::../modules/proc_updating-the-amq-interconnect-ca-certificate.adoc[leveloffset=+1]
 
 
