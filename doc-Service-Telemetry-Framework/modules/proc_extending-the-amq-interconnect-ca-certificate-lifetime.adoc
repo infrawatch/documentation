@@ -45,7 +45,7 @@ secret "default-interconnect-selfsigned" deleted
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get secret default-interconnect-selfsigned -o json |  jq -r .data.\"tls.crt\" | base64 -d  | openssl x509 -in - -text | grep "Not After"
+$ oc get secret default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
             Not After : Nov  8 21:00:16 2030 GMT
 ----
 
