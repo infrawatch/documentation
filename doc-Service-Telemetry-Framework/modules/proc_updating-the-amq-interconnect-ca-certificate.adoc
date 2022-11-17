@@ -1,4 +1,4 @@
-[id="updating-qdr-cert_{context}"]
+[id="proc-updating-the-amq-interconnect-ca-certificate_{context}"]
 = Updating the {MessageBus} CA certificate
 
 [role="_abstract"]

@@ -1,8 +1,8 @@
-[id="extending-qdr-cert_{context}"]
+[id="extending-the-amq-interconnect-ca-certificate-lifetime_{context}"]
 = Extending the {MessageBus} CA certificate lifetime
 
 [role="_abstract"]
-By default, the certificates issued by {Project} ({ProjectShort}) will expire every 90 days, but you may want to have a longer lifetime. This procedure is for extending the duration of the CA certificate so that exporting from {ProjectShort} and importing to {OpenStack} can be done on a different schedule.
+By default, the certificates issued by {Project} ({ProjectShort}) expire every 90 days, but you might want to have a longer lifetime. This procedure is for extending the duration of the CA certificate so that exporting from {ProjectShort} and importing to {OpenStack} can be done on a different schedule.
 
 .Procedure
 
@@ -29,7 +29,7 @@ $ oc edit certificate default-interconnect-selfsigned
 spec:
   commonName: default-interconnect.service-telemetry.svc.cluster.local
   duration: 70080h
-[...]  
+[...]
 certificate.cert-manager.io/default-interconnect-selfsigned edited
 ----
 

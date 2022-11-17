@@ -1,4 +1,4 @@
-[id="checking-qdr-cert-expiry_{context}"]
+[id="proc-checking-for-an-expired-amq-interconnect-ca-certificate_{context}"]
 = Checking for an expired {MessageBus} CA certificate
 
 [role="_abstract"]

@@ -1,15 +1,20 @@
 ifdef::context[:parent-context: {context}]
 
-[id="assembly-qdr-cert-renewal_{context}"]
-= Renewal of {MessageBus} Certificates
+[id="assembly-renewing-the-amq-interconnect-certificate_{context}"]
+= Renewing the {MessageBus} certificate
 
-:context: assembly-qdr-cert-renewal
+:context: assembly-renewing-the-amq-interconnect-certificate
 
 [role="_abstract"]
-Periodically, the CA certificate used to secure the {MessageBus} connection between {OpenStack} ({OpenStackShort}) and {Project} ({ProjectShort}) will expire and need to be replaced. The renewal is handled automatically by the cert-manager component in {OpenShift}, but you will need to manually copy the renewed certificate to your {OpenStackShort} nodes.
+Periodically, you must renew the CA certificate that secures the {MessageBus} connection between {OpenStack} ({OpenStackShort}) and {Project} ({ProjectShort}) when the certificate expires. The renewal is handled automatically by the cert-manager component in {OpenShift}, but you must manually copy the renewed certificate to your {OpenStackShort} nodes.
 
-include::../modules/proc_checking_qdr_cert_expiry.adoc[leveloffset=+1]
+include::../modules/proc_checking-for-an-expired-amq-interconnect-ca-certificate.adoc[leveloffset=+1]
 ifdef::include_when_13,include_when_16[]
-include::../modules/proc_extending_qdr_cert.adoc[leveloffset=+1]
+include::../modules/proc_extending-the-amq-interconnect-ca-certificate-lifetime.adoc[leveloffset=+1]
 endif::include_when_13,include_when_16[]
-include::../modules/proc_updating_qdr_cert.adoc[leveloffset=+1]
+include::../modules/proc_updating-the-amq-interconnect-ca-certificate.adoc[leveloffset=+1]
+
+
+//reset the context
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
