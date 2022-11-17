@@ -33,10 +33,11 @@ spec:
     - name: ./openstack.rules
       rules:
         - alert: Collectd metrics receive rate is zero
-          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0 # <1>
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0
 EOF
 ----
-<1> To change the rule, edit the value of the `expr` parameter.
++
+To change the rule, edit the value of the `expr` parameter.
 
 . To verify that the Operator loaded the rules into Prometheus, run the `curl` command against the default-prometheus-proxy route with basic authentication:
 +

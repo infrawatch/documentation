@@ -48,25 +48,33 @@ ifdef::include_when_13,include_when_17[* You have retrieved the CA certificate f
 ifdef::include_when_13[]
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect to the {MessageBus} on the overcloud deployment. Configure the `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig`, and `CollectdAmqpInstances` topic values to match the AMQP address that you want for this cloud deployment.
 endif::include_when_13[]
-ifdef::include_when_16[]
+ifndef::include_when_13[]
 . In the `stf-connectors.yaml` file, configure the `MetricsQdrConnectors` address to connect to the {MessageBus} on the overcloud deployment. Configure the `CeilometerQdrEventsConfig`, `CeilometerQdrMetricsConfig`, `CollectdAmqpInstances`, and `CollectdSensubilityResultsChannel` topic values to match the AMQP address that you want for this cloud deployment.
-endif::include_when_16[]
+endif::include_when_13[]
 +
+* The `resource_registry` configuration directly loads the collectd service because you do not include the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
 ifdef::include_when_13,include_when_17[]
+* Replace the `MetricsQdrConnectors.host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
-+
 endif::include_when_13,include_when_17[]
+* Set the `CeilometerQdrEventsConfig.topic` to define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
+* Set the `CeilometerQdrMetricsConfig.topic` to define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
+* Set the `CollectdAmqpInstances` to define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
+* Set the `CollectdAmqpInstances` to define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
+ifndef::include_when_13[]
+* Set the `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. This value is the format of `sensubility/cloud1-telemetry`
+endif::[]
 // The following configuration should match the contents in modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc. If you have changes to make, please make the same changes to both files.
 +
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
 ----
 resource_registry:
-  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml    # <1>
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch   # <2>
+        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -83,35 +91,26 @@ endif::include_when_13,include_when_17[]
 
     CeilometerQdrEventsConfig:
         driver: amqp
-        topic: cloud1-event   # <3>
+        topic: cloud1-event
 
     CeilometerQdrMetricsConfig:
         driver: amqp
-        topic: cloud1-metering   # <4>
+        topic: cloud1-metering
 
     CollectdAmqpInstances:
-        cloud1-notify:        # <5>
+        cloud1-notify:
             notify: true
             format: JSON
             presettle: false
-        cloud1-telemetry:     # <6>
+        cloud1-telemetry:
             format: JSON
             presettle: false
 
-ifdef::include_when_16[]
-    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry # <7>
-endif::include_when_16[]
+ifndef::include_when_13[]
+    CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry
+endif::[]
 ----
-<1> Directly load the collectd service because you are not including the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
-<2> Replace the `host` parameter with the value of `HOST/PORT` that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
-<3> Define the topic for Ceilometer events. This value is the address format of `anycast/ceilometer/cloud1-event.sample`.
-<4> Define the topic for Ceilometer metrics. This value is the address format of `anycast/ceilometer/cloud1-metering.sample`.
-<5> Define the topic for collectd events. This value is the format of `collectd/cloud1-notify`.
-<6> Define the topic for collectd metrics. This value is the format of `collectd/cloud1-telemetry`.
-ifdef::include_when_16[]
-<7> Define the topic for collectd-sensubility events. Ensure that this value is the exact string format `sensubility/cloud1-telemetry`
-endif::include_when_16[]
-+
+
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
 . Source the authentication file:

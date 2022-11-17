@@ -46,7 +46,7 @@ kind: ServiceTelemetry
 metadata:
   ...
 spec:
-  alertmanagerConfigManifest: | <1>
+  alertmanagerConfigManifest: |
     apiVersion: v1
     kind: Secret
     metadata:
@@ -64,12 +64,11 @@ spec:
           repeat_interval: 12h
           receiver: 'null'
         receivers:
-        - name: 'null' <2>
+        - name: 'null'
 status:
   ...
 ----
 +
-<1> Manifest override parameter is defined in the `spec` of the `ServiceTelemetry` object.
-<2> End of the manifest override content.
+The `alertmanagerConfigManifest` manifest override parameter is defined in the `spec` of the `ServiceTelemetry` object.
 
 . Save and close.
