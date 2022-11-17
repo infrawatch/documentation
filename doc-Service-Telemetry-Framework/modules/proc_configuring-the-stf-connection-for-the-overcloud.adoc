@@ -31,7 +31,7 @@ endif::include_when_13,include_when_17[]
 * Set `CollectdAmqpInstances` to define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
 * Set `CollectdAmqpInstances` to define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
 ifndef::include_when_13[]
-* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The value is the exact string `sensubility/cloud1-telemetry`.
+* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The format of this value is `sensubility/cloud1-telemetry`.
 endif::[]
 +
 .stf-connectors.yaml
