@@ -550,6 +550,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a>
+<ul class="sectlevel2">
+<li><a href="#proc-checking-for-an-expired-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Checking for an expired Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</a></li>
+<li><a href="#proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</a></li>
+</ul>
+</li>
 <li><a href="#assembly-upgrading-service-telemetry-framework-to-version-1-4_assembly">Upgrading Service Telemetry Framework to version 1.4</a>
 <ul class="sectlevel2">
 <li><a href="#removing-smart-gateway-1-3-operator_assembly-upgrading-service-telemetry-framework-to-version-1-4">Removing STF 1.3 Smart Gateway Operator</a></li>
@@ -4241,6 +4247,151 @@ If the values returned are 0, it means that STF is not receiving that type of me
 </div>
 </div>
 <div class="sect1">
+<h2 id="assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</h2>
+<div class="sectionbody">
+<div class="paragraph _abstract">
+<p>Periodically, you must renew the CA certificate that secures the Apache&#160;Qpid&#160;Dispatch&#160;Router connection between OpenStack (OSP) and Service&#160;Telemetry&#160;Framework (STF) when the certificate expires. The renewal is handled automatically by the cert-manager component in OpenShift, but you must manually copy the renewed certificate to your OSP nodes.</p>
+</div>
+<div class="sect2">
+<h3 id="proc-checking-for-an-expired-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Checking for an expired Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
+<div class="paragraph _abstract">
+<p>When the CA certificate expires the Apache&#160;Qpid&#160;Dispatch&#160;Router connections will remain up, but will be unable to reconnect if they are interrupted. Eventually you will find that some or all of the connections from your OpenStack (OSP) Routers have failed, showing errors on both sides, and the expiry (or "Not After") field in your CA certificate will be in the past.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check that some or all Router connections have failed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
+      0       0       0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check for this error in the OpenShift-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc logs -l application=default-interconnect | tail
+[...]
+2022-11-10 20:51:22.863466 +0000 SERVER (info) [C261] Connection from 10.10.10.10:34570 (to 0.0.0.0:5671) failed: amqp:connection:framing-error SSL Failure: error:140940E5:SSL routines:ssl3_read_bytes:ssl handshake failure</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Log into your OSP undercloud.</p>
+</li>
+<li>
+<p>Check for this error in the OSP-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs of a node where the connection has failed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics_qdr.log
+[...]
+2022-11-10 20:50:44.311646 +0000 SERVER (info) [C137] Connection to default-interconnect-5671-service-telemetry.apps.mycluster.com:443 failed: amqp:connection:framing-error SSL Failure: error:0A000086:SSL routines::certificate verify failed</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Confirm that the CA certificate has expired by examining the file on an OSP node:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ ssh controller-0.ctlplane -- cat /var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem | openssl x509 -text | grep "Not After"
+            Not After : Nov 10 20:31:16 2022 GMT
+
+$ date
+Mon Nov 14 11:10:40 EST 2022</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
+<div class="paragraph _abstract">
+<p>To update the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate, you will need to export it from OpenShift and copy it to your OpenStack (OSP) nodes.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Export the CA certificate to <code>STFCA.pem</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d &gt; STFCA.pem</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy STFCA.pem to your OSP undercloud.</p>
+</li>
+<li>
+<p>Log into your OSP undercloud.</p>
+</li>
+<li>
+<p>Edit the stf-connectors.yaml file to contain the new caCertFileContent (For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>)</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You do not need to perform an overcloud deploy after performing the steps below. We edit the stf-connectors.yaml file only to make sure that future deployments will not overwrite the new CA certificate.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Copy the STFCA.pem file to each OSP overcloud node:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart the metrics_qdr container on each OSP overcloud node:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ tripleo-ansible-inventory --static-yaml-inventory ./tripleo-ansible-inventory.yaml
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>endif:include_when_13[]</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="assembly-upgrading-service-telemetry-framework-to-version-1-4_assembly">Upgrading Service Telemetry Framework to version 1.4</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
@@ -4640,7 +4791,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-11-17 13:44:42 UTC
+Last updated 2022-11-21 20:14:17 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
