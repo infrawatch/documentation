@@ -37,9 +37,13 @@ You do not need to perform an overcloud deploy after performing the steps below.
 +
 [source,bash,options="nowrap"]
 ----
-ifdef::include_when_16,include_when_13[]
+ifdef::include_when_13[]
+[stack@undercloud-0 ~]$ tripleo-ansible-inventory --static-yaml-inventory ./tripleo-ansible-inventory.yaml
 [stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
-endif::include_when_16,include_when_13[]
+endif:include_when_13[]
+ifdef::include_when_16[]
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+endif::include_when_16[]
 ifdef::include_when_17[]
 [stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
 endif::include_when_17[]
