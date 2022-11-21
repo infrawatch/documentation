@@ -22,7 +22,7 @@ $ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.ite
       0       0       0
 ----
 
-. Check for this error in the {OpenShift} {MessageBus} logs:
+. Check for this error in the {OpenShift}-hosted {MessageBus} logs:
 +
 [source,bash,options="nowrap"]
 ----
@@ -31,8 +31,8 @@ $ oc logs -l application=default-interconnect | tail
 2022-11-10 20:51:22.863466 +0000 SERVER (info) [C261] Connection from 10.10.10.10:34570 (to 0.0.0.0:5671) failed: amqp:connection:framing-error SSL Failure: error:140940E5:SSL routines:ssl3_read_bytes:ssl handshake failure
 ----
 
-. Log into your {OpenStackShort} undercloud
-. Check for this error in the {OpenStackShort} {MessageBus} logs of a node where the connection has failed:
+. Log into your {OpenStackShort} undercloud.
+. Check for this error in the {OpenStackShort}-hosted {MessageBus} logs of a node where the connection has failed:
 +
 [source,bash,options="nowrap"]
 ----
