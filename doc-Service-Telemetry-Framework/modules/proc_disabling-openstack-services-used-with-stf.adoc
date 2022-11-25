@@ -1,0 +1,54 @@
+[id="disabling-openstack-services-used-with-stf_{context}"]
+= Disabling {OpenStack} services used with {Project}
+
+[role="_abstract"]
+Disable the services used when deploying {OpenStack} ({OpenStackShort}) and connecting it to {Project} ({ProjectShort}). Only the services will be disabled. No environment clean up such as logs or generated configuration files will be removed.
+
+.Procedure
+
+. Log in to the {OpenStack} ({OpenStackShort}) undercloud as the `stack` user.
+
+. Source the authentication file:
++
+[source,bash]
+----
+[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$
+----
+
+. Create the `disable-stf.yaml` environment file:
++
+[source,yaml,options="nowrap"]
+----
+(undercloud) [stack@undercloud-0]$ cat > $HOME/disable-stf.yaml <<EOF
+---
+resource_registry:
+  OS::TripleO::Services::CeilometerAgentCentral: OS::Heat::None
+  OS::TripleO::Services::CeilometerAgentNotification: OS::Heat::None
+  OS::TripleO::Services::CeilometerAgentIpmi: OS::Heat::None
+  OS::TripleO::Services::ComputeCeilometerAgent: OS::Heat::None
+  OS::TripleO::Services::Redis: OS::Heat::None
+  OS::TripleO::Services::Collectd: OS::Heat::None
+  OS::TripleO::Services::MetricsQdr: OS::Heat::None
+EOF
+----
+
+. Remove the following files from your {OpenStackShort} {OpenStackInstaller} deployment:
++
+* `ceilometer-write-qdr.yaml`
+* `qdr-edge-only.yaml`
+* `enable-stf.yaml`
+* `stf-connectors.yaml`
+
+. Update the {OpenStackShort} overcloud using `openstack overcloud deploy` with the `disable-stf.yaml` early in the list of environment files. If the disable-stf.yaml file is used late in the list of environment files, services that are dependended on by other services could be disabled when not intended. By adding disable-stf.yaml early in the list, other environment files can override the configuration that would disable the service:
++
+// this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
++
+[source,bash,options="nowrap",subs="+quotes"]
+----
+(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file /home/stack/disable-stf.yaml
+  --environment-file _<...other_environment_files...>_ \
+----
