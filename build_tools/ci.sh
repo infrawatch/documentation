@@ -37,7 +37,6 @@ rm -rf images/
 echo "--- moving built files into the top-level directory"
 touch .nojekyll
 mv build/doc-Service-Telemetry-Framework/* ./
-mv index-upstream.html index.html
 rm -rf build/
 
 # Build this for stable-1.5 branch and push custom paths to gh-pages
