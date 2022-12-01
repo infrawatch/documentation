@@ -5,7 +5,7 @@
 Disable the services used when deploying {OpenStack} ({OpenStackShort}) and connecting it to {Project} ({ProjectShort}).  There is no removal of logs or generated configuration files as part of the disablement of the services.
 
 [WARNING]
-Do not use this procedure when also using the xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[] procedure as the provided `gnocchi-connectors.yaml` does not contain all dependencies required. If removal of {ProjectShort}-related services is desired on {OpenStackShort} then be sure to update your environment to enable data collection and data storage dependencies.
+Do not use this procedure when also using the xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[] procedure because the `gnocchi-connectors.yaml` does not contain all dependencies required. If you want to remove {ProjectShort}-related services on {OpenStackShort}, ensure that you update your environment to enable data collection and data storage dependencies.
 
 .Procedure
 
