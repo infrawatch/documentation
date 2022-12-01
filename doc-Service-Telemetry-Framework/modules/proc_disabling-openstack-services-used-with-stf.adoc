@@ -44,7 +44,7 @@ EOF
 * `enable-stf.yaml`
 * `stf-connectors.yaml`
 
-. Update the {OpenStackShort} overcloud using `openstack overcloud deploy` with the `disable-stf.yaml` early in the list of environment files. If the disable-stf.yaml file is used late in the list of environment files, services that are dependended on by other services could be disabled when not intended. By adding disable-stf.yaml early in the list, other environment files can override the configuration that would disable the service:
+. Update the {OpenStackShort} overcloud. Ensure that you use the `disable-stf.yaml` file early in the list of environment files. By adding `disable-stf.yaml` early in the list, other environment files can override the configuration that would disable the service:
 +
 // this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
 +
