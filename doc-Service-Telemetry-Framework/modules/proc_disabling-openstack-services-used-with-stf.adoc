@@ -9,7 +9,7 @@ Do not use this procedure when also using the xref:sending-metrics-to-gnocchi-an
 
 .Procedure
 
-. Log in to the {OpenStack} ({OpenStackShort}) undercloud as the `stack` user.
+. Log in to the {OpenStackShort} undercloud as the `stack` user.
 
 . Source the authentication file:
 +
@@ -53,5 +53,5 @@ EOF
 (undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file /home/stack/disable-stf.yaml
-  --environment-file _<...other_environment_files...>_ \
+  --environment-file _<other_environment_files>_ \
 ----
