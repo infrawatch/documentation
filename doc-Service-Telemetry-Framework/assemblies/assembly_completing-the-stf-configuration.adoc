@@ -37,6 +37,7 @@ include::../modules/proc_creating-the-base-configuration-for-stf.adoc[leveloffse
 include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[leveloffset=+2]
 include::../modules/proc_deploying-the-overcloud.adoc[leveloffset=+2]
 include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
+include::../modules/proc_disabling-openstack-services-used-with-stf.adoc[leveloffset=+1]
 
 //Sending metrics to Gnocchi and to STF
 ifdef::include_when_16[]
