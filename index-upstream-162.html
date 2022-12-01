@@ -488,7 +488,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
-<li><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></li>
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 <li><a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a></li>
 <li><a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a></li>
@@ -1133,7 +1132,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   displayName: InfraWatch Operators
-  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly-1.5
+  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
   publisher: InfraWatch
   sourceType: grpc
   updateStrategy:
@@ -1362,7 +1361,7 @@ metadata:
   name: smart-gateway-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.5
+  channel: unstable
   installPlanApproval: Automatic
   name: smart-gateway-operator
   source: infrawatch-operators
@@ -1382,7 +1381,7 @@ metadata:
   name: service-telemetry-operator
   namespace: service-telemetry
 spec:
-  channel: stable-1.5
+  channel: unstable
   installPlanApproval: Automatic
   name: service-telemetry-operator
   source: infrawatch-operators
@@ -2010,9 +2009,6 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></p>
-</li>
-<li>
 <p><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></p>
 </li>
 <li>
@@ -2033,36 +2029,9 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/operational_measurements/collectd-plugins_assembly">the amqp1 plug-in</a>.</p>
+<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly">the amqp1 plug-in</a>.</p>
 </li>
 </ul>
-</div>
-<div class="sect3">
-<h4 id="getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</h4>
-<div class="paragraph _abstract">
-<p>To connect your OpenStack overcloud to Service&#160;Telemetry&#160;Framework (STF), retrieve the CA certificate of Apache&#160;Qpid&#160;Dispatch&#160;Router that runs within Service&#160;Telemetry&#160;Framework and use the certificate in the OpenStack configuration.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>View a list of available certificates in Service&#160;Telemetry&#160;Framework:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secrets</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Retrieve and note the content of the <code>default-interconnect-selfsigned</code> Secret:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect3">
 <h4 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
@@ -2208,9 +2177,6 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Retrieve the CA certificate from the Apache&#160;Qpid&#160;Dispatch&#160;Router deployed by STF. For more information, see <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
-<li>
 <p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address. For more information, see <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 </ul>
@@ -2233,9 +2199,6 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </li>
 <li>
 <p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
 </li>
 <li>
 <p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
@@ -2270,10 +2233,6 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-          caCertFileContent: |
-            -----BEGIN CERTIFICATE-----
-            &lt;snip&gt;
-            -----END CERTIFICATE-----
 
     CeilometerQdrEventsConfig:
         driver: amqp
@@ -2701,7 +2660,7 @@ sinks:
 <div class="sect2">
 <h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
 <div class="paragraph _abstract">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
+<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
 </div>
 <div class="paragraph">
 <p>If you use STF with OpenStack (OSP) Wallaby and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
@@ -2725,7 +2684,7 @@ Because a spine-leaf configuration can result in different networks being assign
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
+<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
 </li>
 <li>
 <p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
@@ -3097,7 +3056,7 @@ spec:
 <p><a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a></p>
 </li>
 <li>
-<p><a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html-single/overcloud_parameters/index#ref_core-overcloud-parameters_overcloud_parameters">Core Overcloud Parameters</a> in the <em>Overcloud Parameters</em> guide</p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/overcloud_parameters/index#ref_core-overcloud-parameters_overcloud_parameters">Core Overcloud Parameters</a> in the <em>Overcloud Parameters</em> guide</p>
 </li>
 </ul>
 </div>
@@ -3122,9 +3081,6 @@ If you enabled container health and API status monitoring, you must also modify 
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
-<li>
-<p>You have retrieved the CA certificate from the Apache&#160;Qpid&#160;Dispatch&#160;Router deployed by STF. For more information, see <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
 <li>
 <p>You have created your list of clouds objects. For more information about creating the content for the clouds parameter, see the <a href="#clouds_assembly-installing-the-core-components-of-stf">clouds configuration parameter</a>.</p>
 </li>
@@ -3156,12 +3112,6 @@ If you enabled container health and API status monitoring, you must also modify 
 <p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
 </li>
 <li>
-<p>Replace the <code>MetricsQdrConnectors.host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
-<li>
 <p>Set the <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
 </li>
 <li>
@@ -3191,10 +3141,6 @@ parameter_defaults:
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
-          caCertFileContent: |
-            -----BEGIN CERTIFICATE-----
-            &lt;snip&gt;
-            -----END CERTIFICATE-----
 
     CeilometerQdrEventsConfig:
         driver: amqp
@@ -3265,66 +3211,6 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </li>
 </ol>
 </div>
-<div class="sect4">
-<h5 id="ansible-based-deployment_assembly-completing-the-stf-configuration">Ansible-based deployment of Service&#160;Telemetry&#160;Framework</h5>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The content for this feature is available in this release as a <em>Documentation Preview</em>, and therefore is not fully verified by Red Hat. Use it only for testing, and do not use in a production environment.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph _abstract">
-<p>As of OpenStack Wallaby, you can preview the use of Ansible instead of Puppet for deploying Service&#160;Telemetry&#160;Framework (STF) components. The use of Ansible has the following advantages:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Consolidation of configuration under a single service-specific THT variable (MetricsQdrVars and CollectdVars)</p>
-</li>
-<li>
-<p>The ability to switch QDR modes from mesh-mode to edge-only and back</p>
-</li>
-<li>
-<p>Fewer technologies used in the deployment stack, resulting in a simpler debug process</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>To use the Ansible-based deployment, substitute the word "ansible" in place of "puppet" in the <code>resource_registry</code> section of your <code>stf-connectors.yaml</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">    OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-ansible.yaml
-    OS::TripleO::Services::MetricsQdr: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/qdr-container-ansible.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To set the configuration, use the new service-specific THT variables, as shown in the following example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
-  MetricsQdrVars:
-    tripleo_metrics_qdr_deployment_mode: edge-only
-  CollectdVars:
-    tripleo_collectd_amqp_host: stf.mycluster.example.com</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The full list of supported configuration parameters can be found in the deployment files referenced above.
-<a href="https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/qdr-container-ansible.yaml#L172" class="bare">https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/qdr-container-ansible.yaml#L172</a></p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/collectd-container-ansible.yaml#L307" class="bare">https://github.com/openstack/tripleo-heat-templates/blob/stable/wallaby/deployment/metrics/collectd-container-ansible.yaml#L307</a></p>
-</div>
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
@@ -3332,7 +3218,6 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p>For information about how to validate the deployment, see <a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a>.</p>
 </li>
 </ul>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -3595,7 +3480,7 @@ grafanadashboard.integreatly.org/rhos-dashboard-1.3 created</code></pre>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-For some panels in the cloud dashboard, you must set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the <code>stf-connectors.yaml</code> file. If you do not configure this parameter, affected dashboards remain empty. For more information about the <code>virt</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html-single/service_telemetry_framework_1.5/index#collectd-plugins_assembly">collectd plugins</a>.
+For some panels in the cloud dashboard, you must set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the <code>stf-connectors.yaml</code> file. If you do not configure this parameter, affected dashboards remain empty. For more information about the <code>virt</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/service_telemetry_framework_1.5/index#collectd-plugins_assembly">collectd plugins</a>.
 </td>
 </tr>
 </table>
@@ -4932,7 +4817,7 @@ You do not need to perform an overcloud deploy after performing the steps below.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-01 20:03:25 UTC
+Last updated 2022-12-01 21:00:28 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
