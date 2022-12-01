@@ -496,6 +496,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a></li>
 </ul>
 </li>
+<li><a href="#disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</a></li>
 <li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration">Adding OpenStack container images to the undercloud</a></li>
 <li><a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>
@@ -2502,6 +2503,90 @@ Router Addresses
 </li>
 </ol>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</h3>
+<div class="paragraph _abstract">
+<p>Disable the services used when deploying OpenStack (OSP) and connecting it to Service&#160;Telemetry&#160;Framework (STF).  There is no removal of logs or generated configuration files as part of the disablement of the services.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Do not use this procedure when also using the <a href="#sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration">[sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration]</a> procedure because the <code>gnocchi-connectors.yaml</code> does not contain all dependencies required. If you want to remove STF-related services on OSP, ensure that you update your environment to enable data collection and data storage dependencies.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Source the authentication file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
+
+(undercloud) [stack@undercloud-0 ~]$</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <code>disable-stf.yaml</code> environment file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">(undercloud) [stack@undercloud-0]$ cat &gt; $HOME/disable-stf.yaml &lt;&lt;EOF
+---
+resource_registry:
+  OS::TripleO::Services::CeilometerAgentCentral: OS::Heat::None
+  OS::TripleO::Services::CeilometerAgentNotification: OS::Heat::None
+  OS::TripleO::Services::CeilometerAgentIpmi: OS::Heat::None
+  OS::TripleO::Services::ComputeCeilometerAgent: OS::Heat::None
+  OS::TripleO::Services::Redis: OS::Heat::None
+  OS::TripleO::Services::Collectd: OS::Heat::None
+  OS::TripleO::Services::MetricsQdr: OS::Heat::None
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the following files from your OSP TripleO deployment:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ceilometer-write-qdr.yaml</code></p>
+</li>
+<li>
+<p><code>qdr-edge-only.yaml</code></p>
+</li>
+<li>
+<p><code>enable-stf.yaml</code></p>
+</li>
+<li>
+<p><code>stf-connectors.yaml</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Update the OSP overcloud. Ensure that you use the <code>disable-stf.yaml</code> file early in the list of environment files. By adding <code>disable-stf.yaml</code> early in the list, other environment files can override the configuration that would disable the service:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
+--templates /usr/share/openstack-tripleo-heat-templates \
+  --environment-file /home/stack/disable-stf.yaml
+  --environment-file <em>&lt;other_environment_files&gt;</em> \</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -4791,7 +4876,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-11-21 20:14:17 UTC
+Last updated 2022-12-01 14:05:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
