@@ -2,7 +2,7 @@
 = Dashboards in {Project}
 
 [role="_abstract"]
-Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gathers for each individual host node.
+Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gather for each individual host node.
 
 For more information about configuring data collectors, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
