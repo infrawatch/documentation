@@ -45,7 +45,7 @@ NAME                       DISPLAY            VERSION   REPLACES                
 grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1   Succeeded
 ----
 
-. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`. Optionally set the `graphing.grafana.baseImage` to the Grafana workload container image that will be deployed:
+. To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`. Optionally, set the  value of `graphing.grafana.baseImage` to the Grafana workload container image that will be deployed:
 +
 [source,bash]
 ----
