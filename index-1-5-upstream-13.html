@@ -3206,10 +3206,10 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="sect2">
 <h3 id="dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</h3>
 <div class="paragraph _abstract">
-<p>Use the third-party application, Grafana, to visualize system-level metrics that collectd and Ceilometer gathers for each individual host node.</p>
+<p>Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gather for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring collectd, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
@@ -3262,7 +3262,7 @@ grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1  
 </div>
 </li>
 <li>
-<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>:</p>
+<p>To launch a Grafana instance, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.enabled</code> and <code>graphing.grafana.ingressEnabled</code> to <code>true</code>. Optionally, set the  value of <code>graphing.grafana.baseImage</code> to the Grafana workload container image that will be deployed:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
@@ -3275,7 +3275,8 @@ spec:
   graphing:
     enabled: true
     grafana:
-      ingressEnabled: true</code></pre>
+      ingressEnabled: true
+      baseImage: 'registry.redhat.io/rhel8/grafana:7'</code></pre>
 </div>
 </div>
 </li>
@@ -4876,7 +4877,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-02 21:23:32 UTC
+Last updated 2022-12-07 13:30:44 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
