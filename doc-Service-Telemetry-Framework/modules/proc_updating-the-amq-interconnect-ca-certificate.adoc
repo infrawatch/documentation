@@ -1,0 +1,55 @@
+[id="proc-updating-the-amq-interconnect-ca-certificate_{context}"]
+= Updating the {MessageBus} CA certificate
+
+[role="_abstract"]
+To update the {MessageBus} certificate, you will need to export it from {OpenShift} and copy it to your {OpenStack} ({OpenStackShort}) nodes.
+
+.Procedure
+
+. Log in to {OpenShift}.
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Export the CA certificate to `STFCA.pem`:
++
+[source,bash,options="nowrap"]
+----
+$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d > STFCA.pem
+----
+
+. Copy STFCA.pem to your {OpenStackShort} undercloud.
+. Log into your {OpenStackShort} undercloud.
+. Edit the stf-connectors.yaml file to contain the new caCertFileContent (For more information, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[])
+[NOTE]
+You do not need to perform an overcloud deploy after performing the steps below. We edit the stf-connectors.yaml file only to make sure that future deployments will not overwrite the new CA certificate.
+
+. Copy the STFCA.pem file to each {OpenStackShort} overcloud node:
++
+[source,bash,options="nowrap"]
+----
+[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
+----
+. Restart the metrics_qdr container on each {OpenStackShort} overcloud node:
++
+[source,bash,options="nowrap"]
+ifdef::include_when_13[]
+----
+[stack@undercloud-0 ~]$ tripleo-ansible-inventory --static-yaml-inventory ./tripleo-ansible-inventory.yaml
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+----
+endif:include_when_13[]
+ifdef::include_when_16[]
+----
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+----
+endif::include_when_16[]
+
+ifdef::include_when_17[]
+----
+[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+----
+endif::include_when_17[]
