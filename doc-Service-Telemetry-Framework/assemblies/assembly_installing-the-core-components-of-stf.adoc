@@ -39,7 +39,7 @@ endif::[]
 .Additional resources
 
 * For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-what-operators-are.html[_Understanding Operators_] guide.
-* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_assembly[].
+//* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_{}[].
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
