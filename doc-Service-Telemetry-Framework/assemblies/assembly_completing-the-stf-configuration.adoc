@@ -19,6 +19,8 @@ To collect metrics, events, or both, and to send them to the {Project} ({Project
 
 ** To deploy data collection and transport to {ProjectShort} on {OpenStackShort} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
+** To disable the data collector services, see xref:disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration[].
+
 ifdef::include_when_13[]
 ** If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see xref:adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration[].
 endif::include_when_13[]
