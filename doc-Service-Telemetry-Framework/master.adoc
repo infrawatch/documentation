@@ -38,7 +38,7 @@ include::assemblies/assembly_advanced-features.adoc[leveloffset=+1]
 include::assemblies/assembly_renewing-the-amq-interconnect-certificate.adoc[leveloffset=+1]
 
 // upgrading to 1.4
-include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-4.adoc[leveloffset=+1]
+//include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-4.adoc[leveloffset=+1]
 
 // removing
 include::assemblies/assembly_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
