@@ -19,9 +19,7 @@ To collect metrics, events, or both, and to send them to the {Project} ({Project
 
 ** To deploy data collection and transport to {ProjectShort} on {OpenStackShort} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 
-ifdef::include_when_16[]
-** To send metrics to both Gnocchi and {ProjectShort}, see xref:sending-metrics-to-gnocchi-and-to-stf_assembly-completing-the-stf-configuration[].
-endif::include_when_16[]
+** To disable the data collector services, see xref:disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration[].
 
 ifdef::include_when_13[]
 ** If you synchronized container images to a local registry, you must create an environment file and include the paths to the container images. For more information, see xref:adding-container-images-to-the-undercloud_assembly-completing-the-stf-configuration[].
@@ -38,11 +36,6 @@ include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[l
 include::../modules/proc_deploying-the-overcloud.adoc[leveloffset=+2]
 include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
 include::../modules/proc_disabling-openstack-services-used-with-stf.adoc[leveloffset=+1]
-
-//Sending metrics to Gnocchi and to STF
-ifdef::include_when_16[]
-include::../modules/proc_sending-metrics-to-gnocchi-and-to-stf.adoc[leveloffset=+1]
-endif::include_when_16[]
 
 // Gather information for deployment in non-standard network topologies in the OSP overcloud
 include::../modules/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
