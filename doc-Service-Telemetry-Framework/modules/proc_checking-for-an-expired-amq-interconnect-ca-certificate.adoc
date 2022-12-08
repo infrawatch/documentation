@@ -2,7 +2,7 @@
 = Checking for an expired {MessageBus} CA certificate
 
 [role="_abstract"]
-When the CA certificate expires, the {MessageBus} connections remain up, but cannot reconnect if they are interrupted. Eventually, some or all of the connections from your {Openstack} ({OpenStackShort}) Routers fail, showing errors on both sides, and the expiry or *Not After* field in your CA certificate is in the past.
+When the CA certificate expires, the {MessageBus} connections remain up, but cannot reconnect if they are interrupted. Eventually, some or all of the connections from your {Openstack} ({OpenStackShort}) dispatch routers fail, showing errors on both sides, and the expiry or *Not After* field in your CA certificate is in the past.
 
 .Procedure
 
@@ -14,7 +14,7 @@ When the CA certificate expires, the {MessageBus} connections remain up, but can
 $ oc project service-telemetry
 ----
 
-. Verify that some or all Router connections have failed:
+. Verify that some or all dispatch router connections have failed:
 +
 [source,bash,options="nowrap"]
 ----
