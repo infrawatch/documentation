@@ -14,11 +14,6 @@ The `ServiceTelemetry` object comprises the following primary configuration para
 
 You can configure each of these configuration parameters to provide different features in an {ProjectShort} deployment.
 
-[IMPORTANT]
-====
-Support for `servicetelemetry.infra.watch/v1alpha1` was removed from {ProjectShort} 1.3.
-====
-
 [id="backends_{context}"]
 [discrete]
 == The backends parameter
@@ -129,7 +124,7 @@ Use the `pvcStorageRequest` parameter to define the minimum required volume size
 
 .Procedure
 
-* List the available storage classes:
+. List the available storage classes:
 +
 [source,bash,options="nowrap"]
 ----
@@ -140,7 +135,7 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-* Configure the `ServiceTelemetry` object:
+. Configure the `ServiceTelemetry` object:
 +
 [source,yaml]
 ----
