@@ -1618,20 +1618,6 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <div class="paragraph">
 <p>You can configure each of these configuration parameters to provide different features in an STF deployment.</p>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Support for <code>servicetelemetry.infra.watch/v1alpha1</code> was removed from STF 1.3.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <h5 id="backends_assembly-installing-the-core-components-of-stf" class="discrete">The backends parameter</h5>
 <div class="paragraph">
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
@@ -1750,9 +1736,9 @@ spec:
 <div class="paragraph">
 <p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20Gi</code> (20 Gibibytes).</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
 <p>List the available storage classes:</p>
 <div class="listingblock">
@@ -1788,7 +1774,7 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h5 id="clouds_assembly-installing-the-core-components-of-stf" class="discrete">The clouds parameter</h5>
 <div class="paragraph">
@@ -4323,7 +4309,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <div class="sect2">
 <h3 id="proc-checking-for-an-expired-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Checking for an expired Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
 <div class="paragraph _abstract">
-<p>When the CA certificate expires the Apache&#160;Qpid&#160;Dispatch&#160;Router connections will remain up, but will be unable to reconnect if they are interrupted. Eventually you will find that some or all of the connections from your OpenStack (OSP) Routers have failed, showing errors on both sides, and the expiry (or "Not After") field in your CA certificate will be in the past.</p>
+<p>When the CA certificate expires, the Apache&#160;Qpid&#160;Dispatch&#160;Router connections remain up, but cannot reconnect if they are interrupted. Eventually, some or all of the connections from your OpenStack (OSP) dispatch routers fail, showing errors on both sides, and the expiry or <strong>Not After</strong> field in your CA certificate is in the past.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -4340,7 +4326,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 </div>
 </li>
 <li>
-<p>Check that some or all Router connections have failed:</p>
+<p>Verify that some or all dispatch router connections have failed:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
@@ -4362,7 +4348,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <p>Log into your OSP undercloud.</p>
 </li>
 <li>
-<p>Check for this error in the OSP-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs of a node where the connection has failed:</p>
+<p>Check for this error in the OSP-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs of a node with a failed connection:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics_qdr.log
@@ -4389,7 +4375,7 @@ Mon Nov 14 11:10:40 EST 2022</code></pre>
 <div class="sect2">
 <h3 id="proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
 <div class="paragraph _abstract">
-<p>To update the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate, you will need to export it from OpenShift and copy it to your OpenStack (OSP) nodes.</p>
+<p>To update the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate, you must export it from OpenShift and copy it to your OpenStack (OSP) nodes.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -4414,13 +4400,13 @@ Mon Nov 14 11:10:40 EST 2022</code></pre>
 </div>
 </li>
 <li>
-<p>Copy STFCA.pem to your OSP undercloud.</p>
+<p>Copy <code>STFCA.pem</code> to your OSP undercloud.</p>
 </li>
 <li>
 <p>Log into your OSP undercloud.</p>
 </li>
 <li>
-<p>Edit the stf-connectors.yaml file to contain the new caCertFileContent (For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>)</p>
+<p>Edit the <code>stf-connectors.yaml</code> file to contain the new caCertFileContent. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -4435,7 +4421,7 @@ You do not need to perform an overcloud deploy after performing the steps below.
 </div>
 </li>
 <li>
-<p>Copy the STFCA.pem file to each OSP overcloud node:</p>
+<p>Copy the <code>STFCA.pem</code> file to each OSP overcloud node:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"</code></pre>
@@ -4676,7 +4662,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-07 19:32:07 UTC
+Last updated 2022-12-09 10:01:44 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
