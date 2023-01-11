@@ -22,7 +22,7 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-If the `alertmanagerConfigManifest` parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` by using a base64-encoded configuration.
+If the `alertmanagerConfigManifest` parameter contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the `alertmanagerConfigManifest` by using a base64-encoded configuration.
 
 .Procedure
 
@@ -36,39 +36,40 @@ If the `alertmanagerConfigManifest` parameter contains a custom template, for ex
 $ oc project service-telemetry
 ----
 
-. Edit the `ServiceTelemetry` object for your {ProjectShort} deployment:
+. Create the necesarry alermanager config in a file called alertmanager.yaml, for example:
 +
-[source,bash]
+[source,yaml]
 ----
-$ oc edit stf default
+$ cat alertmanager.yaml
+global:
+  resolve_timeout: 10m
+  slack_api_url: <slack_api_url>
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: >-
+        ...
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'slack'
 ----
-
-. To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:
+. Generate the config manifest and add it to the `ServiceTelemetry` object for your {ProjectShort} deployment:
 +
-[source,yaml,options="nowrap"]
+[source,bash,options="nowrap"]
 ----
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    metrics:
-      prometheus:
-        enabled: true
-  alertmanagerConfigManifest: |
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: 'alertmanager-default'
-      namespace: 'service-telemetry'
-    type: Opaque
-    data:
-      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==
+$ CONFIG_MANIFEST=$(oc create secret --dry-run=client generic alertmanager-default --from-file=alertmanager.yaml -o json)
+$ oc patch stf default --type=merge -p '{"spec":{"alertmanagerConfigManifest":'"$CONFIG_MANIFEST"'}}'
 ----
-
 . Verify that the configuration has been applied to the secret:
++
+[NOTE]
+There will be a short delay as the operators update each object
 +
 [source,bash,options="nowrap"]
 ----

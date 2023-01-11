@@ -23,6 +23,13 @@ spec:
 EOF
 ----
 +
+. Delete the left over objects that are managed by community operators
++
+[source,bash]
+----
+$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done
+----
++
 . To verify that all workloads are operating correctly, view the pods and the status of each pod:
 +
 [source,bash,options="nowrap"]

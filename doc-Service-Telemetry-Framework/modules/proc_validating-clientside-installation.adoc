@@ -14,8 +14,9 @@ TIP: Some telemetry data is available only when {OpenStackShort} has active work
 +
 [source,bash,options="nowrap",subs="attributes"]
 ----
-$ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr
-
+$ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr ceilometer_agent_notification collectd
+running
+running
 running
 ----
 

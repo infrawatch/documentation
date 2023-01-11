@@ -48,6 +48,19 @@ spec:
 ----
 
 . Save your changes and close the object.
+. Wait for prometheus to restart with the new settings.
++
+[source,bash]
+----
+$ oc get po -l app.kubernetes.io/name=prometheus -w
+----
+. Verify the new retention setting be checking the command line arguments used in the pod.
++
+[source,bash]
+----
+$ oc describe po prometheus-default-0 | grep retention.time
+      --storage.tsdb.retention.time=24h
+----
 
 .Additional resources
 

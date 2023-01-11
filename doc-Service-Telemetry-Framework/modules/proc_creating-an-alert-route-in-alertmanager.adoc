@@ -21,10 +21,10 @@ alertmanager.yaml: |-
   - name: 'null'
 ----
 
-To deploy a custom Alertmanager route with {ProjectShort}, you must pass an `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
+To deploy a custom Alertmanager route with {ProjectShort}, you must add a `alertmanagerConfigManifest` parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.
 
 [NOTE]
-If your `alertmanagerConfigManifest` contains a custom template to construct the title and text of the sent alert, deploy the contents of the `alertmanagerConfigManifest` using a base64-encoded configuration. For more information, see xref:creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[].
+If your `alertmanagerConfigManifest` contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the `alertmanagerConfigManifest` using a base64-encoded configuration. For more information, see xref:creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features[].
 
 .Procedure
 
