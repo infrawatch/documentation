@@ -36,7 +36,7 @@ If the `alertmanagerConfigManifest` parameter contains a custom template, for ex
 $ oc project service-telemetry
 ----
 
-. Create the necesarry alermanager config in a file called alertmanager.yaml, for example:
+. Create the necessary alertmanager config in a file called alertmanager.yaml, for example:
 +
 [source,yaml]
 ----
