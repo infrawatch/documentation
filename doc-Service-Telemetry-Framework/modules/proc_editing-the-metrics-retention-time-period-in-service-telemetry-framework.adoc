@@ -54,7 +54,7 @@ spec:
 ----
 $ oc get po -l app.kubernetes.io/name=prometheus -w
 ----
-. Verify the new retention setting be checking the command line arguments used in the pod.
+. Verify the new retention setting by checking the command line arguments used in the pod.
 +
 [source,bash]
 ----
