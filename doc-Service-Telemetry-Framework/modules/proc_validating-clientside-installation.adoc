@@ -10,16 +10,21 @@ TIP: Some telemetry data is available only when {OpenStackShort} has active work
 
 . Log in to an overcloud node, for example, controller-0.
 
-. Ensure that the `metrics_qdr` container is running on the node:
+. Ensure that the `metrics_qdr` and collection agent containers are running on the node:
 +
 [source,bash,options="nowrap",subs="attributes"]
 ----
-$ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr ceilometer_agent_notification collectd
+$ sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_notification ceilometer_agent_central
+running
 running
 running
 running
 ----
-
++
+[NOTE]
+Use this command on compute nodes:
+sudo {containerbin} container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_compute
++
 . Return the internal network address on which {MessageBus} is running, for example, `172.17.1.44` listening on port `5666`:
 +
 [source,bash,options="nowrap",subs="attributes"]

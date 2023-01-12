@@ -40,7 +40,7 @@ $ oc project service-telemetry
 +
 [source,yaml]
 ----
-$ cat alertmanager.yaml
+$ cat > alertmanager.yaml <<EOF
 global:
   resolve_timeout: 10m
   slack_api_url: <slack_api_url>
@@ -58,6 +58,7 @@ route:
   group_interval: 5m
   repeat_interval: 12h
   receiver: 'slack'
+EOF
 ----
 . Generate the config manifest and add it to the `ServiceTelemetry` object for your {ProjectShort} deployment:
 +
