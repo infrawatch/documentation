@@ -37,10 +37,9 @@ endif::[]
 
 .Additional resources
 
-* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/[{OpenShift} product documentation].
-* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
-
-* You can install {OpenShift} on bare metal or other supported cloud platforms. For more information about installing {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {NextSupportedOpenShiftVersion} Documentation].
+* https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/[{OpenShift} product documentation]
+* https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling]
+* https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {NextSupportedOpenShiftVersion} Documentation]
 
 
 
