@@ -94,26 +94,16 @@ route:
 ----
 
 
-. Run the `curl` command against the `alertmanager-proxy` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
+. Run the `wget` command from the prometheus pod against the `alertmanager-proxy` service to retrieve the status and `configYAML` contents, and verify that the supplied configuration matches the configuration in Alertmanager:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
+$ oc exec -it prometheus-default-0 -c prometheus -- /bin/sh -c "wget --header \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status -q -O -"
 
 {"status":"success","data":{"configYAML":"...",...}}
 ----
 
 . Verify that the `configYAML` field contains the changes you expect.
-
-
-. To clean up the environment, delete the `curl` pod:
-+
-[source,bash]
-----
-$ oc delete pod curl
-
-pod "curl" deleted
-----
 
 .Additional resources
 
