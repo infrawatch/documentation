@@ -168,9 +168,16 @@ spec:
 
 Use the `clouds` parameter to define which Smart Gateway objects deploy, thereby providing the interface for multiple monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting back end is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
 
+ifndef::include_when_13[]
 You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors for metrics are `collectd`, `ceilometer`, and `sensubility`. Available collectors for events are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
 
 The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, which provides subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:
+endif::[]
+ifdef::include_when_13[]
+You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors are `collectd`, and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
+
+The default `cloud1` configuration is represented by the following `ServiceTelemetry` object, which provides subscriptions and data storage of metrics and events for collectd, and data collectors for a particular cloud instance:
+endif::[]
 
 [source,yaml]
 ----
@@ -188,9 +195,11 @@ spec:
             subscriptionAddress: collectd/telemetry
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
+ifndef::include_when_13[]
           - collectorType: sensubility
             subscriptionAddress: sensubility/telemetry
             debugEnabled: false
+endif::[]
       events:
         collectors:
           - collectorType: collectd
@@ -199,7 +208,12 @@ spec:
             subscriptionAddress: anycast/ceilometer/event.sample
 ----
 
+ifndef::include_when_13[]
 Each item of the `clouds` parameter represents a cloud instance. A cloud instance consists of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding back end for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd, Ceilometer, or Sensubility. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway subscribes.
+endif::[]
+ifdef::include_when_13[]
+Each item of the `clouds` parameter represents a cloud instance. A cloud instance consists of three top-level parameters: `name`, `metrics`, and `events`. The `metrics` and `events` parameters represent the corresponding back end for storage of that data type. The `collectors` parameter specifies a list of objects made up of two required parameters, `collectorType` and `subscriptionAddress`, and these represent an instance of the Smart Gateway. The `collectorType` parameter specifies data collected by either collectd, or Ceilometer. The `subscriptionAddress` parameter provides the {MessageBus} address to which a Smart Gateway subscribes.
+endif::[]
 
 You can use the optional Boolean parameter `debugEnabled` within the `collectors` parameter to enable additional console debugging in the running Smart Gateway pod.
 
