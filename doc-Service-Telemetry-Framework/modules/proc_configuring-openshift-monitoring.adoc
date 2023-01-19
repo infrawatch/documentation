@@ -25,7 +25,13 @@ metadata:
 +
 [source,bash,options="nowrap"]
 ----
+ifndef::include_when_13[]
 $ for collector_type in ceil coll sens; do oc apply -f <(sed -e "s/<<COLLECTOR_TYPE>>/${collector_type}/g" << EOF
+endif::[]
+ifdef::include_when_13[]
+$ for collector_type in ceil coll; do oc apply -f <(sed -e "s/<<COLLECTOR_TYPE>>/${collector_type}/g" << EOF
+endif::[]
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -64,7 +70,9 @@ EOF
 ); done
 servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
 servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
+ifndef::include_when_13[]
 servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured
+endif::[]
 ----
 . To verify the successful configuration of openshift-monitoring, ensure that Smart Gateway metrics appear in Prometheus.
 . Retrieve the route for the openshift-monitoring prometheus:
@@ -81,14 +89,18 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 . Verify that the following targets are visible under the `Status -> Targets` tab:
 ** service-telemetry/default-cloud1-ceil-meter/0
 ** service-telemetry/default-cloud1-coll-meter/0
+ifndef::include_when_13[]
 ** service-telemetry/default-cloud1-sens-meter/0
+endif::[]
 +
 If there are problems with the configuration, find them on this page.
 
 . Issue the following queries on the `Graph` tab:
 ** `sg_total_collectd_metric_decode_count`
 ** `sg_total_ceilometer_metric_decode_count`
+ifndef::include_when_13[]
 ** `sg_total_sensubility_metric_decode_count`
+endif::[]
 
 . There should be one result from each Smart Gateway, as shown in the following example:
 +
@@ -97,4 +109,6 @@ If the values returned are 0, it means that {ProjectShort} is not receiving that
 +
 ** `sg_total_collectd_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-coll-meter", source="SG"}`
 ** `sg_total_ceilometer_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-ceil-meter", source="SG"}`
+ifndef::include_when_13[]
 ** `sg_total_sensubility_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-sens-meter", source="SG"}`
+endif::[]
