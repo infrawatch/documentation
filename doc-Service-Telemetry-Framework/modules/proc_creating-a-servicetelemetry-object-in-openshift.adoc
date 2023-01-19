@@ -102,9 +102,11 @@ spec:
       - collectorType: ceilometer
         debugEnabled: false
         subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+ifndef::include_when_13[]
       - collectorType: sensubility
         debugEnabled: false
         subscriptionAddress: sensubility/cloud1-telemetry
+endif::[]
     name: cloud1
   graphing:
     enabled: false
@@ -154,7 +156,9 @@ NAME                                                      READY   STATUS    REST
 alertmanager-default-0                                    2/2     Running   0          17m
 default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
 default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
+ifndef::include_when_13[]
 default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
+endif::[]
 default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
 elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
 interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
