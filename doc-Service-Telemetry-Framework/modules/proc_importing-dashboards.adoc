@@ -11,9 +11,9 @@ The Grafana Operator can import and manage dashboards by creating `GrafanaDashbo
 +
 [source,bash,options="nowrap"]
 ----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-dashboard.yaml
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-dashboard.yaml
 
-grafanadashboard.integreatly.org/rhos-dashboard-1.3 created
+grafanadashboard.integreatly.org/rhos-dashboard-1 created
 ----
 . Import the cloud dashboard:
 +
@@ -22,15 +22,15 @@ For some panels in the cloud dashboard, you must set the value of the collectd `
 +
 [source,bash,options="nowrap"]
 ----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-cloud-dashboard.yaml
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloud-dashboard.yaml
 
-grafanadashboard.integreatly.org/rhos-cloud-dashboard-1.3 created
+grafanadashboard.integreatly.org/rhos-cloud-dashboard-1 created
 ----
 . Import the cloud events dashboard:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-cloudevents-dashboard.yaml
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloudevents-dashboard.yaml
 
 grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created
 ----
@@ -38,17 +38,17 @@ grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created
 +
 [source,bash,options="nowrap"]
 ----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/virtual-machine-view.yaml
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/virtual-machine-view.yaml
 
-grafanadashboard.integreatly.org/virtual-machine-view-1.3 configured
+grafanadashboard.integreatly.org/virtual-machine-view-1 configured
 ----
 . Import the memcached dashboard:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/memcached-dashboard.yaml
+$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/memcached-dashboard.yaml
 
-grafanadashboard.integreatly.org/memcached-dashboard-1.3 created
+grafanadashboard.integreatly.org/memcached-dashboard-1 created
 ----
 
 . Verify that the dashboards are available:
@@ -58,11 +58,11 @@ grafanadashboard.integreatly.org/memcached-dashboard-1.3 created
 $ oc get grafanadashboards
 
 NAME                   AGE
-memcached-dashboard-1.3      115s
-rhos-cloud-dashboard-1.3     2m12s
+memcached-dashboard-1      115s
+rhos-cloud-dashboard-1     2m12s
 rhos-cloudevents-dashboard   2m6s
-rhos-dashboard-1.3           2m17s
-virtual-machine-view-1.3     2m
+rhos-dashboard-1           2m17s
+virtual-machine-view-1     2m
 ----
 
 . Retrieve the Grafana route address:
