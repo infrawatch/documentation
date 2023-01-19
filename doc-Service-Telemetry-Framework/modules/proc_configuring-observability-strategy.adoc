@@ -38,7 +38,9 @@ $ oc get pods
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
+ifndef::include_when_13[]
 default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
+endif::[]
 default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
 interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
 service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
