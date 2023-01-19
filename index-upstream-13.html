@@ -1508,9 +1508,6 @@ spec:
       - collectorType: ceilometer
         debugEnabled: false
         subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
-      - collectorType: sensubility
-        debugEnabled: false
-        subscriptionAddress: sensubility/cloud1-telemetry
     name: cloud1
   graphing:
     enabled: false
@@ -1575,7 +1572,6 @@ NAME                                                      READY   STATUS    REST
 alertmanager-default-0                                    2/2     Running   0          17m
 default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
 default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
-default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
 default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
 elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
 interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
@@ -1781,10 +1777,10 @@ spec:
 <p>Use the <code>clouds</code> parameter to define which Smart Gateway objects deploy, thereby providing the interface for multiple monitored cloud environments to connect to an instance of STF. If a supporting back end is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for <code>cloud1</code>.</p>
 </div>
 <div class="paragraph">
-<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors for metrics are <code>collectd</code>, <code>ceilometer</code>, and <code>sensubility</code>. Available collectors for events are <code>collectd</code> and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
+<p>You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are <code>metrics</code> or <code>events</code>. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors are <code>collectd</code>, and <code>ceilometer</code>. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.</p>
 </div>
 <div class="paragraph">
-<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, which provides subscriptions and data storage of metrics and events for collectd, Ceilometer, and Sensubility data collectors for a particular cloud instance:</p>
+<p>The default <code>cloud1</code> configuration is represented by the following <code>ServiceTelemetry</code> object, which provides subscriptions and data storage of metrics and events for collectd, and data collectors for a particular cloud instance:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1802,9 +1798,6 @@ spec:
             subscriptionAddress: collectd/telemetry
           - collectorType: ceilometer
             subscriptionAddress: anycast/ceilometer/metering.sample
-          - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
-            debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
@@ -1814,7 +1807,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Each item of the <code>clouds</code> parameter represents a cloud instance. A cloud instance consists of three top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding back end for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd, Ceilometer, or Sensubility. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway subscribes.</p>
+<p>Each item of the <code>clouds</code> parameter represents a cloud instance. A cloud instance consists of three top-level parameters: <code>name</code>, <code>metrics</code>, and <code>events</code>. The <code>metrics</code> and <code>events</code> parameters represent the corresponding back end for storage of that data type. The <code>collectors</code> parameter specifies a list of objects made up of two required parameters, <code>collectorType</code> and <code>subscriptionAddress</code>, and these represent an instance of the Smart Gateway. The <code>collectorType</code> parameter specifies data collected by either collectd, or Ceilometer. The <code>subscriptionAddress</code> parameter provides the Apache&#160;Qpid&#160;Dispatch&#160;Router address to which a Smart Gateway subscribes.</p>
 </div>
 <div class="paragraph">
 <p>You can use the optional Boolean parameter <code>debugEnabled</code> within the <code>collectors</code> parameter to enable additional console debugging in the running Smart Gateway pod.</p>
@@ -1930,7 +1923,6 @@ EOF</code></pre>
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
-default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
 default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
 interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
 service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
@@ -2191,7 +2183,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. You configure the topic addresses for Sensubility, Ceilometer, and collectd in this file to match the defaults in STF. For more information about customizing topics and cloud configuration, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. You configure the topic addresses for Ceilometer and collectd in this file to match the defaults in STF. For more information about customizing topics and cloud configuration, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -4117,7 +4109,6 @@ EOF</code></pre>
 NAME                                                      READY   STATUS    RESTARTS   AGE
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
-default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
 default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
 interconnect-operator-b8f5bb647-tlp5t                     1/1     Running   0          47h
 service-telemetry-operator-566b9dd695-wkvjq               1/1     Running   0          156m
@@ -4162,7 +4153,8 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <p>Create a ServiceMonitor object for each Smart Gateway:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ for collector_type in ceil coll sens; do oc apply -f &lt;(sed -e "s/&lt;&lt;COLLECTOR_TYPE&gt;&gt;/${collector_type}/g" &lt;&lt; EOF
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ for collector_type in ceil coll; do oc apply -f &lt;(sed -e "s/&lt;&lt;COLLECTOR_TYPE&gt;&gt;/${collector_type}/g" &lt;&lt; EOF
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -4200,8 +4192,7 @@ spec:
 EOF
 ); done
 servicemonitor.monitoring.coreos.com/default-cloud1-ceil-meter configured
-servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured
-servicemonitor.monitoring.coreos.com/default-cloud1-sens-meter configured</code></pre>
+servicemonitor.monitoring.coreos.com/default-cloud1-coll-meter configured</code></pre>
 </div>
 </div>
 </li>
@@ -4230,9 +4221,6 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 </li>
 <li>
 <p>service-telemetry/default-cloud1-coll-meter/0</p>
-</li>
-<li>
-<p>service-telemetry/default-cloud1-sens-meter/0</p>
 <div class="paragraph">
 <p>If there are problems with the configuration, find them on this page.</p>
 </div>
@@ -4249,9 +4237,6 @@ prometheus-k8s   prometheus-k8s-openshift-monitoring.apps.infra.watch          p
 </li>
 <li>
 <p><code>sg_total_ceilometer_metric_decode_count</code></p>
-</li>
-<li>
-<p><code>sg_total_sensubility_metric_decode_count</code></p>
 </li>
 </ul>
 </div>
@@ -4277,9 +4262,6 @@ If the values returned are 0, it means that STF is not receiving that type of me
 </li>
 <li>
 <p><code>sg_total_ceilometer_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-ceil-meter", source="SG"}</code></p>
-</li>
-<li>
-<p><code>sg_total_sensubility_metric_decode_count{container="sg-core", endpoint="prom-https", service="default-cloud1-sens-meter", source="SG"}</code></p>
 </li>
 </ul>
 </div>
@@ -4652,7 +4634,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-19 19:54:28 UTC
+Last updated 2023-01-19 19:57:59 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

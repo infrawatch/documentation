@@ -4341,6 +4341,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ for collector_type in ceil coll sens; do oc apply -f &lt;(sed -e "s/&lt;&lt;COLLECTOR_TYPE&gt;&gt;/${collector_type}/g" &lt;&lt; EOF
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -4934,7 +4935,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-19 19:54:28 UTC
+Last updated 2023-01-19 19:57:59 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
