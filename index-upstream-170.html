@@ -1934,6 +1934,14 @@ EOF</code></pre>
 </div>
 </li>
 <li>
+<p>Delete the left over objects that are managed by community operators</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>To verify that all workloads are operating correctly, view the pods and the status of each pod:</p>
 <div class="listingblock">
 <div class="content">
@@ -2369,13 +2377,34 @@ Some telemetry data is available only when OSP has active workloads.
 <p>Log in to an overcloud node, for example, controller-0.</p>
 </li>
 <li>
-<p>Ensure that the <code>metrics_qdr</code> container is running on the node:</p>
+<p>Ensure that the <code>metrics_qdr</code> and collection agent containers are running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
-
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_notification ceilometer_agent_central
+running
+running
+running
 running</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use this command on compute nodes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_compute</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -3580,7 +3609,10 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <div class="sect3">
 <h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) sets default login credentials when Grafana is enabled. You can override the credentials in the <code>ServiceTelemetry</code> object.</p>
+<p>When Grafana is enabled, you can login using openshift authentication, or the default username and password set by the Grafana Operator.</p>
+</div>
+<div class="paragraph">
+<p>You can override the credentials in the <code>ServiceTelemetry</code> object to have Service&#160;Telemetry&#160;Framework (STF) set the username and password for Grafana instead.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3597,7 +3629,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </li>
 <li>
-<p>Retrieve the default username and password from the STF object:</p>
+<p>Retrieve the existing username and password from the STF object:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get stf default -o jsonpath="{.spec.graphing.grafana['adminUser','adminPassword']}"</code></pre>
@@ -3606,6 +3638,19 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </li>
 <li>
 <p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait for the grafana pod to restart with the new credentials in place</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=grafana -w</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -3696,6 +3741,23 @@ spec:
 </li>
 <li>
 <p>Save your changes and close the object.</p>
+</li>
+<li>
+<p>Wait for prometheus to restart with the new settings.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app.kubernetes.io/name=prometheus -w</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the new retention setting by checking the command line arguments used in the pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe po prometheus-default-0 | grep retention.time
+      --storage.tsdb.retention.time=24h</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -3868,7 +3930,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
+<p>To deploy a custom Alertmanager route with STF, you must add a <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3877,7 +3939,7 @@ EOF</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.
+If your <code>alertmanagerConfigManifest</code> contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.
 </td>
 </tr>
 </table>
@@ -4026,7 +4088,7 @@ pod "curl" deleted</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If the <code>alertmanagerConfigManifest</code> parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> by using a base64-encoded configuration.</p>
+<p>If the <code>alertmanagerConfigManifest</code> parameter contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the <code>alertmanagerConfigManifest</code> by using a base64-encoded configuration.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -4043,41 +4105,54 @@ pod "curl" deleted</code></pre>
 </div>
 </li>
 <li>
-<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment:</p>
+<p>Create the necessary alertmanager config in a file called alertmanager.yaml, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ cat &gt; alertmanager.yaml &lt;&lt;EOF
+global:
+  resolve_timeout: 10m
+  slack_api_url: &lt;slack_api_url&gt;
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: &gt;-
+        ...
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'slack'
+EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:</p>
+<p>Generate the config manifest and add it to the <code>ServiceTelemetry</code> object for your STF deployment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    metrics:
-      prometheus:
-        enabled: true
-  alertmanagerConfigManifest: |
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: 'alertmanager-default'
-      namespace: 'service-telemetry'
-    type: Opaque
-    data:
-      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ CONFIG_MANIFEST=$(oc create secret --dry-run=client generic alertmanager-default --from-file=alertmanager.yaml -o json)
+$ oc patch stf default --type=merge -p '{"spec":{"alertmanagerConfigManifest":'"$CONFIG_MANIFEST"'}}'</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Verify that the configuration has been applied to the secret:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There will be a short delay as the operators update each object
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -4399,6 +4474,14 @@ metadata:
 spec:
   observabilityStrategy: none
 EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the left over objects that are managed by community operators</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -5050,7 +5133,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-19 19:57:59 UTC
+Last updated 2023-01-19 21:22:53 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
