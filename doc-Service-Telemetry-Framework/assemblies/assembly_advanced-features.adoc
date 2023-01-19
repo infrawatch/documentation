@@ -51,7 +51,9 @@ include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
 
 //Configuring ephemeral storage
 include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
+ifeval::["{build}" == "upstream"]
 include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
+endif::[]
 
 //Observability strategy
 include::../modules/con_observability-strategy.adoc[leveloffset=+1]
