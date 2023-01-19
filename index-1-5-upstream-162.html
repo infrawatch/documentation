@@ -3370,9 +3370,9 @@ The paths and dashboards names refer to STF 1.3 which is the earliest version of
 <p>Import the infrastructure dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-dashboard.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-dashboard.yaml
 
-grafanadashboard.integreatly.org/rhos-dashboard-1.3 created</code></pre>
+grafanadashboard.integreatly.org/rhos-dashboard-1 created</code></pre>
 </div>
 </div>
 </li>
@@ -3392,9 +3392,9 @@ For some panels in the cloud dashboard, you must set the value of the collectd <
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-cloud-dashboard.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloud-dashboard.yaml
 
-grafanadashboard.integreatly.org/rhos-cloud-dashboard-1.3 created</code></pre>
+grafanadashboard.integreatly.org/rhos-cloud-dashboard-1 created</code></pre>
 </div>
 </div>
 </li>
@@ -3402,7 +3402,7 @@ grafanadashboard.integreatly.org/rhos-cloud-dashboard-1.3 created</code></pre>
 <p>Import the cloud events dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/rhos-cloudevents-dashboard.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloudevents-dashboard.yaml
 
 grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created</code></pre>
 </div>
@@ -3412,9 +3412,9 @@ grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created</code></pre>
 <p>Import the virtual machine dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/virtual-machine-view.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/virtual-machine-view.yaml
 
-grafanadashboard.integreatly.org/virtual-machine-view-1.3 configured</code></pre>
+grafanadashboard.integreatly.org/virtual-machine-view-1 configured</code></pre>
 </div>
 </div>
 </li>
@@ -3422,9 +3422,9 @@ grafanadashboard.integreatly.org/virtual-machine-view-1.3 configured</code></pre
 <p>Import the memcached dashboard:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1.3/memcached-dashboard.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/memcached-dashboard.yaml
 
-grafanadashboard.integreatly.org/memcached-dashboard-1.3 created</code></pre>
+grafanadashboard.integreatly.org/memcached-dashboard-1 created</code></pre>
 </div>
 </div>
 </li>
@@ -3435,11 +3435,11 @@ grafanadashboard.integreatly.org/memcached-dashboard-1.3 created</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards
 
 NAME                   AGE
-memcached-dashboard-1.3      115s
-rhos-cloud-dashboard-1.3     2m12s
+memcached-dashboard-1      115s
+rhos-cloud-dashboard-1     2m12s
 rhos-cloudevents-dashboard   2m6s
-rhos-dashboard-1.3           2m17s
-virtual-machine-view-1.3     2m</code></pre>
+rhos-dashboard-1           2m17s
+virtual-machine-view-1     2m</code></pre>
 </div>
 </div>
 </li>
@@ -3988,10 +3988,10 @@ route:
 </div>
 </li>
 <li>
-<p>Run the <code>curl</code> command against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
+<p>Run the <code>wget</code> command from the prometheus pod against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it prometheus-default-0 -c prometheus -- /bin/sh -c "wget --header \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status -q -O -"
 
 {"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
@@ -3999,16 +3999,6 @@ route:
 </li>
 <li>
 <p>Verify that the <code>configYAML</code> field contains the changes you expect.</p>
-</li>
-<li>
-<p>To clean up the environment, delete the <code>curl</code> pod:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete pod curl
-
-pod "curl" deleted</code></pre>
-</div>
-</div>
 </li>
 </ol>
 </div>
@@ -4945,7 +4935,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-19 21:22:24 UTC
+Last updated 2023-01-19 21:23:10 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
