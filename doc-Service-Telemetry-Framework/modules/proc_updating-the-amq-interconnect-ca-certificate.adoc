@@ -24,9 +24,6 @@ $ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | 
 . Copy `STFCA.pem` to your {OpenStackShort} undercloud.
 . Log into your {OpenStackShort} undercloud.
 . Edit the `stf-connectors.yaml` file to contain the new caCertFileContent. For more information, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[].
-+
-[NOTE]
-You do not need to perform an overcloud deploy after performing the steps below. We edit the stf-connectors.yaml file only to make sure that future deployments will not overwrite the new CA certificate.
 
 . Copy the `STFCA.pem` file to each {OpenStackShort} overcloud node:
 +
@@ -53,3 +50,6 @@ ifdef::include_when_17[]
 [stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
 ----
 endif::include_when_17[]
++
+[NOTE]
+You do not need to deploy the overcloud after you copy the `STFCA.pem` file and restart the `metrics_qdr` container. You edit the `stf-connectors.yaml` file so that future deployments do not overwrite the new CA certificate.
