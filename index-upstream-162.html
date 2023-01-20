@@ -4764,18 +4764,6 @@ Mon Nov 14 11:10:40 EST 2022</code></pre>
 </li>
 <li>
 <p>Edit the <code>stf-connectors.yaml</code> file to contain the new caCertFileContent. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You do not need to perform an overcloud deploy after performing the steps below. We edit the stf-connectors.yaml file only to make sure that future deployments will not overwrite the new CA certificate.
-</td>
-</tr>
-</table>
-</div>
 </li>
 <li>
 <p>Copy the <code>STFCA.pem</code> file to each OSP overcloud node:</p>
@@ -4791,6 +4779,18 @@ You do not need to perform an overcloud deploy after performing the steps below.
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You do not need to deploy the overcloud after you copy the <code>STFCA.pem</code> file and restart the <code>metrics_qdr</code> container. You edit the <code>stf-connectors.yaml</code> file so that future deployments do not overwrite the new CA certificate.
+</td>
+</tr>
+</table>
 </div>
 </li>
 </ol>
@@ -5018,7 +5018,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-19 21:22:53 UTC
+Last updated 2023-01-20 13:38:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
