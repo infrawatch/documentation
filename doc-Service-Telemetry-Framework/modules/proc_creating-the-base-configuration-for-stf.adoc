@@ -55,7 +55,8 @@ parameter_defaults:
         - image.*
         - memory
         - memory.*
-        - network.*
+        - network.services.vpn.*
+        - network.services.firewall.*
         - perf.*
         - port
         - port.*
@@ -138,7 +139,8 @@ parameter_defaults:
         - image.*
         - memory
         - memory.*
-        - network.*
+        - network.services.vpn.*
+        - network.services.firewall.*
         - perf.*
         - port
         - port.*
