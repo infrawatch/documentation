@@ -11,7 +11,7 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 :context: osp
 
 // load attributes for build
-include::common/stf-attributes.adoc[]
+include::common/global/stf-attributes.adoc[]
 
 ifeval::["{build}" == "downstream"]
 //include::common/global/rhosp_attributes.adoc[]

@@ -16,18 +16,18 @@ You can use Operators to load the {Project} ({ProjectShort}) components and obje
 
 .Prerequisites
 
-* An {OpenShift} version inclusive of {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion} is running.
+* {OpenShift} 4.10 is running.
 * You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment. For more information, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
 * Your environment is fully connected. {ProjectShort} does not work in a {OpenShift}-disconnected environments or network proxy environments.
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+{ProjectShort} is compatible with {OpenShift} 4.10.
 endif::[]
 
 .Additional resources
 
-* For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
+* For more information about Operators, see the https://docs.openshift.com/container-platform/4.10/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
 * For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_assembly[].
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
