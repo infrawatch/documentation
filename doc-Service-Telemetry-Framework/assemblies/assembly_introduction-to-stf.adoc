@@ -1,15 +1,9 @@
 ifdef::context[:parent-context: {context}]
 
 [id="assembly-introduction-to-stf_{context}"]
-= Introduction to {Project} {TargetVersion}
+= Introduction to Service Telemetry Framework 1.4
 
-// The `context` attribute enables module reuse. Every module's ID
-// includes {context}, which ensures that the module has a unique ID even if
-// it is reused multiple times in a guide.
 :context: assembly-introduction-to-stf
-
-// The following block is rendered only if the `internal` variable is set.
-// The table shows various metadata useful when editing this file.
 
 [role="_abstract"]
 {Project} ({ProjectShort}) collects monitoring data from {OpenStack} ({OpenStackShort}) or third-party nodes. You can use {ProjectShort} to perform the following tasks:
@@ -27,15 +21,15 @@ The components of {ProjectShort} use a message bus for data transport. Other mod
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
-{Project} ({ProjectShort}) is compatible with {OpenShift} versions {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+{Project} ({ProjectShort}) is compatible with {OpenShift} version 4.10.
 endif::[]
 
 .Additional resources
 
-* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/[{OpenShift} product documentation].
-* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241.
+* For more information about how to deploy {OpenShift}, see the  https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10/[{OpenShift} product documentation].
+* You can install {OpenShift} on cloud platforms or on bare metal. For more information about {ProjectShort} performance and scaling, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
 
-* You can install {OpenShift} on bare metal or other supported cloud platforms. For more information about installing {OpenShift}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {NextSupportedOpenShiftVersion} Documentation].
+* You can install {OpenShift} on bare metal or other supported cloud platforms. For more information about installing {OpenShift}, see https://docs.openshift.com/container-platform/4.10/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {NextSupportedOpenShiftVersion} Documentation].
 
 
 

@@ -1,7 +1,7 @@
-= Service Telemetry Framework 1.5
+= Service Telemetry Framework 1.4
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
-:vernum: 16.2
+:vernum: 17.0
 :toc: left
 :toclevels: 3
 :icons: font
