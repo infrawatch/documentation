@@ -13,6 +13,12 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 // load attributes for build
 include::common/stf-attributes.adoc[]
 
+ifeval::["{build}" == "downstream"]
+//include::common/global/rhosp_attributes.adoc[]
+include::common/global/making-open-source-more-inclusive.adoc[]
+include::common/global/proc_providing-feedback-on-red-hat-documentation.adoc[]
+endif::[]
+
 // introduction
 include::assemblies/assembly_introduction-to-stf.adoc[leveloffset=+1]
 
