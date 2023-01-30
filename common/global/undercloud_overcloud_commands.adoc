@@ -1,0 +1,42 @@
+//This file contains the basic undercloud and overcloud commands that we use in our guides.
+//Each command has a tag to distinguish it from an undercloud command, overcloud command (admin users),
+//or overcloud command (non-admin users).
+//To include one of the commands in your module, use the include:: directive and the appropriate tag.
+//For example: include::../../common/global/undercloud_overcloud_commands.adoc[tag=overcloud-admin-users]
+
+
+// tag::undercloud-command[]
+
+. Log in to the undercloud host as the `stack` user.
+
+. Source the `stackrc` undercloud credentials file:
++
+----
+$ source ~/stackrc
+----
+
+// end::undercloud-command[]
+
+
+// tag::overcloud-admin-users[]
+
+. Source the overcloud credentials file:
++
+----
+$ source ~/<credentials_file>
+----
++
+* Replace `<credentials_file>` with the name of your credentials file, for example, `overcloudrc`.
+
+// end::overcloud-admin-users[]
+
+//Tip for writers:When the overcloud command requires an admin role,
+//consider adding a prerequisite to your procedure,
+//for example, "You must be a RHOSP user with the admin role."
+
+
+// tag::overcloud-cloud-users[]
+
+. Source your credentials file.
+
+// end::overcloud-cloud-users[]

@@ -1,0 +1,1 @@
+WARNING: *{product} is not supported for the initial release of Red Hat OpenStack {vernum}. This guide will return to publication when {product} is available for enterprise use.*
