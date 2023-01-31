@@ -27,7 +27,7 @@ endif::[]
 
 .Additional resources
 
-* For more information about Operators, see the https://docs.openshift.com/container-platform/4.10/operators/olm-what-operators-are.html[_Understanding Operators_] guide.
+* For more information about Operators, see the https://docs.openshift.com/container-platform/4.8/operators/understanding/olm-what-operators-are.html[_Understanding Operators_] guide.
 * For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_assembly[].
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
