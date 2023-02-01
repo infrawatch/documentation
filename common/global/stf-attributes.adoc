@@ -1,0 +1,64 @@
+:ProductVersion: 1.4
+:context: assembly
+:containerbin: podman
+:build: downstream
+
+ifeval::[{vernum} > 16.0]
+:include_when_16_1:
+endif::[]
+
+ifeval::[{vernum} >= 16.0]
+:include_when_16:
+endif::[]
+
+ifeval::[{vernum} < 16.0]
+:containerbin: docker
+:include_when_13:
+endif::[]
+
+ifeval::[{vernum} < 17.0]
+:include_before_17:
+endif::[]
+
+ifeval::[{vernum} >= 17.0]
+:include_when_17:
+endif::[]
+
+ifeval::[{ProductVersion} < 1.5]
+:include_before_stf15:
+endif::[]
+
+ifeval::["{build}" == "upstream"]
+:OpenShift: OpenShift
+:OpenShiftShort: OKD
+:OpenStack: OpenStack
+:OpenStackShort: OSP
+:OpenStackVersion: Wallaby
+:OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
+:OpenStackInstaller: TripleO
+:OVirt: oVirt
+:OVirtShort: oVirt
+:Project: Service{nbsp}Telemetry{nbsp}Framework
+:ProjectShort: STF
+:MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
+:SupportedOpenShiftVersion: 4.10
+:NextSupportedOpenShiftVersion: 4.10
+:CodeReadyContainersVersion: 2.6.0
+endif::[]
+
+ifeval::["{build}" == "downstream"]
+:OpenShift: Red{nbsp}Hat{nbsp}OpenShift{nbsp}Container{nbsp}Platform
+:OpenShiftShort: OCP
+:OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
+:OpenStackShort: RHOSP
+:OpenStackVersion: 17.0
+:OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
+:OpenStackInstaller: director
+:OVirt: Red{nbsp}Hat{nbsp}Virtualization
+:OVirtShort: RHV
+:Project: Service{nbsp}Telemetry{nbsp}Framework
+:ProjectShort: STF
+:MessageBus: AMQ{nbsp}Interconnect
+:SupportedOpenShiftVersion: 4.10
+:NextSupportedOpenShiftVersion: 4.10
+endif::[]

@@ -1,0 +1,30 @@
+// rhosp_attributes.adoc
+// Add this include statement in your master.adoc file: include::common/global/rhosp_attributes.adoc[]
+// Run this command to create a sym link in your doc folder:   $ ln -s ../common
+// Enclose the attribute in {} brackets in your modules.
+// Example: Use {osp_long} to display "OpenStack Platform".
+
+// RHEL version attributes
+:rhel_prev_ver: 8.4
+:rhel_curr_ver: 9.0
+
+// The {rhelvernum} attribute is currently in use in several deployment docs
+:rhelvernum: 9.0
+
+// OSP version attributes
+
+:osp_long: Red Hat OpenStack Platform
+:osp_acro: RHOSP
+:osp_curr_ver: 17.0
+:osp_curr_ver_no_beta: 17.0
+:osp_z_stream: 0
+
+// Ceph version attributes
+
+:CephVernum: 5.2
+
+// Common URLs. Do not override. Do not delete.
+
+:base_url: https://access.redhat.com/documentation
+:defaultURL: https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{osp_curr_ver}/html
+:defaultCephURL:  https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/{CephVernum}/html

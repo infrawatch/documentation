@@ -1,7 +1,7 @@
-= Service Telemetry Framework 1.5
+= Service Telemetry Framework 1.4
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
-:vernum: 16.2
+:vernum: 17.0
 :toc: left
 :toclevels: 3
 :icons: font
@@ -11,7 +11,13 @@ OpenStack Documentation Team <rhos-docs@redhat.com>
 :context: osp
 
 // load attributes for build
-include::common/stf-attributes.adoc[]
+include::common/global/stf-attributes.adoc[]
+
+ifeval::["{build}" == "downstream"]
+//include::common/global/rhosp_attributes.adoc[]
+include::common/global/making-open-source-more-inclusive.adoc[]
+include::common/global/proc_providing-feedback-on-red-hat-documentation.adoc[]
+endif::[]
 
 // introduction
 include::assemblies/assembly_introduction-to-stf.adoc[leveloffset=+1]
