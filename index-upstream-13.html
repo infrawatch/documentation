@@ -1787,7 +1787,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   clouds:
@@ -2226,7 +2226,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+        - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -3061,7 +3061,7 @@ spec:
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+        - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -3424,7 +3424,7 @@ If you set a long retention period, retrieving data from heavily populated Prome
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   ...
@@ -4104,7 +4104,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   alerting:
@@ -4718,7 +4718,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-25 14:05:24 UTC
+Last updated 2023-02-03 21:50:10 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
