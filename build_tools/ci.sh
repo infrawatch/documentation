@@ -17,6 +17,7 @@ make clean html
 
 # Checkout our gh-pages branch, remove everything but .git
 echo "--- switching to gh-pages"
+git config --global --add safe.directory /docs
 git fetch --all
 git checkout gh-pages
 git pull origin gh-pages
