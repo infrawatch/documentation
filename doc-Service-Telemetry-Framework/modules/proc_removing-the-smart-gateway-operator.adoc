@@ -1,0 +1,67 @@
+////
+* file name: proc_removing-the-smart-gateway-operator.adoc
+* ID: [id="proc_removing-the-smart-gateway-operator_{context}"]
+* Title: = Removing the Smart Gateway Operator
+////
+
+:_content-type: PROCEDURE
+
+[id="removing-the-smart-gateway-operator_{context}"]
+= Removing the Smart Gateway Operator
+
+.Procedure
+
+. Change to the `service-telemetry` project:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Remove the Smart Gateway Operator Subscription:
++
+[source,bash]
+----
+$ oc delete sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-1.4-redhat-operators-openshift-marketplace" deleted
+----
+
+. Remove the Smart Gateway Operator `ClusterServiceVersion`:
++
+[source,bash]
+----
+$ oc delete csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v4.0.1669718962" deleted
+----
+
+.Verification
+
+
+. Verify that the Smart Gateway Operator deployment is not running:
++
+[source,bash]
+----
+$ oc get deploy --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----
+
+. Verify the Smart Gateway Operator subscription is absent:
++
+[source,bash]
+----
+$ oc get sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----
+
+. Verify the Smart Gateway Operator ClusterServiceVersion is absent:
++
+[source,bash]
+----
+$ oc get csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----

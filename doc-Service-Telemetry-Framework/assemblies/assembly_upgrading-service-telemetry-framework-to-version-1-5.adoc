@@ -1,0 +1,56 @@
+ifdef::context[:parent-context-of-upgrading-service-telemetry-framework-to-version-1-5: {context}]
+
+////
+file name: assembly_upgrading-service-telemetry-framework-to-version-1-5.adoc
+ID: [id="assembly_upgrading-service-telemetry-framework-to-version-1-5_{context}"]
+Title: = Upgrading Service Telemetry Framework to version 1.5
+////
+
+:_content-type: ASSEMBLY
+
+ifndef::context[]
+[id="upgrading-service-telemetry-framework-to-version-1-5"]
+endif::[]
+ifdef::context[]
+[id="upgrading-service-telemetry-framework-to-version-1-5_{context}"]
+endif::[]
+
+= Upgrading Service Telemetry Framework to version 1.5
+
+:context: upgrading-service-telemetry-framework-to-version-1-5
+
+You must remove AMQ Certificate Manager and replace it with Certificate Manager for Red Hat OpenShift Container Platform when you upgrade Service Telemetry Framework (STF) v1.4 to STF v1.5. You must remove the `ClusterServiceVersion` and `Subscription` objects for Smart Gateway Operator and Service Telemetry Operator in the `service-telemetry` namespace on your Red Hat OpenShift Container Platform environment. You must upgrade Red Hat OpenShift Container Platform from v4.8 to v4.10 before you re-enable the operators that you removed.
+
+.Prerequisites
+
+* Back up your data. There is an outage during the Red Hat OpenShift Container Platform upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
+* Prepare your environment for upgrade from Red Hat OpenShift Container Platform v4.8 to v4.10. STF v1.5 only supports Red Hat OpenShift Container Platform v4.10.
+* The Red Hat OpenShift Container Platform cluster is fully connected. STF does not support disconnected or restricted network clusters.
+* Remove the  AMQ Certificate Manager before you upgrade Red Hat OpenShift Container Platform. Verify that no other Operators or workloads require the AMQ Certificate Manager in your environment.
+
+.Procedure
+
+. Removing the STF v1.4 Operators
+. Upgrading the Red Hat OpenShift Container Platform to v4.10
+. Installing the STF v1.5 Operators
+. Updating the AMQ Interconnect CA Certificate on Red Hat OpenStack Platform(RHOSP).
+
+include::../modules/proc_removing-the-service-telemetry-framework-v1-4-operators.adoc[leveloffset=+1]
+
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-service-telemetry-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-smart-gateway-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-amq-certificate-manager-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-grafana-operator.adoc[leveloffset=+2]
+
+include::../modules/proc_upgrading-red-hat-openshift-container-platform-to-v4-10.adoc[leveloffset=+1]
+
+include::../modules/proc_installing-the-service-telemetry-framework-v1-5-operators.adoc[leveloffset=+1]
+
+include::../modules/proc_updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform.adoc[leveloffset=+1]
+
+ifdef::parent-context-of-upgrading-service-telemetry-framework-to-version-1-5[:context: {parent-context-of-upgrading-service-telemetry-framework-to-version-1-5}]
+ifndef::parent-context-of-upgrading-service-telemetry-framework-to-version-1-5[:!context:]
