@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Test and Publish
       env:
@@ -14,4 +14,4 @@ jobs:
         GH_EMAIL: ${{ secrets.GH_EMAIL }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
-        docker run -eBRANCH="${GITHUB_REF##*/}" -eGH_NAME -eGH_EMAIL -eGH_TOKEN --network host -i --volume $PWD:/docs:z --workdir /docs quay.io/fedora/fedora:33-x86_64 /bin/bash -c './build_tools/ci.sh'
+        docker run -eBRANCH="${GITHUB_REF##*/}" -eGH_NAME -eGH_EMAIL -eGH_TOKEN --network host -i --volume $PWD:/docs:z --workdir /docs quay.io/fedora/fedora:37-x86_64 /bin/bash -c './build_tools/ci.sh'
