@@ -89,7 +89,7 @@ NAME                            DISPLAY                                       VE
 openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
 ----
 
-. Optional: For information on how to re-subscribe to the Grafana Operator, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/service_telemetry_framework_1.5/assembly-advanced-features_assembly#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[Configuring Grafana to host the dashboard].
+. Optional: Re-subscribe to the Grafana Operator. For information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
 . Create the Service Telemetry Operator subscription to manage the STF instances:
 +
