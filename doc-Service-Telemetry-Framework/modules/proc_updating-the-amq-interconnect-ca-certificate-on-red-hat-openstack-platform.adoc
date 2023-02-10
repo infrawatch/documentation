@@ -7,14 +7,14 @@
 :_content-type: PROCEDURE
 
 [id="updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_{context}"]
-= Updating the AMQ Interconnect CA Certificate on Red Hat OpenStack Platform
+= Updating the {MessageBus} CA Certificate on Red Hat OpenStack Platform
 
-After you upgrade to Service Telemetry Framework (STF) v1.5, the CA certificate for AMQ Interconnect regenerates. In STF v1.4 the CA certificate for AMQ Interconnect is valid for three months and must be updated periodically in Red Hat OpenStack Platform (RHOSP). In STF v1.5, the generated certificates are valid for the lifetime of the RHOSP lifecycle, 70080 hours by default.
+After you upgrade to {Project} ({ProjectShort}) v1.5, the CA certificate for {MessageBus} regenerates. In {ProjectShort} v1.4 the CA certificate for {MessageBus} is valid for three months and must be updated periodically in {OpenStack} ({OpenStackShort}). In {ProjectShort} v1.5, the generated certificates are valid for the lifetime of the {OpenStackShort} lifecycle, 70080 hours by default.
 
 .Prerequisites
 
-* You have successfully installed STF v1.5 and updated the CA certificate for AMQ Interconnect.
+* You have successfully installed {ProjectShort} v1.5 and updated the CA certificate for {MessageBus}.
 
 .Procedure
 
-* For more information about how to update the CA certificate in your RHOSP environment, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/service_telemetry_framework_1.5/assembly-renewing-the-amq-interconnect-certificate_assembly#proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate[Updating the AMQ Interconnect CA certificate]
+* For more information about how to update the CA certificate in your {OpenStackShort} environment, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.0/html/service_telemetry_framework_1.5/assembly-renewing-the-amq-interconnect-certificate_assembly#proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate[Updating the AMQ Interconnect CA certificate]

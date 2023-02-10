@@ -7,20 +7,20 @@
 :_content-type: PROCEDURE
 
 [id="installing-the-service-telemetry-framework-v1-5-operators_{context}"]
-= Installing the Service Telemetry Framework v1.5 Operators
+= Installing the {Project} v1.5 Operators
 
-Install the Service Telemetry Framework (STF) v1.5 Operators and the Certificate Manager for OpenShift Operator on your Red Hat OpenShift Container Platform v4.10 environment. STF v1.5 only supports Red Hat OpenShift Container Platform v4.10. Installing STF into disconnected or restricted network environments is unsupported.
+Install the {Project} ({ProjectShort}) v1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} v4.10 environment. {ProjectShort} v1.5 only supports {OpenShift} v4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
 
 [NOTE]
-After a successful STF v1.5 install, you must retrieve and apply the AMQ Interconnect CA certificate to the RHOSP environment, or the transport layer and telemetry data becomes unavailable.
+After a successful {ProjectShort} v1.5 install, you must retrieve and apply the {MessageBus} CA certificate to the {OpenStack} environment, or the transport layer and telemetry data becomes unavailable.
 
-For more information about updating the AMQ Interconnect CA certificate, see xref:updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5[].
+For more information about updating the {MessageBus} CA certificate, see xref:updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5[].
 
 .Prerequisites
 
-* You have upgraded your Red Hat OpenShift Container Platform environment to v4.10.
-For more information about upgrading Red Hat OpenShift Container Platform, see xref:upgrading-red-hat-openshift-container-platform-to-v4-10_upgrading-service-telemetry-framework-to-version-1-5[].
-* Your Red Hat OpenShift Container Platform environment network is fully-connected.
+* You have upgraded your {OpenShift} environment to v4.10.
+For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-v4-10_upgrading-service-telemetry-framework-to-version-1-5[].
+* Your {OpenShift} environment network is fully-connected.
 
 .Procedure
 

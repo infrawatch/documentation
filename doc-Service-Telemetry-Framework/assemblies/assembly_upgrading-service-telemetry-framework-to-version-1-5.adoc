@@ -15,25 +15,28 @@ ifdef::context[]
 [id="upgrading-service-telemetry-framework-to-version-1-5_{context}"]
 endif::[]
 
-= Upgrading Service Telemetry Framework to version 1.5
+= Upgrading {Project} to version 1.5
 
 :context: upgrading-service-telemetry-framework-to-version-1-5
 
-You must remove AMQ Certificate Manager and replace it with Certificate Manager for Red Hat OpenShift Container Platform when you upgrade Service Telemetry Framework (STF) v1.4 to STF v1.5. You must remove the `ClusterServiceVersion` and `Subscription` objects for Smart Gateway Operator and Service Telemetry Operator in the `service-telemetry` namespace on your Red Hat OpenShift Container Platform environment. You must upgrade Red Hat OpenShift Container Platform from v4.8 to v4.10 before you re-enable the operators that you removed.
+To upgrade {Project} ({ProjectShort}) v1.4 to {ProjectShort} v1.5, you must complete the following steps:
+
+* Replace AMQ Certificate Manager with Certificate Manager.
+
+* Remove the `ClusterServiceVersion` and `Subscription` objects for Smart Gateway Operator and Service Telemetry Operator in the `service-telemetry` namespace on your {OpenShift} environment.
+
+* Upgrade {OpenShift} from v4.8 to v4.10.
+
+* Re-enable the operators that you removed.
+
+* Update the {MessageBus} CA Certificate on {OpenStack}({OpenStackShort}).
 
 .Prerequisites
 
 * You have backed up your data. There is an outage during the {OpenShift} upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
-* Prepare your environment for upgrade from Red Hat OpenShift Container Platform v4.8 to v4.10. STF v1.5 only supports Red Hat OpenShift Container Platform v4.10.
-* The Red Hat OpenShift Container Platform cluster is fully connected. STF does not support disconnected or restricted network clusters.
-* Remove the  AMQ Certificate Manager before you upgrade Red Hat OpenShift Container Platform. Verify that no other Operators or workloads require the AMQ Certificate Manager in your environment.
-
-.Procedure
-
-. Removing the STF v1.4 Operators
-. Upgrading the Red Hat OpenShift Container Platform to v4.10
-. Installing the STF v1.5 Operators
-. Updating the AMQ Interconnect CA Certificate on Red Hat OpenStack Platform(RHOSP).
+* Prepare your environment for upgrade from {OpenShift} v4.8 to the supported version, v4.10.
+* The {OpenShift} cluster is fully connected. {ProjectShort} does not support disconnected or restricted-network clusters.
+* Remove the  AMQ Certificate Manager before you upgrade {OpenShift}. Verify that no other Operators or workloads require the AMQ Certificate Manager in your environment.
 
 include::../modules/proc_removing-the-service-telemetry-framework-v1-4-operators.adoc[leveloffset=+1]
 

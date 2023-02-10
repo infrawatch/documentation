@@ -7,17 +7,17 @@
 :_content-type: PROCEDURE
 
 [id="upgrading-red-hat-openshift-container-platform-to-v4-10_{context}"]
-= Upgrading Red Hat OpenShift Container Platform to v4.10
+= Upgrading {OpenShift} to v4.10
 
-Service Telemetry Framework (STF) v1.5 is only compatible with Red Hat OpenShift Container Platform v4.10.
+{Project} ({ProjectShort}) v1.5 is only compatible with {OpenShift} v4.10.
 
 .Prerequisites
 
-* You removed the Service Telemetry Framework v1.4 Operators.
+* You removed the {ProjectShort} v1.4 Operators.
 
-* You removed the AMQ Certificate Manager Operator and Grafana Operator. You must remove the Operators before you upgrade Red Hat OpenShift Container Platform because the Operator APIs are incompatible with v4.10. For more information about preparing your Red Hat OpenShift Container Platform for upgrade from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8///updating/understanding-openshift-updates.html[Understanding OpenShift Container Platform updates].
+* You removed the AMQ Certificate Manager Operator and Grafana Operator. You must remove the Operators before you upgrade {OpenShift} because the Operator APIs are incompatible with v4.10. For more information about preparing your {OpenShift} for upgrade from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8///updating/understanding-openshift-updates.html[Understanding OpenShift Container Platform updates].
 
-* Verify the suitability of your Red Hat OpenShift Container Platform upgrade:
+* Verify the suitability of your {OpenShift} upgrade:
 +
 [source,bash]
 ----
@@ -34,4 +34,4 @@ Cluster operator operator-lifecycle-manager should not be upgraded between minor
 [role="_additional-resources"]
 .Additional resources
 
-For more information about upgrading your Red Hat OpenShift Container Platform from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8///updating/index.html[Updating clusters overview ].
+For more information about upgrading your {OpenShift} from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8/updating/index.html[Updating clusters overview].

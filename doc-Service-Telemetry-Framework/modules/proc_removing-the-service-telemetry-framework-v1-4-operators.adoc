@@ -7,9 +7,9 @@ Base the file name and the ID on the module title. For example:
 :_content-type: PROCEDURE
 
 [id="removing-the-service-telemetry-framework-v1-4-operators_{context}"]
-= Removing the Service Telemetry Framework v1.4 Operators
+= Removing the {Project} v1.4 Operators
 
-Remove the Service Telemetry Framework (STF) v1.4 Operators and the AMQ Certificate Manager Operator from the Red Hat OpenShift Container Platform v4.8.
+Remove the {Project} ({ProjectShort}) v1.4 Operators and the AMQ Certificate Manager Operator from the {OpenShift} v4.8.
 
 .Procedure
 
@@ -21,4 +21,4 @@ Remove the Service Telemetry Framework (STF) v1.4 Operators and the AMQ Certific
 [role="_additional-resources"]
 .Additional resources
 
-For more information about removing Operators from the Red Hat OpenShift Container Platform, see link:https://docs.openshift.com/container-platform/4.8///operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster]
+For more information about removing Operators from the {OpenShift}, see link:https://docs.openshift.com/container-platform/4.8///operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster]
