@@ -23,7 +23,7 @@ You must remove AMQ Certificate Manager and replace it with Certificate Manager 
 
 .Prerequisites
 
-* Back up your data. There is an outage during the Red Hat OpenShift Container Platform upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
+* You have backed up your data. There is an outage during the {OpenShift} upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
 * Prepare your environment for upgrade from Red Hat OpenShift Container Platform v4.8 to v4.10. STF v1.5 only supports Red Hat OpenShift Container Platform v4.10.
 * The Red Hat OpenShift Container Platform cluster is fully connected. STF does not support disconnected or restricted network clusters.
 * Remove the  AMQ Certificate Manager before you upgrade Red Hat OpenShift Container Platform. Verify that no other Operators or workloads require the AMQ Certificate Manager in your environment.
