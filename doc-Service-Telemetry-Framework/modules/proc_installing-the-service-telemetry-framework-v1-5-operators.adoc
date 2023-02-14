@@ -60,7 +60,7 @@ spec: {}
 EOF
 ----
 
-. Subscribe to the `cert-manager` Operator with the `redhat-operators` `CatalogSource`:
+. Subscribe to the `cert-manager` Operator with the `redhat-operators` CatalogSource:
 +
 [source,bash]
 ----
@@ -89,9 +89,9 @@ NAME                            DISPLAY                                       VE
 openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
 ----
 
-. Optional: Re-subscribe to the Grafana Operator. For information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
+. Optional: Re-subscribe to the Grafana Operator. For more information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
-. Create the Service Telemetry Operator subscription to manage the STF instances:
+. Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
 [source,bash]
 ----

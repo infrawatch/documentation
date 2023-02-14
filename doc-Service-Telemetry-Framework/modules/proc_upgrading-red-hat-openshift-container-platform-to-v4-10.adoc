@@ -9,7 +9,7 @@
 [id="upgrading-red-hat-openshift-container-platform-to-v4-10_{context}"]
 = Upgrading {OpenShift} to v4.10
 
-{Project} ({ProjectShort}) v1.5 is only compatible with {OpenShift} v4.10.
+{Project} ({ProjectShort}) v1.5 is only compatible with {OpenShift} v4.10. For more information about upgrading your {OpenShift} from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8/updating/index.html[Updating clusters overview].
 
 .Prerequisites
 
@@ -30,8 +30,3 @@ You cannot upgrade the cluster if you encounter the following error message:
 ----
 Cluster operator operator-lifecycle-manager should not be upgraded between minor versions: ClusterServiceVersions blocking cluster upgrade: service-telemetry/grafana-operator.v3.10.3 is incompatible with OpenShift minor versions greater than 4.8,openshift-operators/amq7-cert-manager.v1.0.11 is incompatible with OpenShift minor versions greater than 4.8
 ----
-
-[role="_additional-resources"]
-.Additional resources
-
-For more information about upgrading your {OpenShift} from v4.8 to v4.10, see link:https://docs.openshift.com/container-platform/4.8/updating/index.html[Updating clusters overview].

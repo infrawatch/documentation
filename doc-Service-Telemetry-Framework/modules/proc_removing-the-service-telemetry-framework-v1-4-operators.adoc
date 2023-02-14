@@ -13,12 +13,12 @@ Remove the {Project} ({ProjectShort}) v1.4 Operators and the AMQ Certificate Man
 
 .Procedure
 
-. Remove the Service Telemetry Operator
-. Remove the Smart Gateway Operator
-. Remove the AMQ Certificate Manager Operator
-. Remove the Grafana Operator
+. Remove the Service Telemetry Operator.
+. Remove the Smart Gateway Operator.
+. Remove the AMQ Certificate Manager Operator.
+. Remove the Grafana Operator.
 
 [role="_additional-resources"]
 .Additional resources
 
-For more information about removing Operators from the {OpenShift}, see link:https://docs.openshift.com/container-platform/4.8///operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster]
+* For more information about removing Operators from the {OpenShift}, see link:https://docs.openshift.com/container-platform/4.8/operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster]
