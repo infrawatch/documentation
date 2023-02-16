@@ -17,4 +17,4 @@ After you upgrade to {Project} ({ProjectShort}) v1.5, the CA certificate for {Me
 
 .Procedure
 
-* For more information about how to update the CA certificate in your {OpenStackShort} environment, see: xref:assembly-renewing-the-amq-interconnect-certificate_assembly#proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate[]
+* For more information about how to update the CA certificate in your {OpenStackShort} environment, see xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
