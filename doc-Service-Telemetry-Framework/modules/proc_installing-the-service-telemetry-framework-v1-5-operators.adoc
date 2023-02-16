@@ -11,15 +11,16 @@
 
 Install the {Project} ({ProjectShort}) v1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} v4.10 environment. {ProjectShort} v1.5 only supports {OpenShift} v4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
 
+ifdef::include_when_13,include_when_17[]
 [NOTE]
 After a successful {ProjectShort} v1.5 install, you must retrieve and apply the {MessageBus} CA certificate to the {OpenStack} environment, or the transport layer and telemetry data becomes unavailable.
 
 For more information about updating the {MessageBus} CA certificate, see xref:updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5[].
+endif::include_when_13,include_when_17[]
 
 .Prerequisites
 
-* You have upgraded your {OpenShift} environment to v4.10.
-For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-v4-10_upgrading-service-telemetry-framework-to-version-1-5[].
+* You have upgraded your {OpenShift} environment to v4.10. For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-v4-10_upgrading-service-telemetry-framework-to-version-1-5[].
 * Your {OpenShift} environment network is fully-connected.
 
 .Procedure
@@ -81,7 +82,7 @@ EOF
 
 . Validate your `ClusterServiceVersion`. Ensure that the phase of `cert-manager` Operator is `Succeeded`:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
 
@@ -89,7 +90,7 @@ NAME                            DISPLAY                                       VE
 openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
 ----
 
-. Optional: Re-subscribe to the Grafana Operator. For more information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
+. Optional: Re-subscribe to the Grafana Operator. For more information, see xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
@@ -112,7 +113,7 @@ EOF
 
 . Validate the Service Telemetry Operator and the dependent operators:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc get csv --namespace service-telemetry
 
@@ -129,7 +130,7 @@ smart-gateway-operator.v5.0.1669950681        Smart Gateway Operator            
 
 * Verify that the Service Telemetry Operator has successfully reconciled.
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 $ oc logs -f --selector=name=service-telemetry-operator
 
