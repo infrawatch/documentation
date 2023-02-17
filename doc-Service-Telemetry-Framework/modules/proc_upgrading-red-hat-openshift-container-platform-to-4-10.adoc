@@ -1,0 +1,32 @@
+////
+* file name: proc_upgrading-red-hat-openshift-container-platform-to-4-10.adoc
+* ID: [id="proc_upgrading-red-hat-openshift-container-platform-to-4-10_{context}"]
+* Title: = Upgrading Red Hat OpenShift Container Platform to 4.10
+////
+
+:_content-type: PROCEDURE
+
+[id="upgrading-red-hat-openshift-container-platform-to-4-10_{context}"]
+= Upgrading {OpenShift} to 4.10
+
+{Project} ({ProjectShort}) 1.5 is only compatible with {OpenShift} 4.10. For more information about upgrading your {OpenShift} from 4.8 to 4.10, see link:https://docs.openshift.com/container-platform/4.8/updating/index.html[Updating clusters overview].
+
+.Prerequisites
+
+* You removed the {ProjectShort} 1.4 Operators.
+
+* You removed the AMQ Certificate Manager Operator and Grafana Operator. You must remove the Operators before you upgrade {OpenShift} because the Operator APIs are incompatible with 4.10. For more information about preparing your {OpenShift} for upgrade from 4.8 to 4.10, see link:https://docs.openshift.com/container-platform/4.8/updating/understanding-openshift-updates.html[Understanding OpenShift Container Platform updates].
+
+* Verify the suitability of your {OpenShift} upgrade:
++
+[source,bash]
+----
+$ oc adm upgrade
+----
++
+You cannot upgrade the cluster if you encounter the following error message:
++
+[source,bash]
+----
+Cluster operator operator-lifecycle-manager should not be upgraded between minor versions: ClusterServiceVersions blocking cluster upgrade: service-telemetry/grafana-operator.v3.10.3 is incompatible with OpenShift minor versions greater than 4.8,openshift-operators/amq7-cert-manager.v1.0.11 is incompatible with OpenShift minor versions greater than 4.8
+----

@@ -1,0 +1,163 @@
+////
+* file name: proc_installing-the-service-telemetry-framework-1-5-operators.adoc
+* ID: [id="proc_installing-the-service-telemetry-framework-1-5-operators_{context}"]
+* Title: = Installing the Service Telemetry Framework 1.5 Operators
+////
+
+:_content-type: PROCEDURE
+
+[id="installing-the-service-telemetry-framework-1-5-operators_{context}"]
+= Installing the {Project} 1.5 Operators
+
+Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} 4.10 environment. {ProjectShort} 1.5 only supports {OpenShift} 4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
+
+ifdef::include_when_13,include_when_17[]
+[NOTE]
+After a successful {ProjectShort} 1.5 install, you must retrieve and apply the {MessageBus} CA certificate to the {OpenStack} environment, or the transport layer and telemetry data becomes unavailable.
+
+For more information about updating the {MessageBus} CA certificate, see xref:updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5[].
+endif::include_when_13,include_when_17[]
+
+.Prerequisites
+
+* You have upgraded your {OpenShift} environment to 4.10.
+For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-4-10_upgrading-service-telemetry-framework-to-version-1-5[].
+* Your {OpenShift} environment network is fully-connected.
+
+.Procedure
+
+. Change to the `service-telemetry` project:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Create a `namespace` for the `cert-manager` Operator:
++
+[source,bash]
+----
+$ oc create -f - <<EOF
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: openshift-cert-manager-operator
+spec:
+  finalizers:
+  - kubernetes
+EOF
+----
+
+. Create an `OperatorGroup` for the cert-manager Operator:
++
+[source,bash]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF
+----
+
+. Subscribe to the `cert-manager` Operator with the `redhat-operators` CatalogSource:
++
+[source,bash]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec:
+  channel: tech-preview
+  installPlanApproval: Automatic
+  name: openshift-cert-manager-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Validate your `ClusterServiceVersion`. Ensure that the phase of `cert-manager` Operator is `Succeeded`:
++
+[source,bash,options="nowrap"]
+----
+$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
+----
+
+. Optional: Resubscribe to the Grafana Operator. For more information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
+
+. Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
++
+[source,bash]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-telemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable-1.5
+  installPlanApproval: Automatic
+  name: service-telemetry-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Validate the Service Telemetry Operator and the dependent operators:
++
+[source,bash,options="nowrap"]
+----
+$ oc get csv --namespace service-telemetry
+
+NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
+amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.5.0   Elasticsearch (ECK) Operator                  2.5.0            elasticsearch-eck-operator-certified.v2.4.0   Succeeded
+openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
+prometheusoperator.0.47.0                     Prometheus Operator                           0.47.0           prometheusoperator.0.37.0                     Succeeded
+service-telemetry-operator.v1.5.1669950702    Service Telemetry Operator                    1.5.1669950702                                                 Succeeded
+smart-gateway-operator.v5.0.1669950681        Smart Gateway Operator                        5.0.1669950681                                                 Succeeded
+----
+
+.Verification
+
+* Verify that the Service Telemetry Operator has successfully reconciled.
++
+[source,bash,options="nowrap"]
+----
+$ oc logs -f --selector=name=service-telemetry-operator
+
+[...]
+----- Ansible Task Status Event StdOut (infra.watch/v1beta1, Kind=ServiceTelemetry, default/service-telemetry) -----
+
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=115  changed=0    unreachable=0    failed=0    skipped=21   rescued=0    ignored=0
+
+
+$ oc get pods
+NAME                                                      READY   STATUS    RESTARTS        AGE
+alertmanager-default-0                                    3/3     Running   0               20h
+default-cloud1-ceil-event-smartgateway-6d57ffbbdc-5mrj8   2/2     Running   1 (3m42s ago)   4m21s
+default-cloud1-ceil-meter-smartgateway-67684d88c8-62mp7   3/3     Running   1 (3m43s ago)   4m20s
+default-cloud1-coll-event-smartgateway-66cddd5567-qb6p2   2/2     Running   1 (3m42s ago)   4m19s
+default-cloud1-coll-meter-smartgateway-76d5ff6db5-z5ch8   3/3     Running   0               4m20s
+default-cloud1-sens-meter-smartgateway-7b59669fdd-c42zg   3/3     Running   1 (3m43s ago)   4m20s
+default-interconnect-845c4b647c-wwfcm                     1/1     Running   0               4m10s
+elastic-operator-57b57964c5-6q88r                         1/1     Running   8 (17h ago)     20h
+elasticsearch-es-default-0                                1/1     Running   0               21h
+grafana-deployment-59c54f7d7c-zjnhm                       2/2     Running   0               20h
+interconnect-operator-848889bf8b-bq2zx                    1/1     Running   0               20h
+prometheus-default-0                                      3/3     Running   1 (20h ago)     20h
+prometheus-operator-5d7b69fd46-c2xlv                      1/1     Running   0               20h
+service-telemetry-operator-79fb664dfb-nj8jn               1/1     Running   0               5m11s
+smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0               5m7s
+----
