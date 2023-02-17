@@ -1,26 +1,27 @@
 ////
-* file name: proc_installing-the-service-telemetry-framework-v1-5-operators.adoc
-* ID: [id="proc_installing-the-service-telemetry-framework-v1-5-operators_{context}"]
-* Title: = Installing the Service Telemetry Framework v1.5 Operators
+* file name: proc_installing-the-service-telemetry-framework-1-5-operators.adoc
+* ID: [id="proc_installing-the-service-telemetry-framework-1-5-operators_{context}"]
+* Title: = Installing the Service Telemetry Framework 1.5 Operators
 ////
 
 :_content-type: PROCEDURE
 
-[id="installing-the-service-telemetry-framework-v1-5-operators_{context}"]
-= Installing the {Project} v1.5 Operators
+[id="installing-the-service-telemetry-framework-1-5-operators_{context}"]
+= Installing the {Project} 1.5 Operators
 
-Install the {Project} ({ProjectShort}) v1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} v4.10 environment. {ProjectShort} v1.5 only supports {OpenShift} v4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
+Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} 4.10 environment. {ProjectShort} 1.5 only supports {OpenShift} 4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
 
 ifdef::include_when_13,include_when_17[]
 [NOTE]
-After a successful {ProjectShort} v1.5 install, you must retrieve and apply the {MessageBus} CA certificate to the {OpenStack} environment, or the transport layer and telemetry data becomes unavailable.
+After a successful {ProjectShort} 1.5 install, you must retrieve and apply the {MessageBus} CA certificate to the {OpenStack} environment, or the transport layer and telemetry data becomes unavailable.
 
 For more information about updating the {MessageBus} CA certificate, see xref:updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5[].
 endif::include_when_13,include_when_17[]
 
 .Prerequisites
 
-* You have upgraded your {OpenShift} environment to v4.10. For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-v4-10_upgrading-service-telemetry-framework-to-version-1-5[].
+* You have upgraded your {OpenShift} environment to 4.10.
+For more information about upgrading {OpenShift}, see xref:upgrading-red-hat-openshift-container-platform-to-4-10_upgrading-service-telemetry-framework-to-version-1-5[].
 * Your {OpenShift} environment network is fully-connected.
 
 .Procedure
@@ -90,7 +91,7 @@ NAME                            DISPLAY                                       VE
 openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
 ----
 
-. Optional: Re-subscribe to the Grafana Operator. For more information, see xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
+. Optional: Resubscribe to the Grafana Operator. For more information, see: test xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +

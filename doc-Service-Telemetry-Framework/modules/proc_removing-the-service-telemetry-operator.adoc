@@ -8,6 +8,8 @@
 [id="removing-the-service-telemetry-operator_{context}"]
 = Removing the Service Telemetry Operator
 
+As part of upgrading your {Project} ({ProjectShort}) installation, you must remove the Service Telemetry Operator in the `service-telemetry` namespace on your {OpenShift} environment.
+
 .Procedure
 
 . Change to the `service-telemetry` project:

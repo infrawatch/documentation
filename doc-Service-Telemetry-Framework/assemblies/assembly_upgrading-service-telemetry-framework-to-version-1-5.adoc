@@ -19,22 +19,23 @@ endif::[]
 
 :context: upgrading-service-telemetry-framework-to-version-1-5
 
-To upgrade {Project} ({ProjectShort}) v1.4 to {ProjectShort} v1.5, you must complete the following steps:
+To upgrade {Project} ({ProjectShort}) 1.4 to {ProjectShort} 1.5, you must complete the following steps:
 
 * Replace AMQ Certificate Manager with Certificate Manager.
 * Remove the `ClusterServiceVersion` and `Subscription` objects for Smart Gateway Operator and Service Telemetry Operator in the `service-telemetry` namespace on your {OpenShift} environment.
-* Upgrade {OpenShift} from v4.8 to v4.10.
+
+* Upgrade {OpenShift} from 4.8 to 4.10.
+
 * Re-enable the operators that you removed.
 ifdef::include_when_13,include_when_17[* Update the {MessageBus} CA Certificate on {OpenStack} ({OpenStackShort}).]
 
 .Prerequisites
 
 * You have backed up your data. There is an outage during the {OpenShift} upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
-* Prepare your environment for upgrade from {OpenShift} v4.8 to the supported version, v4.10.
-* The {OpenShift} cluster is fully connected. {ProjectShort} does not support disconnected or restricted-network clusters.
-* Remove the AMQ Certificate Manager before you upgrade {OpenShift}. Verify that no other Operators or workloads require the AMQ Certificate Manager in your environment.
+* You have prepared your environment for upgrade from {OpenShift} 4.8 to the supported version, 4.10.
+* The {OpenShift} cluster is fully-connected. {ProjectShort} does not support disconnected or restricted-network clusters.
 
-include::../modules/proc_removing-the-service-telemetry-framework-v1-4-operators.adoc[leveloffset=+1]
+include::../modules/proc_removing-the-service-telemetry-framework-1-4-operators.adoc[leveloffset=+1]
 
 // This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
 include::../modules/proc_removing-the-service-telemetry-operator.adoc[leveloffset=+2]
@@ -45,9 +46,9 @@ include::../modules/proc_removing-the-amq-certificate-manager-operator.adoc[leve
 // This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
 include::../modules/proc_removing-the-grafana-operator.adoc[leveloffset=+2]
 
-include::../modules/proc_upgrading-red-hat-openshift-container-platform-to-v4-10.adoc[leveloffset=+1]
+include::../modules/proc_upgrading-red-hat-openshift-container-platform-to-4-10.adoc[leveloffset=+1]
 
-include::../modules/proc_installing-the-service-telemetry-framework-v1-5-operators.adoc[leveloffset=+1]
+include::../modules/proc_installing-the-service-telemetry-framework-1-5-operators.adoc[leveloffset=+1]
 
 ifdef::include_when_13,include_when_17[]
 include::../modules/proc_updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform.adoc[leveloffset=+1]

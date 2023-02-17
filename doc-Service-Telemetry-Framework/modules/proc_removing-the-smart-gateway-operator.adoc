@@ -9,6 +9,8 @@
 [id="removing-the-smart-gateway-operator_{context}"]
 = Removing the Smart Gateway Operator
 
+As part of upgrading your {Project} ({ProjectShort}) installation, you must remove the Smart Gateway Operator in the `service-telemetry` namespace on your {OpenShift} environment.
+
 .Procedure
 
 . Change to the `service-telemetry` project:
