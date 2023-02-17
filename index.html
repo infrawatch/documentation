@@ -575,6 +575,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</a></li>
 </ul>
 </li>
+<li><a href="#upgrading-service-telemetry-framework-to-version-1-5_assembly">Upgrading Service&#160;Telemetry&#160;Framework to version 1.5</a>
+<ul class="sectlevel2">
+<li><a href="#removing-the-service-telemetry-framework-1-4-operators_upgrading-service-telemetry-framework-to-version-1-5">Removing the Service&#160;Telemetry&#160;Framework 1.4 Operators</a>
+<ul class="sectlevel3">
+<li><a href="#removing-the-service-telemetry-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Service Telemetry Operator</a></li>
+<li><a href="#removing-the-smart-gateway-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Smart Gateway Operator</a></li>
+<li><a href="#removing-the-amq-certificate-manager-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the AMQ Certificate Manager Operator</a></li>
+<li><a href="#removing-the-grafana-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Grafana Operator</a></li>
+</ul>
+</li>
+<li><a href="#upgrading-red-hat-openshift-container-platform-to-4-10_upgrading-service-telemetry-framework-to-version-1-5">Upgrading OpenShift to 4.10</a></li>
+<li><a href="#installing-the-service-telemetry-framework-1-5-operators_upgrading-service-telemetry-framework-to-version-1-5">Installing the Service&#160;Telemetry&#160;Framework 1.5 Operators</a></li>
+<li><a href="#updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA Certificate on OpenStack</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -5119,10 +5134,597 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="upgrading-service-telemetry-framework-to-version-1-5_assembly">Upgrading Service&#160;Telemetry&#160;Framework to version 1.5</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To upgrade Service&#160;Telemetry&#160;Framework (STF) 1.4 to STF 1.5, you must complete the following steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace AMQ Certificate Manager with Certificate Manager.</p>
+</li>
+<li>
+<p>Remove the <code>ClusterServiceVersion</code> and <code>Subscription</code> objects for Smart Gateway Operator and Service Telemetry Operator in the <code>service-telemetry</code> namespace on your OpenShift environment.</p>
+</li>
+<li>
+<p>Upgrade OpenShift from 4.8 to 4.10.</p>
+</li>
+<li>
+<p>Re-enable the operators that you removed.</p>
+</li>
+<li>
+<p>Update the Apache&#160;Qpid&#160;Dispatch&#160;Router CA Certificate on OpenStack (OSP).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have backed up your data. There is an outage during the OpenShift upgrade. You cannot reconfigure the <code>ServiceTelemetry</code> and <code>SmartGateway</code> objects during the Operators replacement.</p>
+</li>
+<li>
+<p>You have prepared your environment for upgrade from OpenShift 4.8 to the supported version, 4.10.</p>
+</li>
+<li>
+<p>The OpenShift cluster is fully-connected. STF does not support disconnected or restricted-network clusters.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="removing-the-service-telemetry-framework-1-4-operators_upgrading-service-telemetry-framework-to-version-1-5">Removing the Service&#160;Telemetry&#160;Framework 1.4 Operators</h3>
+<div class="paragraph">
+<p>Remove the Service&#160;Telemetry&#160;Framework (STF) 1.4 Operators and the AMQ Certificate Manager Operator from the OpenShift 4.8.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Remove the Service Telemetry Operator.</p>
+</li>
+<li>
+<p>Remove the Smart Gateway Operator.</p>
+</li>
+<li>
+<p>Remove the AMQ Certificate Manager Operator.</p>
+</li>
+<li>
+<p>Remove the Grafana Operator.</p>
+</li>
+</ol>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about removing Operators from the OpenShift, see <a href="https://docs.openshift.com/container-platform/4.8/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="removing-the-service-telemetry-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Service Telemetry Operator</h4>
+<div class="paragraph">
+<p>As part of upgrading your Service&#160;Telemetry&#160;Framework (STF) installation, you must remove the Service Telemetry Operator in the <code>service-telemetry</code> namespace on your OpenShift environment.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Change to the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the Service Telemetry Operator Subscription:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete sub --selector=operators.coreos.com/service-telemetry-operator.service-telemetry
+
+subscription.operators.coreos.com "service-telemetry-operator" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the Service Telemetry Operator <code>ClusterServiceVersion</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete csv --selector=operators.coreos.com/service-telemetry-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "service-telemetry-operator.v1.4.1669718959" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify that the Service Telemetry Operator deployment is not running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get deploy --selector=operators.coreos.com/service-telemetry-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Service Telemetry Operator subscription is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get sub --selector=operators.coreos.com/service-telemetry-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Service Telemetry Operator ClusterServiceVersion is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/service-telemetry-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="removing-the-smart-gateway-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Smart Gateway Operator</h4>
+<div class="paragraph">
+<p>As part of upgrading your Service&#160;Telemetry&#160;Framework (STF) installation, you must remove the Smart Gateway Operator in the <code>service-telemetry</code> namespace on your OpenShift environment.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Change to the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the Smart Gateway Operator Subscription:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+subscription.operators.coreos.com "smart-gateway-operator-stable-1.4-redhat-operators-openshift-marketplace" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the Smart Gateway Operator <code>ClusterServiceVersion</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "smart-gateway-operator.v4.0.1669718962" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify that the Smart Gateway Operator deployment is not running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get deploy --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Smart Gateway Operator subscription is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get sub --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Smart Gateway Operator ClusterServiceVersion is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/smart-gateway-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="removing-the-amq-certificate-manager-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the AMQ Certificate Manager Operator</h4>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Remove the AMQ Certificate Manager Operator Subscription:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete sub --namespace openshift-operators --selector=operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+
+subscription.operators.coreos.com "amq7-cert-manager-operator" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the AMQ Certificate Manager Operator <code>ClusterServiceVersion</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete csv --namespace openshift-operators --selector=operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+
+clusterserviceversion.operators.coreos.com "amq7-cert-manager.v1.0.11" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify that the AMQ Certificate Manager Operator deployment is not running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get deploy --namespace openshift-operators --selector=operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+
+No resources found in openshift-operators namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the AMQ Certificate Manager Operator subscription is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get sub --namespace openshift-operators --selector=operators.coreos.com/amq7-cert-manager-operator.service-telemetry
+
+No resources found in openshift-operators namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the AMQ Certificate Manager Operator Cluster Service Version is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-operators --selector=operators.coreos.com/amq7-cert-manager-operator.openshift-operators
+
+No resources found in openshift-operators namespace.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="removing-the-grafana-operator_upgrading-service-telemetry-framework-to-version-1-5">Removing the Grafana Operator</h4>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Remove the Grafana Operator Subscription:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete sub --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+subscription.operators.coreos.com "grafana-operator" deleted</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the Grafana Operator <code>ClusterServiceVersion</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete csv --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "grafana-operator.v3.10.3" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify the Grafana Operator deployment is not running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get deploy --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Grafana Operator subscription is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get sub --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Grafana Operator Cluster Service Version is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="upgrading-red-hat-openshift-container-platform-to-4-10_upgrading-service-telemetry-framework-to-version-1-5">Upgrading OpenShift to 4.10</h3>
+<div class="paragraph">
+<p>Service&#160;Telemetry&#160;Framework (STF) 1.5 is only compatible with OpenShift 4.10. For more information about upgrading your OpenShift from 4.8 to 4.10, see <a href="https://docs.openshift.com/container-platform/4.8/updating/index.html">Updating clusters overview</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You removed the STF 1.4 Operators.</p>
+</li>
+<li>
+<p>You removed the AMQ Certificate Manager Operator and Grafana Operator. You must remove the Operators before you upgrade OpenShift because the Operator APIs are incompatible with 4.10. For more information about preparing your OpenShift for upgrade from 4.8 to 4.10, see <a href="https://docs.openshift.com/container-platform/4.8/updating/understanding-openshift-updates.html">Understanding OpenShift Container Platform updates</a>.</p>
+</li>
+<li>
+<p>Verify the suitability of your OpenShift upgrade:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc adm upgrade</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You cannot upgrade the cluster if you encounter the following error message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Cluster operator operator-lifecycle-manager should not be upgraded between minor versions: ClusterServiceVersions blocking cluster upgrade: service-telemetry/grafana-operator.v3.10.3 is incompatible with OpenShift minor versions greater than 4.8,openshift-operators/amq7-cert-manager.v1.0.11 is incompatible with OpenShift minor versions greater than 4.8</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-service-telemetry-framework-1-5-operators_upgrading-service-telemetry-framework-to-version-1-5">Installing the Service&#160;Telemetry&#160;Framework 1.5 Operators</h3>
+<div class="paragraph">
+<p>Install the Service&#160;Telemetry&#160;Framework (STF) 1.5 Operators and the Certificate Manager for OpenShift Operator on your OpenShift 4.10 environment. STF 1.5 only supports OpenShift 4.10. Installing STF into disconnected or restricted network environments is unsupported.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+After a successful STF 1.5 install, you must retrieve and apply the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate to the OpenStack environment, or the transport layer and telemetry data becomes unavailable.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more information about updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate, see <a href="#updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA Certificate on OpenStack</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have upgraded your OpenShift environment to 4.10.
+For more information about upgrading OpenShift, see <a href="#upgrading-red-hat-openshift-container-platform-to-4-10_upgrading-service-telemetry-framework-to-version-1-5">Upgrading OpenShift to 4.10</a>.</p>
+</li>
+<li>
+<p>Your OpenShift environment network is fully-connected.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Change to the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>namespace</code> for the <code>cert-manager</code> Operator:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: openshift-cert-manager-operator
+spec:
+  finalizers:
+  - kubernetes
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an <code>OperatorGroup</code> for the cert-manager Operator:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Subscribe to the <code>cert-manager</code> Operator with the <code>redhat-operators</code> CatalogSource:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec:
+  channel: tech-preview
+  installPlanApproval: Automatic
+  name: openshift-cert-manager-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate your <code>ClusterServiceVersion</code>. Ensure that the phase of <code>cert-manager</code> Operator is <code>Succeeded</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optional: Resubscribe to the Grafana Operator. For more information, see: test <a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a>.</p>
+</li>
+<li>
+<p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-telemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable-1.5
+  installPlanApproval: Automatic
+  name: service-telemetry-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Validate the Service Telemetry Operator and the dependent operators:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
+
+NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
+amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.5.0   Elasticsearch (ECK) Operator                  2.5.0            elasticsearch-eck-operator-certified.v2.4.0   Succeeded
+openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
+prometheusoperator.0.47.0                     Prometheus Operator                           0.47.0           prometheusoperator.0.37.0                     Succeeded
+service-telemetry-operator.v1.5.1669950702    Service Telemetry Operator                    1.5.1669950702                                                 Succeeded
+smart-gateway-operator.v5.0.1669950681        Smart Gateway Operator                        5.0.1669950681                                                 Succeeded</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Verification</div>
+<ul>
+<li>
+<p>Verify that the Service Telemetry Operator has successfully reconciled.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc logs -f --selector=name=service-telemetry-operator
+
+[...]
+----- Ansible Task Status Event StdOut (infra.watch/v1beta1, Kind=ServiceTelemetry, default/service-telemetry) -----
+
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=115  changed=0    unreachable=0    failed=0    skipped=21   rescued=0    ignored=0
+
+
+$ oc get pods
+NAME                                                      READY   STATUS    RESTARTS        AGE
+alertmanager-default-0                                    3/3     Running   0               20h
+default-cloud1-ceil-event-smartgateway-6d57ffbbdc-5mrj8   2/2     Running   1 (3m42s ago)   4m21s
+default-cloud1-ceil-meter-smartgateway-67684d88c8-62mp7   3/3     Running   1 (3m43s ago)   4m20s
+default-cloud1-coll-event-smartgateway-66cddd5567-qb6p2   2/2     Running   1 (3m42s ago)   4m19s
+default-cloud1-coll-meter-smartgateway-76d5ff6db5-z5ch8   3/3     Running   0               4m20s
+default-cloud1-sens-meter-smartgateway-7b59669fdd-c42zg   3/3     Running   1 (3m43s ago)   4m20s
+default-interconnect-845c4b647c-wwfcm                     1/1     Running   0               4m10s
+elastic-operator-57b57964c5-6q88r                         1/1     Running   8 (17h ago)     20h
+elasticsearch-es-default-0                                1/1     Running   0               21h
+grafana-deployment-59c54f7d7c-zjnhm                       2/2     Running   0               20h
+interconnect-operator-848889bf8b-bq2zx                    1/1     Running   0               20h
+prometheus-default-0                                      3/3     Running   1 (20h ago)     20h
+prometheus-operator-5d7b69fd46-c2xlv                      1/1     Running   0               20h
+service-telemetry-operator-79fb664dfb-nj8jn               1/1     Running   0               5m11s
+smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0               5m7s</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_upgrading-service-telemetry-framework-to-version-1-5">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA Certificate on OpenStack</h3>
+<div class="paragraph">
+<p>After you upgrade to Service&#160;Telemetry&#160;Framework (STF) v1.5, the CA certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router regenerates. In STF v1.4 the CA certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router is valid for three months and must be updated periodically in OpenStack (OSP). In STF v1.5, the generated certificates are valid for the lifetime of the OSP lifecycle, 70080 hours by default.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You have successfully installed STF v1.5 and updated the CA certificate for Apache&#160;Qpid&#160;Dispatch&#160;Router.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>For more information about how to update the CA certificate in your OSP environment, see <a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-02-09 16:26:10 UTC
+Last updated 2023-02-17 14:20:45 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
