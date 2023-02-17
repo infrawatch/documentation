@@ -1,0 +1,20 @@
+////
+* file name: proc_updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform.adoc
+* ID: [id="proc_updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_{context}"]
+* Title: = Updating the AMQ Interconnect CA Certificate on Red Hat OpenStack Platform
+////
+
+:_content-type: PROCEDURE
+
+[id="updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform_{context}"]
+= Updating the {MessageBus} CA Certificate on {OpenStack}
+
+After you upgrade to {Project} ({ProjectShort}) v1.5, the CA certificate for {MessageBus} regenerates. In {ProjectShort} v1.4 the CA certificate for {MessageBus} is valid for three months and must be updated periodically in {OpenStack} ({OpenStackShort}). In {ProjectShort} v1.5, the generated certificates are valid for the lifetime of the {OpenStackShort} lifecycle, 70080 hours by default.
+
+.Prerequisites
+
+* You have successfully installed {ProjectShort} v1.5 and updated the CA certificate for {MessageBus}.
+
+.Procedure
+
+* For more information about how to update the CA certificate in your {OpenStackShort} environment, see xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]

@@ -1,0 +1,59 @@
+////
+* file name: proc_removing-the-grafana-operator.adoc
+* ID: [id="proc_removing-the-grafana-operator_{context}"]
+* Title: = Removing the Grafana Operator
+////
+
+:_content-type: PROCEDURE
+
+[id="removing-the-grafana-operator_{context}"]
+= Removing the Grafana Operator
+
+.Procedure
+
+. Remove the Grafana Operator Subscription:
++
+[source,bash]
+----
+$ oc delete sub --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+subscription.operators.coreos.com "grafana-operator" deleted
+----
+
+. Remove the Grafana Operator `ClusterServiceVersion`:
++
+[source,bash]
+----
+$ oc delete csv --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+clusterserviceversion.operators.coreos.com "grafana-operator.v3.10.3" deleted
+----
+
+.Verification
+
+. Verify the Grafana Operator deployment is not running:
++
+[source,bash]
+----
+$ oc get deploy --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----
+
+. Verify the Grafana Operator subscription is absent:
++
+[source,bash]
+----
+$ oc get sub --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----
+
+. Verify the Grafana Operator Cluster Service Version is absent:
++
+[source,bash]
+----
+$ oc get csv --selector=operators.coreos.com/grafana-operator.service-telemetry
+
+No resources found in service-telemetry namespace.
+----

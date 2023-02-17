@@ -1,0 +1,58 @@
+ifdef::context[:parent-context-of-upgrading-service-telemetry-framework-to-version-1-5: {context}]
+
+////
+file name: assembly_upgrading-service-telemetry-framework-to-version-1-5.adoc
+ID: [id="assembly_upgrading-service-telemetry-framework-to-version-1-5_{context}"]
+Title: = Upgrading Service Telemetry Framework to version 1.5
+////
+
+:_content-type: ASSEMBLY
+
+ifndef::context[]
+[id="upgrading-service-telemetry-framework-to-version-1-5"]
+endif::[]
+ifdef::context[]
+[id="upgrading-service-telemetry-framework-to-version-1-5_{context}"]
+endif::[]
+
+= Upgrading {Project} to version 1.5
+
+:context: upgrading-service-telemetry-framework-to-version-1-5
+
+To upgrade {Project} ({ProjectShort}) 1.4 to {ProjectShort} 1.5, you must complete the following steps:
+
+* Replace AMQ Certificate Manager with Certificate Manager.
+* Remove the `ClusterServiceVersion` and `Subscription` objects for Smart Gateway Operator and Service Telemetry Operator in the `service-telemetry` namespace on your {OpenShift} environment.
+
+* Upgrade {OpenShift} from 4.8 to 4.10.
+
+* Re-enable the operators that you removed.
+ifdef::include_when_13,include_when_17[* Update the {MessageBus} CA Certificate on {OpenStack} ({OpenStackShort}).]
+
+.Prerequisites
+
+* You have backed up your data. There is an outage during the {OpenShift} upgrade. You cannot reconfigure the `ServiceTelemetry` and `SmartGateway` objects during the Operators replacement.
+* You have prepared your environment for upgrade from {OpenShift} 4.8 to the supported version, 4.10.
+* The {OpenShift} cluster is fully-connected. {ProjectShort} does not support disconnected or restricted-network clusters.
+
+include::../modules/proc_removing-the-service-telemetry-framework-1-4-operators.adoc[leveloffset=+1]
+
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-service-telemetry-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-smart-gateway-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-amq-certificate-manager-operator.adoc[leveloffset=+2]
+// This is "sub-procedure" of proc_removing-the-service-telemetry-framework-v1-4-operators.adoc
+include::../modules/proc_removing-the-grafana-operator.adoc[leveloffset=+2]
+
+include::../modules/proc_upgrading-red-hat-openshift-container-platform-to-4-10.adoc[leveloffset=+1]
+
+include::../modules/proc_installing-the-service-telemetry-framework-1-5-operators.adoc[leveloffset=+1]
+
+ifdef::include_when_13,include_when_17[]
+include::../modules/proc_updating-the-amq-interconnect-ca-certificate-on-red-hat-openstack-platform.adoc[leveloffset=+1]
+endif::include_when_13,include_when_17[]
+
+ifdef::parent-context-of-upgrading-service-telemetry-framework-to-version-1-5[:context: {parent-context-of-upgrading-service-telemetry-framework-to-version-1-5}]
+ifndef::parent-context-of-upgrading-service-telemetry-framework-to-version-1-5[:!context:]
