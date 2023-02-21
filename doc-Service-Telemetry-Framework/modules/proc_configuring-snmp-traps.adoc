@@ -2,16 +2,20 @@
 [id="configuring-snmp-traps_{context}"]
 = Configuring SNMP traps
 
-[role="_abstract"]
-You can integrate {Project} ({ProjectShort}) with an existing infrastructure monitoring platform that receives notifications through SNMP traps. To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters.
-
-For more information about configuring alerts, see xref:alerts_assembly-advanced-features[].
-
 .Prerequisites
 
 * Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts
 
 .Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
 
 . To enable SNMP traps, modify the `ServiceTelemetry` object:
 +
@@ -19,6 +23,7 @@ For more information about configuring alerts, see xref:alerts_assembly-advanced
 ----
 $ oc edit stf default
 ----
+
 . Set the `alerting.alertmanager.receivers.snmpTraps` parameters:
 +
 [source,yaml]
@@ -37,3 +42,53 @@ spec:
 ----
 
 . Ensure that you set the value of `target` to the IP address or hostname of the SNMP trap receiver.
+
+.Additional Information
+
+For more information about available parameters for `snmpTraps`, see xref:configuration-parameters-for-snmptraps_assembly-advanced-features[].
+
+[id="creating-alerts-for-snmp-traps_{context}"]
+= Creating alerts for SNMP traps
+
+You can create alerts that are configured for delivery via SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Defining alerts in this way is only required if you need to override the default OID SNMP traps are delivered to or you need to override the trap prefix OID.
+
+.Procedure
+
+. Log in to {OpenShift}.
+
+. Change to the `service-telemetry` namespace:
++
+[source,bash]
+----
+$ oc project service-telemetry
+----
+
+. Create a `PrometheusRule` object that contains the alert rule and an `oid` label that contains the SNMP trap OID override value:
++
+[source,bash]
+----
+$ oc apply -f - <<EOF
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: default
+    role: alert-rules
+  name: prometheus-alarm-rules-snmp
+  namespace: service-telemetry
+spec:
+  groups:
+    - name: ./openstack.rules
+      rules:
+        - alert: Collectd metrics receive rate is zero
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0
+          labels:
+            oid: 1.3.6.1.4.1.50495.15.1.2.1
+            severity: critical
+EOF
+----
+
+.Additional information
+
+For more information about configuring alerts, see xref:alerts_assembly-advanced-features[].
