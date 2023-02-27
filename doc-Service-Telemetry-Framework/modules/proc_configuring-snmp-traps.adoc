@@ -50,7 +50,9 @@ For more information about available parameters for `snmpTraps`, see xref:config
 [id="creating-alerts-for-snmp-traps_{context}"]
 = Creating alerts for SNMP traps
 
-You can create alerts that are configured for delivery via SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Defining alerts in this way is only required if you need to override the default OID SNMP traps are delivered to or you need to override the trap prefix OID.
+You can create alerts that are configured for delivery via SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Adding the `oid` or `severity` labels is only required if you need to change the default values for a particular alert definition.
+
+NOTE:: When the `oid` label is set, the top-level SNMP trap OID is changed, but the sub-OIDs remain defined by the global `trapOidPrefix` value plus the child OID values `.1.1.1` through `.1.1.9`. For more information about the MIB definition, see xref:overview-of-the-mib-definition_{context}[].
 
 .Procedure
 

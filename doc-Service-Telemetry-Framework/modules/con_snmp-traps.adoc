@@ -20,6 +20,7 @@ trapOidPrefix:: SNMP trap OID prefix for variable bindings. Value is a string. D
 trapDefaultOid:: SNMP trap OID when no alert OID label has been specified with the alert. Value is a string. Default is `1.3.6.1.4.1.50495.15.1.2.1`.
 trapDefaultSeverity:: SNMP trap severity when no alert severity has been set. Value is a string. Defaults to an empty string.
 
+[id="overview-of-the-mib-definition_{context}"]
 == Overview of the MIB definition
 
 Delivery of SNMP traps uses object identifier (OID) value `1.3.6.1.4.1.50495.15.1.2.1` by default. The management information base (MIB) schema is available at https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt.
