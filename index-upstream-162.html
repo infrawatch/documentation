@@ -3922,10 +3922,10 @@ receivers:
 </div>
 </li>
 <li>
-<p>Run the <code>wget</code> command from the prometheus pod against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
+<p>Run the <code>curl</code> command against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it prometheus-default-0 -c prometheus -- sh -c "wget --header \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status -q -O -"
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
 
 {"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
@@ -5568,7 +5568,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-01 16:25:00 UTC
+Last updated 2023-03-01 16:25:50 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
