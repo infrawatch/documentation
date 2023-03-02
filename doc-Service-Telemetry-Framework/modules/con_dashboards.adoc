@@ -19,7 +19,7 @@ Use the cloud view dashboard to view panels to monitor service resource usage, A
 ** For more information about {OpenStackShort} service monitoring, see xref:resource-usage-of-openstack-services_assembly-advanced-features[].
 
 Virtual machine view dashboard::
-Use the virtual machine view dashboard to view panels to monitor virtual machine infrastructure usage. Select a cloud and project from the upper left corner of the dashboard.
+Use the virtual machine view dashboard to view panels to monitor virtual machine infrastructure usage. Select a cloud and project from the upper left corner of the dashboard. You must enable event storage to provide the data for event annotations on this dashboard. For more information, see xref:creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf[].
 
 Memcached view dashboard::
 Use the memcached view dashboard to view panels to monitor connections, availability, system metrics and cache performance. Select a cloud from the upper left corner of the dashboard.
