@@ -9,7 +9,7 @@ You can integrate {Project} ({ProjectShort}) with an existing infrastructure mon
 
 The `snmpTraps` parameter contains the following sub-parameters for configuring the alert receiver:
 
-enabled:: Whether to enable the SNMP trap alert receiver. Values are `true` or `false`. Default is `false`.
+enabled:: Set the value of this sub-parameter to true to enable the SNMP trap alert receiver. The default value is false.
 target:: Target address to send SNMP traps. Value is a string. Default is `192.168.24.254`.
 port:: Target port to send SNMP traps. Value is an integer. Default is `162`.
 community:: Target community to send SNMP traps to. Value is a string. Default is `public`.
