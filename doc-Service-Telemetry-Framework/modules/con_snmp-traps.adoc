@@ -52,7 +52,10 @@ spec:
 
 Delivery of SNMP traps uses object identifier (OID) value `1.3.6.1.4.1.50495.15.1.2.1` by default. The management information base (MIB) schema is available at https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt.
 
-We can work through the OID definition to understand the additional information provided by a delivered SNMP trap triggered by a Prometheus alert rule delivered by Alertmanager. The value `1.3.6.1.4.1` is a global OID defined for private enterprises. The next identifier `50495` is a private enterprise number assigned by IANA for the Ceph organization. The rest of the values are then child OIDs of the parent.
+The OID number is comprised of the following component values:
+* The value `1.3.6.1.4.1` is a global OID defined for private enterprises.
+* The next identifier `50495` is a private enterprise number assigned by IANA for the Ceph organization.
+* The other values are child OIDs of the parent.
 
 15:: prometheus objects
 15.1:: prometheus alerts
