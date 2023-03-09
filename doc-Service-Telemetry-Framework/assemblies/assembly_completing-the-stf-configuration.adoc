@@ -16,9 +16,8 @@ To collect metrics, events, or both, and to send them to the {Project} ({Project
 * To plan your {OpenStackShort} installation and configuration {ProjectShort} for multiple clouds, see xref:configuring-multiple-clouds_assembly-completing-the-stf-configuration[].
 
 * As part of an {OpenStackShort} overcloud deployment, you might need to configure additional features in your environment:
-
-** To deploy data collection and transport to {ProjectShort} on {OpenStackShort} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
-
+// NOTE: removing this for now because it's not clear that this is necessary, and that recommendations here may actually be harmful. See RHBZ#2023902.
+//** To deploy data collection and transport to {ProjectShort} on {OpenStackShort} cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see xref:deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration[].
 ** To disable the data collector services, see xref:disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration[].
 
 ifdef::include_when_13[]
@@ -38,7 +37,8 @@ include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
 include::../modules/proc_disabling-openstack-services-used-with-stf.adoc[leveloffset=+1]
 
 // Gather information for deployment in non-standard network topologies in the OSP overcloud
-include::../modules/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
+// NOTE: removing this for now because it's not clear that this is necessary, and that recommendations here may actually be harmful. See RHBZ#2023902.
+//include::../modules/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
 
 ifdef::include_when_13[]
 // If you synchronized container images to a local registry, create an environment file and include the paths to the container images
