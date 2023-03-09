@@ -635,13 +635,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10/">OpenShift product documentation</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/">OpenShift product documentation</a></p>
 </li>
 <li>
 <p><a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a></p>
 </li>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.10/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.10 Documentation</a></p>
+<p><a href="https://docs.openshift.com/container-platform/4.12/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.12 Documentation</a></p>
 </li>
 </ul>
 </div>
@@ -792,7 +792,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Service&#160;Telemetry&#160;Framework 1.5</p>
 </li>
 <li>
-<p>OpenShift 4.10</p>
+<p>OpenShift 4.10 through 4.12</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -834,7 +834,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment.</p>
 </div>
 <div class="paragraph">
-<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.12/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -937,10 +937,10 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
+<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.12/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </li>
 <li>
-<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </li>
 <li>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
@@ -1013,7 +1013,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </table>
 </div>
 <div class="paragraph">
-<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
+<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>In an OKD deployment, the default node tuning operator specification provides the required profiles for Elasticsearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
@@ -1024,7 +1024,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1046,7 +1046,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>For more information about virtual memory use by Elasticsearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </li>
 <li>
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
+<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
 </li>
 </ul>
 </div>
@@ -1085,7 +1085,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>OpenShift version 4.10 is running.</p>
+<p>An OpenShift version inclusive of 4.10 through 4.12 is running.</p>
 </li>
 <li>
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
@@ -1099,7 +1099,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
 </ul>
 </div>
@@ -1136,7 +1136,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </li>
 <li>
@@ -1877,10 +1877,10 @@ spec:
 <div class="sect2">
 <h3 id="accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.10/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.12/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.10/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.12/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -5127,7 +5127,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.10/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+<p><a href="https://docs.openshift.com/container-platform/4.12/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
 </li>
 </ul>
 </div>
@@ -5724,7 +5724,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-07 21:19:56 UTC
+Last updated 2023-03-09 18:16:37 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
