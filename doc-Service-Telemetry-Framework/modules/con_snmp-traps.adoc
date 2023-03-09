@@ -74,7 +74,7 @@ The prometheus alert trap default is an object made up of several other sub-obje
 <trapOidPrefix>.1.1.8:: timestamp
 <trapOidPrefix>.1.1.9:: rawdata
 
-We can look at an example output from a simple SNMP trap receiver that outputs the received trap to the console:
+The following is example output from a simple SNMP trap receiver that outputs the received trap to the console:
 
 [source,options="nowrap"]
 ----
