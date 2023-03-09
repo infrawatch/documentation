@@ -25,26 +25,37 @@ $ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | 
 . Log into your {OpenStackShort} undercloud.
 . Edit the `stf-connectors.yaml` file to contain the new caCertFileContent. For more information, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[].
 
-. Copy the `STFCA.pem` file to each {OpenStackShort} overcloud node:
+ifdef::include_when_13[]
+. Generate an inventory file:
 +
 [source,bash,options="nowrap"]
 ----
+[stack@undercloud-0 ~]$ tripleo-ansible-inventory --static-yaml-inventory ./tripleo-ansible-inventory.yaml
+----
+endif::include_when_13[]
+
+. Copy the `STFCA.pem` file to each {OpenStackShort} overcloud node:
++
+[source,bash,options="nowrap"]
+ifdef::include_when_13[]
+----
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
+----
+endif::include_when_13[]
+ifdef::include_when_17[]
+----
 [stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
 ----
+endif::include_when_17[]
+
 . Restart the metrics_qdr container on each {OpenStackShort} overcloud node:
 +
 [source,bash,options="nowrap"]
 ifdef::include_when_13[]
 ----
-[stack@undercloud-0 ~]$ tripleo-ansible-inventory --static-yaml-inventory ./tripleo-ansible-inventory.yaml
 [stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
 ----
 endif::include_when_13[]
-ifdef::include_when_16+include_before_17[]
-----
-[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
-----
-endif::include_when_16+include_before_17[]
 ifdef::include_when_17[]
 ----
 [stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
