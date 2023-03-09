@@ -62,7 +62,7 @@ The OID number is comprised of the following component values:
 15.1.2:: prometheus alert traps
 15.1.2.1:: prometheus alert trap default
 
-The prometheus alert trap default is an object made up of several other sub-objects to OID `1.3.6.1.4.1.50495.15` which is defined by the `alerting.alertmanager.receivers.snmpTraps.trapOidPrefix` parameter:
+The prometheus alert trap default is an object comprised of several other sub-objects to OID `1.3.6.1.4.1.50495.15` which is defined by the `alerting.alertmanager.receivers.snmpTraps.trapOidPrefix` parameter:
 
 <trapOidPrefix>.1.1.1:: alert name
 <trapOidPrefix>.1.1.2:: status
