@@ -2,7 +2,7 @@
 = Sending alerts as SNMP traps
 
 [role="_abstract"]
-You can integrate {Project} ({ProjectShort}) with an existing infrastructure monitoring platform that receives notifications through SNMP traps. To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters. SNMP traps are sent using version 2c.
+To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters. SNMP traps are sent using version 2c.
 
 [id="configuration-parameters-for-snmptraps_{context}"]
 == Configuration parameters for snmpTraps
