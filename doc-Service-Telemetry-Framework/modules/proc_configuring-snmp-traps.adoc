@@ -4,7 +4,7 @@
 
 .Prerequisites
 
-* Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts
+* Ensure that you know the IP address or hostname of the SNMP trap receiver where you want to send the alerts to.
 
 .Procedure
 
