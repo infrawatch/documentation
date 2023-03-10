@@ -496,7 +496,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</a></li>
-<li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>
 <ul class="sectlevel3">
 <li><a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a></li>
@@ -1995,9 +1994,6 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <ul>
 <li>
-<p>To deploy data collection and transport to STF on OSP cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a>.</p>
-</li>
-<li>
 <p>To disable the data collector services, see <a href="#disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</a>.</p>
 </li>
 </ul>
@@ -2573,79 +2569,6 @@ EOF</code></pre>
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file /home/stack/disable-stf.yaml
   --environment-file <em>&lt;other_environment_files&gt;</em> \</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
-<div class="paragraph _abstract">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
-</div>
-<div class="paragraph">
-<p>If you use STF with OpenStack (OSP) Wallaby and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">CephStorageExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
-  tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses Block and Object Storage roles.</p>
-</div>
-<div class="paragraph">
-<p>To deploy a spine-leaf topology, you must create roles and networks, then assign those networks to the available roles. When you configure data collection and transport for STF for an OSP deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OSP environment files.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
-</li>
-<li>
-<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
-<code>internal_api_subnet</code>
-is the value defined in the <code>name_lower</code> parameter of your network definition
-(with <code>_subnet</code> appended to the name for Leaf 0)
-, and is the network to which the
-<code>ComputeLeaf0</code>
-leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
-<div class="paragraph">
-<p>For the
-<code>ComputeLeaf0</code>
-leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the Apache&#160;Qpid&#160;Dispatch&#160;Router listener address parameter.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code>. <code>N</code> represents a unique identifier for the leaf.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This example configuration is on a CephStorage leaf role:</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
 </div>
 </div>
 </li>
@@ -5421,7 +5344,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-09 22:28:29 UTC
+Last updated 2023-03-10 14:57:49 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
