@@ -531,7 +531,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a></li>
 </ul>
 </li>
+<li><a href="#snmp-traps_assembly-advanced-features">Sending alerts as SNMP traps</a>
+<ul class="sectlevel3">
+<li><a href="#configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</a></li>
+<li><a href="#overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</a></li>
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></li>
+<li><a href="#creating-alerts-for-snmp-traps_assembly-advanced-features">Creating alerts for SNMP traps</a></li>
+</ul>
+</li>
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
@@ -3852,24 +3859,204 @@ route:
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</h3>
+<h3 id="snmp-traps_assembly-advanced-features">Sending alerts as SNMP traps</h3>
 <div class="paragraph _abstract">
-<p>You can integrate Service&#160;Telemetry&#160;Framework (STF) with an existing infrastructure monitoring platform that receives notifications through SNMP traps. To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters.</p>
+<p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters. SNMP traps are sent using version 2c.</p>
+</div>
+<div class="sect3">
+<h4 id="configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</h4>
+<div class="paragraph">
+<p>The <code>snmpTraps</code> parameter contains the following sub-parameters for configuring the alert receiver:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">enabled</dt>
+<dd>
+<p>Set the value of this sub-parameter to true to enable the SNMP trap alert receiver. The default value is false.</p>
+</dd>
+<dt class="hdlist1">target</dt>
+<dd>
+<p>Target address to send SNMP traps. Value is a string. Default is <code>192.168.24.254</code>.</p>
+</dd>
+<dt class="hdlist1">port</dt>
+<dd>
+<p>Target port to send SNMP traps. Value is an integer. Default is <code>162</code>.</p>
+</dd>
+<dt class="hdlist1">community</dt>
+<dd>
+<p>Target community to send SNMP traps to. Value is a string. Default is <code>public</code>.</p>
+</dd>
+<dt class="hdlist1">retries</dt>
+<dd>
+<p>SNMP trap retry delivery limit. Value is an integer. Default is <code>5</code>.</p>
+</dd>
+<dt class="hdlist1">timeout</dt>
+<dd>
+<p>SNMP trap delivery timeout defined in seconds. Value is an integer. Default is <code>1</code>.</p>
+</dd>
+<dt class="hdlist1">alertOidLabel</dt>
+<dd>
+<p>Label name in the alert that defines the OID value to send the SNMP trap as. Value is a string. Default is <code>oid</code>.</p>
+</dd>
+<dt class="hdlist1">trapOidPrefix</dt>
+<dd>
+<p>SNMP trap OID prefix for variable bindings. Value is a string. Default is <code>1.3.6.1.4.1.50495.15</code>.</p>
+</dd>
+<dt class="hdlist1">trapDefaultOid</dt>
+<dd>
+<p>SNMP trap OID when no alert OID label has been specified with the alert. Value is a string. Default is <code>1.3.6.1.4.1.50495.15.1.2.1</code>.</p>
+</dd>
+<dt class="hdlist1">trapDefaultSeverity</dt>
+<dd>
+<p>SNMP trap severity when no alert severity has been set. Value is a string. Defaults to an empty string.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>Configure the <code>snmpTraps</code> parameter as part of the <code>alerting.alertmanager.receivers</code> definition in the <code>ServiceTelemetry</code> object:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  alerting:
+    alertmanager:
+      receivers:
+        snmpTraps:
+          alertOidLabel: oid
+          community: public
+          enabled: true
+          port: 162
+          retries: 5
+          target: 192.168.25.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ""
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</h4>
+<div class="paragraph">
+<p>Delivery of SNMP traps uses object identifier (OID) value <code>1.3.6.1.4.1.50495.15.1.2.1</code> by default. The management information base (MIB) schema is available at <a href="https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt" class="bare">https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt</a>.</p>
+</div>
+<div class="paragraph">
+<p>The OID number is comprised of the following component values:
+* The value <code>1.3.6.1.4.1</code> is a global OID defined for private enterprises.
+* The next identifier <code>50495</code> is a private enterprise number assigned by IANA for the Ceph organization.
+* The other values are child OIDs of the parent.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">15</dt>
+<dd>
+<p>prometheus objects</p>
+</dd>
+<dt class="hdlist1">15.1</dt>
+<dd>
+<p>prometheus alerts</p>
+</dd>
+<dt class="hdlist1">15.1.2</dt>
+<dd>
+<p>prometheus alert traps</p>
+</dd>
+<dt class="hdlist1">15.1.2.1</dt>
+<dd>
+<p>prometheus alert trap default</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The prometheus alert trap default is an object comprised of several other sub-objects to OID <code>1.3.6.1.4.1.50495.15</code> which is defined by the <code>alerting.alertmanager.receivers.snmpTraps.trapOidPrefix</code> parameter:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.1</dt>
+<dd>
+<p>alert name</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.2</dt>
+<dd>
+<p>status</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.3</dt>
+<dd>
+<p>severity</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.4</dt>
+<dd>
+<p>instance</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.5</dt>
+<dd>
+<p>job</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.6</dt>
+<dd>
+<p>description</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.7</dt>
+<dd>
+<p>labels</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.8</dt>
+<dd>
+<p>timestamp</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.9</dt>
+<dd>
+<p>rawdata</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The following is example output from a simple SNMP trap receiver that outputs the received trap to the console:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">  SNMPv2-MIB::snmpTrapOID.0 = OID: SNMPv2-SMI::enterprises.50495.15.1.2.1
+  SNMPv2-SMI::enterprises.50495.15.1.1.1 = STRING: "TEST ALERT FROM PROMETHEUS PLEASE ACKNOWLEDGE"
+  SNMPv2-SMI::enterprises.50495.15.1.1.2 = STRING: "firing"
+  SNMPv2-SMI::enterprises.50495.15.1.1.3 = STRING: "warning"
+  SNMPv2-SMI::enterprises.50495.15.1.1.4 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.5 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.6 = STRING: "TEST ALERT FROM "
+  SNMPv2-SMI::enterprises.50495.15.1.1.7 = STRING: "{\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}"
+  SNMPv2-SMI::enterprises.50495.15.1.1.8 = Timeticks: (1676476389) 194 days, 0:52:43.89
+  SNMPv2-SMI::enterprises.50495.15.1.1.9 = STRING: "{\"status\": \"firing\", \"labels\": {\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}, \"annotations\": {\"action\": \"TESTING PLEASE ACKNOWLEDGE, NO FURTHER ACTION REQUIRED ONLY A TEST\"}, \"startsAt\": \"2023-02-15T15:53:09.109Z\", \"endsAt\": \"0001-01-01T00:00:00Z\", \"generatorURL\": \"http://prometheus-default-0:9090/graph?g0.expr=sg_total_collectd_msg_received_count+%3E+1&amp;g0.tab=1\", \"fingerprint\": \"feefeb77c577a02f\"}"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</h4>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts</p>
+<p>Ensure that you know the IP address or hostname of the SNMP trap receiver where you want to send the alerts to.</p>
 </li>
 </ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
 <li>
 <p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
@@ -3900,6 +4087,72 @@ spec:
 <p>Ensure that you set the value of <code>target</code> to the IP address or hostname of the SNMP trap receiver.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional Information</div>
+<p>For more information about available parameters for <code>snmpTraps</code>, see <a href="#configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-alerts-for-snmp-traps_assembly-advanced-features">Creating alerts for SNMP traps</h4>
+<div class="paragraph">
+<p>You can create alerts that are configured for delivery by SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Adding the <code>oid</code> or <code>severity</code> labels is only required if you need to change the default values for a particular alert definition.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">NOTE</dt>
+<dd>
+<p>When you set the oid label, the top-level SNMP trap OID changes, but the sub-OIDs remain defined by the global <code>trapOidPrefix</code> value plus the child OID values <code>.1.1.1</code> through <code>.1.1.9</code>. For more information about the MIB definition, see <a href="#overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>PrometheusRule</code> object that contains the alert rule and an <code>oid</code> label that contains the SNMP trap OID override value:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: default
+    role: alert-rules
+  name: prometheus-alarm-rules-snmp
+  namespace: service-telemetry
+spec:
+  groups:
+    - name: ./openstack.rules
+      rules:
+        - alert: Collectd metrics receive rate is zero
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0
+          labels:
+            oid: 1.3.6.1.4.1.50495.15.1.2.1
+            severity: critical
+EOF</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional information</div>
+<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -5261,7 +5514,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-10 14:57:49 UTC
+Last updated 2023-03-10 15:04:14 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
