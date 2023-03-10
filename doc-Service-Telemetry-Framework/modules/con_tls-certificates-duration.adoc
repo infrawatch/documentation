@@ -3,7 +3,7 @@
 
 [role="_abstract"]
 You can configure the duration for the TLS certificates used for the connections with
-ElasticSearch and Apache Qpid Dispatch Router in {Project} ({ProjectShort}). To do so,
+Elasticsearch and {MessageBus} in {Project} ({ProjectShort}). To do so,
 modify the `ServiceTelemetry` object and configure the `certificates` parameters.
 
 [id="configuration-parameters-for-tls-certificates-duration_{context}"]
@@ -14,16 +14,16 @@ certificates duration:
 
 endpointCertDuration:: The requested 'duration' (i.e. lifetime) of the endpoint Certificate.
 Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration.
-Default value is `70128h`.
+Default value is `70080h`.
 caCertDuration:: The requested 'duration' (i.e. lifetime) of the CA Certificate.
 Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration.
-Default value is `70128h`.
+Default value is `70080h`.
 
 NOTE:: Certificates are by default long lived considering a subset of them are expected to be copied in the {OpenStack}
 deployment when they renew. Fore more information about the QDR CA Certificate renewal process, see
 xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
 
-The `certificates` parameter for ElasticSearch is part of the `backends.events.elasticsearch` definition and is configured in the `ServiceTelemetry` object:
+The `certificates` parameter for Elasticsearch is part of the `backends.events.elasticsearch` definition and is configured in the `ServiceTelemetry` object:
 
 [source,yaml,options="nowrap"]
 ----

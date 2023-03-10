@@ -10,16 +10,15 @@ For this purpose, modify the `ServiceTelemetry` object and configure the `certif
 * Verify you don't have an instance of Service Telemetry Operator already deployed.
 
 NOTE:: Once created the `ServiceTelemetry` object, the required certificates and their secrets for {Project} ({ProjectShort}) are created.
-In order to modify these you must follow a procedure similar to the one present in xref:xref:assembly-renewing-the-amq-interconnect-certificate_assembly[].
-The following procedure is valid for greenfield {Project} ({ProjectShort}) deployments.
+In order to modify these you must follow a procedure similar to the one present in xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
+The following procedure is valid for new {Project} ({ProjectShort}) deployments.
 
 .Procedure
 
-+
 To override the duration of the TLS certificates, define which certificate you want to override.
-In this example, set Elasticsearch endpoint certificates duration to 3 years by setting `endpointCertDuration` to `26280h`
-and set QDR CA Certificates duration to 10 years by setting `caCertDuration` to `87600h`.
-Keep the default for the other certificates (CA certificates for Elasticsearch and endpoint certificates for QDR will keep the value of 8 years):
+For example, set the Elasticsearch endpoint certificate duration to 3 years by setting `endpointCertDuration` to `26280h`
+and set QDR CA certificate duration to 10 years by setting `caCertDuration` to `87600h`.
+Keep the default value for the other certificates (CA certificate for Elasticsearch and endpoint certificate for QDR will keep the value of 8 years):
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
