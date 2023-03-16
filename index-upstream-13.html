@@ -539,6 +539,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#creating-alerts-for-snmp-traps_assembly-advanced-features">Creating alerts for SNMP traps</a></li>
 </ul>
 </li>
+<li><a href="#tls-certificates-duration_assembly-advanced-features">Configuring the duration for the TLS certificates</a>
+<ul class="sectlevel3">
+<li><a href="#configuration-parameters-for-tls-certificates-duration_assembly-advanced-features">Configuration parameters for the TLS certificates</a></li>
+<li><a href="#configuring-tls-certificates-duration_assembly-advanced-features">Configuring TLS certificates duration</a></li>
+</ul>
+</li>
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
@@ -4156,6 +4162,158 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect2">
+<h3 id="tls-certificates-duration_assembly-advanced-features">Configuring the duration for the TLS certificates</h3>
+<div class="paragraph _abstract">
+<p>To configure the duration of the TLS certificates that you use for the connections with
+Elasticsearch and Apache&#160;Qpid&#160;Dispatch&#160;Router in Service&#160;Telemetry&#160;Framework (STF),
+modify the <code>ServiceTelemetry</code> object and configure the <code>certificates</code> parameters.</p>
+</div>
+<div class="sect3">
+<h4 id="configuration-parameters-for-tls-certificates-duration_assembly-advanced-features">Configuration parameters for the TLS certificates</h4>
+<div class="paragraph">
+<p>You can configure the duration of the certificate with the following sub-parameters of the <code>certificates</code> parameter:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">endpointCertDuration</dt>
+<dd>
+<p>The requested <em>duration</em> or lifetime of the endpoint Certificate.
+Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration <a href="https://golang.org/pkg/time/#ParseDuration" class="bare">https://golang.org/pkg/time/#ParseDuration</a>.
+The default value is <code>70080h</code>.</p>
+</dd>
+<dt class="hdlist1">caCertDuration</dt>
+<dd>
+<p>The requested <em>duration</em> or lifetime of the CA Certificate.
+Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration <a href="https://golang.org/pkg/time/#ParseDuration" class="bare">https://golang.org/pkg/time/#ParseDuration</a>.
+Default value is <code>70080h</code>.</p>
+</dd>
+<dt class="hdlist1">NOTE</dt>
+<dd>
+<p>The default duration of certificates is long, because you usually copy a subset of them in the OpenStack deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see <a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The <code>certificates</code> parameter for Elasticsearch is part of the <code>backends.events.elasticsearch</code> definition and is configured in the <code>ServiceTelemetry</code> object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+...
+  backends:
+    ...
+    events:
+      elasticsearch:
+        enabled: true
+        version: 7.16.1
+        certificates:
+          endpointCertDuration: 70080h
+          caCertDuration: 70080h
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can configure the <code>certificates</code> parameter for QDR that is part of the <code>transports.qdr</code> definition in the <code>ServiceTelemetry</code> object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+...
+  transports:
+    ...
+    qdr:
+      enabled: true
+      certificates:
+        endpointCertDuration: 70080h
+        caCertDuration: 70080h
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-tls-certificates-duration_assembly-advanced-features">Configuring TLS certificates duration</h4>
+<div class="paragraph _abstract">
+<p>To configure the duration of the TLS certificates to use with Service&#160;Telemetry&#160;Framework (STF), modify the <code>ServiceTelemetry</code> object and configure the <code>certificates</code> parameter.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You didn&#8217;t deploy an instance of Service Telemetry Operator already.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">NOTE</dt>
+<dd>
+<p>When you create the <code>ServiceTelemetry</code> object, the required certificates and their secrets for STF are also created.
+For more information about how to modify the certificates and the secrets, see: <a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a>
+The following procedure is valid for new STF deployments.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To edit the duration of the TLS certificates, you can set the Elasticsearch <code>endpointCertDuration</code>, for example <code>26280h</code> for 3 years, and set the QDR <code>caCertDuration</code>, for example <code>87600h</code> for 10 years.
+You can use the default value of 8 years for the CA certificate for Elasticsearch and endpoint certificate:</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
+        certificates:
+          endpointCertDuration: 26280h
+  transport:
+    qdr:
+      enabled: true
+      certificates:
+        caCertDuration: 87600h
+EOF</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">Verification</div>
+<ol class="arabic">
+<li>
+<p>Verify that the expiry date for the certificates is correct:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret elasticsearch-es-cert -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
+            Not After : Mar  9 21:00:16 2026 GMT
+
+$ oc get secret  default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
+            Not After : Mar  9 21:00:16 2033 GMT</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="high-availability_assembly-advanced-features">High availability</h3>
 <div class="paragraph _abstract">
 <p>With high availability, Service&#160;Telemetry&#160;Framework (STF) can rapidly recover from failures in its component services. Although OpenShift restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of STF components, which reduces recovery time to approximately 2 seconds. To protect against failure of an OpenShift node, deploy STF to an OpenShift cluster with three or more nodes.</p>
@@ -5514,7 +5672,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-10 15:04:14 UTC
+Last updated 2023-03-16 12:47:36 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
