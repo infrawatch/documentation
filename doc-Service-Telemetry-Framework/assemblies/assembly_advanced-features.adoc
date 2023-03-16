@@ -46,6 +46,12 @@ include::../modules/proc_creating-an-alert-route-with-templating-in-alertmanager
 include::../modules/con_snmp-traps.adoc[leveloffset=+1]
 include::../modules/proc_configuring-snmp-traps.adoc[leveloffset=+2]
 
+//TLS Certificates duration
+ifdef::include_when_13,include_when_17[]
+include::../modules/con_tls-certificates-duration.adoc[leveloffset=+1]
+include::../modules/proc_configuring-tls-certificates-duration.adoc[leveloffset=+2]
+endif::include_when_13,include_when_17[]
+
 //High availability
 include::../modules/con_high-availability.adoc[leveloffset=+1]
 include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
