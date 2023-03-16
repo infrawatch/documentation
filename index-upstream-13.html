@@ -4836,7 +4836,7 @@ Mon Nov 14 11:10:40 EST 2022</code></pre>
 <p>Copy the <code>STFCA.pem</code> file to each OSP overcloud node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml overcloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"</code></pre>
 </div>
 </div>
 </li>
@@ -4844,7 +4844,7 @@ Mon Nov 14 11:10:40 EST 2022</code></pre>
 <p>Restart the metrics_qdr container on each OSP overcloud node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml overcloud -m shell -a "sudo podman restart metrics_qdr"</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -5672,7 +5672,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-16 12:47:36 UTC
+Last updated 2023-03-16 22:01:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
