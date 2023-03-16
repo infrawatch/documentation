@@ -39,7 +39,7 @@ endif::include_when_13[]
 [source,bash,options="nowrap"]
 ifdef::include_when_13[]
 ----
-[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml overcloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"
 ----
 endif::include_when_13[]
 ifdef::include_when_17[]
@@ -53,7 +53,7 @@ endif::include_when_17[]
 [source,bash,options="nowrap"]
 ifdef::include_when_13[]
 ----
-[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"
+[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml overcloud -m shell -a "sudo podman restart metrics_qdr"
 ----
 endif::include_when_13[]
 ifdef::include_when_17[]
