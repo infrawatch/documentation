@@ -1,0 +1,54 @@
+[id="configuring-tls-certificates-duration_{context}"]
+= Configuring TLS certificates duration
+
+[role="_abstract"]
+To configure the duration of the TLS certificates to use with {Project} ({ProjectShort}), modify the `ServiceTelemetry` object and configure the `certificates` parameter.
+
+.Prerequisites
+
+* You didn't deploy an instance of Service Telemetry Operator already.
+
+NOTE:: When you create the `ServiceTelemetry` object, the required certificates and their secrets for {ProjectShort} are also created.
+For more information about how to modify the certificates and the secrets, see: xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
+The following procedure is valid for new {ProjectShort} deployments.
+
+.Procedure
+
+To edit the duration of the TLS certificates, you can set the Elasticsearch `endpointCertDuration`, for example `26280h` for 3 years, and set the QDR `caCertDuration`, for example `87600h` for 10 years.
+You can use the default value of 8 years for the CA certificate for Elasticsearch and endpoint certificate:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc apply -f - <<EOF
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  backends:
+    events:
+      elasticsearch:
+        enabled: true
+        certificates:
+          endpointCertDuration: 26280h
+  transport:
+    qdr:
+      enabled: true
+      certificates:
+        caCertDuration: 87600h
+EOF
+----
+
+.Verification
+
+. Verify that the expiry date for the certificates is correct:
++
+[source,bash,options="nowrap"]
+----
+$ oc get secret elasticsearch-es-cert -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
+            Not After : Mar  9 21:00:16 2026 GMT
+
+$ oc get secret  default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
+            Not After : Mar  9 21:00:16 2033 GMT
+----

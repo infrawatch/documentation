@@ -33,7 +33,7 @@ If you set a long retention period, retrieving data from heavily populated Prome
 apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   ...
@@ -48,6 +48,19 @@ spec:
 ----
 
 . Save your changes and close the object.
+. Wait for prometheus to restart with the new settings.
++
+[source,bash]
+----
+$ oc get po -l app.kubernetes.io/name=prometheus -w
+----
+. Verify the new retention setting by checking the command line arguments used in the pod.
++
+[source,bash]
+----
+$ oc describe po prometheus-default-0 | grep retention.time
+      --storage.tsdb.retention.time=24h
+----
 
 .Additional resources
 

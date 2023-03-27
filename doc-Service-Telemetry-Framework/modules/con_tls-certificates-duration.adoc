@@ -1,0 +1,65 @@
+[id="tls-certificates-duration_{context}"]
+= Configuring the duration for the TLS certificates
+
+[role="_abstract"]
+To configure the duration of the TLS certificates that you use for the connections with
+Elasticsearch and {MessageBus} in {Project} ({ProjectShort}),
+modify the `ServiceTelemetry` object and configure the `certificates` parameters.
+
+[id="configuration-parameters-for-tls-certificates-duration_{context}"]
+== Configuration parameters for the TLS certificates
+
+You can configure the duration of the certificate with the following sub-parameters of the `certificates` parameter:
+
+endpointCertDuration:: The requested 'duration' or lifetime of the endpoint Certificate.
+Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration.
+The default value is `70080h`.
+caCertDuration:: The requested 'duration' or lifetime of the CA Certificate.
+Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration.
+Default value is `70080h`.
+
+NOTE:: The default duration of certificates is long, because you usually copy a subset of them in the {OpenStack} deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
+
+The `certificates` parameter for Elasticsearch is part of the `backends.events.elasticsearch` definition and is configured in the `ServiceTelemetry` object:
+
+[source,yaml,options="nowrap"]
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+...
+  backends:
+    ...
+    events:
+      elasticsearch:
+        enabled: true
+        version: 7.16.1
+        certificates:
+          endpointCertDuration: 70080h
+          caCertDuration: 70080h
+...
+----
+
+You can configure the `certificates` parameter for QDR that is part of the `transports.qdr` definition in the `ServiceTelemetry` object:
+
+[source,yaml,options="nowrap"]
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+...
+  transports:
+    ...
+    qdr:
+      enabled: true
+      certificates:
+        endpointCertDuration: 70080h
+        caCertDuration: 70080h
+...
+----

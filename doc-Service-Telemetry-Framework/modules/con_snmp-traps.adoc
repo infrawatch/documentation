@@ -1,0 +1,93 @@
+[id="snmp-traps_{context}"]
+= Sending alerts as SNMP traps
+
+[role="_abstract"]
+To enable SNMP traps, modify the `ServiceTelemetry` object and configure the `snmpTraps` parameters. SNMP traps are sent using version 2c.
+
+[id="configuration-parameters-for-snmptraps_{context}"]
+== Configuration parameters for snmpTraps
+
+The `snmpTraps` parameter contains the following sub-parameters for configuring the alert receiver:
+
+enabled:: Set the value of this sub-parameter to true to enable the SNMP trap alert receiver. The default value is false.
+target:: Target address to send SNMP traps. Value is a string. Default is `192.168.24.254`.
+port:: Target port to send SNMP traps. Value is an integer. Default is `162`.
+community:: Target community to send SNMP traps to. Value is a string. Default is `public`.
+retries:: SNMP trap retry delivery limit. Value is an integer. Default is `5`.
+timeout:: SNMP trap delivery timeout defined in seconds. Value is an integer. Default is `1`.
+alertOidLabel:: Label name in the alert that defines the OID value to send the SNMP trap as. Value is a string. Default is `oid`.
+trapOidPrefix:: SNMP trap OID prefix for variable bindings. Value is a string. Default is `1.3.6.1.4.1.50495.15`.
+trapDefaultOid:: SNMP trap OID when no alert OID label has been specified with the alert. Value is a string. Default is `1.3.6.1.4.1.50495.15.1.2.1`.
+trapDefaultSeverity:: SNMP trap severity when no alert severity has been set. Value is a string. Defaults to an empty string.
+
+Configure the `snmpTraps` parameter as part of the `alerting.alertmanager.receivers` definition in the `ServiceTelemetry` object:
+
+[source,yaml,options="nowrap"]
+----
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  alerting:
+    alertmanager:
+      receivers:
+        snmpTraps:
+          alertOidLabel: oid
+          community: public
+          enabled: true
+          port: 162
+          retries: 5
+          target: 192.168.25.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ""
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
+...
+----
+
+[id="overview-of-the-mib-definition_{context}"]
+== Overview of the MIB definition
+
+Delivery of SNMP traps uses object identifier (OID) value `1.3.6.1.4.1.50495.15.1.2.1` by default. The management information base (MIB) schema is available at https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt.
+
+The OID number is comprised of the following component values:
+* The value `1.3.6.1.4.1` is a global OID defined for private enterprises.
+* The next identifier `50495` is a private enterprise number assigned by IANA for the Ceph organization.
+* The other values are child OIDs of the parent.
+
+15:: prometheus objects
+15.1:: prometheus alerts
+15.1.2:: prometheus alert traps
+15.1.2.1:: prometheus alert trap default
+
+The prometheus alert trap default is an object comprised of several other sub-objects to OID `1.3.6.1.4.1.50495.15` which is defined by the `alerting.alertmanager.receivers.snmpTraps.trapOidPrefix` parameter:
+
+<trapOidPrefix>.1.1.1:: alert name
+<trapOidPrefix>.1.1.2:: status
+<trapOidPrefix>.1.1.3:: severity
+<trapOidPrefix>.1.1.4:: instance
+<trapOidPrefix>.1.1.5:: job
+<trapOidPrefix>.1.1.6:: description
+<trapOidPrefix>.1.1.7:: labels
+<trapOidPrefix>.1.1.8:: timestamp
+<trapOidPrefix>.1.1.9:: rawdata
+
+The following is example output from a simple SNMP trap receiver that outputs the received trap to the console:
+
+[source,options="nowrap"]
+----
+  SNMPv2-MIB::snmpTrapOID.0 = OID: SNMPv2-SMI::enterprises.50495.15.1.2.1
+  SNMPv2-SMI::enterprises.50495.15.1.1.1 = STRING: "TEST ALERT FROM PROMETHEUS PLEASE ACKNOWLEDGE"
+  SNMPv2-SMI::enterprises.50495.15.1.1.2 = STRING: "firing"
+  SNMPv2-SMI::enterprises.50495.15.1.1.3 = STRING: "warning"
+  SNMPv2-SMI::enterprises.50495.15.1.1.4 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.5 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.6 = STRING: "TEST ALERT FROM "
+  SNMPv2-SMI::enterprises.50495.15.1.1.7 = STRING: "{\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}"
+  SNMPv2-SMI::enterprises.50495.15.1.1.8 = Timeticks: (1676476389) 194 days, 0:52:43.89
+  SNMPv2-SMI::enterprises.50495.15.1.1.9 = STRING: "{\"status\": \"firing\", \"labels\": {\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}, \"annotations\": {\"action\": \"TESTING PLEASE ACKNOWLEDGE, NO FURTHER ACTION REQUIRED ONLY A TEST\"}, \"startsAt\": \"2023-02-15T15:53:09.109Z\", \"endsAt\": \"0001-01-01T00:00:00Z\", \"generatorURL\": \"http://prometheus-default-0:9090/graph?g0.expr=sg_total_collectd_msg_received_count+%3E+1&g0.tab=1\", \"fingerprint\": \"feefeb77c577a02f\"}"
+----
+
+
