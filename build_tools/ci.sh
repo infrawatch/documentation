@@ -29,8 +29,8 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 # Remove all files that are not in the .git dir
-echo "--- removing all files related to HEAD"
-find . -maxdepth 1 -not -wholename ".git/*" -not -wholename "./index-1-5-upstream*" -type f -delete
+echo "--- removing all files related to stable-1.5"
+find . -maxdepth 1 -not -wholename ".git/*" -type f -not -wholename "./index.html" -not -wholename "./index-upstream*" -delete
 rm -rf images/
 
 # We need this empty file for git not to try to build a jekyll project.
