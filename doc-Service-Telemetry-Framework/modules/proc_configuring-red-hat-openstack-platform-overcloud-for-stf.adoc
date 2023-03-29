@@ -17,5 +17,5 @@ endif::include_when_13,include_when_17[]
 
 ifdef::include_when_16_1[]
 .Additional resources
-* To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/operational_measurements/collectd-plugins_assembly[the amqp1 plug-in].
+* To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1[the amqp1 plug-in].
 endif::include_when_16_1[]
