@@ -496,7 +496,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</a></li>
-<li><a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a></li>
 <li><a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>
 <ul class="sectlevel3">
 <li><a href="#planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</a></li>
@@ -532,7 +531,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a></li>
 </ul>
 </li>
+<li><a href="#snmp-traps_assembly-advanced-features">Sending alerts as SNMP traps</a>
+<ul class="sectlevel3">
+<li><a href="#configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</a></li>
+<li><a href="#overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</a></li>
 <li><a href="#configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</a></li>
+<li><a href="#creating-alerts-for-snmp-traps_assembly-advanced-features">Creating alerts for SNMP traps</a></li>
+</ul>
+</li>
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
@@ -559,12 +565,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#disabling-container-health-and-api-status-monitoring_assembly-advanced-features">Disabling container health and API status monitoring</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a>
-<ul class="sectlevel2">
-<li><a href="#proc-checking-for-an-expired-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Checking for an expired Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</a></li>
-<li><a href="#proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</a></li>
 </ul>
 </li>
 <li><a href="#assembly-removing-stf-from-the-openshift-environment_assembly">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</a>
@@ -633,13 +633,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10/">OpenShift product documentation</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/">OpenShift product documentation</a></p>
 </li>
 <li>
 <p><a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a></p>
 </li>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.10/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.10 Documentation</a></p>
+<p><a href="https://docs.openshift.com/container-platform/4.12/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.12 Documentation</a></p>
 </li>
 </ul>
 </div>
@@ -790,7 +790,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Service&#160;Telemetry&#160;Framework 1.5</p>
 </li>
 <li>
-<p>OpenShift 4.10</p>
+<p>OpenShift 4.10 through 4.12</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -832,7 +832,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment.</p>
 </div>
 <div class="paragraph">
-<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.12/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -935,10 +935,10 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
+<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.12/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </li>
 <li>
-<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </li>
 <li>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
@@ -1011,7 +1011,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </table>
 </div>
 <div class="paragraph">
-<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
+<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>In an OKD deployment, the default node tuning operator specification provides the required profiles for Elasticsearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
@@ -1022,7 +1022,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
+<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1044,7 +1044,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <p>For more information about virtual memory use by Elasticsearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
 </li>
 <li>
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.10/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
+<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
 </li>
 </ul>
 </div>
@@ -1083,7 +1083,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>OpenShift version 4.10 is running.</p>
+<p>An OpenShift version inclusive of 4.10 through 4.12 is running.</p>
 </li>
 <li>
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
@@ -1097,7 +1097,7 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
 </ul>
 </div>
@@ -1134,7 +1134,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.10/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </li>
 <li>
@@ -1815,7 +1815,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   clouds:
@@ -1875,10 +1875,10 @@ spec:
 <div class="sect2">
 <h3 id="accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.10/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.12/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.10/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.12/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1947,6 +1947,14 @@ EOF</code></pre>
 </div>
 </li>
 <li>
+<p>Delete the left over objects that are managed by community operators</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>To verify that all workloads are operating correctly, view the pods and the status of each pod:</p>
 <div class="listingblock">
 <div class="content">
@@ -1993,9 +2001,6 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <ul>
 <li>
-<p>To deploy data collection and transport to STF on OSP cloud nodes that employ routed L3 domains, such as distributed compute node (DCN) or spine-leaf, see <a href="#deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</a>.</p>
-</li>
-<li>
 <p>To disable the data collector services, see <a href="#disabling-openstack-services-used-with-stf_assembly-completing-the-stf-configuration">Disabling OpenStack services used with Service&#160;Telemetry&#160;Framework</a>.</p>
 </li>
 </ul>
@@ -2032,7 +2037,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly">the amqp1 plug-in</a>.</p>
+<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1">the amqp1 plug-in</a>.</p>
 </li>
 </ul>
 </div>
@@ -2136,7 +2141,8 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
         - image.*
         - memory
         - memory.*
-        - network.*
+        - network.services.vpn.*
+        - network.services.firewall.*
         - perf.*
         - port
         - port.*
@@ -2225,7 +2231,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+        - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -2342,13 +2348,34 @@ Some telemetry data is available only when OSP has active workloads.
 <p>Log in to an overcloud node, for example, controller-0.</p>
 </li>
 <li>
-<p>Ensure that the <code>metrics_qdr</code> container is running on the node:</p>
+<p>Ensure that the <code>metrics_qdr</code> and collection agent containers are running on the node:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr
-
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_notification ceilometer_agent_central
+running
+running
+running
 running</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use this command on compute nodes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ sudo podman container inspect --format '{{.State.Status}}' metrics_qdr collectd ceilometer_agent_compute</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -2549,79 +2576,6 @@ EOF</code></pre>
 --templates /usr/share/openstack-tripleo-heat-templates \
   --environment-file /home/stack/disable-stf.yaml
   --environment-file <em>&lt;other_environment_files&gt;</em> \</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deploying-to-non-standard-network-topologies_assembly-completing-the-stf-configuration">Deploying to non-standard network topologies</h3>
-<div class="paragraph _abstract">
-<p>If your nodes are on a separate network from the default <code>InternalApi</code> network, you must make configuration adjustments so that Apache&#160;Qpid&#160;Dispatch&#160;Router can transport data to the Service&#160;Telemetry&#160;Framework (STF) server instance. This scenario is typical in a spine-leaf or a DCN topology. For more information about DCN configuration, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/">Spine Leaf Networking</a> guide.</p>
-</div>
-<div class="paragraph">
-<p>If you use STF with OpenStack (OSP) Wallaby and plan to monitor your Ceph, Block, or Object Storage nodes, you must make configuration changes that are similar to the configuration changes that you make to the spine-leaf and DCN network configuration. To monitor Ceph nodes, use the <code>CephStorageExtraConfig</code> parameter to define which network interface to load into the Apache&#160;Qpid&#160;Dispatch&#160;Router and collectd configuration files.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">CephStorageExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage')}"
-  tripleo::profile::base::ceilometer::agent::notification::notifier_host_addr: "%{hiera('storage')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similarly, you must specify  <code>BlockStorageExtraConfig</code> and <code>ObjectStorageExtraConfig</code> parameters if your environment uses Block and Object Storage roles.</p>
-</div>
-<div class="paragraph">
-<p>To deploy a spine-leaf topology, you must create roles and networks, then assign those networks to the available roles. When you configure data collection and transport for STF for an OSP deployment, the default network for roles is <code>InternalApi</code>. For Ceph, Block and Object storage roles, the default network is <code>Storage</code>.
-Because a spine-leaf configuration can result in different networks being assigned to different Leaf groupings and those names are typically unique, additional configuration is required in the <code>parameter_defaults</code> section of the OSP environment files.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Document which networks are available for each of the Leaf roles. For examples of network name definitions, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-network-data-file">Creating a network data file</a> in the <em>Spine Leaf Networking</em> guide. For more information about the creation of the Leaf groupings (roles) and assignment of the networks to those groupings, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/spine_leaf_networking/index#creating-a-roles-data-file">Creating a roles data file</a> in the <em>Spine Leaf Networking</em> guide.</p>
-</li>
-<li>
-<p>Add the following configuration example to the <code>ExtraConfig</code> section for each of the leaf roles. In this example,
-<code>internal_api_subnet</code>
-is the value defined in the <code>name_lower</code> parameter of your network definition
-(with <code>_subnet</code> appended to the name for Leaf 0)
-, and is the network to which the
-<code>ComputeLeaf0</code>
-leaf role is connected. In this case, the network identification of 0 corresponds to the Compute role for leaf 0, and represents a value that is different from the default internal API network name.</p>
-<div class="paragraph">
-<p>For the
-<code>ComputeLeaf0</code>
-leaf role, specify extra configuration to perform a hiera lookup to determine which network interface for a particular network to assign to the collectd AMQP host parameter. Perform the same configuration for the Apache&#160;Qpid&#160;Dispatch&#160;Router listener address parameter.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf0ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_subnet')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_subnet')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Additional leaf roles typically replace <code>_subnet</code> with <code>_leafN</code>. <code>N</code> represents a unique identifier for the leaf.</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">ComputeLeaf1ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('internal_api_leaf1')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('internal_api_leaf1')}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This example configuration is on a CephStorage leaf role:</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">CephStorageLeaf0ExtraConfig:
-  tripleo::profile::base::metrics::collectd::amqp_host: "%{hiera('storage_subnet')}"
-  tripleo::profile::base::metrics::qdr::listener_addr: "%{hiera('storage_subnet')}"</code></pre>
 </div>
 </div>
 </li>
@@ -3031,7 +2985,7 @@ If you enabled container health and API status monitoring, you must also modify 
 
 parameter_defaults:
     MetricsQdrConnectors:
-        - host: stf-default-interconnect-5671-service-telemetry.apps.infra.watch
+        - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
           role: edge
           verifyHostname: false
@@ -3200,7 +3154,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </dd>
 <dt class="hdlist1">Virtual machine view dashboard</dt>
 <dd>
-<p>Use the virtual machine view dashboard to view panels to monitor virtual machine infrastructure usage. Select a cloud and project from the upper left corner of the dashboard.</p>
+<p>Use the virtual machine view dashboard to view panels to monitor virtual machine infrastructure usage. Select a cloud and project from the upper left corner of the dashboard. You must enable event storage if you want to enable the event annotations on this dashboard. For more information, see <a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>.</p>
 </dd>
 <dt class="hdlist1">Memcached view dashboard</dt>
 <dd>
@@ -3479,7 +3433,10 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <div class="sect3">
 <h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) sets default login credentials when Grafana is enabled. You can override the credentials in the <code>ServiceTelemetry</code> object.</p>
+<p>When Grafana is enabled, you can login using openshift authentication, or the default username and password set by the Grafana Operator.</p>
+</div>
+<div class="paragraph">
+<p>You can override the credentials in the <code>ServiceTelemetry</code> object to have Service&#160;Telemetry&#160;Framework (STF) set the username and password for Grafana instead.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3496,7 +3453,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </li>
 <li>
-<p>Retrieve the default username and password from the STF object:</p>
+<p>Retrieve the existing username and password from the STF object:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get stf default -o jsonpath="{.spec.graphing.grafana['adminUser','adminPassword']}"</code></pre>
@@ -3505,6 +3462,19 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </li>
 <li>
 <p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait for the grafana pod to restart with the new credentials in place</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=grafana -w</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -3578,7 +3548,7 @@ If you set a long retention period, retrieving data from heavily populated Prome
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   ...
@@ -3595,6 +3565,23 @@ spec:
 </li>
 <li>
 <p>Save your changes and close the object.</p>
+</li>
+<li>
+<p>Wait for prometheus to restart with the new settings.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app.kubernetes.io/name=prometheus -w</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the new retention setting by checking the command line arguments used in the pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc describe po prometheus-default-0 | grep retention.time
+      --storage.tsdb.retention.time=24h</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -3767,7 +3754,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
+<p>To deploy a custom Alertmanager route with STF, you must add a <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret, managed by the Prometheus Operator.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3776,7 +3763,7 @@ EOF</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If your <code>alertmanagerConfigManifest</code> contains a custom template to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.
+If your <code>alertmanagerConfigManifest</code> contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the <code>alertmanagerConfigManifest</code> using a base64-encoded configuration. For more information, see <a href="#creating-an-alert-route-with-templating-in-alertmanager_assembly-advanced-features">Creating an alert route with templating in Alertmanager</a>.
 </td>
 </tr>
 </table>
@@ -3871,10 +3858,10 @@ receivers:
 </div>
 </li>
 <li>
-<p>Run the <code>curl</code> command against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
+<p>Run the <code>wget</code> command from the prometheus pod against the <code>alertmanager-proxy</code> service to retrieve the status and <code>configYAML</code> contents, and verify that the supplied configuration matches the configuration in Alertmanager:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc run curl -it --serviceaccount=prometheus-k8s --restart='Never' --image=radial/busyboxplus:curl -- sh -c "curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status"
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it prometheus-default-0 -c prometheus -- sh -c "wget --header \"Authorization: Bearer \$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" https://default-alertmanager-proxy:9095/api/v1/status -q -O -"
 
 {"status":"success","data":{"configYAML":"...",...}}</code></pre>
 </div>
@@ -3925,7 +3912,7 @@ pod "curl" deleted</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If the <code>alertmanagerConfigManifest</code> parameter contains a custom template, for example, to construct the title and text of the sent alert, deploy the contents of the <code>alertmanagerConfigManifest</code> by using a base64-encoded configuration.</p>
+<p>If the <code>alertmanagerConfigManifest</code> parameter contains a custom template, for example, to construct the title and text of the sent alert, you must deploy the contents of the <code>alertmanagerConfigManifest</code> by using a base64-encoded configuration.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3942,41 +3929,54 @@ pod "curl" deleted</code></pre>
 </div>
 </li>
 <li>
-<p>Edit the <code>ServiceTelemetry</code> object for your STF deployment:</p>
+<p>Create the necessary alertmanager config in a file called alertmanager.yaml, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ cat &gt; alertmanager.yaml &lt;&lt;EOF
+global:
+  resolve_timeout: 10m
+  slack_api_url: &lt;slack_api_url&gt;
+receivers:
+  - name: slack
+    slack_configs:
+    - channel: #stf-alerts
+      title: |-
+        ...
+      text: &gt;-
+        ...
+route:
+  group_by: ['job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'slack'
+EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To deploy a custom Alertmanager route with STF, you must pass an <code>alertmanagerConfigManifest</code> parameter to the Service Telemetry Operator that results in an updated secret that is managed by the Prometheus Operator:</p>
+<p>Generate the config manifest and add it to the <code>ServiceTelemetry</code> object for your STF deployment:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    metrics:
-      prometheus:
-        enabled: true
-  alertmanagerConfigManifest: |
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: 'alertmanager-default'
-      namespace: 'service-telemetry'
-    type: Opaque
-    data:
-      alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogMTBtCiAgc2xhY2tfYXBpX3VybDogPHNsYWNrX2FwaV91cmw+CnJlY2VpdmVyczoKICAtIG5hbWU6IHNsYWNrCiAgICBzbGFja19jb25maWdzOgogICAgLSBjaGFubmVsOiAjc3RmLWFsZXJ0cwogICAgICB0aXRsZTogfC0KICAgICAgICAuLi4KICAgICAgdGV4dDogPi0KICAgICAgICAuLi4Kcm91dGU6CiAgZ3JvdXBfYnk6IFsnam9iJ10KICBncm91cF93YWl0OiAzMHMKICBncm91cF9pbnRlcnZhbDogNW0KICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJlY2VpdmVyOiAnc2xhY2snCg==</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ CONFIG_MANIFEST=$(oc create secret --dry-run=client generic alertmanager-default --from-file=alertmanager.yaml -o json)
+$ oc patch stf default --type=merge -p '{"spec":{"alertmanagerConfigManifest":'"$CONFIG_MANIFEST"'}}'</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Verify that the configuration has been applied to the secret:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There will be a short delay as the operators update each object
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret alertmanager-default -o go-template='{{index .data "alertmanager.yaml" | base64decode }}'
@@ -4027,24 +4027,204 @@ route:
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</h3>
+<h3 id="snmp-traps_assembly-advanced-features">Sending alerts as SNMP traps</h3>
 <div class="paragraph _abstract">
-<p>You can integrate Service&#160;Telemetry&#160;Framework (STF) with an existing infrastructure monitoring platform that receives notifications through SNMP traps. To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters.</p>
+<p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object and configure the <code>snmpTraps</code> parameters. SNMP traps are sent using version 2c.</p>
+</div>
+<div class="sect3">
+<h4 id="configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</h4>
+<div class="paragraph">
+<p>The <code>snmpTraps</code> parameter contains the following sub-parameters for configuring the alert receiver:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">enabled</dt>
+<dd>
+<p>Set the value of this sub-parameter to true to enable the SNMP trap alert receiver. The default value is false.</p>
+</dd>
+<dt class="hdlist1">target</dt>
+<dd>
+<p>Target address to send SNMP traps. Value is a string. Default is <code>192.168.24.254</code>.</p>
+</dd>
+<dt class="hdlist1">port</dt>
+<dd>
+<p>Target port to send SNMP traps. Value is an integer. Default is <code>162</code>.</p>
+</dd>
+<dt class="hdlist1">community</dt>
+<dd>
+<p>Target community to send SNMP traps to. Value is a string. Default is <code>public</code>.</p>
+</dd>
+<dt class="hdlist1">retries</dt>
+<dd>
+<p>SNMP trap retry delivery limit. Value is an integer. Default is <code>5</code>.</p>
+</dd>
+<dt class="hdlist1">timeout</dt>
+<dd>
+<p>SNMP trap delivery timeout defined in seconds. Value is an integer. Default is <code>1</code>.</p>
+</dd>
+<dt class="hdlist1">alertOidLabel</dt>
+<dd>
+<p>Label name in the alert that defines the OID value to send the SNMP trap as. Value is a string. Default is <code>oid</code>.</p>
+</dd>
+<dt class="hdlist1">trapOidPrefix</dt>
+<dd>
+<p>SNMP trap OID prefix for variable bindings. Value is a string. Default is <code>1.3.6.1.4.1.50495.15</code>.</p>
+</dd>
+<dt class="hdlist1">trapDefaultOid</dt>
+<dd>
+<p>SNMP trap OID when no alert OID label has been specified with the alert. Value is a string. Default is <code>1.3.6.1.4.1.50495.15.1.2.1</code>.</p>
+</dd>
+<dt class="hdlist1">trapDefaultSeverity</dt>
+<dd>
+<p>SNMP trap severity when no alert severity has been set. Value is a string. Defaults to an empty string.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>Configure the <code>snmpTraps</code> parameter as part of the <code>alerting.alertmanager.receivers</code> definition in the <code>ServiceTelemetry</code> object:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+metadata:
+  name: default
+  namespace: service-telemetry
+spec:
+  alerting:
+    alertmanager:
+      receivers:
+        snmpTraps:
+          alertOidLabel: oid
+          community: public
+          enabled: true
+          port: 162
+          retries: 5
+          target: 192.168.25.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ""
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</h4>
+<div class="paragraph">
+<p>Delivery of SNMP traps uses object identifier (OID) value <code>1.3.6.1.4.1.50495.15.1.2.1</code> by default. The management information base (MIB) schema is available at <a href="https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt" class="bare">https://github.com/infrawatch/prometheus-webhook-snmp/blob/master/PROMETHEUS-ALERT-CEPH-MIB.txt</a>.</p>
+</div>
+<div class="paragraph">
+<p>The OID number is comprised of the following component values:
+* The value <code>1.3.6.1.4.1</code> is a global OID defined for private enterprises.
+* The next identifier <code>50495</code> is a private enterprise number assigned by IANA for the Ceph organization.
+* The other values are child OIDs of the parent.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">15</dt>
+<dd>
+<p>prometheus objects</p>
+</dd>
+<dt class="hdlist1">15.1</dt>
+<dd>
+<p>prometheus alerts</p>
+</dd>
+<dt class="hdlist1">15.1.2</dt>
+<dd>
+<p>prometheus alert traps</p>
+</dd>
+<dt class="hdlist1">15.1.2.1</dt>
+<dd>
+<p>prometheus alert trap default</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The prometheus alert trap default is an object comprised of several other sub-objects to OID <code>1.3.6.1.4.1.50495.15</code> which is defined by the <code>alerting.alertmanager.receivers.snmpTraps.trapOidPrefix</code> parameter:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.1</dt>
+<dd>
+<p>alert name</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.2</dt>
+<dd>
+<p>status</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.3</dt>
+<dd>
+<p>severity</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.4</dt>
+<dd>
+<p>instance</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.5</dt>
+<dd>
+<p>job</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.6</dt>
+<dd>
+<p>description</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.7</dt>
+<dd>
+<p>labels</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.8</dt>
+<dd>
+<p>timestamp</p>
+</dd>
+<dt class="hdlist1">&lt;trapOidPrefix&gt;.1.1.9</dt>
+<dd>
+<p>rawdata</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The following is example output from a simple SNMP trap receiver that outputs the received trap to the console:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">  SNMPv2-MIB::snmpTrapOID.0 = OID: SNMPv2-SMI::enterprises.50495.15.1.2.1
+  SNMPv2-SMI::enterprises.50495.15.1.1.1 = STRING: "TEST ALERT FROM PROMETHEUS PLEASE ACKNOWLEDGE"
+  SNMPv2-SMI::enterprises.50495.15.1.1.2 = STRING: "firing"
+  SNMPv2-SMI::enterprises.50495.15.1.1.3 = STRING: "warning"
+  SNMPv2-SMI::enterprises.50495.15.1.1.4 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.5 = ""
+  SNMPv2-SMI::enterprises.50495.15.1.1.6 = STRING: "TEST ALERT FROM "
+  SNMPv2-SMI::enterprises.50495.15.1.1.7 = STRING: "{\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}"
+  SNMPv2-SMI::enterprises.50495.15.1.1.8 = Timeticks: (1676476389) 194 days, 0:52:43.89
+  SNMPv2-SMI::enterprises.50495.15.1.1.9 = STRING: "{\"status\": \"firing\", \"labels\": {\"cluster\": \"TEST\", \"container\": \"sg-core\", \"endpoint\": \"prom-https\", \"prometheus\": \"service-telemetry/default\", \"service\": \"default-cloud1-coll-meter\", \"source\": \"SG\"}, \"annotations\": {\"action\": \"TESTING PLEASE ACKNOWLEDGE, NO FURTHER ACTION REQUIRED ONLY A TEST\"}, \"startsAt\": \"2023-02-15T15:53:09.109Z\", \"endsAt\": \"0001-01-01T00:00:00Z\", \"generatorURL\": \"http://prometheus-default-0:9090/graph?g0.expr=sg_total_collectd_msg_received_count+%3E+1&amp;g0.tab=1\", \"fingerprint\": \"feefeb77c577a02f\"}"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-snmp-traps_assembly-advanced-features">Configuring SNMP traps</h4>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Know the IP address or hostname of the SNMP trap receiver where you want to send the alerts</p>
+<p>Ensure that you know the IP address or hostname of the SNMP trap receiver where you want to send the alerts to.</p>
 </li>
 </ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
 <li>
 <p>To enable SNMP traps, modify the <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock">
@@ -4075,6 +4255,72 @@ spec:
 <p>Ensure that you set the value of <code>target</code> to the IP address or hostname of the SNMP trap receiver.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional Information</div>
+<p>For more information about available parameters for <code>snmpTraps</code>, see <a href="#configuration-parameters-for-snmptraps_assembly-advanced-features">Configuration parameters for snmpTraps</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-alerts-for-snmp-traps_assembly-advanced-features">Creating alerts for SNMP traps</h4>
+<div class="paragraph">
+<p>You can create alerts that are configured for delivery by SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Adding the <code>oid</code> or <code>severity</code> labels is only required if you need to change the default values for a particular alert definition.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">NOTE</dt>
+<dd>
+<p>When you set the oid label, the top-level SNMP trap OID changes, but the sub-OIDs remain defined by the global <code>trapOidPrefix</code> value plus the child OID values <code>.1.1.1</code> through <code>.1.1.9</code>. For more information about the MIB definition, see <a href="#overview-of-the-mib-definition_assembly-advanced-features">Overview of the MIB definition</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a <code>PrometheusRule</code> object that contains the alert rule and an <code>oid</code> label that contains the SNMP trap OID override value:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: default
+    role: alert-rules
+  name: prometheus-alarm-rules-snmp
+  namespace: service-telemetry
+spec:
+  groups:
+    - name: ./openstack.rules
+      rules:
+        - alert: Collectd metrics receive rate is zero
+          expr: rate(sg_total_collectd_msg_received_count[1m]) == 0
+          labels:
+            oid: 1.3.6.1.4.1.50495.15.1.2.1
+            severity: critical
+EOF</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional information</div>
+<p>For more information about configuring alerts, see <a href="#alerts_assembly-advanced-features">Alerts in Service&#160;Telemetry&#160;Framework</a>.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -4228,7 +4474,7 @@ If you use ephemeral storage, you might experience data loss if a pod is restart
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
 kind: ServiceTelemetry
 metadata:
-  name: stf-default
+  name: default
   namespace: service-telemetry
 spec:
   alerting:
@@ -4298,6 +4544,14 @@ metadata:
 spec:
   observabilityStrategy: none
 EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the left over objects that are managed by community operators</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -4589,147 +4843,6 @@ If the values returned are 0, it means that STF is not receiving that type of me
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</h2>
-<div class="sectionbody">
-<div class="paragraph _abstract">
-<p>Periodically, you must renew the CA certificate that secures the Apache&#160;Qpid&#160;Dispatch&#160;Router connection between OpenStack (OSP) and Service&#160;Telemetry&#160;Framework (STF) when the certificate expires. The renewal is handled automatically by the cert-manager component in OpenShift, but you must manually copy the renewed certificate to your OSP nodes.</p>
-</div>
-<div class="sect2">
-<h3 id="proc-checking-for-an-expired-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Checking for an expired Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
-<div class="paragraph _abstract">
-<p>When the CA certificate expires, the Apache&#160;Qpid&#160;Dispatch&#160;Router connections remain up, but cannot reconnect if they are interrupted. Eventually, some or all of the connections from your OpenStack (OSP) dispatch routers fail, showing errors on both sides, and the expiry or <strong>Not After</strong> field in your CA certificate is in the past.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that some or all dispatch router connections have failed:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
-      0       0       0</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Check for this error in the OpenShift-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc logs -l application=default-interconnect | tail
-[...]
-2022-11-10 20:51:22.863466 +0000 SERVER (info) [C261] Connection from 10.10.10.10:34570 (to 0.0.0.0:5671) failed: amqp:connection:framing-error SSL Failure: error:140940E5:SSL routines:ssl3_read_bytes:ssl handshake failure</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Log into your OSP undercloud.</p>
-</li>
-<li>
-<p>Check for this error in the OSP-hosted Apache&#160;Qpid&#160;Dispatch&#160;Router logs of a node with a failed connection:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ ssh controller-0.ctlplane -- sudo tail /var/log/containers/metrics_qdr/metrics_qdr.log
-[...]
-2022-11-10 20:50:44.311646 +0000 SERVER (info) [C137] Connection to default-interconnect-5671-service-telemetry.apps.mycluster.com:443 failed: amqp:connection:framing-error SSL Failure: error:0A000086:SSL routines::certificate verify failed</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Confirm that the CA certificate has expired by examining the file on an OSP node:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ ssh controller-0.ctlplane -- cat /var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem | openssl x509 -text | grep "Not After"
-            Not After : Nov 10 20:31:16 2022 GMT
-
-$ date
-Mon Nov 14 11:10:40 EST 2022</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="proc-updating-the-amq-interconnect-ca-certificate_assembly-renewing-the-amq-interconnect-certificate">Updating the Apache&#160;Qpid&#160;Dispatch&#160;Router CA certificate</h3>
-<div class="paragraph _abstract">
-<p>To update the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate, you must export it from OpenShift and copy it to your OpenStack (OSP) nodes.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Export the CA certificate to <code>STFCA.pem</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret/default-interconnect-selfsigned -o jsonpath='{.data.ca\.crt}' | base64 -d &gt; STFCA.pem</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Copy <code>STFCA.pem</code> to your OSP undercloud.</p>
-</li>
-<li>
-<p>Log into your OSP undercloud.</p>
-</li>
-<li>
-<p>Edit the <code>stf-connectors.yaml</code> file to contain the new caCertFileContent. For more information, see <a href="#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</a>.</p>
-</li>
-<li>
-<p>Copy the <code>STFCA.pem</code> file to each OSP overcloud node:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml allovercloud -b -m copy -a "src=STFCA.pem dest=/var/lib/config-data/puppet-generated/metrics_qdr/etc/pki/tls/certs/CA_sslProfile.pem"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Restart the metrics_qdr container on each OSP overcloud node:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ ansible -i tripleo-ansible-inventory.yaml allovercloud -m shell -a "sudo podman restart metrics_qdr"</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You do not need to deploy the overcloud after you copy the <code>STFCA.pem</code> file and restart the <code>metrics_qdr</code> container. You edit the <code>stf-connectors.yaml</code> file so that future deployments do not overwrite the new CA certificate.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="assembly-removing-stf-from-the-openshift-environment_assembly">Removing Service&#160;Telemetry&#160;Framework from the OpenShift environment</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
@@ -4939,7 +5052,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.10/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+<p><a href="https://docs.openshift.com/container-platform/4.12/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
 </li>
 </ul>
 </div>
@@ -5496,7 +5609,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-02-17 14:32:41 UTC
+Last updated 2023-03-29 14:33:59 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
