@@ -1286,7 +1286,7 @@ amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
+Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, Prometheus Operator, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Grafana, and their Operators.
 </td>
 </tr>
 </table>
@@ -1316,13 +1316,13 @@ EOF</code></pre>
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: prometheus
+  name: rhods-prometheus-operator
   namespace: service-telemetry
 spec:
   channel: beta
   installPlanApproval: Automatic
-  name: prometheus
-  source: operatorhubio-operators
+  name: rhods-prometheus-operator
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -1332,10 +1332,10 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Prometheus <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/rhods-prometheus-operator.service-telemetry
 
-NAME                        DISPLAY               VERSION   REPLACES                    PHASE
-prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0.37.0   Succeeded</code></pre>
+NAME                               DISPLAY               VERSION   REPLACES   PHASE
+rhods-prometheus-operator.4.10.0   Prometheus Operator   4.10.0               Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1416,13 +1416,13 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
-NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10          Red Hat Integration - AMQ Interconnect          1.10.10        amq7-interconnect-operator.v1.10.4   Succeeded
-elasticsearch-eck-operator-certified.v2.4.0  Elasticsearch (ECK) Operator                    2.4.0          elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
+amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.6.2   Elasticsearch (ECK) Operator                  2.6.2            elasticsearch-eck-operator-certified.v2.6.1   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
-prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
-service-telemetry-operator.v1.5.1664298822   Service Telemetry Operator                      1.5.1664298822                                      Succeeded
-smart-gateway-operator.v5.0.1664298817       Smart Gateway Operator                          5.0.1664298817                                      Succeeded</code></pre>
+rhods-prometheus-operator.4.10.0              Prometheus Operator                           4.10.0                                                         Succeeded
+service-telemetry-operator.v1.5.1678301890    Service Telemetry Operator                    1.5.1678301890                                                 Succeeded
+smart-gateway-operator.v5.0.1678301890        Smart Gateway Operator                        5.0.1678301890                                                 Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -5672,7 +5672,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-20 03:12:37 UTC
+Last updated 2023-04-05 19:44:44 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
