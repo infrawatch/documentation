@@ -484,9 +484,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</a></li>
 </ul>
 </li>
-<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>
 <ul class="sectlevel3">
 <li><a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a></li>
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
@@ -1975,7 +1975,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
@@ -1986,7 +1986,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <ul>
 <li>
-<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>To plan your OSP installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
@@ -2007,9 +2007,9 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </ul>
 </div>
 <div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</h3>
 <div class="paragraph _abstract">
-<p>As part of the OpenStack (OSP) overcloud deployment, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
+<p>As part of the OpenStack (OSP) overcloud deployment using director, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2033,6 +2033,14 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <p><a href="#validating-clientside-installation_assembly-completing-the-stf-configuration">Validating client-side installation</a></p>
 </li>
 </ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about deploying an OpenStack cloud using director, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/director_installation_and_usage/index" class="bare">https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/director_installation_and_usage/index</a></p>
+</li>
+</ul>
 </div>
 <div class="sect3">
 <h4 id="getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</h4>
@@ -3161,7 +3169,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p>Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gather for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
@@ -5672,7 +5680,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-05 19:44:44 UTC
+Last updated 2023-04-27 12:55:09 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

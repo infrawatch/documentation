@@ -484,9 +484,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</a></li>
 </ul>
 </li>
-<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>
 <ul class="sectlevel3">
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 <li><a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a></li>
@@ -504,6 +504,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</a></li>
 <li><a href="#creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</a></li>
 <li><a href="#querying-metrics-data-from-multiple-clouds_assembly-completing-the-stf-configuration">Querying metrics data from multiple clouds</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#assembly-completing-the-stf-configuration-using-director-operator_assembly">Configuring OpenStack director Operator for Service&#160;Telemetry&#160;Framework</a>
+<ul class="sectlevel2">
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator_assembly-completing-the-stf-configuration-using-director-operator">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director Operator</a>
+<ul class="sectlevel3">
+<li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration-using-director-operator">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 </ul>
 </li>
 </ul>
@@ -1980,7 +1989,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
@@ -1991,7 +2000,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <ul>
 <li>
-<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>To plan your OSP installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
@@ -2009,9 +2018,9 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </ul>
 </div>
 <div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</h3>
 <div class="paragraph _abstract">
-<p>As part of the OpenStack (OSP) overcloud deployment, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
+<p>As part of the OpenStack (OSP) overcloud deployment using director, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2036,6 +2045,9 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
+<li>
+<p>For more information about deploying an OpenStack cloud using director, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/director_installation_and_usage/index" class="bare">https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/director_installation_and_usage/index</a></p>
+</li>
 <li>
 <p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1">the amqp1 plug-in</a>.</p>
 </li>
@@ -3085,6 +3097,72 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 </div>
 <div class="sect1">
+<h2 id="assembly-completing-the-stf-configuration-using-director-operator_assembly">Configuring OpenStack director Operator for Service&#160;Telemetry&#160;Framework</h2>
+<div class="sectionbody">
+<div class="paragraph _abstract">
+<p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
+</div>
+<div class="paragraph">
+<p>STF can support both single and multiple clouds. The default configuration in OSP and STF set up for a single cloud installation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For a single OSP overcloud deployment using director Operator with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator_assembly-completing-the-stf-configuration-using-director-operator">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director Operator</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator_assembly-completing-the-stf-configuration-using-director-operator">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director Operator</h3>
+<div class="paragraph _abstract">
+<p>As part of the OpenStack (OSP) overcloud deployment using director Operator, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration-using-director-operator">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></p>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more information about deploying an OpenStack cloud using director Operator, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/index" class="bare">https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/index</a></p>
+</li>
+<li>
+<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1">the amqp1 plug-in</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration-using-director-operator">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</h4>
+<div class="paragraph _abstract">
+<p>When you configure the OpenStack (OSP) overcloud for Service&#160;Telemetry&#160;Framework (STF), you must provide the Apache&#160;Qpid&#160;Dispatch&#160;Router route address in the STF connection file.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to your OpenShift environment.</p>
+</li>
+<li>
+<p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
+default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="assembly-advanced-features_assembly">Using operational features of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
@@ -3127,7 +3205,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p>Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gather for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </div>
 <div class="paragraph">
 <p>You can use dashboards to monitor a cloud:</p>
@@ -4745,7 +4823,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>You have created the <code>stf-connectors.yaml</code> file. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>You have created the <code>stf-connectors.yaml</code> file. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>You are using the most current version of OpenStack (OSP) Wallaby.</p>
@@ -4795,7 +4873,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>You have created the <code>stf-connectors.yaml</code> file in your templates directory. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>You have created the <code>stf-connectors.yaml</code> file in your templates directory. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>You are using the most current version of OpenStack (OSP) Wallaby.</p>
@@ -5597,7 +5675,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-05 19:44:44 UTC
+Last updated 2023-04-27 12:55:09 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
