@@ -1,8 +1,8 @@
 [id="configuring-red-hat-openstack-platform-overcloud-for-stf_{context}"]
-= Deploying {OpenStack} overcloud for {Project}
+= Deploying {OpenStack} overcloud for {Project} using director
 
 [role="_abstract"]
-As part of the {OpenStack} ({OpenStackShort}) overcloud deployment, you must configure the data collectors and the data transport to {Project} ({ProjectShort}).
+As part of the {OpenStack} ({OpenStackShort}) overcloud deployment using director, you must configure the data collectors and the data transport to {Project} ({ProjectShort}).
 
 .Procedure
 
@@ -15,7 +15,8 @@ endif::include_when_13,include_when_17[]
 . xref:deploying-the-overcloud_assembly-completing-the-stf-configuration[Deploying the overcloud]
 . xref:validating-clientside-installation_assembly-completing-the-stf-configuration[Validating client-side installation]
 
-ifdef::include_when_16_1[]
 .Additional resources
+* For more information about deploying an OpenStack cloud using director, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/director_installation_and_usage/index
+ifdef::include_when_16_1[]
 * To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1[the amqp1 plug-in].
 endif::include_when_16_1[]

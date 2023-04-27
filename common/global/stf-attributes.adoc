@@ -7,6 +7,10 @@ ifeval::[{vernum} > 16.0]
 :include_when_16_1:
 endif::[]
 
+ifeval::[{vernum} == 16.2]
+:include_when_16_2:
+endif::[]
+
 ifeval::[{vernum} >= 16.0]
 :include_when_16:
 endif::[]
