@@ -1,0 +1,46 @@
+:_content-type: PROCEDURE
+
+[id="deploying-the-overcloud-for-director-operator_{context}"]
+= Deploying the overcloud for director Operator
+
+Deploy or update the overcloud with the required environment files so that data is collected and transmitted to {Project} ({ProjectShort}) .
+
+.Procedure
+
+. Login to your {OpenShift} environment and change to the project that hosts your {OpenStack} ({OpenStackShort}) deployment.
+
+. Open the `OpenStackConfigGenerator` custom resource for editing:
++
+[source,bash,options="nowrap",subs="verbatim"]
+----
+$ oc edit OpenStackConfigGenerator
+----
+
+. Add the `metrics/ceilometer-write-qdr.yaml` and `metrics/qdr-edge-only.yaml` environment files as values for the `heatEnvs` parameter, save your edits and close the `OpenStackConfigGenerator` custom resource.
+[NOTE]
+If you already deployed a {OpenStack} environment using director Operator, you must delete the existing `OpenStackConfigGenerator` and create a new object with the full configuration in order to re-generate the `OpenStackConfigVersion`.
+
++
+.OpenStackConfigGenerator
+[source,yaml,options="nowrap"]
+----
+apiVersion: osp-director.openstack.org/v1beta1
+kind: OpenStackConfigGenerator
+metadata:
+  name: default
+  namespace: openstack
+spec:
+  heatEnvConfigMap: heat-env-config-deploy
+  heatEnvs:
+  - <existing_environment_file_references>
+  - metrics/ceilometer-write-qdr.yaml
+  - metrics/qdr-edge-only.yaml
+----
+
+. If you already deployed a {OpenStack} environment using director Operator and generated a new `OpenStackConfigVersion`, edit the `OpenStackDeploy` object of your deployment, and set the value of `spec.configVersion` to the new `OpenStackConfigVersion` in order to update the overcloud deployment.
+
+[role="_additional-resources"]
+.Additional resources
+* For more information about getting the latest `OpenStackConfigVersion`, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/assembly_configuring-overcloud-software-with-the-director-operator_rhosp-director-operator#proc_obtain-the-latest-openstackconfigversion.adoc_assembly_configuring-overcloud-software-with-the-director-operator[Obtain the latest OpenStackConfigVersion]
+
+* For more information about applying the overcloud configuration with director Operator, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/assembly_configuring-overcloud-software-with-the-director-operator_rhosp-director-operator#proc_applying-overcloud-configuration-with-the-director-operator_assembly_configuring-overcloud-software-with-the-director-operator[Applying overcloud configuration with the director Operator]
