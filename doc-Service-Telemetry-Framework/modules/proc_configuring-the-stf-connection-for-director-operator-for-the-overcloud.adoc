@@ -7,7 +7,7 @@ Edit the `heat-env-config-deploy` ConfigMap to create a connection from {OpenSta
 
 .Procedure
 
-. Login to {OpenShift} environment and change to the project that hosts your {OpenStack} deployment.
+. Login to the {OpenShift} environment and change to the project that hosts your {OpenStack} deployment.
 
 . Open the `heat-env-config-deploy` ConfigMap for editing:
 +
