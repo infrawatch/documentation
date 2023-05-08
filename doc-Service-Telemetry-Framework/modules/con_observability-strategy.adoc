@@ -2,6 +2,23 @@
 = Observability Strategy in Service Telemetry Framework
 
 [role="_abstract"]
-{Project} ({ProjectShort}) does not include storage backends and alerting tools. {ProjectShort} uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. {ProjectShort} makes requests to these community operators to create instances of each application configured to work with {ProjectShort}.
+{Project} ({ProjectShort}) does not include event storage backends or dashboarding tools. {ProjectShort} can optionally use community operators to deploy Elasticsearch and Grafana for those purposes. {ProjectShort} makes requests to these community operators to create instances of each application configured to work with {ProjectShort}.
 
-Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for {ProjectShort}.
+Instead of having {ProjectShort} create custom resource requests, you can use your own deployments of these applications or other compatible applications.
+
+Use the observabilityStrategy property on the {ProjectShort} object to specify which type of obvservability components will be deployed.
+
+The following values supported:
+
+| value | meaning |
+|-------|---------|
+| use_redhat | Only Red Hat supported components are requested by Service Telemetry Operator. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elasticsearch Operator or Grafana Operator. |
+| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the STF object) |
+| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the STF object) |
+| none | No storage or alerting components are deployed |
+
+Newly deployed STF environments as of 1.5.3 default to `use_redhat`.
+
+Existing STF deployments created before 1.5.3 default to `use_community`.
+
+To migrate an existing STF deployment to `use_redhat`, see https://access.redhat.com/articles/7011708[Migrating STF to fully supported operators]
