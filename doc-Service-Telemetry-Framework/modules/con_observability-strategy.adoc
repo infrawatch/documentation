@@ -13,7 +13,7 @@ The following values are available:
 | value | meaning |
 |-------|---------|
 | use_redhat | Only Red Hat supported components are requested by {ProjectShort}. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elasticsearch Operator or Grafana Operator. |
-| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the STF object) |
+| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
 | use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the STF object) |
 | none | No storage or alerting components are deployed |
 
