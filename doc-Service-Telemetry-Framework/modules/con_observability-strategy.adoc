@@ -8,7 +8,7 @@ Instead of having {ProjectShort} create custom resource requests, you can use yo
 
 Use the observabilityStrategy property on the {ProjectShort} object to specify which type of obvservability components will be deployed.
 
-The following values supported:
+The following values are available:
 
 | value | meaning |
 |-------|---------|
