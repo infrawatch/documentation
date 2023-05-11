@@ -59,10 +59,10 @@ $(DEST_HTML_170): $(SOURCES)
 	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=17.0 -b xhtml5 -d book -o $@ $<
 
 $(DEST_HTML_162): $(SOURCES)
-	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=16.2 -b xhtml5 -d book -o $@ $<
+	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=16.2 -a osp_curr_ver=16.2 -b xhtml5 -d book -o $@ $<
 
 $(DEST_HTML_13): $(SOURCES)
-	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=13 -b xhtml5 -d book -o $@ $<
+	asciidoctor -a source-highlighter=highlightjs -a highlightjs-languages="yaml,bash" -a highlightjs-theme="monokai" --failure-level WARN -a build=$(BUILD) -a vernum=13 -a osp_curr_ver=13 -b xhtml5 -d book -o $@ $<
 
 $(DEST_PDF): $(SOURCES) $(IMAGES)
 	asciidoctor-pdf -a build=$(BUILD) -d book -o $@ $<

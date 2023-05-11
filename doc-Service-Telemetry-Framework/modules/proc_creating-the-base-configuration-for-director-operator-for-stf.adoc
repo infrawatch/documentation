@@ -1,0 +1,107 @@
+:_content-type: PROCEDURE
+
+[id="creating-the-base-configuration-for-director-operator-for-stf_{context}"]
+= Creating the base configuration for director Operator for {ProjectShort}
+
+Edit the `heat-env-config-deploy` ConfigMap to add the base {Project} ({ProjectShort}) configuration to the overcloud nodes.
+
+.Procedure
+
+. Login to your {OpenShift} environment and change to the project that hosts your {OpenStack} ({OpenStackShort}) deployment.
+
+. Open the `heat-env-config-deploy` ConfigMap for editing:
++
+[source,bash,options="nowrap",subs="verbatim"]
+----
+$ oc edit heat-env-config-deploy
+----
+
+. Add the `enable-stf.yaml` configuration to the `heat-env-config-deploy` ConfigMap, save your edits and close the file:
++
+.enable-stf.yaml
+[source,yaml,options="nowrap"]
+----
+apiVersion: v1
+data:
+  [...]
+  enable-stf.yaml: |
+    parameter_defaults:
+        # only send to STF, not other publishers
+        EventPipelinePublishers: []
+        PipelinePublishers: []
+
+        # manage the polling and pipeline configuration files for Ceilometer agents
+        ManagePolling: true
+        ManagePipeline: true
+
+        # enable Ceilometer metrics and events
+        CeilometerQdrPublishMetrics: true
+        CeilometerQdrPublishEvents: true
+
+        # enable collection of API status
+        CollectdEnableSensubility: true
+        CollectdSensubilityTransport: amqp1
+
+        # enable collection of containerized service metrics
+        CollectdEnableLibpodstats: true
+
+        # set collectd overrides for higher telemetry resolution and extra plugins
+        # to load
+        CollectdConnectionType: amqp1
+        CollectdAmqpInterval: 5
+        CollectdDefaultPollingInterval: 5
+        CollectdExtraPlugins:
+        - vmem
+
+        # set standard prefixes for where metrics and events are published to QDR
+        MetricsQdrAddresses:
+        - prefix: 'collectd'
+          distribution: multicast
+        - prefix: 'anycast/ceilometer'
+          distribution: multicast
+
+        ExtraConfig:
+           ceilometer::agent::polling::polling_interval: 30
+           ceilometer::agent::polling::polling_meters:
+           - cpu
+           - disk.*
+           - ip.*
+           - image.*
+           - memory
+           - memory.*
+           - network.*
+           - perf.*
+           - port
+           - port.*
+           - switch
+           - switch.*
+           - storage.*
+           - volume.*
+
+           # to avoid filling the memory buffers if disconnected from the message bus
+           # note: this may need an adjustment if there are many metrics to be sent.
+           collectd::plugin::amqp1::send_queue_limit: 5000
+
+           # receive extra information about virtual memory
+           collectd::plugin::vmem::verbose: true
+
+           # provide name and uuid in addition to hostname for better correlation
+           # to ceilometer data
+           collectd::plugin::virt::hostname_format: "name uuid hostname"
+
+           # provide the human-friendly name of the virtual instance
+           collectd::plugin:ConfigMap :virt::plugin_instance_format: metadata
+
+           # set memcached collectd plugin to report its metrics by hostname
+           # rather than host IP, ensuring metrics in the dashboard remain uniform
+           collectd::plugin::memcached::instances:
+             local:
+               host: "%{hiera('fqdn_canonical')}"
+               port: 11211
+----
+
+[role="_additional-resources"]
+.Additional resources
+* For more information about configuring the `enable-stf.yaml` environment file, see xref:creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration[]
+
+* For more information about adding heat templates to a {OpenStack} director Operator deployment, see link:{defaultURL}/rhosp_director_operator_for_openshift_container_platform/assembly_adding-heat-templates-and-environment-files-with-the-director-operator_rhosp-director-operator#doc-wrapper[Adding heat templates and environment files with the director Operator]
