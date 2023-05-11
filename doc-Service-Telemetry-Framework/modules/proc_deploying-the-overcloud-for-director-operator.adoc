@@ -3,7 +3,7 @@
 [id="deploying-the-overcloud-for-director-operator_{context}"]
 = Deploying the overcloud for director Operator
 
-Deploy or update the overcloud with the required environment files so that data is collected and transmitted to {Project} ({ProjectShort}) .
+Deploy or update the overcloud with the required environment files so that data is collected and transmitted to {Project} ({ProjectShort}).
 
 .Procedure
 
