@@ -41,6 +41,6 @@ spec:
 
 [role="_additional-resources"]
 .Additional resources
-* For more information about getting the latest `OpenStackConfigVersion`, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/assembly_configuring-overcloud-software-with-the-director-operator_rhosp-director-operator#proc_obtain-the-latest-openstackconfigversion.adoc_assembly_configuring-overcloud-software-with-the-director-operator[Obtain the latest OpenStackConfigVersion]
+* For more information about getting the latest `OpenStackConfigVersion`, see link:{defaultURL}/rhosp_director_operator_for_openshift_container_platform/assembly_configuring-overcloud-software-with-the-director-operator_rhosp-director-operator#proc_obtain-the-latest-openstackconfigversion.adoc_assembly_configuring-overcloud-software-with-the-director-operator[Obtain the latest OpenStackConfigVersion]
 
 * For more information about applying the overcloud configuration with director Operator, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/assembly_configuring-overcloud-software-with-the-director-operator_rhosp-director-operator#proc_applying-overcloud-configuration-with-the-director-operator_assembly_configuring-overcloud-software-with-the-director-operator[Applying overcloud configuration with the director Operator]
