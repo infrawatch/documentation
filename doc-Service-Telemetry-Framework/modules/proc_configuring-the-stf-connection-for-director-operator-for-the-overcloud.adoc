@@ -61,6 +61,6 @@ data:
 
 [role="_additional-resources"]
 .Additional resources
-* For more information about the `stf-connectors.yaml` environment file, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/service_telemetry_framework_1.5/assembly-completing-the-stf-configuration_assembly#configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[Configuring the STF connection for the overcloud]
+* For more information about the `stf-connectors.yaml` environment file, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[].
 
 * For more information about adding heat templates to a {OpenStack} director Operator deployment, see link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/rhosp_director_operator_for_openshift_container_platform/assembly_adding-heat-templates-and-environment-files-with-the-director-operator_rhosp-director-operator#doc-wrapper[Adding heat templates and environment files with the director Operator]
