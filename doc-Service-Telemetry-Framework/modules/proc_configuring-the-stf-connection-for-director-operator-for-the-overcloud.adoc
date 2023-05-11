@@ -16,7 +16,7 @@ Edit the `heat-env-config-deploy` ConfigMap to create a connection from {OpenSta
 $ oc edit heat-env-config-deploy
 ----
 
-. Add your `stf-connectors.yaml` configuration to the `heat-env-config-deploy ConfigMap`, appropriate to your environment, save your edits and close the file:
+. Add your `stf-connectors.yaml` configuration to the `heat-env-config-deploy` ConfigMap, appropriate to your environment, save your edits and close the file:
 +
 .stf-connectors.yaml
 [source,yaml,options="nowrap"]
