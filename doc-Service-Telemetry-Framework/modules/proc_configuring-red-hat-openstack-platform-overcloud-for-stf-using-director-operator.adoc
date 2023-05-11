@@ -5,7 +5,7 @@
 When you deploy the {OpenStack} ({OpenStackShort}) overcloud deployment using director Operator, you must configure the data collectors and the data transport to {Project} ({ProjectShort}).
 
 .Prerequisites
-* You are familiar with deploying {OpenStackShort} with the {OpenStackShort} director Operator.
+* You are familiar with deploying and managing {OpenStackShort} with the {OpenStackShort} director Operator.
 
 .Procedure
 
