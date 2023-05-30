@@ -4,7 +4,7 @@
 [role="_abstract"]
 To ensure that {MessageBus} router connections from {OpenStack} ({OpenStackShort}) to {Project} ({ProjectShort}) are unique and do not conflict, configure the `CloudDomain` parameter.
 
-WARNING: Ensure that you do not change host or domain names in an existing deployment. Host and domain name configuration is supported on new clouds only.
+WARNING: Ensure that you do not change host or domain names in an existing deployment. Host and domain name configuration is supported in new cloud deployments only.
 
 .Procedure
 
