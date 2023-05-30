@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.18"/>
+<meta name="generator" content="Asciidoctor 2.0.20"/>
 <meta name="author" content="OpenStack Documentation Team"/>
 <title>Service Telemetry Framework 1.5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
@@ -209,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -394,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -2113,7 +2110,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components, and you must increase the interval to a larger value, such as <code>300</code>. Increasing the value to a longer polling interval results in less telemetry resolution in STF.</p>
+<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of <code>30</code> seconds, that you specify in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components. You must increase the interval to a larger value, such as <code>300</code>, which results in less telemetry resolution in STF.</p>
 </div>
 </td>
 </tr>
@@ -2225,31 +2222,6 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. You configure the topic addresses for Ceilometer and collectd in this file to match the defaults in STF. For more information about customizing topics and cloud configuration, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
-</li>
-<li>
-<p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
-<li>
-<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Set <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. The format of this value is <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
-</li>
-<li>
-<p>Set <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The format of this value is <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd events. The format of this value is <code>collectd/cloud1-notify</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. The format of this value is <code>collectd/cloud1-telemetry</code>.</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -2289,6 +2261,31 @@ parameter_defaults:
             presettle: false</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Set <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. The format of this value is <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
+</li>
+<li>
+<p>Set <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The format of this value is <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd events. The format of this value is <code>collectd/cloud1-notify</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. The format of this value is <code>collectd/cloud1-telemetry</code>.</p>
 </li>
 </ul>
 </div>
@@ -2883,7 +2880,7 @@ If you do not want to deploy any Smart Gateways, define an empty clouds list by 
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
+The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually-created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
 </td>
 </tr>
 </table>
@@ -2928,6 +2925,18 @@ spec:
 <h4 id="setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</h4>
 <div class="paragraph _abstract">
 <p>To ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router router connections from OpenStack (OSP) to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Ensure that you do not change host or domain names in an existing deployment. Host and domain name configuration is supported in new cloud deployments only.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3001,28 +3010,6 @@ spec:
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code>, and <code>CollectdAmqpInstances</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
-</li>
-<li>
-<p>Replace the <code>MetricsQdrConnectors.host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
-<li>
-<p>Set the <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
-</li>
-<li>
-<p>Set the <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
-</li>
-<li>
-<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</p>
-</li>
-<li>
-<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -3062,6 +3049,28 @@ parameter_defaults:
             presettle: false</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
+</li>
+<li>
+<p>Replace the <code>MetricsQdrConnectors.host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
+</li>
+<li>
+<p>Set the <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
+</li>
+<li>
+<p>Set the <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
+</li>
+<li>
+<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</p>
+</li>
+<li>
+<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</p>
 </li>
 </ul>
 </div>
@@ -5680,7 +5689,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-05-11 13:12:24 UTC
+Last updated 2023-05-30 19:44:11 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
