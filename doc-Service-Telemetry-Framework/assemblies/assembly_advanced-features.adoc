@@ -11,7 +11,6 @@ You can use the following operational features to provide additional functionali
 * xref:alerts_assembly-advanced-features[Configuring alerts]
 * xref:configuring-snmp-traps_assembly-advanced-features[Configuring SNMP traps]
 * xref:high-availability_assembly-advanced-features[Configuring high availability]
-* xref:ephemeral-storage_assembly-advanced-features[Configuring ephemeral storage]
 * xref:observability-strategy-in-service-telemetry-framework_assembly-advanced-features[Configuring an alternate observability strategy]
 
 ifdef::include_when_16[]
@@ -55,12 +54,6 @@ endif::include_when_13,include_when_17[]
 //High availability
 include::../modules/con_high-availability.adoc[leveloffset=+1]
 include::../modules/proc_configuring-high-availability.adoc[leveloffset=+2]
-
-//Configuring ephemeral storage
-include::../modules/con_ephemeral-storage.adoc[leveloffset=+1]
-ifeval::["{build}" == "upstream"]
-include::../modules/proc_configuring-ephemeral-storage.adoc[leveloffset=+2]
-endif::[]
 
 //Observability strategy
 include::../modules/con_observability-strategy.adoc[leveloffset=+1]
