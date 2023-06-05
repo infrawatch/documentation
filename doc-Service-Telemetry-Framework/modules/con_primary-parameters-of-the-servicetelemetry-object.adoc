@@ -187,20 +187,20 @@ spec:
       metrics:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
+            subscriptionAddress: collectd/cloud1-telemetry
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
 ifndef::include_when_13[]
           - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
+            subscriptionAddress: sensubility/cloud1-telemetry
             debugEnabled: false
 endif::[]
       events:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/notify
+            subscriptionAddress: collectd/cloud1-notify
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
 ----
 
 ifndef::include_when_13[]
