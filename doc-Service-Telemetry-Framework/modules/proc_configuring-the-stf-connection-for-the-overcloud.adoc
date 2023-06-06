@@ -86,7 +86,7 @@ endif::[]
 
 [NOTE]
 ====
-When defining the topics for collectd and Ceilometer, the value provided is transposed into the full topic that the Smart Gateway client will listen for messages.
+When you define the topics for collectd and Ceilometer, the value you provide is transposed into the full topic that the Smart Gateway client uses to listen for messages.
 
 Ceilometer topic values are transposed into the topic address `anycast/ceilometer/<TOPIC>.sample` and collectd topic values are transposed into the topic address `collectd/<TOPIC>`.
 ifndef::include_when_13[The value for sensubility is the full topic path and has no transposition from topic value to topic address.]
