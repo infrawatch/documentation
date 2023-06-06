@@ -76,10 +76,20 @@ ifdef::include_when_13,include_when_17[]
 * Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
 endif::include_when_13,include_when_17[]
 * Replace the `host` sub-parameter of `MetricsQdrConnectors` with the value that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
-* Set `CeilometerQdrEventsConfig.topic` to define the topic for Ceilometer events. The format of this value is `anycast/ceilometer/cloud1-event.sample`.
-* Set `CeilometerQdrMetricsConfig.topic` to define the topic for Ceilometer metrics. The format of this value is `anycast/ceilometer/cloud1-metering.sample`.
-* Set `CollectdAmqpInstances` to define the topic for collectd events. The format of this value is `collectd/cloud1-notify`.
-* Set `CollectdAmqpInstances` to define the topic for collectd metrics. The format of this value is `collectd/cloud1-telemetry`.
+* Set `topic` value of `CeilometerQdrEventsConfig` to define the topic for Ceilometer events. The value is a unique topic idenifier for the cloud such as `cloud1-event`.
+* Set `topic` value of `CeilometerQdrMetricsConfig.topic` to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as `cloud1-metering`.
+* Set `CollectdAmqpInstances` sub-paramter to define the topic for collectd events. The section name is a unique topic identifier for the cloud such as `cloud1-notify`.
+* Set `CollectdAmqpInstances` sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as `cloud1-telemetry`.
 ifndef::include_when_13[]
-* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The format of this value is `sensubility/cloud1-telemetry`.
+* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The value is a unique topic identifier for the cloud such as `sensubility/cloud1-telemetry`.
 endif::[]
+
+[NOTE]
+====
+When you define the topics for collectd and Ceilometer, the value you provide is transposed into the full topic that the Smart Gateway client uses to listen for messages.
+
+Ceilometer topic values are transposed into the topic address `anycast/ceilometer/<TOPIC>.sample` and collectd topic values are transposed into the topic address `collectd/<TOPIC>`.
+ifndef::include_when_13[The value for sensubility is the full topic path and has no transposition from topic value to topic address.]
+
+For an example of a cloud configuration in the `ServiceTelemetry` object referring to the full topic address, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+====
