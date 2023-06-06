@@ -120,7 +120,7 @@ When defining the topics for collectd and Ceilometer, the value provided is tran
 Ceilometer topic values are transposed into the topic address `anycast/ceilometer/<TOPIC>.sample` and collectd topic values are transposed into the topic address `collectd/<TOPIC>`.
 ifndef::include_when_13[The value for sensubility is the full topic path and has no transposition from topic value to topic address.]
 
-For an example that shows a cloud configuration in the `ServiceTelemetry` object referring to the full topic address, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+For an example of a cloud configuration in the `ServiceTelemetry` object referring to the full topic address, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 ====
 
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
