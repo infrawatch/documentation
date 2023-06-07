@@ -29,7 +29,7 @@ Deploy or update the overcloud with the required environment files so that data 
  -e /home/stack/stf-connectors.yaml
 ----
 
-* Include the `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to STF.
-* Include the `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to STF message bus routers.
+* Include the `ceilometer-write-qdr.yaml` file to ensure that Ceilometer telemetry and events are sent to {ProjectShort}.
+* Include the `qdr-edge-only.yaml` file to ensure that the message bus is enabled and connected to {ProjectShort} message bus routers.
 * Include the `enable-stf.yaml` environment file to ensure that the defaults are configured correctly.
-* Include the `stf-connectors.yaml` environment file to define the connection to STF.
+* Include the `stf-connectors.yaml` environment file to define the connection to {ProjectShort}.
