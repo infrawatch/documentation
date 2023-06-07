@@ -17,7 +17,7 @@ Deploy or update the overcloud with the required environment files so that data 
 (undercloud) [stack@undercloud-0 ~]$
 ----
 
-. Add your data collection and AMQ Interconnect environment files to the stack with your other environment files and deploy the overcloud:
+. Add your data collection and {MessageBus} environment files to the stack with your other environment files and deploy the overcloud:
 +
 [source,bash]
 ----
