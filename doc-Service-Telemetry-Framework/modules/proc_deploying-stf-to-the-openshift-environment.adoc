@@ -201,7 +201,7 @@ prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0
 +
 [WARNING]
 ====
-Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship. Red Hat provides no support for certified  Operators. Supported by the ISV.
+Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.
 
 https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
 ====
