@@ -197,7 +197,7 @@ NAME                        DISPLAY               VERSION   REPLACES            
 prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded
 ----
 
-. If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, subscribe by using the certified-operators CatalogSource:
+. To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:
 +
 [WARNING]
 ====
