@@ -161,7 +161,7 @@ NAME                                 DISPLAY                                  VE
 amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded
 ----
 
-. If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, subscribe by using the community-operators CatalogSource:
+. To store metrics in Prometheus, you must enable the Prometheus Operator by using the community-operators CatalogSource:
 +
 [WARNING]
 ====
