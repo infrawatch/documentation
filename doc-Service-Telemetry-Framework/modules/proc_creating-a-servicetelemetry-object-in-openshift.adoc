@@ -52,8 +52,16 @@ spec:
     alertmanager:
       receivers:
         snmpTraps:
+          alertOidLabel: oid
+          community: public
           enabled: false
+          port: 162
+          retries: 5
           target: 192.168.24.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ''
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
       storage:
         persistent:
           pvcStorageRequest: 20G
@@ -62,68 +70,93 @@ spec:
   backends:
     events:
       elasticsearch:
-        enabled: false
+        certificates:
+          caCertDuration: 70080h
+          endpointCertDuration: 70080h
         storage:
           persistent:
             pvcStorageRequest: 20Gi
           strategy: persistent
+        enabled: false
         version: 7.16.1
     logs:
       loki:
-        enabled: false
-        flavor: 1x.extra-small
-        replicationFactor: 1
         storage:
           objectStorageSecret: test
           storageClass: standard
+        enabled: false
+        flavor: 1x.extra-small
+        replicationFactor: 1
     metrics:
       prometheus:
-        enabled: true
-        scrapeInterval: 10s
         storage:
           persistent:
             pvcStorageRequest: 20G
           retention: 24h
           strategy: persistent
+        enabled: true
+        scrapeInterval: 10s
   clouds:
-  - events:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-notify
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
-    metrics:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-telemetry
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+    - events:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-notify
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+      metrics:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-telemetry
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
 ifndef::include_when_13[]
-      - collectorType: sensubility
-        debugEnabled: false
-        subscriptionAddress: sensubility/cloud1-telemetry
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: sensubility
+            debugEnabled: false
+            subscriptionAddress: sensubility/cloud1-telemetry
 endif::[]
-    name: cloud1
+      name: cloud1
   graphing:
-    enabled: false
     grafana:
       adminPassword: secret
       adminUser: root
-      baseImage: docker.io/grafana/grafana:latest
       disableSignoutMenu: false
       ingressEnabled: false
+    enabled: false
   highAvailability:
     enabled: false
-  observabilityStrategy: use_community
   transports:
     qdr:
-      enabled: true
+      certificates:
+        caCertDuration: 70080h
+        endpointCertDuration: 70080h
       web:
         enabled: false
+      enabled: true
+  observabilityStrategy: use_community
 ----
 +
 To override these defaults, add the configuration to the `spec` parameter.
