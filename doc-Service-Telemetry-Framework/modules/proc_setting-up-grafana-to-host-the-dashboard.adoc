@@ -2,7 +2,7 @@
 = Configuring Grafana to host the dashboard
 
 [role="_abstract"]
-Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
+Grafana is not included in the default {Project} ({ProjectShort}) deployment so you must deploy the Grafana Operator from community-operators CatalogSource. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
 
 ifdef::include_16[The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. For more information about how to override the Grafana container image, see xref:overriding-the-default-grafana-container-image_assembly-advanced-features[].]
 
@@ -16,7 +16,14 @@ ifdef::include_16[The dashboards in {ProjectShort} require features that are ava
 $ oc project service-telemetry
 ----
 
-. Deploy the Grafana operator:
+. Subscribe to the Grafana Operator by using the community-operators CatalogSource:
++
+[WARNING]
+====
+Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
+
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
 +
 [source,yaml]
 ----
@@ -30,7 +37,7 @@ spec:
   channel: v4
   installPlanApproval: Automatic
   name: grafana-operator
-  source: operatorhubio-operators
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
@@ -42,7 +49,7 @@ EOF
 $ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
 NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1   Succeeded
+grafana-operator.v4.10.1   Grafana Operator   4.10.1    grafana-operator.v4.10.0   Succeeded
 ----
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`. Optionally, set the  value of `graphing.grafana.baseImage` to the Grafana workload container image that will be deployed:
