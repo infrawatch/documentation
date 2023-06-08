@@ -57,12 +57,12 @@ grafanadashboard.integreatly.org/memcached-dashboard-1 created
 ----
 $ oc get grafanadashboards
 
-NAME                   AGE
-memcached-dashboard-1      115s
-rhos-cloud-dashboard-1     2m12s
-rhos-cloudevents-dashboard   2m6s
-rhos-dashboard-1           2m17s
-virtual-machine-view-1     2m
+NAME                         AGE
+memcached-dashboard-1        7s
+rhos-cloud-dashboard-1       23s
+rhos-cloudevents-dashboard   18s
+rhos-dashboard-1             29s
+virtual-machine-view-1       13s
 ----
 
 . Retrieve the Grafana route address:
