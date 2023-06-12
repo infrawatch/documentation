@@ -24,11 +24,11 @@
 = Getting CA certificate from {Project} for overcloud configuration
 
 [role="_abstract"]
-To connect your {OpenStack} overcloud to {Project} ({ProjectShort}), retrieve the CA certificate of {MessageBus} that runs within {Project} and use the certificate in the {OpenStack} configuration.
+To connect your {OpenStack} ({OpenStackShort}) overcloud to {Project} ({ProjectShort}), retrieve the CA certificate of {MessageBus} that runs within {ProjectShort} and use the certificate in {OpenStackShort} configuration.
 
 .Procedure
 
-. View a list of available certificates in {Project}:
+. View a list of available certificates in {ProjectShort}:
 +
 [source,bash,options="nowrap",subs="verbatim"]
 ----

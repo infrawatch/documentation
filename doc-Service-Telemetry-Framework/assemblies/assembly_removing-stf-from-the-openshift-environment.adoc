@@ -11,11 +11,15 @@ Remove {Project} ({ProjectShort}) from an {OpenShift} environment if you no long
 To remove {ProjectShort} from the {OpenShift} environment, you must perform the following tasks:
 
 . Delete the namespace.
+ifeval::["{build}" == "upstream"]
 . Remove the catalog source.
+endif::[]
 . Remove the cert-manager Operator.
 
 include::../modules/proc_deleting-the-namespace.adoc[leveloffset=+1]
+ifeval::["{build}" == "upstream"]
 include::../modules/proc_removing-the-catalogsource.adoc[leveloffset=+1]
+endif::[]
 include::../modules/proc_removing-the-cert-manager-operator.adoc[leveloffset=+1]
 
 //reset the context
