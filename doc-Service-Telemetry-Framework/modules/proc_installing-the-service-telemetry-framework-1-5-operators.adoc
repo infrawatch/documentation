@@ -9,7 +9,7 @@
 [id="installing-the-service-telemetry-framework-1-5-operators_{context}"]
 = Installing the {Project} 1.5 Operators
 
-Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} 4.10 environment. {ProjectShort} 1.5 only supports {OpenShift} 4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
+Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} environment. See xref:support-for-project_assembly-introduction-to-stf[] for more information about {ProjectShort} support status and life cycle.
 
 ifdef::include_when_13,include_when_17[]
 [NOTE]
@@ -35,7 +35,7 @@ $ oc project service-telemetry
 
 . Create a `namespace` for the `cert-manager` Operator:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: project.openshift.io/v1
@@ -50,7 +50,7 @@ EOF
 
 . Create an `OperatorGroup` for the cert-manager Operator:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -64,7 +64,7 @@ EOF
 
 . Subscribe to the `cert-manager` Operator with the `redhat-operators` CatalogSource:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -95,7 +95,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
