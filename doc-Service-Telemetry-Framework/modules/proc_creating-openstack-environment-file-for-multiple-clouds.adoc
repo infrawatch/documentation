@@ -41,7 +41,7 @@ ifdef::include_when_13,include_when_17[* You have retrieved the CA certificate f
 
 .Procedure
 
-. Log in to the {OpenStack} undercloud as the `stack` user.
+. Log in to the undercloud host as the `stack` user.
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 
@@ -125,13 +125,13 @@ For an example of a cloud configuration in the `ServiceTelemetry` object referri
 
 . Ensure that the naming convention in the `stf-connectors.yaml` file aligns with the `spec.bridge.amqpUrl` field in the Smart Gateway configuration. For example, configure the `CeilometerQdrEventsConfig.topic` field to a value of `cloud1-event`.
 
-. Source the authentication file:
+. Log in to the undercloud host as the `stack` user.
+
+. Source the `stackrc` undercloud credentials file:
 +
 [source,bash]
 ----
-[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$
+$ source stackrc
 ----
 
 . Include the `stf-connectors.yaml` file and unique domain name environment file `hostnames.yaml` in the `openstack overcloud deployment` command, with any other environment files relevant to your environment:
@@ -139,20 +139,15 @@ For an example of a cloud configuration in the `ServiceTelemetry` object referri
 [WARNING]
 If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstances` parameter, data publishes to the custom and default topics. In a multiple cloud environment, the configuration of the `resource_registry` parameter in the `stf-connectors.yaml` file loads the collectd service.
 +
-// valid use of +quotes subs for rendering emphasis
-
-+
-[source,bash,options="nowrap",subs="+quotes"]
-
+[source,bash,options="nowrap"]
 ----
-(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file _<...other_environment_files...>_ \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/hostnames.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml
+(undercloud)$ openstack overcloud deploy --templates \
+-e [your environment files] \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+-e /home/stack/hostnames.yaml \
+-e /home/stack/enable-stf.yaml \
+-e /home/stack/stf-connectors.yaml
 ----
 
 . Deploy the {OpenStack} overcloud.
