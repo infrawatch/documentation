@@ -14,7 +14,7 @@ endif::include_when_13,include_when_17[]
 // The following configuration should match the contents in modules/proc_creating-openstack-environment-file-for-multiple-clouds.adoc. If you have changes to make, please make the same changes to both files.
 .Procedure
 
-. Log in to the {OpenStackShort} undercloud as the `stack` user.
+. Log in to the undercloud host as the `stack` user.
 
 . Create a configuration file called `stf-connectors.yaml` in the `/home/stack` directory.
 
