@@ -151,7 +151,7 @@ spec:
 EOF
 ----
 
-. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.10 displays a phase of `Succeeded`:
+. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.x displays a phase of `Succeeded`:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
