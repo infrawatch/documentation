@@ -1072,6 +1072,9 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <li>
 <p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
+<li>
+<p>For more information about Operator catalogs, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-rh-catalogs.html"><em>Red Hat-provided Operator catalogs</em></a>.</p>
+</li>
 </ul>
 </div>
 <div class="sect2">
@@ -1248,7 +1251,7 @@ amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.
 </div>
 </li>
 <li>
-<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:</p>
+<p>To store metrics in Prometheus, you must enable the Prometheus Operator by using the community-operators CatalogSource:</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1256,7 +1259,12 @@ amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, Prometheus Operator, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Grafana, and their Operators.
+<div class="paragraph">
+<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -1265,34 +1273,15 @@ Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#1
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
-spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your OpenShift environment:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: rhods-prometheus-operator
+  name: prometheus-operator
   namespace: service-telemetry
 spec:
   channel: beta
   installPlanApproval: Automatic
-  name: rhods-prometheus-operator
-  source: redhat-operators
+  name: prometheus
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -1302,15 +1291,32 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Prometheus <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/rhods-prometheus-operator.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
 
-NAME                               DISPLAY               VERSION   REPLACES   PHASE
-rhods-prometheus-operator.4.10.0   Prometheus Operator   4.10.0               Succeeded</code></pre>
+NAME                        DISPLAY               VERSION   REPLACES                    PHASE
+prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your OpenShift environment:</p>
+<p>To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
@@ -1335,8 +1341,8 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
-elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded</code></pre>
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1387,12 +1393,12 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
 NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
-amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
-elasticsearch-eck-operator-certified.v2.6.2   Elasticsearch (ECK) Operator                  2.6.2            elasticsearch-eck-operator-certified.v2.6.1   Succeeded
+amq7-interconnect-operator.v1.10.15           Red Hat Integration - AMQ Interconnect        1.10.15          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator                  2.8.0            elasticsearch-eck-operator-certified.v2.7.0   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
-rhods-prometheus-operator.4.10.0              Prometheus Operator                           4.10.0                                                         Succeeded
-service-telemetry-operator.v1.5.1678301890    Service Telemetry Operator                    1.5.1678301890                                                 Succeeded
-smart-gateway-operator.v5.0.1678301890        Smart Gateway Operator                        5.0.1678301890                                                 Succeeded</code></pre>
+prometheusoperator.0.56.3                     Prometheus Operator                           0.56.3           prometheusoperator.0.47.0                     Succeeded
+service-telemetry-operator.v1.5.1680516659    Service Telemetry Operator                    1.5.1680516659                                                 Succeeded
+smart-gateway-operator.v5.0.1680516659        Smart Gateway Operator                        5.0.1680516659                                                 Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1455,8 +1461,16 @@ spec:
     alertmanager:
       receivers:
         snmpTraps:
+          alertOidLabel: oid
+          community: public
           enabled: false
+          port: 162
+          retries: 5
           target: 192.168.24.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ''
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
       storage:
         persistent:
           pvcStorageRequest: 20G
@@ -1465,63 +1479,84 @@ spec:
   backends:
     events:
       elasticsearch:
-        enabled: false
+        certificates:
+          caCertDuration: 70080h
+          endpointCertDuration: 70080h
         storage:
           persistent:
             pvcStorageRequest: 20Gi
           strategy: persistent
+        enabled: false
         version: 7.16.1
     logs:
       loki:
-        enabled: false
-        flavor: 1x.extra-small
-        replicationFactor: 1
         storage:
           objectStorageSecret: test
           storageClass: standard
+        enabled: false
+        flavor: 1x.extra-small
+        replicationFactor: 1
     metrics:
       prometheus:
-        enabled: true
-        scrapeInterval: 10s
         storage:
           persistent:
             pvcStorageRequest: 20G
           retention: 24h
           strategy: persistent
+        enabled: true
+        scrapeInterval: 10s
   clouds:
-  - events:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-notify
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
-    metrics:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-telemetry
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
-    name: cloud1
+    - events:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-notify
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+      metrics:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-telemetry
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+      name: cloud1
   graphing:
-    enabled: false
     grafana:
       adminPassword: secret
       adminUser: root
-      baseImage: docker.io/grafana/grafana:latest
       disableSignoutMenu: false
       ingressEnabled: false
+    enabled: false
   highAvailability:
     enabled: false
-  observabilityStrategy: use_community
   transports:
     qdr:
-      enabled: true
+      certificates:
+        caCertDuration: 70080h
+        endpointCertDuration: 70080h
       web:
-        enabled: false</code></pre>
+        enabled: false
+      enabled: true
+  observabilityStrategy: use_community</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3196,7 +3231,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local STF deployment.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment, so you must deploy the Grafana Operator from community-operators CatalogSource. If you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local STF deployment.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3213,7 +3248,24 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 </li>
 <li>
-<p>Deploy the Grafana operator:</p>
+<p>Subscribe to the Grafana Operator by using the community-operators CatalogSource:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
@@ -3226,7 +3278,7 @@ spec:
   channel: v4
   installPlanApproval: Automatic
   name: grafana-operator
-  source: operatorhubio-operators
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -3239,7 +3291,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
 NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1   Succeeded</code></pre>
+grafana-operator.v4.10.1   Grafana Operator   4.10.1    grafana-operator.v4.10.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -4890,15 +4942,6 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 </div>
 </li>
-<li>
-<p>If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
-catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre>
-</div>
-</div>
-</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -5412,7 +5455,7 @@ No resources found in service-telemetry namespace.</code></pre>
 <div class="sect2">
 <h3 id="installing-the-service-telemetry-framework-1-5-operators_upgrading-service-telemetry-framework-to-version-1-5">Installing the Service&#160;Telemetry&#160;Framework 1.5 Operators</h3>
 <div class="paragraph">
-<p>Install the Service&#160;Telemetry&#160;Framework (STF) 1.5 Operators and the Certificate Manager for OpenShift Operator on your OpenShift 4.10 environment. STF 1.5 only supports OpenShift 4.10. Installing STF into disconnected or restricted network environments is unsupported.</p>
+<p>Install the Service&#160;Telemetry&#160;Framework (STF) 1.5 Operators and the Certificate Manager for OpenShift Operator on your OpenShift environment. See <a href="#support-for-project_assembly-introduction-to-stf">[support-for-project_assembly-introduction-to-stf]</a> for more information about STF support status and life cycle.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -5456,7 +5499,7 @@ For more information about upgrading OpenShift, see <a href="#upgrading-red-hat-
 <p>Create a <code>namespace</code> for the <code>cert-manager</code> Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
@@ -5472,7 +5515,7 @@ EOF</code></pre>
 <p>Create an <code>OperatorGroup</code> for the cert-manager Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -5487,7 +5530,7 @@ EOF</code></pre>
 <p>Subscribe to the <code>cert-manager</code> Operator with the <code>redhat-operators</code> CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -5521,7 +5564,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 <p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -5622,7 +5665,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-09 15:04:45 UTC
+Last updated 2023-06-12 12:40:22 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
