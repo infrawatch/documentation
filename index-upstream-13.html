@@ -2106,7 +2106,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>enable-stf.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -2223,7 +2223,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -2330,49 +2330,43 @@ parameter_defaults:
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source ~/stackrc</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add the following files to your OSP TripleO deployment to configure data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<p>Add your data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router environment files to the stack with your other environment files and deploy the overcloud:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+ -e [your environment files] \
+ -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+ -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+ -e /home/stack/enable-stf.yaml \
+ -e /home/stack/stf-connectors.yaml</code></pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF</p>
+<p>Include the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF.</p>
 </li>
 <li>
-<p>The <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers</p>
+<p>Include the <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers.</p>
 </li>
 <li>
-<p>The <code>enable-stf.yaml</code> environment file to ensure defaults are configured correctly</p>
+<p>Include the <code>enable-stf.yaml</code> environment file to ensure that the defaults are configured correctly.</p>
 </li>
 <li>
-<p>The <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
+<p>Include the <code>stf-connectors.yaml</code> environment file to define the connection to STF.</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Deploy the OSP overcloud:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml</code></pre>
-</div>
 </div>
 </li>
 </ol>
@@ -2573,15 +2567,13 @@ Router Addresses
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source ~/stackrc</code></pre>
 </div>
 </div>
 </li>
@@ -2589,7 +2581,7 @@ Router Addresses
 <p>Create the <code>disable-stf.yaml</code> environment file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">(undercloud) [stack@undercloud-0]$ cat &gt; $HOME/disable-stf.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ cat &gt; ~/disable-stf.yaml &lt;&lt;EOF
 ---
 resource_registry:
   OS::TripleO::Services::CeilometerAgentCentral: OS::Heat::None
@@ -2626,10 +2618,9 @@ EOF</code></pre>
 <p>Update the OSP overcloud. Ensure that you use the <code>disable-stf.yaml</code> file early in the list of environment files. By adding <code>disable-stf.yaml</code> early in the list, other environment files can override the configuration that would disable the service:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file /home/stack/disable-stf.yaml
-  --environment-file <em>&lt;other_environment_files&gt;</em> \</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+-e /home/stack/disable-stf.yaml \
+-e [your environment files]</code></pre>
 </div>
 </div>
 </li>
@@ -3031,7 +3022,7 @@ Ensure that you do not change host or domain names in an existing deployment. Ho
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -3130,12 +3121,13 @@ parameter_defaults:
 <p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.bridge.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source stackrc</code></pre>
 </div>
 </div>
 </li>
@@ -3155,14 +3147,13 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/hostnames.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+-e [your environment files] \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+-e /home/stack/hostnames.yaml \
+-e /home/stack/enable-stf.yaml \
+-e /home/stack/stf-connectors.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -5665,7 +5656,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-12 17:58:03 UTC
+Last updated 2023-06-12 18:22:30 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
