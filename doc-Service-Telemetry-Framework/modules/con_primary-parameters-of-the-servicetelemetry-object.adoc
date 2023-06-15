@@ -29,7 +29,7 @@ To enable Prometheus as a storage back end for metrics, you must configure the `
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+* Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -39,6 +39,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -68,7 +69,7 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-* Configure the `ServiceTelemetry` object:
+* Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -78,6 +79,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -96,7 +98,7 @@ To enable Elasticsearch as a storage back end for events, you must configure the
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+* Configure the `ServiceTelemetry` object with the `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -106,6 +108,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -135,7 +138,7 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-. Configure the `ServiceTelemetry` object:
+. Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -145,6 +148,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
