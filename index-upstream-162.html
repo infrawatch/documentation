@@ -1425,25 +1425,6 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To override a default value, define the parameter that you want to override. In this example, enable Elasticsearch by setting <code>enabled</code> to <code>true</code>:</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-EOF</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>Creating a <code>ServiceTelemetry</code> object with an empty <code>spec</code> parameter results in an STF deployment with the following default settings:</p>
 </div>
 <div class="listingblock white-space-pre">
@@ -5585,7 +5566,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-15 12:32:22 UTC
+Last updated 2023-06-15 18:08:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
