@@ -29,7 +29,7 @@ To enable Prometheus as a storage back end for metrics, you must configure the `
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
+* Configure the `ServiceTelemetry` object using the `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -69,7 +69,7 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-* Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
+* Configure the `ServiceTelemetry` object using the `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -98,7 +98,7 @@ To enable Elasticsearch as a storage back end for events, you must configure the
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object with the `oc edit stf default` command and make the following changes:
+* Configure the `ServiceTelemetry` object using the `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
@@ -138,7 +138,7 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-. Configure the `ServiceTelemetry` object using `oc edit stf default` command and make the following changes:
+. Configure the `ServiceTelemetry` object using the `oc edit stf default` command and make the following changes:
 +
 [source,yaml]
 ----
