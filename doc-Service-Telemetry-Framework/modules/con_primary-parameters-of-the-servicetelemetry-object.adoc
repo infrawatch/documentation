@@ -119,7 +119,7 @@ To enable Elasticsearch as a storage back end for events, you must configure the
 $ oc edit stf default
 ----
 
-. Configure the backends.events.elasticsearch.enabled parameter to `true`:
+. Set the value of the backends.events.elasticsearch.enabled parameter to `true`:
 +
 [source,yaml]
 ----
