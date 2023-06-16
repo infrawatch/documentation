@@ -1242,8 +1242,8 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
-NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
+NAME                                  DISPLAY                                  VERSION   REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.15   Red Hat Integration - AMQ Interconnect   1.10.15   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1288,7 +1288,7 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Prometheus <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
 
 NAME                        DISPLAY               VERSION   REPLACES                    PHASE
 prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded</code></pre>
@@ -1384,7 +1384,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate the Service Telemetry Operator and the dependent operators:</p>
+<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
@@ -1586,17 +1586,17 @@ If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
 
 NAME                                                      READY   STATUS    RESTARTS   AGE
-alertmanager-default-0                                    2/2     Running   0          17m
-default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
-default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
-default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
-default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
-elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
-interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
-prometheus-default-0                                      2/2     Running   1          17m
-prometheus-operator-6458b74d86-wbdqp                      1/1     Running   0          51m
-service-telemetry-operator-864646787c-hd9pm               1/1     Running   0          51m
-smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0          51m</code></pre>
+alertmanager-default-0                                    3/3     Running   0          4m7s
+default-cloud1-ceil-meter-smartgateway-669c6cdcf9-xvdvx   3/3     Running   0          3m46s
+default-cloud1-coll-meter-smartgateway-585855c59d-858rf   3/3     Running   0          3m46s
+default-cloud1-sens-meter-smartgateway-6f8dffb645-hhgkw   3/3     Running   0          3m46s
+default-interconnect-6994ff546-fx7jn                      1/1     Running   0          4m18s
+elastic-operator-9f44cdf6c-csvjq                          1/1     Running   0          19m
+interconnect-operator-646bfc886c-gx55n                    1/1     Running   0          25m
+prometheus-default-0                                      3/3     Running   0          3m33s
+prometheus-operator-54d644d8d7-wzdlh                      1/1     Running   0          20m
+service-telemetry-operator-54f6f7b6d-nfhwx                1/1     Running   0          18m
+smart-gateway-operator-9bbd7c56c-76w67                    1/1     Running   0          18m</code></pre>
 </div>
 </div>
 </li>
@@ -1637,17 +1637,25 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
 <div class="paragraph">
-<p>Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.</p>
+<p>You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. You can use the Service Telemetry Operator to create other custom resource objects that the Prometheus Operator and Elastic Cloud on Kubernetes Operator watch to create Prometheus and Elasticsearch workloads.</p>
 </div>
 <h6 id="_enabling_prometheus_as_a_storage_back_end_for_metrics" class="discrete">Enabling Prometheus as a storage back end for metrics</h6>
 <div class="paragraph">
 <p>To enable Prometheus as a storage back end for metrics, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.metrics.prometheus.enabled parameter to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1656,6 +1664,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -1663,7 +1672,7 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Prometheus</h6>
 <div class="paragraph">
@@ -1675,9 +1684,9 @@ spec:
 <div class="paragraph">
 <p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20G</code> (20 Gigabytes).</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
 <p>List the available storage classes:</p>
 <div class="listingblock">
@@ -1691,7 +1700,15 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 </div>
 </li>
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.metrics.prometheus.enabled parameter to <code>true</code> and the value of backends.metrics.prometheus.storage.strategy to <code>persistent</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1700,6 +1717,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -1712,17 +1730,25 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling Elasticsearch as a storage back end for events</h6>
 <div class="paragraph">
 <p>To enable Elasticsearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1731,6 +1757,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -1738,7 +1765,7 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Elasticsearch</h6>
 <div class="paragraph">
@@ -1766,7 +1793,15 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 </div>
 </li>
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code> and the value of backends.events.elasticsearch.storage.strategy to <code>persistent</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1775,6 +1810,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -5574,7 +5610,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-16 15:52:49 UTC
+Last updated 2023-06-16 20:13:10 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
