@@ -20,7 +20,7 @@ You can configure each of these configuration parameters to provide different fe
 
 Use the `backends` parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.
+You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. You can use the Service Telemetry Operator to create other custom resource objects that the Prometheus Operator and Elastic Cloud on Kubernetes Operator watch to create Prometheus and Elasticsearch workloads.
 
 [discrete]
 === Enabling Prometheus as a storage back end for metrics
@@ -29,7 +29,14 @@ To enable Prometheus as a storage back end for metrics, you must configure the `
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true`:
 +
 [source,yaml]
 ----
@@ -39,6 +46,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -57,7 +65,7 @@ Use the `pvcStorageRequest` parameter to define the minimum required volume size
 
 .Procedure
 
-* List the available storage classes:
+. List the available storage classes:
 +
 [source,bash,options="nowrap"]
 ----
@@ -68,7 +76,14 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true` and the value of backends.metrics.prometheus.storage.strategy to `persistent`:
 +
 [source,yaml]
 ----
@@ -78,6 +93,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -96,7 +112,14 @@ To enable Elasticsearch as a storage back end for events, you must configure the
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.events.elasticsearch.enabled parameter to `true`:
 +
 [source,yaml]
 ----
@@ -106,6 +129,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -135,7 +159,14 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-. Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.events.elasticsearch.enabled parameter to `true` and the value of backends.events.elasticsearch.storage.strategy to `persistent`:
 +
 [source,yaml]
 ----
@@ -145,6 +176,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
