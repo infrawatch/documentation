@@ -166,7 +166,7 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 $ oc edit stf default
 ----
 
-. Configure the backends.events.elasticsearch.storage parameters to configure and enable persistent storage:
+. Set the value of the backends.events.elasticsearch.enabled parameter to `true` and the value of backends.events.elasticsearch.storage.strategy to `persistent`:
 +
 [source,yaml]
 ----
