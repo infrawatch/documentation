@@ -2043,10 +2043,18 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to your OpenShift environment.</p>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
 </li>
 <li>
-<p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
+<p>Change to the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
@@ -5566,7 +5574,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-15 18:08:06 UTC
+Last updated 2023-06-16 15:52:49 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
