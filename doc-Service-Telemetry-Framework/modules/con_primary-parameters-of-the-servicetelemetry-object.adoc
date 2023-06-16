@@ -36,7 +36,7 @@ To enable Prometheus as a storage back end for metrics, you must configure the `
 $ oc edit stf default
 ----
 
-. Configure the backends.metrics.prometheus.enabled parameter to `true`:
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true`:
 +
 [source,yaml]
 ----
