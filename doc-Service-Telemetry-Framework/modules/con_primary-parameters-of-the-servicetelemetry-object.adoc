@@ -83,7 +83,7 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 $ oc edit stf default
 ----
 
-. Configure the backends.metrics.prometheus.storage parameters to configure and enable persistent storage:
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true` and the value of backends.metrics.prometheus.storage.strategy to `persistent`:
 +
 [source,yaml]
 ----
