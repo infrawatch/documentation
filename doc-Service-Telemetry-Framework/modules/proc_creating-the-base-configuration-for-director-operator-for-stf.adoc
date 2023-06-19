@@ -14,7 +14,7 @@ Edit the `heat-env-config-deploy` ConfigMap to add the base {Project} ({ProjectS
 $ oc project openstack
 ----
 
-. Open the `heat-env-config-deploy` ConfigMap for editing:
+. Open the `heat-env-config-deploy` `ConfigMap` CR for editing:
 +
 [source,bash,options="nowrap",subs="verbatim"]
 ----
