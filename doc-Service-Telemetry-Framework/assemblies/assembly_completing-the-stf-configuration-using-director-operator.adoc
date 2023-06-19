@@ -1,0 +1,38 @@
+ifdef::context[:parent-context: {context}]
+
+
+[id="assembly-completing-the-stf-configuration-using-director-operator_{context}"]
+= Configuring {OpenStack} director Operator for {Project}
+
+:context: assembly-completing-the-stf-configuration-using-director-operator
+
+[role="_abstract"]
+To collect metrics, events, or both, and to send them to the {Project} ({ProjectShort}) storage domain, you must configure the {OpenStack} ({OpenStackShort}) overcloud to enable data collection and transport.
+
+{ProjectShort} can support both single and multiple clouds. The default configuration in {OpenStackShort} and {ProjectShort} set up for a single cloud installation.
+
+* For a single {OpenStackShort} overcloud deployment using director Operator with default configuration, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator_assembly-completing-the-stf-configuration-using-director-operator[].
+
+include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator.adoc[leveloffset=+1]
+ifdef::include_when_17_1[]
+include::../modules/proc_getting-ca-certificate-from-stf-for-overcloud-configuration.adoc[leveloffset=+2]
+endif::include_when_17_1[]
+include::../modules/proc_retrieving-the-qdr-route-address.adoc[leveloffset=+2]
+
+//The following modules differ between director and director Operator procedures
+include::../modules/proc_creating-the-base-configuration-for-director-operator-for-stf.adoc[leveloffset=+2]
+include::../modules/proc_configuring-the-stf-connection-for-director-operator-for-the-overcloud.adoc[leveloffset=+2]
+include::../modules/proc_deploying-the-overcloud-for-director-operator.adoc[leveloffset=+2]
+
+//include::../modules/proc_validating-clientside-installation.adoc[leveloffset=+2]
+//include::../modules/proc_disabling-openstack-services-used-with-stf.adoc[leveloffset=+1]
+
+// Gather information for deployment in non-standard network topologies in the OSP overcloud
+// NOTE: removing this for now because it's not clear that this is necessary, and that recommendations here may actually be harmful. See RHBZ#2023902.
+//include::../modules/proc_deploying-to-non-standard-network-topologies.adoc[leveloffset=+1]
+
+// TODO: Connecting multiple clouds
+
+//reset the context
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

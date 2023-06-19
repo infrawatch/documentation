@@ -29,7 +29,6 @@ If you do not expect to install {Project} ({ProjectShort}) again, delete the Cat
 
 .Procedure
 
-ifeval::["{build}" == "upstream"]
 . Delete the CatalogSource:
 +
 [source,bash]
@@ -43,15 +42,6 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted
 [source,bash]
 ----
 $ oc get packagemanifests | grep InfraWatch
-----
-endif::[]
-
-. If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:
-+
-[source,bash]
-----
-$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
-catalogsource.operators.coreos.com "operatorhubio-operators" deleted
 ----
 
 .Additional resources

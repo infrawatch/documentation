@@ -1,0 +1,71 @@
+:_content-type: PROCEDURE
+
+[id="configuring-the-stf-connection-for-director-operator-for-the-overcloud_{context}"]
+= Configuring the STF connection for director Operator for the overcloud
+
+Edit the `heat-env-config-deploy` ConfigMap to create a connection from {OpenStack} ({OpenStackShort}) to {Project}.
+
+.Procedure
+
+. Log in to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
++
+[source,bash]
+----
+$ oc project openstack
+----
+
+. Open the `heat-env-config-deploy` ConfigMap for editing:
++
+[source,bash,options="nowrap",subs="verbatim"]
+----
+$ oc edit configmap heat-env-config-deploy
+----
+
+. Add your `stf-connectors.yaml` configuration to the `heat-env-config-deploy` ConfigMap, appropriate to your environment, save your edits and close the file:
++
+.stf-connectors.yaml
+[source,yaml,options="nowrap"]
+----
+apiVersion: v1
+data:
+  [...]
+  stf-connectors.yaml: |
+    resource_registry:
+      OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
+
+    parameter_defaults:
+        MetricsQdrConnectors:
+            - host: default-interconnect-5671-service-telemetry.apps.ostest.test.metalkube.org
+              port: 443
+              role: edge
+              verifyHostname: false
+              sslProfile: sslProfile
+
+        MetricsQdrSSLProfiles:
+            - name: sslProfile
+
+        CeilometerQdrEventsConfig:
+            driver: amqp
+            topic: cloud1-event
+
+        CeilometerQdrMetricsConfig:
+            driver: amqp
+            topic: cloud1-metering
+
+        CollectdAmqpInstances:
+            cloud1-notify:
+                notify: true
+                format: JSON
+                presettle: false
+            cloud1-telemetry:
+                format: JSON
+                presettle: false
+
+        CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry
+----
+
+[role="_additional-resources"]
+.Additional resources
+* For more information about the `stf-connectors.yaml` environment file, see xref:configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration[].
+
+* For more information about adding heat templates to a {OpenStackShort} director Operator deployment, see link:{defaultURL}/rhosp_director_operator_for_openshift_container_platform/assembly_adding-heat-templates-and-environment-files-with-the-director-operator_rhosp-director-operator#doc-wrapper[Adding heat templates and environment files with the director Operator]

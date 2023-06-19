@@ -1,0 +1,29 @@
+[id="configuring-red-hat-openstack-platform-overcloud-for-stf-using-director-operator_{context}"]
+= Deploying {OpenStack} overcloud for {Project} using director Operator
+
+[role="_abstract"]
+When you deploy the {OpenStack} ({OpenStackShort}) overcloud deployment using director Operator, you must configure the data collectors and the data transport for {Project} ({ProjectShort}).
+
+.Prerequisites
+* You are familiar with deploying and managing {OpenStackShort} with the {OpenStackShort} director Operator.
+
+.Procedure
+
+// NOTE: not required until available for RHOSP 17.1
+//ifdef::include_when_13,include_when_17[]
+//. xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[]
+//endif::include_when_13,include_when_17[]
+
+. xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[Retrieving the {MessageBus} route address]
+. xref:proc_creating-the-base-configuration-for-director-operator-for-stf[Creating the base configuration for director Operator for {ProjectShort}]
+. xref:proc_configuring-the-stf-connection-for-director-operator-for-the-overcloud[Configuring the {ProjectShort} connection for the overcloud]
+. xref:proc_deploying-the-overcloud-for-director-operator[Deploying the overcloud for director operator]
+
+//. xref:validating-clientside-installation_assembly-completing-the-stf-configuration[Validating client-side installation]
+
+
+.Additional resources
+* For more information about deploying an OpenStack cloud using director Operator, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/rhosp_director_operator_for_openshift_container_platform/index
+ifdef::include_when_16_1[]
+* To collect data through {MessageBus}, see https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{vernum}/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1[the amqp1 plug-in].
+endif::include_when_16_1[]

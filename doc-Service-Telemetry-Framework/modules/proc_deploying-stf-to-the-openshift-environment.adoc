@@ -4,8 +4,6 @@
 [role="_abstract"]
 Deploy {Project} ({ProjectShort}) to collect, store, and monitor events:
 
-
-
 .Procedure
 
 . Create a namespace to contain the {ProjectShort} components, for example, `service-telemetry`:
@@ -153,38 +151,24 @@ spec:
 EOF
 ----
 
-. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.10 displays a phase of `Succeeded`:
+. Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.x displays a phase of `Succeeded`:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
-NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded
+NAME                                  DISPLAY                                  VERSION   REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.15   Red Hat Integration - AMQ Interconnect   1.10.15   amq7-interconnect-operator.v1.10.4   Succeeded
 ----
 
-. Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:
+. To store metrics in Prometheus, you must enable the Prometheus Operator by using the community-operators CatalogSource:
 +
 [WARNING]
-Red Hat supports the core Operators and workloads, including {MessageBus}, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
-spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
-EOF
-----
+====
+Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
 
-. If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your {OpenShift} environment:
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -192,13 +176,13 @@ $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: prometheus
+  name: prometheus-operator
   namespace: service-telemetry
 spec:
   channel: beta
   installPlanApproval: Automatic
   name: prometheus
-  source: operatorhubio-operators
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
@@ -210,10 +194,17 @@ EOF
 $ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
 
 NAME                        DISPLAY               VERSION   REPLACES                    PHASE
-prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0.37.0   Succeeded
+prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded
 ----
 
-. If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your {OpenShift} environment:
+. To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:
++
+[WARNING]
+====
+Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.
+
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -238,8 +229,8 @@ EOF
 ----
 $ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
-elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded
 ----
 
 ifeval::["{build}" == "upstream"]
@@ -302,17 +293,17 @@ EOF
 ----
 endif::[]
 
-. Validate the Service Telemetry Operator and the dependent operators:
+. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
 $ oc get csv --namespace service-telemetry
 
-NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10          Red Hat Integration - AMQ Interconnect          1.10.10        amq7-interconnect-operator.v1.10.4   Succeeded
-elasticsearch-eck-operator-certified.v2.4.0  Elasticsearch (ECK) Operator                    2.4.0          elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
+amq7-interconnect-operator.v1.10.15           Red Hat Integration - AMQ Interconnect        1.10.15          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator                  2.8.0            elasticsearch-eck-operator-certified.v2.7.0   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
-prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
-service-telemetry-operator.v1.5.1664298822   Service Telemetry Operator                      1.5.1664298822                                      Succeeded
-smart-gateway-operator.v5.0.1664298817       Smart Gateway Operator                          5.0.1664298817                                      Succeeded
+prometheusoperator.0.56.3                     Prometheus Operator                           0.56.3           prometheusoperator.0.47.0                     Succeeded
+service-telemetry-operator.v1.5.1680516659    Service Telemetry Operator                    1.5.1680516659                                                 Succeeded
+smart-gateway-operator.v5.0.1680516659        Smart Gateway Operator                        5.0.1680516659                                                 Succeeded
 ----
