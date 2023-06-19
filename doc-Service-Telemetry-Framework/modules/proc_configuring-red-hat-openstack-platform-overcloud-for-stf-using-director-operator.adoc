@@ -15,9 +15,9 @@ When you deploy the {OpenStack} ({OpenStackShort}) overcloud deployment using di
 //endif::include_when_13,include_when_17[]
 
 . xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[Retrieving the {MessageBus} route address]
-. xref:proc_creating-the-base-configuration-for-director-operator-for-stf[Creating the base configuration for director Operator for {ProjectShort}]
-. xref:proc_configuring-the-stf-connection-for-director-operator-for-the-overcloud[Configuring the {ProjectShort} connection for the overcloud]
-. xref:proc_deploying-the-overcloud-for-director-operator[Deploying the overcloud for director operator]
+. xref:creating-the-base-configuration-for-director-operator-for-stf_assembly-completing-the-stf-configuration-using-director-operator[Creating the base configuration for director Operator for {ProjectShort}]
+. xref:configuring-the-stf-connection-for-director-operator-for-the-overcloud_assembly-completing-the-stf-configuration-using-director-operator[Configuring the {ProjectShort} connection for the overcloud]
+. xref:deploying-the-overcloud-for-director-operator_assembly-completing-the-stf-configuration-using-director-operator[Deploying the overcloud for director operator]
 
 //. xref:validating-clientside-installation_assembly-completing-the-stf-configuration[Validating client-side installation]
 
