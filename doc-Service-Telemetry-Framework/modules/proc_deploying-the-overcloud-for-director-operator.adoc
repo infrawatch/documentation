@@ -7,7 +7,12 @@ Deploy or update the overcloud with the required environment files so that data 
 
 .Procedure
 
-. Login to your {OpenShift} environment and change to the project that hosts your {OpenStack} ({OpenStackShort}) deployment.
+. Login to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
++
+[source,bash]
+----
+oc project openstack
+----
 
 . Open the `OpenStackConfigGenerator` custom resource for editing:
 +
@@ -19,7 +24,6 @@ $ oc edit OpenStackConfigGenerator
 . Add the `metrics/ceilometer-write-qdr.yaml` and `metrics/qdr-edge-only.yaml` environment files as values for the `heatEnvs` parameter. Save your edits, and close the `OpenStackConfigGenerator` custom resource:
 [NOTE]
 If you already deployed a {OpenStack} environment using director Operator, you must delete the existing `OpenStackConfigGenerator` and create a new object with the full configuration in order to re-generate the `OpenStackConfigVersion`.
-
 +
 .OpenStackConfigGenerator
 [source,yaml,options="nowrap"]
