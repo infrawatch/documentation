@@ -7,7 +7,7 @@ Edit the `heat-env-config-deploy` ConfigMap to create a connection from {OpenSta
 
 .Procedure
 
-. Login to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
+. Log in to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
 +
 [source,bash]
 ----
