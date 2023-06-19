@@ -7,7 +7,7 @@ Edit the `heat-env-config-deploy` ConfigMap to add the base {Project} ({ProjectS
 
 .Procedure
 
-. Login to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
+. Log in to the {OpenShift} environment where {OpenStackShort} director Operator is deployed and change to the project that hosts your {OpenStackShort} deployment:
 +
 [source,bash]
 ----
