@@ -11,7 +11,7 @@ Edit the `heat-env-config-deploy` ConfigMap to create a connection from {OpenSta
 +
 [source,bash]
 ----
-oc project openstack
+$ oc project openstack
 ----
 
 . Open the `heat-env-config-deploy` ConfigMap for editing:
