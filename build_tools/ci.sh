@@ -9,7 +9,7 @@ echo "--- installing dependencies"
 dnf install findutils git make ruby rubygems -y
 gem install --no-document --minimal-deps asciidoctor
 
-# get the current working branch, if we're master, we'll end up pushing new docs
+# get the current working branch, if we're stable-1.5, we'll end up pushing new docs
 echo "--- current working branch is $BRANCH"
 
 echo "--- building documentation"
@@ -29,8 +29,8 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 # Remove all files that are not in the .git dir
-echo "--- removing all files related to HEAD"
-find . -maxdepth 1 -not -wholename ".git/*" -not -wholename "./index-1-5-upstream*" -type f -delete
+echo "--- removing all files related to stable-1.5"
+find . -maxdepth 1 -not -wholename ".git/*" -type f -not -wholename "./index.html" -not -wholename "./index-upstream*" -delete
 rm -rf images/
 
 # We need this empty file for git not to try to build a jekyll project.
@@ -38,21 +38,18 @@ rm -rf images/
 echo "--- moving built files into the top-level directory"
 touch .nojekyll
 mv build/doc-Service-Telemetry-Framework/* ./
-mv index-upstream.html index.html
 rm -rf build/
 
-# Add everything, get ready for commit. But only do it if we're on
-# master. If you want to deploy on different branches, you can change
-# this.
-if [[ "$BRANCH" =~ ^master$|^[0-9]+\.[0-9]+\.X$ ]]; then
-    echo "Branch is master, so pushing docs to gh-pages"
+# Build this for stable-1.5 branch and push custom paths to gh-pages
+if [[ "$BRANCH" =~ ^stable-1\.5$ ]]; then
+    echo "Branch is stable-1.5, so pushing docs to gh-pages"
     git add --all
-    git commit -am '[ci skip] publishing updated documentation...'
+    git commit -am '[ci skip] publishing updated documentation for STF 1.5...'
 
     git remote rm origin
     git remote add origin https://$GH_NAME:$GH_TOKEN@github.com/infrawatch/documentation.git
 
     git push origin gh-pages
 else
-    echo "Not on master, so won't push doc"
+    echo "Not on stable-1.5, so won't push doc"
 fi
