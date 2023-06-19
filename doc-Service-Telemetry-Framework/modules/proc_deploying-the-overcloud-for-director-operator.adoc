@@ -11,7 +11,7 @@ Deploy or update the overcloud with the required environment files so that data 
 +
 [source,bash]
 ----
-oc project openstack
+$ oc project openstack
 ----
 
 . Open the `OpenStackConfigGenerator` custom resource for editing:
