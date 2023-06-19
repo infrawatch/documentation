@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.18"/>
+<meta name="generator" content="Asciidoctor 2.0.20"/>
 <meta name="author" content="OpenStack Documentation Team"/>
 <title>Service Telemetry Framework 1.5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
@@ -209,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -394,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -462,11 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#assembly-preparing-your-ocp-environment-for-stf_assembly">Preparing your OpenShift environment for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
 <li><a href="#observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</a></li>
-<li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a>
-<ul class="sectlevel3">
-<li><a href="#ephemeral-storage_assembly-preparing-your-ocp-environment-for-stf">Ephemeral storage</a></li>
-</ul>
-</li>
+<li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a></li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
 <li><a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a></li>
 <li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
@@ -484,9 +477,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</a></li>
 </ul>
 </li>
-<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>
+<li><a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>
 <ul class="sectlevel3">
 <li><a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a></li>
 <li><a href="#creating-the-base-configuration-for-stf_assembly-completing-the-stf-configuration">Creating the base configuration for STF</a></li>
@@ -542,11 +535,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#high-availability_assembly-advanced-features">High availability</a>
 <ul class="sectlevel3">
 <li><a href="#configuring-high-availability_assembly-advanced-features">Configuring high availability</a></li>
-</ul>
-</li>
-<li><a href="#ephemeral-storage_assembly-advanced-features">Ephemeral storage</a>
-<ul class="sectlevel3">
-<li><a href="#configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></li>
 </ul>
 </li>
 <li><a href="#observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</a>
@@ -920,7 +908,7 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
 </div>
 <div class="paragraph">
-<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
 </div>
 </div>
 <div class="sect2">
@@ -947,24 +935,6 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <p>For more information about configuring persistent storage for Elasticsearch in STF, see <a href="#backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Elasticsearch</a>.</p>
 </li>
 </ul>
-</div>
-<div class="sect3">
-<h4 id="ephemeral-storage_assembly-preparing-your-ocp-environment-for-stf">Ephemeral storage</h4>
-<div class="paragraph _abstract">
-<p>You can use ephemeral storage to run Service&#160;Telemetry&#160;Framework (STF) without persistently storing data in your OpenShift cluster.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-If you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1098,6 +1068,9 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 <ul>
 <li>
 <p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+</li>
+<li>
+<p>For more information about Operator catalogs, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm-rh-catalogs.html"><em>Red Hat-provided Operator catalogs</em></a>.</p>
 </li>
 </ul>
 </div>
@@ -1264,18 +1237,18 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.10 displays a phase of <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.x displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
 
-NAME                                 DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.10.10   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
+NAME                                  DISPLAY                                  VERSION   REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.15   Red Hat Integration - AMQ Interconnect   1.10.15   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Enable the OperatorHub.io Community Catalog Source to install data storage and visualization Operators:</p>
+<p>To store metrics in Prometheus, you must enable the Prometheus Operator by using the community-operators CatalogSource:</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1283,7 +1256,12 @@ amq7-interconnect-operator.v1.10.10  Red Hat Integration - AMQ Interconnect   1.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#160;Dispatch&#160;Router, Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Prometheus, Alertmanager, Grafana, and their Operators.
+<div class="paragraph">
+<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -1292,34 +1270,15 @@ Red Hat supports the core Operators and workloads, including Apache&#160;Qpid&#1
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
-  name: operatorhubio-operators
-  namespace: openshift-marketplace
-spec:
-  sourceType: grpc
-  image: quay.io/operatorhubio/catalog:latest
-  displayName: OperatorHub.io Operators
-  publisher: OperatorHub.io
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you plan to store metrics in Prometheus, you must enable the Prometheus Operator. To enable the Prometheus Operator, create the following manifest in your OpenShift environment:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: prometheus
+  name: prometheus-operator
   namespace: service-telemetry
 spec:
   channel: beta
   installPlanApproval: Automatic
   name: prometheus
-  source: operatorhubio-operators
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -1332,12 +1291,29 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
 
 NAME                        DISPLAY               VERSION   REPLACES                    PHASE
-prometheusoperator.0.47.0   Prometheus Operator   0.47.0    prometheusoperator.0.37.0   Succeeded</code></pre>
+prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>If you plan to store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator. To enable the ECK Operator, create the following manifest in your OpenShift environment:</p>
+<p>To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
@@ -1362,8 +1338,8 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
 
-NAME                                         DISPLAY                        VERSION   REPLACES   PHASE
-elasticsearch-eck-operator-certified.v2.4.0   Elasticsearch (ECK) Operator   2.4.0     elasticsearch-eck-operator-certified.v2.3.0   Succeeded</code></pre>
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1408,18 +1384,18 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate the Service Telemetry Operator and the dependent operators:</p>
+<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
-NAME                                         DISPLAY                                         VERSION        REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.10          Red Hat Integration - AMQ Interconnect          1.10.10        amq7-interconnect-operator.v1.10.4   Succeeded
-elasticsearch-eck-operator-certified.v2.4.0  Elasticsearch (ECK) Operator                    2.4.0          elasticsearch-eck-operator-certified.v2.3.0   Succeeded
+NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
+amq7-interconnect-operator.v1.10.15           Red Hat Integration - AMQ Interconnect        1.10.15          amq7-interconnect-operator.v1.10.4            Succeeded
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator                  2.8.0            elasticsearch-eck-operator-certified.v2.7.0   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
-prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0         prometheusoperator.0.37.0            Succeeded
-service-telemetry-operator.v1.5.1664298822   Service Telemetry Operator                      1.5.1664298822                                      Succeeded
-smart-gateway-operator.v5.0.1664298817       Smart Gateway Operator                          5.0.1664298817                                      Succeeded</code></pre>
+prometheusoperator.0.56.3                     Prometheus Operator                           0.56.3           prometheusoperator.0.47.0                     Succeeded
+service-telemetry-operator.v1.5.1680516659    Service Telemetry Operator                    1.5.1680516659                                                 Succeeded
+smart-gateway-operator.v5.0.1680516659        Smart Gateway Operator                        5.0.1680516659                                                 Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1449,25 +1425,6 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To override a default value, define the parameter that you want to override. In this example, enable Elasticsearch by setting <code>enabled</code> to <code>true</code>:</p>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-EOF</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>Creating a <code>ServiceTelemetry</code> object with an empty <code>spec</code> parameter results in an STF deployment with the following default settings:</p>
 </div>
 <div class="listingblock white-space-pre">
@@ -1482,8 +1439,16 @@ spec:
     alertmanager:
       receivers:
         snmpTraps:
+          alertOidLabel: oid
+          community: public
           enabled: false
+          port: 162
+          retries: 5
           target: 192.168.24.254
+          timeout: 1
+          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
+          trapDefaultSeverity: ''
+          trapOidPrefix: 1.3.6.1.4.1.50495.15
       storage:
         persistent:
           pvcStorageRequest: 20G
@@ -1492,66 +1457,91 @@ spec:
   backends:
     events:
       elasticsearch:
-        enabled: false
+        certificates:
+          caCertDuration: 70080h
+          endpointCertDuration: 70080h
         storage:
           persistent:
             pvcStorageRequest: 20Gi
           strategy: persistent
+        enabled: false
         version: 7.16.1
     logs:
       loki:
-        enabled: false
-        flavor: 1x.extra-small
-        replicationFactor: 1
         storage:
           objectStorageSecret: test
           storageClass: standard
+        enabled: false
+        flavor: 1x.extra-small
+        replicationFactor: 1
     metrics:
       prometheus:
-        enabled: true
-        scrapeInterval: 10s
         storage:
           persistent:
             pvcStorageRequest: 20G
           retention: 24h
           strategy: persistent
+        enabled: true
+        scrapeInterval: 10s
   clouds:
-  - events:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-notify
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-event.sample
-    metrics:
-      collectors:
-      - collectorType: collectd
-        debugEnabled: false
-        subscriptionAddress: collectd/cloud1-telemetry
-      - collectorType: ceilometer
-        debugEnabled: false
-        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
-      - collectorType: sensubility
-        debugEnabled: false
-        subscriptionAddress: sensubility/cloud1-telemetry
-    name: cloud1
+    - events:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-notify
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
+      metrics:
+        collectors:
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: collectd
+            debugEnabled: false
+            subscriptionAddress: collectd/cloud1-telemetry
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: ceilometer
+            debugEnabled: false
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+          - bridge:
+              ringBufferCount: 15000
+              ringBufferSize: 16384
+              verbose: false
+            collectorType: sensubility
+            debugEnabled: false
+            subscriptionAddress: sensubility/cloud1-telemetry
+      name: cloud1
   graphing:
-    enabled: false
     grafana:
       adminPassword: secret
       adminUser: root
-      baseImage: docker.io/grafana/grafana:latest
       disableSignoutMenu: false
       ingressEnabled: false
+    enabled: false
   highAvailability:
     enabled: false
-  observabilityStrategy: use_community
   transports:
     qdr:
-      enabled: true
+      certificates:
+        caCertDuration: 70080h
+        endpointCertDuration: 70080h
       web:
-        enabled: false</code></pre>
+        enabled: false
+      enabled: true
+  observabilityStrategy: use_community</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1596,17 +1586,17 @@ If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
 
 NAME                                                      READY   STATUS    RESTARTS   AGE
-alertmanager-default-0                                    2/2     Running   0          17m
-default-cloud1-ceil-meter-smartgateway-6484b98b68-vd48z   2/2     Running   0          17m
-default-cloud1-coll-meter-smartgateway-799f687658-4gxpn   2/2     Running   0          17m
-default-cloud1-sens-meter-smartgateway-c7f4f7fc8-c57b4    2/2     Running   0          17m
-default-interconnect-54658f5d4-pzrpt                      1/1     Running   0          17m
-elastic-operator-66b7bc49c4-sxkc2                         1/1     Running   0          52m
-interconnect-operator-69df6b9cb6-7hhp9                    1/1     Running   0          50m
-prometheus-default-0                                      2/2     Running   1          17m
-prometheus-operator-6458b74d86-wbdqp                      1/1     Running   0          51m
-service-telemetry-operator-864646787c-hd9pm               1/1     Running   0          51m
-smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0          51m</code></pre>
+alertmanager-default-0                                    3/3     Running   0          4m7s
+default-cloud1-ceil-meter-smartgateway-669c6cdcf9-xvdvx   3/3     Running   0          3m46s
+default-cloud1-coll-meter-smartgateway-585855c59d-858rf   3/3     Running   0          3m46s
+default-cloud1-sens-meter-smartgateway-6f8dffb645-hhgkw   3/3     Running   0          3m46s
+default-interconnect-6994ff546-fx7jn                      1/1     Running   0          4m18s
+elastic-operator-9f44cdf6c-csvjq                          1/1     Running   0          19m
+interconnect-operator-646bfc886c-gx55n                    1/1     Running   0          25m
+prometheus-default-0                                      3/3     Running   0          3m33s
+prometheus-operator-54d644d8d7-wzdlh                      1/1     Running   0          20m
+service-telemetry-operator-54f6f7b6d-nfhwx                1/1     Running   0          18m
+smart-gateway-operator-9bbd7c56c-76w67                    1/1     Running   0          18m</code></pre>
 </div>
 </div>
 </li>
@@ -1647,17 +1637,25 @@ smart-gateway-operator-79778cf548-mz5z7                   1/1     Running   0   
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
 <div class="paragraph">
-<p>Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.</p>
+<p>You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. You can use the Service Telemetry Operator to create other custom resource objects that the Prometheus Operator and Elastic Cloud on Kubernetes Operator watch to create Prometheus and Elasticsearch workloads.</p>
 </div>
 <h6 id="_enabling_prometheus_as_a_storage_back_end_for_metrics" class="discrete">Enabling Prometheus as a storage back end for metrics</h6>
 <div class="paragraph">
 <p>To enable Prometheus as a storage back end for metrics, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.metrics.prometheus.enabled parameter to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1666,6 +1664,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -1673,7 +1672,7 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Prometheus</h6>
 <div class="paragraph">
@@ -1685,9 +1684,9 @@ spec:
 <div class="paragraph">
 <p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20G</code> (20 Gigabytes).</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
 <p>List the available storage classes:</p>
 <div class="listingblock">
@@ -1701,7 +1700,15 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 </div>
 </li>
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.metrics.prometheus.enabled parameter to <code>true</code> and the value of backends.metrics.prometheus.storage.strategy to <code>persistent</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1710,6 +1717,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -1722,17 +1730,25 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling Elasticsearch as a storage back end for events</h6>
 <div class="paragraph">
 <p>To enable Elasticsearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
-<div class="ulist">
+<div class="olist arabic">
 <div class="title">Procedure</div>
-<ul>
+<ol class="arabic">
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1741,6 +1757,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -1748,7 +1765,7 @@ spec:
 </div>
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Elasticsearch</h6>
 <div class="paragraph">
@@ -1776,7 +1793,15 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 </div>
 </li>
 <li>
-<p>Configure the <code>ServiceTelemetry</code> object:</p>
+<p>Edit the <code>ServiceTelemetry</code> object:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code> and the value of backends.events.elasticsearch.storage.strategy to <code>persistent</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1785,6 +1810,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
@@ -1823,18 +1849,18 @@ spec:
       metrics:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
+            subscriptionAddress: collectd/cloud1-telemetry
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
           - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
+            subscriptionAddress: sensubility/cloud1-telemetry
             debugEnabled: false
       events:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/notify
+            subscriptionAddress: collectd/cloud1-notify
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample</code></pre>
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1950,7 +1976,7 @@ EOF</code></pre>
 <p>Delete the left over objects that are managed by community operators</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -1980,7 +2006,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </div>
 </div>
 <div class="sect1">
-<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack for Service&#160;Telemetry&#160;Framework</h2>
+<h2 id="assembly-completing-the-stf-configuration_assembly">Configuring OpenStack director for Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
 <p>To collect metrics, events, or both, and to send them to the Service&#160;Telemetry&#160;Framework (STF) storage domain, you must configure the OpenStack (OSP) overcloud to enable data collection and transport.</p>
@@ -1991,7 +2017,7 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="ulist">
 <ul>
 <li>
-<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For a single OSP overcloud deployment with default configuration, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>To plan your OSP installation and configuration STF for multiple clouds, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
@@ -2009,9 +2035,9 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 </ul>
 </div>
 <div class="sect2">
-<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</h3>
+<h3 id="configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</h3>
 <div class="paragraph _abstract">
-<p>As part of the OpenStack (OSP) overcloud deployment, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
+<p>As part of the OpenStack (OSP) overcloud deployment using director, you must configure the data collectors and the data transport to Service&#160;Telemetry&#160;Framework (STF).</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2037,7 +2063,10 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1">the amqp1 plug-in</a>.</p>
+<p>For more information about deploying an OpenStack cloud using director, see <a href="{defaultURL}/director_installation_and_usage/index">Director Installation and Usage</a>.</p>
+</li>
+<li>
+<p>To collect data through Apache&#160;Qpid&#160;Dispatch&#160;Router, see <a href="{defaultURL}/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1">the amqp1 plug-in</a>.</p>
 </li>
 </ul>
 </div>
@@ -2050,10 +2079,18 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to your OpenShift environment.</p>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
 </li>
 <li>
-<p>In the <code>service-telemetry</code> project, retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
+<p>Change to the <code>service-telemetry</code> project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the Apache&#160;Qpid&#160;Dispatch&#160;Router route address:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get routes -ogo-template='{{ range .items }}{{printf "%s\n" .spec.host }}{{ end }}' | grep "\-5671"
@@ -2073,7 +2110,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>enable-stf.yaml</code> in the <code>/home/stack</code> directory.</p>
@@ -2085,7 +2122,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of 30 seconds, as specified in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components, and you must increase the interval to a larger value, such as <code>300</code>. Increasing the value to a longer polling interval results in less telemetry resolution in STF.</p>
+<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of <code>30</code> seconds, that you specify in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components. You must increase the interval to a larger value, such as <code>300</code>, which results in less telemetry resolution in STF.</p>
 </div>
 </td>
 </tr>
@@ -2191,38 +2228,13 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud to the STF deployment. You configure the topic addresses for Sensubility, Ceilometer, and collectd in this file to match the defaults in STF. For more information about customizing topics and cloud configuration, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
-</li>
-<li>
-<p>Replace the <code>host</code> parameter with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value of <code>HOST/PORT</code> that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
-</li>
-<li>
-<p>Set <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. The format of this value is <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
-</li>
-<li>
-<p>Set <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The format of this value is <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd events. The format of this value is <code>collectd/cloud1-notify</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. The format of this value is <code>collectd/cloud1-telemetry</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdSensubilityResultsChannel</code> to define the topic for collectd-sensubility events. The format of this value is <code>sensubility/cloud1-telemetry</code>.</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -2260,11 +2272,57 @@ parameter_defaults:
     CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Set <code>topic</code> value of <code>CeilometerQdrEventsConfig</code> to define the topic for Ceilometer events. The value is a unique topic idenifier for the cloud such as <code>cloud1-event</code>.</p>
+</li>
+<li>
+<p>Set <code>topic</code> value of <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as <code>cloud1-metering</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> sub-paramter to define the topic for collectd events. The section name is a unique topic identifier for the cloud such as <code>cloud1-notify</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as <code>cloud1-telemetry</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdSensubilityResultsChannel</code> to define the topic for collectd-sensubility events. The value is a unique topic identifier for the cloud such as <code>sensubility/cloud1-telemetry</code>.</p>
 </li>
 </ul>
 </div>
 </li>
 </ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you define the topics for collectd and Ceilometer, the value you provide is transposed into the full topic that the Smart Gateway client uses to listen for messages.</p>
+</div>
+<div class="paragraph">
+<p>Ceilometer topic values are transposed into the topic address <code>anycast/ceilometer/&lt;TOPIC&gt;.sample</code> and collectd topic values are transposed into the topic address <code>collectd/&lt;TOPIC&gt;</code>.
+The value for sensubility is the full topic path and has no transposition from topic value to topic address.</p>
+</div>
+<div class="paragraph">
+<p>For an example of a cloud configuration in the <code>ServiceTelemetry</code> object referring to the full topic address, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -2276,49 +2334,43 @@ parameter_defaults:
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack (OSP) undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source ~/stackrc</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add the following files to your OSP TripleO deployment to configure data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router:</p>
+<p>Add your data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router environment files to the stack with your other environment files and deploy the overcloud:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+ -e [your environment files] \
+ -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+ -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+ -e /home/stack/enable-stf.yaml \
+ -e /home/stack/stf-connectors.yaml</code></pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF</p>
+<p>Include the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF.</p>
 </li>
 <li>
-<p>The <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers</p>
+<p>Include the <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers.</p>
 </li>
 <li>
-<p>The <code>enable-stf.yaml</code> environment file to ensure defaults are configured correctly</p>
+<p>Include the <code>enable-stf.yaml</code> environment file to ensure that the defaults are configured correctly.</p>
 </li>
 <li>
-<p>The <code>stf-connectors.yaml</code> environment file to define the connection to STF</p>
+<p>Include the <code>stf-connectors.yaml</code> environment file to define the connection to STF.</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Deploy the OSP overcloud:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml</code></pre>
-</div>
 </div>
 </li>
 </ol>
@@ -2519,15 +2571,13 @@ Router Addresses
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OSP undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source ~/stackrc</code></pre>
 </div>
 </div>
 </li>
@@ -2535,7 +2585,7 @@ Router Addresses
 <p>Create the <code>disable-stf.yaml</code> environment file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">(undercloud) [stack@undercloud-0]$ cat &gt; $HOME/disable-stf.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ cat &gt; ~/disable-stf.yaml &lt;&lt;EOF
 ---
 resource_registry:
   OS::TripleO::Services::CeilometerAgentCentral: OS::Heat::None
@@ -2572,10 +2622,9 @@ EOF</code></pre>
 <p>Update the OSP overcloud. Ensure that you use the <code>disable-stf.yaml</code> file early in the list of environment files. By adding <code>disable-stf.yaml</code> early in the list, other environment files can override the configuration that would disable the service:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file /home/stack/disable-stf.yaml
-  --environment-file <em>&lt;other_environment_files&gt;</em> \</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+-e /home/stack/disable-stf.yaml \
+-e [your environment files]</code></pre>
 </div>
 </div>
 </li>
@@ -2831,7 +2880,7 @@ If you do not want to deploy any Smart Gateways, define an empty clouds list by 
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
+The <code>cloudsRemoveOnMissing</code> parameter is disabled by default. If you enable the <code>cloudsRemoveOnMissing</code> parameter, you remove any manually-created <code>SmartGateway</code> objects in the current namespace without any possibility to restore.
 </td>
 </tr>
 </table>
@@ -2876,6 +2925,18 @@ spec:
 <h4 id="setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration">Setting a unique cloud domain</h4>
 <div class="paragraph _abstract">
 <p>To ensure that Apache&#160;Qpid&#160;Dispatch&#160;Router router connections from OpenStack (OSP) to Service&#160;Telemetry&#160;Framework (STF) are unique and do not conflict, configure the <code>CloudDomain</code> parameter.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Ensure that you do not change host or domain names in an existing deployment. Host and domain name configuration is supported in new cloud deployments only.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2951,32 +3012,13 @@ If you enabled container health and API status monitoring, you must also modify 
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to the OpenStack undercloud as the <code>stack</code> user.</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
 </li>
 <li>
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
 </li>
 <li>
 <p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code>, <code>CollectdAmqpInstances</code>, and <code>CollectdSensubilityResultsChannel</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
-</li>
-<li>
-<p>Set the <code>CeilometerQdrEventsConfig.topic</code> to define the topic for Ceilometer events. This value is the address format of <code>anycast/ceilometer/cloud1-event.sample</code>.</p>
-</li>
-<li>
-<p>Set the <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. This value is the address format of <code>anycast/ceilometer/cloud1-metering.sample</code>.</p>
-</li>
-<li>
-<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd events. This value is the format of <code>collectd/cloud1-notify</code>.</p>
-</li>
-<li>
-<p>Set the <code>CollectdAmqpInstances</code> to define the topic for collectd metrics. This value is the format of <code>collectd/cloud1-telemetry</code>.</p>
-</li>
-<li>
-<p>Set the <code>CollectdSensubilityResultsChannel</code> to define the topic for collectd-sensubility events. This value is the format of <code>sensubility/cloud1-telemetry</code></p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -3014,6 +3056,52 @@ parameter_defaults:
     CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+</li>
+<li>
+<p>Set <code>topic</code> value of <code>CeilometerQdrEventsConfig</code> to define the topic for Ceilometer events. The value is a unique topic idenifier for the cloud such as <code>cloud1-event</code>.</p>
+</li>
+<li>
+<p>Set <code>topic</code> value of <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as <code>cloud1-metering</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> sub-paramter to define the topic for collectd events. The section name is a unique topic identifier for the cloud such as <code>cloud1-notify</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdAmqpInstances</code> sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as <code>cloud1-telemetry</code>.</p>
+</li>
+<li>
+<p>Set <code>CollectdSensubilityResultsChannel</code> to define the topic for collectd-sensubility events. The value is a unique topic identifier for the cloud such as <code>sensubility/cloud1-telemetry</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you define the topics for collectd and Ceilometer, the value you provide is transposed into the full topic that the Smart Gateway client uses to listen for messages.</p>
+</div>
+<div class="paragraph">
+<p>Ceilometer topic values are transposed into the topic address <code>anycast/ceilometer/&lt;TOPIC&gt;.sample</code> and collectd topic values are transposed into the topic address <code>collectd/&lt;TOPIC&gt;</code>.
+The value for sensubility is the full topic path and has no transposition from topic value to topic address.</p>
+</div>
+<div class="paragraph">
+<p>For an example of a cloud configuration in the <code>ServiceTelemetry</code> object referring to the full topic address, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ul>
 </div>
@@ -3022,12 +3110,13 @@ parameter_defaults:
 <p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.bridge.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
 </li>
 <li>
-<p>Source the authentication file:</p>
+<p>Log in to the undercloud host as the <code>stack</code> user.</p>
+</li>
+<li>
+<p>Source the <code>stackrc</code> undercloud credentials file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ source stackrc</code></pre>
 </div>
 </div>
 </li>
@@ -3047,14 +3136,13 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy <em>&lt;other_arguments&gt;</em>
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file <em>&lt;...other_environment_files...&gt;</em> \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
-  --environment-file /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
-  --environment-file /home/stack/hostnames.yaml \
-  --environment-file /home/stack/enable-stf.yaml \
-  --environment-file /home/stack/stf-connectors.yaml</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+-e [your environment files] \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
+-e /home/stack/hostnames.yaml \
+-e /home/stack/enable-stf.yaml \
+-e /home/stack/stf-connectors.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -3108,9 +3196,6 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p><a href="#high-availability_assembly-advanced-features">Configuring high availability</a></p>
 </li>
 <li>
-<p><a href="#ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</a></p>
-</li>
-<li>
 <p><a href="#observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Configuring an alternate observability strategy</a></p>
 </li>
 <li>
@@ -3127,7 +3212,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <p>Use the third-party application, Grafana, to visualize system-level metrics that the data collectors collectd and Ceilometer gather for each individual host node.</p>
 </div>
 <div class="paragraph">
-<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>For more information about configuring data collectors, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </div>
 <div class="paragraph">
 <p>You can use dashboards to monitor a cloud:</p>
@@ -3165,7 +3250,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="sect3">
 <h4 id="setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</h4>
 <div class="paragraph _abstract">
-<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment so you must deploy the Grafana Operator from OperatorHub.io. When you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local STF deployment.</p>
+<p>Grafana is not included in the default Service&#160;Telemetry&#160;Framework (STF) deployment, so you must deploy the Grafana Operator from community-operators CatalogSource. If you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local STF deployment.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3182,7 +3267,24 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 </div>
 </li>
 <li>
-<p>Deploy the Grafana operator:</p>
+<p>Subscribe to the Grafana Operator by using the community-operators CatalogSource:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
@@ -3195,7 +3297,7 @@ spec:
   channel: v4
   installPlanApproval: Automatic
   name: grafana-operator
-  source: operatorhubio-operators
+  source: community-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
@@ -3208,7 +3310,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
 
 NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v4.6.0   Grafana Operator   4.6.0     grafana-operator.v4.5.1   Succeeded</code></pre>
+grafana-operator.v4.10.1   Grafana Operator   4.10.1    grafana-operator.v4.10.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -3319,20 +3421,8 @@ docker.io/grafana/grafana:8.1.0</code></pre>
 <div class="paragraph _abstract">
 <p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Procedure</div>
-The paths and dashboards names refer to STF 1.3 which is the earliest version of STF the dashboards are compatible and can be used with STF versions 1.3 through 1.5.
-</td>
-</tr>
-</table>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Import the infrastructure dashboard:</p>
@@ -3353,7 +3443,7 @@ grafanadashboard.integreatly.org/rhos-dashboard-1 created</code></pre>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-For some panels in the cloud dashboard, you must set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code> in the <code>stf-connectors.yaml</code> file. If you do not configure this parameter, affected dashboards remain empty. For more information about the <code>virt</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.2/html-single/service_telemetry_framework_1.5/index#collectd-plugins_assembly">collectd plugins</a>.
+In the <code>stf-connectors.yaml</code> file, ensure you set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code>, otherwise some of the panels on the cloud dashboard display no information. For more information about the <code>virt</code> plugin, see <a href="{defaultURL}/operational_measurements/collectd-plugins_assembly">collectd plugins</a>.
 </td>
 </tr>
 </table>
@@ -3402,12 +3492,12 @@ grafanadashboard.integreatly.org/memcached-dashboard-1 created</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards
 
-NAME                   AGE
-memcached-dashboard-1      115s
-rhos-cloud-dashboard-1     2m12s
-rhos-cloudevents-dashboard   2m6s
-rhos-dashboard-1           2m17s
-virtual-machine-view-1     2m</code></pre>
+NAME                         AGE
+memcached-dashboard-1        7s
+rhos-cloud-dashboard-1       23s
+rhos-cloudevents-dashboard   18s
+rhos-dashboard-1             29s
+virtual-machine-view-1       13s</code></pre>
 </div>
 </div>
 </li>
@@ -4424,92 +4514,12 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="ephemeral-storage_assembly-advanced-features">Ephemeral storage</h3>
-<div class="paragraph _abstract">
-<p>You can use ephemeral storage to run Service&#160;Telemetry&#160;Framework (STF) without persistently storing data in your OpenShift cluster.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-If you use ephemeral storage, you might experience data loss if a pod is restarted, updated, or rescheduled onto another node. Use ephemeral storage only for development or testing, and not production environments.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="configuring-ephemeral-storage_assembly-advanced-features">Configuring ephemeral storage</h4>
-<div class="paragraph _abstract">
-<p>To configure STF components for ephemeral storage, add <code>...storage.strategy: ephemeral</code> to the corresponding parameter. For example, to enable ephemeral storage for the Prometheus back end, set <code>backends.metrics.prometheus.storage.strategy: ephemeral</code>. Components that support configuration of ephemeral storage include <code>alerting.alertmanager</code>, <code>backends.metrics.prometheus</code>, and <code>backends.events.elasticsearch</code>. You can add ephemeral storage configuration at installation time or, if you already deployed STF, complete the following steps:</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Edit the ServiceTelemetry object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add the <code>...storage.strategy: ephemeral</code> parameter to the <code>spec</code> section of the relevant component:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  alerting:
-    enabled: true
-    alertmanager:
-      storage:
-        strategy: ephemeral
-  backends:
-    metrics:
-      prometheus:
-        enabled: true
-        storage:
-          strategy: ephemeral
-    events:
-      elasticsearch:
-        enabled: true
-        storage:
-          strategy: ephemeral</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Save your changes and close the object.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
 <p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
 </div>
 <div class="paragraph">
-<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the observability strategy to use alternative backends instead, persistent or ephemeral storage is not required for STF.</p>
+<p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
 </div>
 <div class="sect3">
 <h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
@@ -4551,7 +4561,7 @@ EOF</code></pre>
 <p>Delete the left over objects that are managed by community operators</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default lokistack/lokistack; do oc delete $o; done</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -4757,7 +4767,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>You have created the <code>stf-connectors.yaml</code> file. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>You have created the <code>stf-connectors.yaml</code> file. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>You are using the most current version of OpenStack (OSP) Wallaby.</p>
@@ -4807,7 +4817,7 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>You have created the <code>stf-connectors.yaml</code> file in your templates directory. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework</a>.</p>
+<p>You have created the <code>stf-connectors.yaml</code> file in your templates directory. For more information, see <a href="#configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration">Deploying OpenStack overcloud for Service&#160;Telemetry&#160;Framework using director</a>.</p>
 </li>
 <li>
 <p>You are using the most current version of OpenStack (OSP) Wallaby.</p>
@@ -4914,15 +4924,6 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get packagemanifests | grep InfraWatch</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you enabled the OperatorHub.io Community Catalog Source during the installation process and you no longer need this catalog source, delete it:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-marketplace catalogsource operatorhubio-operators
-catalogsource.operators.coreos.com "operatorhubio-operators" deleted</code></pre>
 </div>
 </div>
 </li>
@@ -5436,7 +5437,7 @@ No resources found in service-telemetry namespace.</code></pre>
 <div class="sect2">
 <h3 id="installing-the-service-telemetry-framework-1-5-operators_upgrading-service-telemetry-framework-to-version-1-5">Installing the Service&#160;Telemetry&#160;Framework 1.5 Operators</h3>
 <div class="paragraph">
-<p>Install the Service&#160;Telemetry&#160;Framework (STF) 1.5 Operators and the Certificate Manager for OpenShift Operator on your OpenShift 4.10 environment. STF 1.5 only supports OpenShift 4.10. Installing STF into disconnected or restricted network environments is unsupported.</p>
+<p>Install the Service&#160;Telemetry&#160;Framework (STF) 1.5 Operators and the Certificate Manager for OpenShift Operator on your OpenShift environment. See <a href="#support-for-project_assembly-introduction-to-stf">[support-for-project_assembly-introduction-to-stf]</a> for more information about STF support status and life cycle.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -5465,7 +5466,7 @@ For more information about upgrading OpenShift, see <a href="#upgrading-red-hat-
 <p>Create a <code>namespace</code> for the <code>cert-manager</code> Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
@@ -5481,7 +5482,7 @@ EOF</code></pre>
 <p>Create an <code>OperatorGroup</code> for the cert-manager Operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -5496,7 +5497,7 @@ EOF</code></pre>
 <p>Subscribe to the <code>cert-manager</code> Operator with the <code>redhat-operators</code> CatalogSource:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -5530,7 +5531,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 <p>Create the Service Telemetry Operator subscription to manage the STF instances:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -5609,7 +5610,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-29 14:33:59 UTC
+Last updated 2023-06-19 17:07:44 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
