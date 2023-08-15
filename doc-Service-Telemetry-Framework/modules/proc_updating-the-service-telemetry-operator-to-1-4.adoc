@@ -55,7 +55,6 @@ $ watch -n5 oc get csv
 NAME                                         DISPLAY                                         VERSION          REPLACES                                     PHASE
 amq7-cert-manager.v1.0.3                     Red Hat Integration - AMQ Certificate Manager   1.0.3            amq7-cert-manager.v1.0.2                     Succeeded
 amq7-interconnect-operator.v1.10.5           Red Hat Integration - AMQ Interconnect          1.10.5           amq7-interconnect-operator.v1.10.4           Succeeded
-elasticsearch-eck-operator-certified.1.9.1   Elasticsearch (ECK) Operator                    1.9.1                                                         Succeeded
 prometheusoperator.0.47.0                    Prometheus Operator                             0.47.0           prometheusoperator.0.37.0                    Succeeded
 service-telemetry-operator.v1.4.1641504218   Service Telemetry Operator                      1.4.1641504218   service-telemetry-operator.v1.3.1635451892   Succeeded
 smart-gateway-operator.v4.0.1641504216       Smart Gateway Operator                          4.0.1641504216                                                Succeeded
@@ -76,8 +75,6 @@ default-cloud1-coll-meter-smartgateway-774b9988b8-wb5vd   3/3     Running   0   
 default-cloud1-sens-meter-smartgateway-b98966fbf-rnqwf    3/3     Running   0          159m
 default-interconnect-675dd97bc4-dcrzk                     1/1     Running   0          171m
 default-snmp-webhook-7854d4889d-wgmgg                     1/1     Running   0          171m
-elastic-operator-c54ff8cc-jcg8d                           1/1     Running   6          3h55m
-elasticsearch-es-default-0                                1/1     Running   0          160m
 interconnect-operator-6bf74c4ffb-hkmbq                    1/1     Running   0          3h54m
 prometheus-default-0                                      3/3     Running   1          160m
 prometheus-operator-fc64987d-f7gx4                        1/1     Running   0          3h54m

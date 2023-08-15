@@ -19,11 +19,9 @@
 ** Ceilometer: Collects {OpenStackShort} metrics and events.
 * Transport
 ** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
-** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Elasticsearch or Prometheus.
+** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Prometheus or an external Elasticsearch.
 * Data storage
 ** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.
-** Elasticsearch: Events data storage that stores {ProjectShort} events received from the Smart Gateway.
-* Observation
 ** Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.
 ** Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.
 

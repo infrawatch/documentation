@@ -26,7 +26,7 @@
 = Node tuning operator
 
 [role="_abstract"]
-{ProjectShort} uses Elasticsearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
+{ProjectShort} can use Elasticsearch to store events, which requires a larger than normal `vm.max_map_count`. The `vm.max_map_count` value is set by default in {OpenShift}.
 
 [TIP]
 If your host platform is a typical {OpenShift} 4 environment, do not make any adjustments. The default node tuning operator is configured to account for Elasticsearch workloads.

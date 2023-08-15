@@ -12,7 +12,6 @@ You can use Operators to load the {Project} ({ProjectShort}) components and obje
 * {MessageBus}
 * Smart Gateway
 * Prometheus and AlertManager
-* Elasticsearch
 * Grafana
 
 .Prerequisites
