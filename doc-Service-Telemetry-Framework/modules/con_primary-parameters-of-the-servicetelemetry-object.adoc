@@ -108,6 +108,9 @@ spec:
 [discrete]
 === Enabling Elasticsearch as a storage back end for events
 
+[NOTE]
+Older versions of {ProjectShort} would manage Elasticsearch objects for the community supported Elastic Cloud on Kuberneters Operator (ECK). This functionality is deprecated as of {ProjectShort} 1.5.3 and will be removed in a future version. Future versions will continue to support forwarding to an existing Elasticsearch instance (which can be one deployed by ECK), but will not manage the creation of Elasticsearch objects. When upgrading an {ProjectShort} deployment, any existing Elasticsearch object and deployment will remain intact, but will no longer be managed by {ProjectShort}.
+
 To enable Elasticsearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
 
 .Procedure

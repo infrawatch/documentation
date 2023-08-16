@@ -2,10 +2,7 @@
 = Configuring an alternate observability strategy
 
 [role="_abstract"]
-To configure {ProjectShort} to skip the deployment of storage, visualization, and alerting backends, add `observabilityStrategy: none` to the ServiceTelemetry spec. In this mode, only {MessageBus} routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
-
-[NOTE]
-Currently, only metrics are supported when you set `observabilityStrategy` to `none`.  Events Smart Gateways are not deployed.
+To configure {ProjectShort} to skip the deployment of storage, visualization, and alerting backends, add `observabilityStrategy: none` to the ServiceTelemetry spec. In this mode, only {MessageBus} routers and Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the {ProjectShort} Smart Gateways.
 
 .Procedure
 . Create a `ServiceTelemetry` object with the property `observabilityStrategy: none` in the `spec` parameter. The manifest shows results in a default deployment of {ProjectShort} that is suitable for receiving telemetry from a single cloud with all metrics collector types.
@@ -36,7 +33,9 @@ $ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch g
 ----
 $ oc get pods
 NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6f8547df6c-p2db5   3/3     Running   0          132m
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-event-smartgateway-bf859f8d77-tzb66   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
 ifndef::include_when_13[]
 default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
