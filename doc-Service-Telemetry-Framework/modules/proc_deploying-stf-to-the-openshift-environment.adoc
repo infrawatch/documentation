@@ -2,7 +2,127 @@
 = Deploying {Project} to the {OpenShift} environment
 
 [role="_abstract"]
-Deploy {Project} ({ProjectShort}) to collect, store, and monitor events:
+Deploy {Project} ({ProjectShort}) to collect and store {OpenStack} ({OpenStackShort}) telemetry.
+
+[id="deploying-observability-operator_{context}"]
+== Deploying Observability Operator
+
+// TODO: https://access.redhat.com/articles/7011708 covers migration to OBO from community-operators Prometheus Operator. This documentation references community-operators as the installation CatalogSource. It is hoping OBO is available from redhat-operators CatalogSource prior to STF 1.5.3. If so, then we will need to update this.
+{Project} ({ProjectShort}) uses other supporting Operators as part of the deployment. {ProjectShort} is able to satisfy most dependencies automatically but some Operators need to be pre-installed, such as Observability Operator which provides an instance of Prometheus.
+
+.Procedure
+
+. To store metrics in Prometheus, you must enable the Observability Operator by using the community-operators CatalogSource:
++
+[WARNING]
+====
+Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
+
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: observability-operator
+  namespace: openshift-operators
+spec:
+  channel: development
+  installPlanApproval: Automatic
+  name: observability-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify that the ClusterServiceVersion for Observability Operator `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
+
+NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
+observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded
+----
+
+[id="deploying-certificate-manager_{context}"]
+== Deploying Certificate Manager for OpenShift Operator
+
+Deploying Certificate Manager for OpenShift is done automatically during installation of Service Telemetry Operator on {OpenShift} v4.12 and later. If you're deploying {Project} ({ProjectShort}) on {OpenShift} versions prior to 4.12, the Certificate Manager for OpenShift needs to be deployed prior to Service Telemetry Operator.
+
+NOTE: Preinstallation of Certificate Manager for OpenShift is only required on {OpenShift} versions prior to 4.12. If you're installing {ProjectShort} on {OpenShift} 4.12 or later then skip this procedure.
+
+.Procedure
+
+. Create a namespace for the cert-manager Operator:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: openshift-cert-manager-operator
+spec:
+  finalizers:
+  - kubernetes
+EOF
+----
+
+. Create an OperatorGroup for the cert-manager Operator:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF
+----
+
+. Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec:
+  channel: tech-preview
+  installPlanApproval: Automatic
+  name: openshift-cert-manager-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
+----
+
+== Deploying Service Telemetry Operator
+
+Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Operators and interface for creating an instance of {Project} ({ProjectShort}) for monitoring of {OpenStack} ({OpenStackShort}) cloud platforms.
+
+.Prerequisites
+
+* Installation of Observability Operator which provides Prometheus for storage of metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+* Installation of Certificate Manager for OpenShift on {OpenShift} versions prior to 4.12. For more information, see xref:deploying-certificate-manager_assembly-installing-the-core-components-of-stf[].
 
 .Procedure
 
@@ -79,143 +199,6 @@ service-telemetry-operator                    InfraWatch Operators       7m20s
 smart-gateway-operator                        InfraWatch Operators       7m20s
 ----
 endif::[]
-////
-// TODO: need to move this to a separate section for OCP 4.10 only
-. Create a namespace for the cert-manager Operator:
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: project.openshift.io/v1
-kind: Project
-metadata:
-  name: openshift-cert-manager-operator
-spec:
-  finalizers:
-  - kubernetes
-EOF
-----
-
-. Create an OperatorGroup for the cert-manager Operator:
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
-spec: {}
-EOF
-----
-
-. Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
-spec:
-  channel: tech-preview
-  installPlanApproval: Automatic
-  name: openshift-cert-manager-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-EOF
-----
-
-. Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of `Succeeded`:
-+
-[source,bash,options="nowrap",role="white-space-pre"]
-----
-$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
-
-NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
-openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
-----
-////
-
-// TODO: this needs to either result in a KCS for migrating to redhat-operators
-// when it's available, or update this prior to STF 1.5.3 if available
-. To store metrics in Prometheus, you must enable the Observability Operator by using the community-operators CatalogSource:
-+
-[WARNING]
-====
-Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
-
-https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
-====
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: observability-operator
-  namespace: openshift-operators
-spec:
-  channel: development
-  installPlanApproval: Automatic
-  name: observability-operator
-  source: community-operators
-  sourceNamespace: openshift-marketplace
-EOF
-----
-
-. Verify that the ClusterServiceVersion for Observability Operator `Succeeded`:
-+
-[source,bash,options="nowrap",role="white-space-pre"]
-----
-oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
-
-NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
-observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded
-----
-
-////
-// TODO: move this to a KCS
-. To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:
-+
-[WARNING]
-====
-Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.
-
-https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
-====
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-$ oc create -f - <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: elasticsearch-eck-operator-certified
-  namespace: service-telemetry
-spec:
-  channel: stable
-  installPlanApproval: Automatic
-  name: elasticsearch-eck-operator-certified
-  source: certified-operators
-  sourceNamespace: openshift-marketplace
-EOF
-----
-
-. Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes `Succeeded`:
-+
-[source,bash,options="nowrap",role="white-space-pre"]
-----
-$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
-
-NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
-elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded
-----
-////
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
@@ -269,3 +252,42 @@ observability-operator.v0.0.25               Observability Operator             
 service-telemetry-operator.v1.5.1691275411   Service Telemetry Operator                    1.5.1691275411                                        Succeeded
 smart-gateway-operator.v5.0.1691275406       Smart Gateway Operator                        5.0.1691275406                                        Succeeded
 ----
+
+////
+// TODO: move this to a KCS
+. To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:
++
+[WARNING]
+====
+Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.
+
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: elasticsearch-eck-operator-certified
+  namespace: service-telemetry
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: elasticsearch-eck-operator-certified
+  source: certified-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
+
+NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
+elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded
+----
+////
