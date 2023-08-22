@@ -55,11 +55,18 @@ spec:
         certificates:
           caCertDuration: 70080h
           endpointCertDuration: 70080h
+        enabled: false
+        forwarding:
+          hostUrl: https://elasticsearch-es-http:9200
+          tlsSecretName: elasticsearch-es-cert
+          tlsServerName: ""
+          useBasicAuth: true
+          useTls: true
+          userSecretName: elasticsearch-es-elastic-user
         storage:
           persistent:
             pvcStorageRequest: 20Gi
           strategy: persistent
-        enabled: false
         version: 7.16.1
     logs:
       loki:
@@ -160,7 +167,7 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 
 * To determine that all workloads are operating correctly, view the pods and the status of each pod.
 +
-NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before Elasticsearch starts.
+NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` if they are unable to connect to the Elasticsearch instance.
 
 +
 [source,bash,options="nowrap"]
@@ -175,7 +182,6 @@ ifndef::include_when_13[]
 default-cloud1-sens-meter-smartgateway-6f8dffb645-hhgkw   3/3     Running   0          3m46s
 endif::[]
 default-interconnect-6994ff546-fx7jn                      1/1     Running   0          4m18s
-elastic-operator-9f44cdf6c-csvjq                          1/1     Running   0          19m
 interconnect-operator-646bfc886c-gx55n                    1/1     Running   0          25m
 prometheus-default-0                                      3/3     Running   0          3m33s
 prometheus-operator-54d644d8d7-wzdlh                      1/1     Running   0          20m
