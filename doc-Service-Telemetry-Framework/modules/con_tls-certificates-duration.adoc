@@ -17,7 +17,7 @@ caCertDuration:: The requested 'duration' or lifetime of the CA Certificate.
 Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration.
 Default value is `70080h`.
 
-NOTE: The default duration of certificates is long, because you usually copy a subset of them in the {OpenStack} deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
+NOTE: The default duration of certificates is long, because you usually copy a subset of them in the {OpenStack} deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see xref:assembly-renewing-the-amq-interconnect-certificate_assembly[].
 
 You can configure the `certificates` parameter for QDR that is part of the `transports.qdr` definition in the `ServiceTelemetry` object:
 
