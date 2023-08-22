@@ -179,7 +179,7 @@ spec:
 EOF
 ----
 
-. Validate the creation of your CatalogSource:
+. Confirm that the CatalogSource is installed:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
