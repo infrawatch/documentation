@@ -12,7 +12,7 @@ Deploy {Project} ({ProjectShort}) to collect and store {OpenStack} ({OpenStackSh
 
 .Procedure
 
-. To store metrics in Prometheus, you must enable the Observability Operator by using the community-operators CatalogSource:
+. To store metrics in Prometheus, enable the Observability Operator by using the community-operators CatalogSource:
 +
 [WARNING]
 ====
