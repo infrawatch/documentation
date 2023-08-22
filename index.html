@@ -462,7 +462,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a></li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
 <li><a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a></li>
-<li><a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a></li>
 </ul>
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
@@ -676,7 +675,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Apache&#160;Qpid&#160;Dispatch&#160;Router: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to STF for storage.</p>
 </li>
 <li>
-<p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Elasticsearch or Prometheus.</p>
+<p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Prometheus or an external Elasticsearch.</p>
 </li>
 </ul>
 </div>
@@ -688,16 +687,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Prometheus: Time-series data storage that stores STF metrics received from the Smart Gateway.</p>
 </li>
-<li>
-<p>Elasticsearch: Events data storage that stores STF events received from the Smart Gateway.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Observation</p>
-<div class="ulist">
-<ul>
 <li>
 <p>Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.</p>
 </li>
@@ -911,15 +900,12 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <li>
 <p>Ensure that you have a fully connected network environment. For more information, see <a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a>.</p>
 </li>
-<li>
-<p>STF uses Elasticsearch to store events, which requires a larger than normal <code>vm.max_map_count</code> value. The <code>vm.max_map_count</code> value is set by default in OpenShift. For more information about how to edit the value of <code>vm.max_map_count</code>, see <a href="#node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</a>.</p>
-</li>
 </ul>
 </div>
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, and Grafana. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
 </div>
 <div class="paragraph">
 <p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
@@ -928,7 +914,7 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="sect2">
 <h3 id="persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to request persistent volumes so that Prometheus and Elasticsearch can store metrics and events.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses persistent storage in OpenShift to request persistent volumes so that Prometheus can store metrics.</p>
 </div>
 <div class="paragraph">
 <p>When you enable persistent storage through the Service Telemetry Operator, the Persistent Volume Claims (PVC) requested in an STF deployment results in an access mode of RWO (ReadWriteOnce). If your environment contains pre-provisioned persistent volumes, ensure that volumes of RWO are available in the OpenShift default configured <code>storageClass</code>.</p>
@@ -944,9 +930,6 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 </li>
 <li>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
-</li>
-<li>
-<p>For more information about configuring persistent storage for Elasticsearch in STF, see <a href="#backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Elasticsearch</a>.</p>
 </li>
 </ul>
 </div>
@@ -965,9 +948,6 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <li>
 <p>For recommendations about sizing for metrics collection, see <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
 </li>
-<li>
-<p>For information about sizing requirements for Elasticsearch, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html" class="bare">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-managing-compute-resources.html</a>.</p>
-</li>
 </ul>
 </div>
 </div>
@@ -975,62 +955,6 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <h3 id="con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</h3>
 <div class="paragraph">
 <p>You can only deploy Service&#160;Telemetry&#160;Framework (STF) in a fully connected network environment. You cannot deploy STF in OpenShift-disconnected environments or network proxy environments.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="node-tuning-operator_assembly-preparing-your-ocp-environment-for-stf">Node tuning operator</h3>
-<div class="paragraph _abstract">
-<p>STF uses Elasticsearch to store events, which requires a larger than normal <code>vm.max_map_count</code>. The <code>vm.max_map_count</code> value is set by default in OpenShift.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-If your host platform is a typical OpenShift 4 environment, do not make any adjustments. The default node tuning operator is configured to account for Elasticsearch workloads.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If you want to edit the value of <code>vm.max_map_count</code>, you cannot apply node tuning manually using the <code>sysctl</code> command because OpenShift manages nodes directly. To configure values and apply them to the infrastructure, you must use the node tuning operator. For more information, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html">Using the Node Tuning Operator</a>.</p>
-</div>
-<div class="paragraph">
-<p>In an OKD deployment, the default node tuning operator specification provides the required profiles for Elasticsearch workloads or pods scheduled on nodes. To view the default cluster node tuning specification, run the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get Tuned/default -o yaml -n openshift-cluster-node-tuning-operator</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The output of the default specification is documented at <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-default-profiles-set_node-tuning-operator">Default profiles set on a cluster</a>. You can manage the assignment of profiles in the <code>recommend</code> section where profiles are applied to a node when certain conditions are met. When scheduling Elasticsearch to a node in STF, one of the following profiles is applied:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>openshift-control-plane-es</code></p>
-</li>
-<li>
-<p><code>openshift-node-es</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When scheduling an Elasticsearch pod, there must be a label present that matches <code>tuned.openshift.io/elasticsearch</code>. If the label is present, one of the two profiles is assigned to the pod. No action is required by the administrator if you use the recommended Operator for Elasticsearch. If you use a custom-deployed Elasticsearch with STF, ensure that you add the <code>tuned.openshift.io/elasticsearch</code> label to all scheduled pods.</p>
-</div>
-<div class="ulist">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>For more information about virtual memory use by Elasticsearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
-</li>
-<li>
-<p>For more information about how the profiles are applied to nodes, see <a href="https://docs.openshift.com/container-platform/4.12/scalability_and_performance/using-node-tuning-operator.html#custom-tuning-specification_node-tuning-operator">Custom tuning specification</a>.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -1054,9 +978,6 @@ If your host platform is a typical OpenShift 4 environment, do not make any adju
 </li>
 <li>
 <p>Prometheus and AlertManager</p>
-</li>
-<li>
-<p>Elasticsearch</p>
 </li>
 <li>
 <p>Grafana</p>
@@ -1474,11 +1395,18 @@ spec:
         certificates:
           caCertDuration: 70080h
           endpointCertDuration: 70080h
+        enabled: false
+        forwarding:
+          hostUrl: https://elasticsearch-es-http:9200
+          tlsSecretName: elasticsearch-es-cert
+          tlsServerName: ""
+          useBasicAuth: true
+          useTls: true
+          userSecretName: elasticsearch-es-elastic-user
         storage:
           persistent:
             pvcStorageRequest: 20Gi
           strategy: persistent
-        enabled: false
         version: 7.16.1
     logs:
       loki:
@@ -1590,7 +1518,7 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <code>true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> error messages for a period of time before Elasticsearch starts.
+If you set the <code>backends.events.elasticsearch.enabled</code> parameter to <code>true</code>, the notification Smart Gateways report <code>Error</code> and <code>CrashLoopBackOff</code> if they are unable to connect to the Elasticsearch instance.
 </td>
 </tr>
 </table>
@@ -1605,7 +1533,6 @@ default-cloud1-ceil-meter-smartgateway-669c6cdcf9-xvdvx   3/3     Running   0   
 default-cloud1-coll-meter-smartgateway-585855c59d-858rf   3/3     Running   0          3m46s
 default-cloud1-sens-meter-smartgateway-6f8dffb645-hhgkw   3/3     Running   0          3m46s
 default-interconnect-6994ff546-fx7jn                      1/1     Running   0          4m18s
-elastic-operator-9f44cdf6c-csvjq                          1/1     Running   0          19m
 interconnect-operator-646bfc886c-gx55n                    1/1     Running   0          25m
 prometheus-default-0                                      3/3     Running   0          3m33s
 prometheus-operator-54d644d8d7-wzdlh                      1/1     Running   0          20m
@@ -1651,7 +1578,7 @@ smart-gateway-operator-9bbd7c56c-76w67                    1/1     Running   0   
 <p>Use the <code>backends</code> parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the <code>clouds</code> parameter defines. For more information, see <a href="#clouds_assembly-installing-the-core-components-of-stf">The clouds parameter</a>.</p>
 </div>
 <div class="paragraph">
-<p>You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. You can use the Service Telemetry Operator to create other custom resource objects that the Prometheus Operator and Elastic Cloud on Kubernetes Operator watch to create Prometheus and Elasticsearch workloads.</p>
+<p>You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. The Service Telemetry Operator can create custom resource objects that the Prometheus Operator watches to create a Prometheus workload. For storage of events, an external deployment of Elasticsearch is required.</p>
 </div>
 <h6 id="_enabling_prometheus_as_a_storage_back_end_for_metrics" class="discrete">Enabling Prometheus as a storage back end for metrics</h6>
 <div class="paragraph">
@@ -1747,8 +1674,22 @@ spec:
 </ol>
 </div>
 <h6 id="_enabling_elasticsearch_as_a_storage_back_end_for_events" class="discrete">Enabling Elasticsearch as a storage back end for events</h6>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>To enable Elasticsearch as a storage back end for events, you must configure the <code>ServiceTelemetry</code> object.</p>
+<p>Older versions of STF would manage Elasticsearch objects for the community supported Elastic Cloud on Kuberneters Operator (ECK). This functionality is deprecated as of STF 1.5.3. Future versions of Service Telemetry Operator will continue to support forwarding to an existing Elasticsearch instance (which can be one deployed by ECK), but will not manage the creation of Elasticsearch objects. When upgrading an STF deployment, any existing Elasticsearch object and deployment will remain intact, but will no longer be managed by STF.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To enable events forwarding to Elasticsearch as a storage back end, you must configure the <code>ServiceTelemetry</code> object.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1762,60 +1703,7 @@ spec:
 </div>
 </li>
 <li>
-<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  [...]
-  backends:
-    events:
-      elasticsearch:
-        enabled: true</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<h6 id="backends-configuring-persistent-storage-for-elasticsearch_assembly-installing-the-core-components-of-stf" class="discrete">Configuring persistent storage for Elasticsearch</h6>
-<div class="paragraph">
-<p>Use the additional parameters defined in <code>backends.events.elasticsearch.storage.persistent</code> to configure persistent storage options for Elasticsearch, such as storage class and volume size.</p>
-</div>
-<div class="paragraph">
-<p>Use <code>storageClass</code> to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the OpenShift cluster.</p>
-</div>
-<div class="paragraph">
-<p>Use the <code>pvcStorageRequest</code> parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of <code>20Gi</code> (20 Gibibytes).</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>List the available storage classes:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get storageclasses
-NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-csi-manila-ceph      manila.csi.openstack.org   Delete          Immediate              false                  20h
-standard (default)   kubernetes.io/cinder       Delete          WaitForFirstConsumer   true                   20h
-standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Edit the <code>ServiceTelemetry</code> object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code> and the value of backends.events.elasticsearch.storage.strategy to <code>persistent</code>:</p>
+<p>Set the value of the backends.events.elasticsearch.enabled parameter to <code>true</code> and configure the hostUrl to match the Elasticsearch instance you would like to forward to:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
@@ -1829,12 +1717,34 @@ spec:
     events:
       elasticsearch:
         enabled: true
-        version: 7.16.1
-        storage:
-          strategy: persistent
-          persistent:
-            storageClass: standard-csi
-            pvcStorageRequest: 50G</code></pre>
+        forwarding:
+          hostUrl: https://external-elastic-http.domain:9200
+          tlsServerName: ""
+          tlsSecretName: elasticsearch-es-cert
+          userSecretName: elasticsearch-es-elastic-user
+          useBasicAuth: true
+          useTls: true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the secret named in the <code>userSecretName</code> parameter to store the basic auth credentials</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create secret generic elasticsearch-es-elastic-user --from-literal=elastic='&lt;PASSWORD&gt;'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the CA certificate into a file called <code>EXTERNAL-ES-CA.pem</code>, then create the secret named in the <code>tlsSecretName</code> parameter to make it available to STF</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ cat EXTERNAL-ES-CA.pem
+-----BEGIN CERTIFICATE-----
+[...]
+-----END CERTIFICATE-----
+
+$ oc create secret generic elasticsearch-es-cert --from-file=ca.crt=EXTERNAL-ES-CA.pem</code></pre>
 </div>
 </div>
 </li>
@@ -1953,19 +1863,7 @@ default-prometheus-proxy     default-prometheus-proxy-service-telemetry.apps.inf
 <div class="sect2">
 <h3 id="configuring-observability-strategy_assembly-installing-the-core-components-of-stf">Configuring an alternate observability strategy</h3>
 <div class="paragraph _abstract">
-<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Currently, only metrics are supported when you set <code>observabilityStrategy</code> to <code>none</code>.  Events Smart Gateways are not deployed.
-</td>
-</tr>
-</table>
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways, and an external Elasticsearch to receive forwarded events.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -2000,7 +1898,9 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
 NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6f8547df6c-p2db5   3/3     Running   0          132m
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-event-smartgateway-bf859f8d77-tzb66   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
 default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
 default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
@@ -4541,9 +4441,8 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="tls-certificates-duration_assembly-advanced-features">Configuring the duration for the TLS certificates</h3>
 <div class="paragraph _abstract">
-<p>To configure the duration of the TLS certificates that you use for the connections with
-Elasticsearch and Apache&#160;Qpid&#160;Dispatch&#160;Router in Service&#160;Telemetry&#160;Framework (STF),
-modify the <code>ServiceTelemetry</code> object and configure the <code>certificates</code> parameters.</p>
+<p>To configure the duration of the TLS certificates that you use for the Apache&#160;Qpid&#160;Dispatch&#160;Router connection in Service&#160;Telemetry&#160;Framework (STF),
+modify the <code>ServiceTelemetry</code> object and configure the <code>certificates</code> parameter.</p>
 </div>
 <div class="sect3">
 <h4 id="configuration-parameters-for-tls-certificates-duration_assembly-advanced-features">Configuration parameters for the TLS certificates</h4>
@@ -4564,35 +4463,19 @@ The default value is <code>70080h</code>.</p>
 Minimum accepted duration is 1 hour. Value must be in units accepted by Go time.ParseDuration <a href="https://golang.org/pkg/time/#ParseDuration" class="bare">https://golang.org/pkg/time/#ParseDuration</a>.
 Default value is <code>70080h</code>.</p>
 </dd>
-<dt class="hdlist1">NOTE</dt>
-<dd>
-<p>The default duration of certificates is long, because you usually copy a subset of them in the OpenStack deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see <a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a></p>
-</dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>The <code>certificates</code> parameter for Elasticsearch is part of the <code>backends.events.elasticsearch</code> definition and is configured in the <code>ServiceTelemetry</code> object:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-...
-  backends:
-    ...
-    events:
-      elasticsearch:
-        enabled: true
-        version: 7.16.1
-        certificates:
-          endpointCertDuration: 70080h
-          caCertDuration: 70080h
-...</code></pre>
-</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The default duration of certificates is long, because you usually copy a subset of them in the OpenStack deployment when the certificates renew. For more information about the QDR CA Certificate renewal process, see <a href="#assembly-renewing-the-amq-interconnect-certificate_assembly">Renewing the Apache&#160;Qpid&#160;Dispatch&#160;Router certificate</a>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>You can configure the <code>certificates</code> parameter for QDR that is part of the <code>transports.qdr</code> definition in the <code>ServiceTelemetry</code> object:</p>
@@ -4642,8 +4525,7 @@ The following procedure is valid for new STF deployments.</p>
 </div>
 <div class="paragraph">
 <div class="title">Procedure</div>
-<p>To edit the duration of the TLS certificates, you can set the Elasticsearch <code>endpointCertDuration</code>, for example <code>26280h</code> for 3 years, and set the QDR <code>caCertDuration</code>, for example <code>87600h</code> for 10 years.
-You can use the default value of 8 years for the CA certificate for Elasticsearch and endpoint certificate:</p>
+<p>To edit the duration of the TLS certificate, you can set the QDR <code>caCertDuration</code>, for example <code>87600h</code> for 10 years:</p>
 </div>
 <div class="paragraph">
 <p>+</p>
@@ -4657,12 +4539,6 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-        certificates:
-          endpointCertDuration: 26280h
   transport:
     qdr:
       enabled: true
@@ -4675,13 +4551,10 @@ EOF</code></pre>
 <div class="title">Verification</div>
 <ol class="arabic">
 <li>
-<p>Verify that the expiry date for the certificates is correct:</p>
+<p>Verify that the expiry date for the certificate is correct:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret elasticsearch-es-cert -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
-            Not After : Mar  9 21:00:16 2026 GMT
-
-$ oc get secret  default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get secret  default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
             Not After : Mar  9 21:00:16 2033 GMT</code></pre>
 </div>
 </div>
@@ -4712,9 +4585,6 @@ STF is not yet a fully fault tolerant system. Delivery of metrics and events dur
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p>Three Elasticsearch pods run instead of the default one.</p>
-</li>
 <li>
 <p>The following components run two pods instead of the default one:</p>
 <div class="ulist">
@@ -4793,7 +4663,7 @@ spec:
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, Grafana, and Elasticsearch. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, and Grafana. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
 </div>
 <div class="paragraph">
 <p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
@@ -4801,19 +4671,7 @@ spec:
 <div class="sect3">
 <h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
 <div class="paragraph _abstract">
-<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and metrics Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Currently, only metrics are supported when you set <code>observabilityStrategy</code> to <code>none</code>.  Events Smart Gateways are not deployed.
-</td>
-</tr>
-</table>
+<p>To configure STF to skip the deployment of storage, visualization, and alerting backends, add <code>observabilityStrategy: none</code> to the ServiceTelemetry spec. In this mode, only Apache&#160;Qpid&#160;Dispatch&#160;Router routers and Smart Gateways are deployed, and you must configure an external Prometheus-compatible system to collect metrics from the STF Smart Gateways, and an external Elasticsearch to receive forwarded events.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -4848,7 +4706,9 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pods
 NAME                                                      READY   STATUS    RESTARTS   AGE
+default-cloud1-ceil-event-smartgateway-6f8547df6c-p2db5   3/3     Running   0          132m
 default-cloud1-ceil-meter-smartgateway-59c845d65b-gzhcs   3/3     Running   0          132m
+default-cloud1-coll-event-smartgateway-bf859f8d77-tzb66   3/3     Running   0          132m
 default-cloud1-coll-meter-smartgateway-75bbd948b9-d5phm   3/3     Running   0          132m
 default-cloud1-sens-meter-smartgateway-7fdbb57b6d-dh2g9   3/3     Running   0          132m
 default-interconnect-668d5bbcd6-57b2l                     1/1     Running   0          132m
@@ -5991,7 +5851,6 @@ EOF</code></pre>
 
 NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
 amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
-elasticsearch-eck-operator-certified.v2.5.0   Elasticsearch (ECK) Operator                  2.5.0            elasticsearch-eck-operator-certified.v2.4.0   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
 prometheusoperator.0.47.0                     Prometheus Operator                           0.47.0           prometheusoperator.0.37.0                     Succeeded
 service-telemetry-operator.v1.5.1669950702    Service Telemetry Operator                    1.5.1669950702                                                 Succeeded
@@ -6027,8 +5886,6 @@ default-cloud1-coll-event-smartgateway-66cddd5567-qb6p2   2/2     Running   1 (3
 default-cloud1-coll-meter-smartgateway-76d5ff6db5-z5ch8   3/3     Running   0               4m20s
 default-cloud1-sens-meter-smartgateway-7b59669fdd-c42zg   3/3     Running   1 (3m43s ago)   4m20s
 default-interconnect-845c4b647c-wwfcm                     1/1     Running   0               4m10s
-elastic-operator-57b57964c5-6q88r                         1/1     Running   8 (17h ago)     20h
-elasticsearch-es-default-0                                1/1     Running   0               21h
 grafana-deployment-59c54f7d7c-zjnhm                       2/2     Running   0               20h
 interconnect-operator-848889bf8b-bq2zx                    1/1     Running   0               20h
 prometheus-default-0                                      3/3     Running   1 (20h ago)     20h
@@ -6068,7 +5925,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-19 19:26:54 UTC
+Last updated 2023-08-22 16:27:55 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
