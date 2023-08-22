@@ -117,7 +117,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 
 == Deploying Service Telemetry Operator
 
-Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Operators and interface for creating an instance of {Project} ({ProjectShort}) for monitoring of {OpenStack} ({OpenStackShort}) cloud platforms.
+Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Operators and interface for creating an instance of {Project} ({ProjectShort}) to monitor {OpenStack} ({OpenStackShort}) cloud platforms.
 
 .Prerequisites
 
