@@ -466,7 +466,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a></li>
+<li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
+<ul class="sectlevel3">
+<li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a></li>
+<li><a href="#deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></li>
+<li><a href="#_deploying_service_telemetry_operator">Deploying Service Telemetry Operator</a></li>
+</ul>
+</li>
 <li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>
 <ul class="sectlevel3">
 <li><a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a></li>
@@ -998,83 +1004,75 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="sect2">
 <h3 id="deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</h3>
 <div class="paragraph _abstract">
-<p>Deploy Service&#160;Telemetry&#160;Framework (STF) to collect, store, and monitor events:</p>
+<p>Deploy Service&#160;Telemetry&#160;Framework (STF) to collect and store OpenStack (OSP) telemetry.</p>
+</div>
+<div class="sect3">
+<h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</h4>
+<div class="paragraph">
+<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF is able to satisfy most dependencies automatically but some Operators need to be pre-installed, such as Observability Operator which provides an instance of Prometheus.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a namespace to contain the STF components, for example, <code>service-telemetry</code>:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc new-project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: service-telemetry-operator-group
-  namespace: service-telemetry
-spec:
-  targetNamespaces:
-  - service-telemetry
-EOF</code></pre>
-</div>
+<p>To store metrics in Prometheus, enable the Observability Operator by using the community-operators CatalogSource:</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
 </div>
-</li>
-<li>
-<p>Before you deploy STF on OpenShift, you must enable the catalog source. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
+kind: Subscription
 metadata:
-  name: infrawatch-operators
-  namespace: openshift-marketplace
+  name: observability-operator
+  namespace: openshift-operators
 spec:
-  displayName: InfraWatch Operators
-  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
-  publisher: InfraWatch
-  sourceType: grpc
-  updateStrategy:
-    registryPoll:
-      interval: 30m
+  channel: development
+  installPlanApproval: Automatic
+  name: observability-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Validate the creation of your CatalogSource:</p>
+<p>Verify that the ClusterServiceVersion for Observability Operator <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
 
-NAME                   DISPLAY                TYPE   PUBLISHER    AGE
-infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></pre>
+NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
+observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded</code></pre>
 </div>
 </div>
 </li>
-<li>
-<p>Validate that the Operators are available from the catalog:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
-
-service-telemetry-operator                    InfraWatch Operators       7m20s
-smart-gateway-operator                        InfraWatch Operators       7m20s</code></pre>
+</ol>
 </div>
 </div>
-</li>
+<div class="sect3">
+<h4 id="deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</h4>
+<div class="paragraph">
+<p>The Certificate Manager for OpenShift is pre-installed from the <code>stable-v1</code> channel with Service Telemetry Framework (STF) on OpenShift 4.12 or later. When installing STF on OpenShift 4.10 pre-installation is required due to only the <code>tech-preview</code> channel being available. Pre-installation is only required on versions of OpenShift prior to 4.12.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
 <li>
 <p>Create a namespace for the cert-manager Operator:</p>
 <div class="listingblock white-space-pre">
@@ -1137,150 +1135,102 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 </div>
 </div>
 </li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deploying_service_telemetry_operator">Deploying Service Telemetry Operator</h4>
+<div class="paragraph">
+<p>Deploy Service Telemetry Operator on OpenShift to provide the supporting Operators and interface for creating an instance of Service&#160;Telemetry&#160;Framework (STF) to monitor OpenStack (OSP) cloud platforms.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
 <li>
-<p>Subscribe to the AMQ Interconnect Operator by using the redhat-operators CatalogSource:</p>
+<p>Installation of Observability Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a>.</p>
+</li>
+<li>
+<p>Installation of Certificate Manager for OpenShift on OpenShift versions prior to 4.12. For more information, see <a href="#deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a namespace to contain the STF components, for example, <code>service-telemetry</code>:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc new-project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an OperatorGroup in the namespace so that you can schedule the Operator pods:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: service-telemetry-operator-group
+  namespace: service-telemetry
+spec:
+  targetNamespaces:
+  - service-telemetry
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.12/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Before you deploy STF on OpenShift, you must enable the catalog source. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
+kind: CatalogSource
 metadata:
-  name: amq7-interconnect-operator
-  namespace: service-telemetry
+  name: infrawatch-operators
+  namespace: openshift-marketplace
 spec:
-  channel: 1.10.x
-  installPlanApproval: Automatic
-  name: amq7-interconnect-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
+  displayName: InfraWatch Operators
+  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
+  priority: 0
+  publisher: InfraWatch
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
 EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Validate your ClusterServiceVersion. Ensure that amq7-interconnect-operator.v1.10.x displays a phase of <code>Succeeded</code>:</p>
+<p>Confirm that the CatalogSource is installed:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/amq7-interconnect-operator.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
 
-NAME                                  DISPLAY                                  VERSION   REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.15   Red Hat Integration - AMQ Interconnect   1.10.15   amq7-interconnect-operator.v1.10.4   Succeeded</code></pre>
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>To store metrics in Prometheus, you must enable the Prometheus Operator by using the community-operators CatalogSource:</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
-</div>
-</td>
-</tr>
-</table>
-</div>
+<p>Validate that the Operators are available from the catalog:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: prometheus-operator
-  namespace: service-telemetry
-spec:
-  channel: beta
-  installPlanApproval: Automatic
-  name: prometheus
-  source: community-operators
-  sourceNamespace: openshift-marketplace
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the ClusterServiceVersion for Prometheus <code>Succeeded</code>:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/prometheus.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get packagemanifests | grep InfraWatch
 
-NAME                        DISPLAY               VERSION   REPLACES                    PHASE
-prometheusoperator.0.56.3   Prometheus Operator   0.56.3    prometheusoperator.0.47.0   Succeeded</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To store events in Elasticsearch, you must enable the Elastic Cloud on Kubernetes (ECK) Operator by using the certified-operators CatalogSource:</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Certified Operators are Operators from leading independent software vendors (ISVs). Red Hat partners with ISVs to package and ship, but not support, the certified Operators. Supported is provided by the ISV.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: elasticsearch-eck-operator-certified
-  namespace: service-telemetry
-spec:
-  channel: stable
-  installPlanApproval: Automatic
-  name: elasticsearch-eck-operator-certified
-  source: certified-operators
-  sourceNamespace: openshift-marketplace
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the ClusterServiceVersion for Elastic Cloud on Kubernetes <code>Succeeded</code>:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector=operators.coreos.com/elasticsearch-eck-operator-certified.service-telemetry
-
-NAME                                          DISPLAY                        VERSION   REPLACES                                      PHASE
-elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator   2.8.0     elasticsearch-eck-operator-certified.v2.7.0   Succeeded</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create the Smart Gateway Operator subscription to manage the smartgateway instances:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: smart-gateway-operator
-  namespace: service-telemetry
-spec:
-  channel: unstable
-  installPlanApproval: Automatic
-  name: smart-gateway-operator
-  source: infrawatch-operators
-  sourceNamespace: openshift-marketplace
-EOF</code></pre>
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s</code></pre>
 </div>
 </div>
 </li>
@@ -1310,17 +1260,17 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
 
-NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
-amq7-interconnect-operator.v1.10.15           Red Hat Integration - AMQ Interconnect        1.10.15          amq7-interconnect-operator.v1.10.4            Succeeded
-elasticsearch-eck-operator-certified.v2.8.0   Elasticsearch (ECK) Operator                  2.8.0            elasticsearch-eck-operator-certified.v2.7.0   Succeeded
-openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
-prometheusoperator.0.56.3                     Prometheus Operator                           0.56.3           prometheusoperator.0.47.0                     Succeeded
-service-telemetry-operator.v1.5.1680516659    Service Telemetry Operator                    1.5.1680516659                                                 Succeeded
-smart-gateway-operator.v5.0.1680516659        Smart Gateway Operator                        5.0.1680516659                                                 Succeeded</code></pre>
+NAME                                         DISPLAY                                       VERSION          REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.16          Red Hat Integration - AMQ Interconnect        1.10.16          amq7-interconnect-operator.v1.10.4   Succeeded
+cert-manager-operator.v1.11.4                cert-manager Operator for Red Hat OpenShift   1.11.4                                                Succeeded
+observability-operator.v0.0.25               Observability Operator                        0.0.25           observability-operator.v0.0.22       Succeeded
+service-telemetry-operator.v1.5.1691275411   Service Telemetry Operator                    1.5.1691275411                                        Succeeded
+smart-gateway-operator.v5.0.1691275406       Smart Gateway Operator                        5.0.1691275406                                        Succeeded</code></pre>
 </div>
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -5494,7 +5444,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-05 15:33:24 UTC
+Last updated 2023-09-05 16:59:27 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
