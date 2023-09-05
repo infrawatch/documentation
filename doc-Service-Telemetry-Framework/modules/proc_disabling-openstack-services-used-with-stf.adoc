@@ -6,22 +6,20 @@ Disable the services used when deploying {OpenStack} ({OpenStackShort}) and conn
 
 .Procedure
 
-. Log in to the {OpenStackShort} undercloud as the `stack` user.
+. Log in to the undercloud host as the `stack` user.
 
-. Source the authentication file:
+. Source the `stackrc` undercloud credentials file:
 +
 [source,bash]
 ----
-[stack@undercloud-0 ~]$ source stackrc
-
-(undercloud) [stack@undercloud-0 ~]$
+$ source ~/stackrc
 ----
 
 . Create the `disable-stf.yaml` environment file:
 +
 [source,yaml,options="nowrap"]
 ----
-(undercloud) [stack@undercloud-0]$ cat > $HOME/disable-stf.yaml <<EOF
+$ cat > ~/disable-stf.yaml <<EOF
 ---
 resource_registry:
   OS::TripleO::Services::CeilometerAgentCentral: OS::Heat::None
@@ -43,12 +41,9 @@ EOF
 
 . Update the {OpenStackShort} overcloud. Ensure that you use the `disable-stf.yaml` file early in the list of environment files. By adding `disable-stf.yaml` early in the list, other environment files can override the configuration that would disable the service:
 +
-// this one is actually a valid use of subs +quotes. We want the underbars to result in emphasis when generated.
-+
-[source,bash,options="nowrap",subs="+quotes"]
+[source,bash,options="nowrap"]
 ----
-(undercloud) [stack@undercloud-0 ~]$ openstack overcloud deploy _<other_arguments>_
---templates /usr/share/openstack-tripleo-heat-templates \
-  --environment-file /home/stack/disable-stf.yaml
-  --environment-file _<other_environment_files>_ \
+(undercloud)$ openstack overcloud deploy --templates \
+-e /home/stack/disable-stf.yaml \
+-e [your environment files]
 ----

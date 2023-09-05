@@ -14,8 +14,7 @@ The following procedure is valid for new {ProjectShort} deployments.
 
 .Procedure
 
-To edit the duration of the TLS certificates, you can set the Elasticsearch `endpointCertDuration`, for example `26280h` for 3 years, and set the QDR `caCertDuration`, for example `87600h` for 10 years.
-You can use the default value of 8 years for the CA certificate for Elasticsearch and endpoint certificate:
+To edit the duration of the TLS certificate, you can set the QDR `caCertDuration`, for example `87600h` for 10 years:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -26,12 +25,6 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-        certificates:
-          endpointCertDuration: 26280h
   transport:
     qdr:
       enabled: true
@@ -42,13 +35,10 @@ EOF
 
 .Verification
 
-. Verify that the expiry date for the certificates is correct:
+. Verify that the expiry date for the certificate is correct:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get secret elasticsearch-es-cert -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
-            Not After : Mar  9 21:00:16 2026 GMT
-
 $ oc get secret  default-interconnect-selfsigned -o jsonpath='{.data.tls\.crt}' | base64 -d  | openssl x509 -in - -text | grep "Not After"
             Not After : Mar  9 21:00:16 2033 GMT
 ----

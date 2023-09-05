@@ -9,7 +9,7 @@
 [id="installing-the-service-telemetry-framework-1-5-operators_{context}"]
 = Installing the {Project} 1.5 Operators
 
-Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} 4.10 environment. {ProjectShort} 1.5 only supports {OpenShift} 4.10. Installing {ProjectShort} into disconnected or restricted network environments is unsupported.
+Install the {Project} ({ProjectShort}) 1.5 Operators and the Certificate Manager for OpenShift Operator on your {OpenShift} environment. See xref:support-for-project_assembly-introduction-to-stf[] for more information about {ProjectShort} support status and life cycle.
 
 ifdef::include_when_13,include_when_17[]
 [NOTE]
@@ -35,7 +35,7 @@ $ oc project service-telemetry
 
 . Create a `namespace` for the `cert-manager` Operator:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: project.openshift.io/v1
@@ -50,7 +50,7 @@ EOF
 
 . Create an `OperatorGroup` for the cert-manager Operator:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1
@@ -64,7 +64,7 @@ EOF
 
 . Subscribe to the `cert-manager` Operator with the `redhat-operators` CatalogSource:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -95,7 +95,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 
 . Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
@@ -120,7 +120,6 @@ $ oc get csv --namespace service-telemetry
 
 NAME                                          DISPLAY                                       VERSION          REPLACES                                      PHASE
 amq7-interconnect-operator.v1.10.13           Red Hat Integration - AMQ Interconnect        1.10.13          amq7-interconnect-operator.v1.10.4            Succeeded
-elasticsearch-eck-operator-certified.v2.5.0   Elasticsearch (ECK) Operator                  2.5.0            elasticsearch-eck-operator-certified.v2.4.0   Succeeded
 openshift-cert-manager.v1.7.1                 cert-manager Operator for Red Hat OpenShift   1.7.1-1                                                        Succeeded
 prometheusoperator.0.47.0                     Prometheus Operator                           0.47.0           prometheusoperator.0.37.0                     Succeeded
 service-telemetry-operator.v1.5.1669950702    Service Telemetry Operator                    1.5.1669950702                                                 Succeeded
@@ -152,8 +151,6 @@ default-cloud1-coll-event-smartgateway-66cddd5567-qb6p2   2/2     Running   1 (3
 default-cloud1-coll-meter-smartgateway-76d5ff6db5-z5ch8   3/3     Running   0               4m20s
 default-cloud1-sens-meter-smartgateway-7b59669fdd-c42zg   3/3     Running   1 (3m43s ago)   4m20s
 default-interconnect-845c4b647c-wwfcm                     1/1     Running   0               4m10s
-elastic-operator-57b57964c5-6q88r                         1/1     Running   8 (17h ago)     20h
-elasticsearch-es-default-0                                1/1     Running   0               21h
 grafana-deployment-59c54f7d7c-zjnhm                       2/2     Running   0               20h
 interconnect-operator-848889bf8b-bq2zx                    1/1     Running   0               20h
 prometheus-default-0                                      3/3     Running   1 (20h ago)     20h

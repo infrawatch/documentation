@@ -12,7 +12,6 @@ You can use Operators to load the {Project} ({ProjectShort}) components and obje
 * {MessageBus}
 * Smart Gateway
 * Prometheus and AlertManager
-* Elasticsearch
 * Grafana
 
 .Prerequisites
@@ -39,6 +38,7 @@ endif::[]
 .Additional resources
 
 * For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-what-operators-are.html[_Understanding Operators_] guide.
+* For more information about Operator catalogs, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-rh-catalogs.html[_Red Hat-provided Operator catalogs_].
 //* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_{}[].
 
 include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]

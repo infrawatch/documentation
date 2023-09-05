@@ -20,7 +20,7 @@ You can configure each of these configuration parameters to provide different fe
 
 Use the `backends` parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-Currently, you can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end.
+You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. The Service Telemetry Operator can create custom resource objects that the Prometheus Operator watches to create a Prometheus workload. For storage of events, an external deployment of Elasticsearch is required.
 
 [discrete]
 === Enabling Prometheus as a storage back end for metrics
@@ -29,7 +29,14 @@ To enable Prometheus as a storage back end for metrics, you must configure the `
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true`:
 +
 [source,yaml]
 ----
@@ -39,6 +46,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -57,7 +65,7 @@ Use the `pvcStorageRequest` parameter to define the minimum required volume size
 
 .Procedure
 
-* List the available storage classes:
+. List the available storage classes:
 +
 [source,bash,options="nowrap"]
 ----
@@ -68,7 +76,14 @@ standard (default)   kubernetes.io/cinder       Delete          WaitForFirstCons
 standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
 ----
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.metrics.prometheus.enabled parameter to `true` and the value of backends.metrics.prometheus.storage.strategy to `persistent`:
 +
 [source,yaml]
 ----
@@ -78,6 +93,7 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     metrics:
       prometheus:
@@ -92,11 +108,28 @@ spec:
 [discrete]
 === Enabling Elasticsearch as a storage back end for events
 
-To enable Elasticsearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
+[NOTE]
+====
+Older versions of {ProjectShort} would manage Elasticsearch objects for the community supported Elastic Cloud on Kubernetes Operator (ECK). Elasticsearch management functionality is deprecated as of {ProjectShort} 1.5.3. Future versions of Service Telemetry Operator will continue to support forwarding to an existing Elasticsearch instance (which can be deployed and managed by ECK), but will not manage the creation of Elasticsearch objects. When upgrading an {ProjectShort} deployment, any existing Elasticsearch object and deployment will remain intact, but will no longer be managed by {ProjectShort}.
+
+ifeval::["{build}" == "downstream"]
+Refer to this article for additional information about https://access.redhat.com/articles/7031236[Using Service Telemetry Framework with Elasticsearch]
+endif::[]
+
+====
+
+To enable events forwarding to Elasticsearch as a storage back end, you must configure the `ServiceTelemetry` object.
 
 .Procedure
 
-* Configure the `ServiceTelemetry` object:
+. Edit the `ServiceTelemetry` object:
++
+[source,bash]
+----
+$ oc edit stf default
+----
+
+. Set the value of the backends.events.elasticsearch.enabled parameter to `true` and configure the hostUrl to match the Elasticsearch instance you would like to forward to:
 +
 [source,yaml]
 ----
@@ -106,55 +139,37 @@ metadata:
   name: default
   namespace: service-telemetry
 spec:
+  [...]
   backends:
     events:
       elasticsearch:
         enabled: true
+        forwarding:
+          hostUrl: https://external-elastic-http.domain:9200
+          tlsServerName: ""
+          tlsSecretName: elasticsearch-es-cert
+          userSecretName: elasticsearch-es-elastic-user
+          useBasicAuth: true
+          useTls: true
 ----
 
-[id="backends-configuring-persistent-storage-for-elasticsearch_{context}"]
-[discrete]
-=== Configuring persistent storage for Elasticsearch
-
-Use the additional parameters defined in `backends.events.elasticsearch.storage.persistent` to configure persistent storage options for Elasticsearch, such as storage class and volume size.
-
-Use `storageClass` to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
-
-Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of `20Gi` (20 Gibibytes).
-
-.Procedure
-
-. List the available storage classes:
+. Create the secret named in the `userSecretName` parameter to store the basic auth credentials
 +
-[source,bash,options="nowrap"]
+[source,bash]
 ----
-$ oc get storageclasses
-NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-csi-manila-ceph      manila.csi.openstack.org   Delete          Immediate              false                  20h
-standard (default)   kubernetes.io/cinder       Delete          WaitForFirstConsumer   true                   20h
-standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
+$ oc create secret generic elasticsearch-es-elastic-user --from-literal=elastic='<PASSWORD>'
 ----
 
-. Configure the `ServiceTelemetry` object:
+. Copy the CA certificate into a file called `EXTERNAL-ES-CA.pem`, then create the secret named in the `tlsSecretName` parameter to make it available to {ProjectShort}
 +
-[source,yaml]
+[source,bash]
 ----
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-        version: 7.16.1
-        storage:
-          strategy: persistent
-          persistent:
-            storageClass: standard-csi
-            pvcStorageRequest: 50G
+$ cat EXTERNAL-ES-CA.pem
+-----BEGIN CERTIFICATE-----
+[...]
+-----END CERTIFICATE-----
+
+$ oc create secret generic elasticsearch-es-cert --from-file=ca.crt=EXTERNAL-ES-CA.pem
 ----
 
 [id="clouds_{context}"]
@@ -187,20 +202,20 @@ spec:
       metrics:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/telemetry
+            subscriptionAddress: collectd/cloud1-telemetry
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/metering.sample
+            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
 ifndef::include_when_13[]
           - collectorType: sensubility
-            subscriptionAddress: sensubility/telemetry
+            subscriptionAddress: sensubility/cloud1-telemetry
             debugEnabled: false
 endif::[]
       events:
         collectors:
           - collectorType: collectd
-            subscriptionAddress: collectd/notify
+            subscriptionAddress: collectd/cloud1-notify
           - collectorType: ceilometer
-            subscriptionAddress: anycast/ceilometer/event.sample
+            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
 ----
 
 ifndef::include_when_13[]
