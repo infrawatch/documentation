@@ -51,9 +51,7 @@ observability-operator.v0.0.25   Observability Operator   0.0.25    observabilit
 [id="deploying-certificate-manager_{context}"]
 == Deploying Certificate Manager for OpenShift Operator
 
-The Certificate Manager for OpenShift when installed using the `stable-v1` channel will be automatically installed with Service Telemetry Operator. If using Certificate Manager for OpenShift with the `tech-preview` channel, then preinstallation is required.
-
-NOTE: Preinstallation of Certificate Manager for OpenShift is only required on {OpenShift} versions prior to 4.12. If you're installing {ProjectShort} on {OpenShift} 4.12 or later then skip this procedure.
+The Certificate Manager for OpenShift is pre-installed from the `stable-v1` channel with Service Telemetry Framework ({ProjectShort}) on {OpenShift} 4.12 or later. When installing {ProjectShort} on {OpenShift} 4.10 pre-installation is required due to only the `tech-preview` channel being available. Pre-installation is only required on versions of {OpenShift} prior to 4.12.
 
 .Procedure
 
