@@ -6,7 +6,7 @@
 
 Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the `observabilityStrategy` to `none`, then storage backends will not be deployed so persistent storage will not be required by {ProjectShort}.
 
-Use the observabilityStrategy property on the {ProjectShort} object to specify which type of obvservability components will be deployed.
+Use the observabilityStrategy property on the {ProjectShort} object to specify which type of observability components will be deployed.
 
 The following values are available:
 
