@@ -897,10 +897,30 @@ Successfully configured enable-cluster-monitoring to true</code></pre>
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, and Grafana. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include event storage backends or dashboarding tools. STF can optionally create datasource configurations for Grafana using the community operator to provide a dashboarding interface.</p>
 </div>
 <div class="paragraph">
 <p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
+</div>
+<div class="paragraph">
+<p>Use the observabilityStrategy property on the STF object to specify which type of observability components will be deployed.</p>
+</div>
+<div class="paragraph">
+<p>The following values are available:</p>
+</div>
+<div class="paragraph">
+<p>| value | meaning |
+|-------|---------|
+| use_redhat | Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component). |
+| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| none | No storage or alerting components are deployed |</p>
+</div>
+<div class="paragraph">
+<p>Newly deployed STF environments as of 1.5.3 default to <code>use_redhat</code>. Existing STF deployments created before 1.5.3 default to <code>use_community</code>.</p>
+</div>
+<div class="paragraph">
+<p>To migrate an existing STF deployment to <code>use_redhat</code>, see <a href="https://access.redhat.com/articles/7011708">Migrating STF to fully supported operators</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4363,10 +4383,30 @@ spec:
 <div class="sect2">
 <h3 id="observability-strategy-in-service-telemetry-framework_assembly-advanced-features">Observability Strategy in Service Telemetry Framework</h3>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) does not include storage backends and alerting tools. STF uses community operators to deploy Prometheus, Alertmanager, and Grafana. STF makes requests to these community operators to create instances of each application configured to work with STF.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) does not include event storage backends or dashboarding tools. STF can optionally create datasource configurations for Grafana using the community operator to provide a dashboarding interface.</p>
 </div>
 <div class="paragraph">
 <p>Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the <code>observabilityStrategy</code> to <code>none</code>, then storage backends will not be deployed so persistent storage will not be required by STF.</p>
+</div>
+<div class="paragraph">
+<p>Use the observabilityStrategy property on the STF object to specify which type of observability components will be deployed.</p>
+</div>
+<div class="paragraph">
+<p>The following values are available:</p>
+</div>
+<div class="paragraph">
+<p>| value | meaning |
+|-------|---------|
+| use_redhat | Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component). |
+| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| none | No storage or alerting components are deployed |</p>
+</div>
+<div class="paragraph">
+<p>Newly deployed STF environments as of 1.5.3 default to <code>use_redhat</code>. Existing STF deployments created before 1.5.3 default to <code>use_community</code>.</p>
+</div>
+<div class="paragraph">
+<p>To migrate an existing STF deployment to <code>use_redhat</code>, see <a href="https://access.redhat.com/articles/7011708">Migrating STF to fully supported operators</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="configuring-observability-strategy_assembly-advanced-features">Configuring an alternate observability strategy</h4>
@@ -5444,7 +5484,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-05 16:59:27 UTC
+Last updated 2023-09-07 22:07:19 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
