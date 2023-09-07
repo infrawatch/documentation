@@ -2,6 +2,21 @@
 = Observability Strategy in Service Telemetry Framework
 
 [role="_abstract"]
-{Project} ({ProjectShort}) does not include storage backends and alerting tools. {ProjectShort} uses community operators to deploy Prometheus, Alertmanager, and Grafana. {ProjectShort} makes requests to these community operators to create instances of each application configured to work with {ProjectShort}.
+{Project} ({ProjectShort}) does not include event storage backends or dashboarding tools. {ProjectShort} can optionally create datasource configurations for Grafana using the community operator to provide a dashboarding interface.
 
 Instead of having Service Telemetry Operator create custom resource requests, you can use your own deployments of these applications or other compatible applications, and scrape the metrics Smart Gateways for delivery to your own Prometheus-compatible system for telemetry storage. If you set the `observabilityStrategy` to `none`, then storage backends will not be deployed so persistent storage will not be required by {ProjectShort}.
+
+Use the observabilityStrategy property on the {ProjectShort} object to specify which type of observability components will be deployed.
+
+The following values are available:
+
+| value | meaning |
+|-------|---------|
+| use_redhat | Red Hat supported components are requested by {ProjectShort}. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component). |
+| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
+| none | No storage or alerting components are deployed |
+
+Newly deployed {ProjectShort} environments as of 1.5.3 default to `use_redhat`. Existing {ProjectShort} deployments created before 1.5.3 default to `use_community`.
+
+To migrate an existing {ProjectShort} deployment to `use_redhat`, see https://access.redhat.com/articles/7011708[Migrating STF to fully supported operators].
