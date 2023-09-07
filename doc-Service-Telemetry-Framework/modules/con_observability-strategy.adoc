@@ -17,8 +17,6 @@ The following values are available:
 | use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
 | none | No storage or alerting components are deployed |
 
-Newly deployed {ProjectShort} environments as of 1.5.3 default to `use_redhat`.
+Newly deployed {ProjectShort} environments as of 1.5.3 default to `use_redhat`. Existing {ProjectShort} deployments created before 1.5.3 default to `use_community`.
 
-Existing {ProjectShort} deployments created before 1.5.3 default to `use_community`.
-
-To migrate an existing {ProjectShort} deployment to `use_redhat`, see https://access.redhat.com/articles/7011708[Migrating STF to fully supported operators]
+To migrate an existing {ProjectShort} deployment to `use_redhat`, see https://access.redhat.com/articles/7011708[Migrating STF to fully supported operators].
