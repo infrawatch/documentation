@@ -41,7 +41,7 @@ data:
 
         # enable Ceilometer metrics and events
         CeilometerQdrPublishMetrics: true
-        CeilometerQdrPublishEvents: true
+        CeilometerQdrPublishEvents: false
 
         # enable collection of API status
         CollectdEnableSensubility: true
@@ -58,7 +58,7 @@ data:
         CollectdExtraPlugins:
         - vmem
 
-        # set standard prefixes for where metrics and events are published to QDR
+        # set standard prefixes for where metrics are published to QDR
         MetricsQdrAddresses:
         - prefix: 'collectd'
           distribution: multicast

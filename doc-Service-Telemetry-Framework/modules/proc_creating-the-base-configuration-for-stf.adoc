@@ -28,9 +28,9 @@ parameter_defaults:
     ManagePolling: true
     ManagePipeline: true
 
-    # enable Ceilometer metrics and events
+    # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: true
+    CeilometerQdrPublishEvents: false
 
     # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
@@ -39,7 +39,7 @@ parameter_defaults:
     CollectdExtraPlugins:
     - vmem
 
-    # set standard prefixes for where metrics and events are published to QDR
+    # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
       distribution: multicast
@@ -104,9 +104,9 @@ parameter_defaults:
     ManagePolling: true
     ManagePipeline: true
 
-    # enable Ceilometer metrics and events
+    # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: true
+    CeilometerQdrPublishEvents: false
 
     # enable collection of API status
     CollectdEnableSensubility: true
@@ -123,7 +123,7 @@ parameter_defaults:
     CollectdExtraPlugins:
     - vmem
 
-    # set standard prefixes for where metrics and events are published to QDR
+    # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
       distribution: multicast
