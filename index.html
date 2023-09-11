@@ -2159,6 +2159,9 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
   OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
 
 parameter_defaults:
+    ExtraConfig:
+        qdr::router_id: "%{::hostname}.cloud1"
+
     MetricsQdrConnectors:
         - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
@@ -2195,6 +2198,9 @@ parameter_defaults:
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>The <code>qdr::router_id</code> configuration is to override the default value which uses the fully-qualified domain name (FQDN) of the host. In some cases the FQDN can result in a router ID length of greater than 61 characters which results in failed QDR connections. For deployments with shorter FQDN values this is not necessary.</p>
+</li>
 <li>
 <p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
 </li>
@@ -2953,6 +2959,9 @@ If you enabled container health and API status monitoring, you must also modify 
   OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
 
 parameter_defaults:
+    ExtraConfig:
+        qdr::router_id: %{::hostname}.cloud1
+
     MetricsQdrConnectors:
         - host: default-interconnect-5671-service-telemetry.apps.infra.watch
           port: 443
@@ -2989,6 +2998,9 @@ parameter_defaults:
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>The <code>qdr::router_id</code> configuration is to override the default value which uses the fully-qualified domain name (FQDN) of the host. In some cases the FQDN can result in a router ID length of greater than 61 characters which results in failed QDR connections. For deployments with shorter FQDN values this is not necessary.</p>
+</li>
 <li>
 <p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
 </li>
@@ -5915,7 +5927,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-07 22:07:19 UTC
+Last updated 2023-09-11 18:35:30 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
