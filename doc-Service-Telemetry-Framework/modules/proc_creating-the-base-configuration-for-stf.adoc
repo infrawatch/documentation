@@ -12,7 +12,7 @@ To configure the base parameters to provide a compatible data collection and tra
 +
 [IMPORTANT]
 ====
-Setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no event or metric data passing to {OpenStackShort} telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of `30` seconds, that you specify in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components. You must increase the interval to a larger value, such as `300`, which results in less telemetry resolution in {ProjectShort}.
+Setting `PipelinePublishers` to an empty list results in no metric data passing to {OpenStackShort} telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of `30` seconds, that you specify in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components. You must increase the interval to a larger value, such as `300`, which results in less telemetry resolution in {ProjectShort}.
 ====
 +
 .enable-stf.yaml
@@ -21,7 +21,6 @@ ifdef::include_when_13[]
 ----
 parameter_defaults:
     # only send to STF, not other publishers
-    EventPipelinePublishers: []
     PipelinePublishers: []
 
     # manage the polling and pipeline configuration files for Ceilometer agents
@@ -30,7 +29,6 @@ parameter_defaults:
 
     # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: false
 
     # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
@@ -97,7 +95,6 @@ ifdef::include_when_16[]
 ----
 parameter_defaults:
     # only send to STF, not other publishers
-    EventPipelinePublishers: []
     PipelinePublishers: []
 
     # manage the polling and pipeline configuration files for Ceilometer agents
@@ -106,7 +103,6 @@ parameter_defaults:
 
     # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: false
 
     # enable collection of API status
     CollectdEnableSensubility: true
