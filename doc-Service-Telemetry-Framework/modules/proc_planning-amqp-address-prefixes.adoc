@@ -4,7 +4,7 @@
 [role="_abstract"]
 
 ifdef::include_when_16[]
-By default, {OpenStack} ({OpenStackShort}) nodes receive data through two data collectors; collectd and Ceilometer. The collectd-sensubility plugin requires a unique address. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`. {ProjectShort} Smart Gateways listen on those AMQP addresses for data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:
+By default, {OpenStack} ({OpenStackShort}) nodes retrieve data through two data collectors; collectd and Ceilometer. The collectd-sensubility plugin requires a unique address. These components send telemetry data or notifications to the respective AMQP addresses, for example, `collectd/telemetry`. {ProjectShort} Smart Gateways listen on those AMQP addresses for data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:
 
 * `collectd/cloud1-telemetry`
 * `collectd/cloud1-notify`
@@ -21,7 +21,7 @@ By default, {OpenStack} ({OpenStackShort}) nodes receive data through two data c
 endif::include_when_16[]
 
 ifdef::include_when_13[]
-By default, {OpenStack} nodes receive data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, collectd/telemetry. {ProjectShort} Smart Gateways listen on the AMQP addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:
+By default, {OpenStack} nodes retrieve data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, collectd/telemetry. {ProjectShort} Smart Gateways listen on the AMQP addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:
 
 * `collectd/cloud1-telemetry`
 * `collectd/cloud1-notify`

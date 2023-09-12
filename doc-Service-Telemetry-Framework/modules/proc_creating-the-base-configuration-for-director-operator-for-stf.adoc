@@ -32,7 +32,6 @@ data:
   enable-stf.yaml: |
     parameter_defaults:
         # only send to STF, not other publishers
-        EventPipelinePublishers: []
         PipelinePublishers: []
 
         # manage the polling and pipeline configuration files for Ceilometer agents
@@ -41,7 +40,6 @@ data:
 
         # enable Ceilometer metrics and events
         CeilometerQdrPublishMetrics: true
-        CeilometerQdrPublishEvents: true
 
         # enable collection of API status
         CollectdEnableSensubility: true
@@ -58,7 +56,7 @@ data:
         CollectdExtraPlugins:
         - vmem
 
-        # set standard prefixes for where metrics and events are published to QDR
+        # set standard prefixes for where metrics are published to QDR
         MetricsQdrAddresses:
         - prefix: 'collectd'
           distribution: multicast
