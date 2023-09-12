@@ -2013,7 +2013,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Setting <code>EventPipelinePublishers</code> and <code>PipelinePublishers</code> to empty lists results in no event or metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of <code>30</code> seconds, that you specify in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components. You must increase the interval to a larger value, such as <code>300</code>, which results in less telemetry resolution in STF.</p>
+<p>Setting <code>PipelinePublishers</code> to an empty list results in no metric data passing to OSP telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of <code>30</code> seconds, that you specify in <code>ExtraConfig</code>, might overwhelm the OSP telemetry components. You must increase the interval to a larger value, such as <code>300</code>, which results in less telemetry resolution in STF.</p>
 </div>
 </td>
 </tr>
@@ -2024,16 +2024,14 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">parameter_defaults:
     # only send to STF, not other publishers
-    EventPipelinePublishers: []
     PipelinePublishers: []
 
     # manage the polling and pipeline configuration files for Ceilometer agents
     ManagePolling: true
     ManagePipeline: true
 
-    # enable Ceilometer metrics and events
+    # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: true
 
     # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
@@ -2042,7 +2040,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
     CollectdExtraPlugins:
     - vmem
 
-    # set standard prefixes for where metrics and events are published to QDR
+    # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
       distribution: multicast
@@ -2101,7 +2099,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 <div class="sect3">
 <h4 id="configuring-the-stf-connection-for-the-overcloud_assembly-completing-the-stf-configuration">Configuring the STF connection for the overcloud</h4>
 <div class="paragraph _abstract">
-<p>To configure the Service&#160;Telemetry&#160;Framework (STF) connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of events and storage of the events in STF and deploy the overcloud. The default configuration is for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
+<p>To configure the Service&#160;Telemetry&#160;Framework (STF) connection, you must create a file that contains the connection configuration of the Apache&#160;Qpid&#160;Dispatch&#160;Router for the overcloud to the STF deployment. Enable the collection of metrics and storage of the metrics in STF and deploy the overcloud. The default configuration is for a single cloud instance with the default message bus topics. For configuration of multiple cloud deployments, see <a href="#configuring-multiple-clouds_assembly-completing-the-stf-configuration">Configuring multiple clouds</a>.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -2149,19 +2147,11 @@ parameter_defaults:
             &lt;snip&gt;
             -----END CERTIFICATE-----
 
-    CeilometerQdrEventsConfig:
-        driver: amqp
-        topic: cloud1-event
-
     CeilometerQdrMetricsConfig:
         driver: amqp
         topic: cloud1-metering
 
     CollectdAmqpInstances:
-        cloud1-notify:
-            notify: true
-            format: JSON
-            presettle: false
         cloud1-telemetry:
             format: JSON
             presettle: false</code></pre>
@@ -2185,13 +2175,7 @@ parameter_defaults:
 <p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 <li>
-<p>Set <code>topic</code> value of <code>CeilometerQdrEventsConfig</code> to define the topic for Ceilometer events. The value is a unique topic idenifier for the cloud such as <code>cloud1-event</code>.</p>
-</li>
-<li>
 <p>Set <code>topic</code> value of <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as <code>cloud1-metering</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> sub-paramter to define the topic for collectd events. The section name is a unique topic identifier for the cloud such as <code>cloud1-notify</code>.</p>
 </li>
 <li>
 <p>Set <code>CollectdAmqpInstances</code> sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as <code>cloud1-telemetry</code>.</p>
@@ -2256,7 +2240,7 @@ parameter_defaults:
 <div class="ulist">
 <ul>
 <li>
-<p>Include the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry and events are sent to STF.</p>
+<p>Include the <code>ceilometer-write-qdr.yaml</code> file to ensure that Ceilometer telemetry is sent to STF.</p>
 </li>
 <li>
 <p>Include the <code>qdr-edge-only.yaml</code> file to ensure that the message bus is enabled and connected to STF message bus routers.</p>
@@ -2601,7 +2585,7 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="planning-amqp-address-prefixes_assembly-completing-the-stf-configuration">Planning AMQP address prefixes</h4>
 <div class="paragraph _abstract">
-<p>By default, OpenStack nodes receive data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, collectd/telemetry. STF Smart Gateways listen on the AMQP addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:</p>
+<p>By default, OpenStack nodes retrieve data through two data collectors; collectd and Ceilometer. These components send telemetry data or notifications to the respective AMQP addresses, for example, collectd/telemetry. STF Smart Gateways listen on the AMQP addresses for monitoring data. To support multiple clouds and to identify which cloud generated the monitoring data, configure each cloud to send data to a unique address. Add a cloud identifier prefix to the second part of the address. The following list shows some example addresses and identifiers:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2897,7 +2881,7 @@ Ensure that you do not change host or domain names in an existing deployment. Ho
 <div class="sect3">
 <h4 id="creating-openstack-environment-file-for-multiple-clouds_assembly-completing-the-stf-configuration">Creating the OpenStack environment file for multiple clouds</h4>
 <div class="paragraph _abstract">
-<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
+<p>To label traffic according to the cloud of origin, you must create a configuration with cloud-specific instance names. Create an <code>stf-connectors.yaml</code> file and adjust the values of <code>CeilometerQdrMetricsConfig</code> and <code>CollectdAmqpInstances</code> to match the AMQP address prefix scheme.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -2929,7 +2913,7 @@ Ensure that you do not change host or domain names in an existing deployment. Ho
 <p>Create a configuration file called <code>stf-connectors.yaml</code> in the <code>/home/stack</code> directory.</p>
 </li>
 <li>
-<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrEventsConfig</code>, <code>CeilometerQdrMetricsConfig</code>, and <code>CollectdAmqpInstances</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
+<p>In the <code>stf-connectors.yaml</code> file, configure the <code>MetricsQdrConnectors</code> address to connect to the Apache&#160;Qpid&#160;Dispatch&#160;Router on the overcloud deployment. Configure the <code>CeilometerQdrMetricsConfig</code>, and <code>CollectdAmqpInstances</code> topic values to match the AMQP address that you want for this cloud deployment.</p>
 <div class="listingblock">
 <div class="title">stf-connectors.yaml</div>
 <div class="content">
@@ -2954,19 +2938,11 @@ parameter_defaults:
             &lt;snip&gt;
             -----END CERTIFICATE-----
 
-    CeilometerQdrEventsConfig:
-        driver: amqp
-        topic: cloud1-event
-
     CeilometerQdrMetricsConfig:
         driver: amqp
         topic: cloud1-metering
 
     CollectdAmqpInstances:
-        cloud1-notify:
-            notify: true
-            format: JSON
-            presettle: false
         cloud1-telemetry:
             format: JSON
             presettle: false</code></pre>
@@ -2990,13 +2966,7 @@ parameter_defaults:
 <p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 <li>
-<p>Set <code>topic</code> value of <code>CeilometerQdrEventsConfig</code> to define the topic for Ceilometer events. The value is a unique topic idenifier for the cloud such as <code>cloud1-event</code>.</p>
-</li>
-<li>
 <p>Set <code>topic</code> value of <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as <code>cloud1-metering</code>.</p>
-</li>
-<li>
-<p>Set <code>CollectdAmqpInstances</code> sub-paramter to define the topic for collectd events. The section name is a unique topic identifier for the cloud such as <code>cloud1-notify</code>.</p>
 </li>
 <li>
 <p>Set <code>CollectdAmqpInstances</code> sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as <code>cloud1-telemetry</code>.</p>
@@ -3025,7 +2995,7 @@ parameter_defaults:
 </div>
 </li>
 <li>
-<p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.bridge.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrEventsConfig.topic</code> field to a value of <code>cloud1-event</code>.</p>
+<p>Ensure that the naming convention in the <code>stf-connectors.yaml</code> file aligns with the <code>spec.bridge.amqpUrl</code> field in the Smart Gateway configuration. For example, configure the <code>CeilometerQdrMetricsConfig.topic</code> field to a value of <code>cloud1-metering</code>.</p>
 </li>
 <li>
 <p>Log in to the undercloud host as the <code>stack</code> user.</p>
@@ -5540,7 +5510,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-11 18:35:30 UTC
+Last updated 2023-09-12 15:07:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
