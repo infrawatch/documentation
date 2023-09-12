@@ -32,8 +32,8 @@ parameter_defaults:
 
     # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
-    CollectdAmqpInterval: 5
-    CollectdDefaultPollingInterval: 5
+    CollectdAmqpInterval: 30
+    CollectdDefaultPollingInterval: 30
     CollectdExtraPlugins:
     - vmem
 
@@ -114,8 +114,8 @@ parameter_defaults:
     # set collectd overrides for higher telemetry resolution and extra plugins
     # to load
     CollectdConnectionType: amqp1
-    CollectdAmqpInterval: 5
-    CollectdDefaultPollingInterval: 5
+    CollectdAmqpInterval: 30
+    CollectdDefaultPollingInterval: 30
     CollectdExtraPlugins:
     - vmem
 
