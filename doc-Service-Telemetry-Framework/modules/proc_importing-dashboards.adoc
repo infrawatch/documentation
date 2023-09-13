@@ -26,14 +26,6 @@ $ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/dep
 
 grafanadashboard.integreatly.org/rhos-cloud-dashboard-1 created
 ----
-. Import the cloud events dashboard:
-+
-[source,bash,options="nowrap"]
-----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloudevents-dashboard.yaml
-
-grafanadashboard.integreatly.org/rhos-cloudevents-dashboard created
-----
 . Import the virtual machine dashboard:
 +
 [source,bash,options="nowrap"]
@@ -60,7 +52,6 @@ $ oc get grafanadashboards
 NAME                         AGE
 memcached-dashboard-1        7s
 rhos-cloud-dashboard-1       23s
-rhos-cloudevents-dashboard   18s
 rhos-dashboard-1             29s
 virtual-machine-view-1       13s
 ----
