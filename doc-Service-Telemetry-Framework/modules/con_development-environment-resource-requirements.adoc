@@ -40,14 +40,6 @@ The https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg[m
 
 .Procedure
 
-. After you complete the installation of CRC, you must enable cluster monitoring in the CRC environment:
-+
-[source,bash,options="nowrap"]
-----
-$ crc config set enable-cluster-monitoring true
-Successfully configured enable-cluster-monitoring to true
-----
-
 . If you have an existing environment, delete it, and recreate it to ensure that the resource requests have an effect. Enter the `crc delete` command:
 +
 [source,bash]
