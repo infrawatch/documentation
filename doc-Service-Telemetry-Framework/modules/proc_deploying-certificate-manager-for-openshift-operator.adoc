@@ -1,0 +1,67 @@
+:_content-type: PROCEDURE
+
+[id="deploying-certificate-manager-for-openshift-operator_{context}"]
+= Deploying Certificate Manager for OpenShift Operator
+
+[role="_abstract"]
+The Certificate Manager for OpenShift is pre-installed from the `stable-v1` channel with Service Telemetry Framework ({ProjectShort}) on {OpenShift} 4.12 or later. When installing {ProjectShort} on {OpenShift} 4.10 pre-installation is required due to only the `tech-preview` channel being available. Pre-installation is only required on versions of {OpenShift} prior to 4.12.
+
+.Procedure
+
+. Create a namespace for the cert-manager Operator:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: openshift-cert-manager-operator
+spec:
+  finalizers:
+  - kubernetes
+EOF
+----
+
+. Create an OperatorGroup for the cert-manager Operator:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec: {}
+EOF
+----
+
+. Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-cert-manager-operator
+  namespace: openshift-cert-manager-operator
+spec:
+  channel: tech-preview
+  installPlanApproval: Automatic
+  name: openshift-cert-manager-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+
+NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
+openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
+----
