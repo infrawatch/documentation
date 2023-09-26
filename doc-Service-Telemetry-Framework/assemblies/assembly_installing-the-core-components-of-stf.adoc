@@ -41,7 +41,13 @@ endif::[]
 * For more information about Operator catalogs, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-rh-catalogs.html[_Red Hat-provided Operator catalogs_].
 //* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_{}[].
 
-include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+include::../modules/con_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+
+include::../modules/proc_deploying-observability-operator.adoc[leveloffset=+2]
+include::../modules/proc_deploying-certificate-manager-for-openshift-operator.adoc[leveloffset=+2]
+include::../modules/proc_deploying-service-telemetry-operator.adoc[leveloffset=+2]
+
+
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
 include::../modules/proc_accessing-uis-for-stf-components.adoc[leveloffset=+1]
