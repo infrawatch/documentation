@@ -469,8 +469,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a></li>
-<li><a href="#deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></li>
-<li><a href="#_deploying_service_telemetry_operator">Deploying Service Telemetry Operator</a></li>
+<li><a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></li>
+<li><a href="#deploying-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Deploying Service Telemetry Operator</a></li>
 </ul>
 </li>
 <li><a href="#creating-a-servicetelemetry-object-in-openshift_assembly-installing-the-core-components-of-stf">Creating a ServiceTelemetry object in OpenShift</a>
@@ -1019,8 +1019,8 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 <div class="sect3">
 <h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</h4>
-<div class="paragraph">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF is able to satisfy most dependencies automatically but some Operators need to be pre-installed, such as Observability Operator which provides an instance of Prometheus.</p>
+<div class="paragraph _abstract">
+<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability Operator, which provides an instance of Prometheus.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1077,8 +1077,8 @@ observability-operator.v0.0.25   Observability Operator   0.0.25    observabilit
 </div>
 </div>
 <div class="sect3">
-<h4 id="deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</h4>
-<div class="paragraph">
+<h4 id="deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</h4>
+<div class="paragraph _abstract">
 <p>The Certificate Manager for OpenShift is pre-installed from the <code>stable-v1</code> channel with Service Telemetry Framework (STF) on OpenShift 4.12 or later. When installing STF on OpenShift 4.10 pre-installation is required due to only the <code>tech-preview</code> channel being available. Pre-installation is only required on versions of OpenShift prior to 4.12.</p>
 </div>
 <div class="olist arabic">
@@ -1150,8 +1150,8 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_deploying_service_telemetry_operator">Deploying Service Telemetry Operator</h4>
-<div class="paragraph">
+<h4 id="deploying-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Deploying Service Telemetry Operator</h4>
+<div class="paragraph _abstract">
 <p>Deploy Service Telemetry Operator on OpenShift to provide the supporting Operators and interface for creating an instance of Service&#160;Telemetry&#160;Framework (STF) to monitor OpenStack (OSP) cloud platforms.</p>
 </div>
 <div class="ulist">
@@ -1161,7 +1161,7 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 <p>Installation of Observability Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a>.</p>
 </li>
 <li>
-<p>Installation of Certificate Manager for OpenShift on OpenShift versions prior to 4.12. For more information, see <a href="#deploying-certificate-manager_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a>.</p>
+<p>Installation of Certificate Manager for OpenShift on OpenShift versions prior to 4.12. For more information, see <a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></p>
 </li>
 </ul>
 </div>
@@ -5438,7 +5438,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-26 16:35:25 UTC
+Last updated 2023-09-26 19:14:43 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
