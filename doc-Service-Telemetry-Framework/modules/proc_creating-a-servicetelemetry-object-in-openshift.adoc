@@ -68,14 +68,6 @@ spec:
             pvcStorageRequest: 20Gi
           strategy: persistent
         version: 7.16.1
-    logs:
-      loki:
-        storage:
-          objectStorageSecret: test
-          storageClass: standard
-        enabled: false
-        flavor: 1x.extra-small
-        replicationFactor: 1
     metrics:
       prometheus:
         storage:
