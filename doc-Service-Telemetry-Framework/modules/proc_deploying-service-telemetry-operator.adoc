@@ -126,7 +126,7 @@ EOF
 ----
 endif::[]
 
-. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:
+. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded. You may need to re-run the command several times until all Operators are available:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
