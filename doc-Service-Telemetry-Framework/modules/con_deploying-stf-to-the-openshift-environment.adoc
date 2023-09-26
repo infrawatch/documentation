@@ -1,0 +1,5 @@
+[id="deploying-stf-to-the-openshift-environment_{context}"]
+= Deploying {Project} to the {OpenShift} environment
+
+[role="_abstract"]
+Deploy {Project} ({ProjectShort}) to collect and store {OpenStack} ({OpenStackShort}) telemetry.
