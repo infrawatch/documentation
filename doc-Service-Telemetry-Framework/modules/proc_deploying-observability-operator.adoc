@@ -1,0 +1,46 @@
+:_content-type: PROCEDURE
+
+[id="deploying-observability-operator_{context}"]
+= Deploying Observability Operator
+
+[role="_abstract"]
+// TODO: https://access.redhat.com/articles/7011708 covers migration to OBO from community-operators Prometheus Operator. This documentation references community-operators as the installation CatalogSource. It is hoping OBO is available from redhat-operators CatalogSource prior to STF 1.5.3. If so, then we will need to update this.
+{Project} ({ProjectShort}) uses other supporting Operators as part of the deployment. {ProjectShort} can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability Operator, which provides an instance of Prometheus.
+
+.Procedure
+
+. To store metrics in Prometheus, enable the Observability Operator by using the community-operators CatalogSource:
++
+[WARNING]
+====
+Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
+
+https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
+====
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: observability-operator
+  namespace: openshift-operators
+spec:
+  channel: development
+  installPlanApproval: Automatic
+  name: observability-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify that the ClusterServiceVersion for Observability Operator `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
+
+NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
+observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded
+----
