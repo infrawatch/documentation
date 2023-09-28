@@ -2024,20 +2024,7 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
         ceilometer::agent::polling::polling_interval: 30
         ceilometer::agent::polling::polling_meters:
         - cpu
-        - disk.*
-        - ip.*
-        - image.*
-        - memory
-        - memory.*
-        - network.services.vpn.*
-        - network.services.firewall.*
-        - perf.*
-        - port
-        - port.*
-        - switch
-        - switch.*
-        - storage.*
-        - volume.*
+        - memory.usage
 
         # to avoid filling the memory buffers if disconnected from the message bus
         # note: this may need an adjustment if there are many metrics to be sent.
@@ -5438,7 +5425,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-26 19:14:43 UTC
+Last updated 2023-09-28 13:51:55 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
