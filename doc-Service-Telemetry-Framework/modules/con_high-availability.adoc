@@ -6,7 +6,7 @@ With high availability, {Project} ({ProjectShort}) can rapidly recover from fail
 
 [WARNING]
 ====
-High availability (HA) mode is a deprecated feature. The use of HA mode is rarely required because {OpenShift} is a highly-available platform, and the enablement of HA mode can cause issues and make debugging issues more complicated. The use of HA mode is not supported in production environments. If you feel HA mode is required in your environment, a support exception is required.
+{ProjectShort} high availability (HA) mode is deprecated and is not supported in production environments. {OpenShift} is a highly-available platform, and you can cause issues and complicate debugging in {ProjectShort} if you enable HA mode.
 ====
 
 Enabling high availability has the following effects:
