@@ -4236,7 +4236,9 @@ EOF</code></pre>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-STF is not yet a fully fault tolerant system. Delivery of metrics and events during the recovery period is not guaranteed.
+<div class="paragraph">
+<p>STF high availability (HA) mode is deprecated and is not supported in production environments. OpenShift is a highly-available platform, and you can cause issues and complicate debugging in STF if you enable HA mode.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5425,7 +5427,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-28 13:51:55 UTC
+Last updated 2023-09-28 14:12:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
