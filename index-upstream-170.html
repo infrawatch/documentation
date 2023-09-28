@@ -913,14 +913,36 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="paragraph">
 <p>The following values are available:</p>
 </div>
-<div class="paragraph">
-<p>| value | meaning |
-|-------|---------|
-| use_redhat | Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component). |
-| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
-| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
-| none | No storage or alerting components are deployed |</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">value</th>
+<th class="tableblock halign-left valign-top">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_redhat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_hybrid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_community</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No storage or alerting components are deployed</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Newly deployed STF environments as of 1.5.3 default to <code>use_redhat</code>. Existing STF deployments created before 1.5.3 default to <code>use_community</code>.</p>
 </div>
@@ -4587,14 +4609,36 @@ spec:
 <div class="paragraph">
 <p>The following values are available:</p>
 </div>
-<div class="paragraph">
-<p>| value | meaning |
-|-------|---------|
-| use_redhat | Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component). |
-| use_hybrid | In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
-| use_community | The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object) |
-| none | No storage or alerting components are deployed |</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">value</th>
+<th class="tableblock halign-left valign-top">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_redhat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_hybrid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In addition to the Red Hat supported components, Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use_community</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No storage or alerting components are deployed</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Newly deployed STF environments as of 1.5.3 default to <code>use_redhat</code>. Existing STF deployments created before 1.5.3 default to <code>use_community</code>.</p>
 </div>
@@ -5858,7 +5902,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-28 14:12:06 UTC
+Last updated 2023-09-28 15:02:08 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
