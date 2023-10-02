@@ -67,7 +67,7 @@ $ oc project service-telemetry
 
 . Create a `PrometheusRule` object that contains the alert rule and an `oid` label that contains the SNMP trap OID override value:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc apply -f - <<EOF
 apiVersion: monitoring.coreos.com/v1

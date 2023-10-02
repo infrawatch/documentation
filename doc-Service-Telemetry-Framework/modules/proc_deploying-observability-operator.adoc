@@ -39,8 +39,7 @@ EOF
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
 
-NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
-observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26-230906073415 condition met
 ----

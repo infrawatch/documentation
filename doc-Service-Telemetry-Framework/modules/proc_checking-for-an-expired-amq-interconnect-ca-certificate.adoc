@@ -18,7 +18,7 @@ $ oc project service-telemetry
 +
 [source,bash,options="nowrap"]
 ----
-$ oc exec -it $(oc get po -l application=default-interconnect -o jsonpath='{.items[0].metadata.name}') -- qdstat --connections | grep Router | wc
+$ oc exec -it deploy/default-interconnect -- qdstat --connections | grep Router | wc
       0       0       0
 ----
 
