@@ -1088,10 +1088,9 @@ EOF</code></pre>
 <p>Verify that the ClusterServiceVersion for Observability Operator <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">oc get csv --namespace=openshift-operators --selector=operators.coreos.com/observability-operator.openshift-operators
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
 
-NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
-observability-operator.v0.0.25   Observability Operator   0.0.25    observability-operator.v0.0.22   Succeeded</code></pre>
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26-230906073415 condition met</code></pre>
 </div>
 </div>
 </li>
@@ -1288,7 +1287,7 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:</p>
+<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded. You may need to re-run the command several times until all Operators are available:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
@@ -2373,7 +2372,7 @@ default-interconnect-7458fd4d69-bgzfb   1/1     Running   0          6d21h</code
 <p>Connect to the pod and list the known connections. In this example, there are three <code>edge</code> connections from the OSP nodes with connection <code>id</code> 22, 23, and 24:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --connections
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it deploy/default-interconnect -- qdstat --connections
 
 2020-04-21 18:25:47.243852 UTC
 default-interconnect-7458fd4d69-bgzfb
@@ -2396,7 +2395,7 @@ Connections
 <p>To view the number of messages delivered by the network, use each address with the <code>oc exec</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it default-interconnect-7458fd4d69-bgzfb -- qdstat --address
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc exec -it deploy/default-interconnect -- qdstat --address
 
 2020-04-21 18:20:10.293258 UTC
 default-interconnect-7458fd4d69-bgzfb
@@ -3152,10 +3151,9 @@ EOF</code></pre>
 <p>Verify that the Operator launched successfully. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the Operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Running csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
 
-NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v4.10.1   Grafana Operator   4.10.1    grafana-operator.v4.10.0   Succeeded</code></pre>
+clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met</code></pre>
 </div>
 </div>
 </li>
@@ -3182,10 +3180,9 @@ spec:
 <p>Verify that the Grafana instance deployed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l app=grafana
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=grafana --timeout=600s
 
-NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m</code></pre>
+pod/grafana-deployment-7566475c56-jlkjp condition met</code></pre>
 </div>
 </div>
 </li>
@@ -4216,7 +4213,7 @@ spec:
 <p>Create a <code>PrometheusRule</code> object that contains the alert rule and an <code>oid</code> label that contains the SNMP trap OID override value:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc apply -f - &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -5472,7 +5469,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-28 19:06:38 UTC
+Last updated 2023-10-02 15:26:50 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
