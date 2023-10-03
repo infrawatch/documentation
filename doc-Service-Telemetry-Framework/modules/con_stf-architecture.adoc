@@ -11,19 +11,24 @@
 [role="_abstract"]
 {Project} ({ProjectShort}) uses a client-server architecture, in which {OpenStack} ({OpenStackShort}) is the client and {OpenShift} is the server.
 
+{ProjectShort} is capable of dealing with both metrics and events information from {OpenStack} ({OpenStackShort}) but the default installation is focused on collection, transport, and storage of metrics information.
+
+Event data can be enabled on {OpenStack}, transported via the message bus, and then forwarded to a user-provided Elasticsearch from the Smart Gateways, but this architecture is deprecated. The discussion in this guide will be focused on the default deployment configuration. For more information about {ProjectShort} when configured with events, see <xref-TODO>.
+
 {ProjectShort} consists of the following components:
 
-
 * Data collection
-** collectd: Collects infrastructure metrics and events.
-** Ceilometer: Collects {OpenStackShort} metrics and events.
+** collectd: Collects infrastructure metrics and events on {OpenStackShort}.
+** Ceilometer: Collects {OpenStackShort} metrics and events on {OpenStackShort}.
 * Transport
-** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
+** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics from {OpenStackShort} to {ProjectShort} for storage or forwarding.
 ** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Prometheus or an external Elasticsearch.
 * Data storage
 ** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.
 ** Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.
+* User provided components
 ** Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.
+** Elasticsearch: Events data storage that stores {OpenStackShort} events received and forwarded by the Smart Gateway.
 
 The following table describes the application of the client and server components:
 
@@ -49,6 +54,10 @@ The following table describes the application of the client and server component
 |no
 |yes
 
+|Grafana
+|no
+|yes
+
 |collectd
 |yes
 |no
@@ -68,7 +77,16 @@ image::363_OpenStack_STF_updates_0923_arch_2.png[Service Telemetry Framework arc
 
 For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStackShort} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the Elasticsearch datastore.
+If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway forwards the data to a user-provided Elasticsearch datastore.
+
+[NOTE]
+====
+In previous releases of {ProjectShort}, the Service Telemetry Operator would request instances of Elasticsearch from the Elastic Cloud on Kubernetes (ECK) Operator. {ProjectShort} now uses a forwarding model where events are forwarded from a Smart Gateway instance to a user-provided instance of Elasticsearch. The management of an Elasticsearch instance by Service Telemetry Operator is deprecated.
+
+New ServiceTelemetry instances will use the `observabilityStrategy` of `use_redhat` which does not request Elasticsearch instances from ECK. Instances of ServiceTelemetry deployed prior to {ProjectShort} 1.5.3 use an observabilityStrategy of use_community, which matches the previous architecture. In the case where a user previously deployed an Elasticsearch instance with {ProjectShort},  the Service Telemetry Operator will automatically update the ServiceTelemetry custom resource object to have the observabilityStrategy set to use_community, and remain functioning the same as previous releases.
+
+A user can migrate to the use_redhat observability strategy. For more information, see link:https://access.redhat.com/articles/7011708[Migrating Service Telemetry Framework to fully supported operators].
+====
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
