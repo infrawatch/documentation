@@ -113,15 +113,6 @@ $ oc exec -it prometheus-default-0 -c prometheus -- sh -c "wget --header \"Autho
 
 . Verify that the `configYAML` field contains the changes you expect.
 
-. To clean up the environment, delete the `curl` pod:
-+
-[source,bash]
-----
-$ oc delete pod curl
-
-pod "curl" deleted
-----
-
 .Additional resources
 
 * For more information about the {OpenShift} secret and the Prometheus operator, see https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md[Prometheus user guide on alerting].
