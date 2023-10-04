@@ -29,6 +29,7 @@ include::../modules/proc_configuring-red-hat-openstack-platform-overcloud-for-st
 ifdef::include_when_13,include_when_17[]
 include::../modules/proc_getting-ca-certificate-from-stf-for-overcloud-configuration.adoc[leveloffset=+2]
 endif::include_when_13,include_when_17[]
+include::../modules/proc_retrieving-the-qdr-password.adoc[leveloffset=+2]
 include::../modules/proc_retrieving-the-qdr-route-address.adoc[leveloffset=+2]
 include::../modules/proc_creating-the-base-configuration-for-stf.adoc[leveloffset=+2]
 include::../modules/proc_configuring-the-stf-connection-for-the-overcloud.adoc[leveloffset=+2]
