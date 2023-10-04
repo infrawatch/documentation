@@ -2187,13 +2187,10 @@ parameter_defaults:
 <p>The <code>resource_registry</code> configuration directly loads the collectd service because you do not include the <code>collectd-write-qdr.yaml</code> environment file for multiple cloud deployments.</p>
 </li>
 <li>
-<p>Replace the <code>host</code> parameter with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
+<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 <li>
 <p>Replace the <code>caCertFileContent</code> parameter with the contents retrieved in <a href="#getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration">Getting CA certificate from Service&#160;Telemetry&#160;Framework for overcloud configuration</a>.</p>
-</li>
-<li>
-<p>Replace the <code>host</code> sub-parameter of <code>MetricsQdrConnectors</code> with the value that you retrieved in <a href="#retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration">Retrieving the Apache&#160;Qpid&#160;Dispatch&#160;Router route address</a>.</p>
 </li>
 <li>
 <p>Set <code>topic</code> value of <code>CeilometerQdrMetricsConfig.topic</code> to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as <code>cloud1-metering</code>.</p>
@@ -5890,7 +5887,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-03 14:18:06 UTC
+Last updated 2023-10-04 20:01:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
