@@ -28,6 +28,10 @@ ifeval::[{vernum} >= 17.0]
 :include_when_17:
 endif::[]
 
+ifeval::[{vernum} == 17.1]
+:include_when_17_1:
+endif::[]
+
 ifeval::[{ProductVersion} < 1.5]
 :include_before_stf15:
 endif::[]
@@ -47,7 +51,7 @@ ifeval::["{build}" == "upstream"]
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
 :SupportedOpenShiftVersion: 4.12
 :NextSupportedOpenShiftVersion: 4.14
-:CodeReadyContainersVersion: 2.6.0
+:CodeReadyContainersVersion: 2.19.0
 endif::[]
 
 ifeval::["{build}" == "downstream"]
