@@ -44,7 +44,10 @@ endif::[]
 include::../modules/con_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
 include::../modules/proc_deploying-observability-operator.adoc[leveloffset=+2]
+
+ifeval::[{SupportedOpenShiftVersion} < 4.12]
 include::../modules/proc_deploying-certificate-manager-for-openshift-operator.adoc[leveloffset=+2]
+endif::[]
 include::../modules/proc_deploying-service-telemetry-operator.adoc[leveloffset=+2]
 
 
