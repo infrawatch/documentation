@@ -24,7 +24,7 @@ endif
 
 all: html
 
-html: html171 html162
+html: html-latest html171 html162
 
 html-latest: prepare $(IMAGES_TS) $(DEST_HTML)
 
