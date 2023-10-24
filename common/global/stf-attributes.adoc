@@ -45,8 +45,8 @@ ifeval::["{build}" == "upstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: Apache{nbsp}Qpid{nbsp}Dispatch{nbsp}Router
-:SupportedOpenShiftVersion: 4.10
-:NextSupportedOpenShiftVersion: 4.12
+:SupportedOpenShiftVersion: 4.12
+:NextSupportedOpenShiftVersion: 4.14
 :CodeReadyContainersVersion: 2.6.0
 endif::[]
 
@@ -55,7 +55,7 @@ ifeval::["{build}" == "downstream"]
 :OpenShiftShort: OCP
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
 :OpenStackShort: RHOSP
-:OpenStackVersion: 17.0
+:OpenStackVersion: 17.1
 :OpenStackLong: {OpenStack}{nbsp}{OpenStackVersion}
 :OpenStackInstaller: director
 :OVirt: Red{nbsp}Hat{nbsp}Virtualization
@@ -63,6 +63,6 @@ ifeval::["{build}" == "downstream"]
 :Project: Service{nbsp}Telemetry{nbsp}Framework
 :ProjectShort: STF
 :MessageBus: AMQ{nbsp}Interconnect
-:SupportedOpenShiftVersion: 4.10
-:NextSupportedOpenShiftVersion: 4.12
+:SupportedOpenShiftVersion: 4.12
+:NextSupportedOpenShiftVersion: 4.14
 endif::[]
