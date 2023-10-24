@@ -469,7 +469,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a></li>
-<li><a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></li>
 <li><a href="#deploying-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Deploying Service Telemetry Operator</a></li>
 </ul>
 </li>
@@ -1091,80 +1090,7 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
 
-clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26-230906073415 condition met</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</h4>
-<div class="paragraph _abstract">
-<p>The Certificate Manager for OpenShift is pre-installed from the <code>stable-v1</code> channel with Service Telemetry Framework (STF) on OpenShift 4.12 or later. When installing STF on OpenShift 4.10 pre-installation is required due to only the <code>tech-preview</code> channel being available. Pre-installation is only required on versions of OpenShift prior to 4.12.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Create a namespace for the cert-manager Operator:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: project.openshift.io/v1
-kind: Project
-metadata:
-  name: openshift-cert-manager-operator
-spec:
-  finalizers:
-  - kubernetes
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create an OperatorGroup for the cert-manager Operator:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
-spec: {}
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
-spec:
-  channel: tech-preview
-  installPlanApproval: Automatic
-  name: openshift-cert-manager-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-EOF</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of <code>Succeeded</code>:</p>
-<div class="listingblock white-space-pre">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
-
-NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
-openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded</code></pre>
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.25 condition met</code></pre>
 </div>
 </div>
 </li>
@@ -1181,9 +1107,6 @@ openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.
 <ul>
 <li>
 <p>Installation of Observability Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a>.</p>
-</li>
-<li>
-<p>Installation of Certificate Manager for OpenShift on OpenShift versions prior to 4.12. For more information, see <a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying Certificate Manager for OpenShift Operator</a></p>
 </li>
 </ul>
 </div>
@@ -1288,17 +1211,19 @@ EOF</code></pre>
 </div>
 </li>
 <li>
-<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded. You may need to re-run the command several times until all Operators are available:</p>
+<p>Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv --namespace service-telemetry
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=service-telemetry -l operators.coreos.com/service-telemetry-operator.service-telemetry ; oc get csv --namespace service-telemetry
+
+clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.5.1698100836 condition met
 
 NAME                                         DISPLAY                                       VERSION          REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.16          Red Hat Integration - AMQ Interconnect        1.10.16          amq7-interconnect-operator.v1.10.4   Succeeded
-cert-manager-operator.v1.11.4                cert-manager Operator for Red Hat OpenShift   1.11.4                                                Succeeded
+amq7-interconnect-operator.v1.10.17          Red Hat Integration - AMQ Interconnect        1.10.17          amq7-interconnect-operator.v1.10.4   Succeeded
+cert-manager-operator.v1.12.0                cert-manager Operator for Red Hat OpenShift   1.12.0           cert-manager-operator.v1.11.4        Succeeded
 observability-operator.v0.0.25               Observability Operator                        0.0.25           observability-operator.v0.0.22       Succeeded
-service-telemetry-operator.v1.5.1691275411   Service Telemetry Operator                    1.5.1691275411                                        Succeeded
-smart-gateway-operator.v5.0.1691275406       Smart Gateway Operator                        5.0.1691275406                                        Succeeded</code></pre>
+service-telemetry-operator.v1.5.1698100836   Service Telemetry Operator                    1.5.1698100836                                        Succeeded
+smart-gateway-operator.v5.0.1698100831       Smart Gateway Operator                        5.0.1698100831                                        Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -5501,7 +5426,7 @@ smart-gateway-operator-79557664f8-ql7xr                   1/1     Running   0   
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-24 14:24:34 UTC
+Last updated 2023-10-24 15:10:09 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
