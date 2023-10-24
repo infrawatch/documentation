@@ -41,5 +41,5 @@ EOF
 ----
 $ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
 
-clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26-230906073415 condition met
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.25 condition met
 ----

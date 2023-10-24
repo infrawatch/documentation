@@ -9,7 +9,9 @@ Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Opera
 .Prerequisites
 
 * Installation of Observability Operator which uses Prometheus to store metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+ifeval::[{SupportedOpenShiftVersion} <= 4.10]
 * Installation of Certificate Manager for OpenShift on {OpenShift} versions prior to 4.12. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[]
+endif::[]
 
 .Procedure
 
@@ -126,16 +128,18 @@ EOF
 ----
 endif::[]
 
-. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded. You may need to re-run the command several times until all Operators are available:
+. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc get csv --namespace service-telemetry
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=service-telemetry -l operators.coreos.com/service-telemetry-operator.service-telemetry ; oc get csv --namespace service-telemetry
+
+clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.5.1698100836 condition met
 
 NAME                                         DISPLAY                                       VERSION          REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.16          Red Hat Integration - AMQ Interconnect        1.10.16          amq7-interconnect-operator.v1.10.4   Succeeded
-cert-manager-operator.v1.11.4                cert-manager Operator for Red Hat OpenShift   1.11.4                                                Succeeded
+amq7-interconnect-operator.v1.10.17          Red Hat Integration - AMQ Interconnect        1.10.17          amq7-interconnect-operator.v1.10.4   Succeeded
+cert-manager-operator.v1.12.0                cert-manager Operator for Red Hat OpenShift   1.12.0           cert-manager-operator.v1.11.4        Succeeded
 observability-operator.v0.0.25               Observability Operator                        0.0.25           observability-operator.v0.0.22       Succeeded
-service-telemetry-operator.v1.5.1691275411   Service Telemetry Operator                    1.5.1691275411                                        Succeeded
-smart-gateway-operator.v5.0.1691275406       Smart Gateway Operator                        5.0.1691275406                                        Succeeded
+service-telemetry-operator.v1.5.1698100836   Service Telemetry Operator                    1.5.1698100836                                        Succeeded
+smart-gateway-operator.v5.0.1698100831       Smart Gateway Operator                        5.0.1698100831                                        Succeeded
 ----
