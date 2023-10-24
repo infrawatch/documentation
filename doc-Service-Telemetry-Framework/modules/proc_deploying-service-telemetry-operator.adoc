@@ -9,7 +9,7 @@ Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Opera
 .Prerequisites
 
 * Installation of Observability Operator which uses Prometheus to store metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
-ifeval::[{SupportedOpenShiftVersion} <= 4.10]
+ifeval::[{SupportedOpenShiftVersion} < 4.12]
 * Installation of Certificate Manager for OpenShift on {OpenShift} versions prior to 4.12. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[]
 endif::[]
 
