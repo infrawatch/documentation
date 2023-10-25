@@ -34,8 +34,10 @@ $ oc edit servicetelemetry default
 
 . To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
 +
-NOTE: The trailing pipe (`|`) after entering the manifest override parameter indicates that the value provided is multi-line.
-
+[NOTE]
+====
+The trailing pipe (`|`) after entering the manifest override parameter indicates that the value provided is multi-line.
+====
 +
 [source,yaml,options="nowrap"]
 ----
