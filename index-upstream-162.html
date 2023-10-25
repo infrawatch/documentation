@@ -511,7 +511,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a></li>
-<li><a href="#overriding-the-default-grafana-container-image_assembly-advanced-features">Overriding the default Grafana container image</a></li>
 <li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
 <li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
@@ -3025,7 +3024,7 @@ EOF</code></pre>
 <p>Verify that the Operator launched successfully. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the Operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Running csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
 
 clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met</code></pre>
 </div>
@@ -3079,53 +3078,6 @@ default-datasources     20h</code></pre>
 
 NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
 grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="overriding-the-default-grafana-container-image_assembly-advanced-features">Overriding the default Grafana container image</h4>
-<div class="paragraph">
-<p>The dashboards in Service&#160;Telemetry&#160;Framework (STF) require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. You can override the base Grafana image by specifying the image path to an image registry with <code>graphing.grafana.baseImage</code>.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Ensure that you have the correct version of Grafana:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-docker.io/grafana/grafana:7.3.10</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If the running image is older than 8.1.0, patch the ServiceTelemetry object to update the image. Service Telemetry Operator updates the Grafana manifest, which restarts the Grafana deployment:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc patch stf/default --type merge -p '{"spec":{"graphing":{"grafana":{"baseImage":"docker.io/grafana/grafana:8.1.5"}}}}'</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that a new Grafana pod exists and has a <code>STATUS</code> value of <code>Running</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana"
-NAME                                 READY     STATUS    RESTARTS   AGE
-grafana-deployment-fb9799b58-j2hj2   1/1       Running   0          10s</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the new instance is running the updated image:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get pod -l "app=grafana" -ojsonpath='{.items[0].spec.containers[0].image}'
-docker.io/grafana/grafana:8.1.0</code></pre>
 </div>
 </div>
 </li>
@@ -4789,7 +4741,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-25 02:46:35 UTC
+Last updated 2023-10-25 13:48:17 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
