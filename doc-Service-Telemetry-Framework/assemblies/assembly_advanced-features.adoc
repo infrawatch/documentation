@@ -23,8 +23,8 @@ endif::include_when_16[]
 include::../modules/con_dashboards.adoc[leveloffset=+1]
 include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffset=+2]
 ifdef::include_when_16[]
-include::../modules/proc_overriding-the-default-grafana-container-image.adoc[leveloffset=+2]
-//TODO: Add dashboards back when we have working code for OSP13
+// TODO: either rewrite or drop this procedure. We now provide the preferred downstream RHEL Grafana workload image in the deployment procedure.
+//include::../modules/proc_overriding-the-default-grafana-container-image.adoc[leveloffset=+2]
 include::../modules/proc_importing-dashboards.adoc[leveloffset=+2]
 endif::include_when_16[]
 include::../modules/proc_retrieving-and-setting-grafana-login-credentials.adoc[leveloffset=+2]
