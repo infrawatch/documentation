@@ -17,7 +17,11 @@ endif::include_when_13,include_when_17[]
 . xref:validating-clientside-installation_assembly-completing-the-stf-configuration[Validating client-side installation]
 
 .Additional resources
+ifdef::include_when_16_2[]
 * For more information about deploying an OpenStack cloud using director, see link:{defaultURL}/director_installation_and_usage/index[Director Installation and Usage].
-ifdef::include_when_16_1[]
 * To collect data through {MessageBus}, see link:{defaultURL}/operational_measurements/collectd-plugins_assembly#collectd_plugin_amqp1[the amqp1 plug-in].
-endif::include_when_16_1[]
+endif::[]
+ifdef::include_when_17_1[]
+* For more information about deploying an OpenStack cloud using director, see link:{defaultURL}/installing_and_managing_red_hat_openstack_platform_with_director/index[Installing and managing Red Hat OpenStack Platform with director].
+* To collect data through {MessageBus}, see link:{defaultURL}/managing_overcloud_observability/collectd-plugins_assembly#collectd_plugin_amqp1[the amqp1 plug-in].
+endif::[]
