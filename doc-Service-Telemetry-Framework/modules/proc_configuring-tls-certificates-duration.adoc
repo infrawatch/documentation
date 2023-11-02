@@ -8,13 +8,13 @@ To configure the duration of the TLS certificates to use with {Project} ({Projec
 
 * You didn't deploy an instance of Service Telemetry Operator already.
 
-NOTE:: When you create the `ServiceTelemetry` object, the required certificates and their secrets for {ProjectShort} are also created.
-For more information about how to modify the certificates and the secrets, see: xref:assembly-renewing-the-amq-interconnect-certificate_assembly[]
+NOTE: When you create the `ServiceTelemetry` object, the required certificates and their secrets for {ProjectShort} are also created.
+For more information about how to modify the certificates and the secrets, see: xref:assembly-renewing-the-amq-interconnect-certificate_assembly[].
 The following procedure is valid for new {ProjectShort} deployments.
 
 .Procedure
 
-To edit the duration of the TLS certificate, you can set the QDR `caCertDuration`, for example `87600h` for 10 years:
+. To edit the duration of the TLS certificate, you can set the QDR `caCertDuration`, for example `87600h` for 10 years:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----

@@ -46,7 +46,7 @@ EOF
 +
 [source,bash,options="nowrap"]
 ----
-$ oc wait --for jsonpath="{.status.phase}"=Running csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
 
 clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met
 ----

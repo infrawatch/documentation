@@ -15,7 +15,7 @@
 
 :osp_long: Red Hat OpenStack Platform
 :osp_acro: RHOSP
-:osp_curr_ver: 17.1-Beta
+:osp_curr_ver: 17.1
 :osp_curr_ver_no_beta: 17.1
 :osp_z_stream: 0
 
@@ -29,5 +29,6 @@
 :defaultURL: https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{osp_curr_ver}/html
 :defaultCephURL:  https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/{CephVernum}/html
 
-:setup-tlse: {defaultURL}/hardening_red_hat_openstack_platform/assembly_securing-rhos-with-tls-and-pki_security_and_hardening#proc_implementing-tls-e-with-ansible_encryption-and-key-management[Implementing TLS-e with Ansible]
+// Specific links
 
+:setup-tlse: {defaultURL}/hardening_red_hat_openstack_platform/assembly_securing-rhos-with-tls-and-pki_security_and_hardening#proc_implementing-tls-e-with-ansible_encryption-and-key-management[Implementing TLS-e with Ansible]

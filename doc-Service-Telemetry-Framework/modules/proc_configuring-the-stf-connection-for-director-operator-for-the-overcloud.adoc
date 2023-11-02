@@ -40,6 +40,8 @@ data:
               role: edge
               verifyHostname: false
               sslProfile: sslProfile
+              saslUsername: guest@default-interconnect
+              saslPassword: pass:<password_from_stf>
 
         MetricsQdrSSLProfiles:
             - name: sslProfile
