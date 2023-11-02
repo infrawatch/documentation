@@ -13,7 +13,8 @@
 
 {ProjectShort} is capable of dealing with both metrics and events information from {OpenStack} ({OpenStackShort}) but the default installation is focused on collection, transport, and storage of metrics information.
 
-Event data can be enabled on {OpenStack}, transported via the message bus, and then forwarded to a user-provided Elasticsearch from the Smart Gateways, but this architecture is deprecated. The discussion in this guide will be focused on the default deployment configuration. For more information about {ProjectShort} when configured with events, see <xref-TODO>.
+Event data can be enabled on {OpenStack}, transported via the message bus, and then forwarded to a user-provided Elasticsearch from the Smart Gateways, but this architecture is deprecated. The discussion in this guide will be focused on the default deployment configuration.
+// For more information about {ProjectShort} when configured with events, see <xref-TODO>. Tracked via https://issues.redhat.com/browse/STF-1552
 
 {ProjectShort} consists of the following components:
 

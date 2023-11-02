@@ -37,6 +37,7 @@ ifeval::[{ProductVersion} < 1.5]
 endif::[]
 
 ifeval::["{build}" == "upstream"]
+:ObservabilityOperator: Observability{nbsp}Operator
 :OpenShift: OpenShift
 :OpenShiftShort: OKD
 :OpenStack: OpenStack
@@ -55,6 +56,7 @@ ifeval::["{build}" == "upstream"]
 endif::[]
 
 ifeval::["{build}" == "downstream"]
+:ObservabilityOperator: Cluster{nbsp}Observability{nbsp}Operator
 :OpenShift: Red{nbsp}Hat{nbsp}OpenShift{nbsp}Container{nbsp}Platform
 :OpenShiftShort: OCP
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
