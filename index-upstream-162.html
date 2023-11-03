@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
 <ul class="sectlevel3">
-<li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a></li>
+<li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a></li>
 <li><a href="#deploying-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Deploying Service Telemetry Operator</a></li>
 </ul>
 </li>
@@ -627,6 +627,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Service&#160;Telemetry&#160;Framework (STF) uses a client-server architecture, in which OpenStack (OSP) is the client and OpenShift is the server.</p>
 </div>
 <div class="paragraph">
+<p>By default, STF collects, transports, and stores metrics information.</p>
+</div>
+<div class="paragraph">
+<p>You can collect OSP events data, transport it with the message bus, and forward it to a user-provided Elasticsearch from the Smart Gateways, but this option is deprecated.</p>
+</div>
+<div class="paragraph">
 <p>STF consists of the following components:</p>
 </div>
 <div class="ulist">
@@ -636,10 +642,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>collectd: Collects infrastructure metrics and events.</p>
+<p>collectd: Collects infrastructure metrics and events on OSP.</p>
 </li>
 <li>
-<p>Ceilometer: Collects OSP metrics and events.</p>
+<p>Ceilometer: Collects OSP metrics and events on OSP.</p>
 </li>
 </ul>
 </div>
@@ -649,7 +655,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Apache&#160;Qpid&#160;Dispatch&#160;Router: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to STF for storage.</p>
+<p>Apache&#160;Qpid&#160;Dispatch&#160;Router: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics from OSP to STF for storage or forwarding.</p>
 </li>
 <li>
 <p>Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Prometheus or an external Elasticsearch.</p>
@@ -667,8 +673,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.</p>
 </li>
+</ul>
+</div>
+</li>
+<li>
+<p>User provided components</p>
+<div class="ulist">
+<ul>
 <li>
 <p>Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.</p>
+</li>
+<li>
+<p>Elasticsearch: Events data storage that stores OSP events received and forwarded by the Smart Gateway.</p>
 </li>
 </ul>
 </div>
@@ -714,6 +730,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grafana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectd</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
@@ -739,7 +760,7 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 <div id="osp-stf-overview" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_1019_arch.png" alt="Service Telemetry Framework architecture overview"/>
+<img src="images/363_OpenStack_STF_updates_0923_arch_2.png" alt="Service Telemetry Framework architecture overview"/>
 </div>
 <div class="title">Figure 1. Service Telemetry Framework architecture overview</div>
 </div>
@@ -747,7 +768,27 @@ To ensure that the monitoring platform can report operational problems with your
 <p>For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides OSP platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.</p>
 </div>
 <div class="paragraph">
-<p>If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway writes the data to the Elasticsearch datastore.</p>
+<p>When you collect and store events, collectd and Ceilometer deliver event data to the server side by using the Apache&#160;Qpid&#160;Dispatch&#160;Router transport. Another Smart Gateway forwards the data to a user-provided Elasticsearch datastore.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In previous releases of STF, the Service Telemetry Operator requested instances of Elasticsearch from the Elastic Cloud on Kubernetes (ECK) Operator. STF now uses a forwarding model, where events are forwarded from a Smart Gateway instance to a user-provided instance of Elasticsearch. The management of an Elasticsearch instance by Service Telemetry Operator is deprecated.</p>
+</div>
+<div class="paragraph">
+<p>In new <code>ServiceTelemetry`deployments, the `observabilityStrategy</code> parameter has a value of <code>use_redhat</code>, that does not request Elasticsearch instances from ECK. Deployments of <code>ServiceTelemetry</code> that are version STF 1.5.3 or older have the <code>observabilityStrategy</code> parameter set to <code>use_community</code>, which matches the previous architecture. If a user deployed an Elasticsearch instance with STF, the Service Telemetry Operator updates the <code>ServiceTelemetry</code> custom resource object to have the <code>observabilityStrategy</code> parameter set to <code>use_community</code>, and functions similar to previous releases. For more information about observability strategies, see <a href="#observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Observability Strategy in Service Telemetry Framework</a>.</p>
+</div>
+<div class="paragraph">
+<p>For more information about migration to the <code>use_redhat</code> observability strategy, see <a href="https://access.redhat.com/articles/7011708">Migrating Service Telemetry Framework to fully supported operators</a>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Server-side STF monitoring infrastructure consists of the following layers:</p>
@@ -767,7 +808,7 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 <div id="osp-stf-server-side-monitoring" class="imageblock">
 <div class="content">
-<img src="images/STF_Overview_37_0819_deployment_prereq.png" alt="Server-side STF monitoring infrastructure"/>
+<img src="images/363_OpenStack_STF_updates_0923_deployment_prereq.png" alt="Server-side STF monitoring infrastructure"/>
 </div>
 <div class="title">Figure 2. Server-side STF monitoring infrastructure</div>
 </div>
@@ -898,7 +939,7 @@ To ensure that the monitoring platform can report operational problems with your
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_redhat</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability&#160;Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_hybrid</p></td>
@@ -906,7 +947,7 @@ To ensure that the monitoring platform can report operational problems with your
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_community</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability&#160;Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
@@ -973,7 +1014,7 @@ To ensure that the monitoring platform can report operational problems with your
 <h2 id="assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</h2>
 <div class="sectionbody">
 <div class="paragraph _abstract">
-<p>You can use Operators to load the Service&#160;Telemetry&#160;Framework (STF) components and objects. Operators manage each of the following STF core and community components:</p>
+<p>You can use Operators to load the Service&#160;Telemetry&#160;Framework (STF) components and objects. Operators manage each of the following STF core components:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -988,9 +1029,6 @@ To ensure that the monitoring platform can report operational problems with your
 </li>
 <li>
 <p>Prometheus and AlertManager</p>
-</li>
-<li>
-<p>Grafana</p>
 </li>
 </ul>
 </div>
@@ -1025,15 +1063,15 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Deploy Service&#160;Telemetry&#160;Framework (STF) to collect and store OpenStack (OSP) telemetry.</p>
 </div>
 <div class="sect3">
-<h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</h4>
+<h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</h4>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability Operator, which provides an instance of Prometheus.</p>
+<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability&#160;Operator, which provides an instance of Prometheus.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>To store metrics in Prometheus, enable the Observability Operator by using the community-operators CatalogSource:</p>
+<p>To store metrics in Prometheus, enable the Observability&#160;Operator by using the community-operators CatalogSource:</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1091,7 +1129,7 @@ clusterserviceversion.operators.coreos.com/observability-operator.v0.0.25 condit
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Installation of Observability Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability Operator</a>.</p>
+<p>Installation of Observability&#160;Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a>.</p>
 </li>
 </ul>
 </div>
@@ -2363,7 +2401,7 @@ EOF</code></pre>
 </div>
 <div id="osp-stf-multiple-clouds" class="imageblock">
 <div class="content">
-<img src="images/OpenStack_STF_Overview_37_0919_topology.png" alt="An example of two OSP clouds connecting to STF"/>
+<img src="images/363_OpenStack_STF_updates_0923_topology_2.png" alt="An example of two OSP clouds connecting to STF"/>
 </div>
 <div class="title">Figure 3. Two OSP clouds connect to STF</div>
 </div>
@@ -4205,7 +4243,7 @@ spec:
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_redhat</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat supported components are requested by STF. This includes Prometheus and Alertmanager from the Observability&#160;Operator, but no resource requests to Elastic Cloud on Kubernetes (ECK) Operator. If enabled, resources are also requested from the Grafana Operator (community component).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_hybrid</p></td>
@@ -4213,7 +4251,7 @@ spec:
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use_community</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The community version of Prometheus Operator is used instead of Observability&#160;Operator. Elasticsearch and Grafana resources are also requested (if specified in the ServiceTelemetry object)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
@@ -4759,7 +4797,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-25 17:24:03 UTC
+Last updated 2023-11-03 15:16:55 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
