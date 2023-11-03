@@ -6,13 +6,12 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-installing-the-core-components-of-stf
 
 [role="_abstract"]
-You can use Operators to load the {Project} ({ProjectShort}) components and objects. Operators manage each of the following {ProjectShort} core and community components:
+You can use Operators to load the {Project} ({ProjectShort}) components and objects. Operators manage each of the following {ProjectShort} core components:
 
 * cert-manager
 * {MessageBus}
 * Smart Gateway
 * Prometheus and AlertManager
-* Grafana
 
 .Prerequisites
 

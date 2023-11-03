@@ -6,7 +6,7 @@ You can configure multiple {OpenStack} ({OpenStackShort}) clouds to target a sin
 
 [[osp-stf-multiple-clouds]]
 .Two {OpenStackShort} clouds connect to {ProjectShort}
-image::OpenStack_STF_Overview_37_0919_topology.png[An example of two {OpenStackShort} clouds connecting to {ProjectShort}]
+image::363_OpenStack_STF_updates_0923_topology_2.png[An example of two {OpenStackShort} clouds connecting to {ProjectShort}]
 
 To configure the {OpenStackShort} overcloud for a multiple cloud scenario, complete the following tasks:
 
