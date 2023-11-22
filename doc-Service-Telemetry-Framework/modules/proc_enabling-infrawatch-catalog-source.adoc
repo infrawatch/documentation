@@ -46,6 +46,7 @@ spec:
   image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
   publisher: InfraWatch
   sourceType: grpc
+  priority: -200
   updateStrategy:
     registryPoll:
       interval: 30m
