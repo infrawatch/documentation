@@ -1,12 +1,26 @@
 :_content-type: PROCEDURE
 
 [id="deploying-certificate-manager-for-openshift-operator_{context}"]
-= Deploying Certificate Manager for OpenShift Operator
+= Deploying cert-manager for Red Hat OpenShift
 
 [role="_abstract"]
-The Certificate Manager for OpenShift is pre-installed from the `stable-v1` channel with Service Telemetry Framework ({ProjectShort}) on {OpenShift} 4.12 or later. When installing {ProjectShort} on {OpenShift} 4.10 pre-installation is required due to only the `tech-preview` channel being available. Pre-installation is only required on versions of {OpenShift} prior to 4.12.
+The cert-manager for Red Hat OpenShift (cert-manager) Operator must be pre-installed before creating an instance of {Project} ({ProjectShort}). For more information about cert-manager, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/index.html[cert-manager for Red Hat OpenShift overview].
+
+In previous versions of {ProjectShort}, the only available cert-manager channel was `tech-preview` which continues to work and is available until OpenShift v4.12. Installations of {ProjectShort} on versions of {OpenShift} v4.14 and later must be installed from the `stable-v1` channel. For new installations of {ProjectShort} it is recommended to install cert-manager from the `stable-v1` channel.
+
+[WARNING]
+Only one deployment of cert-manager can be installed per {OpenShift} cluster. Subscribing to cert-manager in more than one project causes the deployments to conflict with each other.
 
 .Procedure
+
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
+
+. Verify cert-manager is not already installed on the OpenShift cluster. If any results are returned, do not install another instance of cert-manager:
++
+[source,bash,options="nowrap"]
+----
+$ oc get sub --all-namespaces -o json | jq '.items[] | select(.metadata.name | match("cert-manager")) | .metadata.name'
+----
 
 . Create a namespace for the cert-manager Operator:
 +
@@ -16,7 +30,7 @@ $ oc create -f - <<EOF
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
-  name: openshift-cert-manager-operator
+  name: cert-manager-operator
 spec:
   finalizers:
   - kubernetes
@@ -31,9 +45,12 @@ $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
-spec: {}
+  name: cert-manager-operator
+  namespace: cert-manager-operator
+spec:
+  targetNamespaces:
+  - cert-manager-operator
+  upgradeStrategy: Default
 EOF
 ----
 
@@ -46,9 +63,11 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: openshift-cert-manager-operator
-  namespace: openshift-cert-manager-operator
+  namespace: cert-manager-operator
+  labels:
+    operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator: ""
 spec:
-  channel: tech-preview
+  channel: stable-v1
   installPlanApproval: Automatic
   name: openshift-cert-manager-operator
   source: redhat-operators
@@ -60,8 +79,8 @@ EOF
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc get csv --namespace openshift-cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.openshift-cert-manager-operator
+oc get csv --namespace cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator
 
-NAME                            DISPLAY                                       VERSION   REPLACES   PHASE
-openshift-cert-manager.v1.7.1   cert-manager Operator for Red Hat OpenShift   1.7.1-1              Succeeded
+NAME                            DISPLAY                                       VERSION   REPLACES                        PHASE
+cert-manager-operator.v1.12.1   cert-manager Operator for Red Hat OpenShift   1.12.1    cert-manager-operator.v1.12.0   Succeeded
 ----
