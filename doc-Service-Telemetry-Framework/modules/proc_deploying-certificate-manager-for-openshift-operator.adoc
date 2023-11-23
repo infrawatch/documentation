@@ -6,7 +6,7 @@
 [role="_abstract"]
 The cert-manager for Red Hat OpenShift (cert-manager) Operator must be pre-installed before creating an instance of {Project} ({ProjectShort}). For more information about cert-manager, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/index.html[cert-manager for Red Hat OpenShift overview].
 
-In previous versions of {ProjectShort}, the only available cert-manager channel was `tech-preview` which continues to work and is available until OpenShift v4.12. Installations of cert-manager on versions of {OpenShift} v4.14 and later must be installed from the `stable-v1` channel. For new installations of {ProjectShort} it is recommended to install cert-manager from the `stable-v1` channel.
+In previous versions of {ProjectShort}, the only available cert-manager channel was `tech-preview` which is available until {OpenShift} v4.12. Installations of cert-manager on versions of {OpenShift} v4.14 and later must be installed from the `stable-v1` channel. For new installations of {ProjectShort} it is recommended to install cert-manager from the `stable-v1` channel.
 
 [WARNING]
 Only one deployment of cert-manager can be installed per {OpenShift} cluster. Subscribing to cert-manager in more than one project causes the deployments to conflict with each other.
@@ -15,7 +15,7 @@ Only one deployment of cert-manager can be installed per {OpenShift} cluster. Su
 
 . Log in to your {OpenShift} environment where {ProjectShort} is hosted.
 
-. Verify cert-manager is not already installed on the OpenShift cluster. If any results are returned, do not install another instance of cert-manager:
+. Verify cert-manager is not already installed on the {OpenShift} cluster. If any results are returned, do not install another instance of cert-manager:
 +
 [source,bash,options="nowrap"]
 ----
