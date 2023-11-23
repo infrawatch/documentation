@@ -4,9 +4,16 @@
 [role="_abstract"]
 Create a `ServiceTelemetry` object in {OpenShift} to result in the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf[].
 
+.Prerequisites
+
+. You have installed {ObservabilityOperator} to allow storage of metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+. You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[].
+
 .Procedure
 
-. To create a `ServiceTelemetry` object that results in an {ProjectShort} using the core components for metrics delivery, create a `ServiceTelemetry` object:
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
+
+. To deploy {ProjectShort} that results in the core components for metrics delivery being configured, create a `ServiceTelemetry` object:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -97,12 +104,9 @@ $ oc get pods
 
 NAME                                                        READY   STATUS    RESTARTS   AGE
 alertmanager-default-0                                      3/3     Running   0          123m
-cert-manager-operator-controller-manager-54f7679467-46pjj   2/2     Running   0          139m
 default-cloud1-ceil-meter-smartgateway-7dfb95fcb6-bs6jl     3/3     Running   0          122m
 default-cloud1-coll-meter-smartgateway-674d88d8fc-858jk     3/3     Running   0          122m
-ifndef::include_when_13[]
 default-cloud1-sens-meter-smartgateway-9b869695d-xcssf      3/3     Running   0          122m
-endif::[]
 default-interconnect-6cbf65d797-hk7l6                       1/1     Running   0          123m
 interconnect-operator-7bb99c5ff4-l6xc2                      1/1     Running   0          138m
 prometheus-default-0                                        3/3     Running   0          122m

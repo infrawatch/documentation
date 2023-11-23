@@ -4,19 +4,14 @@
 = Deploying {ObservabilityOperator}
 
 [role="_abstract"]
-// TODO: https://access.redhat.com/articles/7011708 covers migration to OBO from community-operators Prometheus Operator. This documentation references community-operators as the installation CatalogSource. It is hoping OBO is available from redhat-operators CatalogSource prior to STF 1.5.3. If so, then we will need to update this.
-{Project} ({ProjectShort}) uses other supporting Operators as part of the deployment. {ProjectShort} can resolve most dependencies automatically, but you need to pre-install some Operators, such as {ObservabilityOperator}, which provides an instance of Prometheus.
+// https://access.redhat.com/articles/7011708 covers migration to COO from community-operators Prometheus Operator.
+The Cluster Observability Operator (COO) must be pre-installed before creating an instance of Service Telemetry Framework (STF) if the `observabilityStrategy` is set to `use_redhat` and the `backends.metrics.prometheus.enabled` is set to `true` in the `ServiceTelemetry` object. For more information about COO, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[Cluster Observability Operator overview].
 
 .Procedure
 
-. To store metrics in Prometheus, enable the {ObservabilityOperator} by using the community-operators CatalogSource:
-+
-[WARNING]
-====
-Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
 
-https://access.redhat.com/third-party-software-support[Learn more about Red Hat’s third party software support policy]
-====
+. To store metrics in Prometheus, enable the {ObservabilityOperator} by using the redhat-operators CatalogSource:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -24,22 +19,22 @@ $ oc create -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: observability-operator
+  name: cluster-observability-operator
   namespace: openshift-operators
 spec:
   channel: development
   installPlanApproval: Automatic
-  name: observability-operator
-  source: community-operators
+  name: cluster-observability-operator
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF
 ----
 
-. Verify that the ClusterServiceVersion for Observability Operator `Succeeded`:
+. Verify that the ClusterServiceVersion for {ObservabilityOperator} `Succeeded`:
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/cluster-observability-operator.openshift-operators
 
-clusterserviceversion.operators.coreos.com/observability-operator.v0.0.25 condition met
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26 condition met
 ----

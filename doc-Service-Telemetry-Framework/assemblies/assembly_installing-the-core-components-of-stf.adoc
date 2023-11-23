@@ -8,10 +8,12 @@ ifdef::context[:parent-context: {context}]
 [role="_abstract"]
 You can use Operators to load the {Project} ({ProjectShort}) components and objects. Operators manage each of the following {ProjectShort} core components:
 
-* cert-manager
+* Certificate Management
 * {MessageBus}
-* Smart Gateway
-* Prometheus and AlertManager
+* Smart Gateways
+* Prometheus and Alertmanager
+
+{Project} ({ProjectShort}) uses other supporting Operators as part of the deployment. {ProjectShort} can resolve most dependencies automatically, but you need to pre-install some Operators, such as {ObservabilityOperator}, which provides an instance of Prometheus and Alertmanager, and cert-manager for Red Hat OpenShift, which provides management of certificates.
 
 .Prerequisites
 
@@ -43,14 +45,10 @@ endif::[]
 include::../modules/con_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
 include::../modules/proc_deploying-observability-operator.adoc[leveloffset=+2]
-
-ifeval::[{SupportedOpenShiftVersion} < 4.12]
 include::../modules/proc_deploying-certificate-manager-for-openshift-operator.adoc[leveloffset=+2]
-endif::[]
 include::../modules/proc_deploying-service-telemetry-operator.adoc[leveloffset=+2]
-
-
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
+
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
 include::../modules/proc_accessing-uis-for-stf-components.adoc[leveloffset=+1]
 include::../modules/proc_configuring-observability-strategy.adoc[leveloffset=+1]
