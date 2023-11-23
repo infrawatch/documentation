@@ -1236,7 +1236,10 @@ cert-manager-operator.v1.12.1   cert-manager Operator for Red Hat OpenShift   1.
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Installation of Observability&#160;Operator which uses Prometheus to store metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a>.</p>
+<p>You have installed Observability&#160;Operator to allow storage of metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a>.</p>
+</li>
+<li>
+<p>You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see <a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</a>.</p>
 </li>
 </ul>
 </div>
@@ -1346,14 +1349,13 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=service-telemetry -l operators.coreos.com/service-telemetry-operator.service-telemetry ; oc get csv --namespace service-telemetry
 
-clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.5.1698100836 condition met
+clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.5.1700688542 condition met
 
-NAME                                         DISPLAY                                       VERSION          REPLACES                             PHASE
-amq7-interconnect-operator.v1.10.17          Red Hat Integration - AMQ Interconnect        1.10.17          amq7-interconnect-operator.v1.10.4   Succeeded
-cert-manager-operator.v1.12.0                cert-manager Operator for Red Hat OpenShift   1.12.0           cert-manager-operator.v1.11.4        Succeeded
-observability-operator.v0.0.25               Observability Operator                        0.0.25           observability-operator.v0.0.22       Succeeded
-service-telemetry-operator.v1.5.1698100836   Service Telemetry Operator                    1.5.1698100836                                        Succeeded
-smart-gateway-operator.v5.0.1698100831       Smart Gateway Operator                        5.0.1698100831                                        Succeeded</code></pre>
+NAME                                         DISPLAY                                  VERSION          REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.17          Red Hat Integration - AMQ Interconnect   1.10.17          amq7-interconnect-operator.v1.10.4   Succeeded
+observability-operator.v0.0.26               Cluster Observability Operator           0.1.0                                                 Succeeded
+service-telemetry-operator.v1.5.1700688542   Service Telemetry Operator               1.5.1700688542                                        Succeeded
+smart-gateway-operator.v5.0.1700688539       Smart Gateway Operator                   5.0.1700688539                                        Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1366,16 +1368,19 @@ smart-gateway-operator.v5.0.1698100831       Smart Gateway Operator             
 <div class="paragraph _abstract">
 <p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the Service Telemetry Operator creating the supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a>.</p>
 </div>
-<div class="olist arabic">
+<div class="ulist">
 <div class="title">Prerequisites</div>
-<ol class="arabic">
+<ul>
+<li>
+<p>You have deployed STF and the supporting operators. For more information, see <a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>.</p>
+</li>
 <li>
 <p>You have installed Observability&#160;Operator to allow storage of metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a>.</p>
 </li>
 <li>
 <p>You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see <a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</a>.</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -5299,7 +5304,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-23 15:48:51 UTC
+Last updated 2023-11-23 16:42:41 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
