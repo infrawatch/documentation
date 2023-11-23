@@ -4,6 +4,11 @@
 [role="_abstract"]
 Create a `ServiceTelemetry` object in {OpenShift} to result in the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf[].
 
+.Prerequisites
+
+. You have installed {ObservabilityOperator} to allow storage of metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+. You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[].
+
 .Procedure
 
 . Log in to your {OpenShift} environment where {ProjectShort} is hosted.
