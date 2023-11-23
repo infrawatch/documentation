@@ -469,6 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>
 <ul class="sectlevel3">
 <li><a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a></li>
+<li><a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</a></li>
 <li><a href="#deploying-service-telemetry-operator_assembly-installing-the-core-components-of-stf">Deploying Service Telemetry Operator</a></li>
 </ul>
 </li>
@@ -1032,18 +1033,21 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="ulist">
 <ul>
 <li>
-<p>cert-manager</p>
+<p>Certificate Management</p>
 </li>
 <li>
 <p>Apache&#160;Qpid&#160;Dispatch&#160;Router</p>
 </li>
 <li>
-<p>Smart Gateway</p>
+<p>Smart Gateways</p>
 </li>
 <li>
-<p>Prometheus and AlertManager</p>
+<p>Prometheus and Alertmanager</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability&#160;Operator, which provides an instance of Prometheus and Alertmanager, and cert-manager for Red Hat OpenShift, which provides management of certificates.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -1078,13 +1082,55 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="sect3">
 <h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</h4>
 <div class="paragraph _abstract">
-<p>Service&#160;Telemetry&#160;Framework (STF) uses other supporting Operators as part of the deployment. STF can resolve most dependencies automatically, but you need to pre-install some Operators, such as Observability&#160;Operator, which provides an instance of Prometheus.</p>
+<p>The Cluster Observability Operator (COO) must be pre-installed before creating an instance of Service Telemetry Framework (STF) if the <code>observabilityStrategy</code> is set to <code>use_redhat</code> and the <code>backends.metrics.prometheus.enabled</code> is set to <code>true</code> in the <code>ServiceTelemetry</code> object. For more information about COO, see <a href="https://docs.openshift.com/container-platform/4.14/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html">Cluster Observability Operator overview</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>To store metrics in Prometheus, enable the Observability&#160;Operator by using the community-operators CatalogSource:</p>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
+</li>
+<li>
+<p>To store metrics in Prometheus, enable the Observability&#160;Operator by using the redhat-operators CatalogSource:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-observability-operator
+  namespace: openshift-operators
+spec:
+  channel: development
+  installPlanApproval: Automatic
+  name: cluster-observability-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the ClusterServiceVersion for Observability&#160;Operator <code>Succeeded</code>:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/cluster-observability-operator.openshift-operators
+
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26 condition met</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</h4>
+<div class="paragraph _abstract">
+<p>The cert-manager for Red Hat OpenShift (cert-manager) Operator must be pre-installed before creating an instance of Service&#160;Telemetry&#160;Framework (STF). For more information about cert-manager, see <a href="https://docs.openshift.com/container-platform/4.14/security/cert_manager_operator/index.html">cert-manager for Red Hat OpenShift overview</a>.</p>
+</div>
+<div class="paragraph">
+<p>In previous versions of STF, the only available cert-manager channel was <code>tech-preview</code> which is available until OpenShift v4.12. Installations of cert-manager on versions of OpenShift v4.14 and later must be installed from the <code>stable-v1</code> channel. For new installations of STF it is recommended to install cert-manager from the <code>stable-v1</code> channel.</p>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1092,41 +1138,89 @@ To ensure that the monitoring platform can report operational problems with your
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Community Operators are Operators which have not been vetted or verified by Red Hat. Community Operators should be used with caution because their stability is unknown. Red Hat provides no support for community Operators.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://access.redhat.com/third-party-software-support">Learn more about Red Hat’s third party software support policy</a></p>
-</div>
+Only one deployment of cert-manager can be installed per OpenShift cluster. Subscribing to cert-manager in more than one project causes the deployments to conflict with each other.
 </td>
 </tr>
 </table>
 </div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
+</li>
+<li>
+<p>Verify cert-manager is not already installed on the OpenShift cluster. If any results are returned, do not install another instance of cert-manager:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get sub --all-namespaces -o json | jq '.items[] | select(.metadata.name | match("cert-manager")) | .metadata.name'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a namespace for the cert-manager Operator:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: cert-manager-operator
+spec:
+  finalizers:
+  - kubernetes
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an OperatorGroup for the cert-manager Operator:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: cert-manager-operator
+  namespace: cert-manager-operator
+spec:
+  targetNamespaces:
+  - cert-manager-operator
+  upgradeStrategy: Default
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Subscribe to the cert-manager Operator by using the redhat-operators CatalogSource:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc create -f - &lt;&lt;EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: observability-operator
-  namespace: openshift-operators
+  name: openshift-cert-manager-operator
+  namespace: cert-manager-operator
+  labels:
+    operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator: ""
 spec:
-  channel: development
+  channel: stable-v1
   installPlanApproval: Automatic
-  name: observability-operator
-  source: community-operators
+  name: openshift-cert-manager-operator
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
 EOF</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Verify that the ClusterServiceVersion for Observability Operator <code>Succeeded</code>:</p>
+<p>Validate your ClusterServiceVersion. Ensure that cert-manager Operator displays a phase of <code>Succeeded</code>:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/observability-operator.openshift-operators
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">oc get csv --namespace cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator
 
-clusterserviceversion.operators.coreos.com/observability-operator.v0.0.25 condition met</code></pre>
+NAME                            DISPLAY                                       VERSION   REPLACES                        PHASE
+cert-manager-operator.v1.12.1   cert-manager Operator for Red Hat OpenShift   1.12.1    cert-manager-operator.v1.12.0   Succeeded</code></pre>
 </div>
 </div>
 </li>
@@ -1273,10 +1367,24 @@ smart-gateway-operator.v5.0.1698100831       Smart Gateway Operator             
 <p>Create a <code>ServiceTelemetry</code> object in OpenShift to result in the Service Telemetry Operator creating the supporting components for a Service&#160;Telemetry&#160;Framework (STF) deployment. For more information, see <a href="#primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf">Primary parameters of the ServiceTelemetry object</a>.</p>
 </div>
 <div class="olist arabic">
+<div class="title">Prerequisites</div>
+<ol class="arabic">
+<li>
+<p>You have installed Observability&#160;Operator to allow storage of metrics. For more information, see <a href="#deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</a>.</p>
+</li>
+<li>
+<p>You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see <a href="#deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</a>.</p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>To create a <code>ServiceTelemetry</code> object that results in an STF using the core components for metrics delivery, create a <code>ServiceTelemetry</code> object:</p>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
+</li>
+<li>
+<p>To deploy STF that results in the core components for metrics delivery being configured, create a <code>ServiceTelemetry</code> object:</p>
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
@@ -1372,7 +1480,6 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 
 NAME                                                        READY   STATUS    RESTARTS   AGE
 alertmanager-default-0                                      3/3     Running   0          123m
-cert-manager-operator-controller-manager-54f7679467-46pjj   2/2     Running   0          139m
 default-cloud1-ceil-meter-smartgateway-7dfb95fcb6-bs6jl     3/3     Running   0          122m
 default-cloud1-coll-meter-smartgateway-674d88d8fc-858jk     3/3     Running   0          122m
 default-cloud1-sens-meter-smartgateway-9b869695d-xcssf      3/3     Running   0          122m
@@ -5192,7 +5299,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-03 15:16:55 UTC
+Last updated 2023-11-23 15:48:51 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
