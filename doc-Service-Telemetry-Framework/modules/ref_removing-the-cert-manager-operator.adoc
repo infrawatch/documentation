@@ -22,12 +22,13 @@
 // _Wording of headings_ in _The IBM Style Guide_.
 
 [id="removing-the-cert-manager-operator_{context}"]
-= Removing the cert-manager Operator
+= Removing the cert-manager Operator for Red Hat OpenShift
 
 [role="_abstract"]
-If you are not using the cert-manager Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
+If you are not using the cert-manager Operator for Red Hat OpenShift for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
+
+For more information about removing the cert-manager for Red Hat OpenShift Operator, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/cert-manager-operator-uninstall.html[Removing cert-manager Operator for Red Hat OpenShift] in the _OpenShift Container Platform Documentation_.
 
 .Additional resources
 
-* link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/cert-manager-operator-uninstall.html[Removing cert-manager Operator for Red Hat OpenShift].
 * link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster].
