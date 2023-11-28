@@ -565,6 +565,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#deleting-the-namespace_assembly-removing-stf-from-the-openshift-environment">Deleting the namespace</a></li>
 <li><a href="#removing-the-catalogsource_assembly-removing-stf-from-the-openshift-environment">Removing the CatalogSource</a></li>
 <li><a href="#removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</a></li>
+<li><a href="#removing-the-observability-operator_assembly-removing-stf-from-the-openshift-environment">Removing the Observability&#160;Operator</a></li>
 </ul>
 </li>
 </ul>
@@ -4718,6 +4719,9 @@ If the values returned are 0, it means that STF is not receiving that type of me
 <li>
 <p>Remove the cert-manager Operator.</p>
 </li>
+<li>
+<p>Remove the Observability&#160;Operator.</p>
+</li>
 </ol>
 </div>
 <div class="sect2">
@@ -4904,12 +4908,29 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="removing-the-observability-operator_assembly-removing-stf-from-the-openshift-environment">Removing the Observability&#160;Operator</h3>
+<div class="paragraph _abstract">
+<p>If you are not using the Observability&#160;Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
+</div>
+<div class="paragraph">
+<p>For more information about removing the Observability&#160;Operator, see <a href="https://docs.openshift.com/container-platform/4.14/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator">Uninstalling the Cluster Observability Operator using the web console</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/4.14/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-23 16:42:41 UTC
+Last updated 2023-11-28 17:48:47 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
