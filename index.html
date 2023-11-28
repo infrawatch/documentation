@@ -577,7 +577,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#deleting-the-namespace_assembly-removing-stf-from-the-openshift-environment">Deleting the namespace</a></li>
 <li><a href="#removing-the-catalogsource_assembly-removing-stf-from-the-openshift-environment">Removing the CatalogSource</a></li>
-<li><a href="#removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</a></li>
+<li><a href="#removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator for Red Hat OpenShift</a></li>
 <li><a href="#removing-the-observability-operator_assembly-removing-stf-from-the-openshift-environment">Removing the Observability&#160;Operator</a></li>
 </ul>
 </li>
@@ -5180,122 +5180,15 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator</h3>
+<h3 id="removing-the-cert-manager-operator_assembly-removing-stf-from-the-openshift-environment">Removing the cert-manager Operator for Red Hat OpenShift</h3>
 <div class="paragraph _abstract">
-<p>If you are not using the cert-manager Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Delete the Subscription from the <code>openshift-cert-manager-operator</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator
-
-subscription.operators.coreos.com "openshift-cert-manager-operator" deleted</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Retrieve the version number of your installed ClusterServiceVersion:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get --namespace=openshift-cert-manager-operator subscription openshift-cert-manager-operator -oyaml | grep currentCSV</code></pre>
-</div>
+<p>If you are not using the cert-manager Operator for Red Hat OpenShift for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
 </div>
 <div class="paragraph">
-<p>Example output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">  currentCSV: openshift-cert-manager.v1.7.1</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Delete the ClusterServiceVersion from the <code>openshift-cert-manager-operator</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete --namespace=openshift-cert-manager-operator csv openshift-cert-manager.v1.7.1</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">clusterserviceversion.operators.coreos.com "openshift-cert-manager.v1.7.1" deleted</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Get the current list of CustomResourceDefinitions provided by the Operator so they can be deleted after removal of the ClusterServiceVersion:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get csv -n openshift-cert-manager-operator openshift-cert-manager.v1.7.1 -oyaml | grep "kind: CustomResourceDefinition" -A2 | grep name | awk '{print $2}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">certificaterequests.cert-manager.io
-certificates.cert-manager.io
-certmanagers.config.openshift.io
-certmanagers.operator.openshift.io
-challenges.acme.cert-manager.io
-clusterissuers.cert-manager.io
-issuers.cert-manager.io
-orders.acme.cert-manager.io</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Delete the CustomResourceDefinitions related to the cert-manager Operator:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete crd certificaterequests.cert-manager.io certificates.cert-manager.io certmanagers.config.openshift.io certmanagers.operator.openshift.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">customresourcedefinition.apiextensions.k8s.io "certificaterequests.cert-manager.io" deleted
-customresourcedefinition.apiextensions.k8s.io "certificates.cert-manager.io" deleted
-customresourcedefinition.apiextensions.k8s.io "certmanagers.config.openshift.io" deleted
-customresourcedefinition.apiextensions.k8s.io "certmanagers.operator.openshift.io" deleted
-customresourcedefinition.apiextensions.k8s.io "challenges.acme.cert-manager.io" deleted
-customresourcedefinition.apiextensions.k8s.io "clusterissuers.cert-manager.io" deleted
-customresourcedefinition.apiextensions.k8s.io "issuers.cert-manager.io" deleted
-customresourcedefinition.apiextensions.k8s.io "orders.acme.cert-manager.io" deleted</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Delete the namespaces owned by the cert-manager Operator:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc delete project openshift-cert-manager openshift-cert-manager-operator</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">project.project.openshift.io "openshift-cert-manager" deleted
-project.project.openshift.io "openshift-cert-manager-operator" deleted</code></pre>
-</div>
-</div>
-</li>
-</ol>
+<p>For more information about removing the cert-manager for Red Hat OpenShift Operator, see <a href="https://docs.openshift.com/container-platform/4.14/security/cert_manager_operator/cert-manager-operator-uninstall.html">Removing cert-manager Operator for Red Hat OpenShift</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 <div class="ulist">
-<div class="title">Additional information</div>
+<div class="title">Additional resources</div>
 <ul>
 <li>
 <p><a href="https://docs.openshift.com/container-platform/4.14/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
@@ -5325,7 +5218,7 @@ project.project.openshift.io "openshift-cert-manager-operator" deleted</code></p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-28 17:48:47 UTC
+Last updated 2023-11-28 19:09:19 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
