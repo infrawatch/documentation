@@ -27,7 +27,8 @@
 [role="_abstract"]
 If you are not using the {ObservabilityOperator} for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
 
+For more information about removing the {ObservabilityOperator}, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator[Uninstalling the Cluster Observability Operator using the web console] in the _OpenShift Container Platform Documentation_.
+
 .Additional resources
 
-* link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator[Uninstalling the Cluster Observability Operator using the web console].
 * link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster].
