@@ -249,6 +249,11 @@ Use the `graphing` parameter to control the creation of a Grafana instance. By d
 [discrete]
 == The highAvailability parameter
 
+[WARNING]
+====
+{ProjectShort} high availability (HA) mode is deprecated and is not supported in production environments. {OpenShift} is a highly-available platform, and you can cause issues and complicate debugging in {ProjectShort} if you enable HA mode.
+====
+
 Use the `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_assembly-advanced-features[].
 
 [id="transports_{context}"]
