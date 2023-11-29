@@ -2,12 +2,12 @@
 = High availability
 
 [role="_abstract"]
-With high availability, {Project} ({ProjectShort}) can rapidly recover from failures in its component services. Although {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, which reduces recovery time to approximately 2 seconds. To protect against failure of an {OpenShift} node, deploy {ProjectShort} to an {OpenShift} cluster with three or more nodes.
-
 [WARNING]
 ====
 {ProjectShort} high availability (HA) mode is deprecated and is not supported in production environments. {OpenShift} is a highly-available platform, and you can cause issues and complicate debugging in {ProjectShort} if you enable HA mode.
 ====
+
+With high availability, {Project} ({ProjectShort}) can rapidly recover from failures in its component services. Although {OpenShift} restarts a failed pod if nodes are available to schedule the workload, this recovery process might take more than one minute, during which time events and metrics are lost. A high availability configuration includes multiple copies of {ProjectShort} components, which reduces recovery time to approximately 2 seconds. To protect against failure of an {OpenShift} node, deploy {ProjectShort} to an {OpenShift} cluster with three or more nodes.
 
 Enabling high availability has the following effects:
 
