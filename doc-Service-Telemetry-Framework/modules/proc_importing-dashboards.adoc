@@ -18,7 +18,13 @@ grafanadashboard.integreatly.org/rhos-dashboard-1 created
 . Import the cloud dashboard:
 +
 [WARNING]
-In the `enable-stf.yaml` file, ensure you set the value of the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname`, otherwise some of the panels on the cloud dashboard display no information. For more information about the `virt` plugin, see link:{defaultURL}/operational_measurements/collectd-plugins_assembly[collectd plugins].
+In the `enable-stf.yaml` file, ensure you set the value of the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname`, otherwise some of the panels on the cloud dashboard display no information.
+ifdef::include_before_17[]
+For more information about the `virt` plugin, see link:{defaultURL}/operational_measurements/collectd-plugins_assembly[collectd plugins].
+endif::include_before_17[]
+ifdef::include_when_17[]
+For more information about the `virt` plugin, see link:{defaultURL}/managing_overcloud_observability/collectd-plugins_assembly[collectd plugins].
+endif::include_when_17[]
 +
 [source,bash,options="nowrap"]
 ----
