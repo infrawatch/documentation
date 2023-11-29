@@ -48,4 +48,5 @@ smart-gateway-operator-58d77dcf7-6xsq7                    1/1     Running   0   
 
 .Additional resources
 
-For more information about configuring additional clouds or to change the set of supported collectors, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[]
+* For more information about configuring additional clouds or to change the set of supported collectors, see xref:deploying-smart-gateways_assembly-completing-the-stf-configuration[].
+* To migrate an existing {ProjectShort} deployment to `use_redhat`, see the Red Hat Knowledge Base article link:https://access.redhat.com/articles/7011708[Migrating {Project} to fully supported operators].
