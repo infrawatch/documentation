@@ -11,4 +11,4 @@ The amount of resources that you require to run {Project} ({ProjectShort}) depen
 
 .Additional resources
 
-* For recommendations about sizing for metrics collection, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
+* For recommendations about sizing for metrics collection, see the Red Hat Knowledge Base article https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].

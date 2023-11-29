@@ -80,15 +80,6 @@ For client side metrics, collectd provides infrastructure metrics without projec
 
 When you collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway forwards the data to a user-provided Elasticsearch datastore.
 
-[NOTE]
-====
-In previous releases of {ProjectShort}, the Service Telemetry Operator requested instances of Elasticsearch from the Elastic Cloud on Kubernetes (ECK) Operator. {ProjectShort} now uses a forwarding model, where events are forwarded from a Smart Gateway instance to a user-provided instance of Elasticsearch. The management of an Elasticsearch instance by Service Telemetry Operator is deprecated.
-
-In new `ServiceTelemetry`deployments, the `observabilityStrategy` parameter has a value of `use_redhat`, that does not request Elasticsearch instances from ECK. Deployments of `ServiceTelemetry` that are version {ProjectShort} 1.5.3 or older have the `observabilityStrategy` parameter set to `use_community`, which matches the previous architecture. If a user deployed an Elasticsearch instance with {ProjectShort}, the Service Telemetry Operator updates the `ServiceTelemetry` custom resource object to have the `observabilityStrategy` parameter set to `use_community`, and functions similar to previous releases. For more information about observability strategies, see xref:observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf[].
-
-For more information about migration to the `use_redhat` observability strategy, see link:https://access.redhat.com/articles/7011708[Migrating Service Telemetry Framework to fully supported operators].
-====
-
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
 * {Project} {ProductVersion}
@@ -103,3 +94,18 @@ endif::[]
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
 image::363_OpenStack_STF_updates_0923_deployment_prereq.png[Server-side STF monitoring infrastructure]
+
+== {ProjectShort} Architecture Changes
+
+In releases of {ProjectShort} prior to 1.5.3, the Service Telemetry Operator requested instances of Elasticsearch from the Elastic Cloud on Kubernetes (ECK) Operator. {ProjectShort} now uses a forwarding model, where events are forwarded from a Smart Gateway instance to a user-provided instance of Elasticsearch.
+
+[NOTE]
+====
+The management of an Elasticsearch instances by Service Telemetry Operator is deprecated.
+====
+
+In new `ServiceTelemetry` deployments, the `observabilityStrategy` parameter has a value of `use_redhat`, that does not request Elasticsearch instances from ECK. Deployments of `ServiceTelemetry`  with {ProjectShort} version 1.5.2 or older and were updated to 1.5.3 will have the `observabilityStrategy` parameter set to `use_community`, which matches the previous architecture.
+
+If a user previously deployed an Elasticsearch instance with {ProjectShort}, the Service Telemetry Operator updates the `ServiceTelemetry` custom resource object to have the `observabilityStrategy` parameter set to `use_community`, and functions similar to previous releases. For more information about observability strategies, see xref:observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf[].
+
+It is recommended that users of {ProjectShort} migrate to the `use_redhat` observability strategy. For more information about migration to the `use_redhat` observability strategy, see the Red Hat Knowledge Base article link:https://access.redhat.com/articles/7011708[Migrating Service Telemetry Framework to fully supported operators].
