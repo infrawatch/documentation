@@ -49,6 +49,7 @@ include::../modules/con_support-for-stf.adoc[leveloffset=+1]
 endif::[]
 
 include::../modules/con_stf-architecture.adoc[leveloffset=+1]
+include::../modules/con_stf-architecture-changes.adoc[leveloffset=+2]
 
 include::../modules/con_installation-size-of-ocp.adoc[leveloffset=+1]
 
