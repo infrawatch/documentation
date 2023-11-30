@@ -79,8 +79,7 @@ EOF
 +
 [source,bash,options="nowrap",role="white-space-pre"]
 ----
-oc get csv --namespace cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator
+oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=cert-manager-operator --selector=operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator
 
-NAME                            DISPLAY                                       VERSION   REPLACES                        PHASE
-cert-manager-operator.v1.12.1   cert-manager Operator for Red Hat OpenShift   1.12.1    cert-manager-operator.v1.12.0   Succeeded
+clusterserviceversion.operators.coreos.com/cert-manager-operator.v1.12.1 condition met
 ----

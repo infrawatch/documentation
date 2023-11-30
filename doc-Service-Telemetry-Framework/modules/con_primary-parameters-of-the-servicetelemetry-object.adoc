@@ -113,7 +113,7 @@ spec:
 Older versions of {ProjectShort} would manage Elasticsearch objects for the community supported Elastic Cloud on Kubernetes Operator (ECK). Elasticsearch management functionality is deprecated as of {ProjectShort} 1.5.3. Future versions of Service Telemetry Operator will continue to support forwarding to an existing Elasticsearch instance (which can be deployed and managed by ECK), but will not manage the creation of Elasticsearch objects. When upgrading an {ProjectShort} deployment, any existing Elasticsearch object and deployment will remain intact, but will no longer be managed by {ProjectShort}.
 
 ifeval::["{build}" == "downstream"]
-Refer to this article for additional information about https://access.redhat.com/articles/7031236[Using Service Telemetry Framework with Elasticsearch]
+For more information about using Elasticsearch with {ProjectShort}, see the Red Hat Knowledge Base article https://access.redhat.com/articles/7031236[Using Service Telemetry Framework with Elasticsearch].
 endif::[]
 
 ====
@@ -248,6 +248,11 @@ Use the `graphing` parameter to control the creation of a Grafana instance. By d
 [id="highAvailability_{context}"]
 [discrete]
 == The highAvailability parameter
+
+[WARNING]
+====
+{ProjectShort} high availability (HA) mode is deprecated and is not supported in production environments. {OpenShift} is a highly-available platform, and you can cause issues and complicate debugging in {ProjectShort} if you enable HA mode.
+====
 
 Use the `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_assembly-advanced-features[].
 

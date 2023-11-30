@@ -5,7 +5,7 @@
 
 [role="_abstract"]
 // https://access.redhat.com/articles/7011708 covers migration to COO from community-operators Prometheus Operator.
-The Cluster Observability Operator (COO) must be pre-installed before creating an instance of Service Telemetry Framework (STF) if the `observabilityStrategy` is set to `use_redhat` and the `backends.metrics.prometheus.enabled` is set to `true` in the `ServiceTelemetry` object. For more information about COO, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[Cluster Observability Operator overview].
+The Cluster Observability Operator (COO) must be pre-installed before creating an instance of Service Telemetry Framework (STF) if the `observabilityStrategy` is set to `use_redhat` and the `backends.metrics.prometheus.enabled` is set to `true` in the `ServiceTelemetry` object. For more information about COO, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[Cluster Observability Operator overview] in the _OpenShift Container Platform Documentation_.
 
 .Procedure
 

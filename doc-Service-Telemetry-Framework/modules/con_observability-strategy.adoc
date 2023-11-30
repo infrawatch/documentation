@@ -27,6 +27,9 @@ The following values are available:
 | No storage or alerting components are deployed
 |===
 
+[NOTE]
+====
 Newly deployed {ProjectShort} environments as of 1.5.3 default to `use_redhat`. Existing {ProjectShort} deployments created before 1.5.3 default to `use_community`.
+====
 
-To migrate an existing {ProjectShort} deployment to `use_redhat`, see https://access.redhat.com/articles/7011708[Migrating STF to fully supported operators].
+To migrate an existing {ProjectShort} deployment to `use_redhat`, see the Red Hat Knowledge Base article link:https://access.redhat.com/articles/7011708[Migrating {Project} to fully supported operators].

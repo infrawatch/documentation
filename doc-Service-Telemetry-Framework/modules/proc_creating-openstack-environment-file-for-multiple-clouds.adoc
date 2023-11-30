@@ -146,10 +146,6 @@ If you use the `collectd-write-qdr.yaml` file with a custom `CollectdAmqpInstanc
 
 . Deploy the {OpenStack} overcloud.
 
-ifdef::include_when_17[]
-include::con_ansible-based-deployment.adoc[leveloffset=+1]
-endif::include_when_17[]
-
 .Additional resources
 
 * For information about how to validate the deployment, see xref:validating-clientside-installation_assembly-completing-the-stf-configuration[].
