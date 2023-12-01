@@ -74,7 +74,7 @@ To ensure that the monitoring platform can report operational problems with your
 
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
-image::363_OpenStack_STF_updates_0923_arch_2.png[Service Telemetry Framework architecture overview]
+image::363_OpenStack_STF_updates_1223_arch_2.png[Service Telemetry Framework architecture overview]
 
 For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStackShort} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
