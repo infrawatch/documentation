@@ -6,7 +6,7 @@ You can configure multiple {OpenStack} ({OpenStackShort}) clouds to target a sin
 
 [WARNING]
 ====
-Be sure that every cloud deployment has a unique cloud domain configuration. For more information about configuring the domain for your cloud deployment, see xref:setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration[].
+Ensure that you deploy each cloud with a unique cloud domain configuration. For more information about configuring the domain for your cloud deployment, see xref:setting-a-unique-cloud-domain_assembly-completing-the-stf-configuration[].
 ====
 
 [[osp-stf-multiple-clouds]]
