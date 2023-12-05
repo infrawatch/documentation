@@ -3628,7 +3628,7 @@ spec:
 <div class="listingblock white-space-pre">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.rhobs/v1
 kind: PrometheusRule
 metadata:
   creationTimestamp: null
@@ -3683,7 +3683,7 @@ EOF</code></pre>
 <p>Use the <code>oc edit</code> command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit prometheusrules prometheus-alarm-rules</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit prometheusrules.monitoring.rhobs prometheus-alarm-rules</code></pre>
 </div>
 </div>
 </li>
@@ -4261,7 +4261,7 @@ When you set the oid label, the top-level SNMP trap OID changes, but the sub-OID
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">$ oc apply -f - &lt;&lt;EOF
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.rhobs/v1
 kind: PrometheusRule
 metadata:
   creationTimestamp: null
@@ -4903,7 +4903,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-05 20:07:35 UTC
+Last updated 2023-12-05 23:20:32 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
