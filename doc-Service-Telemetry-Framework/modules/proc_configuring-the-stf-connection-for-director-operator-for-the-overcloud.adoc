@@ -40,23 +40,17 @@ data:
               role: edge
               verifyHostname: false
               sslProfile: sslProfile
+              saslUsername: guest@default-interconnect
+              saslPassword: pass:<password_from_stf>
 
         MetricsQdrSSLProfiles:
             - name: sslProfile
-
-        CeilometerQdrEventsConfig:
-            driver: amqp
-            topic: cloud1-event
 
         CeilometerQdrMetricsConfig:
             driver: amqp
             topic: cloud1-metering
 
         CollectdAmqpInstances:
-            cloud1-notify:
-                notify: true
-                format: JSON
-                presettle: false
             cloud1-telemetry:
                 format: JSON
                 presettle: false

@@ -1,0 +1,34 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::<path>/proc_removing-the-cert-manager-operator.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+
+[id="removing-the-observability-operator_{context}"]
+= Removing the {ObservabilityOperator}
+
+[role="_abstract"]
+If you are not using the {ObservabilityOperator} for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.
+
+For more information about removing the {ObservabilityOperator}, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator[Uninstalling the Cluster Observability Operator using the web console] in the _OpenShift Container Platform Documentation_.
+
+.Additional resources
+
+* link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/admin/olm-deleting-operators-from-cluster.html[Deleting Operators from a cluster].

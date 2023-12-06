@@ -2,7 +2,7 @@
 = Primary parameters of the ServiceTelemetry object
 
 [role="_abstract"]
-The `ServiceTelemetry` object comprises the following primary configuration parameters:
+You can set the following primary configuration parameters of the `ServiceTelemetry` object to configure your {ProjectShort} deployment:
 
 * `alerting`
 * `backends`
@@ -11,16 +11,13 @@ The `ServiceTelemetry` object comprises the following primary configuration para
 * `highAvailability`
 * `transports`
 
-
-You can configure each of these configuration parameters to provide different features in an {ProjectShort} deployment.
-
 [id="backends_{context}"]
 [discrete]
 == The backends parameter
 
-Use the `backends` parameter to control which storage back ends are available for storage of metrics and events, and to control the enablement of Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
+Set the value of the `backends` parameter to allocate the storage back ends for metrics and events, and to enable the Smart Gateways that the `clouds` parameter defines. For more information, see xref:clouds_assembly-installing-the-core-components-of-stf[].
 
-You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. You can use the Service Telemetry Operator to create other custom resource objects that the Prometheus Operator and Elastic Cloud on Kubernetes Operator watch to create Prometheus and Elasticsearch workloads.
+You can use Prometheus as the metrics storage back end and Elasticsearch as the events storage back end. The Service Telemetry Operator can create custom resource objects that the Prometheus Operator watches to create a Prometheus workload. You need an external deployment of Elasticsearch to store events.
 
 [discrete]
 === Enabling Prometheus as a storage back end for metrics
@@ -57,11 +54,11 @@ spec:
 [discrete]
 === Configuring persistent storage for Prometheus
 
-Use the additional parameters that are defined in `backends.metrics.prometheus.storage.persistent` to configure persistent storage options for Prometheus, such as storage class and volume size.
+Set the additional parameters in `backends.metrics.prometheus.storage.persistent` to configure persistent storage options for Prometheus, such as storage class and volume size.
 
-Use `storageClass` to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
+Define the back end storage class with the `storageClass` parameter. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
 
-Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of `20G` (20 Gigabytes).
+Define the minimum required volume size for the storage request with the `pvcStorageRequest` parameter. By default, Service Telemetry Operator requests a volume size of `20G` (20 Gigabytes).
 
 .Procedure
 
@@ -83,7 +80,7 @@ standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstCons
 $ oc edit stf default
 ----
 
-. Set the value of the backends.metrics.prometheus.enabled parameter to `true` and the value of backends.metrics.prometheus.storage.strategy to `persistent`:
+. Set the value of the `backends.metrics.prometheus.enabled` parameter to `true` and the value of `backends.metrics.prometheus.storage.strategy` to `persistent`:
 +
 [source,yaml]
 ----
@@ -108,7 +105,17 @@ spec:
 [discrete]
 === Enabling Elasticsearch as a storage back end for events
 
-To enable Elasticsearch as a storage back end for events, you must configure the `ServiceTelemetry` object.
+[NOTE]
+====
+Previous versions of {ProjectShort} managed Elasticsearch objects for the community supported Elastic Cloud on Kubernetes Operator (ECK). Elasticsearch management functionality is deprecated in {ProjectShort} 1.5.3. You can still forward to an existing Elasticsearch instance that you deploy and manage with ECK, but you cannot manage the creation of Elasticsearch objects. When you upgrade your {ProjectShort} deployment, existing Elasticsearch objects and deployments remain, but are no longer managed by {ProjectShort}.
+
+ifeval::["{build}" == "downstream"]
+For more information about using Elasticsearch with {ProjectShort}, see the Red Hat Knowledge Base article https://access.redhat.com/articles/7031236[Using Service Telemetry Framework with Elasticsearch].
+endif::[]
+
+====
+
+To enable events forwarding to Elasticsearch as a storage back end, you must configure the `ServiceTelemetry` object.
 
 .Procedure
 
@@ -119,7 +126,7 @@ To enable Elasticsearch as a storage back end for events, you must configure the
 $ oc edit stf default
 ----
 
-. Set the value of the backends.events.elasticsearch.enabled parameter to `true`:
+. Set the value of the `backends.events.elasticsearch.enabled` parameter to `true` and configure the `hostUrl` with the relevant Elasticsearch instance:
 +
 [source,yaml]
 ----
@@ -134,66 +141,39 @@ spec:
     events:
       elasticsearch:
         enabled: true
+        forwarding:
+          hostUrl: https://external-elastic-http.domain:9200
+          tlsServerName: ""
+          tlsSecretName: elasticsearch-es-cert
+          userSecretName: elasticsearch-es-elastic-user
+          useBasicAuth: true
+          useTls: true
 ----
 
-[id="backends-configuring-persistent-storage-for-elasticsearch_{context}"]
-[discrete]
-=== Configuring persistent storage for Elasticsearch
-
-Use the additional parameters defined in `backends.events.elasticsearch.storage.persistent` to configure persistent storage options for Elasticsearch, such as storage class and volume size.
-
-Use `storageClass` to define the back end storage class. If you do not set this parameter, the Service Telemetry Operator uses the default storage class for the {OpenShift} cluster.
-
-Use the `pvcStorageRequest` parameter to define the minimum required volume size to satisfy the storage request. If volumes are statically defined, it is possible that a volume size larger than requested is used. By default, Service Telemetry Operator requests a volume size of `20Gi` (20 Gibibytes).
-
-.Procedure
-
-. List the available storage classes:
-+
-[source,bash,options="nowrap"]
-----
-$ oc get storageclasses
-NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-csi-manila-ceph      manila.csi.openstack.org   Delete          Immediate              false                  20h
-standard (default)   kubernetes.io/cinder       Delete          WaitForFirstConsumer   true                   20h
-standard-csi         cinder.csi.openstack.org   Delete          WaitForFirstConsumer   true                   20h
-----
-
-. Edit the `ServiceTelemetry` object:
+. Create the secret named in the `userSecretName` parameter to store the basic `auth` credentials
 +
 [source,bash]
 ----
-$ oc edit stf default
+$ oc create secret generic elasticsearch-es-elastic-user --from-literal=elastic='<PASSWORD>'
 ----
 
-. Set the value of the backends.events.elasticsearch.enabled parameter to `true` and the value of backends.events.elasticsearch.storage.strategy to `persistent`:
+. Copy the CA certificate into a file named `EXTERNAL-ES-CA.pem`, then create the secret named in the `tlsSecretName` parameter to make it available to {ProjectShort}
 +
-[source,yaml]
+[source,bash]
 ----
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
-spec:
-  [...]
-  backends:
-    events:
-      elasticsearch:
-        enabled: true
-        version: 7.16.1
-        storage:
-          strategy: persistent
-          persistent:
-            storageClass: standard-csi
-            pvcStorageRequest: 50G
+$ cat EXTERNAL-ES-CA.pem
+-----BEGIN CERTIFICATE-----
+[...]
+-----END CERTIFICATE-----
+
+$ oc create secret generic elasticsearch-es-cert --from-file=ca.crt=EXTERNAL-ES-CA.pem
 ----
 
 [id="clouds_{context}"]
 [discrete]
 == The clouds parameter
 
-Use the `clouds` parameter to define which Smart Gateway objects deploy, thereby providing the interface for multiple monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting back end is available, then metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
+Configure the `clouds` parameter to define which Smart Gateway objects deploy and provide the interface for monitored cloud environments to connect to an instance of {ProjectShort}. If a supporting back end is available, metrics and events Smart Gateways for the default cloud configuration are created. By default, the Service Telemetry Operator creates Smart Gateways for `cloud1`.
 
 ifndef::include_when_13[]
 You can create a list of cloud objects to control which Smart Gateways are created for the defined clouds. Each cloud consists of data types and collectors. Data types are `metrics` or `events`. Each data type consists of a list of collectors, the message bus subscription address, and a parameter to enable debugging. Available collectors for metrics are `collectd`, `ceilometer`, and `sensubility`. Available collectors for events are `collectd` and `ceilometer`. Ensure that the subscription address for each of these collectors is unique for every cloud, data type, and collector combination.
@@ -254,22 +234,27 @@ You can use the optional Boolean parameter `debugEnabled` within the `collectors
 [discrete]
 == The alerting parameter
 
-Use the `alerting` parameter to control creation of an Alertmanager instance and the configuration of the storage back end. By default, `alerting` is enabled. For more information, see xref:alerts_assembly-advanced-features[].
+Set the `alerting` parameter to create an Alertmanager instance and a storage back end. By default, `alerting` is enabled. For more information, see xref:alerts_assembly-advanced-features[].
 
 [id="graphing_{context}"]
 [discrete]
 == The graphing parameter
 
-Use the `graphing` parameter to control the creation of a Grafana instance. By default, `graphing` is disabled. For more information, see xref:dashboards_assembly-advanced-features[].
+Set the `graphing` parameter to create a Grafana instance. By default, `graphing` is disabled. For more information, see xref:dashboards_assembly-advanced-features[].
 
 [id="highAvailability_{context}"]
 [discrete]
 == The highAvailability parameter
 
-Use the `highAvailability` parameter to control the instantiation of multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_assembly-advanced-features[].
+[WARNING]
+====
+{ProjectShort} high availability (HA) mode is deprecated and is not supported in production environments. {OpenShift} is a highly-available platform, and you can cause issues and complicate debugging in {ProjectShort} if you enable HA mode.
+====
+
+Set the `highAvailability` parameter to instantiate multiple copies of {ProjectShort} components to reduce recovery time of components that fail or are rescheduled. By default, `highAvailability` is disabled. For more information, see xref:high-availability_assembly-advanced-features[].
 
 [id="transports_{context}"]
 [discrete]
 == The transports parameter
 
-Use the `transports` parameter to control the enablement of the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. By default, the `qdr` transport is enabled.
+Set the `transports` parameter to enable the message bus for a {ProjectShort} deployment. The only transport currently supported is {MessageBus}. By default, the `qdr` transport is enabled.

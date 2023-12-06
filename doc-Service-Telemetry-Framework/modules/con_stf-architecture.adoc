@@ -11,21 +11,25 @@
 [role="_abstract"]
 {Project} ({ProjectShort}) uses a client-server architecture, in which {OpenStack} ({OpenStackShort}) is the client and {OpenShift} is the server.
 
+By default, {ProjectShort} collects, transports, and stores metrics information.
+
+You can collect {OpenStackShort} events data, transport it with the message bus, and forward it to a user-provided Elasticsearch from the Smart Gateways, but this option is deprecated.
+// For more information about {ProjectShort} when configured with events, see <xref-TODO>. Tracked via https://issues.redhat.com/browse/STF-1552
+
 {ProjectShort} consists of the following components:
 
-
 * Data collection
-** collectd: Collects infrastructure metrics and events.
-** Ceilometer: Collects {OpenStackShort} metrics and events.
+** collectd: Collects infrastructure metrics and events on {OpenStackShort}.
+** Ceilometer: Collects {OpenStackShort} metrics and events on {OpenStackShort}.
 * Transport
-** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics to {ProjectShort} for storage.
-** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Elasticsearch or Prometheus.
+** {MessageBus}: An AMQP 1.x compatible messaging bus that provides fast and reliable data transport to transfer the metrics from {OpenStackShort} to {ProjectShort} for storage or forwarding.
+** Smart Gateway: A Golang application that takes metrics and events from the AMQP 1.x bus to deliver to Prometheus or an external Elasticsearch.
 * Data storage
 ** Prometheus: Time-series data storage that stores {ProjectShort} metrics received from the Smart Gateway.
-** Elasticsearch: Events data storage that stores {ProjectShort} events received from the Smart Gateway.
-* Observation
 ** Alertmanager: An alerting tool that uses Prometheus alert rules to manage alerts.
+* User provided components
 ** Grafana: A visualization and analytics application that you can use to query, visualize, and explore data.
+** Elasticsearch: Events data storage that stores {OpenStackShort} events received and forwarded by the Smart Gateway.
 
 The following table describes the application of the client and server components:
 
@@ -51,6 +55,10 @@ The following table describes the application of the client and server component
 |no
 |yes
 
+|Grafana
+|no
+|yes
+
 |collectd
 |yes
 |no
@@ -66,11 +74,11 @@ To ensure that the monitoring platform can report operational problems with your
 
 [[osp-stf-overview]]
 .Service Telemetry Framework architecture overview
-image::OpenStack_STF_Overview_37_1019_arch.png[Service Telemetry Framework architecture overview]
+image::363_OpenStack_STF_updates_1223_arch_2.png[Service Telemetry Framework architecture overview]
 
 For client side metrics, collectd provides infrastructure metrics without project data, and Ceilometer provides {OpenStackShort} platform data based on projects or user workload. Both Ceilometer and collectd deliver data to Prometheus by using the {MessageBus} transport, delivering the data through the message bus. On the server side, a Golang application called the Smart Gateway takes the data stream from the bus and exposes it as a local scrape endpoint for Prometheus.
 
-If you plan to collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway writes the data to the Elasticsearch datastore.
+When you collect and store events, collectd and Ceilometer deliver event data to the server side by using the {MessageBus} transport. Another Smart Gateway forwards the data to a user-provided Elasticsearch datastore.
 
 Server-side {ProjectShort} monitoring infrastructure consists of the following layers:
 
@@ -85,4 +93,5 @@ endif::[]
 
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
-image::STF_Overview_37_0819_deployment_prereq.png[Server-side STF monitoring infrastructure]
+image::363_OpenStack_STF_updates_0923_deployment_prereq.png[Server-side STF monitoring infrastructure]
+

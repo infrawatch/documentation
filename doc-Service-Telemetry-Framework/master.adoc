@@ -1,7 +1,7 @@
 = Service Telemetry Framework 1.5
 OpenStack Documentation Team <rhos-docs@redhat.com>
 :imagesdir: images
-:vernum: 17.0
+:vernum: 17.1
 :toc: left
 :toclevels: 3
 :icons: font
@@ -32,9 +32,9 @@ include::assemblies/assembly_installing-the-core-components-of-stf.adoc[leveloff
 include::assemblies/assembly_completing-the-stf-configuration.adoc[leveloffset=+1]
 
 ifeval::["{build}" == "downstream"]
-ifdef::include_when_16_2[]
+ifdef::include_when_16_2,include_when_17_1[]
 include::assemblies/assembly_completing-the-stf-configuration-using-director-operator.adoc[leveloffset=+1]
-endif::include_when_16_2[]
+endif::include_when_16_2,include_when_17_1[]
 endif::[]
 
 //advanced features
@@ -46,7 +46,7 @@ include::assemblies/assembly_renewing-the-amq-interconnect-certificate.adoc[leve
 // removing
 include::assemblies/assembly_removing-stf-from-the-openshift-environment.adoc[leveloffset=+1]
 
-//collectd plugins
-
 // upgrading to 1.5
-include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-5.adoc[leveloffset=+1]
+// NOTE: this is no longer being rendered because the expectation is to move from STF 1.4 on OCP 4.8 to STF 1.5 on OCP 4.10, both of which are EOL now.
+// if this affects you, please open a customer case to help manage the upgrade, or simply perform a greenfield deployment of STF 1.5 on OCP 4.14.
+//include::assemblies/assembly_upgrading-service-telemetry-framework-to-version-1-5.adoc[leveloffset=+1]

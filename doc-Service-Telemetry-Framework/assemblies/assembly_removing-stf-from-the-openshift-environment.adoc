@@ -15,12 +15,14 @@ ifeval::["{build}" == "upstream"]
 . Remove the catalog source.
 endif::[]
 . Remove the cert-manager Operator.
+. Remove the {ObservabilityOperator}.
 
 include::../modules/proc_deleting-the-namespace.adoc[leveloffset=+1]
 ifeval::["{build}" == "upstream"]
 include::../modules/proc_removing-the-catalogsource.adoc[leveloffset=+1]
 endif::[]
-include::../modules/proc_removing-the-cert-manager-operator.adoc[leveloffset=+1]
+include::../modules/ref_removing-the-cert-manager-operator.adoc[leveloffset=+1]
+include::../modules/ref_removing-the-observability-operator.adoc[leveloffset=+1]
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]
