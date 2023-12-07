@@ -19,7 +19,7 @@ $ oc project service-telemetry
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
 $ oc apply -f - <<EOF
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.rhobs/v1
 kind: PrometheusRule
 metadata:
   creationTimestamp: null
