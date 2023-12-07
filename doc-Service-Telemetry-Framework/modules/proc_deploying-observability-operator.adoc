@@ -1,0 +1,40 @@
+:_content-type: PROCEDURE
+
+[id="deploying-observability-operator_{context}"]
+= Deploying {ObservabilityOperator}
+
+[role="_abstract"]
+// https://access.redhat.com/articles/7011708 covers migration to COO from community-operators Prometheus Operator.
+You must install the Cluster Observability Operator (COO) before you create an instance of {Project} ({ProjectShort}) if the `observabilityStrategy` is set to `use_redhat` and the `backends.metrics.prometheus.enabled` is set to `true` in the `ServiceTelemetry` object. For more information about COO, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[Cluster Observability Operator overview] in the _OpenShift Container Platform Documentation_.
+
+.Procedure
+
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
+
+. To store metrics in Prometheus, enable the {ObservabilityOperator} by using the `redhat-operators` CatalogSource:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-observability-operator
+  namespace: openshift-operators
+spec:
+  channel: development
+  installPlanApproval: Automatic
+  name: cluster-observability-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify that the `ClusterServiceVersion` for {ObservabilityOperator} has a status of `Succeeded`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=openshift-operators -l operators.coreos.com/cluster-observability-operator.openshift-operators
+
+clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26 condition met
+----

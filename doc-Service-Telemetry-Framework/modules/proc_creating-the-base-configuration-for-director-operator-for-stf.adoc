@@ -32,16 +32,15 @@ data:
   enable-stf.yaml: |
     parameter_defaults:
         # only send to STF, not other publishers
-        EventPipelinePublishers: []
         PipelinePublishers: []
 
         # manage the polling and pipeline configuration files for Ceilometer agents
         ManagePolling: true
         ManagePipeline: true
+        ManageEventPipeline: false
 
         # enable Ceilometer metrics and events
         CeilometerQdrPublishMetrics: true
-        CeilometerQdrPublishEvents: true
 
         # enable collection of API status
         CollectdEnableSensubility: true
@@ -53,12 +52,12 @@ data:
         # set collectd overrides for higher telemetry resolution and extra plugins
         # to load
         CollectdConnectionType: amqp1
-        CollectdAmqpInterval: 5
-        CollectdDefaultPollingInterval: 5
+        CollectdAmqpInterval: 30
+        CollectdDefaultPollingInterval: 30
         CollectdExtraPlugins:
         - vmem
 
-        # set standard prefixes for where metrics and events are published to QDR
+        # set standard prefixes for where metrics are published to QDR
         MetricsQdrAddresses:
         - prefix: 'collectd'
           distribution: multicast
@@ -69,19 +68,7 @@ data:
            ceilometer::agent::polling::polling_interval: 30
            ceilometer::agent::polling::polling_meters:
            - cpu
-           - disk.*
-           - ip.*
-           - image.*
-           - memory
-           - memory.*
-           - network.*
-           - perf.*
-           - port
-           - port.*
-           - switch
-           - switch.*
-           - storage.*
-           - volume.*
+           - memory.usage
 
            # to avoid filling the memory buffers if disconnected from the message bus
            # note: this may need an adjustment if there are many metrics to be sent.

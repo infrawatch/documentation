@@ -52,7 +52,7 @@ For more information about available parameters for `snmpTraps`, see xref:config
 
 You can create alerts that are configured for delivery by SNMP traps by adding labels that are parsed by the prometheus-webhook-snmp middleware to define the trap information and delivered object identifiers (OID). Adding the `oid` or `severity` labels is only required if you need to change the default values for a particular alert definition.
 
-NOTE:: When you set the oid label, the top-level SNMP trap OID changes, but the sub-OIDs remain defined by the global `trapOidPrefix` value plus the child OID values `.1.1.1` through `.1.1.9`. For more information about the MIB definition, see xref:overview-of-the-mib-definition_{context}[].
+NOTE: When you set the oid label, the top-level SNMP trap OID changes, but the sub-OIDs remain defined by the global `trapOidPrefix` value plus the child OID values `.1.1.1` through `.1.1.9`. For more information about the MIB definition, see xref:overview-of-the-mib-definition_{context}[].
 
 .Procedure
 
@@ -67,10 +67,10 @@ $ oc project service-telemetry
 
 . Create a `PrometheusRule` object that contains the alert rule and an `oid` label that contains the SNMP trap OID override value:
 +
-[source,bash]
+[source,yaml]
 ----
 $ oc apply -f - <<EOF
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.rhobs/v1
 kind: PrometheusRule
 metadata:
   creationTimestamp: null

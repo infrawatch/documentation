@@ -12,7 +12,7 @@ To configure the base parameters to provide a compatible data collection and tra
 +
 [IMPORTANT]
 ====
-Setting `EventPipelinePublishers` and `PipelinePublishers` to empty lists results in no event or metric data passing to {OpenStackShort} telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of `30` seconds, that you specify in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components. You must increase the interval to a larger value, such as `300`, which results in less telemetry resolution in {ProjectShort}.
+Setting `PipelinePublishers` to an empty list results in no metric data passing to {OpenStackShort} telemetry components, such as Gnocchi or Panko. If you need to send data to additional pipelines, the Ceilometer polling interval of `30` seconds, that you specify in `ExtraConfig`, might overwhelm the {OpenStackShort} telemetry components. You must increase the interval to a larger value, such as `300`, which results in less telemetry resolution in {ProjectShort}.
 ====
 +
 .enable-stf.yaml
@@ -21,25 +21,24 @@ ifdef::include_when_13[]
 ----
 parameter_defaults:
     # only send to STF, not other publishers
-    EventPipelinePublishers: []
     PipelinePublishers: []
 
     # manage the polling and pipeline configuration files for Ceilometer agents
     ManagePolling: true
     ManagePipeline: true
+    ManageEventPipeline: false
 
-    # enable Ceilometer metrics and events
+    # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: true
 
     # set collectd overrides for higher telemetry resolution and extra plugins to load
     CollectdConnectionType: amqp1
-    CollectdAmqpInterval: 5
-    CollectdDefaultPollingInterval: 5
+    CollectdAmqpInterval: 30
+    CollectdDefaultPollingInterval: 30
     CollectdExtraPlugins:
     - vmem
 
-    # set standard prefixes for where metrics and events are published to QDR
+    # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
       distribution: multicast
@@ -50,20 +49,7 @@ parameter_defaults:
         ceilometer::agent::polling::polling_interval: 30
         ceilometer::agent::polling::polling_meters:
         - cpu
-        - disk.*
-        - ip.*
-        - image.*
-        - memory
-        - memory.*
-        - network.services.vpn.*
-        - network.services.firewall.*
-        - perf.*
-        - port
-        - port.*
-        - switch
-        - switch.*
-        - storage.*
-        - volume.*
+        - memory.usage
 
         # to avoid filling the memory buffers if disconnected from the message bus
         # note: Adjust the value of the `send_queue_limit` to handle your required volume of metrics.
@@ -97,16 +83,15 @@ ifdef::include_when_16[]
 ----
 parameter_defaults:
     # only send to STF, not other publishers
-    EventPipelinePublishers: []
     PipelinePublishers: []
 
     # manage the polling and pipeline configuration files for Ceilometer agents
     ManagePolling: true
     ManagePipeline: true
+    ManageEventPipeline: false
 
-    # enable Ceilometer metrics and events
+    # enable Ceilometer metrics
     CeilometerQdrPublishMetrics: true
-    CeilometerQdrPublishEvents: true
 
     # enable collection of API status
     CollectdEnableSensubility: true
@@ -118,12 +103,12 @@ parameter_defaults:
     # set collectd overrides for higher telemetry resolution and extra plugins
     # to load
     CollectdConnectionType: amqp1
-    CollectdAmqpInterval: 5
-    CollectdDefaultPollingInterval: 5
+    CollectdAmqpInterval: 30
+    CollectdDefaultPollingInterval: 30
     CollectdExtraPlugins:
     - vmem
 
-    # set standard prefixes for where metrics and events are published to QDR
+    # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
       distribution: multicast
@@ -134,20 +119,7 @@ parameter_defaults:
         ceilometer::agent::polling::polling_interval: 30
         ceilometer::agent::polling::polling_meters:
         - cpu
-        - disk.*
-        - ip.*
-        - image.*
-        - memory
-        - memory.*
-        - network.services.vpn.*
-        - network.services.firewall.*
-        - perf.*
-        - port
-        - port.*
-        - switch
-        - switch.*
-        - storage.*
-        - volume.*
+        - memory.usage
 
         # to avoid filling the memory buffers if disconnected from the message bus
         # note: this may need an adjustment if there are many metrics to be sent.

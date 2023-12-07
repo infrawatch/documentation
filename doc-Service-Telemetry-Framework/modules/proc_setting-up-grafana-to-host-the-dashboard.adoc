@@ -46,10 +46,9 @@ EOF
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get csv --selector operators.coreos.com/grafana-operator.service-telemetry
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
 
-NAME                       DISPLAY            VERSION   REPLACES                   PHASE
-grafana-operator.v4.10.1   Grafana Operator   4.10.1    grafana-operator.v4.10.0   Succeeded
+clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met
 ----
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`. Optionally, set the  value of `graphing.grafana.baseImage` to the Grafana workload container image that will be deployed:
@@ -74,10 +73,9 @@ spec:
 +
 [source,bash]
 ----
-$ oc get pod -l app=grafana
+$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=grafana --timeout=600s
 
-NAME                                  READY   STATUS    RESTARTS   AGE
-grafana-deployment-7fc7848b56-sbkhv   1/1     Running   0          1m
+pod/grafana-deployment-7566475c56-jlkjp condition met
 ----
 
 . Verify that the Grafana data sources installed correctly:

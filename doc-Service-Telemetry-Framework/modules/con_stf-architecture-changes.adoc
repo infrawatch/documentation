@@ -1,0 +1,22 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+:appendix-caption: Appendix
+// This module can be included from assemblies using the following include statement:
+// include::<path>/con_stf-architecture-changes.adoc[leveloffset=+1]
+
+[id="stf-architecture-changes_{context}"]
+= {ProjectShort} Architecture Changes
+
+In releases of {ProjectShort} prior to 1.5.3, the Service Telemetry Operator requested instances of Elasticsearch from the Elastic Cloud on Kubernetes (ECK) Operator. {ProjectShort} now uses a forwarding model, where events are forwarded from a Smart Gateway instance to a user-provided instance of Elasticsearch.
+
+[NOTE]
+====
+The management of an Elasticsearch instances by Service Telemetry Operator is deprecated.
+====
+
+In new `ServiceTelemetry` deployments, the `observabilityStrategy` parameter has a value of `use_redhat`, that does not request Elasticsearch instances from ECK. Deployments of `ServiceTelemetry`  with {ProjectShort} version 1.5.2 or older and were updated to 1.5.3 will have the `observabilityStrategy` parameter set to `use_community`, which matches the previous architecture.
+
+If a user previously deployed an Elasticsearch instance with {ProjectShort}, the Service Telemetry Operator updates the `ServiceTelemetry` custom resource object to have the `observabilityStrategy` parameter set to `use_community`, and functions similar to previous releases. For more information about observability strategies, see xref:observability-strategy-in-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf[].
+
+It is recommended that users of {ProjectShort} migrate to the `use_redhat` observability strategy. For more information about migration to the `use_redhat` observability strategy, see the Red Hat Knowledge Base article link:https://access.redhat.com/articles/7011708[Migrating Service Telemetry Framework to fully supported operators].

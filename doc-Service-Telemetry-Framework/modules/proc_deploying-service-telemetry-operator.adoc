@@ -1,0 +1,142 @@
+:_content-type: PROCEDURE
+
+[id="deploying-service-telemetry-operator_{context}"]
+= Deploying Service Telemetry Operator
+
+[role="_abstract"]
+Deploy Service Telemetry Operator on {OpenShift} to provide the supporting Operators and interface for creating an instance of {Project} ({ProjectShort}) to monitor {OpenStack} ({OpenStackShort}) cloud platforms.
+
+.Prerequisites
+
+* You have installed {ObservabilityOperator} to allow storage of metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+* You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[].
+
+.Procedure
+
+. Create a namespace to contain the {ProjectShort} components, for example, `service-telemetry`:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc new-project service-telemetry
+----
+. Create an OperatorGroup in the namespace so that you can schedule the Operator pods:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: service-telemetry-operator-group
+  namespace: service-telemetry
+spec:
+  targetNamespaces:
+  - service-telemetry
+EOF
+----
++
+For more information, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm/olm-understanding-operatorgroups.html[OperatorGroups].
+
+ifeval::["{build}" == "upstream"]
+
+// NOTE: setting priority to 0 which makes it highest priority. This allows us
+// to skip the pre-installation step for Smart Gateway Operator as it will be
+// installed through dependency resolution, but will pull from the Infrawatch
+// Operators CatalogSource for upstream deployments rather than from Red Hat
+// Operators CatalogSource (which may not be compatible, or out of date).
+. Before you deploy {ProjectShort} on {OpenShift}, you must enable the catalog source. Install a CatalogSource that contains the Service Telemetry Operator and the Smart Gateway Operator:
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: infrawatch-operators
+  namespace: openshift-marketplace
+spec:
+  displayName: InfraWatch Operators
+  image: quay.io/infrawatch-operators/infrawatch-catalog:nightly
+  priority: 0
+  publisher: InfraWatch
+  sourceType: grpc
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+EOF
+----
+
+. Confirm that the CatalogSource is installed:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get -nopenshift-marketplace catalogsource infrawatch-operators
+
+NAME                   DISPLAY                TYPE   PUBLISHER    AGE
+infrawatch-operators   InfraWatch Operators   grpc   InfraWatch   2m16s
+----
+
+. Validate that the Operators are available from the catalog:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get packagemanifests | grep InfraWatch
+
+service-telemetry-operator                    InfraWatch Operators       7m20s
+smart-gateway-operator                        InfraWatch Operators       7m20s
+----
+endif::[]
+
+. Create the Service Telemetry Operator subscription to manage the {ProjectShort} instances:
++
+ifeval::["{build}" == "upstream"]
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-telemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: unstable
+  installPlanApproval: Automatic
+  name: service-telemetry-operator
+  source: infrawatch-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+endif::[]
+ifeval::["{build}" == "downstream"]
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+$ oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-telemetry-operator
+  namespace: service-telemetry
+spec:
+  channel: stable-1.5
+  installPlanApproval: Automatic
+  name: service-telemetry-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+endif::[]
+
+. Validate the Service Telemetry Operator and the dependent operators have their phase as Succeeded:
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace=service-telemetry -l operators.coreos.com/service-telemetry-operator.service-telemetry ; oc get csv --namespace service-telemetry
+
+clusterserviceversion.operators.coreos.com/service-telemetry-operator.v1.5.1700688542 condition met
+
+NAME                                         DISPLAY                                  VERSION          REPLACES                             PHASE
+amq7-interconnect-operator.v1.10.17          Red Hat Integration - AMQ Interconnect   1.10.17          amq7-interconnect-operator.v1.10.4   Succeeded
+observability-operator.v0.0.26               Cluster Observability Operator           0.1.0                                                 Succeeded
+service-telemetry-operator.v1.5.1700688542   Service Telemetry Operator               1.5.1700688542                                        Succeeded
+smart-gateway-operator.v5.0.1700688539       Smart Gateway Operator                   5.0.1700688539                                        Succeeded
+----

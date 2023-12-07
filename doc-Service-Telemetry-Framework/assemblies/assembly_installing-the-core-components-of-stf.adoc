@@ -6,14 +6,14 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-installing-the-core-components-of-stf
 
 [role="_abstract"]
-You can use Operators to load the {Project} ({ProjectShort}) components and objects. Operators manage each of the following {ProjectShort} core and community components:
+You can use Operators to load the {Project} ({ProjectShort}) components and objects. Operators manage each of the following {ProjectShort} core components:
 
-* cert-manager
+* Certificate Management
 * {MessageBus}
-* Smart Gateway
-* Prometheus and AlertManager
-* Elasticsearch
-* Grafana
+* Smart Gateways
+* Prometheus and Alertmanager
+
+{Project} ({ProjectShort}) uses other supporting Operators as part of the deployment. {ProjectShort} can resolve most dependencies automatically, but you need to pre-install some Operators, such as {ObservabilityOperator}, which provides an instance of Prometheus and Alertmanager, and cert-manager for Red Hat OpenShift, which provides management of certificates.
 
 .Prerequisites
 
@@ -23,7 +23,7 @@ endif::[]
 ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
 * An {OpenShift} version inclusive of {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion} is running.
 endif::[]
-* You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment. For more information, see https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
+* You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment. For more information about {ProjectShort} performance, see the Red Hat Knowledge Base article https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
 * Your environment is fully connected. {ProjectShort} does not work in a {OpenShift}-disconnected environments or network proxy environments.
 
 ifeval::["{build}" == "downstream"]
@@ -40,10 +40,16 @@ endif::[]
 
 * For more information about Operators, see the https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-what-operators-are.html[_Understanding Operators_] guide.
 * For more information about Operator catalogs, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-rh-catalogs.html[_Red Hat-provided Operator catalogs_].
-//* For more information about how to remove {ProjectShort} from the {OpenShift} environment, see xref:assembly-removing-stf-from-the-openshift-environment_{}[].
+* For more information about the cert-manager Operator for Red Hat, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/index.html[_cert-manager Operator for Red Hat OpenShift overview_].
+* For more information about {ObservabilityOperator}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[_Cluster Observability Operator Overview_].
 
-include::../modules/proc_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+include::../modules/con_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
+
+include::../modules/proc_deploying-observability-operator.adoc[leveloffset=+2]
+include::../modules/proc_deploying-certificate-manager-for-openshift-operator.adoc[leveloffset=+2]
+include::../modules/proc_deploying-service-telemetry-operator.adoc[leveloffset=+2]
 include::../modules/proc_creating-a-servicetelemetry-object-in-openshift.adoc[leveloffset=+1]
+
 include::../modules/con_primary-parameters-of-the-servicetelemetry-object.adoc[leveloffset=+2]
 include::../modules/proc_accessing-uis-for-stf-components.adoc[leveloffset=+1]
 include::../modules/proc_configuring-observability-strategy.adoc[leveloffset=+1]

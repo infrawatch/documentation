@@ -4,9 +4,17 @@
 [role="_abstract"]
 Create a `ServiceTelemetry` object in {OpenShift} to result in the Service Telemetry Operator creating the supporting components for a {Project} ({ProjectShort}) deployment. For more information, see xref:primary-parameters-of-the-servicetelemetry-object_assembly-installing-the-core-components-of-stf[].
 
+.Prerequisites
+
+* You have deployed {ProjectShort} and the supporting operators. For more information, see xref:deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf[].
+* You have installed {ObservabilityOperator} to allow storage of metrics. For more information, see xref:deploying-observability-operator_assembly-installing-the-core-components-of-stf[].
+* You have installed cert-manager for Red Hat OpenShift to allow certificate management. For more information, see xref:deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf[].
+
 .Procedure
 
-. To create a `ServiceTelemetry` object that results in an {ProjectShort} deployment that uses the default values, create a `ServiceTelemetry` object with an empty `spec` parameter:
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
+
+. To deploy {ProjectShort} that results in the core components for metrics delivery being configured, create a `ServiceTelemetry` object:
 +
 [source,yaml,options="nowrap",role="white-space-pre"]
 ----
@@ -16,129 +24,60 @@ kind: ServiceTelemetry
 metadata:
   name: default
   namespace: service-telemetry
-spec: {}
-EOF
-----
-+
-Creating a `ServiceTelemetry` object with an empty `spec` parameter results in an {ProjectShort} deployment with the following default settings:
-+
-[source,yaml,options="nowrap",role="white-space-pre"]
-----
-apiVersion: infra.watch/v1beta1
-kind: ServiceTelemetry
-metadata:
-  name: default
-  namespace: service-telemetry
 spec:
   alerting:
     alertmanager:
-      receivers:
-        snmpTraps:
-          alertOidLabel: oid
-          community: public
-          enabled: false
-          port: 162
-          retries: 5
-          target: 192.168.24.254
-          timeout: 1
-          trapDefaultOid: 1.3.6.1.4.1.50495.15.1.2.1
-          trapDefaultSeverity: ''
-          trapOidPrefix: 1.3.6.1.4.1.50495.15
       storage:
         persistent:
           pvcStorageRequest: 20G
         strategy: persistent
     enabled: true
   backends:
-    events:
-      elasticsearch:
-        certificates:
-          caCertDuration: 70080h
-          endpointCertDuration: 70080h
-        storage:
-          persistent:
-            pvcStorageRequest: 20Gi
-          strategy: persistent
-        enabled: false
-        version: 7.16.1
-    logs:
-      loki:
-        storage:
-          objectStorageSecret: test
-          storageClass: standard
-        enabled: false
-        flavor: 1x.extra-small
-        replicationFactor: 1
     metrics:
       prometheus:
+        enabled: true
+        scrapeInterval: 30s
         storage:
           persistent:
             pvcStorageRequest: 20G
           retention: 24h
           strategy: persistent
-        enabled: true
-        scrapeInterval: 10s
   clouds:
-    - events:
-        collectors:
-          - bridge:
-              ringBufferCount: 15000
-              ringBufferSize: 16384
-              verbose: false
-            collectorType: collectd
-            debugEnabled: false
-            subscriptionAddress: collectd/cloud1-notify
-          - bridge:
-              ringBufferCount: 15000
-              ringBufferSize: 16384
-              verbose: false
-            collectorType: ceilometer
-            debugEnabled: false
-            subscriptionAddress: anycast/ceilometer/cloud1-event.sample
-      metrics:
-        collectors:
-          - bridge:
-              ringBufferCount: 15000
-              ringBufferSize: 16384
-              verbose: false
-            collectorType: collectd
-            debugEnabled: false
-            subscriptionAddress: collectd/cloud1-telemetry
-          - bridge:
-              ringBufferCount: 15000
-              ringBufferSize: 16384
-              verbose: false
-            collectorType: ceilometer
-            debugEnabled: false
-            subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
-ifndef::include_when_13[]
-          - bridge:
-              ringBufferCount: 15000
-              ringBufferSize: 16384
-              verbose: false
-            collectorType: sensubility
-            debugEnabled: false
-            subscriptionAddress: sensubility/cloud1-telemetry
-endif::[]
-      name: cloud1
-  graphing:
-    grafana:
-      adminPassword: secret
-      adminUser: root
-      disableSignoutMenu: false
-      ingressEnabled: false
-    enabled: false
-  highAvailability:
-    enabled: false
+  - metrics:
+      collectors:
+      - bridge:
+          ringBufferCount: 15000
+          ringBufferSize: 16384
+          verbose: false
+        collectorType: collectd
+        debugEnabled: false
+        subscriptionAddress: collectd/cloud1-telemetry
+      - bridge:
+          ringBufferCount: 15000
+          ringBufferSize: 16384
+          verbose: false
+        collectorType: ceilometer
+        debugEnabled: false
+        subscriptionAddress: anycast/ceilometer/cloud1-metering.sample
+      - bridge:
+          ringBufferCount: 15000
+          ringBufferSize: 65535
+          verbose: false
+        collectorType: sensubility
+        debugEnabled: false
+        subscriptionAddress: sensubility/cloud1-telemetry
+    name: cloud1
+  observabilityStrategy: use_redhat
   transports:
     qdr:
+      auth: basic
       certificates:
         caCertDuration: 70080h
         endpointCertDuration: 70080h
+      enabled: true
       web:
         enabled: false
-      enabled: true
-  observabilityStrategy: use_community
+EOF
 ----
 +
 To override these defaults, add the configuration to the `spec` parameter.
@@ -160,25 +99,18 @@ localhost                  : ok=90   changed=0    unreachable=0    failed=0    s
 
 * To determine that all workloads are operating correctly, view the pods and the status of each pod.
 +
-NOTE: If you set the `backends.events.elasticsearch.enabled` parameter to `true`, the notification Smart Gateways report `Error` and `CrashLoopBackOff` error messages for a period of time before Elasticsearch starts.
-
-+
 [source,bash,options="nowrap"]
 ----
 $ oc get pods
 
-NAME                                                      READY   STATUS    RESTARTS   AGE
-alertmanager-default-0                                    3/3     Running   0          4m7s
-default-cloud1-ceil-meter-smartgateway-669c6cdcf9-xvdvx   3/3     Running   0          3m46s
-default-cloud1-coll-meter-smartgateway-585855c59d-858rf   3/3     Running   0          3m46s
-ifndef::include_when_13[]
-default-cloud1-sens-meter-smartgateway-6f8dffb645-hhgkw   3/3     Running   0          3m46s
-endif::[]
-default-interconnect-6994ff546-fx7jn                      1/1     Running   0          4m18s
-elastic-operator-9f44cdf6c-csvjq                          1/1     Running   0          19m
-interconnect-operator-646bfc886c-gx55n                    1/1     Running   0          25m
-prometheus-default-0                                      3/3     Running   0          3m33s
-prometheus-operator-54d644d8d7-wzdlh                      1/1     Running   0          20m
-service-telemetry-operator-54f6f7b6d-nfhwx                1/1     Running   0          18m
-smart-gateway-operator-9bbd7c56c-76w67                    1/1     Running   0          18m
+NAME                                                        READY   STATUS    RESTARTS   AGE
+alertmanager-default-0                                      3/3     Running   0          123m
+default-cloud1-ceil-meter-smartgateway-7dfb95fcb6-bs6jl     3/3     Running   0          122m
+default-cloud1-coll-meter-smartgateway-674d88d8fc-858jk     3/3     Running   0          122m
+default-cloud1-sens-meter-smartgateway-9b869695d-xcssf      3/3     Running   0          122m
+default-interconnect-6cbf65d797-hk7l6                       1/1     Running   0          123m
+interconnect-operator-7bb99c5ff4-l6xc2                      1/1     Running   0          138m
+prometheus-default-0                                        3/3     Running   0          122m
+service-telemetry-operator-7966cf57f-g4tx4                  1/1     Running   0          138m
+smart-gateway-operator-7d557cb7b7-9ppls                     1/1     Running   0          138m
 ----
