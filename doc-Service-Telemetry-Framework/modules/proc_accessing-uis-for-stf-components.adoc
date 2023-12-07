@@ -4,7 +4,18 @@
 [role="_abstract"]
 In {OpenShift}, applications are exposed to the external network through a route. For more information about routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
-In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by {OpenShift} RBAC and any user that has read access to the component can log in. For more information about RBAC, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/authentication/using-rbac.html[Using RBAC to define and apply permissions].
+In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by {OpenShift} RBAC and any user that has read access to the component can log in.
+
+Specifically, the following permissions are required in order to access the corresponding component UIs:
+
+[source,json,options="nowrap"]
+----
+{"namespace":"service-telemetry", "resource":"grafana", "group":"integreatly.org", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"prometheus", "group":"monitoring.rhobs", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"alertmanager", "group":"monitoring.rhobs", "verb":"get"}
+----
+
+For more information about RBAC, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/authentication/using-rbac.html[Using RBAC to define and apply permissions].
 
 .Procedure
 

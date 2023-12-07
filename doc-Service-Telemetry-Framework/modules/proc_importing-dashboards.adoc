@@ -73,4 +73,6 @@ grafana-route-service-telemetry.apps.infra.watch
 
 . In a web browser, navigate to https://_<grafana_route_address>_. Replace _<grafana_route_address>_ with the value that you retrieved in the previous step.
 
+. Log in with OpenShift credentials. For more information about logging in, see xref:accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf[].
+
 . To view the dashboard, click *Dashboards* and *Manage*.

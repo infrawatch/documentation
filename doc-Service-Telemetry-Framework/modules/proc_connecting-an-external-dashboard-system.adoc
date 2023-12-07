@@ -74,4 +74,4 @@ secret "my-prometheus-reader-token" deleted
 
 .Additional information
 
-For more information about service account token secrets, see link:https://docs.openshift.com/container-platform/4.14/nodes/pods/nodes-pods-secrets.html#nodes-pods-secrets-creating-sa_nodes-pods-secrets[Creating a service account token secret] in the _OpenShift Container Platform Documentation_.
+For more information about service account token secrets, see link:https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/nodes/pods/nodes-pods-secrets.html#nodes-pods-secrets-creating-sa_nodes-pods-secrets[Creating a service account token secret] in the _OpenShift Container Platform Documentation_.
