@@ -37,7 +37,7 @@ EOF
 +
 [source,bash]
 ----
-$ TOKEN=$(oc get secret my-prometheus-reader-token -o template={{.data.token}} | base64 -d)
+$ TOKEN=$(oc get secret my-prometheus-reader-token -o template='{{.data.token}}' | base64 -d)
 ----
 
 . Retrieve the Prometheus host name
