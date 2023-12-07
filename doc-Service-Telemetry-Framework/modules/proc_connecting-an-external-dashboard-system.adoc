@@ -33,7 +33,7 @@ type: kubernetes.io/service-account-token
 EOF
 ----
 
-. Retreive the token from the secret
+. Retrieve the token from the secret
 +
 [source,bash]
 ----
