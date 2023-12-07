@@ -518,7 +518,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a></li>
 <li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
-<li><a href="#proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</a></li>
 </ul>
 </li>
 <li><a href="#metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>
@@ -3453,69 +3452,6 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="proc-retrieving-and-setting-grafana-credentials_assembly-advanced-features">Retrieving and setting Grafana login credentials</h4>
-<div class="paragraph _abstract">
-<p>When Grafana is enabled, you can login using OpenShift authentication, or the default username and password set by the Grafana Operator.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Ensure that you log in to access the dashboards with the <em>Log in with OpenShift</em> button, because the default username and password set by the Grafana Operator is deprecated.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You can override the credentials in the <code>ServiceTelemetry</code> object to have Service&#160;Telemetry&#160;Framework (STF) set the username and password for Grafana instead.</p>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Retrieve the existing username and password from the STF object:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get stf default -o jsonpath="{.spec.graphing.grafana['adminUser','adminPassword']}"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To modify the default values of the Grafana administrator username and password through the ServiceTelemetry object, use the <code>graphing.grafana.adminUser</code> and <code>graphing.grafana.adminPassword</code> parameters.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Wait for the grafana pod to restart with the new credentials in place</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get po -l app=grafana -w</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</h3>
@@ -5237,7 +5173,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-07 13:53:43 UTC
+Last updated 2023-12-07 20:46:33 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
