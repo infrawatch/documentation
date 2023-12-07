@@ -2,7 +2,7 @@
 [id="connecting-an-external-dashboard-system_{context}"]
 = Connecting an external dashboard system
 
-It is possible to configure third-party visualization tools to connect to the {ProjectShort} Prometheus for metrics retrival. Access is controlled via an OAuth token, and a ServiceAccount is already created that has (only) the required permissions. A new OAuth token can be generated against this account for the external system to use.
+It is possible to configure third-party visualization tools to connect to the {ProjectShort} Prometheus for metrics retrieval. Access is controlled via an OAuth token, and a ServiceAccount is already created that has (only) the required permissions. A new OAuth token can be generated against this account for the external system to use.
 
 To use the authentication token, the third-party tool must be configured to supply an HTTP Bearer Token Authorization header as described in RFC6750. Consult the documentation of the third-party tool for how to configure this header. For example link:https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/#custom-http-headers[Configure Promethues - Custom HTTP Headers] in the _Grafana Documentation_.
 
