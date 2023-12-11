@@ -4,7 +4,7 @@
 [role="_abstract"]
 In {OpenShift}, applications are exposed to the external network through a route. For more information about routes, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/networking/configuring_ingress_cluster_traffic/overview-traffic.html[Configuring ingress cluster traffic].
 
-In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by {OpenShift} RBAC and any user that has read access to the component can log in.
+In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface and protected by {OpenShift} role-based access control (RBAC).
 
 You need the following permissions to access the corresponding component UI's:
 
