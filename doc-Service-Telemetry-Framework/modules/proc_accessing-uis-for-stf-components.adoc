@@ -6,7 +6,7 @@ In {OpenShift}, applications are exposed to the external network through a route
 
 In {Project} ({ProjectShort}), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by {OpenShift} RBAC and any user that has read access to the component can log in.
 
-Specifically, the following permissions are required in order to access the corresponding component UIs:
+You need the following permissions to access the corresponding component UI's:
 
 [source,json,options="nowrap"]
 ----
