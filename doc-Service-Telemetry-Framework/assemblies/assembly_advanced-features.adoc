@@ -27,6 +27,7 @@ ifdef::include_when_16[]
 //include::../modules/proc_overriding-the-default-grafana-container-image.adoc[leveloffset=+2]
 include::../modules/proc_importing-dashboards.adoc[leveloffset=+2]
 endif::include_when_16[]
+include::../modules/proc_connecting-an-external-dashboard-system.adoc[leveloffset=+2]
 
 //Editing the metrics retention time period
 include::../modules/con_metrics-retention-time-period.adoc[leveloffset=+1]
