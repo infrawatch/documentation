@@ -518,6 +518,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a></li>
 <li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
+<li><a href="#connecting-an-external-dashboard-system_assembly-advanced-features">Connecting an external dashboard system</a></li>
 </ul>
 </li>
 <li><a href="#metrics-retention-time-period_assembly-advanced-features">Metrics retention time period in Service&#160;Telemetry&#160;Framework</a>
@@ -1823,7 +1824,20 @@ spec:
 <p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.14/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
-<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface. These routes are protected by OpenShift RBAC and any user that has a <code>ClusterRoleBinding</code> that enables them to view OpenShift Namespaces can log in. For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.14/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+<p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface and protected by OpenShift role-based access control (RBAC).</p>
+</div>
+<div class="paragraph">
+<p>You need the following permissions to access the corresponding component UI&#8217;s:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-json hljs" data-lang="json">{"namespace":"service-telemetry", "resource":"grafana", "group":"integreatly.org", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"prometheus", "group":"monitoring.rhobs", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"alertmanager", "group":"monitoring.rhobs", "verb":"get"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.14/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3447,9 +3461,102 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <p>In a web browser, navigate to https://<em>&lt;grafana_route_address&gt;</em>. Replace <em>&lt;grafana_route_address&gt;</em> with the value that you retrieved in the previous step.</p>
 </li>
 <li>
+<p>Log in with OpenShift credentials. For more information about logging in, see <a href="#accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</a>.</p>
+</li>
+<li>
 <p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="connecting-an-external-dashboard-system_assembly-advanced-features">Connecting an external dashboard system</h4>
+<div class="paragraph">
+<p>It is possible to configure third-party visualization tools to connect to the STF Prometheus for metrics retrieval. Access is controlled via an OAuth token, and a ServiceAccount is already created that has (only) the required permissions. A new OAuth token can be generated against this account for the external system to use.</p>
+</div>
+<div class="paragraph">
+<p>To use the authentication token, the third-party tool must be configured to supply an HTTP Bearer Token Authorization header as described in RFC6750. Consult the documentation of the third-party tool for how to configure this header. For example <a href="https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/#custom-http-headers">Configure Prometheus - Custom HTTP Headers</a> in the <em>Grafana Documentation</em>.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to OpenShift.</p>
+</li>
+<li>
+<p>Change to the <code>service-telemetry</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a new token secret for the stf-prometheus-reader service account</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create -f - &lt;&lt;EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-prometheus-reader-token
+  namespace: service-telemetry
+  annotations:
+    kubernetes.io/service-account.name: stf-prometheus-reader
+type: kubernetes.io/service-account-token
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the token from the secret</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ TOKEN=$(oc get secret my-prometheus-reader-token -o template='{{.data.token}}' | base64 -d)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the Prometheus host name</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ PROM_HOST=$(oc get route default-prometheus-proxy -ogo-template='{{ .spec.host }}')</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Test the access token</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -k -H "Authorization: Bearer ${TOKEN}" https://${PROM_HOST}/api/v1/query?query=up
+
+{"status":"success",[...]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure your third-party tool with the PROM_HOST and TOKEN values from above</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ echo $PROM_HOST
+$ echo $TOKEN</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The token remains valid as long as the secret exists. You can revoke the token by deleting the secret.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc delete secret my-prometheus-reader-token
+secret "my-prometheus-reader-token" deleted</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional information</div>
+<p>For more information about service account token secrets, see <a href="https://docs.openshift.com/container-platform/4.14/nodes/pods/nodes-pods-secrets.html#nodes-pods-secrets-creating-sa_nodes-pods-secrets">Creating a service account token secret</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 </div>
 </div>
@@ -3653,7 +3760,7 @@ EOF</code></pre>
 <p>To verify that the Operator loaded the rules into Prometheus, run the <code>curl</code> command against the default-prometheus-proxy route with basic authentication:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ curl -k --user "internal:$(oc get secret default-prometheus-htpasswd -ogo-template='{{ .data.password | base64decode }}')" https://$(oc get route default-prometheus-proxy -ogo-template='{{ .spec.host }}')/api/v1/rules
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ curl -k -H "Authorization: Bearer $(oc create token stf-prometheus-reader)" https://$(oc get route default-prometheus-proxy -ogo-template='{{ .spec.host }}')/api/v1/rules
 
 {"status":"success","data":{"groups":[{"name":"./openstack.rules","file":"/etc/prometheus/rules/prometheus-default-rulefiles-0/service-telemetry-prometheus-alarm-rules.yaml","rules":[{"state":"inactive","name":"Collectd metrics receive count is zero","query":"rate(sg_total_collectd_msg_received_count[1m]) == 0","duration":0,"labels":{},"annotations":{},"alerts":[],"health":"ok","evaluationTime":0.00034627,"lastEvaluation":"2021-12-07T17:23:22.160448028Z","type":"alerting"}],"interval":30,"evaluationTime":0.000353787,"lastEvaluation":"2021-12-07T17:23:22.160444017Z"}]}}</code></pre>
 </div>
@@ -5173,7 +5280,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-07 20:46:33 UTC
+Last updated 2023-12-12 19:15:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
