@@ -7,7 +7,6 @@ Use the third-party application, Grafana, to visualize system-level metrics that
 For more information about configuring data collectors, see xref:configuring-red-hat-openstack-platform-overcloud-for-stf_assembly-completing-the-stf-configuration[].
 
 ifdef::include_when_16[]
-//TODO: can re-work this once we have OSP13 dashboard(s) to show. Can't use container health checks or monitoring in OSP13.
 You can use dashboards to monitor a cloud:
 
 Infrastructure dashboard::
