@@ -5,7 +5,7 @@
 [role="_abstract"]
 The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. Service Telemetry Operator can enable a set of default dashboards that create the `GrafanaDashboard` objects that load dashboards into the Grafana instance.
 
-The following dashboards are loaded into Grafana when `graphing.grafana.dashboards.enabled` is set to `true`:
+Set the value of `graphing.grafana.dashboards.enabled` to `true` to load the following dashboards into Grafana :
 
 * Infrastructure dashboard
 * Cloud view dashboard
