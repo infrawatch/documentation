@@ -12,7 +12,7 @@ Set the value of `graphing.grafana.dashboards.enabled` to `true` to load the fol
 * Virtual machine view dashboard
 * Memcached view dashboard
 
-Additional dashboards can be created and loaded into Grafana by using the GrafanaDashboard object. For more information about managing dashboards with Grafana Operator, see link:https://grafana.github.io/grafana-operator/docs/dashboards/[Dashboards] in the _Grafana Operator project documentation_.
+You can use the `GrafanaDashboard` object to create and load additional dashboards into Grafana. For more information about managing dashboards with Grafana Operator, see link:https://grafana.github.io/grafana-operator/docs/dashboards/[Dashboards] in the _Grafana Operator project documentation_.
 
 .Prerequisites
 
