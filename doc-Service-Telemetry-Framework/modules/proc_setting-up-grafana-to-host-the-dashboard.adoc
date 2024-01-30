@@ -4,17 +4,9 @@
 [role="_abstract"]
 Grafana is not included in the default {Project} ({ProjectShort}) deployment, so you must deploy the Grafana Operator from community-operators CatalogSource. If you use the Service Telemetry Operator to deploy Grafana, it results in a Grafana instance and the configuration of the default data sources for the local {ProjectShort} deployment.
 
-ifdef::include_16[The dashboards in {ProjectShort} require features that are available only in Grafana version 8.1.0 and later. By default, the Service Telemetry Operator installs a compatible version. For more information about how to override the Grafana container image, see xref:overriding-the-default-grafana-container-image_assembly-advanced-features[].]
-
 .Procedure
 
-. Log in to {OpenShift}.
-. Change to the `service-telemetry` namespace:
-+
-[source,bash]
-----
-$ oc project service-telemetry
-----
+. Log in to your {OpenShift} environment where {ProjectShort} is hosted.
 
 . Subscribe to the Grafana Operator by using the community-operators CatalogSource:
 +
@@ -31,10 +23,12 @@ $ oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    operators.coreos.com/grafana-operator.openshift-operators: ""
   name: grafana-operator
-  namespace: service-telemetry
+  namespace: openshift-operators
 spec:
-  channel: v4
+  channel: v5
   installPlanApproval: Automatic
   name: grafana-operator
   source: community-operators
@@ -46,9 +40,9 @@ EOF
 +
 [source,bash,options="nowrap"]
 ----
-$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
+$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace openshift-operators -l operators.coreos.com/grafana-operator.openshift-operators
 
-clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met
+clusterserviceversion.operators.coreos.com/grafana-operator.v5.6.0 condition met
 ----
 
 . To launch a Grafana instance, create or modify the `ServiceTelemetry` object. Set `graphing.enabled` and `graphing.grafana.ingressEnabled` to `true`. Optionally, set the  value of `graphing.grafana.baseImage` to the Grafana workload container image that will be deployed:
@@ -66,34 +60,34 @@ spec:
     enabled: true
     grafana:
       ingressEnabled: true
-      baseImage: 'registry.redhat.io/rhel8/grafana:7'
+      baseImage: 'registry.redhat.io/rhel8/grafana:9'
 ----
 
 . Verify that the Grafana instance deployed:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
-$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=grafana --timeout=600s
+$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=default-grafana --timeout=600s
 
-pod/grafana-deployment-7566475c56-jlkjp condition met
+pod/default-grafana-deployment-669968df64-wz5s2 condition met
 ----
 
 . Verify that the Grafana data sources installed correctly:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
-$ oc get grafanadatasources
+$ oc get grafanadatasources.grafana.integreatly.org
 
-NAME                    AGE
-default-datasources     20h
+NAME                        NO MATCHING INSTANCES   LAST RESYNC   AGE
+default-ds-stf-prometheus                           2m35s         2m56s
 ----
 
 . Verify that the Grafana route exists:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get route grafana-route
+$ oc get route default-grafana-route
 
-NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None
+NAME                    HOST/PORT                                                   PATH   SERVICES                  PORT   TERMINATION   WILDCARD
+default-grafana-route   default-grafana-route-service-telemetry.apps.infra.watch           default-grafana-service   web    reencrypt     None
 ----
