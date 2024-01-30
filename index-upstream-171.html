@@ -3261,15 +3261,7 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log in to OpenShift.</p>
-</li>
-<li>
-<p>Change to the <code>service-telemetry</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project service-telemetry</code></pre>
-</div>
-</div>
+<p>Log in to your OpenShift environment where STF is hosted.</p>
 </li>
 <li>
 <p>Subscribe to the Grafana Operator by using the community-operators CatalogSource:</p>
@@ -3296,10 +3288,12 @@ If you use the <code>collectd-write-qdr.yaml</code> file with a custom <code>Col
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    operators.coreos.com/grafana-operator.openshift-operators: ""
   name: grafana-operator
-  namespace: service-telemetry
+  namespace: openshift-operators
 spec:
-  channel: v4
+  channel: v5
   installPlanApproval: Automatic
   name: grafana-operator
   source: community-operators
@@ -3312,9 +3306,9 @@ EOF</code></pre>
 <p>Verify that the Operator launched successfully. In the command output, if the value of the <code>PHASE</code> column is <code>Succeeded</code>, the Operator launched successfully:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv -l operators.coreos.com/grafana-operator.service-telemetry --timeout=600s
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Succeeded csv --namespace openshift-operators -l operators.coreos.com/grafana-operator.openshift-operators
 
-clusterserviceversion.operators.coreos.com/grafana-operator.v4.10.1 condition met</code></pre>
+clusterserviceversion.operators.coreos.com/grafana-operator.v5.6.0 condition met</code></pre>
 </div>
 </div>
 </li>
@@ -3333,7 +3327,7 @@ spec:
     enabled: true
     grafana:
       ingressEnabled: true
-      baseImage: 'registry.redhat.io/rhel8/grafana:7'</code></pre>
+      baseImage: 'registry.redhat.io/rhel8/grafana:9'</code></pre>
 </div>
 </div>
 </li>
@@ -3341,9 +3335,9 @@ spec:
 <p>Verify that the Grafana instance deployed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=grafana --timeout=600s
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc wait --for jsonpath="{.status.phase}"=Running pod -l app=default-grafana --timeout=600s
 
-pod/grafana-deployment-7566475c56-jlkjp condition met</code></pre>
+pod/default-grafana-deployment-669968df64-wz5s2 condition met</code></pre>
 </div>
 </div>
 </li>
@@ -3351,10 +3345,10 @@ pod/grafana-deployment-7566475c56-jlkjp condition met</code></pre>
 <p>Verify that the Grafana data sources installed correctly:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadatasources
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadatasources.grafana.integreatly.org
 
-NAME                    AGE
-default-datasources     20h</code></pre>
+NAME                        NO MATCHING INSTANCES   LAST RESYNC   AGE
+default-ds-stf-prometheus                           2m35s         2m56s</code></pre>
 </div>
 </div>
 </li>
@@ -3362,10 +3356,10 @@ default-datasources     20h</code></pre>
 <p>Verify that the Grafana route exists:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route default-grafana-route
 
-NAME            HOST/PORT                                          PATH   SERVICES          PORT   TERMINATION   WILDCARD
-grafana-route   grafana-route-service-telemetry.apps.infra.watch          grafana-service   3000   edge          None</code></pre>
+NAME                    HOST/PORT                                                   PATH   SERVICES                  PORT   TERMINATION   WILDCARD
+default-grafana-route   default-grafana-route-service-telemetry.apps.infra.watch           default-grafana-service   web    reencrypt     None</code></pre>
 </div>
 </div>
 </li>
@@ -5280,7 +5274,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-12 19:15:48 UTC
+Last updated 2024-01-30 18:34:11 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
