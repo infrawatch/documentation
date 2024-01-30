@@ -38,7 +38,7 @@ spec:
         enabled: true
 ----
 
-. Verify the Grafana dashboards have been created. It will take some time before the dashboards have been created by Service Telemetry Operator:
+. Verify that the Grafana dashboards are created. The process of Service Telemetry Operator creating the dashboards might take some time.
 +
 [source,bash,options="nowrap"]
 ----
