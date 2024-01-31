@@ -18,15 +18,10 @@ ifdef::include_when_16[]
 * xref:container-health-and-api-status_assembly-advanced-features[Monitoring container health and API status]
 endif::include_when_16[]
 
-
 //Dashboards
 include::../modules/con_dashboards.adoc[leveloffset=+1]
 include::../modules/proc_setting-up-grafana-to-host-the-dashboard.adoc[leveloffset=+2]
-ifdef::include_when_16[]
-// TODO: either rewrite or drop this procedure. We now provide the preferred downstream RHEL Grafana workload image in the deployment procedure.
-//include::../modules/proc_overriding-the-default-grafana-container-image.adoc[leveloffset=+2]
 include::../modules/proc_importing-dashboards.adoc[leveloffset=+2]
-endif::include_when_16[]
 include::../modules/proc_connecting-an-external-dashboard-system.adoc[leveloffset=+2]
 
 //Editing the metrics retention time period
@@ -68,12 +63,9 @@ include::../modules/con_resource-usage-of-openstack.adoc[leveloffset=+1]
 include::../modules/proc_disabling-resource-usage-monitoring-of-openstack-services.adoc[leveloffset=+2]
 
 //Monitoring container health
-
 include::../modules/con_container-health-and-api-status.adoc[leveloffset=+1]
 include::../modules/proc_disabling-container-health-and-api-status-monitoring.adoc[leveloffset=+2]
 endif::include_when_16[]
-
-
 
 //reset the context
 ifdef::parent-context[:context: {parent-context}]

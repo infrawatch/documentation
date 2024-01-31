@@ -1,78 +1,67 @@
 
 [id="importing-dashboards_{context}"]
-= Importing dashboards
+= Enabling dashboards
 
 [role="_abstract"]
-The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. You can view example dashboards at https://github.com/infrawatch/dashboards.
+The Grafana Operator can import and manage dashboards by creating `GrafanaDashboard` objects. Service Telemetry Operator can enable a set of default dashboards that create the `GrafanaDashboard` objects that load dashboards into the Grafana instance.
+
+Set the value of `graphing.grafana.dashboards.enabled` to `true` to load the following dashboards into Grafana :
+
+* Infrastructure dashboard
+* Cloud view dashboard
+* Virtual machine view dashboard
+* Memcached view dashboard
+
+You can use the `GrafanaDashboard` object to create and load additional dashboards into Grafana. For more information about managing dashboards with Grafana Operator, see link:https://grafana.github.io/grafana-operator/docs/dashboards/[Dashboards] in the _Grafana Operator project documentation_.
+
+.Prerequisites
+
+* You enabled graphing in the `ServiceTelemetry` object. For more information about graphing, see xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
 .Procedure
 
-. Import the infrastructure dashboard:
-+
-[source,bash,options="nowrap"]
-----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-dashboard.yaml
-
-grafanadashboard.integreatly.org/rhos-dashboard-1 created
-----
-. Import the cloud dashboard:
-+
-[WARNING]
-In the `enable-stf.yaml` file, ensure you set the value of the collectd `virt` plugin parameter `hostname_format` to `name uuid hostname`, otherwise some of the panels on the cloud dashboard display no information.
-ifdef::include_before_17[]
-For more information about the `virt` plugin, see link:{defaultURL}/operational_measurements/collectd-plugins_assembly[collectd plugins].
-endif::include_before_17[]
-ifdef::include_when_17[]
-For more information about the `virt` plugin, see link:{defaultURL}/managing_overcloud_observability/collectd-plugins_assembly[collectd plugins].
-endif::include_when_17[]
-+
-[source,bash,options="nowrap"]
-----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloud-dashboard.yaml
-
-grafanadashboard.integreatly.org/rhos-cloud-dashboard-1 created
-----
-. Import the virtual machine dashboard:
-+
-[source,bash,options="nowrap"]
-----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/virtual-machine-view.yaml
-
-grafanadashboard.integreatly.org/virtual-machine-view-1 configured
-----
-. Import the memcached dashboard:
-+
-[source,bash,options="nowrap"]
-----
-$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/memcached-dashboard.yaml
-
-grafanadashboard.integreatly.org/memcached-dashboard-1 created
-----
-
-. Verify that the dashboards are available:
+. To enable the managed dashboards, create or modify the `ServiceTelemetry` object. Set `graphing.grafana.dashboards.enabled` to `true`:
 +
 [source,bash]
 ----
-$ oc get grafanadashboards
+$ oc edit stf default
 
-NAME                         AGE
-memcached-dashboard-1        7s
-rhos-cloud-dashboard-1       23s
-rhos-dashboard-1             29s
-virtual-machine-view-1       13s
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  graphing:
+    enabled: true
+    grafana:
+      dashboards:
+        enabled: true
+----
+
+. Verify that the Grafana dashboards are created. The process of Service Telemetry Operator creating the dashboards might take some time.
++
+[source,bash,options="nowrap"]
+----
+$ oc get grafanadashboards.grafana.integreatly.org
+
+NAME                          NO MATCHING INSTANCES   LAST RESYNC   AGE
+memcached-dashboard-1                                 38s           38s
+rhos-cloud-dashboard-1                                39s           39s
+rhos-dashboard-1                                      39s           39s
+virtual-machine-dashboard-1                           37s           37s
 ----
 
 . Retrieve the Grafana route address:
 +
 [source,bash,options="nowrap"]
 ----
-$ oc get route grafana-route -ojsonpath='{.spec.host}'
+$ oc get route default-grafana-route -ojsonpath='{.spec.host}'
 
-grafana-route-service-telemetry.apps.infra.watch
+default-grafana-route-service-telemetry.apps.infra.watch
 ----
 
 . In a web browser, navigate to https://_<grafana_route_address>_. Replace _<grafana_route_address>_ with the value that you retrieved in the previous step.
 
 . Log in with OpenShift credentials. For more information about logging in, see xref:accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf[].
 
-. To view the dashboard, click *Dashboards* and *Manage*.
+. To view the dashboard, click *Dashboards* and *Browse*. The managed dashboards are available in the _service-telemetry_ folder.
