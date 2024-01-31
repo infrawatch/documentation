@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#dashboards_assembly-advanced-features">Dashboards in Service&#160;Telemetry&#160;Framework</a>
 <ul class="sectlevel3">
 <li><a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a></li>
-<li><a href="#importing-dashboards_assembly-advanced-features">Importing dashboards</a></li>
+<li><a href="#importing-dashboards_assembly-advanced-features">Enabling dashboards</a></li>
 <li><a href="#connecting-an-external-dashboard-system_assembly-advanced-features">Connecting an external dashboard system</a></li>
 </ul>
 </li>
@@ -1884,7 +1884,7 @@ EOF</code></pre>
 <p>Delete the remaining objects that are managed by community operators</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default; do oc delete $o; done</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanagers.monitoring.rhobs/default prometheuses.monitoring.rhobs/default elasticsearch/elasticsearch grafana/default-grafana; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -2284,7 +2284,7 @@ The value for sensubility is the full topic path and has no transposition from t
 <p>Add your data collection and Apache&#160;Qpid&#160;Dispatch&#160;Router environment files to the stack with your other environment files and deploy the overcloud:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">(undercloud)$ openstack overcloud deploy --templates \
  -e [your environment files] \
  -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/ceilometer-write-qdr.yaml \
  -e /usr/share/openstack-tripleo-heat-templates/environments/metrics/qdr-edge-only.yaml \
@@ -3304,77 +3304,73 @@ default-grafana-route   default-grafana-route-service-telemetry.apps.infra.watch
 </div>
 </div>
 <div class="sect3">
-<h4 id="importing-dashboards_assembly-advanced-features">Importing dashboards</h4>
+<h4 id="importing-dashboards_assembly-advanced-features">Enabling dashboards</h4>
 <div class="paragraph _abstract">
-<p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. You can view example dashboards at <a href="https://github.com/infrawatch/dashboards" class="bare">https://github.com/infrawatch/dashboards</a>.</p>
+<p>The Grafana Operator can import and manage dashboards by creating <code>GrafanaDashboard</code> objects. Service Telemetry Operator can enable a set of default dashboards that create the <code>GrafanaDashboard</code> objects that load dashboards into the Grafana instance.</p>
+</div>
+<div class="paragraph">
+<p>Set the value of <code>graphing.grafana.dashboards.enabled</code> to <code>true</code> to load the following dashboards into Grafana :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Infrastructure dashboard</p>
+</li>
+<li>
+<p>Cloud view dashboard</p>
+</li>
+<li>
+<p>Virtual machine view dashboard</p>
+</li>
+<li>
+<p>Memcached view dashboard</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can use the <code>GrafanaDashboard</code> object to create and load additional dashboards into Grafana. For more information about managing dashboards with Grafana Operator, see <a href="https://grafana.github.io/grafana-operator/docs/dashboards/">Dashboards</a> in the <em>Grafana Operator project documentation</em>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You enabled graphing in the <code>ServiceTelemetry</code> object. For more information about graphing, see <a href="#setting-up-grafana-to-host-the-dashboard_assembly-advanced-features">Configuring Grafana to host the dashboard</a>.</p>
+</li>
+</ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Import the infrastructure dashboard:</p>
+<p>To enable the managed dashboards, create or modify the <code>ServiceTelemetry</code> object. Set <code>graphing.grafana.dashboards.enabled</code> to <code>true</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-dashboard.yaml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc edit stf default
 
-grafanadashboard.integreatly.org/rhos-dashboard-1 created</code></pre>
+apiVersion: infra.watch/v1beta1
+kind: ServiceTelemetry
+...
+spec:
+  ...
+  graphing:
+    enabled: true
+    grafana:
+      dashboards:
+        enabled: true</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Import the cloud dashboard:</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-In the <code>enable-stf.yaml</code> file, ensure you set the value of the collectd <code>virt</code> plugin parameter <code>hostname_format</code> to <code>name uuid hostname</code>, otherwise some of the panels on the cloud dashboard display no information.
-For more information about the <code>virt</code> plugin, see <a href="{defaultURL}/operational_measurements/collectd-plugins_assembly">collectd plugins</a>.
-</td>
-</tr>
-</table>
-</div>
+<p>Verify that the Grafana dashboards are created. The process of Service Telemetry Operator creating the dashboards might take some time.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/rhos-cloud-dashboard.yaml
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards.grafana.integreatly.org
 
-grafanadashboard.integreatly.org/rhos-cloud-dashboard-1 created</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Import the virtual machine dashboard:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/virtual-machine-view.yaml
-
-grafanadashboard.integreatly.org/virtual-machine-view-1 configured</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Import the memcached dashboard:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc apply -f https://raw.githubusercontent.com/infrawatch/dashboards/master/deploy/stf-1/memcached-dashboard.yaml
-
-grafanadashboard.integreatly.org/memcached-dashboard-1 created</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the dashboards are available:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get grafanadashboards
-
-NAME                         AGE
-memcached-dashboard-1        7s
-rhos-cloud-dashboard-1       23s
-rhos-dashboard-1             29s
-virtual-machine-view-1       13s</code></pre>
+NAME                          NO MATCHING INSTANCES   LAST RESYNC   AGE
+memcached-dashboard-1                                 38s           38s
+rhos-cloud-dashboard-1                                39s           39s
+rhos-dashboard-1                                      39s           39s
+virtual-machine-dashboard-1                           37s           37s</code></pre>
 </div>
 </div>
 </li>
@@ -3382,9 +3378,9 @@ virtual-machine-view-1       13s</code></pre>
 <p>Retrieve the Grafana route address:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route grafana-route -ojsonpath='{.spec.host}'
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get route default-grafana-route -ojsonpath='{.spec.host}'
 
-grafana-route-service-telemetry.apps.infra.watch</code></pre>
+default-grafana-route-service-telemetry.apps.infra.watch</code></pre>
 </div>
 </div>
 </li>
@@ -3395,7 +3391,7 @@ grafana-route-service-telemetry.apps.infra.watch</code></pre>
 <p>Log in with OpenShift credentials. For more information about logging in, see <a href="#accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</a>.</p>
 </li>
 <li>
-<p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Manage</strong>.</p>
+<p>To view the dashboard, click <strong>Dashboards</strong> and <strong>Browse</strong>. The managed dashboards are available in the <em>service-telemetry</em> folder.</p>
 </li>
 </ol>
 </div>
@@ -4516,7 +4512,7 @@ EOF</code></pre>
 <p>Delete the remaining objects that are managed by community operators</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default; do oc delete $o; done</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ for o in alertmanagers.monitoring.rhobs/default prometheuses.monitoring.rhobs/default elasticsearch/elasticsearch grafana/default-grafana; do oc delete $o; done</code></pre>
 </div>
 </div>
 </li>
@@ -4940,7 +4936,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-30 18:34:11 UTC
+Last updated 2024-01-31 17:43:04 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
