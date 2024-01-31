@@ -16,7 +16,7 @@ You can use the `GrafanaDashboard` object to create and load additional dashboar
 
 .Prerequisites
 
-* You've enabled graphing in the `ServiceTelemetry` object. For more information, see xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
+* You enabled graphing in the `ServiceTelemetry` object. For more information about graphing, see xref:setting-up-grafana-to-host-the-dashboard_assembly-advanced-features[].
 
 .Procedure
 
