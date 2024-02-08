@@ -87,9 +87,11 @@ ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
 * {OpenShift} {SupportedOpenShiftVersion}
 endif::[]
 ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
-* {OpenShift} {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}
+* {OpenShift} Extended Update Support (EUS) releases {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}
 endif::[]
 * Infrastructure platform
+
+For more information about the {OpenShift} EUS releases, see link:https://access.redhat.com/support/policy/updates/openshift[Red Hat OpenShift Container Platform Life Cycle Policy].
 
 [[osp-stf-server-side-monitoring]]
 .Server-side STF monitoring infrastructure
