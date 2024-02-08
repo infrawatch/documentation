@@ -10,7 +10,7 @@ You need the following permissions to access the corresponding component UI's:
 
 [source,json,options="nowrap"]
 ----
-{"namespace":"service-telemetry", "resource":"grafana", "group":"integreatly.org", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"grafana", "group":"grafana.integreatly.org", "verb":"get"}
 {"namespace":"service-telemetry", "resource":"prometheus", "group":"monitoring.rhobs", "verb":"get"}
 {"namespace":"service-telemetry", "resource":"alertmanager", "group":"monitoring.rhobs", "verb":"get"}
 ----
