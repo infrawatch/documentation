@@ -1,0 +1,83 @@
+
+
+[id="deploying-stf-on-openshift-disconnected-environments_{context}"]
+= Deploying STF on OpenShift-disconnected environments
+
+[role="_abstract"]
+Since {Project} ({ProjectShort}) version 1.5.4, you can deploy {ProjectShort} in {OpenShift}-disconnected environments.
+
+.Prerequisites
+
+* {OpenShift} Extended Update Support (EUS) version 4.12 or 4.14 deployed in a restricted network.
+* A mirror registry so that the {OpenShift} cluster can access the required images. For more information about mirror registry for {OpenShift}, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring[Disconnected installation mirroring] in the {OpenShift} _Installing_ Guide.
+* All the {ProjectShort} dependencies are available in the {OpenShift} cluster mirror registry. 
+
+.Adding {ProjectShort} dependencies to the mirror registry
+
+You can use the `oc-mirror` tool to fetch the {ProjectShort} dependencies and add them to the {OpenShift} cluster mirror registry. For more information about installing the `oc-mirror` tool, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html-single/installing/index#installing-mirroring-disconnected[Mirroring images for a disconnected installation using the oc-mirror plugin] in the {OpenShift} _Installing_ Guide.
+
+
+.Procedure
+
+. Create an `ImageSetConfiguration` resource to retrieve the {ProjectShort} dependencies:
+
++
+[source,yaml,options="nowrap",role="white-space-pre"]
+----
+apiVersion: mirror.openshift.io/v1alpha2
+kind: ImageSetConfiguration
+storageConfig:
+  local:
+    path: ./
+mirror:
+  operators:
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.14
+    packages:
+      - name: service-telemetry-operator
+        channels:
+          - name: stable-1.5
+      - name: openshift-cert-manager-operator
+        channels:
+          - name: stable-v1
+      - name: amq7-interconnect-operator
+        channels:
+          - name: 1.10.x
+      - name: smart-gateway-operator
+        channels:
+          - name: stable-1.5
+      - name: cluster-observability-operator
+        channels:
+          - name: development
+----
+
++
+NOTE: This example is for {OpenShift} version 4.14. 
+
+
+. If your mirror registry is not reachable, you can save the manifests and images that you fetched with `oc-mirror` and physically transfer them to the mirror registry and {OpenShift} cluster. Otherwise you can run `oc-mirror` and point to the mirror registry.  
+
++
+NOTE: The manifests that you generate with `oc-mirror` produce catalogs with the full index name, such as `redhat-operator-index` instead of `redhat-operators` for `CatalogSource`. Ensure that you use the correct index name for the {ProjectShort}  subscriptions. For more information, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.1/html-single/service_telemetry_framework_1.5/index#assembly-installing-the-core-components-of-stf_assembly[Installing the core components of Service Telemetry Framework]. 
+
+
+
+////
+
+.Verification
+
+* TBD
+
+////
+
+[role="_additional-resources"]
+.Next steps
+
+* Continue to install {ProjectShort} as in a non-restricted network environment.
+
+////
+
+[role="_additional-resources"]
+.Additional resources
+
+* TBD
+////
