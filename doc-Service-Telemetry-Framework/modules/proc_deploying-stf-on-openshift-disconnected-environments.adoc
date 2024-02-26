@@ -1,20 +1,20 @@
 
 
 [id="deploying-stf-on-openshift-disconnected-environments_{context}"]
-= Deploying STF on OpenShift-disconnected environments
+= Deploying {ProjectShort} on {OpenShiftShort}-disconnected environments
 
 [role="_abstract"]
 Since {Project} ({ProjectShort}) version 1.5.4, you can deploy {ProjectShort} in {OpenShift}-disconnected environments.
 
 .Prerequisites
 
-* {OpenShift} Extended Update Support (EUS) version 4.12 or 4.14 deployed in a restricted network.
-* A mirror registry so that the {OpenShift} cluster can access the required images. For more information about mirror registry for {OpenShift}, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring[Disconnected installation mirroring] in the {OpenShift} _Installing_ Guide.
-* All the {ProjectShort} dependencies are available in the {OpenShift} cluster mirror registry. 
+* {OpenShift}({OpenShiftShort}) Extended Update Support (EUS) version 4.12 or 4.14 deployed in a restricted network.
+* A mirror registry so that the {OpenShift} cluster can access the required images. For more information about mirror registry for {OpenShiftShort}, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/html/installing/disconnected-installation-mirroring[Disconnected installation mirroring] in the {OpenShift} _Installing_ Guide.
+* All the {ProjectShort} dependencies are available in the {OpenShiftShort} cluster mirror registry. 
 
 .Adding {ProjectShort} dependencies to the mirror registry
 
-You can use the `oc-mirror` tool to fetch the {ProjectShort} dependencies and add them to the {OpenShift} cluster mirror registry. For more information about installing the `oc-mirror` tool, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html-single/installing/index#installing-mirroring-disconnected[Mirroring images for a disconnected installation using the oc-mirror plugin] in the {OpenShift} _Installing_ Guide.
+You can use the `oc-mirror` tool to fetch the {ProjectShort} dependencies and add them to the {OpenShiftShort} cluster mirror registry. For more information about installing the `oc-mirror` tool, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/html-single/installing/index#installing-mirroring-disconnected[Mirroring images for a disconnected installation using the oc-mirror plugin] in the {OpenShiftShort} _Installing_ Guide.
 
 
 .Procedure
@@ -50,29 +50,55 @@ mirror:
           - name: development
 ----
 
-+
-NOTE: This example is for {OpenShift} version 4.14. 
 
-
-. If your mirror registry is not reachable, you can save the manifests and images that you fetched with `oc-mirror` and physically transfer them to the mirror registry and {OpenShift} cluster. Otherwise you can run `oc-mirror` and point to the mirror registry.  
+. (Optional) If your mirror registry is not reachable, you can save the manifests and images that you fetched with `oc-mirror` and physically transfer them to the mirror registry and {OpenShiftShort} cluster. Otherwise you can run `oc-mirror` and point to the mirror registry.  
 
 +
-NOTE: The manifests that you generate with `oc-mirror` produce catalogs with the full index name, such as `redhat-operator-index` instead of `redhat-operators` for `CatalogSource`. Ensure that you use the correct index name for the {ProjectShort}  subscriptions. For more information, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/17.1/html-single/service_telemetry_framework_1.5/index#assembly-installing-the-core-components-of-stf_assembly[Installing the core components of Service Telemetry Framework]. 
+You can use the oc-mirror plugin differently, depending on your environment, such as:
+
+* mirroring between mirrors.
+* mirror from mirror to disk
+* mirror from disk to mirror.
+
++
+For more information about different oc-mirror scenarios, see: link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring#mirroring-image-set-full[Mirroring an image set in a fully disconnected environment]
 
 
+. Push the {ProjectShort} operators and their dependencies from the mirror registry and generate the manifest for the OCP cluster.
 
-////
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc-mirror --config imagesetconfig.yaml <Mirror_Registry_Location><1>
+----
 
-.Verification
++
+* Replace <Mirror_Registry_Location> with the filepath to the mirror registry that you want to use
 
-* TBD
++
+. Locate the generated manifests and apply them to the target OCP cluster. For more information, see: link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring#oc-mirror-updating-cluster-manifests_installing-mirroring-disconnected[Configuring your cluster to use the resources generated by oc-mirror]
 
-////
++
+NOTE: The manifests that you generate with `oc-mirror` produce catalogs with the full index name, such as `redhat-operator-index` instead of `redhat-operators` for `CatalogSource`. Ensure that you use the correct index name for the {ProjectShort}  subscriptions. For more information, see: link:https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/{osp_curr_ver}/html-single/service_telemetry_framework_1.5/index#assembly-installing-the-core-components-of-stf_assembly[Installing the core components of Service Telemetry Framework]. For more information about customizing Operators with oc mirror, see the Red Hat Knowledgebase solution link:https://access.redhat.com/solutions/7016714[How to customize the catalog name and tags of Operators mirrored to the mirror registry using the oc mirror plugin.] 
+
 
 [role="_additional-resources"]
 .Next steps
 
 * Continue to install {ProjectShort} as in a non-restricted network environment.
+
+.Verification
+
+* Check that the catalog sources are applied. You can return the entries for new catalogs that reference the {ProjectShort} operators and their dependencies:
+
++
+[source,bash,options="nowrap",role="white-space-pre"]
+----
+$ oc get catalogsources
+----
+
+* You have deployed {ProjectShort} and cannot access external networks.
+
 
 ////
 
