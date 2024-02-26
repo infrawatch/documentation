@@ -97,7 +97,7 @@ NOTE: The manifests that you generate with `oc-mirror` produce catalogs with the
 $ oc get catalogsources
 ----
 
-* You have deployed {ProjectShort} and cannot access external networks.
+* You have deployed {ProjectShort} in a disconnected {OpenShiftShort} cluster and therefore cannot access external networks.
 
 
 ////
