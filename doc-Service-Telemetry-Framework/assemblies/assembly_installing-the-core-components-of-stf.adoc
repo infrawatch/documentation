@@ -24,7 +24,7 @@ ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
 * An {OpenShift} Extended Update Support (EUS) release version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
 endif::[]
 * You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment. For more information about {ProjectShort} performance, see the Red Hat Knowledge Base article https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
-* Your environment is fully connected. {ProjectShort} does not work in a {OpenShift}-disconnected environments or network proxy environments.
+* You have deployed {ProjectShort} in a fully connected or {OpenShift}-disconnected environments. {ProjectShort} is unavailable in network proxy environments.
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]

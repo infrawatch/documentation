@@ -32,7 +32,7 @@ $ oc project service-telemetry
 $ oc edit servicetelemetry default
 ----
 
-. To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShiftShort} instead of the defaults provided by {ProjectShort}.
+. To modify the `ServiceTelemetry` object, provide a manifest override parameter and the contents of the manifest to write to {OpenShift} instead of the defaults provided by {ProjectShort}.
 +
 [NOTE]
 ====
