@@ -10,9 +10,6 @@ To prepare your {OpenShift} environment for {Project} ({ProjectShort}), you must
 
 * Ensure that you have persistent storage available in your {OpenShift} cluster for a production-grade deployment. For more information, see <<persistent-volumes_assembly-preparing-your-ocp-environment-for-stf>>.
 * Ensure that enough resources are available to run the Operators and the application containers. For more information, see <<resource-allocation_assembly-preparing-your-ocp-environment-for-stf>>.
-////
-* Ensure that you have a fully connected network environment. For more information, see xref:con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf[].
-////
 
 include::../modules/con_observability-strategy.adoc[leveloffset=+1]
 include::../modules/con_persistent-volumes.adoc[leveloffset=+1]
