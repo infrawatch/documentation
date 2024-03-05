@@ -17,7 +17,7 @@ $ source ~/stackrc
 
 . Add your data collection and {MessageBus} environment files to the stack with your other environment files and deploy the overcloud:
 +
-[source,bash]
+[source,bash,options="nowrap"]
 ----
 (undercloud)$ openstack overcloud deploy --templates \
  -e [your environment files] \

@@ -24,7 +24,7 @@ EOF
 +
 [source,bash]
 ----
-$ for o in alertmanager/default prometheus/default elasticsearch/elasticsearch grafana/default; do oc delete $o; done
+$ for o in alertmanagers.monitoring.rhobs/default prometheuses.monitoring.rhobs/default elasticsearch/elasticsearch grafana/default-grafana; do oc delete $o; done
 ----
 +
 . To verify that all workloads are operating correctly, view the pods and the status of each pod:

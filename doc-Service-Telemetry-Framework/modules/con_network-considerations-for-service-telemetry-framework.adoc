@@ -3,4 +3,4 @@
 [id="con-network-considerations-for-service-telemetry-framework_{context}"]
 = Network considerations for Service Telemetry Framework
 
-You can only deploy {Project} ({ProjectShort}) in a fully connected network environment. You cannot deploy {ProjectShort} in {OpenShift}-disconnected environments or network proxy environments.
+You can deploy {Project} ({ProjectShort}) in fully connected network environments or in {OpenShift}-disconnected environments. You cannot deploy {ProjectShort} in network proxy environments.
