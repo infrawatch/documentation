@@ -4,6 +4,6 @@
 [role="_abstract"]
 Red Hat supports the core Operators and workloads, including {MessageBus}, {ObservabilityOperator} (Prometheus, Alertmanager), Service Telemetry Operator, and Smart Gateway Operator. Red Hat does not support the community Operators or workload components, inclusive of Elasticsearch, Grafana, and their Operators.
 
-You can only deploy {ProjectShort} in a fully connected network environment. You cannot deploy {ProjectShort} in {OpenShift}-disconnected environments or network proxy environments.
+You can deploy {Project} ({ProjectShort}) in fully connected network environments or in {OpenShift}-disconnected environments. You cannot deploy {ProjectShort} in network proxy environments.
 
 For more information about {ProjectShort} life cycle and support status, see the https://access.redhat.com/node/6225361[{Project} Supported Version Matrix].

@@ -39,7 +39,6 @@ endif::[]
 ifeval::["{build}" == "upstream"]
 :ObservabilityOperator: Observability{nbsp}Operator
 :OpenShift: OpenShift
-:OpenShiftShort: OKD
 :OpenStack: OpenStack
 :OpenStackShort: OSP
 :OpenStackVersion: Wallaby
@@ -58,7 +57,6 @@ endif::[]
 ifeval::["{build}" == "downstream"]
 :ObservabilityOperator: Cluster{nbsp}Observability{nbsp}Operator
 :OpenShift: Red{nbsp}Hat{nbsp}OpenShift{nbsp}Container{nbsp}Platform
-:OpenShiftShort: OCP
 :OpenStack: Red{nbsp}Hat{nbsp}OpenStack{nbsp}Platform
 :OpenStackShort: RHOSP
 :OpenStackVersion: 17.1

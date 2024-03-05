@@ -26,7 +26,7 @@
 = Customizing the deployment
 
 [role="_abstract"]
-The Service Telemetry Operator watches for a `ServiceTelemetry` manifest to load into {OpenShift} ({OpenShiftShort}). The Operator then creates other objects in memory, which results in the dependent Operators creating the workloads they are responsible for managing.
+The Service Telemetry Operator watches for a `ServiceTelemetry` manifest to load into {OpenShift}. The Operator then creates other objects in memory, which results in the dependent Operators creating the workloads they are responsible for managing.
 
 [WARNING]
 ====
