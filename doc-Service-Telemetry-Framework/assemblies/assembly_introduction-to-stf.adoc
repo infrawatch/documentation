@@ -31,7 +31,7 @@ ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
 {ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion}
 endif::[]
 ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
-{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+{ProjectShort} is compatible with {OpenShift} Extended Update Support (EUS) release versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
 endif::[]
 endif::[]
 
@@ -40,6 +40,7 @@ endif::[]
 * https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/[{OpenShift} product documentation]
 * https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling]
 * https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/welcome/index.html#cluster-installer-activities[OpenShift Container Platform {NextSupportedOpenShiftVersion} Documentation]
+* https://access.redhat.com/support/policy/updates/openshift[Red Hat OpenShift Container Platform Life Cycle Policy]
 
 
 

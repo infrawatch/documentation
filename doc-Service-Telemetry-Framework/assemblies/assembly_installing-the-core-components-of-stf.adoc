@@ -21,10 +21,10 @@ ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
 * {OpenShift} version {SupportedOpenShiftVersion} is running.
 endif::[]
 ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
-* An {OpenShift} version inclusive of {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion} is running.
+* An {OpenShift} Extended Update Support (EUS) release version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} is running.
 endif::[]
 * You have prepared your {OpenShift} environment and ensured that there is persistent storage and enough resources to run the {ProjectShort} components on top of the {OpenShift} environment. For more information about {ProjectShort} performance, see the Red Hat Knowledge Base article https://access.redhat.com/articles/4907241[Service Telemetry Framework Performance and Scaling].
-* Your environment is fully connected. {ProjectShort} does not work in a {OpenShift}-disconnected environments or network proxy environments.
+* You have deployed {ProjectShort} in a fully connected or {OpenShift}-disconnected environments. {ProjectShort} is unavailable in network proxy environments.
 
 ifeval::["{build}" == "downstream"]
 [IMPORTANT]
@@ -32,7 +32,7 @@ ifeval::["{SupportedOpenShiftVersion}" == "{NextSupportedOpenShiftVersion}"]
 {ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion}
 endif::[]
 ifeval::["{SupportedOpenShiftVersion}" != "{NextSupportedOpenShiftVersion}"]
-{ProjectShort} is compatible with {OpenShift} version {SupportedOpenShiftVersion} through {NextSupportedOpenShiftVersion}.
+{ProjectShort} is compatible with {OpenShift} versions {SupportedOpenShiftVersion} and {NextSupportedOpenShiftVersion}.
 endif::[]
 endif::[]
 
@@ -42,6 +42,7 @@ endif::[]
 * For more information about Operator catalogs, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/operators/understanding/olm-rh-catalogs.html[_Red Hat-provided Operator catalogs_].
 * For more information about the cert-manager Operator for Red Hat, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/security/cert_manager_operator/index.html[_cert-manager Operator for Red Hat OpenShift overview_].
 * For more information about {ObservabilityOperator}, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html[_Cluster Observability Operator Overview_].
+* For more information about OpenShift life cycle policy and Extended Update Support (EUS), see https://access.redhat.com/support/policy/updates/openshift[_Red Hat OpenShift Container Platform Life Cycle Policy_].
 
 include::../modules/con_deploying-stf-to-the-openshift-environment.adoc[leveloffset=+1]
 
