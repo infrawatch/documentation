@@ -467,6 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#persistent-volumes_assembly-preparing-your-ocp-environment-for-stf">Persistent volumes</a></li>
 <li><a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a></li>
 <li><a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a></li>
+<li><a href="#deploying-stf-on-openshift-disconnected-environments_assembly-preparing-your-ocp-environment-for-stf">Deploying STF on OpenShift-disconnected environments</a></li>
 </ul>
 </li>
 <li><a href="#assembly-installing-the-core-components-of-stf_assembly">Installing the core components of Service&#160;Telemetry&#160;Framework</a>
@@ -941,9 +942,6 @@ To ensure that the monitoring platform can report operational problems with your
 <li>
 <p>Ensure that enough resources are available to run the Operators and the application containers. For more information, see <a href="#resource-allocation_assembly-preparing-your-ocp-environment-for-stf">Resource allocation</a>.</p>
 </li>
-<li>
-<p>Ensure that you have a fully connected network environment. For more information, see <a href="#con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</a>.</p>
-</li>
 </ul>
 </div>
 <div class="sect2">
@@ -1051,7 +1049,136 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="sect2">
 <h3 id="con-network-considerations-for-service-telemetry-framework_assembly-preparing-your-ocp-environment-for-stf">Network considerations for Service Telemetry Framework</h3>
 <div class="paragraph">
-<p>You can only deploy Service&#160;Telemetry&#160;Framework (STF) in a fully connected network environment. You cannot deploy STF in OpenShift-disconnected environments or network proxy environments.</p>
+<p>You can deploy Service&#160;Telemetry&#160;Framework (STF) in fully connected network environments or in OpenShift-disconnected environments. You cannot deploy STF in network proxy environments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-stf-on-openshift-disconnected-environments_assembly-preparing-your-ocp-environment-for-stf">Deploying STF on OpenShift-disconnected environments</h3>
+<div class="paragraph _abstract">
+<p>Since Service&#160;Telemetry&#160;Framework (STF) version 1.5.4, you can deploy STF in OpenShift-disconnected environments.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>OpenShift Extended Update Support (EUS) version 4.12 or 4.14 deployed in a restricted network.</p>
+</li>
+<li>
+<p>A mirror registry so that the OpenShift cluster can access the required images. For more information about mirror registries, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring">Disconnected installation mirroring</a> in the OpenShift <em>Installing</em> guide.</p>
+</li>
+<li>
+<p>All the STF dependencies are available in the OpenShift cluster mirror registry.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Adding STF dependencies to the mirror registry</div>
+<p>You can use the <code>oc-mirror</code> plugin to fetch the STF dependencies and add them to the OpenShift cluster mirror registry. For more information about installing the <code>oc-mirror</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html-single/installing/index#installing-mirroring-disconnected">Mirroring images for a disconnected installation using the oc-mirror plugin</a> in the OpenShift <em>Installing</em> guide.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create an <code>imagesetconfig.yaml</code> file in your local working directory:</p>
+<div class="listingblock white-space-pre">
+<div class="title">imagesetconfig.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: mirror.openshift.io/v1alpha2
+kind: ImageSetConfiguration
+storageConfig:
+  local:
+    path: ./
+mirror:
+  operators:
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.14
+    packages:
+      - name: service-telemetry-operator
+        channels:
+          - name: stable-1.5
+      - name: openshift-cert-manager-operator
+        channels:
+          - name: stable-v1
+      - name: amq7-interconnect-operator
+        channels:
+          - name: 1.10.x
+      - name: smart-gateway-operator
+        channels:
+          - name: stable-1.5
+      - name: cluster-observability-operator
+        channels:
+          - name: development</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>(Optional) If your mirror registry is not reachable, you can save the manifests and images that you fetched with <code>oc-mirror</code> and physically transfer them to the mirror registry and OpenShift cluster. Otherwise you can run <code>oc-mirror</code> and point to the mirror registry.</p>
+<div class="paragraph">
+<p>You can use the <code>oc-mirror</code> plugin differently, depending on your environment, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>mirroring between mirrors.</p>
+</li>
+<li>
+<p>mirror from mirror to disk.</p>
+</li>
+<li>
+<p>mirror from disk to mirror.</p>
+<div class="paragraph">
+<p>For more information about different <code>oc-mirror</code> scenarios, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring#mirroring-image-set-full">Mirroring an image set in a fully disconnected environment</a> in the OpenShift <em>Installing</em> guide.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Push the STF operators and their dependencies from the mirror registry and generate the manifest for the OpenShift cluster.</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc-mirror --config imagesetconfig.yaml &lt;mirror_registry_location&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace &lt;mirror_registry_location&gt; with the filepath to the mirror registry that you want to use.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Locate the generated manifests and apply them to the target OpenShift cluster. For more information, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/installing/disconnected-installation-mirroring#oc-mirror-updating-cluster-manifests_installing-mirroring-disconnected">Configuring your cluster to use the resources generated by oc-mirror</a> in the OpenShift <em>Installing</em> guide.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The manifests that you generate with <code>oc-mirror</code> produce catalogs with the full index name, such as <code>redhat-operator-index</code> instead of <code>redhat-operators</code> for <code>CatalogSource</code>. Ensure that you use the correct index name for the STF  subscriptions. For more information, see <a href="#deploying-stf-to-the-openshift-environment_assembly-installing-the-core-components-of-stf">Deploying Service&#160;Telemetry&#160;Framework to the OpenShift environment</a>. For more information about customizing Operators with oc mirror, see the Red Hat Knowledgebase solution <a href="https://access.redhat.com/solutions/7016714">How to customize the catalog name and tags of Operators mirrored to the mirror registry using the oc mirror plugin.</a>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Verification</div>
+<ul>
+<li>
+<p>Check that the catalog sources are applied. You can return the entries for new catalogs that reference the STF operators and their dependencies:</p>
+<div class="listingblock white-space-pre">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ oc get catalogsources</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You have deployed STF in a disconnected OpenShift cluster and therefore cannot access external networks.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1091,7 +1218,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information about STF performance, see the Red Hat Knowledge Base article <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
 </li>
 <li>
-<p>Your environment is fully connected. STF does not work in a OpenShift-disconnected environments or network proxy environments.</p>
+<p>You have deployed STF in a fully connected or OpenShift-disconnected environments. STF is unavailable in network proxy environments.</p>
 </li>
 </ul>
 </div>
@@ -5280,7 +5407,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-01 15:44:42 UTC
+Last updated 2024-03-05 19:34:22 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
