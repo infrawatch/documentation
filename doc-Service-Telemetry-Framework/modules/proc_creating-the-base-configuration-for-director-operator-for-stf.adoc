@@ -90,6 +90,9 @@ data:
              local:
                host: "%{hiera('fqdn_canonical')}"
                port: 11211
+
+          # report root filesystem storage metrics
+          collectd::plugin::df::ignoreselected: false
 ----
 
 [role="_additional-resources"]

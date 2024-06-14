@@ -141,5 +141,8 @@ parameter_defaults:
           local:
             host: "%{hiera('fqdn_canonical')}"
             port: 11211
+
+        # report root filesystem storage metrics
+        collectd::plugin::df::ignoreselected: false
 ----
 endif::include_when_16[]
