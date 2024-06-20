@@ -43,7 +43,7 @@ parameter_defaults:
           verifyHostname: false
           sslProfile: sslProfile
           saslUsername: guest@default-interconnect
-          saslPassword: pass:<password_from_stf>
+          saslPassword: <password_from_stf>
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
