@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.21"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <meta name="author" content="OpenStack Documentation Team"/>
 <title>Service Telemetry Framework 1.5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
@@ -2261,9 +2261,6 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
 </tr>
 </table>
 </div>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="title">enable-stf.yaml</div>
 <div class="content">
@@ -2291,8 +2288,9 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 30
     CollectdDefaultPollingInterval: 30
-    CollectdExtraPlugins:
-    - vmem
+    # to collect information about the virtual memory subsystem of the kernel
+    # CollectdExtraPlugins:
+    # - vmem
 
     # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
@@ -2311,12 +2309,15 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
         # note: this may need an adjustment if there are many metrics to be sent.
         collectd::plugin::amqp1::send_queue_limit: 5000
 
-        # receive extra information about virtual memory
-        collectd::plugin::vmem::verbose: true
+        # to receive extra information about virtual memory, you must enable vmem plugin in CollectdExtraPlugins
+        # collectd::plugin::vmem::verbose: true
 
         # provide name and uuid in addition to hostname for better correlation
         # to ceilometer data
         collectd::plugin::virt::hostname_format: "name uuid hostname"
+
+        # to capture all extra_stats metrics, comment out below config
+        collectd::plugin::virt::extra_stats: cpu_util vcpu disk
 
         # provide the human-friendly name of the virtual instance
         collectd::plugin::virt::plugin_instance_format: metadata
@@ -2326,8 +2327,14 @@ default-interconnect-5671-service-telemetry.apps.infra.watch</code></pre>
         collectd::plugin::memcached::instances:
           local:
             host: "%{hiera('fqdn_canonical')}"
-            port: 11211</code></pre>
+            port: 11211
+
+        # report root filesystem storage metrics
+        collectd::plugin::df::ignoreselected: false</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -2377,7 +2384,7 @@ parameter_defaults:
           verifyHostname: false
           sslProfile: sslProfile
           saslUsername: guest@default-interconnect
-          saslPassword: pass:&lt;password_from_stf&gt;
+          saslPassword: &lt;password_from_stf&gt;
 
     MetricsQdrSSLProfiles:
         - name: sslProfile
@@ -5407,7 +5414,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-06 17:03:28 UTC
+Last updated 2024-06-20 20:39:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
