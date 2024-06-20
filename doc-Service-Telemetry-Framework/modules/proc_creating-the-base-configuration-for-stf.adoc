@@ -35,9 +35,10 @@ parameter_defaults:
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 30
     CollectdDefaultPollingInterval: 30
-    CollectdExtraPlugins:
-    - vmem
-
+    # to collect information about the virtual memory subsystem of the kernel
+    # CollectdExtraPlugins:
+    # - vmem
+    
     # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
     - prefix: 'collectd'
@@ -55,8 +56,8 @@ parameter_defaults:
         # note: Adjust the value of the `send_queue_limit` to handle your required volume of metrics.
         collectd::plugin::amqp1::send_queue_limit: 5000
 
-        # receive extra information about virtual memory
-        collectd::plugin::vmem::verbose: true
+        # receive extra information about virtual memory, can enable vmem plugin
+        # collectd::plugin::vmem::verbose: true
 
         # set memcached collectd plugin to report its metrics by hostname
         # rather than host IP, ensuring metrics in the dashboard remain uniform
@@ -65,6 +66,9 @@ parameter_defaults:
             host: "%{hiera('fqdn_canonical')}"
             port: 11211
 
+        # report root filesystem storage metrics
+        collectd::plugin::df::ignoreselected: false
+        
         # align defaults across OSP versions
         collectd::plugin::cpu::reportbycpu: true
         collectd::plugin::cpu::reportbystate: true
@@ -105,8 +109,9 @@ parameter_defaults:
     CollectdConnectionType: amqp1
     CollectdAmqpInterval: 30
     CollectdDefaultPollingInterval: 30
-    CollectdExtraPlugins:
-    - vmem
+    # to collect information about the virtual memory subsystem of the kernel
+    # CollectdExtraPlugins:
+    # - vmem
 
     # set standard prefixes for where metrics are published to QDR
     MetricsQdrAddresses:
@@ -125,12 +130,15 @@ parameter_defaults:
         # note: this may need an adjustment if there are many metrics to be sent.
         collectd::plugin::amqp1::send_queue_limit: 5000
 
-        # receive extra information about virtual memory
-        collectd::plugin::vmem::verbose: true
+        # receive extra information about virtual memory, can enable vmem plugin
+        # collectd::plugin::vmem::verbose: true
 
         # provide name and uuid in addition to hostname for better correlation
         # to ceilometer data
         collectd::plugin::virt::hostname_format: "name uuid hostname"
+
+        # to capture all extra_stats metrics, comment out below config
+        collectd::plugin::virt::extra_stats: cpu_util vcpu disk
 
         # provide the human-friendly name of the virtual instance
         collectd::plugin::virt::plugin_instance_format: metadata
@@ -141,5 +149,9 @@ parameter_defaults:
           local:
             host: "%{hiera('fqdn_canonical')}"
             port: 11211
+
+        # report root filesystem storage metrics
+        collectd::plugin::df::ignoreselected: false
+
 ----
 endif::include_when_16[]
