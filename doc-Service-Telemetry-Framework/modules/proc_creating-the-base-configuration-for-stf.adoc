@@ -56,7 +56,7 @@ parameter_defaults:
         # note: Adjust the value of the `send_queue_limit` to handle your required volume of metrics.
         collectd::plugin::amqp1::send_queue_limit: 5000
 
-        # receive extra information about virtual memory, can enable vmem plugin
+        # to receive extra information about virtual memory, you must enable vmem plugin in CollectdExtraPlugins
         # collectd::plugin::vmem::verbose: true
 
         # set memcached collectd plugin to report its metrics by hostname
@@ -130,7 +130,7 @@ parameter_defaults:
         # note: this may need an adjustment if there are many metrics to be sent.
         collectd::plugin::amqp1::send_queue_limit: 5000
 
-        # receive extra information about virtual memory, can enable vmem plugin
+        # to receive extra information about virtual memory, you must enable vmem plugin in CollectdExtraPlugins
         # collectd::plugin::vmem::verbose: true
 
         # provide name and uuid in addition to hostname for better correlation
