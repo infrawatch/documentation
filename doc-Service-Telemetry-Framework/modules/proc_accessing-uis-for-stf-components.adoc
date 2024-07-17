@@ -10,9 +10,9 @@ You need the following permissions to access the corresponding component UI's:
 
 [source,json,options="nowrap"]
 ----
-{"namespace":"service-telemetry", "resource":"grafana", "group":"grafana.integreatly.org", "verb":"get"}
-{"namespace":"service-telemetry", "resource":"prometheus", "group":"monitoring.rhobs", "verb":"get"}
-{"namespace":"service-telemetry", "resource":"alertmanager", "group":"monitoring.rhobs", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"grafanas", "group":"grafana.integreatly.org", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"prometheuses", "group":"monitoring.rhobs", "verb":"get"}
+{"namespace":"service-telemetry", "resource":"alertmanagers", "group":"monitoring.rhobs", "verb":"get"}
 ----
 
 For more information about RBAC, see https://docs.openshift.com/container-platform/{NextSupportedOpenShiftVersion}/authentication/using-rbac.html[Using RBAC to define and apply permissions].
