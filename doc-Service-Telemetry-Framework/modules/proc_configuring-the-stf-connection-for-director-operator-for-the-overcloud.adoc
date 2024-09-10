@@ -41,7 +41,7 @@ data:
               verifyHostname: false
               sslProfile: sslProfile
               saslUsername: guest@default-interconnect
-              saslPassword: pass:<password_from_stf>
+              saslPassword: <password_from_stf>
 
         MetricsQdrSSLProfiles:
             - name: sslProfile
@@ -57,6 +57,18 @@ data:
 
         CollectdSensubilityResultsChannel: sensubility/cloud1-telemetry
 ----
+
+* The `resource_registry` configuration directly loads the collectd service because you do not include the `collectd-write-qdr.yaml` environment file for multiple cloud deployments.
+* Replace the `host` sub-parameter of `MetricsQdrConnectors` with the value that you retrieved in xref:retrieving-the-qdr-route-address_assembly-completing-the-stf-configuration[].
+* Replace the `<password_from_stf>` portion of the `saslPassword` sub-parameter of `MetricsQdrConnectors` with the value you retrieved in xref:retrieving-the-qdr-password_assembly-completing-the-stf-configuration[].
+ifdef::include_when_13,include_when_17[]
+* Replace the `caCertFileContent` parameter with the contents retrieved in xref:getting-ca-certificate-from-stf-for-overcloud-configuration_assembly-completing-the-stf-configuration[].
+endif::include_when_13,include_when_17[]
+* Set `topic` value of `CeilometerQdrMetricsConfig.topic` to define the topic for Ceilometer metrics. The value is a unique topic identifier for the cloud such as `cloud1-metering`.
+* Set `CollectdAmqpInstances` sub-parameter to define the topic for collectd metrics. The section name is a unique topic identifier for the cloud such as `cloud1-telemetry`.
+ifndef::include_when_13[]
+* Set `CollectdSensubilityResultsChannel` to define the topic for collectd-sensubility events. The value is a unique topic identifier for the cloud such as `sensubility/cloud1-telemetry`.
+endif::[]
 
 [role="_additional-resources"]
 .Additional resources
