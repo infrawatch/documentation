@@ -8,7 +8,7 @@ Since {Project} ({ProjectShort}) version 1.5.4, you can deploy {ProjectShort} in
 
 .Prerequisites
 
-* {OpenShift} Extended Update Support (EUS) version 4.12 or 4.14 deployed in a restricted network.
+* {OpenShift} Extended Update Support (EUS) version {SupportedOpenShiftVersion} or {NextSupportedOpenShiftVersion} deployed in a restricted network.
 * A mirror registry so that the {OpenShift} cluster can access the required images. For more information about mirror registries, see link:https://access.redhat.com/documentation/en-us/openshift_container_platform/{NextSupportedOpenShiftVersion}/html/installing/disconnected-installation-mirroring[Disconnected installation mirroring] in the {OpenShift} _Installing_ guide.
 * All the {ProjectShort} dependencies are available in the {OpenShift} cluster mirror registry. 
 
