@@ -619,13 +619,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.16/">OpenShift product documentation</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.18/">OpenShift product documentation</a></p>
 </li>
 <li>
 <p><a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a></p>
 </li>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.16/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.16 Documentation</a></p>
+<p><a href="https://docs.openshift.com/container-platform/4.18/welcome/index.html#cluster-installer-activities">OpenShift Container Platform 4.18 Documentation</a></p>
 </li>
 <li>
 <p><a href="https://access.redhat.com/support/policy/updates/openshift">Red Hat OpenShift Container Platform Life Cycle Policy</a></p>
@@ -790,7 +790,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Service&#160;Telemetry&#160;Framework 1.5</p>
 </li>
 <li>
-<p>OpenShift Extended Update Support (EUS) releases 4.14 and 4.16</p>
+<p>OpenShift Extended Update Support (EUS) releases 4.16 and 4.18</p>
 </li>
 <li>
 <p>Infrastructure platform</p>
@@ -864,7 +864,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>Installation of Service&#160;Telemetry&#160;Framework (STF) depends on an existing OpenShift environment.</p>
 </div>
 <div class="paragraph">
-<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
+<p>For more information about minimum resources requirements when you install OpenShift on baremetal, see <a href="https://docs.openshift.com/container-platform/4.18/installing/installing_bare_metal/installing-bare-metal.html#minimum-resource-requirements_installing-bare-metal">Minimum resource requirements</a> in the <em>Installing a cluster on bare metal</em> guide. For installation requirements of the various public and private cloud platforms that you can install, see the corresponding installation documentation for your cloud platform of choice.</p>
 </div>
 <div class="sect3">
 <h4 id="development-environment-resource-requirements_assembly-introduction-to-stf">Development environment resource requirements</h4>
@@ -872,7 +872,7 @@ To ensure that the monitoring platform can report operational problems with your
 <p>You can create an all-in-one development environment for STF locally by using <a href="https://code-ready.github.io/crc/">CodeReady Containers</a>. The installation process of CodeReady Containers (CRC) is available at <a href="https://code-ready.github.io/crc/#installation_gsg" class="bare">https://code-ready.github.io/crc/#installation_gsg</a>.</p>
 </div>
 <div class="paragraph">
-<p>Deployment of OpenShift 4.14 is required for STF. The compatible version of CRC is 2.19.0, available at <a href="https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.19.0/" class="bare">https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.19.0/</a></p>
+<p>Deployment of OpenShift 4.16 is required for STF. The compatible version of CRC is 2.19.0, available at <a href="https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.19.0/" class="bare">https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.19.0/</a></p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://code-ready.github.io/crc/#minimum-system-requirements-hardware_gsg">minimum resource requirements</a> for CRC is not enough by default to run STF. Ensure that your host system has the following resources available:</p>
@@ -1005,10 +1005,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.16/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
+<p>For more information about configuring persistent storage for OpenShift, see <a href="https://docs.openshift.com/container-platform/4.18/storage/understanding-persistent-storage.html">Understanding persistent storage.</a></p>
 </li>
 <li>
-<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.16/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
+<p>For more information about recommended configurable storage technology in OpenShift, see <a href="https://docs.openshift.com/container-platform/4.18/scalability_and_performance/optimizing-storage.html#recommended-configurable-storage-technology_persistent-storage">Recommended configurable storage technology</a>.</p>
 </li>
 <li>
 <p>For more information about configuring persistent storage for Prometheus in STF, see <a href="#backends-configuring-persistent-storage-for-prometheus_assembly-installing-the-core-components-of-stf">Configuring persistent storage for Prometheus</a>.</p>
@@ -1048,10 +1048,10 @@ To ensure that the monitoring platform can report operational problems with your
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>OpenShift Extended Update Support (EUS) version 4.14 or 4.16 deployed in a restricted network.</p>
+<p>OpenShift Extended Update Support (EUS) version 4.16 or 4.18 deployed in a restricted network.</p>
 </li>
 <li>
-<p>A mirror registry so that the OpenShift cluster can access the required images. For more information about mirror registries, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.16/html/installing/disconnected-installation-mirroring">Disconnected installation mirroring</a> in the OpenShift <em>Installing</em> guide.</p>
+<p>A mirror registry so that the OpenShift cluster can access the required images. For more information about mirror registries, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.18/html/installing/disconnected-installation-mirroring">Disconnected installation mirroring</a> in the OpenShift <em>Installing</em> guide.</p>
 </li>
 <li>
 <p>All the STF dependencies are available in the OpenShift cluster mirror registry.</p>
@@ -1060,7 +1060,7 @@ To ensure that the monitoring platform can report operational problems with your
 </div>
 <div class="paragraph">
 <div class="title">Adding STF dependencies to the mirror registry</div>
-<p>You can use the <code>oc-mirror</code> plugin to fetch the STF dependencies and add them to the OpenShift cluster mirror registry. For more information about installing the <code>oc-mirror</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.16/html-single/installing/index#installing-mirroring-disconnected">Mirroring images for a disconnected installation using the oc-mirror plugin</a> in the OpenShift <em>Installing</em> guide.</p>
+<p>You can use the <code>oc-mirror</code> plugin to fetch the STF dependencies and add them to the OpenShift cluster mirror registry. For more information about installing the <code>oc-mirror</code> plugin, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.18/html-single/installing/index#installing-mirroring-disconnected">Mirroring images for a disconnected installation using the oc-mirror plugin</a> in the OpenShift <em>Installing</em> guide.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1113,7 +1113,7 @@ mirror:
 <li>
 <p>mirror from disk to mirror.</p>
 <div class="paragraph">
-<p>For more information about different <code>oc-mirror</code> scenarios, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.16/html/installing/disconnected-installation-mirroring#mirroring-image-set-full">Mirroring an image set in a fully disconnected environment</a> in the OpenShift <em>Installing</em> guide.</p>
+<p>For more information about different <code>oc-mirror</code> scenarios, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.18/html/installing/disconnected-installation-mirroring#mirroring-image-set-full">Mirroring an image set in a fully disconnected environment</a> in the OpenShift <em>Installing</em> guide.</p>
 </div>
 </li>
 </ul>
@@ -1135,7 +1135,7 @@ mirror:
 </div>
 </li>
 <li>
-<p>Locate the generated manifests and apply them to the target OpenShift cluster. For more information, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.16/html/installing/disconnected-installation-mirroring#oc-mirror-updating-cluster-manifests_installing-mirroring-disconnected">Configuring your cluster to use the resources generated by oc-mirror</a> in the OpenShift <em>Installing</em> guide.</p>
+<p>Locate the generated manifests and apply them to the target OpenShift cluster. For more information, see <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.18/html/installing/disconnected-installation-mirroring#oc-mirror-updating-cluster-manifests_installing-mirroring-disconnected">Configuring your cluster to use the resources generated by oc-mirror</a> in the OpenShift <em>Installing</em> guide.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1199,7 +1199,7 @@ The manifests that you generate with <code>oc-mirror</code> produce catalogs wit
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>An OpenShift Extended Update Support (EUS) release version 4.14 or 4.16 is running.</p>
+<p>An OpenShift Extended Update Support (EUS) release version 4.16 or 4.18 is running.</p>
 </li>
 <li>
 <p>You have prepared your OpenShift environment and ensured that there is persistent storage and enough resources to run the STF components on top of the OpenShift environment. For more information about STF performance, see the Red Hat Knowledge Base article <a href="https://access.redhat.com/articles/4907241">Service Telemetry Framework Performance and Scaling</a>.</p>
@@ -1213,16 +1213,16 @@ The manifests that you generate with <code>oc-mirror</code> produce catalogs wit
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.16/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
+<p>For more information about Operators, see the <a href="https://docs.openshift.com/container-platform/4.18/operators/understanding/olm-what-operators-are.html"><em>Understanding Operators</em></a> guide.</p>
 </li>
 <li>
-<p>For more information about Operator catalogs, see <a href="https://docs.openshift.com/container-platform/4.16/operators/understanding/olm-rh-catalogs.html"><em>Red Hat-provided Operator catalogs</em></a>.</p>
+<p>For more information about Operator catalogs, see <a href="https://docs.openshift.com/container-platform/4.18/operators/understanding/olm-rh-catalogs.html"><em>Red Hat-provided Operator catalogs</em></a>.</p>
 </li>
 <li>
-<p>For more information about the cert-manager Operator for Red Hat, see <a href="https://docs.openshift.com/container-platform/4.16/security/cert_manager_operator/index.html"><em>cert-manager Operator for Red Hat OpenShift overview</em></a>.</p>
+<p>For more information about the cert-manager Operator for Red Hat, see <a href="https://docs.openshift.com/container-platform/4.18/security/cert_manager_operator/index.html"><em>cert-manager Operator for Red Hat OpenShift overview</em></a>.</p>
 </li>
 <li>
-<p>For more information about Observability&#160;Operator, see <a href="https://docs.openshift.com/container-platform/4.16/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html"><em>Cluster Observability Operator Overview</em></a>.</p>
+<p>For more information about Observability&#160;Operator, see <a href="https://docs.openshift.com/container-platform/4.18/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html"><em>Cluster Observability Operator Overview</em></a>.</p>
 </li>
 <li>
 <p>For more information about OpenShift life cycle policy and Extended Update Support (EUS), see <a href="https://access.redhat.com/support/policy/updates/openshift"><em>Red Hat OpenShift Container Platform Life Cycle Policy</em></a>.</p>
@@ -1237,7 +1237,7 @@ The manifests that you generate with <code>oc-mirror</code> produce catalogs wit
 <div class="sect3">
 <h4 id="deploying-observability-operator_assembly-installing-the-core-components-of-stf">Deploying Observability&#160;Operator</h4>
 <div class="paragraph _abstract">
-<p>You must install the Cluster Observability Operator (COO) before you create an instance of Service&#160;Telemetry&#160;Framework (STF) if the <code>observabilityStrategy</code> is set to <code>use_redhat</code> and the <code>backends.metrics.prometheus.enabled</code> is set to <code>true</code> in the <code>ServiceTelemetry</code> object. For more information about COO, see <a href="https://docs.openshift.com/container-platform/4.16/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html">Cluster Observability Operator overview</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
+<p>You must install the Cluster Observability Operator (COO) before you create an instance of Service&#160;Telemetry&#160;Framework (STF) if the <code>observabilityStrategy</code> is set to <code>use_redhat</code> and the <code>backends.metrics.prometheus.enabled</code> is set to <code>true</code> in the <code>ServiceTelemetry</code> object. For more information about COO, see <a href="https://docs.openshift.com/container-platform/4.18/monitoring/cluster_observability_operator/cluster-observability-operator-overview.html">Cluster Observability Operator overview</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -1281,7 +1281,7 @@ clusterserviceversion.operators.coreos.com/observability-operator.v0.0.26 condit
 <div class="sect3">
 <h4 id="deploying-certificate-manager-for-openshift-operator_assembly-installing-the-core-components-of-stf">Deploying cert-manager for Red Hat OpenShift</h4>
 <div class="paragraph _abstract">
-<p>The cert-manager for Red Hat OpenShift (cert-manager) Operator must be pre-installed before creating an instance of Service&#160;Telemetry&#160;Framework (STF). For more information about cert-manager, see <a href="https://docs.openshift.com/container-platform/4.16/security/cert_manager_operator/index.html">cert-manager for Red Hat OpenShift overview</a>.</p>
+<p>The cert-manager for Red Hat OpenShift (cert-manager) Operator must be pre-installed before creating an instance of Service&#160;Telemetry&#160;Framework (STF). For more information about cert-manager, see <a href="https://docs.openshift.com/container-platform/4.18/security/cert_manager_operator/index.html">cert-manager for Red Hat OpenShift overview</a>.</p>
 </div>
 <div class="paragraph">
 <p>In previous versions of STF, the only available cert-manager channel was <code>tech-preview</code> which is available until OpenShift v4.12. Installations of cert-manager on versions of OpenShift v4.14 and later must be installed from the <code>stable-v1</code> channel. For new installations of STF it is recommended to install cert-manager from the <code>stable-v1</code> channel.</p>
@@ -1425,7 +1425,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.16/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
+<p>For more information, see <a href="https://docs.openshift.com/container-platform/4.18/operators/understanding/olm/olm-understanding-operatorgroups.html">OperatorGroups</a>.</p>
 </div>
 </li>
 </ol>
@@ -1945,7 +1945,7 @@ spec:
 <div class="sect2">
 <h3 id="accessing-uis-for-stf-components_assembly-installing-the-core-components-of-stf">Accessing user interfaces for STF components</h3>
 <div class="paragraph _abstract">
-<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.16/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
+<p>In OpenShift, applications are exposed to the external network through a route. For more information about routes, see <a href="https://docs.openshift.com/container-platform/4.18/networking/configuring_ingress_cluster_traffic/overview-traffic.html">Configuring ingress cluster traffic</a>.</p>
 </div>
 <div class="paragraph">
 <p>In Service&#160;Telemetry&#160;Framework (STF), HTTPS routes are exposed for each service that has a web-based interface and protected by OpenShift role-based access control (RBAC).</p>
@@ -1961,7 +1961,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.16/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
+<p>For more information about RBAC, see <a href="https://docs.openshift.com/container-platform/4.18/authentication/using-rbac.html">Using RBAC to define and apply permissions</a>.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -3627,7 +3627,7 @@ secret "my-prometheus-reader-token" deleted</code></pre>
 </div>
 <div class="paragraph">
 <div class="title">Additional information</div>
-<p>For more information about service account token secrets, see <a href="https://docs.openshift.com/container-platform/4.16/nodes/pods/nodes-pods-secrets.html#nodes-pods-secrets-creating-sa_nodes-pods-secrets">Creating a service account token secret</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
+<p>For more information about service account token secrets, see <a href="https://docs.openshift.com/container-platform/4.18/nodes/pods/nodes-pods-secrets.html#nodes-pods-secrets-creating-sa_nodes-pods-secrets">Creating a service account token secret</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 </div>
 </div>
@@ -5047,13 +5047,13 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 <p>If you are not using the cert-manager Operator for Red Hat OpenShift for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
 </div>
 <div class="paragraph">
-<p>For more information about removing the cert-manager for Red Hat OpenShift Operator, see <a href="https://docs.openshift.com/container-platform/4.16/security/cert_manager_operator/cert-manager-operator-uninstall.html">Removing cert-manager Operator for Red Hat OpenShift</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
+<p>For more information about removing the cert-manager for Red Hat OpenShift Operator, see <a href="https://docs.openshift.com/container-platform/4.18/security/cert_manager_operator/cert-manager-operator-uninstall.html">Removing cert-manager Operator for Red Hat OpenShift</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.16/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+<p><a href="https://docs.openshift.com/container-platform/4.18/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
 </li>
 </ul>
 </div>
@@ -5064,13 +5064,13 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 <p>If you are not using the Observability&#160;Operator for any other applications, delete the Subscription, ClusterServiceVersion, and CustomResourceDefinitions.</p>
 </div>
 <div class="paragraph">
-<p>For more information about removing the Observability&#160;Operator, see <a href="https://docs.openshift.com/container-platform/4.16/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator">Uninstalling the Cluster Observability Operator using the web console</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
+<p>For more information about removing the Observability&#160;Operator, see <a href="https://docs.openshift.com/container-platform/4.18/monitoring/cluster_observability_operator/installing-the-cluster-observability-operator.html#uninstalling-the-cluster-observability-operator-using-the-web-console_installing_the_cluster_observability_operator">Uninstalling the Cluster Observability Operator using the web console</a> in the <em>OpenShift Container Platform Documentation</em>.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/4.16/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
+<p><a href="https://docs.openshift.com/container-platform/4.18/operators/admin/olm-deleting-operators-from-cluster.html">Deleting Operators from a cluster</a>.</p>
 </li>
 </ul>
 </div>
@@ -5080,7 +5080,7 @@ catalogsource.operators.coreos.com "infrawatch-operators" deleted</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-06 11:44:01 UTC
+Last updated 2025-04-07 15:11:19 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
